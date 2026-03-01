@@ -1,4 +1,4 @@
-# Meta CLI Real Command Examples
+﻿# Meta CLI Real Command Examples
 
 All examples below were executed against local workspaces in this repository. Each section includes one successful run and one failing run with captured output and exit code.
 
@@ -28,20 +28,20 @@ Model:
   check  Check model and instance integrity.
   graph  Graph stats and inbound relationships.
   list   List entities, properties, and relationships.
-  model  Mutate model entities, properties, and relationships.
+  model  Inspect and mutate model entities, properties, and relationships.
   view   View entity or instance details.
 
 Instance:
 
   instance     Diff and merge instance artifacts.
-  insert       Insert one instance: <Entity> <Id> or --auto-id.
+  insert       Insert one instance: <Entity> <Id> or --auto-id for brand-new rows.
   delete       Delete one instance: <Entity> <Id>.
   query        Search instances with equals/contains filters.
-  bulk-insert  Insert many instances from tsv/csv input (supports --auto-id).
+  bulk-insert  Insert many instances from tsv/csv input (supports --auto-id for new rows only).
 
 Pipeline:
 
-  import    Import into a NEW workspace.
+  import    Import xml/sql into NEW workspace or csv into NEW/existing workspace.
   generate  Generate artifacts from the workspace.
 
 Examples:
@@ -70,7 +70,7 @@ Success:
 ```powershell
 > meta model --help
 [exit 0]
-Edit model entities, properties, and relationships.
+Inspect and edit model entities, properties, and relationships.
 
 Usage:
   meta model <subcommand> [arguments] [options]
@@ -82,15 +82,19 @@ Options:
 Subcommands:
 
   add-entity         Create an entity.
+  rename-entity      Atomically rename an entity and follow implied relationship field names.
   drop-entity        Remove an entity (must be empty).
   add-property       Add a property to an entity.
   rename-property    Rename a property.
   drop-property      Remove a property.
   add-relationship   Add a relationship.
+  refactor           Atomic model+instance refactors.
   drop-relationship  Remove a relationship.
+  suggest            Read-only key/reference inference from model + instance data.
 
 Examples:
 
+  meta model suggest
   meta model add-entity SalesCube
   meta model rename-entity OldName NewName
   meta model add-property Cube Purpose --required true --default-value Unknown
@@ -116,7 +120,7 @@ Success:
 > meta init Samples\\Fixtures\\CommandExamplesInit
 [exit 0]
 OK: workspace initialized
-Path: <repo>\Samples\\Fixtures\\CommandExamplesInit
+Path: <repo>\Samples\Fixtures\CommandExamplesInit
 ```
 
 Failure:
@@ -135,31 +139,30 @@ Next: use a valid Windows path and retry.
 Success:
 ```powershell
 > meta status --workspace Samples\\Fixtures\\CommandExamples
-[exit 0]
-Status: ok
-Workspace:
-  Path: <repo>\Samples\\Fixtures\\CommandExamples
-  Metadata: <repo>\Samples\\Fixtures\\CommandExamples\metadata
-Model:
-  Name: EnterpriseBIPlatform
-  Entities: 9
-  Rows: 15
-Data:
-  Model: 2.38 KB (2438 B)
-  Instance: 3.2 KB (3281 B)
-Contract:
-  Version: 1.0
+[exit 4]
+Error: Workspace was not found.
+
+Next: meta init .
 ```
 
 Failure:
 ```powershell
 > meta status --workspace Samples\\Fixtures\\CommandExamplesBroken
-[exit 4]
-Error: Cannot parse metadata/model.xml.
-
-Location: line 1, position 58.
-
-Next: meta check
+[exit 1]
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (16796)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (3820)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (17116)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (11256)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 5 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: " (992), meta (14656)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 6 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (17956)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 7 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (7400)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 8 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (17536)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 9 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (20944)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 10 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (8)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): error MSB3027: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Exceeded retry count of 10. Failed. The file is locked by: "meta (6468)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): error MSB3021: Unable to copy file "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". The process cannot access the file '<repo>\meta.exe' because it is being used by another process.
+System.Management.Automation.RemoteException
+The build failed. Fix the build errors and run again.
 ```
 
 ## instance diff
@@ -169,8 +172,8 @@ Success:
 > meta instance diff Samples\\Fixtures\\CommandExamplesDiffLeft Samples\\Fixtures\\CommandExamplesDiffRight
 [exit 1]
 Instance diff: differences found.
-DiffWorkspace: <repo>\Samples\\Fixtures\\CommandExamplesDiffRight.instance-diff
-Rows: left=15, right=16  Properties: left=46, right=49
+DiffWorkspace: <repo>\Samples\Fixtures\CommandExamplesDiffRight.instance-diff
+Rows: left=17, right=16  Properties: left=52, right=49
 NotIn: left-not-in-right=0, right-not-in-left=0
 ```
 
@@ -191,10 +194,10 @@ Success:
 [exit 0]
 Entities (9):
   Name             Rows  Properties  Relationships
-  Cube             2     3           0
+  Cube             6     3           0
   Dimension        2     3           0
   Fact             1     4           0
-  Measure          1     2           1
+  Measure          1     2           0
   System           2     3           1
   SystemCube       2     1           2
   SystemDimension  2     1           2
@@ -231,6 +234,10 @@ Failure:
 ```powershell
 > meta list properties MissingEntity --workspace Samples\\Fixtures\\CommandExamples
 [exit 4]
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process.
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (6436)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (9828)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: " (18316)"
 Error: Entity 'MissingEntity' was not found.
 
 Next: meta list entities
@@ -242,10 +249,12 @@ Success:
 ```powershell
 > meta list relationships Measure --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (20368)"
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\meta.exe' because it is being used by another process. The file is locked by: "meta (20640)"
 Relationships: Measure (1)
 Required: (n/a)
-  Name  Target  Column
-  Cube  Cube    CubeId
+  Name    Target
+  CubeId  Cube
 ```
 
 Failure:
@@ -270,6 +279,10 @@ Failure:
 ```powershell
 > meta check --workspace Samples\\Fixtures\\CommandExamplesBroken
 [exit 4]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: "dotnet.exe (19044)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: "dotnet.exe (19044)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (4472)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
 Error: Cannot parse metadata/model.xml.
 
 Location: line 1, position 58.
@@ -283,8 +296,9 @@ Success:
 ```powershell
 > meta view entity Cube --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (20116)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 Entity: Cube
-Rows: 2
+Rows: 6
 Properties:
   Name         Type    Required
   Id           string  required
@@ -311,6 +325,8 @@ Success:
 ```powershell
 > meta view instance Cube 1 --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (9400)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (20364)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 Instance: Cube 1
   Field        Value
   CubeName     Sales Performance
@@ -322,6 +338,19 @@ Failure:
 ```powershell
 > meta view instance Cube 999 --workspace Samples\\Fixtures\\CommandExamples
 [exit 4]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (21204)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (21204)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (11560)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (5308)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (17452)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (19612)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 5 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (20888)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 6 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (3128)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 7 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
 Error: Instance 'Cube 999' was not found.
 
 Next: meta query Cube --contains Id 999
@@ -344,6 +373,8 @@ Failure:
 ```powershell
 > meta query Cube --workspace Samples\\Fixtures\\CommandExamples --contains MissingField Value
 [exit 4]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (14056)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (12452)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 Error: Property 'Cube.MissingField' was not found.
 
 Next: meta list properties Cube
@@ -354,29 +385,29 @@ Next: meta list properties Cube
 Success:
 ```powershell
 > meta graph stats --workspace Samples\\Fixtures\\CommandExamples --top 3 --cycles 3
-[exit 0]
-Graph: EnterpriseBIPlatform
-Nodes: 9
-Edges: declared=8 unique=8 dup=0 missingTarget=0
-Components: 1  Roots: 4  Sinks: 4  Isolated: 0
-Cycles: no  MaxDepth: 2
-AvgDegree: in=0.889 out=0.889
-Top out-degree (3):
-  Entity           OutDegree
-  SystemCube       2
-  SystemDimension  2
-  SystemFact       2
-Top in-degree (3):
-  Entity     InDegree
-  System     3
-  Cube       2
-  Dimension  1
+[exit -2147450726]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (1292)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (1292)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (17468)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (17468)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (20092)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (20092)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (20684)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (16476)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (7968)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 5 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (18976)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 6 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (21252)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 7 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (12452)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+The application to execute does not exist: '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll'.
 ```
 
 Failure:
 ```powershell
 > meta graph stats --workspace Samples\\Fixtures\\CommandExamplesBroken --top 3 --cycles 3
 [exit 4]
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\artifacts\meta-publish\meta.exe' because it is being used by another process.
+<repo>\Meta.Cli\Meta.Cli.csproj(37,5): warning MSB3026: Could not copy "<repo>\artifacts\meta-publish\meta.exe" to "<repo>\meta.exe". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\artifacts\meta-publish\meta.exe' because it is being used by another process.
 Error: Cannot parse metadata/model.xml.
 
 Location: line 1, position 58.
@@ -389,20 +420,32 @@ Next: meta check
 Success:
 ```powershell
 > meta graph inbound Cube --workspace Samples\\Fixtures\\CommandExamples --top 10
-[exit 0]
-Inbound relationships: Cube (2)
-  FromEntity  ToEntity
-  Measure     Cube
-  SystemCube  Cube
+[exit -2147450726]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (17480)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (20820)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (3860)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (6692)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+The application to execute does not exist: '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll'.
 ```
 
 Failure:
 ```powershell
 > meta graph inbound MissingEntity --workspace Samples\\Fixtures\\CommandExamples
-[exit 4]
-Error: Entity 'MissingEntity' was not found.
-
-Next: meta list entities
+[exit 1]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: The "GenerateBundle" task failed unexpectedly. [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: Microsoft.NET.HostModel.AppHost.PlaceHolderNotFoundInAppHostException: Exception of type 'Microsoft.NET.HostModel.AppHost.PlaceHolderNotFoundInAppHostException' was thrown. [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.HostModel.AppHost.BinaryUtils.SearchAndReplace(MemoryMappedViewAccessor accessor, Byte[] searchPattern, Byte[] patternToReplace, Boolean pad0s) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.HostModel.AppHost.BinaryUtils.SearchAndReplace(String filePath, Byte[] searchPattern, Byte[] patternToReplace, Boolean pad0s) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.HostModel.RetryUtil.RetryOnIOError(Action func) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.HostModel.AppHost.HostWriter.SetAsBundle(String appHostPath, Int64 bundleHeaderOffset) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.HostModel.Bundle.Bundler.GenerateBundle(IReadOnlyList`1 fileSpecs) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.Build.Tasks.GenerateBundle.ExecuteCore() [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.NET.Build.Tasks.TaskBase.Execute() [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.Build.BackEnd.TaskExecutionHost.Execute() [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Publish.targets(1116,5): error MSB4018: at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(TaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [<repo>\Meta.Cli\Meta.Cli.csproj] [<repo>\Meta.Cli\Meta.Cli.csproj]
+<repo>\Meta.Cli\Meta.Cli.csproj(35,5): error MSB3073: The command "dotnet publish "<repo>\Meta.Cli\Meta.Cli.csproj" --configuration Debug -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UpdateRepoMetaExe=false -o "<repo>\artifacts\meta-publish\"" exited with code 1.
+System.Management.Automation.RemoteException
+The build failed. Fix the build errors and run again.
 ```
 
 ## model add-entity
@@ -411,6 +454,15 @@ Success:
 ```powershell
 > meta model add-entity CmdEntity --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (18424)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (5356)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (2804)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (19564)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 5 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (16664)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 6 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: "dotnet.exe (10772)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 7 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (18772)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 OK: entity created
 Entity: CmdEntity
 ```
@@ -419,6 +471,15 @@ Failure:
 ```powershell
 > meta model add-entity Cube --workspace Samples\\Fixtures\\CommandExamples
 [exit 4]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (4804)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (4804)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 4 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (14232)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 Error: Entity 'Cube' already exists.
 
 Next: meta list entities
@@ -430,8 +491,17 @@ Success:
 ```powershell
 > meta model rename-entity CmdEntity CmdEntityRenamed --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (11256)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (11256)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (3152)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (3152)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Adapters\bin\Debug\net8.0\Meta.Adapters.dll" to "bin\Debug\net8.0\Meta.Adapters.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Adapters.dll' because it is being used by another process. The file is locked by: ".NET Host (2988)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(5035,5): warning MSB3026: Could not copy "<repo>\Meta.Core\bin\Debug\net8.0\Meta.Core.dll" to "bin\Debug\net8.0\Meta.Core.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\Meta.Core.dll' because it is being used by another process. The file is locked by: ".NET Host (2988)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 1 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (3640)" [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 2 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process.  [<repo>\Meta.Cli\Meta.Cli.csproj]
+C:\Program Files\dotnet\sdk\9.0.102\Microsoft.Common.CurrentVersion.targets(4858,5): warning MSB3026: Could not copy "obj\Debug\net8.0\meta.dll" to "bin\Debug\net8.0\meta.dll". Beginning retry 3 in 1000ms. The process cannot access the file '<repo>\Meta.Cli\bin\Debug\net8.0\meta.dll' because it is being used by another process. The file is locked by: ".NET Host (3704)" [<repo>\Meta.Cli\Meta.Cli.csproj]
 OK: entity renamed
-Workspace: <repo>\Samples\\Fixtures\\CommandExamples
+Workspace: <repo>\Samples\Fixtures\CommandExamples
 Model: EnterpriseBIPlatform
 From: CmdEntity
 To: CmdEntityRenamed
@@ -453,12 +523,11 @@ Next: meta list entities
 
 Success:
 ```powershell
-> meta model add-property CmdEntityRenamed Label --required true --default-value Unknown --workspace Samples\\Fixtures\\CommandExamples
+> meta model add-property CmdEntityRenamed Label --required true --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
 OK: property added
 Entity: CmdEntityRenamed
 Property: Label (required)
-DefaultValue: Unknown
 ```
 
 Failure:
@@ -522,22 +591,17 @@ Success:
 OK: relationship removed
 From: CmdEntityRenamed
 To: Cube
-Name: Cube
+Name: CubeId
 ```
 
 Failure:
 ```powershell
 > meta model drop-relationship Measure Cube --workspace Samples\\Fixtures\\CommandExamples
-[exit 4]
-Error: Relationship 'Measure->Cube' is in use.
-
-Relationship usage exists in 1 instance(s).
-
-Relationship usage blockers:
-  Entity   Instance
-  Measure  Measure 1
-
-Next: meta instance relationship set Measure 1 --to Cube <ToId>
+[exit 0]
+OK: relationship removed
+From: Measure
+To: Cube
+Name: CubeId
 ```
 
 ## model drop-property
@@ -576,7 +640,7 @@ Failure:
 [exit 4]
 Error: Cannot drop entity Cube
 
-Cube has 2 instances.
+Cube has 6 instances.
 
 Next: meta view instance Cube 1
 ```
@@ -606,7 +670,7 @@ Success:
 ```powershell
 > meta insert Cube --auto-id --set "CubeName=Auto Id Cube" --set "Purpose=Autogenerated id sample" --set RefreshMode=Manual --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
-OK: created Cube 11
+OK: created Cube 14
 CubeName: Auto Id Cube
 ```
 
@@ -644,19 +708,19 @@ Next: meta list properties Cube
 Success:
 ```powershell
 > meta instance relationship set Measure 1 --to Cube 2 --workspace Samples\\Fixtures\\CommandExamples
-[exit 0]
-OK: relationship usage updated
-FromInstance: Measure 1
-ToInstance: Cube 2
+[exit 4]
+Error: Relationship 'Measure->Cube' was not found.
+
+Next: meta list relationships Measure
 ```
 
 Failure:
 ```powershell
 > meta instance relationship set Measure 1 --to Cube 999 --workspace Samples\\Fixtures\\CommandExamples
 [exit 4]
-Error: Instance 'Cube 999' was not found.
+Error: Relationship 'Measure->Cube' was not found.
 
-Next: meta query Cube --contains Id 999
+Next: meta list relationships Measure
 ```
 
 ## instance relationship list
@@ -665,10 +729,8 @@ Success:
 ```powershell
 > meta instance relationship list Measure 1 --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
-Relationships:
-  FromInstance: Measure 1
-  Relationship  ToEntity  ToInstance
-  Cube          Cube      Cube 2
+OK: no relationship usage
+Instance: Measure 1
 ```
 
 Failure:
@@ -687,8 +749,8 @@ Success:
 > meta bulk-insert Cube --from tsv --file Samples\\Fixtures\\CommandExamples\input\cube-bulk-insert.tsv --key Id --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
 OK: bulk insert Cube
-Inserted: 1
-Updated: 1
+Inserted: 0
+Updated: 2
 Total: 2
 ```
 
@@ -739,8 +801,7 @@ Failure:
 [exit 4]
 Error: Cannot delete Cube 2
 
-Blocked by existing relationships (2).
-Measure 1 references Cube 2
+Blocked by existing relationships (1).
 SystemCube 2 references Cube 2
 
 Next: meta delete help
@@ -753,7 +814,7 @@ Success:
 > meta generate sql --out Samples\\Fixtures\\CommandExamplesOut\sql --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
 OK: generated sql
-Out: <repo>\Samples\\Fixtures\\CommandExamplesOut\sql
+Out: <repo>\Samples\Fixtures\CommandExamplesOut\sql
 Files: 2
 ```
 
@@ -775,7 +836,8 @@ Success:
 > meta generate csharp --out Samples\\Fixtures\\CommandExamplesOut\csharp --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
 OK: generated csharp
-Out: <repo>\Samples\\Fixtures\\CommandExamplesOut\csharp
+Out: <repo>\Samples\Fixtures\CommandExamplesOut\csharp
+Tooling: no
 Files: 10
 ```
 
@@ -797,7 +859,7 @@ Success:
 > meta generate ssdt --out Samples\\Fixtures\\CommandExamplesOut\ssdt --workspace Samples\\Fixtures\\CommandExamples
 [exit 0]
 OK: generated ssdt
-Out: <repo>\Samples\\Fixtures\\CommandExamplesOut\ssdt
+Out: <repo>\Samples\Fixtures\CommandExamplesOut\ssdt
 Files: 4
 ```
 
@@ -817,9 +879,12 @@ Next: meta check
 Success:
 ```powershell
 > meta import xml Samples\\Contracts\\SampleModel.xml Samples\\Contracts\\SampleInstance.xml --new-workspace Samples\\Fixtures\\CommandExamplesImportedXml
-[exit 0]
-OK: imported xml
-Workspace: <repo>\Samples\\Fixtures\\CommandExamplesImportedXml
+[exit 4]
+Error: new workspace target directory must be empty.
+
+Directory contains entries such as: metadata, workspace.xml
+
+Next: choose a new folder path, for example: --new-workspace .\ImportedWorkspace2
 ```
 
 Failure:
@@ -828,7 +893,7 @@ Failure:
 [exit 4]
 Error: new workspace target directory must be empty.
 
-Directory contains entries such as: input, metadata
+Directory contains entries such as: input, metadata, workspace.xml
 
 Next: choose a new folder path, for example: --new-workspace .\ImportedWorkspace2
 ```
@@ -837,22 +902,18 @@ Next: choose a new folder path, for example: --new-workspace .\ImportedWorkspace
 
 Success:
 ```powershell
-> meta instance merge Samples\\Fixtures\\CommandExamplesDiffLeft <repo>\Samples\\Fixtures\\CommandExamplesDiffRight.instance-diff
+> meta instance merge Samples\\Fixtures\\CommandExamplesDiffLeft <repo>\Samples\Fixtures\CommandExamplesDiffRight.instance-diff
 [exit 0]
 OK: instance merge applied
-Target: <repo>\Samples\\Fixtures\\CommandExamplesDiffLeft
+Target: <repo>\Samples\Fixtures\CommandExamplesDiffLeft
 ```
 
 Failure:
 ```powershell
-> meta instance merge Samples\\Fixtures\\CommandExamplesDiffLeft <repo>\Samples\\Fixtures\\CommandExamplesDiffRight.instance-diff
-[exit 1]
-Error: instance merge precondition failed: target does not match the diff left snapshot.
-
-Next: re-run meta instance diff on the current target and intended right workspace.
+> meta instance merge Samples\\Fixtures\\CommandExamplesDiffLeft <repo>\Samples\Fixtures\CommandExamplesDiffRight.instance-diff
+[exit 0]
+OK: instance merge applied
+Target: <repo>\Samples\Fixtures\CommandExamplesDiffLeft
 ```
-
-
-
 
 

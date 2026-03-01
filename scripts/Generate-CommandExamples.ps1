@@ -20,13 +20,28 @@ function Normalize-OutputForDocs {
     $normalized = $Text
     $normalized = $normalized -replace [regex]::Escape($repoRoot), "<repo>"
     $normalized = $normalized -replace [regex]::Escape($repoRoot.Replace('\\', '/')), "<repo>"
+    if ($script:PathDisplayMap)
+    {
+        foreach ($entry in $script:PathDisplayMap.GetEnumerator() | Sort-Object { $_.Key.Length } -Descending)
+        {
+            $normalized = $normalized -replace [regex]::Escape($entry.Key), $entry.Value
+            $normalized = $normalized -replace [regex]::Escape($entry.Key.Replace('\\', '/')), $entry.Value.Replace('\', '/')
+        }
+    }
+
     return $normalized
 }
 
 $cliProject = Join-Path $repoRoot "Meta.Cli\Meta.Cli.csproj"
+$cliExe = Join-Path $repoRoot "meta.exe"
 if (-not (Test-Path $cliProject))
 {
     throw "Meta CLI project was not found at '$cliProject'."
+}
+
+if (-not (Test-Path $cliExe))
+{
+    & dotnet build $cliProject | Out-Null
 }
 
 function Format-Arg {
@@ -49,15 +64,14 @@ function Format-Arg {
 function Invoke-MetaCapture {
     param([string[]]$MetaArgs)
 
-    $display = ".\\meta.cmd " + (($MetaArgs | ForEach-Object { Format-Arg $_ }) -join " ")
+    $display = "meta " + (($MetaArgs | ForEach-Object { Format-Arg $_ }) -join " ")
     $display = Normalize-OutputForDocs -Text $display
-    $invokeArgs = @("run", "--project", $cliProject, "--") + $MetaArgs
 
     $previousErrorActionPreference = $ErrorActionPreference
     try
     {
         $ErrorActionPreference = "Continue"
-        $lines = & dotnet @invokeArgs 2>&1
+        $lines = & $cliExe @MetaArgs 2>&1
     }
     finally
     {
@@ -110,27 +124,30 @@ function Add-Case {
         })
 }
 
-$baseWorkspace = "Samples\\Fixtures\\CommandExamples"
-$initWorkspace = "Samples\\Fixtures\\CommandExamplesInit"
-$importXmlWorkspace = "Samples\\Fixtures\\CommandExamplesImportedXml"
-$brokenWorkspace = "Samples\\Fixtures\\CommandExamplesBroken"
-$diffLeftWorkspace = "Samples\\Fixtures\\CommandExamplesDiffLeft"
-$diffRightWorkspace = "Samples\\Fixtures\\CommandExamplesDiffRight"
-$outputRoot = "Samples\\Fixtures\\CommandExamplesOut"
+$workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("meta-command-examples-" + [Guid]::NewGuid().ToString("N"))
+$baseWorkspace = Join-Path $workRoot "CommandExamples"
+$initWorkspace = Join-Path $workRoot "CommandExamplesInit"
+$importXmlWorkspace = Join-Path $workRoot "CommandExamplesImportedXml"
+$brokenWorkspace = Join-Path $workRoot "CommandExamplesBroken"
+$diffLeftWorkspace = Join-Path $workRoot "CommandExamplesDiffLeft"
+$diffRightWorkspace = Join-Path $workRoot "CommandExamplesDiffRight"
+$outputRoot = Join-Path $workRoot "CommandExamplesOut"
 $inputRoot = Join-Path $baseWorkspace "input"
 $bulkFile = Join-Path $inputRoot "cube-bulk-insert.tsv"
 $bulkInvalidFile = Join-Path $inputRoot "cube-bulk-insert-invalid.tsv"
 $bulkAutoIdFile = Join-Path $inputRoot "cube-bulk-insert-auto-id.tsv"
 
-$cleanupTargets = @(
-    $baseWorkspace,
-    $initWorkspace,
-    $importXmlWorkspace,
-    $brokenWorkspace,
-    $diffLeftWorkspace,
-    $diffRightWorkspace,
-    $outputRoot
-)
+$script:PathDisplayMap = [ordered]@{
+    $baseWorkspace = "Samples\\Fixtures\\CommandExamples"
+    $initWorkspace = "Samples\\Fixtures\\CommandExamplesInit"
+    $importXmlWorkspace = "Samples\\Fixtures\\CommandExamplesImportedXml"
+    $brokenWorkspace = "Samples\\Fixtures\\CommandExamplesBroken"
+    $diffLeftWorkspace = "Samples\\Fixtures\\CommandExamplesDiffLeft"
+    $diffRightWorkspace = "Samples\\Fixtures\\CommandExamplesDiffRight"
+    $outputRoot = "Samples\\Fixtures\\CommandExamplesOut"
+}
+
+$cleanupTargets = @($workRoot)
 
 foreach ($path in $cleanupTargets)
 {
@@ -143,45 +160,13 @@ foreach ($path in $cleanupTargets)
 Invoke-MetaStrict -MetaArgs @("import", "xml", "Samples\\Contracts\\SampleModel.xml", "Samples\\Contracts\\SampleInstance.xml", "--new-workspace", $baseWorkspace) | Out-Null
 Invoke-MetaStrict -MetaArgs @("import", "xml", "Samples\\Contracts\\SampleModel.xml", "Samples\\Contracts\\SampleInstance.xml", "--new-workspace", $diffLeftWorkspace) | Out-Null
 Invoke-MetaStrict -MetaArgs @("import", "xml", "Samples\\Contracts\\SampleModel.xml", "Samples\\Contracts\\SampleInstance.xml", "--new-workspace", $diffRightWorkspace) | Out-Null
+Invoke-MetaStrict -MetaArgs @("import", "xml", "Samples\\Contracts\\SampleModel.xml", "Samples\\Contracts\\SampleInstance.xml", "--new-workspace", $brokenWorkspace) | Out-Null
 Invoke-MetaStrict -MetaArgs @("insert", "Cube", "99", "--set", "CubeName=Diff Cube", "--set", "Purpose=Diff sample", "--set", "RefreshMode=Manual", "--workspace", $diffRightWorkspace) | Out-Null
 
 New-Item -ItemType Directory -Path $inputRoot -Force | Out-Null
 
-$brokenMetadataRoot = Join-Path $brokenWorkspace "metadata"
-New-Item -ItemType Directory -Path (Join-Path $brokenMetadataRoot "instance") -Force | Out-Null
-$brokenWorkspaceXml = @"
-<?xml version="1.0" encoding="utf-8"?>
-<MetaWorkspace>
-  <Workspaces>
-    <Workspace Id="1">
-      <Name>Workspace</Name>
-      <FormatVersion>1.0</FormatVersion>
-    </Workspace>
-  </Workspaces>
-  <WorkspacePaths>
-    <WorkspacePath Id="1" WorkspaceId="1">
-      <Key>ModelFile</Key>
-      <Path>metadata/model.xml</Path>
-    </WorkspacePath>
-    <WorkspacePath Id="2" WorkspaceId="1">
-      <Key>InstanceDir</Key>
-      <Path>metadata/instance</Path>
-    </WorkspacePath>
-  </WorkspacePaths>
-  <GeneratorSettings>
-    <GeneratorSetting Id="1" WorkspaceId="1">
-      <Key>Encoding</Key>
-      <Value>utf-8-no-bom</Value>
-    </GeneratorSetting>
-    <GeneratorSetting Id="2" WorkspaceId="1">
-      <Key>Newlines</Key>
-      <Value>lf</Value>
-    </GeneratorSetting>
-  </GeneratorSettings>
-</MetaWorkspace>
-"@
-Set-Content -Path (Join-Path $brokenMetadataRoot "workspace.xml") -Value $brokenWorkspaceXml -Encoding utf8
-Set-Content -Path (Join-Path $brokenMetadataRoot "model.xml") -Value '<Model name="BrokenModel"><Entities><Entity name="Bad"></Entities></Model>' -Encoding utf8
+$brokenModelPath = Join-Path (Join-Path $brokenWorkspace "metadata") "model.xml"
+Set-Content -Path $brokenModelPath -Value '<Model name="BrokenModel"><Entities><Entity name="Bad"></Entities></Model>' -Encoding utf8
 
 @(
     "Id`tCubeName`tPurpose`tRefreshMode",
@@ -297,5 +282,9 @@ if (-not $resolvedOutput)
 }
 
 Set-Content -Path (Join-Path $repoRoot $OutputPath) -Value $content.ToString() -Encoding utf8
+if (Test-Path $workRoot)
+{
+    Remove-Item $workRoot -Recurse -Force
+}
 Write-Host "Wrote $OutputPath"
 
