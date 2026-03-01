@@ -169,7 +169,7 @@ internal static class HelpTopics
                     examples: new[]
                     {
                         "meta init .",
-                        "meta init Samples\\Fixtures\\CommandExamplesInit",
+                        "meta init .\\Workspace",
                     },
                     next: "meta status");
                 return true;
@@ -186,7 +186,7 @@ internal static class HelpTopics
                     examples: new[]
                     {
                         "meta status",
-                        "meta status --workspace Samples\\Fixtures\\CommandExamples",
+                        "meta status --workspace .\\Workspace",
                     },
                     next: "meta check");
                 return true;
@@ -589,9 +589,9 @@ internal static class HelpTopics
                     },
                     examples: new[]
                     {
-                        "meta model suggest --workspace Samples\\Demos\\SuggestDemo\\Workspace",
-                        "meta model suggest --show-keys --explain --workspace Samples\\Demos\\SuggestDemo\\Workspace",
-                        "meta model suggest --print-commands --workspace Samples\\Demos\\SuggestDemo\\Workspace",
+                        "meta model suggest --workspace .\\Workspace",
+                        "meta model suggest --show-keys --explain --workspace .\\Workspace",
+                        "meta model suggest --print-commands --workspace .\\Workspace",
                     },
                     next: "meta model suggest --help");
                 return true;

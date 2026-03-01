@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProductModel>
+  <Products>
+    <Product Id="PRD-001"><ProductName>Road Bike</ProductName><ProductGroup>Cycles</ProductGroup></Product>
+    <Product Id="PRD-002"><ProductName>Touring Bike</ProductName><ProductGroup>Cycles</ProductGroup></Product>
+    <Product Id="PRD-003"><ProductName>Bottle Cage</ProductName><ProductGroup>Accessories</ProductGroup></Product>
+    <Product Id="PRD-004"><ProductName>Water Bottle</ProductName><ProductGroup>Accessories</ProductGroup></Product>
+  </Products>
+  <Suppliers>
+    <Supplier Id="SUP-001"><SupplierName>Northwind Parts</SupplierName></Supplier>
+    <Supplier Id="SUP-002"><SupplierName>Contoso Gear</SupplierName></Supplier>
+    <Supplier Id="SUP-003" />
+    <Supplier Id="SUP-004"><SupplierName>Adventure Works</SupplierName></Supplier>
+  </Suppliers>
+  <Categories>
+    <Category Id="CAT-001"><CategoryName>Cycles</CategoryName></Category>
+    <Category Id="CAT-002"><CategoryName>Accessories</CategoryName></Category>
+    <Category Id="CAT-003"><CategoryName>Maintenance</CategoryName></Category>
+  </Categories>
+  <Warehouses>
+    <Warehouse Id="WH-001"><WarehouseName>Seattle Main</WarehouseName></Warehouse>
+    <Warehouse Id="WH-002"><WarehouseName>Denver Hub</WarehouseName></Warehouse>
+    <Warehouse Id="WH-003"><WarehouseName>Dallas Overflow</WarehouseName></Warehouse>
+  </Warehouses>
+  <Orders>
+    <Order Id="ORD-001"><OrderNumber>ORD-1001</OrderNumber><ProductId>PRD-001</ProductId><SupplierId>SUP-001</SupplierId><WarehouseId>WH-001</WarehouseId><StatusText>Released</StatusText></Order>
+    <Order Id="ORD-002"><OrderNumber>ORD-1002</OrderNumber><ProductId>PRD-002</ProductId><SupplierId>SUP-002</SupplierId><WarehouseId>WH-001</WarehouseId><StatusText>Released</StatusText></Order>
+    <Order Id="ORD-003"><OrderNumber>ORD-1003</OrderNumber><ProductId>PRD-003</ProductId><SupplierId>SUP-003</SupplierId><WarehouseId>WH-002</WarehouseId><StatusText>Held</StatusText></Order>
+    <Order Id="ORD-004"><OrderNumber>ORD-1004</OrderNumber><ProductId>PRD-004</ProductId><SupplierId>SUP-004</SupplierId><WarehouseId>WH-003</WarehouseId><StatusText>Closed</StatusText></Order>
+    <Order Id="ORD-005"><OrderNumber>ORD-1005</OrderNumber><ProductId>PRD-001</ProductId><SupplierId>SUP-002</SupplierId><WarehouseId>WH-001</WarehouseId><StatusText>Released</StatusText></Order>
+  </Orders>
+</ProductModel>

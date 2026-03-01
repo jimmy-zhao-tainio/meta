@@ -11,22 +11,22 @@
     <Entity name="Dimension">
       <Properties>
         <Property name="DimensionName" />
-        <Property name="HierarchyCount" isRequired="false" />
         <Property name="IsConformed" />
+        <Property name="HierarchyCount" isRequired="false" />
       </Properties>
     </Entity>
     <Entity name="Fact">
       <Properties>
-        <Property name="BusinessArea" isRequired="false" />
         <Property name="FactName" />
         <Property name="Grain" isRequired="false" />
         <Property name="MeasureCount" isRequired="false" />
+        <Property name="BusinessArea" isRequired="false" />
       </Properties>
     </Entity>
     <Entity name="Measure">
       <Properties>
-        <Property name="MDX" isRequired="false" />
         <Property name="MeasureName" />
+        <Property name="MDX" isRequired="false" />
       </Properties>
       <Relationships>
         <Relationship entity="Cube" />
@@ -34,9 +34,9 @@
     </Entity>
     <Entity name="System">
       <Properties>
-        <Property name="DeploymentDate" isRequired="false" />
         <Property name="SystemName" />
         <Property name="Version" isRequired="false" />
+        <Property name="DeploymentDate" isRequired="false" />
       </Properties>
       <Relationships>
         <Relationship entity="SystemType" />
@@ -71,8 +71,8 @@
     </Entity>
     <Entity name="SystemType">
       <Properties>
-        <Property name="Description" isRequired="false" />
         <Property name="TypeName" />
+        <Property name="Description" isRequired="false" />
       </Properties>
     </Entity>
   </Entities>

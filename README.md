@@ -373,7 +373,7 @@ Global behavior:
 
 | Command | What it is for | Example |
 |---|---|---|
-| `meta init [<path>]` | Create a new workspace at target path (or current directory). | `meta init Samples\\DemoWorkspace` |
+| `meta init [<path>]` | Create a new workspace at target path (or current directory). | `meta init .\\Workspace` |
 | `meta status` | Print workspace summary (entities, rows, basic counts). | `meta status` |
 
 ### Inspect and validate
@@ -443,9 +443,9 @@ Id policy:
 
 | Command | What it is for | Example |
 |---|---|---|
-| `meta import xml <modelXml> <instanceXml> --new-workspace <path>` | Create new workspace from XML model+instance files. | `meta import xml .\\Samples\\Contracts\\SampleModel.xml .\\Samples\\Contracts\\SampleInstance.xml --new-workspace .\\Samples\\Fixtures\\ImportedXml` |
-| `meta import sql <connectionString> <schema> --new-workspace <path>` | Create a new workspace by importing a SQL schema into workspace form (model + instance). | `meta import sql "Server=.;Database=EnterpriseBIPlatform;Trusted_Connection=True;TrustServerCertificate=True;" dbo --new-workspace .\\Samples\\Fixtures\\ImportedSql` |
-| `meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] (--new-workspace <path> or --workspace <path>)` | Landing import: one CSV to one entity + rows in new or existing workspace, requiring a CSV column named `Id` and using those values as instance identities. | `meta import csv .\\Samples\\landing.csv --entity Landing --new-workspace .\\Samples\\Fixtures\\ImportedCsv` |
+| `meta import xml <modelXml> <instanceXml> --new-workspace <path>` | Create new workspace from XML model+instance files. | `meta import xml .\\model.xml .\\instance.xml --new-workspace .\\ImportedWorkspace` |
+| `meta import sql <connectionString> <schema> --new-workspace <path>` | Create a new workspace by importing a SQL schema into workspace form (model + instance). | `meta import sql "Server=.;Database=EnterpriseBIPlatform;Trusted_Connection=True;TrustServerCertificate=True;" dbo --new-workspace .\\ImportedWorkspace` |
+| `meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] (--new-workspace <path> or --workspace <path>)` | Landing import: one CSV to one entity + rows in new or existing workspace, requiring a CSV column named `Id` and using those values as instance identities. | `meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace` |
 | `meta generate sql --out <dir>` | Emit deterministic SQL schema + data consumables. | `meta generate sql --out .\\out\\sql` |
 | `meta generate csharp --out <dir>` | Emit dependency-free consumer C# API consumables. | `meta generate csharp --out .\\out\\csharp` |
 | `meta generate csharp --out <dir> --tooling` | Emit optional tooling helpers for load/save/import flows. | `meta generate csharp --out .\\out\\csharp --tooling` |
@@ -472,8 +472,8 @@ Eligible means the promotion satisfies 100% referential integrity (RI) before an
 For Id-first landing, the sanctioned structural rule is `ProductId -> Product.Id`, `SupplierId -> Supplier.Id`, and so on. `meta model suggest` does not rely on `Code` fields for this workflow. If any rule fails, the item is not printed.
 
 ```cmd
-meta import csv .\Samples\Demos\SuggestDemo\demo-csv\products.csv --entity Product --new-workspace .\Samples\Demos\SuggestDemo\Workspace
-cd .\Samples\Demos\SuggestDemo\Workspace
+meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
+cd .\Workspace
 meta import csv ..\demo-csv\suppliers.csv --entity Supplier
 meta import csv ..\demo-csv\categories.csv --entity Category --plural Categories
 meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
@@ -494,7 +494,7 @@ meta check
 
 ```text
 OK: model suggest
-Workspace: .\Samples\Demos\SuggestDemo\Workspace
+Workspace: .\Workspace
 Model: ProductModel
 Suggestions: 3
 
@@ -508,7 +508,7 @@ Relationship suggestions
 
 ```text
 OK: model suggest
-Workspace: .\Samples\Demos\SuggestDemo\Workspace
+Workspace: .\Workspace
 Model: ProductModel
 Suggestions: 0
 
@@ -691,13 +691,7 @@ Sanctioned model references are kept as XML on disk and loaded by core runtime c
 - `MetaSchema.Core/Models/SchemaCatalog.model.xml`
 - `MetaSchema.Catalogs/TypeConversionCatalog/metadata/model.xml`
 
-To re-emit sanctioned model C# APIs through the same public CLI surface, run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\Generate-SanctionedModelApis.ps1
-```
-
-This script uses `meta generate csharp --tooling` for each sanctioned model.
+To re-emit sanctioned model C# APIs through the same public CLI surface, run `meta generate csharp --tooling` against the sanctioned model workspace you want to publish.
 
 Current status: `meta-schema extract sqlserver` is implemented as a scaffold and does not query SQL Server yet.
 
@@ -774,8 +768,7 @@ meta query TypeMapping --contains Name Meta. --workspace .\MetaSchema.Catalogs\T
 
 ## References
 
-Full command surface and contracts: `COMMANDS.md`  
-Transcript-style examples: `COMMANDS-EXAMPLES.md`
+Full command surface and contracts: `COMMANDS.md`
 
 ## Tests
 

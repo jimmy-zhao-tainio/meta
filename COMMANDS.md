@@ -211,7 +211,7 @@ Model mutation and refactor:
 
 | Command | Summary | Example |
 |---|---|---|
-| `meta model suggest [--show-keys] [--explain] [--print-commands] [--workspace <path>]` | Read-only relationship inference from model + instance data. Only fully resolvable many-to-one promotions are printed, using the sanctioned Id-based `<TargetEntity>Id -> <TargetEntity>.Id` inference path. | `meta model suggest --workspace Samples\Demos\SuggestDemo\Workspace` |
+| `meta model suggest [--show-keys] [--explain] [--print-commands] [--workspace <path>]` | Read-only relationship inference from model + instance data. Only fully resolvable many-to-one promotions are printed, using the sanctioned Id-based `<TargetEntity>Id -> <TargetEntity>.Id` inference path. | `meta model suggest --workspace .\Workspace` |
 | `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--drop-source-property] [--workspace <path>]` | Atomically convert a scalar source property to a required relationship using a target lookup key. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property` |
 | `meta model refactor relationship-to-property --source <Entity> --target <Entity> [--role <Role>] [--property <PropertyName>] [--workspace <path>]` | Atomically convert a required relationship back to a required scalar Id property. | `meta model refactor relationship-to-property --source Order --target Warehouse` |
 | `meta model add-entity <Name> [--workspace <path>]` | Add a new entity definition. | `meta model add-entity SourceSystem` |
@@ -259,10 +259,10 @@ Import and generate:
 ## Diff/merge example
 
 ```powershell
-meta instance diff .\Samples\\Fixtures\\CommandExamplesDiffLeft .\Samples\\Fixtures\\CommandExamplesDiffRight
+meta instance diff .\LeftWorkspace .\RightWorkspace
 # Output includes: DiffWorkspace: <path>
 
-meta instance merge .\Samples\\Fixtures\\CommandExamplesDiffLeft "<path from diff output>"
+meta instance merge .\LeftWorkspace "<path from diff output>"
 ```
 
 

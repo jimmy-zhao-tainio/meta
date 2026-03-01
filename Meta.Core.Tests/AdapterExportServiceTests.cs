@@ -11,7 +11,7 @@ public sealed class AdapterExportServiceTests
     public async Task ExportSql_WritesSchemaAndDataFiles()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-adapter-tests", Guid.NewGuid().ToString("N"));
         var schemaPath = Path.Combine(outputRoot, "schema", "model.sql");
         var dataPath = Path.Combine(outputRoot, "data", "instance.sql");
@@ -30,6 +30,7 @@ public sealed class AdapterExportServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(outputRoot);
         }
     }
@@ -38,7 +39,7 @@ public sealed class AdapterExportServiceTests
     public async Task ExportCSharp_WritesModelAndEntityFiles()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-adapter-tests", Guid.NewGuid().ToString("N"));
         var outputDirectory = Path.Combine(outputRoot, "generated");
 
@@ -63,6 +64,7 @@ public sealed class AdapterExportServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(outputRoot);
         }
     }
@@ -73,28 +75,6 @@ public sealed class AdapterExportServiceTests
         {
             Directory.Delete(path, recursive: true);
         }
-    }
-
-    private static string FindRepositoryRoot()
-    {
-        var directory = AppContext.BaseDirectory;
-        while (!string.IsNullOrWhiteSpace(directory))
-        {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
-            {
-                return directory;
-            }
-
-            var parent = Directory.GetParent(directory);
-            if (parent == null)
-            {
-                break;
-            }
-
-            directory = parent.FullName;
-        }
-
-        throw new InvalidOperationException("Could not locate repository root from test base directory.");
     }
 }
 

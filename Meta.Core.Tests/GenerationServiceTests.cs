@@ -11,7 +11,7 @@ public sealed class GenerationServiceTests
     public async Task GenerateSql_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "b");
 
@@ -26,6 +26,7 @@ public sealed class GenerationServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(Path.GetDirectoryName(outputA)!);
             DeleteDirectoryIfExists(Path.GetDirectoryName(outputB)!);
         }
@@ -35,7 +36,7 @@ public sealed class GenerationServiceTests
     public async Task GenerateSsdt_WritesExpectedFiles()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "ssdt");
 
         try
@@ -50,6 +51,7 @@ public sealed class GenerationServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
         }
     }
@@ -58,7 +60,7 @@ public sealed class GenerationServiceTests
     public async Task GenerateCSharp_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "b");
 
@@ -77,6 +79,7 @@ public sealed class GenerationServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(Path.GetDirectoryName(outputA)!);
             DeleteDirectoryIfExists(Path.GetDirectoryName(outputB)!);
         }
@@ -86,7 +89,7 @@ public sealed class GenerationServiceTests
     public async Task GenerateCSharp_WithTooling_EmitsToolingFile()
     {
         var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService.LoadAsync(Path.Combine(FindRepositoryRoot(), "Samples", "MainWorkspace"));
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "tooling");
 
         try
@@ -101,6 +104,7 @@ public sealed class GenerationServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
         }
     }
@@ -111,28 +115,6 @@ public sealed class GenerationServiceTests
         {
             Directory.Delete(path, recursive: true);
         }
-    }
-
-    private static string FindRepositoryRoot()
-    {
-        var directory = AppContext.BaseDirectory;
-        while (!string.IsNullOrWhiteSpace(directory))
-        {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
-            {
-                return directory;
-            }
-
-            var parent = Directory.GetParent(directory);
-            if (parent == null)
-            {
-                break;
-            }
-
-            directory = parent.FullName;
-        }
-
-        throw new InvalidOperationException("Could not locate repository root from test base directory.");
     }
 }
 

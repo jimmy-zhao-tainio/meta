@@ -63,9 +63,7 @@ public sealed class LargeWorkspacePerformanceTests
         int maxAllocatedMb)
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
 
         try
@@ -120,6 +118,7 @@ public sealed class LargeWorkspacePerformanceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -192,28 +191,6 @@ public sealed class LargeWorkspacePerformanceTests
     private static double BytesToMb(long bytes)
     {
         return bytes / 1024d / 1024d;
-    }
-
-    private static string FindRepositoryRoot()
-    {
-        var directory = AppContext.BaseDirectory;
-        while (!string.IsNullOrWhiteSpace(directory))
-        {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
-            {
-                return directory;
-            }
-
-            var parent = Directory.GetParent(directory);
-            if (parent == null)
-            {
-                break;
-            }
-
-            directory = parent.FullName;
-        }
-
-        throw new InvalidOperationException("Could not locate repository root from test base directory.");
     }
 }
 

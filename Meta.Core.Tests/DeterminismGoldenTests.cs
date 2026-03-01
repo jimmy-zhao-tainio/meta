@@ -245,10 +245,23 @@ public sealed class DeterminismGoldenTests
 
     private static Task<Workspace> LoadCanonicalSampleWorkspaceAsync(ServiceCollection services)
     {
-        var repoRoot = FindRepositoryRoot();
-        return services.ImportService.ImportXmlAsync(
-            Path.Combine(repoRoot, "Samples", "Contracts", "SampleModel.xml"),
-            Path.Combine(repoRoot, "Samples", "Contracts", "SampleInstance.xml"));
+        var (modelPath, instancePath, rootPath) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
+        return LoadAndCleanupAsync();
+
+        async Task<Workspace> LoadAndCleanupAsync()
+        {
+            try
+            {
+                return await services.ImportService.ImportXmlAsync(modelPath, instancePath).ConfigureAwait(false);
+            }
+            finally
+            {
+                if (Directory.Exists(rootPath))
+                {
+                    Directory.Delete(rootPath, recursive: true);
+                }
+            }
+        }
     }
 
     private sealed class DirectoryManifest

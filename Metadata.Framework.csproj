@@ -12,8 +12,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Generated\**" />
-    <Compile Remove="Samples\**" />
-    <Compile Remove="Samples.Console\**" />
     <Compile Remove="Meta.Core\**" />
     <Compile Remove="Meta.Adapters\**" />
     <Compile Remove="Meta.Cli\**" />
@@ -22,14 +20,6 @@
     <Compile Remove="MetaSchema.Extractors.SqlServer\**" />
     <Compile Remove="MetaSchema.Cli\**" />
     <Compile Remove="Sanctioned.Generated\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Samples\Contracts\SampleModel.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Samples\Contracts\SampleInstance.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
 

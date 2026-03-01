@@ -15,10 +15,7 @@ public sealed class WorkspaceServiceTests
     public async Task WorkspaceHash_IsStable_AfterRoundTripSaveLoad()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var original = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (original, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var originalHash = services.WorkspaceService.CalculateHash(original);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
@@ -32,6 +29,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -43,10 +41,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_WritesWorkspaceConfigAndShardedInstances()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var expectedRows = workspace.Instance.RecordsByEntity.Values.Sum(records => records.Count);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
@@ -73,6 +68,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -84,10 +80,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_MissingWorkspaceConfig_UsesDefaultWorkspaceConfig()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -104,6 +97,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -115,10 +109,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_AndSave_PreservesSplitEntityShardLayout()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -148,6 +139,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -159,10 +151,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_NewRowsGoToPrimarySplitShardForEntity()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -196,6 +185,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -207,10 +197,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_DiscoversWorkspaceRoot_FromNestedDirectory()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -224,6 +211,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -235,10 +223,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_Fails_ForUnsupportedContractMajorVersion()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -257,6 +242,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -268,10 +254,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_AllowsNewerMinorContractVersion()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -289,6 +272,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -341,10 +325,7 @@ public sealed class WorkspaceServiceTests
     public async Task Load_RejectsWorkspaceConfigPathsOutsideWorkspaceRoot()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -361,6 +342,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -372,10 +354,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_RejectsWorkspaceConfigPathsOutsideWorkspaceRoot()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
@@ -388,6 +367,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -467,9 +447,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_CleansUpAtomicStagingDirectories()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
@@ -488,6 +466,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -499,9 +478,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_RejectsWhenWorkspaceLockIsActive()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
@@ -529,6 +506,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -540,9 +518,7 @@ public sealed class WorkspaceServiceTests
     public async Task Save_RemovesStaleWorkspaceLockAndContinues()
     {
         var services = new ServiceCollection();
-        var repositoryRoot = FindRepositoryRoot();
-        var samplesPath = Path.Combine(repositoryRoot, "Samples", "MainWorkspace");
-        var workspace = await services.WorkspaceService.LoadAsync(samplesPath);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
@@ -571,6 +547,7 @@ public sealed class WorkspaceServiceTests
         }
         finally
         {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
             if (Directory.Exists(tempRoot))
             {
                 Directory.Delete(tempRoot, recursive: true);
@@ -997,27 +974,6 @@ public sealed class WorkspaceServiceTests
         return workspace;
     }
 
-    private static string FindRepositoryRoot()
-    {
-        var directory = AppContext.BaseDirectory;
-        while (!string.IsNullOrWhiteSpace(directory))
-        {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
-            {
-                return directory;
-            }
-
-            var parent = Directory.GetParent(directory);
-            if (parent == null)
-            {
-                break;
-            }
-
-            directory = parent.FullName;
-        }
-
-        throw new InvalidOperationException("Could not locate repository root from test base directory.");
-    }
 }
 
 

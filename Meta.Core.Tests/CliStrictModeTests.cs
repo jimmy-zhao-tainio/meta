@@ -21,8 +21,10 @@ public sealed class CliStrictModeTests
     public void CommandExamples_DoNotContainLegacyHumanErrorTokens()
     {
         var repoRoot = FindRepositoryRoot();
-        var examplesPath = Path.Combine(repoRoot, "COMMANDS-EXAMPLES.md");
-        var content = File.ReadAllText(examplesPath);
+        var content = string.Join(
+            Environment.NewLine,
+            File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md")),
+            File.ReadAllText(Path.Combine(repoRoot, "README.md")));
 
         Assert.DoesNotContain("Where:", content, StringComparison.Ordinal);
         Assert.DoesNotContain("Hint:", content, StringComparison.Ordinal);
@@ -37,8 +39,8 @@ public sealed class CliStrictModeTests
     {
         var repoRoot = FindRepositoryRoot();
         var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
-        var examples = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS-EXAMPLES.md"));
-        var combined = commands + Environment.NewLine + examples;
+        var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
+        var combined = commands + Environment.NewLine + readme;
 
         Assert.DoesNotContain("--where", combined, StringComparison.Ordinal);
         Assert.DoesNotContain("contains(", combined, StringComparison.Ordinal);
@@ -49,10 +51,9 @@ public sealed class CliStrictModeTests
     {
         var repoRoot = FindRepositoryRoot();
         var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
-        var examples = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS-EXAMPLES.md"));
+        var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
         var cliProgram = File.ReadAllText(Path.Combine(repoRoot, "Meta.Cli", "Program.cs"));
-        var generator = File.ReadAllText(Path.Combine(repoRoot, "scripts", "Generate-CommandExamples.ps1"));
-        var combined = string.Join(Environment.NewLine, new[] { commands, examples, cliProgram, generator });
+        var combined = string.Join(Environment.NewLine, new[] { commands, readme, cliProgram });
 
         Assert.DoesNotMatch(@"(?im)^.*Usage:.*--id(\s|$).*$", combined);
         Assert.DoesNotMatch(@"(?im)^.*Next:.*--id(\s|$).*$", combined);
@@ -65,9 +66,8 @@ public sealed class CliStrictModeTests
     {
         var repoRoot = FindRepositoryRoot();
         var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
-        var examples = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS-EXAMPLES.md"));
-        var generator = File.ReadAllText(Path.Combine(repoRoot, "scripts", "Generate-CommandExamples.ps1"));
-        var combined = string.Join(Environment.NewLine, new[] { commands, examples, generator });
+        var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
+        var combined = string.Join(Environment.NewLine, new[] { commands, readme });
 
         Assert.DoesNotContain("--set Id=", combined, StringComparison.OrdinalIgnoreCase);
     }
@@ -76,6 +76,7 @@ public sealed class CliStrictModeTests
     public async Task HumanFailures_DoNotLeakDiagnosticKeyValueTokens_AndUseSingleNext()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var (modelPath, instancePath, contractsRoot) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
         var nonEmptyImportTarget = Path.Combine(Path.GetTempPath(), "metadata-import-target", Guid.NewGuid().ToString("N"));
         var brokenWorkspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-broken", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(nonEmptyImportTarget);
@@ -97,8 +98,8 @@ public sealed class CliStrictModeTests
                 (await RunCliAsync(
                     "import",
                     "xml",
-                    @"Samples\\Contracts\\SampleModel.xml",
-                    @"Samples\\Contracts\\SampleInstance.xml",
+                    modelPath,
+                    instancePath,
                     "--new-workspace",
                     nonEmptyImportTarget)).CombinedOutput,
                 (await RunCliAsync("status", "--workspace", brokenWorkspaceRoot)).CombinedOutput,
@@ -130,6 +131,7 @@ public sealed class CliStrictModeTests
         finally
         {
             DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(contractsRoot);
             DeleteDirectorySafe(nonEmptyImportTarget);
             DeleteDirectorySafe(brokenWorkspaceRoot);
         }
@@ -1005,14 +1007,22 @@ public sealed class CliStrictModeTests
     [Fact]
     public async Task ImportXml_RequiresNewWorkspaceOption()
     {
-        var result = await RunCliAsync(
-            "import",
-            "xml",
-            @"Samples\\Contracts\\SampleModel.xml",
-            @"Samples\\Contracts\\SampleInstance.xml");
+        var (modelPath, instancePath, rootPath) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
+        try
+        {
+            var result = await RunCliAsync(
+                "import",
+                "xml",
+                modelPath,
+                instancePath);
 
-        Assert.Equal(1, result.ExitCode);
-        Assert.Contains("import requires --new-workspace", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains("import requires --new-workspace", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            DeleteDirectorySafe(rootPath);
+        }
     }
 
     [Fact]
@@ -1031,6 +1041,7 @@ public sealed class CliStrictModeTests
     [Fact]
     public async Task ImportXml_RejectsNonEmptyTargetDirectory()
     {
+        var (modelPath, instancePath, contractsRoot) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
         var targetRoot = Path.Combine(Path.GetTempPath(), "metadata-import-target", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(targetRoot);
         await File.WriteAllTextAsync(Path.Combine(targetRoot, "placeholder.txt"), "x");
@@ -1040,8 +1051,8 @@ public sealed class CliStrictModeTests
             var result = await RunCliAsync(
                 "import",
                 "xml",
-                @"Samples\\Contracts\\SampleModel.xml",
-                @"Samples\\Contracts\\SampleInstance.xml",
+                modelPath,
+                instancePath,
                 "--new-workspace",
                 targetRoot);
 
@@ -1052,6 +1063,7 @@ public sealed class CliStrictModeTests
         }
         finally
         {
+            DeleteDirectorySafe(contractsRoot);
             DeleteDirectorySafe(targetRoot);
         }
     }
@@ -4651,53 +4663,8 @@ public sealed class CliStrictModeTests
         var root = Path.Combine(Path.GetTempPath(), "metadata-suggest-tests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
 
-        var repoRoot = FindRepositoryRoot();
-        var csvRoot = Path.Combine(repoRoot, "Samples", "Demos", "SuggestDemo", "demo-csv");
-        var imports = new[]
-        {
-            (File: "products.csv", Entity: "Product", NewWorkspace: true, Plural: (string?)null),
-            (File: "suppliers.csv", Entity: "Supplier", NewWorkspace: false, Plural: (string?)null),
-            (File: "categories.csv", Entity: "Category", NewWorkspace: false, Plural: "Categories"),
-            (File: "warehouses.csv", Entity: "Warehouse", NewWorkspace: false, Plural: (string?)null),
-            (File: "orders.csv", Entity: "Order", NewWorkspace: false, Plural: (string?)null),
-        };
-
-        foreach (var item in imports)
-        {
-            var csvPath = Path.Combine(csvRoot, item.File);
-            var args = item.NewWorkspace
-                ? BuildImportArgs(csvPath, item.Entity, item.Plural, "--new-workspace", root)
-                : BuildImportArgs(csvPath, item.Entity, item.Plural, "--workspace", root);
-            var result = await RunCliAsync(args);
-            if (result.ExitCode != 0)
-            {
-                throw new InvalidOperationException(
-                    $"Failed to import suggest demo CSV '{item.File}'.{Environment.NewLine}{result.CombinedOutput}");
-            }
-        }
-
-        return root;
-
-        static string[] BuildImportArgs(string csvPath, string entity, string? plural, string workspaceSwitch, string workspaceRoot)
-        {
-            var args = new System.Collections.Generic.List<string>
-            {
-                "import",
-                "csv",
-                csvPath,
-                "--entity",
-                entity,
-            };
-            if (!string.IsNullOrWhiteSpace(plural))
-            {
-                args.Add("--plural");
-                args.Add(plural);
-            }
-
-            args.Add(workspaceSwitch);
-            args.Add(workspaceRoot);
-            return args.ToArray();
-        }
+        DeleteDirectorySafe(root);
+        return await TestWorkspaceFactory.CreateTempSuggestDemoWorkspaceAsync().ConfigureAwait(false);
     }
 
     private static async Task<string> CreateTempRefactorCycleWorkspaceAsync()
@@ -4882,45 +4849,12 @@ public sealed class CliStrictModeTests
 
     private static string CreateTempWorkspaceFromSamples()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(root);
-
-        var repoRoot = FindRepositoryRoot();
-        var services = new ServiceCollection();
-        var workspace = services.ImportService
-            .ImportXmlAsync(
-                Path.Combine(repoRoot, "Samples", "Contracts", "SampleModel.xml"),
-                Path.Combine(repoRoot, "Samples", "Contracts", "SampleInstance.xml"))
-            .GetAwaiter()
-            .GetResult();
-        workspace.WorkspaceRootPath = root;
-        workspace.MetadataRootPath = string.Empty;
-        workspace.IsDirty = true;
-        services.WorkspaceService
-            .SaveAsync(workspace)
-            .GetAwaiter()
-            .GetResult();
-
-        return root;
+        return TestWorkspaceFactory.CreateTempWorkspaceFromCanonicalSample();
     }
 
     private static async Task<string> CreateTempCanonicalWorkspaceFromSamplesAsync()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(root);
-
-        var repoRoot = FindRepositoryRoot();
-        var services = new ServiceCollection();
-        var workspace = await services.ImportService
-            .ImportXmlAsync(
-                Path.Combine(repoRoot, "Samples", "Contracts", "SampleModel.xml"),
-                Path.Combine(repoRoot, "Samples", "Contracts", "SampleInstance.xml"))
-            .ConfigureAwait(false);
-        workspace.WorkspaceRootPath = root;
-        workspace.MetadataRootPath = string.Empty;
-        workspace.IsDirty = true;
-        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-        return root;
+        return await TestWorkspaceFactory.CreateTempCanonicalWorkspaceFromCanonicalSampleAsync().ConfigureAwait(false);
     }
 
     private static void DeleteDirectorySafe(string path)
