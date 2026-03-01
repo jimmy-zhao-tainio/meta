@@ -204,6 +204,7 @@ internal sealed partial class CliRuntime
 
         var existingRows = workspace.Instance.GetOrCreateEntityRecords(existingEntity.Name);
         var rowsById = existingRows.ToDictionary(item => item.Id, StringComparer.OrdinalIgnoreCase);
+        ValidateCsvImportPreflight(existingEntity, importedEntity, importedRows, rowsById);
 
         foreach (var importedRow in importedRows
                      .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
@@ -245,6 +246,96 @@ internal sealed partial class CliRuntime
                 else
                 {
                     targetRow.Values[name] = value;
+                }
+            }
+        }
+    }
+
+    private static void ValidateCsvImportPreflight(
+        GenericEntity existingEntity,
+        GenericEntity importedEntity,
+        IReadOnlyList<GenericRecord> importedRows,
+        IReadOnlyDictionary<string, GenericRecord> rowsById)
+    {
+        var existingPropertiesByName = existingEntity.Properties
+            .ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase);
+        var existingRelationshipNames = existingEntity.Relationships
+            .Select(item => item.GetColumnName())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var importedColumnNames = importedEntity.Properties
+            .Select(item => item.Name)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        foreach (var importedRow in importedRows
+                     .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Id, StringComparer.Ordinal))
+        {
+            var isExistingRow = rowsById.ContainsKey(importedRow.Id);
+
+            foreach (var importedProperty in importedEntity.Properties)
+            {
+                var name = importedProperty.Name;
+                var hasValue = importedRow.Values.TryGetValue(name, out var value);
+                var isBlank = !hasValue || string.IsNullOrWhiteSpace(value);
+
+                if (existingRelationshipNames.Contains(name))
+                {
+                    if (isBlank)
+                    {
+                        throw new InvalidOperationException(
+                            $"CSV row '{importedRow.Id}' leaves required relationship '{name}' blank on entity '{existingEntity.Name}'.");
+                    }
+
+                    continue;
+                }
+
+                if (existingPropertiesByName.TryGetValue(name, out var existingProperty) &&
+                    !existingProperty.IsNullable &&
+                    isBlank)
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required property '{name}' blank on entity '{existingEntity.Name}'.");
+                }
+            }
+
+            if (isExistingRow)
+            {
+                continue;
+            }
+
+            foreach (var requiredProperty in existingEntity.Properties
+                         .Where(item => !item.IsNullable)
+                         .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
+            {
+                if (!importedColumnNames.Contains(requiredProperty.Name))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required property '{requiredProperty.Name}' is missing from the import columns.");
+                }
+
+                if (!importedRow.Values.TryGetValue(requiredProperty.Name, out var propertyValue) ||
+                    string.IsNullOrWhiteSpace(propertyValue))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required property '{requiredProperty.Name}' blank on entity '{existingEntity.Name}'.");
+                }
+            }
+
+            foreach (var requiredRelationshipName in existingEntity.Relationships
+                         .Select(item => item.GetColumnName())
+                         .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))
+            {
+                if (!importedColumnNames.Contains(requiredRelationshipName))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required relationship '{requiredRelationshipName}' is missing from the import columns.");
+                }
+
+                if (!importedRow.Values.TryGetValue(requiredRelationshipName, out var relationshipValue) ||
+                    string.IsNullOrWhiteSpace(relationshipValue))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required relationship '{requiredRelationshipName}' blank on entity '{existingEntity.Name}'.");
                 }
             }
         }

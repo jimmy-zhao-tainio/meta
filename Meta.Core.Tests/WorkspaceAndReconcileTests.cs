@@ -475,6 +475,43 @@ public sealed class WorkspaceServiceTests
     }
 
     [Fact]
+    public async Task Save_RootWorkspaceConfigWriteFailure_DoesNotPersistMetadataChanges()
+    {
+        var services = new ServiceCollection();
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+
+        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            var persisted = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var originalHash = services.WorkspaceService.CalculateHash(persisted);
+
+            var cube = persisted.Instance.GetOrCreateEntityRecords("Cube").First();
+            cube.Values["CubeName"] = "Changed During Failed Save";
+
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            using (var lockedConfig = new FileStream(workspaceConfigPath, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                await Assert.ThrowsAnyAsync<IOException>(async () =>
+                    await services.WorkspaceService.SaveAsync(persisted));
+            }
+
+            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloadedHash = services.WorkspaceService.CalculateHash(reloaded);
+            Assert.Equal(originalHash, reloadedHash);
+        }
+        finally
+        {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
+            if (Directory.Exists(tempRoot))
+            {
+                Directory.Delete(tempRoot, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
     public async Task Save_RejectsWhenWorkspaceLockIsActive()
     {
         var services = new ServiceCollection();

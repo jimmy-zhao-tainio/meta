@@ -1536,6 +1536,152 @@ public sealed class CliStrictModeTests
     }
 
     [Fact]
+    public async Task ImportCsv_ExistingWorkspace_FailsEarlyWhenRequiredPropertyIsBlank()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var csvRoot = Path.Combine(Path.GetTempPath(), "metadata-import-csv", Guid.NewGuid().ToString("N"));
+        var csvPath = Path.Combine(csvRoot, "cube-update.csv");
+        Directory.CreateDirectory(csvRoot);
+        await File.WriteAllLinesAsync(csvPath, new[]
+        {
+            "Id,CubeName,Purpose,RefreshMode",
+            "1,,Sales metrics,Manual",
+        });
+
+        try
+        {
+            var before = LoadEntityRows(workspaceRoot, "Cube")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
+            var beforeName = before.Element("CubeName")?.Value;
+
+            var result = await RunCliAsync(
+                "import",
+                "csv",
+                csvPath,
+                "--entity",
+                "Cube",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.NotEqual(0, result.ExitCode);
+            Assert.Contains(
+                "leaves required property 'CubeName' blank on entity 'Cube'",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
+
+            var after = LoadEntityRows(workspaceRoot, "Cube")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
+            Assert.Equal(beforeName, after.Element("CubeName")?.Value);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(csvRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ImportCsv_ExistingWorkspace_FailsEarlyWhenRequiredRelationshipIsBlank()
+    {
+        var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
+        var csvRoot = Path.Combine(Path.GetTempPath(), "metadata-import-csv", Guid.NewGuid().ToString("N"));
+        var csvPath = Path.Combine(csvRoot, "orders-update.csv");
+        Directory.CreateDirectory(csvRoot);
+        await File.WriteAllLinesAsync(csvPath, new[]
+        {
+            "Id,OrderNumber,ProductId,SupplierId,WarehouseId,StatusText",
+            "ORD-001,ORD-1001,,SUP-001,WH-001,Released",
+        });
+
+        try
+        {
+            var refactor = await RunCliAsync(
+                "model",
+                "refactor",
+                "property-to-relationship",
+                "--source",
+                "Order.ProductId",
+                "--target",
+                "Product",
+                "--lookup",
+                "Id",
+                "--drop-source-property",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, refactor.ExitCode);
+
+            var before = LoadEntityRows(workspaceRoot, "Order")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "ORD-001", StringComparison.OrdinalIgnoreCase));
+            var beforeProductId = (string?)before.Attribute("ProductId");
+
+            var import = await RunCliAsync(
+                "import",
+                "csv",
+                csvPath,
+                "--entity",
+                "Order",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.NotEqual(0, import.ExitCode);
+            Assert.Contains(
+                "leaves required relationship 'ProductId' blank on entity 'Order'",
+                import.CombinedOutput,
+                StringComparison.Ordinal);
+
+            var after = LoadEntityRows(workspaceRoot, "Order")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "ORD-001", StringComparison.OrdinalIgnoreCase));
+            Assert.Equal(beforeProductId, (string?)after.Attribute("ProductId"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(csvRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ImportCsv_ExistingWorkspace_FailsEarlyWhenNewRowOmitsRequiredColumns()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var csvRoot = Path.Combine(Path.GetTempPath(), "metadata-import-csv", Guid.NewGuid().ToString("N"));
+        var csvPath = Path.Combine(csvRoot, "cube-new-row.csv");
+        Directory.CreateDirectory(csvRoot);
+        await File.WriteAllLinesAsync(csvPath, new[]
+        {
+            "Id,Purpose,RefreshMode",
+            "999,Ad hoc analysis,Manual",
+        });
+
+        try
+        {
+            var result = await RunCliAsync(
+                "import",
+                "csv",
+                csvPath,
+                "--entity",
+                "Cube",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.NotEqual(0, result.ExitCode);
+            Assert.Contains(
+                "cannot create new 'Cube' because required property 'CubeName' is missing from the import columns",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
+
+            Assert.DoesNotContain(
+                LoadEntityRows(workspaceRoot, "Cube"),
+                row => string.Equals((string?)row.Attribute("Id"), "999", StringComparison.OrdinalIgnoreCase));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(csvRoot);
+        }
+    }
+
+    [Fact]
     public async Task ImportCsv_ExistingWorkspace_AddsNewEntityAndRows()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();

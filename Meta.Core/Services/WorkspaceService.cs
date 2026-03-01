@@ -142,6 +142,8 @@ public sealed class WorkspaceService : IWorkspaceService
         var backupMetadataRootPath = Path.Combine(
             workspaceRoot,
             MetadataDirectoryName + ".__backup." + Guid.NewGuid().ToString("N"));
+        var workspaceConfigBackupPath = workspaceConfigPath + ".__backup." + Guid.NewGuid().ToString("N");
+        var hadExistingWorkspaceConfig = File.Exists(workspaceConfigPath);
 
         var stagingModelPath = MapPathToStagingMetadataRoot(metadataRootPath, stagingMetadataRootPath, modelPath);
         var stagingInstanceDirectoryPath =
@@ -154,15 +156,27 @@ public sealed class WorkspaceService : IWorkspaceService
             WriteInstanceShards(workspace, stagingInstanceDirectoryPath);
             DeleteIfExists(Path.Combine(stagingMetadataRootPath, InstanceFileName));
             DeleteIfExists(Path.Combine(stagingMetadataRootPath, WorkspaceXmlFileName));
+            BackupWorkspaceConfigIfPresent(workspaceConfigPath, workspaceConfigBackupPath);
+            try
+            {
+                WriteWorkspaceConfigToFile(workspaceConfig, workspaceConfigPath);
+                SwapMetadataDirectories(metadataRootPath, stagingMetadataRootPath, backupMetadataRootPath);
+            }
+            catch
+            {
+                RestoreWorkspaceConfigBackup(workspaceConfigPath, workspaceConfigBackupPath, hadExistingWorkspaceConfig);
+                throw;
+            }
 
-            SwapMetadataDirectories(metadataRootPath, stagingMetadataRootPath, backupMetadataRootPath);
-            WriteWorkspaceConfigToFile(workspaceConfig, workspaceConfigPath);
+            DeleteIfExists(workspaceConfigBackupPath);
             DeleteIfExists(Path.Combine(metadataRootPath, WorkspaceXmlFileName));
+            DeleteDirectoryIfExists(backupMetadataRootPath);
         }
         finally
         {
             DeleteDirectoryIfExists(stagingMetadataRootPath);
             DeleteDirectoryIfExists(backupMetadataRootPath);
+            DeleteIfExists(workspaceConfigBackupPath);
         }
 
         workspace.WorkspaceRootPath = workspaceRoot;
@@ -686,7 +700,6 @@ public sealed class WorkspaceService : IWorkspaceService
         try
         {
             Directory.Move(stagingMetadataRootPath, metadataRootPath);
-            DeleteDirectoryIfExists(backupMetadataRootPath);
         }
         catch
         {
@@ -697,6 +710,31 @@ public sealed class WorkspaceService : IWorkspaceService
 
             throw;
         }
+    }
+
+    private static void BackupWorkspaceConfigIfPresent(string workspaceConfigPath, string backupPath)
+    {
+        if (File.Exists(workspaceConfigPath))
+        {
+            File.Copy(workspaceConfigPath, backupPath, overwrite: true);
+        }
+    }
+
+    private static void RestoreWorkspaceConfigBackup(
+        string workspaceConfigPath,
+        string backupPath,
+        bool hadExistingWorkspaceConfig)
+    {
+        if (hadExistingWorkspaceConfig && File.Exists(backupPath))
+        {
+            if (!File.Exists(workspaceConfigPath))
+            {
+                File.Copy(backupPath, workspaceConfigPath, overwrite: true);
+            }
+            return;
+        }
+
+        DeleteIfExists(workspaceConfigPath);
     }
 
     private static string SerializeWorkspaceConfig(MetaWorkspaceGenerated workspaceConfig)
