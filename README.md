@@ -267,7 +267,7 @@ Build:
 dotnet build Metadata.Framework.sln
 ```
 
-On Windows, building `Metadata.Framework.sln` refreshes the repo-root `meta.exe`.
+On Windows, building `Metadata.Framework.sln` refreshes the published single-file CLI at `Meta.Cli\bin\publish\win-x64\meta.exe`.
 
 Run directly:
 
@@ -275,22 +275,16 @@ Run directly:
 dotnet run --project Meta.Cli/Meta.Cli.csproj -- help
 ```
 
-If `meta.exe` is on your `PATH`:
+If `Meta.Cli\bin\publish\win-x64` is on your `PATH`:
 
 ```powershell
 meta help
 ```
 
-Or run the executable in repo root directly:
+Or run the executable directly:
 
 ```powershell
-.\meta.exe help
-```
-
-Optional PowerShell profile install (so `meta ...` works without `./`):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\install-meta.ps1
+Meta.Cli\bin\publish\win-x64\meta.exe help
 ```
 
 ## XML contracts summary
