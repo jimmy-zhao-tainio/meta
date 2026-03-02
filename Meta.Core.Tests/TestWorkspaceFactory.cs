@@ -3,19 +3,13 @@ using System.IO;
 using System.Threading.Tasks;
 using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
+using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
 internal static class TestWorkspaceFactory
 {
-    public static (string ModelPath, string InstancePath, string RootPath) CreateCanonicalSampleContractFiles()
-    {
-        return CopyContractsToTemp(
-            GetTestDataPath("SampleModel.xml"),
-            GetTestDataPath("SampleInstance.xml"),
-            "metadata-sample-contracts");
-    }
-
     public static string CreateTempWorkspaceFromCanonicalSample()
     {
         return CreateTempCanonicalWorkspaceFromCanonicalSampleAsync()
@@ -54,39 +48,23 @@ internal static class TestWorkspaceFactory
         }
     }
 
-    private static (string ModelPath, string InstancePath, string RootPath) CopyContractsToTemp(string sourceModelPath, string sourceInstancePath, string rootPrefix)
-    {
-        var root = CreateTempRoot(rootPrefix);
-        var modelPath = Path.Combine(root, "SampleModel.xml");
-        var instancePath = Path.Combine(root, "SampleInstance.xml");
-        File.Copy(sourceModelPath, modelPath, overwrite: true);
-        File.Copy(sourceInstancePath, instancePath, overwrite: true);
-        return (modelPath, instancePath, root);
-    }
-
     private static async Task<string> CreateWorkspaceFromContractFilesAsync(string sourceModelPath, string sourceInstancePath, string rootPrefix)
     {
-        var contractsRoot = CreateTempRoot(rootPrefix + "-contracts");
         var workspaceRoot = CreateTempRoot(rootPrefix);
-        var modelPath = Path.Combine(contractsRoot, "model.xml");
-        var instancePath = Path.Combine(contractsRoot, "instance.xml");
-        File.Copy(sourceModelPath, modelPath, overwrite: true);
-        File.Copy(sourceInstancePath, instancePath, overwrite: true);
-
-        try
+        var services = new ServiceCollection();
+        var model = ModelXmlCodec.LoadFromPath(sourceModelPath);
+        var instance = InstanceXmlCodec.LoadFromPath(sourceInstancePath, model, sourceShardFileName: string.Empty);
+        var workspace = new Workspace
         {
-            var services = new ServiceCollection();
-            var workspace = await services.ImportService.ImportXmlAsync(modelPath, instancePath).ConfigureAwait(false);
-            workspace.WorkspaceRootPath = workspaceRoot;
-            workspace.MetadataRootPath = string.Empty;
-            workspace.IsDirty = true;
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-            return workspaceRoot;
-        }
-        finally
-        {
-            DeleteDirectorySafe(contractsRoot);
-        }
+            WorkspaceRootPath = workspaceRoot,
+            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
+            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
+            Model = model,
+            Instance = instance,
+            IsDirty = true,
+        };
+        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
+        return workspaceRoot;
     }
 
     private static string GetTestDataPath(string fileName)

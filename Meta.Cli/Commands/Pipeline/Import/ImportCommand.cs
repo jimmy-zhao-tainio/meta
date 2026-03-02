@@ -4,7 +4,7 @@ internal sealed partial class CliRuntime
     {
         if (commandArgs.Length < 2)
         {
-            return PrintUsageError("Usage: import <xml|sql|csv> ...");
+            return PrintUsageError("Usage: import <sql|csv> ...");
         }
     
         var mode = commandArgs[1].Trim().ToLowerInvariant();
@@ -12,39 +12,6 @@ internal sealed partial class CliRuntime
         {
             switch (mode)
             {
-                case "xml":
-                    if (commandArgs.Length < 4)
-                    {
-                        return PrintUsageError("Usage: import xml <modelXmlPath> <instanceXmlPath> --new-workspace <path>");
-                    }
-    
-                    var xmlOptions = ParseRequiredNewWorkspaceOption(commandArgs, startIndex: 4);
-                    if (!xmlOptions.Ok)
-                    {
-                        return PrintArgumentError(xmlOptions.ErrorMessage);
-                    }
-    
-                    var workspacePath = xmlOptions.NewWorkspacePath;
-                    var targetValidation = ValidateNewWorkspaceTarget(workspacePath);
-                    if (targetValidation != 0)
-                    {
-                        return targetValidation;
-                    }
-    
-                    var importedWorkspace = await services.ImportService.ImportXmlAsync(commandArgs[2], commandArgs[3]).ConfigureAwait(false);
-                    ApplyImplicitNormalization(importedWorkspace);
-                    var xmlDiagnostics = services.ValidationService.Validate(importedWorkspace);
-                    importedWorkspace.Diagnostics = xmlDiagnostics;
-                    if (xmlDiagnostics.HasErrors || (globalStrict && xmlDiagnostics.WarningCount > 0))
-                    {
-                        return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), xmlDiagnostics);
-                    }
-                    await services.ExportService.ExportXmlAsync(importedWorkspace, workspacePath).ConfigureAwait(false);
-                    presenter.WriteOk(
-                        "imported xml",
-                        ("Workspace", Path.GetFullPath(workspacePath)));
-    
-                    return 0;
                 case "sql":
                     if (commandArgs.Length < 4)
                     {
@@ -57,8 +24,8 @@ internal sealed partial class CliRuntime
                         return PrintArgumentError(sqlOptions.ErrorMessage);
                     }
     
-                    workspacePath = sqlOptions.NewWorkspacePath;
-                    targetValidation = ValidateNewWorkspaceTarget(workspacePath);
+                    var workspacePath = sqlOptions.NewWorkspacePath;
+                    var targetValidation = ValidateNewWorkspaceTarget(workspacePath);
                     if (targetValidation != 0)
                     {
                         return targetValidation;
@@ -82,7 +49,7 @@ internal sealed partial class CliRuntime
                     if (commandArgs.Length < 3)
                     {
                         return PrintUsageError(
-                            "Usage: import csv <csvFile> --entity <EntityName> [--plural <PluralName>] [--workspace <path> | --new-workspace <path>]");
+                            "Usage: import csv <csvFile> --entity <EntityName> [--workspace <path> | --new-workspace <path>]");
                     }
 
                     var csvOptions = ParseImportCsvOptions(commandArgs, startIndex: 3);
@@ -94,7 +61,7 @@ internal sealed partial class CliRuntime
                     if (csvOptions.UseNewWorkspace)
                     {
                         var importedFromCsv = await services.ImportService
-                            .ImportCsvAsync(commandArgs[2], csvOptions.EntityName, csvOptions.PluralName)
+                            .ImportCsvAsync(commandArgs[2], csvOptions.EntityName)
                             .ConfigureAwait(false);
                         var importedEntity = importedFromCsv.Model.Entities.Single();
                         var importedRows = importedFromCsv.Instance.RecordsByEntity[importedEntity.Name];
@@ -128,7 +95,7 @@ internal sealed partial class CliRuntime
                     var workspaceForCsv = await LoadWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
                     PrintContractCompatibilityWarning(workspaceForCsv.WorkspaceConfig);
                     var importedForMerge = await services.ImportService
-                        .ImportCsvAsync(commandArgs[2], csvOptions.EntityName, csvOptions.PluralName)
+                        .ImportCsvAsync(commandArgs[2], csvOptions.EntityName)
                         .ConfigureAwait(false);
                     var importedEntityForMerge = importedForMerge.Model.Entities.Single();
                     var importedRowsForMerge = importedForMerge.Instance.RecordsByEntity[importedEntityForMerge.Name];
@@ -141,13 +108,6 @@ internal sealed partial class CliRuntime
                     }
                     else
                     {
-                        if (!string.IsNullOrWhiteSpace(csvOptions.PluralName) &&
-                            !string.Equals(existingEntity.GetPluralName(), importedEntityForMerge.GetPluralName(), StringComparison.OrdinalIgnoreCase))
-                        {
-                            throw new InvalidOperationException(
-                                $"CSV import plural '{importedEntityForMerge.GetPluralName()}' does not match existing entity plural '{existingEntity.GetPluralName()}' for '{existingEntity.Name}'.");
-                        }
-
                         MergeCsvImportIntoExistingEntity(existingEntity, workspaceForCsv, importedEntityForMerge, importedRowsForMerge);
                     }
                     ApplyImplicitNormalization(workspaceForCsv);
@@ -168,7 +128,7 @@ internal sealed partial class CliRuntime
 
                     return 0;
                 default:
-                    return PrintUsageError("Usage: import <xml|sql|csv> ...");
+                    return PrintUsageError("Usage: import <sql|csv> ...");
             }
         }
         catch (Exception exception)

@@ -53,13 +53,10 @@ public sealed class WorkspaceServiceTests
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             var modelPath = Path.Combine(metadataRoot, "model.xml");
             var instanceDir = Path.Combine(metadataRoot, "instance");
-            var legacyInstancePath = Path.Combine(metadataRoot, "instance.xml");
-
             Assert.True(File.Exists(workspaceConfigPath), "workspace.xml should exist after save.");
             Assert.True(File.Exists(modelPath), "model.xml should exist after save.");
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
             Assert.True(Directory.GetFiles(instanceDir, "*.xml").Length > 0, "instance shard directory should contain XML files.");
-            Assert.False(File.Exists(legacyInstancePath), "legacy monolithic instance.xml should not be emitted.");
 
             var reloaded = await services.WorkspaceService.LoadAsync(tempRoot);
             var reloadedRows = reloaded.Instance.RecordsByEntity.Values.Sum(records => records.Count);

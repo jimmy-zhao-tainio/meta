@@ -5,30 +5,21 @@ internal sealed partial class CliRuntime
         if (commandArgs.Length < 7)
         {
             return PrintUsageError(
-                "Usage: instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId> [--workspace <path>]");
+                "Usage: instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]");
         }
     
         var fromEntityName = commandArgs[3];
         var fromId = commandArgs[4];
-        if (ContainsLegacyInstanceReferenceSyntax(fromId))
-        {
-            return PrintArgumentError($"Error: unsupported instance reference '{fromId}'. Use <Entity> <Id>.");
-        }
         var options = ParseInstanceRelationshipSetOptions(commandArgs, startIndex: 5);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
     
-        if (string.IsNullOrWhiteSpace(options.ToEntity) || string.IsNullOrWhiteSpace(options.ToId))
+        if (string.IsNullOrWhiteSpace(options.RelationshipSelector) || string.IsNullOrWhiteSpace(options.ToId))
         {
-            return PrintArgumentError("Error: instance relationship set requires --to <ToEntity> <ToId>.");
+            return PrintArgumentError("Error: instance relationship set requires --to <RelationshipSelector> <ToId>.");
         }
-        if (ContainsLegacyInstanceReferenceSyntax(options.ToId))
-        {
-            return PrintArgumentError($"Error: unsupported instance reference '{options.ToId}'. Use <Entity> <Id>.");
-        }
-    
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -36,7 +27,7 @@ internal sealed partial class CliRuntime
             var fromEntity = RequireEntity(workspace, fromEntityName);
             var fromRow = ResolveRowById(workspace, fromEntityName, fromId);
 
-            var toEntityName = options.ToEntity;
+            var toEntityName = options.RelationshipSelector;
             var toId = options.ToId;
             var relationship = ResolveRelationshipDefinition(fromEntity, toEntityName, out var isAmbiguous);
             if (isAmbiguous)

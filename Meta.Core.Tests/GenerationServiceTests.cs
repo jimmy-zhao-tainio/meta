@@ -74,7 +74,7 @@ public sealed class GenerationServiceTests
             Assert.True(File.Exists(Path.Combine(outputA, "Cube.cs")));
             var modelText = await File.ReadAllTextAsync(Path.Combine(outputA, workspace.Model.Name + ".cs"));
             Assert.Contains($"public static class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
-            Assert.Contains("public static IReadOnlyList<Measure> Measures", modelText, StringComparison.Ordinal);
+            Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelText, StringComparison.Ordinal);
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
         }
         finally

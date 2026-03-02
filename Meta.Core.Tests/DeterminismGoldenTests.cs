@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
+using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
@@ -16,20 +18,20 @@ public sealed class DeterminismGoldenTests
     private static readonly IReadOnlyDictionary<string, string> ExpectedXmlMetadataHashes =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            ["instance/Cube.xml"] = "7e1cdd9d9e3ef20bf50dda876e4ce435809019c4d6d3dbbd2f2fc885c3af1858",
-            ["instance/Dimension.xml"] = "0465171623420221211b6a4aceb597227fcfb06d79dc489d495994faf9b635d7",
-            ["instance/Fact.xml"] = "03482418a41841181a954ab3bd23d93a78f6f7afef652eebf585e4270737de1f",
-            ["instance/Measure.xml"] = "9805a5fe77a8952bb1bed8f274e8f37a52ec55b3409c6da6706e39141e69796f",
-            ["instance/System.xml"] = "da7a807995ff53dfc337f344f8b7173c011c718f5b64ee880c91554781dfce12",
-            ["instance/SystemCube.xml"] = "0d012bd20081ed6ae31d2a38cd8b687ba4381f13cae1a5aabe264c04366b702d",
-            ["instance/SystemDimension.xml"] = "c8c495f17a6db14cccf0e000097b73cbdccdb1e0be29e21e057fa6e414831439",
-            ["instance/SystemFact.xml"] = "33b7bba7b37768b09b8e3b19122fe29ad063473835ed9155561aa53f5ed5d583",
-            ["instance/SystemType.xml"] = "61bd50d754f2a26b860ba877eb5429174ea26e567766dc634b78ed3f5848fb4e",
+            ["instance/Cube.xml"] = "38e2870cc216605b3864a8937d2db7f203cf8efdfa244f1cc69f92edb8a64dc4",
+            ["instance/Dimension.xml"] = "1d57f85733c3c88804a9709bfbb9ee4db50fb786022a5c9aa532646d55539e75",
+            ["instance/Fact.xml"] = "71274cc995b3a9205e068c64c3a24780c03e0ae3cd29bae53af3fc41fbbc8aeb",
+            ["instance/Measure.xml"] = "d5a07951a904f842a85cf9b582b07bbba29c3a030f46bf2d7b6160a50208406b",
+            ["instance/System.xml"] = "68e51da68ae30019c92eaf03e1faac85600198b5e1b01eb5b8651830c535ec83",
+            ["instance/SystemCube.xml"] = "c99e0e66d48be557b784a872db25d44cfb9097b22b278c21af0c291ab346685f",
+            ["instance/SystemDimension.xml"] = "c6be74169de98a90be91cb9f111eef2781908878b3615765e93cba597a6ac63b",
+            ["instance/SystemFact.xml"] = "6791fd3221d121de46492e1a8bd6431c8dc833c11b3efb3141600231f49413ff",
+            ["instance/SystemType.xml"] = "fdb6db2b2b03c595fcd682803aa09ca11e8d21d752551e797c75a999a9f40f2d",
             ["model.xml"] = "6e473c65afd30cac887e822980f4ba541760da99e87ea4ec9c70c89f75b16c09",
-            ["workspace.xml"] = "6035029f2d8f54ac86d296a2cb6458ebdda100e41ed7a6eee46e0540624885f3",
+            ["workspace.xml"] = "53b13bbb57febb1ba3082fd0cd712581f5bb57832f0ad1d889c717ff08ee978c",
         };
 
-    private const string ExpectedXmlMetadataCombinedHash = "99d54f139556cbce6afec096e0dfb4024dd9ffd06ddfcd28af2d3b2b7652f59e";
+    private const string ExpectedXmlMetadataCombinedHash = "2e1ea7d35c10329e02f29032f50d9f5bde386c081705f5c8cf6383325ef08dba";
 
     private static readonly IReadOnlyDictionary<string, string> ExpectedSqlHashes =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -45,7 +47,7 @@ public sealed class DeterminismGoldenTests
         {
             ["Cube.cs"] = "104a7e96a4a39449b8c36910b4b6f797294dd59cc68048444a7c621bd77002dc",
             ["Dimension.cs"] = "ed7690d13eeb3b04d382dabca4cce880252cb3fce28aac211e7a0059be49428a",
-            ["EnterpriseBIPlatform.cs"] = "62ec8ba6105d0154b1a4a222f6eba837657fdec8a5171f57e719c86b685b65c8",
+            ["EnterpriseBIPlatform.cs"] = "00772ffd2d046bd2fc0f3f6fe2772a70247c28920aae6c4d40398f48fe6dc0f5",
             ["Fact.cs"] = "d0c027e86e831b5eaf4726cb63e8f87b740a2b2151c857f25562e983870c9369",
             ["Measure.cs"] = "b742056a6fd8da73e94a844d13781c21a01066da8f5e7cfc9eede041a7065825",
             ["System.cs"] = "bee9f521db049ba82a239474f0d3d5eedc65425378423a557e764632acc21680",
@@ -55,7 +57,7 @@ public sealed class DeterminismGoldenTests
             ["SystemType.cs"] = "98f63c550d044451a04f9322072c15e35915520585242bf0ab22bbe9cbee95bf",
         };
 
-    private const string ExpectedCSharpCombinedHash = "58abdfb7991abfebba8e455c682dc7f9a5c773a4dde5224fd66d06b38f3b6dba";
+    private const string ExpectedCSharpCombinedHash = "d26efbddfa1683a18b3ccd10538e4b09d6e3b21522913793e42270f8910f162e";
 
     [Fact]
     public async Task XmlCanonicalOutput_MatchesGoldenHashes()
@@ -245,23 +247,25 @@ public sealed class DeterminismGoldenTests
 
     private static Task<Workspace> LoadCanonicalSampleWorkspaceAsync(ServiceCollection services)
     {
-        var (modelPath, instancePath, rootPath) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
-        return LoadAndCleanupAsync();
+        _ = services;
+        return Task.FromResult(LoadWorkspaceFromContractFiles(
+            Path.Combine(FindRepositoryRoot(), "Meta.Core.Tests", "TestData", "SampleModel.xml"),
+            Path.Combine(FindRepositoryRoot(), "Meta.Core.Tests", "TestData", "SampleInstance.xml")));
+    }
 
-        async Task<Workspace> LoadAndCleanupAsync()
+    private static Workspace LoadWorkspaceFromContractFiles(string modelPath, string instancePath)
+    {
+        var model = ModelXmlCodec.LoadFromPath(modelPath);
+        var instance = InstanceXmlCodec.LoadFromPath(instancePath, model, sourceShardFileName: string.Empty);
+        return new Workspace
         {
-            try
-            {
-                return await services.ImportService.ImportXmlAsync(modelPath, instancePath).ConfigureAwait(false);
-            }
-            finally
-            {
-                if (Directory.Exists(rootPath))
-                {
-                    Directory.Delete(rootPath, recursive: true);
-                }
-            }
-        }
+            WorkspaceRootPath = "memory",
+            MetadataRootPath = "memory/metadata",
+            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
+            Model = model,
+            Instance = instance,
+            IsDirty = false,
+        };
     }
 
     private sealed class DirectoryManifest

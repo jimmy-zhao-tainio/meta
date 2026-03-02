@@ -8,7 +8,7 @@ namespace Meta.Core.Tests;
 public sealed class BulkRelationshipResolverTests
 {
     [Fact]
-    public void ResolveRelationshipIds_ResolvesLiteralAndPrefixedIds()
+    public void ResolveRelationshipIds_PreservesOpaqueRelationshipIds()
     {
         var workspace = BuildWorkspace();
         var operation = new WorkspaceOp
@@ -27,7 +27,7 @@ public sealed class BulkRelationshipResolverTests
                 {
                     Id = "2",
                     Values = { ["MeasureName"] = "Revenue" },
-                    RelationshipIds = { ["CubeId"] = "id:1" },
+                    RelationshipIds = { ["CubeId"] = "Cube#1" },
                 },
             },
         };
@@ -35,31 +35,7 @@ public sealed class BulkRelationshipResolverTests
         BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
 
         Assert.Equal("2", operation.RowPatches[0].RelationshipIds["CubeId"]);
-        Assert.Equal("1", operation.RowPatches[1].RelationshipIds["CubeId"]);
-    }
-
-    [Fact]
-    public void ResolveRelationshipIds_RejectsLegacySymbolicRowReference()
-    {
-        var workspace = BuildWorkspace();
-        var legacyRowReference = string.Concat("Cube", "#", "1");
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.BulkUpsertRows,
-            EntityName = "Measure",
-            RowPatches =
-            {
-                new RowPatch
-                {
-                    Id = "1",
-                    RelationshipIds = { ["CubeId"] = legacyRowReference },
-                },
-            },
-        };
-
-        var exception = Assert.Throws<InvalidOperationException>(() =>
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation));
-        Assert.Contains("unsupported symbolic row reference", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("Cube#1", operation.RowPatches[1].RelationshipIds["CubeId"]);
     }
 
     private static Workspace BuildWorkspace()

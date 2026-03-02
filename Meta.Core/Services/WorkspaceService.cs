@@ -24,7 +24,6 @@ public sealed class WorkspaceService : IWorkspaceService
     private const string WorkspaceXmlFileName = "workspace.xml";
     private const string ModelFileName = "model.xml";
     private const string InstanceDirectoryName = "instance";
-    private const string InstanceFileName = "instance.xml";
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     public Task<Workspace> LoadAsync(
@@ -154,7 +153,6 @@ public sealed class WorkspaceService : IWorkspaceService
         {
             WriteXmlToFile(BuildModelDocument(workspace.Model), stagingModelPath, indented: true);
             WriteInstanceShards(workspace, stagingInstanceDirectoryPath);
-            DeleteIfExists(Path.Combine(stagingMetadataRootPath, InstanceFileName));
             DeleteIfExists(Path.Combine(stagingMetadataRootPath, WorkspaceXmlFileName));
             BackupWorkspaceConfigIfPresent(workspaceConfigPath, workspaceConfigBackupPath);
             try
@@ -232,14 +230,8 @@ public sealed class WorkspaceService : IWorkspaceService
         {
             var metadataRootPath = Path.Combine(current, MetadataDirectoryName);
             var workspaceXmlPath = Path.Combine(current, WorkspaceXmlFileName);
-            var legacyWorkspaceXmlPath = Path.Combine(metadataRootPath, WorkspaceXmlFileName);
 
             if (File.Exists(workspaceXmlPath))
-            {
-                return new WorkspacePaths(current, metadataRootPath);
-            }
-
-            if (File.Exists(legacyWorkspaceXmlPath))
             {
                 return new WorkspacePaths(current, metadataRootPath);
             }
@@ -282,19 +274,11 @@ public sealed class WorkspaceService : IWorkspaceService
     private static bool IsMetadataDirectoryCandidate(string metadataRootPath)
     {
         return File.Exists(Path.Combine(metadataRootPath, ModelFileName)) ||
-               File.Exists(Path.Combine(metadataRootPath, InstanceFileName)) ||
                Directory.Exists(Path.Combine(metadataRootPath, InstanceDirectoryName));
     }
 
     private static string ResolveMetadataRoot(string workspaceRootPath)
     {
-        var hasDirectCanonical = File.Exists(Path.Combine(workspaceRootPath, ModelFileName)) &&
-                                 File.Exists(Path.Combine(workspaceRootPath, InstanceFileName));
-        if (hasDirectCanonical)
-        {
-            return workspaceRootPath;
-        }
-
         var metadataRootPath = Path.Combine(workspaceRootPath, MetadataDirectoryName);
         return Directory.Exists(metadataRootPath) ? metadataRootPath : workspaceRootPath;
     }
@@ -307,15 +291,6 @@ public sealed class WorkspaceService : IWorkspaceService
             var generated = MetaWorkspaceGenerated.LoadFromXml(workspaceXmlPath);
             var normalizedFromXml = NormalizeWorkspaceConfig(generated, workspaceXmlPath);
             ValidateContractVersion(normalizedFromXml, workspaceXmlPath);
-            return normalizedFromXml;
-        }
-
-        var legacyWorkspaceXmlPath = Path.Combine(metadataRootPath, WorkspaceXmlFileName);
-        if (File.Exists(legacyWorkspaceXmlPath))
-        {
-            var generated = MetaWorkspaceGenerated.LoadFromXml(legacyWorkspaceXmlPath);
-            var normalizedFromXml = NormalizeWorkspaceConfig(generated, legacyWorkspaceXmlPath);
-            ValidateContractVersion(normalizedFromXml, legacyWorkspaceXmlPath);
             return normalizedFromXml;
         }
 
@@ -386,34 +361,16 @@ public sealed class WorkspaceService : IWorkspaceService
             }
         }
 
-        var monolithicPath = FirstExistingPath(new[]
+        if (hasShardDirectory)
         {
-            Path.Combine(metadataRootPath, InstanceFileName),
-            Path.Combine(workspaceRootPath, InstanceFileName),
-        });
-
-        if (string.IsNullOrWhiteSpace(monolithicPath))
-        {
-            if (hasShardDirectory)
+            return new GenericInstance
             {
-                return new GenericInstance
-                {
-                    ModelName = model.Name ?? string.Empty,
-                };
-            }
-
-            throw new FileNotFoundException(
-                $"Could not find sharded instance files in '{shardDirectoryPath}' and could not find {InstanceFileName} in '{metadataRootPath}'.");
+                ModelName = model.Name ?? string.Empty,
+            };
         }
 
-        return ReadInstanceMonolithic(monolithicPath, model);
-    }
-
-    private static GenericInstance ReadInstanceMonolithic(
-        string instancePath,
-        GenericModel model)
-    {
-        return InstanceXmlCodec.LoadFromPath(instancePath, model, sourceShardFileName: string.Empty);
+        throw new FileNotFoundException(
+            $"Could not find sharded instance files in '{shardDirectoryPath}'.");
     }
 
     private static GenericInstance ReadInstanceShards(

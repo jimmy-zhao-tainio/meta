@@ -18,13 +18,12 @@ public sealed class GenericModel
 public sealed class GenericEntity
 {
     public string Name { get; set; } = string.Empty;
-    public string Plural { get; set; } = string.Empty;
     public List<GenericProperty> Properties { get; } = new();
     public List<GenericRelationship> Relationships { get; } = new();
 
-    public string GetPluralName()
+    public string GetListName()
     {
-        return string.IsNullOrWhiteSpace(Plural) ? Name + "s" : Plural;
+        return Name + "List";
     }
 
     public GenericRelationship? FindRelationshipByRole(string role)

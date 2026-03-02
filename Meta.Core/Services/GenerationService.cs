@@ -110,15 +110,6 @@ public static class GenerationService
         builder.AppendLine("            return services.WorkspaceService.SaveAsync(workspace, cancellationToken);");
         builder.AppendLine("        }");
         builder.AppendLine();
-        builder.AppendLine("        public static Task<Workspace> ImportXmlAsync(");
-        builder.AppendLine("            string modelPath,");
-        builder.AppendLine("            string instancePath,");
-        builder.AppendLine("            CancellationToken cancellationToken = default)");
-        builder.AppendLine("        {");
-        builder.AppendLine("            var services = new ServiceCollection();");
-        builder.AppendLine("            return services.ImportService.ImportXmlAsync(modelPath, instancePath, cancellationToken);");
-        builder.AppendLine("        }");
-        builder.AppendLine();
         builder.AppendLine("        public static Task<Workspace> ImportSqlAsync(");
         builder.AppendLine("            string connectionString,");
         builder.AppendLine("            string schema = \"dbo\",");
@@ -376,7 +367,8 @@ public static class GenerationService
         builder.AppendLine($"        public static {modelTypeName}Instance BuiltIn => _builtIn;");
         foreach (var entity in entities)
         {
-            builder.AppendLine($"        public static IReadOnlyList<{entity.Name}> {entity.GetPluralName()} => _builtIn.{entity.GetPluralName()};");
+            var collectionName = entity.GetListName();
+            builder.AppendLine($"        public static IReadOnlyList<{entity.Name}> {collectionName} => _builtIn.{collectionName};");
         }
 
         builder.AppendLine("    }");
@@ -388,21 +380,21 @@ public static class GenerationService
         {
             var entity = entities[index];
             var suffix = index == entities.Count - 1 ? string.Empty : ",";
-            builder.AppendLine($"            IReadOnlyList<{entity.Name}> {ToCamelIdentifier(entity.GetPluralName())}{suffix}");
+            builder.AppendLine($"            IReadOnlyList<{entity.Name}> {ToCamelIdentifier(entity.GetListName())}{suffix}");
         }
 
         builder.AppendLine("        )");
         builder.AppendLine("        {");
         foreach (var entity in entities)
         {
-            builder.AppendLine($"            {entity.GetPluralName()} = {ToCamelIdentifier(entity.GetPluralName())};");
+            builder.AppendLine($"            {entity.GetListName()} = {ToCamelIdentifier(entity.GetListName())};");
         }
 
         builder.AppendLine("        }");
         builder.AppendLine();
         foreach (var entity in entities)
         {
-            builder.AppendLine($"        public IReadOnlyList<{entity.Name}> {entity.GetPluralName()} {{ get; }}");
+            builder.AppendLine($"        public IReadOnlyList<{entity.Name}> {entity.GetListName()} {{ get; }}");
         }
 
         builder.AppendLine("    }");
@@ -421,7 +413,7 @@ public static class GenerationService
                     .ToList()
                 : new List<GenericRecord>();
 
-            var rowsVar = ToCamelIdentifier(entity.GetPluralName());
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
             builder.AppendLine($"            var {rowsVar} = new List<{entity.Name}>");
             builder.AppendLine("            {");
             foreach (var record in records)
@@ -461,7 +453,7 @@ public static class GenerationService
 
         foreach (var entity in entities)
         {
-            var rowsVar = ToCamelIdentifier(entity.GetPluralName());
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
             builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.Ordinal);");
             builder.AppendLine($"            foreach (var row in {rowsVar})");
             builder.AppendLine("            {");
@@ -472,14 +464,14 @@ public static class GenerationService
 
         foreach (var entity in entities)
         {
-            var rowsVar = ToCamelIdentifier(entity.GetPluralName());
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
             foreach (var relationship in entity.Relationships
                          .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
                          .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
                          .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
             {
                 var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
-                var targetVar = ToCamelIdentifier(targetEntity.GetPluralName());
+                var targetVar = ToCamelIdentifier(targetEntity.GetListName());
                 builder.AppendLine($"            foreach (var row in {rowsVar})");
                 builder.AppendLine("            {");
                 builder.AppendLine($"                row.{relationship.GetNavigationName()} = RequireTarget(");
@@ -498,7 +490,7 @@ public static class GenerationService
         {
             var entity = entities[index];
             var suffix = index == entities.Count - 1 ? string.Empty : ",";
-            builder.AppendLine($"                new ReadOnlyCollection<{entity.Name}>({ToCamelIdentifier(entity.GetPluralName())}){suffix}");
+            builder.AppendLine($"                new ReadOnlyCollection<{entity.Name}>({ToCamelIdentifier(entity.GetListName())}){suffix}");
         }
 
         builder.AppendLine("            );");

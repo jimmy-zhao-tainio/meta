@@ -9,10 +9,6 @@ internal sealed partial class CliRuntime
     
         var fromEntityName = commandArgs[3];
         var fromId = commandArgs[4];
-        if (ContainsLegacyInstanceReferenceSyntax(fromId))
-        {
-            return PrintArgumentError($"Error: unsupported instance reference '{fromId}'. Use <Entity> <Id>.");
-        }
         var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 5);
         if (!options.Ok)
         {

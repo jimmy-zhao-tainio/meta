@@ -65,7 +65,7 @@ Instance data may be sharded: multiple instance files can contain rows for the s
 
 Workspace operations: create and inspect workspaces (`init`, `status`).  
 Validation and inspection: check integrity and explore model/instance (`check`, `list`, `view`, `query`, `graph`).  
-Edits: mutate models and instance data (`model ...`, `insert`, `delete`, `bulk-insert`, `instance update`, `instance relationship set|list`, `instance diff`, `instance merge`).  
+Edits: mutate models and instance data (`model ...`, `insert`, `delete`, `bulk-insert`, `instance update`, `instance rename-id`, `instance relationship set|list`, `instance diff`, `instance merge`).  
 Model analysis and guided refactor: read-only relationship inference (`model suggest`) and atomic model+instance refactors (`model refactor property-to-relationship`, `model refactor relationship-to-property`).  
 Pipelines: import and emit representations (`import ...`, `generate ...`).
 
@@ -79,7 +79,7 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="EnterpriseBIPlatform">
   <Entities>
-    <Entity name="Cube" plural="Cubes">
+    <Entity name="Cube">
       <Properties>
         <Property name="CubeName" />
         <Property name="Purpose" isRequired="false" />
@@ -87,7 +87,7 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
       </Properties>
     </Entity>
 
-    <Entity name="Measure" plural="Measures">
+    <Entity name="Measure">
       <Properties>
         <Property name="MeasureName" />
         <Property name="MDX" isRequired="false" />
@@ -97,13 +97,13 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
       </Relationships>
     </Entity>
 
-    <Entity name="SystemType" plural="SystemTypes">
+    <Entity name="SystemType">
       <Properties>
         <Property name="TypeName" />
       </Properties>
     </Entity>
 
-    <Entity name="System" plural="Systems">
+    <Entity name="System">
       <Properties>
         <Property name="SystemName" />
         <Property name="Version" isRequired="false" />
@@ -113,7 +113,7 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
       </Relationships>
     </Entity>
 
-    <Entity name="SystemCube" plural="SystemCubes">
+    <Entity name="SystemCube">
       <Properties>
         <Property name="ProcessingMode" isRequired="false" />
       </Properties>
@@ -131,39 +131,39 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <EnterpriseBIPlatform>
-  <Cubes>
+  <CubeList>
     <Cube Id="1">
       <CubeName>Sales Performance</CubeName>
       <Purpose>Monthly revenue and margin tracking.</Purpose>
       <RefreshMode>Scheduled</RefreshMode>
     </Cube>
-  </Cubes>
+  </CubeList>
 
-  <Measures>
+  <MeasureList>
     <Measure Id="1" CubeId="1">
       <MeasureName>Sales Amount</MeasureName>
       <MDX>[Measures].[Sales Amount]</MDX>
     </Measure>
-  </Measures>
+  </MeasureList>
 
-  <SystemTypes>
+  <SystemTypeList>
     <SystemType Id="1">
       <TypeName>Internal</TypeName>
     </SystemType>
-  </SystemTypes>
+  </SystemTypeList>
 
-  <Systems>
+  <SystemList>
     <System Id="1" SystemTypeId="1">
       <SystemName>Enterprise Analytics Platform</SystemName>
       <Version>2.1</Version>
     </System>
-  </Systems>
+  </SystemList>
 
-  <SystemCubes>
+  <SystemCubeList>
     <SystemCube Id="1" CubeId="1" SystemId="1">
       <ProcessingMode>InMemory</ProcessingMode>
     </SystemCube>
-  </SystemCubes>
+  </SystemCubeList>
 </EnterpriseBIPlatform>
 ```
 
@@ -238,18 +238,18 @@ using System;
 using System.Linq;
 
 // Consumer view: dependency-free POCOs + a strongly-typed model facade.
-foreach (var system in EnterpriseBIPlatform.Systems)
+foreach (var system in EnterpriseBIPlatform.SystemList)
 {
     Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
 
-    foreach (var link in EnterpriseBIPlatform.SystemCubes.Where(x => x.SystemId == system.Id))
+    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x => x.SystemId == system.Id))
     {
         var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
         Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
     }
 }
 
-foreach (var measure in EnterpriseBIPlatform.Measures)
+foreach (var measure in EnterpriseBIPlatform.MeasureList)
 {
     Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
 }
@@ -297,7 +297,7 @@ A model has one root `<Model name="...">` and then:
 
 - `<Entity>` defines a record type (like a table).
 - `name="Cube"` is the singular name.
-- `plural="Cubes"` controls how instances are grouped in instance XML (and exposed in emitted C# APIs). If omitted, plural defaults to `<EntityName>s`.
+- Instances are grouped under a deterministic `<EntityName>List` container in XML and emitted C# root collections use the same `<EntityName>List` naming.
 - `<Properties>` lists scalar fields for the entity. `dataType="string"` is the default and omitted; properties are required by default (`isRequired="true"`), and optional fields use `isRequired="false"`.
 - `<Relationships>` lists required foreign-key style references to other entities. A relationship points to a target entity and is required by default. In instance XML it becomes `${TargetEntity}Id` by default. If you need multiple relationships to the same target, specify `role="..."` and it becomes `${Role}Id`.
 - `Id` is implicit on every entity, so `Property name="Id"` is not written.
@@ -307,7 +307,7 @@ Example:
 ```xml
 <Model name="EnterpriseBIPlatform">
   <Entities>
-    <Entity name="Measure" plural="Measures">
+    <Entity name="Measure">
       <Properties>
         <Property name="MeasureName" />
       </Properties>
@@ -326,7 +326,7 @@ Example:
 
 The root element is the model name (for example `<EnterpriseBIPlatform>`).
 
-Each entity's instances are grouped under a plural container element (for example `<Cubes>`, `<Measures>`). Inside the container, each record is written as the singular entity element (for example `<Cube ...>`, `<Measure ...>`).
+Each entity's instances are grouped under a deterministic list container element (for example `<CubeList>`, `<MeasureList>`). Inside the container, each record is written as the singular entity element (for example `<Cube ...>`, `<Measure ...>`).
 
 Every record must have an `Id="..."` attribute.
 
@@ -337,12 +337,12 @@ Scalar properties are written as child elements. Missing element means unset. An
 Example:
 
 ```xml
-<Measures>
+<MeasureList>
   <Measure Id="1" CubeId="10" SourceCubeId="11">
     <MeasureName>Sales Amount</MeasureName>
     <Notes />
   </Measure>
-</Measures>
+</MeasureList>
 ```
 
 ## Meta command guide
@@ -391,10 +391,10 @@ Global behavior:
 | `meta model suggest` | Read-only relationship inference; only fully resolvable many-to-one promotions are printed by default. | `meta model suggest` |
 | `meta model suggest --print-commands` | Print copy/paste refactor commands for eligible suggestions. | `meta model suggest --print-commands` |
 | `meta model suggest --show-keys --explain` | Include candidate key diagnostics and explain blocks. | `meta model suggest --show-keys --explain` |
-| `meta model refactor property-to-relationship ...` | Atomic model+instance rewrite from scalar property to required relationship. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property` |
+| `meta model refactor property-to-relationship ...` | Atomic model+instance rewrite from scalar property to required relationship. Source property is dropped by default; `--preserve-property` keeps it only when the implied relationship usage name would not collide. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id` |
 | `meta model refactor relationship-to-property ...` | Atomic model+instance rewrite from required relationship back to scalar Id property. | `meta model refactor relationship-to-property --source Order --target Warehouse` |
 | `meta model add-entity <Name>` | Add a new entity definition. | `meta model add-entity SourceSystem` |
-| `meta model rename-entity <Old> <New>` | Atomically rename an entity and follow implied relationship FK names. | `meta model rename-entity SourceSystem Source` |
+| `meta model rename-entity <Old> <New>` | Atomically rename an entity, update relationship targets, and rename implied non-role FK names. | `meta model rename-entity SourceSystem Source` |
 | `meta model drop-entity <Entity>` | Drop entity definition (blocked if instances or inbound refs exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> ...` | Add scalar property; uses `--default-value` to backfill required additions on existing rows. | `meta model add-property Cube Purpose --required true --default-value Unknown` |
 | `meta model rename-property <Entity> <Old> <New>` | Rename one scalar property. | `meta model rename-property Cube Purpose BusinessPurpose` |
@@ -409,8 +409,9 @@ Global behavior:
 | `meta insert <Entity> <Id> --set ...` | Insert one row with explicit Id. | `meta insert Cube 10 --set "CubeName=Ops Cube"` |
 | `meta insert <Entity> --auto-id --set ...` | Insert one brand-new row with generated numeric Id when no external identity exists. | `meta insert Cube --auto-id --set "CubeName=Auto Cube"` |
 | `meta bulk-insert <Entity> ...` | Insert many rows from tsv/csv file or stdin. | `meta bulk-insert Cube --from tsv --file .\\cube.tsv --key Id` |
-| `meta instance update <Entity> <Id> --set ...` | Update fields on one row by Id. | `meta instance update Cube 10 --set "Purpose=Operations reporting"` |
-| `meta instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId>` | Set exact-one relationship usage to target row. | `meta instance relationship set Measure 1 --to Cube 10` |
+| `meta instance update <Entity> <Id> --set ...` | Update fields on one row by Id. Use `instance rename-id` to change the row Id itself. | `meta instance update Cube 10 --set "Purpose=Operations reporting"` |
+| `meta instance rename-id <Entity> <OldId> <NewId>` | Atomically rename one row Id and update inbound relationships that reference it. | `meta instance rename-id Cube 10 Cube-010` |
+| `meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId>` | Set one relationship usage. The selector may be the target entity, relationship role, or implied relationship field name. | `meta instance relationship set Measure 1 --to Cube 10` |
 | `meta instance relationship list <FromEntity> <FromId>` | List relationship usages for one row. | `meta instance relationship list Measure 1` |
 | `meta delete <Entity> <Id>` | Delete one row by Id. | `meta delete Cube 10` |
 
@@ -437,15 +438,14 @@ Id policy:
 
 | Command | What it is for | Example |
 |---|---|---|
-| `meta import xml <modelXml> <instanceXml> --new-workspace <path>` | Create new workspace from XML model+instance files. | `meta import xml .\\model.xml .\\instance.xml --new-workspace .\\ImportedWorkspace` |
 | `meta import sql <connectionString> <schema> --new-workspace <path>` | Create a new workspace by importing a SQL schema into workspace form (model + instance). | `meta import sql "Server=.;Database=EnterpriseBIPlatform;Trusted_Connection=True;TrustServerCertificate=True;" dbo --new-workspace .\\ImportedWorkspace` |
-| `meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] (--new-workspace <path> or --workspace <path>)` | Landing import: one CSV to one entity + rows in new or existing workspace, requiring a CSV column named `Id` and using those values as instance identities. | `meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace` |
+| `meta import csv <csvFile> --entity <EntityName> (--new-workspace <path> or --workspace <path>)` | Landing import: one CSV to one entity + rows in new or existing workspace, requiring a CSV column named `Id` and using those values as instance identities. | `meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace` |
 | `meta generate sql --out <dir>` | Emit deterministic SQL schema + data consumables. | `meta generate sql --out .\\out\\sql` |
 | `meta generate csharp --out <dir>` | Emit dependency-free consumer C# API consumables. | `meta generate csharp --out .\\out\\csharp` |
 | `meta generate csharp --out <dir> --tooling` | Emit optional tooling helpers for load/save/import flows. | `meta generate csharp --out .\\out\\csharp --tooling` |
 | `meta generate ssdt --out <dir>` | Emit `Schema.sql`, `Data.sql`, `PostDeploy.sql`, and `Metadata.sqlproj`. | `meta generate ssdt --out .\\out\\ssdt` |
 
-`meta import csv` is Id-first: the file must contain a column named `Id` (case-insensitive header match). On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Use `--plural <PluralName>` when an entity needs an explicit container name such as `Category -> Categories`. There is no alternate id-column mapping and no best-effort reconciliation.
+`meta import csv` is Id-first: the file must contain a column named `Id` (case-insensitive header match). On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Entity containers are always `<EntityName>List`. There is no alternate id-column mapping and no best-effort reconciliation.
 
 ### Suggest workflow
 
@@ -469,16 +469,16 @@ For Id-first landing, the sanctioned structural rule is `ProductId -> Product.Id
 meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
 cd .\Workspace
 meta import csv ..\demo-csv\suppliers.csv --entity Supplier
-meta import csv ..\demo-csv\categories.csv --entity Category --plural Categories
+meta import csv ..\demo-csv\categories.csv --entity Category
 meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
 meta import csv ..\demo-csv\orders.csv --entity Order
 
 meta model suggest
 meta model suggest --print-commands
 
-meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id --drop-source-property
-meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id --drop-source-property
-meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property
+meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
+meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id
+meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id
 
 meta model suggest
 meta check
@@ -542,7 +542,7 @@ After running all three `property-to-relationship` refactors (`ProductId`, `Supp
 </Entity>
 ```
 
-These promotions rewrite each `Order` row from scalar `ProductId`/`SupplierId`/`WarehouseId` elements to required relationship usages with the same names as XML attributes, then remove the source scalar properties when `--drop-source-property` is used.
+These promotions rewrite each `Order` row from scalar `ProductId`/`SupplierId`/`WarehouseId` elements to required relationship usages with the same names as XML attributes, and by default remove the source scalar properties. Use `--preserve-property` only when the scalar field name will not collide with the implied relationship usage name.
 
 Instance diff/merge can be used to propagate these changes across workspaces (see **Instance diff and merge**).
 
@@ -769,4 +769,5 @@ Full command surface and contracts: `COMMANDS.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 ```
+
 

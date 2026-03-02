@@ -10,6 +10,7 @@ public sealed class ServiceCollection
     public IExportService ExportService { get; }
     public IOperationService OperationService { get; }
     public IModelRefactorService ModelRefactorService { get; }
+    public IInstanceRefactorService InstanceRefactorService { get; }
 
     public ServiceCollection()
     {
@@ -17,6 +18,7 @@ public sealed class ServiceCollection
         ValidationService = new ValidationService();
         OperationService = new OperationService();
         ModelRefactorService = new ModelRefactorService();
+        InstanceRefactorService = new InstanceRefactorService();
         ImportService = new ImportService(WorkspaceService);
         ExportService = new ExportService(WorkspaceService);
     }

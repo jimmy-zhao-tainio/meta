@@ -309,11 +309,10 @@ internal sealed partial class CliRuntime
         return (true, newWorkspacePath, string.Empty);
     }
 
-    (bool Ok, string EntityName, string PluralName, bool UseNewWorkspace, string WorkspacePath, string NewWorkspacePath, string ErrorMessage)
+    (bool Ok, string EntityName, bool UseNewWorkspace, string WorkspacePath, string NewWorkspacePath, string ErrorMessage)
         ParseImportCsvOptions(string[] commandArgs, int startIndex)
     {
         var entityName = string.Empty;
-        var pluralName = string.Empty;
         var workspacePath = DefaultWorkspacePath();
         var workspaceSelected = !string.IsNullOrWhiteSpace(globalWorkspacePath);
         var newWorkspacePath = string.Empty;
@@ -325,39 +324,18 @@ internal sealed partial class CliRuntime
             {
                 if (i + 1 >= commandArgs.Length)
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --entity requires a value.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity requires a value.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(entityName))
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --entity can only be provided once.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity can only be provided once.");
                 }
 
                 entityName = commandArgs[++i].Trim();
                 if (string.IsNullOrWhiteSpace(entityName))
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --entity requires a non-empty value.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--plural", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --plural requires a value.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(pluralName))
-                {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --plural can only be provided once.");
-                }
-
-                pluralName = commandArgs[++i].Trim();
-                if (string.IsNullOrWhiteSpace(pluralName))
-                {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --plural requires a non-empty value.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity requires a non-empty value.");
                 }
 
                 continue;
@@ -367,12 +345,12 @@ internal sealed partial class CliRuntime
             {
                 if (i + 1 >= commandArgs.Length)
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --workspace requires a path.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --workspace requires a path.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(newWorkspacePath))
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath,
+                    return (false, entityName, false, workspacePath, newWorkspacePath,
                         "Error: use either --workspace <path> or --new-workspace <path>, not both.");
                 }
 
@@ -385,33 +363,33 @@ internal sealed partial class CliRuntime
             {
                 if (i + 1 >= commandArgs.Length)
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --new-workspace requires a path.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --new-workspace requires a path.");
                 }
 
                 if (workspaceSelected)
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath,
+                    return (false, entityName, false, workspacePath, newWorkspacePath,
                         "Error: use either --workspace <path> or --new-workspace <path>, not both.");
                 }
 
                 if (!string.IsNullOrWhiteSpace(newWorkspacePath))
                 {
-                    return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: --new-workspace can only be provided once.");
+                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --new-workspace can only be provided once.");
                 }
 
                 newWorkspacePath = commandArgs[++i];
                 continue;
             }
 
-            return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, $"Error: unknown option '{arg}'.");
+            return (false, entityName, false, workspacePath, newWorkspacePath, $"Error: unknown option '{arg}'.");
         }
 
         if (string.IsNullOrWhiteSpace(entityName))
         {
-            return (false, entityName, pluralName, false, workspacePath, newWorkspacePath, "Error: import csv requires --entity <EntityName>.");
+            return (false, entityName, false, workspacePath, newWorkspacePath, "Error: import csv requires --entity <EntityName>.");
         }
 
-        return (true, entityName, pluralName, !string.IsNullOrWhiteSpace(newWorkspacePath), workspacePath, newWorkspacePath, string.Empty);
+        return (true, entityName, !string.IsNullOrWhiteSpace(newWorkspacePath), workspacePath, newWorkspacePath, string.Empty);
     }
     
     
@@ -640,10 +618,10 @@ internal sealed partial class CliRuntime
         return (true, workspacePath, outputDirectory, includeTooling, string.Empty);
     }
     
-    (bool Ok, string ToEntity, string ToId, string WorkspacePath, string ErrorMessage)
+    (bool Ok, string RelationshipSelector, string ToId, string WorkspacePath, string ErrorMessage)
         ParseInstanceRelationshipSetOptions(string[] commandArgs, int startIndex)
     {
-        var toEntity = string.Empty;
+        var relationshipSelector = string.Empty;
         var toId = string.Empty;
         var workspacePath = DefaultWorkspacePath();
     
@@ -654,10 +632,10 @@ internal sealed partial class CliRuntime
             {
                 if (i + 2 >= commandArgs.Length)
                 {
-                    return (false, toEntity, toId, workspacePath, "Error: --to requires <ToEntity> <ToId>.");
+                    return (false, relationshipSelector, toId, workspacePath, "Error: --to requires <RelationshipSelector> <ToId>.");
                 }
     
-                toEntity = commandArgs[++i];
+                relationshipSelector = commandArgs[++i];
                 toId = commandArgs[++i];
                 continue;
             }
@@ -666,17 +644,17 @@ internal sealed partial class CliRuntime
             {
                 if (i + 1 >= commandArgs.Length)
                 {
-                    return (false, toEntity, toId, workspacePath, "Error: --workspace requires a path.");
+                    return (false, relationshipSelector, toId, workspacePath, "Error: --workspace requires a path.");
                 }
     
                 workspacePath = commandArgs[++i];
                 continue;
             }
     
-            return (false, toEntity, toId, workspacePath, $"Error: unknown option '{arg}'.");
+            return (false, relationshipSelector, toId, workspacePath, $"Error: unknown option '{arg}'.");
         }
     
-        return (true, toEntity, toId, workspacePath, string.Empty);
+        return (true, relationshipSelector, toId, workspacePath, string.Empty);
     }
     
     (bool Ok, Dictionary<string, string> SetValues, string WorkspacePath, bool AutoId, string ErrorMessage)

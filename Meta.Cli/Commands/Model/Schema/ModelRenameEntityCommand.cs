@@ -78,10 +78,22 @@ internal sealed partial class CliRuntime
 
         var oldEntityName = commandArgs[startIndex].Trim();
         var newEntityName = commandArgs[startIndex + 1].Trim();
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex + 2);
-        if (!options.Ok)
+        var workspacePath = DefaultWorkspacePath();
+        for (var i = startIndex + 2; i < commandArgs.Length; i++)
         {
-            return (false, default, options.ErrorMessage);
+            var arg = commandArgs[i];
+            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 >= commandArgs.Length)
+                {
+                    return (false, default, "Error: --workspace requires a path.");
+                }
+
+                workspacePath = commandArgs[++i];
+                continue;
+            }
+
+            return (false, default, $"Error: unknown option '{arg}'.");
         }
 
         if (string.IsNullOrWhiteSpace(oldEntityName) || string.IsNullOrWhiteSpace(newEntityName))
@@ -95,7 +107,7 @@ internal sealed partial class CliRuntime
         }
 
         return (true, new RenameEntityCommandOptions(
-            WorkspacePath: options.WorkspacePath,
+            WorkspacePath: workspacePath,
             Refactor: new RenameEntityRefactorOptions(oldEntityName, newEntityName)), string.Empty);
     }
 

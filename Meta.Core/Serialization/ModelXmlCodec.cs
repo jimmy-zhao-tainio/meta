@@ -49,8 +49,12 @@ public static class ModelXmlCodec
             var entity = new GenericEntity
             {
                 Name = (string?)entityElement.Attribute("name") ?? string.Empty,
-                Plural = ((string?)entityElement.Attribute("plural") ?? string.Empty).Trim(),
             };
+            if (entityElement.Attribute("plural") != null)
+            {
+                throw new InvalidDataException(
+                    $"Model entity '{entity.Name}' uses unsupported attribute 'plural'. Use singular entity/list naming only.");
+            }
 
             var propertiesElement = entityElement.Element("Properties");
             if (propertiesElement != null)
@@ -122,12 +126,6 @@ public static class ModelXmlCodec
         foreach (var entity in model.Entities.OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
         {
             var entityElement = new XElement("Entity", new XAttribute("name", entity.Name ?? string.Empty));
-            var defaultPlural = (entity.Name ?? string.Empty) + "s";
-            if (!string.IsNullOrWhiteSpace(entity.Plural) &&
-                !string.Equals(entity.Plural, defaultPlural, StringComparison.Ordinal))
-            {
-                entityElement.Add(new XAttribute("plural", entity.Plural));
-            }
 
             var nonIdProperties = entity.Properties
                 .OrderBy(item => string.Equals(item.Name, "Id", StringComparison.OrdinalIgnoreCase) ? 0 : 1)

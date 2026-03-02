@@ -49,7 +49,7 @@ internal sealed partial class CliRuntime
                 ("Target", result.TargetEntityName),
                 ("Lookup", result.LookupAddress),
                 ("Role", string.IsNullOrWhiteSpace(result.Role) ? "(none)" : result.Role),
-                ("Drop source property", refactorOptions.DropSourceProperty ? "yes" : "no"));
+                ("Preserve property", refactorOptions.DropSourceProperty ? "no" : "yes"));
             presenter.WriteInfo($"Rows rewritten: {result.RowsRewritten}");
             presenter.WriteInfo($"Property dropped: {(result.PropertyDropped ? "yes" : "no")}");
             return 0;
@@ -82,7 +82,7 @@ internal sealed partial class CliRuntime
         var target = string.Empty;
         var lookup = string.Empty;
         var role = string.Empty;
-        var dropSourceProperty = false;
+        var preserveProperty = false;
 
         for (var i = startIndex; i < commandArgs.Length; i++)
         {
@@ -142,9 +142,9 @@ internal sealed partial class CliRuntime
                 continue;
             }
 
-            if (string.Equals(arg, "--drop-source-property", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(arg, "--preserve-property", StringComparison.OrdinalIgnoreCase))
             {
-                dropSourceProperty = true;
+                preserveProperty = true;
                 continue;
             }
 
@@ -187,7 +187,7 @@ internal sealed partial class CliRuntime
                 TargetEntityName: target,
                 LookupPropertyName: lookup,
                 Role: role,
-                DropSourceProperty: dropSourceProperty));
+                DropSourceProperty: !preserveProperty));
 
         return (true, options, string.Empty);
     }

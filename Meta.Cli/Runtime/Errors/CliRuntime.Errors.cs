@@ -419,7 +419,7 @@ internal sealed partial class CliRuntime
         else if (normalized.Contains("--new-workspace", StringComparison.OrdinalIgnoreCase) ||
                  normalized.Contains("import requires --new-workspace", StringComparison.OrdinalIgnoreCase))
         {
-            var importMode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "xml";
+            var importMode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "sql";
             if (string.Equals(importMode, "sql", StringComparison.OrdinalIgnoreCase))
             {
                 detailHints.Add("example: meta import sql \"Server=...;Database=...;...\" dbo --new-workspace .\\ImportedWorkspace");
@@ -427,10 +427,6 @@ internal sealed partial class CliRuntime
             else if (string.Equals(importMode, "csv", StringComparison.OrdinalIgnoreCase))
             {
                 detailHints.Add("example: meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace");
-            }
-            else
-            {
-                detailHints.Add("example: meta import xml .\\model.xml .\\instance.xml --new-workspace .\\ImportedWorkspace");
             }
         }
         var usage = BuildUsageHintForCurrentArgs();
@@ -909,7 +905,7 @@ internal sealed partial class CliRuntime
                 .OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase)
                 .Select(row => row.Id)
                 .FirstOrDefault() ?? "1";
-            hints.Add($"Next: meta instance relationship set {fromEntity} {QuoteInstanceId(sampleRowId)} --to {toEntity} <ToId>");
+            hints.Add($"Next: meta instance relationship set {fromEntity} {QuoteInstanceId(sampleRowId)} --to <RelationshipSelector> <ToId>");
         }
     
         var relationshipNotFoundMatch = Regex.Match(

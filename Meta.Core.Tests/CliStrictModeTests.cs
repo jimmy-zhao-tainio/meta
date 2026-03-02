@@ -76,7 +76,6 @@ public sealed class CliStrictModeTests
     public async Task HumanFailures_DoNotLeakDiagnosticKeyValueTokens_AndUseSingleNext()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
-        var (modelPath, instancePath, contractsRoot) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
         var nonEmptyImportTarget = Path.Combine(Path.GetTempPath(), "metadata-import-target", Guid.NewGuid().ToString("N"));
         var brokenWorkspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-broken", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(nonEmptyImportTarget);
@@ -85,7 +84,7 @@ public sealed class CliStrictModeTests
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "metadata", "instance"));
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
-            "<MetaWorkspace><Workspaces><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></Workspaces><WorkspaceLayouts><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayouts><Encodings><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></Encodings><NewlinesValues><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesValues><CanonicalOrders><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrders><EntityStorages /></MetaWorkspace>");
+            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
             "<Model name=\"Broken\"><Entities><Entity name=\"X\"></Entities></Model>");
@@ -95,13 +94,7 @@ public sealed class CliStrictModeTests
             var outputs = new[]
             {
                 (await RunCliAsync("view", "entity", "MissingEntity", "--workspace", workspaceRoot)).CombinedOutput,
-                (await RunCliAsync(
-                    "import",
-                    "xml",
-                    modelPath,
-                    instancePath,
-                    "--new-workspace",
-                    nonEmptyImportTarget)).CombinedOutput,
+                (await RunCliAsync("init", nonEmptyImportTarget)).CombinedOutput,
                 (await RunCliAsync("status", "--workspace", brokenWorkspaceRoot)).CombinedOutput,
             };
 
@@ -131,7 +124,6 @@ public sealed class CliStrictModeTests
         finally
         {
             DeleteDirectorySafe(workspaceRoot);
-            DeleteDirectorySafe(contractsRoot);
             DeleteDirectorySafe(nonEmptyImportTarget);
             DeleteDirectorySafe(brokenWorkspaceRoot);
         }
@@ -184,7 +176,7 @@ public sealed class CliStrictModeTests
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "metadata", "instance"));
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
-            "<MetaWorkspace><Workspaces><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></Workspaces><WorkspaceLayouts><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayouts><Encodings><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></Encodings><NewlinesValues><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesValues><CanonicalOrders><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrders><EntityStorages /></MetaWorkspace>");
+            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
             "<Model name=\"Broken\"><Entities><Entity name=\"X\"></Entities></Model>");
@@ -322,7 +314,7 @@ public sealed class CliStrictModeTests
         Assert.Contains("--source <Entity.Property>", refactorHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--target <Entity>", refactorHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--lookup <Property>", refactorHelp.StdOut, StringComparison.Ordinal);
-        Assert.Contains("--drop-source-property", refactorHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("--preserve-property", refactorHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--workspace <path>", refactorHelp.StdOut, StringComparison.Ordinal);
 
         var inverseRefactorHelp = await RunCliAsync("model", "refactor", "relationship-to-property", "--help");
@@ -336,8 +328,18 @@ public sealed class CliStrictModeTests
 
         var renameEntityHelp = await RunCliAsync("model", "rename-entity", "--help");
         Assert.Equal(0, renameEntityHelp.ExitCode);
-        Assert.Contains("meta model rename-entity <Old> <New>", renameEntityHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta model rename-entity <Old> <New> [--workspace <path>]", renameEntityHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--workspace <path>", renameEntityHelp.StdOut, StringComparison.Ordinal);
+
+        var renameIdHelp = await RunCliAsync("instance", "rename-id", "--help");
+        Assert.Equal(0, renameIdHelp.ExitCode);
+        Assert.Contains("meta instance rename-id <Entity> <OldId> <NewId>", renameIdHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("--workspace <path>", renameIdHelp.StdOut, StringComparison.Ordinal);
+
+        var relationshipSetHelp = await RunCliAsync("instance", "relationship", "set", "--help");
+        Assert.Equal(0, relationshipSetHelp.ExitCode);
+        Assert.Contains("meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId>", relationshipSetHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("target entity, relationship role, or implied relationship field name", relationshipSetHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -436,15 +438,15 @@ public sealed class CliStrictModeTests
                 result.StdOut,
                 StringComparison.Ordinal);
             Assert.Contains(
-                "--source Order.ProductId --target Product --lookup Id --drop-source-property",
+                "--source Order.ProductId --target Product --lookup Id",
                 result.StdOut,
                 StringComparison.Ordinal);
             Assert.Contains(
-                "--source Order.SupplierId --target Supplier --lookup Id --drop-source-property",
+                "--source Order.SupplierId --target Supplier --lookup Id",
                 result.StdOut,
                 StringComparison.Ordinal);
             Assert.Contains(
-                "--source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property",
+                "--source Order.WarehouseId --target Warehouse --lookup Id",
                 result.StdOut,
                 StringComparison.Ordinal);
         }
@@ -671,23 +673,22 @@ public sealed class CliStrictModeTests
     }
 
     [Fact]
-    public async Task ViewRow_RejectsLegacySymbolicRowReference()
+    public async Task ViewRow_AcceptsOpaqueIdWithoutSpecialParsing()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
         try
         {
-            var legacyRowReference = string.Concat("Cube", "#", "1");
+            var opaqueId = string.Concat("Cube", "#", "1");
             var result = await RunCliAsync(
                 "view",
                 "instance",
                 "Cube",
-                legacyRowReference,
+                opaqueId,
                 "--workspace",
                 workspaceRoot);
 
-            Assert.Equal(1, result.ExitCode);
-            Assert.Contains("unsupported instance reference", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("Use <Entity> <Id>", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains("Instance 'Cube Cube#1' was not found.", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -1005,27 +1006,6 @@ public sealed class CliStrictModeTests
     }
 
     [Fact]
-    public async Task ImportXml_RequiresNewWorkspaceOption()
-    {
-        var (modelPath, instancePath, rootPath) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
-        try
-        {
-            var result = await RunCliAsync(
-                "import",
-                "xml",
-                modelPath,
-                instancePath);
-
-            Assert.Equal(1, result.ExitCode);
-            Assert.Contains("import requires --new-workspace", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-        }
-        finally
-        {
-            DeleteDirectorySafe(rootPath);
-        }
-    }
-
-    [Fact]
     public async Task ImportSql_RequiresNewWorkspaceOption()
     {
         var result = await RunCliAsync(
@@ -1036,36 +1016,6 @@ public sealed class CliStrictModeTests
 
         Assert.Equal(1, result.ExitCode);
         Assert.Contains("import requires --new-workspace", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-    }
-
-    [Fact]
-    public async Task ImportXml_RejectsNonEmptyTargetDirectory()
-    {
-        var (modelPath, instancePath, contractsRoot) = TestWorkspaceFactory.CreateCanonicalSampleContractFiles();
-        var targetRoot = Path.Combine(Path.GetTempPath(), "metadata-import-target", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(targetRoot);
-        await File.WriteAllTextAsync(Path.Combine(targetRoot, "placeholder.txt"), "x");
-
-        try
-        {
-            var result = await RunCliAsync(
-                "import",
-                "xml",
-                modelPath,
-                instancePath,
-                "--new-workspace",
-                targetRoot);
-
-            Assert.Equal(4, result.ExitCode);
-            Assert.Contains("new workspace target directory must be empty", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-            Assert.DoesNotContain("Where:", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.DoesNotContain("Hint:", result.CombinedOutput, StringComparison.Ordinal);
-        }
-        finally
-        {
-            DeleteDirectorySafe(contractsRoot);
-            DeleteDirectorySafe(targetRoot);
-        }
     }
 
     [Fact]
@@ -1336,8 +1286,6 @@ public sealed class CliStrictModeTests
                 csvPath,
                 "--entity",
                 "Category",
-                "--plural",
-                "Categories",
                 "--new-workspace",
                 workspaceRoot);
 
@@ -1346,11 +1294,10 @@ public sealed class CliStrictModeTests
             var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
             var entity = model.Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Category", StringComparison.Ordinal));
-            Assert.Equal("Categories", (string?)entity.Attribute("plural"));
+            Assert.Null(entity.Attribute("plural"));
 
             var instance = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "instance", "Category.xml"));
-            Assert.NotNull(instance.Root?.Element("Categories"));
-            Assert.Null(instance.Root?.Element("Categorys"));
+            Assert.NotNull(instance.Root?.Element("CategoryList"));
         }
         finally
         {
@@ -1496,7 +1443,6 @@ public sealed class CliStrictModeTests
                 "Product",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
             Assert.Equal(0, refactor.ExitCode);
@@ -1605,7 +1551,6 @@ public sealed class CliStrictModeTests
                 "Product",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
             Assert.Equal(0, refactor.ExitCode);
@@ -1965,7 +1910,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -1975,7 +1919,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("Target: Warehouse", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Lookup: Warehouse.Id", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Role: (none)", refactor.StdOut, StringComparison.Ordinal);
-            Assert.Contains("Drop source property: yes", refactor.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Preserve property: no", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Rows rewritten: 5", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Property dropped: yes", refactor.StdOut, StringComparison.Ordinal);
 
@@ -2043,7 +1987,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2083,7 +2026,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2129,7 +2071,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2142,6 +2083,62 @@ public sealed class CliStrictModeTests
         {
             DeleteDirectorySafe(workspaceRoot);
             DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRefactorPropertyToRelationship_PreserveProperty_WorksWhenRoleAvoidsCollision()
+    {
+        var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
+        try
+        {
+            var refactor = await RunCliAsync(
+                "model",
+                "refactor",
+                "property-to-relationship",
+                "--source",
+                "Order.ProductId",
+                "--target",
+                "Product",
+                "--lookup",
+                "Id",
+                "--role",
+                "ProductRef",
+                "--preserve-property",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, refactor.ExitCode);
+            Assert.Contains("Preserve property: yes", refactor.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Property dropped: no", refactor.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var orderEntity = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(
+                orderEntity
+                    .Element("Properties")?
+                    .Elements("Property") ?? Enumerable.Empty<XElement>(),
+                property => string.Equals((string?)property.Attribute("name"), "ProductId", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(
+                orderEntity
+                    .Element("Relationships")?
+                    .Elements("Relationship") ?? Enumerable.Empty<XElement>(),
+                relationship =>
+                    string.Equals((string?)relationship.Attribute("entity"), "Product", StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals((string?)relationship.Attribute("role"), "ProductRef", StringComparison.OrdinalIgnoreCase));
+
+            var orderRows = LoadEntityRows(workspaceRoot, "Order");
+            foreach (var row in orderRows)
+            {
+                Assert.False(string.IsNullOrWhiteSpace((string?)row.Attribute("ProductRefId")));
+                Assert.False(string.IsNullOrWhiteSpace(row.Element("ProductId")?.Value));
+            }
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
         }
     }
 
@@ -2189,7 +2186,6 @@ public sealed class CliStrictModeTests
                 "WarehouseRef",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2223,7 +2219,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2257,7 +2252,6 @@ public sealed class CliStrictModeTests
                 "A",
                 "--lookup",
                 "Code",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot);
 
@@ -2294,7 +2288,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot)).ExitCode);
 
@@ -2375,7 +2368,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot)).ExitCode);
             CopyDirectory(workspaceRoot, expectedWorkspace);
@@ -2421,7 +2413,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot)).ExitCode);
 
@@ -2472,7 +2463,6 @@ public sealed class CliStrictModeTests
                 "Warehouse",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync(
@@ -2485,7 +2475,6 @@ public sealed class CliStrictModeTests
                 "Supplier",
                 "--lookup",
                 "Id",
-                "--drop-source-property",
                 "--workspace",
                 workspaceRoot)).ExitCode);
             CopyDirectory(workspaceRoot, expectedWorkspace);
@@ -2635,6 +2624,108 @@ public sealed class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.Contains("row 'System:1' already contains relationship 'PlatformTypeId'", result.CombinedOutput, StringComparison.Ordinal);
+            AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task InstanceRelationshipSet_AllowsRoleSelector()
+    {
+        var workspaceRoot = CreateTempWorkspaceWithRoleRenameFixture();
+        try
+        {
+            var result = await RunCliAsync(
+                "instance",
+                "relationship",
+                "set",
+                "System",
+                "1",
+                "--to",
+                "PrimarySystemType",
+                "2",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+
+            var systemRows = LoadEntityRows(workspaceRoot, "System");
+            var system = systemRows.Single(row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.Ordinal));
+            Assert.Equal("2", (string?)system.Attribute("PrimarySystemTypeId"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task InstanceRenameId_RenamesRowAndInboundRelationships()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliAsync(
+                "instance",
+                "rename-id",
+                "Cube",
+                "1",
+                "Cube-001",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("OK: instance id renamed", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Entity: Cube", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("From: 1", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("To: Cube-001", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Relationships updated: 2", result.StdOut, StringComparison.Ordinal);
+
+            var cubeRows = LoadEntityRows(workspaceRoot, "Cube");
+            Assert.Contains(cubeRows, row => string.Equals((string?)row.Attribute("Id"), "Cube-001", StringComparison.Ordinal));
+            Assert.DoesNotContain(cubeRows, row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.Ordinal));
+
+            var measureRows = LoadEntityRows(workspaceRoot, "Measure");
+            Assert.Contains(measureRows, row => string.Equals((string?)row.Attribute("CubeId"), "Cube-001", StringComparison.Ordinal));
+            Assert.DoesNotContain(measureRows, row => string.Equals((string?)row.Attribute("CubeId"), "1", StringComparison.Ordinal));
+
+            var systemCubeRows = LoadEntityRows(workspaceRoot, "SystemCube");
+            Assert.Contains(systemCubeRows, row => string.Equals((string?)row.Attribute("CubeId"), "Cube-001", StringComparison.Ordinal));
+            Assert.DoesNotContain(systemCubeRows, row => string.Equals((string?)row.Attribute("CubeId"), "1", StringComparison.Ordinal));
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task InstanceRenameId_FailsOnCollision_AndIsAtomic()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-rename-id-expected", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CopyDirectory(workspaceRoot, expectedWorkspace);
+
+            var result = await RunCliAsync(
+                "instance",
+                "rename-id",
+                "Cube",
+                "1",
+                "2",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains("because it already exists", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -4837,7 +4928,7 @@ public sealed class CliStrictModeTests
         var root = CreateTempWorkspaceFromSamples();
         var workspaceConfigPath = Path.Combine(root, "workspace.xml");
         var workspaceConfig = XDocument.Load(workspaceConfigPath);
-        var entityStorages = workspaceConfig.Root?.Element("EntityStorages");
+        var entityStorages = workspaceConfig.Root?.Element("EntityStorageList");
         Assert.NotNull(entityStorages);
         entityStorages!.Add(
             new XElement("EntityStorage",
@@ -4915,29 +5006,29 @@ public sealed class CliStrictModeTests
             """
             <?xml version="1.0" encoding="utf-8"?>
             <MetaWorkspace>
-              <Workspaces>
+              <WorkspaceList>
                 <Workspace Id="1" WorkspaceLayoutId="1" EncodingId="1" NewlinesId="1" EntitiesOrderId="1" PropertiesOrderId="1" RelationshipsOrderId="1" RowsOrderId="2" AttributesOrderId="3">
                   <Name>Workspace</Name>
                   <FormatVersion>1.0</FormatVersion>
                 </Workspace>
-              </Workspaces>
-              <WorkspaceLayouts>
+              </WorkspaceList>
+              <WorkspaceLayoutList>
                 <WorkspaceLayout Id="1">
                   <ModelFilePath>metadata/model.xml</ModelFilePath>
                   <InstanceDirPath>metadata/instance</InstanceDirPath>
                 </WorkspaceLayout>
-              </WorkspaceLayouts>
-              <Encodings>
+              </WorkspaceLayoutList>
+              <EncodingList>
                 <Encoding Id="1">
                   <Name>utf-8-no-bom</Name>
                 </Encoding>
-              </Encodings>
-              <NewlinesValues>
+              </EncodingList>
+              <NewlinesList>
                 <Newlines Id="1">
                   <Name>lf</Name>
                 </Newlines>
-              </NewlinesValues>
-              <CanonicalOrders>
+              </NewlinesList>
+              <CanonicalOrderList>
                 <CanonicalOrder Id="1">
                   <Name>name-ordinal</Name>
                 </CanonicalOrder>
@@ -4947,8 +5038,8 @@ public sealed class CliStrictModeTests
                 <CanonicalOrder Id="3">
                   <Name>id-first-then-name-ordinal</Name>
                 </CanonicalOrder>
-              </CanonicalOrders>
-              <EntityStorages />
+              </CanonicalOrderList>
+              <EntityStorageList />
             </MetaWorkspace>
             """);
 
@@ -4958,8 +5049,8 @@ public sealed class CliStrictModeTests
             <?xml version="1.0" encoding="utf-8"?>
             <Model name="Mini">
               <Entities>
-                <Entity name="Warehouse" plural="Warehouses" />
-                <Entity name="Order" plural="Orders">
+                <Entity name="Warehouse" />
+                <Entity name="Order">
                   <Relationships>
                     <Relationship entity="Warehouse" />
                   </Relationships>
@@ -4973,9 +5064,9 @@ public sealed class CliStrictModeTests
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Mini>
-              <Warehouses>
+              <WarehouseList>
                 <Warehouse Id="WH-001" />
-              </Warehouses>
+              </WarehouseList>
             </Mini>
             """);
 
@@ -4984,9 +5075,9 @@ public sealed class CliStrictModeTests
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Mini>
-              <Orders>
+              <OrderList>
                 <Order Id="ORD-001" />
-              </Orders>
+              </OrderList>
             </Mini>
             """);
 
@@ -5048,6 +5139,9 @@ public sealed class CliStrictModeTests
         return usageMatch.Value.Trim();
     }
 }
+
+
+
 
 
 

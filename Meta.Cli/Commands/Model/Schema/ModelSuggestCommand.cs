@@ -178,7 +178,7 @@ internal sealed partial class CliRuntime
         {
             var suggestion = suggestions[index];
             presenter.WriteInfo(
-                $"  {(index + 1).ToString(CultureInfo.InvariantCulture)}) meta model refactor property-to-relationship --workspace {QuoteIfNeeded(workspacePath)} --source {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} --target {suggestion.TargetLookup.EntityName} --lookup {suggestion.TargetLookup.PropertyName} --drop-source-property");
+                $"  {(index + 1).ToString(CultureInfo.InvariantCulture)}) meta model refactor property-to-relationship --workspace {QuoteIfNeeded(workspacePath)} --source {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} --target {suggestion.TargetLookup.EntityName} --lookup {suggestion.TargetLookup.PropertyName}");
         }
     }
 

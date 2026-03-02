@@ -16,27 +16,6 @@ internal sealed partial class CliRuntime
         return value;
     }
 
-    bool ContainsLegacyInstanceReferenceSyntax(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return false;
-        }
-    
-        var trimmed = value.Trim();
-        if (trimmed.Contains('#', StringComparison.Ordinal) ||
-            trimmed.Contains('[', StringComparison.Ordinal) ||
-            trimmed.Contains(']', StringComparison.Ordinal))
-        {
-            return true;
-        }
-    
-        return Regex.IsMatch(
-            trimmed,
-            @"^[A-Za-z_][A-Za-z0-9_]*:",
-            RegexOptions.CultureInvariant);
-    }
-
     bool TryGetRelationshipId(GenericRecord record, string relationshipEntity, out string relationshipId)
     {
         if (record.RelationshipIds.TryGetValue(relationshipEntity, out var directValue) &&

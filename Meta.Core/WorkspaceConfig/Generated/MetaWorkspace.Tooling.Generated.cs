@@ -84,14 +84,14 @@ public sealed partial class MetaWorkspace
         var workspace = RequireSingleWorkspace(normalized, "workspace-config");
 
         var root = new XElement("MetaWorkspace");
-        root.Add(new XElement("Workspaces", normalized.Workspace.Select(ToWorkspaceElement)));
-        root.Add(new XElement("WorkspaceLayouts", normalized.WorkspaceLayout.Select(ToWorkspaceLayoutElement)));
-        root.Add(new XElement("Encodings", normalized.Encoding.Select(ToEncodingElement)));
-        root.Add(new XElement("NewlinesValues", normalized.Newlines.Select(ToNewlinesElement)));
-        root.Add(new XElement("CanonicalOrders", normalized.CanonicalOrder.Select(ToCanonicalOrderElement)));
+        root.Add(new XElement("WorkspaceList", normalized.Workspace.Select(ToWorkspaceElement)));
+        root.Add(new XElement("WorkspaceLayoutList", normalized.WorkspaceLayout.Select(ToWorkspaceLayoutElement)));
+        root.Add(new XElement("EncodingList", normalized.Encoding.Select(ToEncodingElement)));
+        root.Add(new XElement("NewlinesList", normalized.Newlines.Select(ToNewlinesElement)));
+        root.Add(new XElement("CanonicalOrderList", normalized.CanonicalOrder.Select(ToCanonicalOrderElement)));
 
         root.Add(new XElement(
-            "EntityStorages",
+            "EntityStorageList",
             normalized.EntityStorage
                 .Where(item => string.Equals(item.WorkspaceId, workspace.Id, StringComparison.OrdinalIgnoreCase))
                 .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
@@ -379,7 +379,7 @@ public sealed partial class MetaWorkspace
 
     private static List<Workspace> ParseWorkspaceRows(XElement root)
     {
-        return GetRows(root, "Workspaces", "Workspace")
+        return GetRows(root, "WorkspaceList", "Workspace")
             .Select(item => new Workspace
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -399,7 +399,7 @@ public sealed partial class MetaWorkspace
 
     private static List<WorkspaceLayout> ParseWorkspaceLayoutRows(XElement root)
     {
-        return GetRows(root, "WorkspaceLayouts", "WorkspaceLayout")
+        return GetRows(root, "WorkspaceLayoutList", "WorkspaceLayout")
             .Select(item => new WorkspaceLayout
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -411,7 +411,7 @@ public sealed partial class MetaWorkspace
 
     private static List<Encoding> ParseEncodingRows(XElement root)
     {
-        return GetRows(root, "Encodings", "Encoding")
+        return GetRows(root, "EncodingList", "Encoding")
             .Select(item => new Encoding
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -422,7 +422,7 @@ public sealed partial class MetaWorkspace
 
     private static List<Newlines> ParseNewlinesRows(XElement root)
     {
-        return GetRows(root, "NewlinesValues", "Newlines")
+        return GetRows(root, "NewlinesList", "Newlines")
             .Select(item => new Newlines
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -433,7 +433,7 @@ public sealed partial class MetaWorkspace
 
     private static List<CanonicalOrder> ParseCanonicalOrderRows(XElement root)
     {
-        return GetRows(root, "CanonicalOrders", "CanonicalOrder")
+        return GetRows(root, "CanonicalOrderList", "CanonicalOrder")
             .Select(item => new CanonicalOrder
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -444,7 +444,7 @@ public sealed partial class MetaWorkspace
 
     private static List<EntityStorage> ParseEntityStorageRows(XElement root)
     {
-        return GetRows(root, "EntityStorages", "EntityStorage")
+        return GetRows(root, "EntityStorageList", "EntityStorage")
             .Select(item => new EntityStorage
             {
                 Id = (string?)item.Attribute("Id") ?? string.Empty,
@@ -495,3 +495,4 @@ public sealed partial class MetaWorkspace
         return int.TryParse(value, out var parsed) ? parsed : int.MaxValue;
     }
 }
+

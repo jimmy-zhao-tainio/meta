@@ -437,10 +437,16 @@ internal static class HelpTopics
             case "model rename-entity":
                 document = BuildTopicDocument(
                     title: "Command: model rename-entity",
-                    summary: "Atomically rename an entity and follow implied non-role relationship field names.",
+                    summary: "Atomically rename an entity, update relationship targets, and rename implied non-role relationship fields.",
                     usage: "meta model rename-entity <Old> <New> [--workspace <path>]",
-                    options: new[] { ("--workspace <path>", "Override workspace root.") },
-                    examples: new[] { "meta model rename-entity Warehouse StorageLocation" },
+                    options: new[]
+                    {
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[]
+                    {
+                        "meta model rename-entity Warehouse StorageLocation",
+                    },
                     next: "meta model add-property --help");
                 return true;
 
@@ -492,7 +498,7 @@ internal static class HelpTopics
                     options: new[] { ("--workspace <path>", "Override workspace root."), },
                     examples: new[]
                     {
-                        "meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property",
+                        "meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id",
                     },
                     next: "meta model refactor property-to-relationship --help",
                     subcommands: new[]
@@ -505,21 +511,21 @@ internal static class HelpTopics
             case "model refactor property-to-relationship":
                 document = BuildTopicDocument(
                     title: "Command: model refactor property-to-relationship",
-                    summary: "Atomically convert a scalar source property to a required relationship using a target lookup key.",
-                    usage: "meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--drop-source-property] [--workspace <path>]",
+                    summary: "Atomically convert a scalar source property to a required relationship using a target lookup key. Source property is dropped by default; use --preserve-property only when the source property name will not collide with the implied relationship usage name.",
+                    usage: "meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--preserve-property] [--workspace <path>]",
                     options: new[]
                     {
                         ("--source <Entity.Property>", "Required source scalar property to rewrite."),
                         ("--target <Entity>", "Required target entity."),
                         ("--lookup <Property>", "Required lookup key property on target entity."),
                         ("--role <Role>", "Optional relationship role (usage column becomes <Role>Id)."),
-                        ("--drop-source-property", "Drop source scalar property from model and instance rows after rewrite."),
+                        ("--preserve-property", "Keep the source scalar property. This is only valid when the source property name does not collide with the implied relationship usage name."),
                         ("--workspace <path>", "Override workspace root."),
                     },
                     examples: new[]
                     {
-                        "meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property",
-                        "meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id --role ProductRef --drop-source-property",
+                        "meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id",
+                        "meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id --role ProductRef --preserve-property",
                     },
                     next: "meta model suggest --print-commands");
                 return true;
@@ -641,11 +647,12 @@ internal static class HelpTopics
                 document = BuildTopicDocument(
                     title: "Command: instance",
                     summary: "Diff/merge instances and apply instance updates.",
-                    usage: "meta instance <diff|merge|diff-aligned|merge-aligned|update|relationship> ...",
+                    usage: "meta instance <diff|merge|diff-aligned|merge-aligned|update|rename-id|relationship> ...",
                     options: new[] { ("--workspace <path>", "Override workspace root.") },
                     examples: new[]
                     {
                         "meta instance update Cube 1 --set RefreshMode=Manual",
+                        "meta instance rename-id Cube 1 Cube-001",
                         "meta instance relationship set Measure 1 --to Cube 2",
                         "meta instance diff .\\LeftWorkspace .\\RightWorkspace",
                     },
@@ -655,7 +662,7 @@ internal static class HelpTopics
             case "instance update":
                 document = BuildTopicDocument(
                     title: "Command: instance update",
-                    summary: "Update fields on one instance by Id.",
+                    summary: "Update fields on one instance by Id. Use instance rename-id to change the row Id itself.",
                     usage: "meta instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]",
                     options: new[]
                     {
@@ -663,7 +670,23 @@ internal static class HelpTopics
                         ("--workspace <path>", "Override workspace root."),
                     },
                     examples: new[] { "meta instance update Cube 1 --set RefreshMode=Manual" },
-                    next: "meta delete --help");
+                    next: "meta instance rename-id --help");
+                return true;
+
+            case "instance rename-id":
+                document = BuildTopicDocument(
+                    title: "Command: instance rename-id",
+                    summary: "Atomically rename one instance Id and follow inbound relationships that point to it.",
+                    usage: "meta instance rename-id <Entity> <OldId> <NewId> [--workspace <path>]",
+                    options: new[]
+                    {
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[]
+                    {
+                        "meta instance rename-id Cube 1 Cube-001",
+                    },
+                    next: "meta instance relationship set --help");
                 return true;
 
             case "instance relationship":
@@ -683,10 +706,19 @@ internal static class HelpTopics
             case "instance relationship set":
                 document = BuildTopicDocument(
                     title: "Command: instance relationship set",
-                    summary: "Set exact-one relationship usage for target entity.",
-                    usage: "meta instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId> [--workspace <path>]",
-                    options: new[] { ("--workspace <path>", "Override workspace root.") },
-                    examples: new[] { "meta instance relationship set Measure 1 --to Cube 2" },
+                    summary: "Set one relationship usage on a row. The selector after --to may be the target entity, relationship role, or implied relationship field name.",
+                    usage: "meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]",
+                    options: new[]
+                    {
+                        ("--to <RelationshipSelector> <ToId>", "Relationship selector plus target row Id. Selector may be target entity, role, or implied field name."),
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[]
+                    {
+                        "meta instance relationship set Measure 1 --to Cube 2",
+                        "meta instance relationship set Order ORD-001 --to ProductRef PRD-001",
+                        "meta instance relationship set Order ORD-001 --to ProductRefId PRD-001",
+                    },
                     next: "meta instance relationship list --help");
                 return true;
 
@@ -781,30 +813,19 @@ internal static class HelpTopics
             case "import":
                 document = BuildTopicDocument(
                     title: "Command: import",
-                    summary: "Import from XML/SQL into a new workspace, or import CSV into new/existing workspace.",
-                    usage: "meta import <xml|sql|csv> ...",
+                    summary: "Import from SQL into a new workspace, or import CSV into new/existing workspace.",
+                    usage: "meta import <sql|csv> ...",
                     options: new[]
                     {
-                        ("--new-workspace <path>", "Required for xml/sql; optional for csv (mutually exclusive with --workspace)."),
+                        ("--new-workspace <path>", "Required for sql; optional for csv (mutually exclusive with --workspace)."),
                         ("--workspace <path>", "Use existing workspace for csv import."),
                     },
                     examples: new[]
                     {
-                        "meta import xml .\\model.xml .\\instance.xml --new-workspace .\\ImportedWorkspace",
                         "meta import sql \"Server=...;Database=...;...\" dbo --new-workspace .\\ImportedWorkspace",
                         "meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace",
                     },
-                    next: "meta import xml --help");
-                return true;
-
-            case "import xml":
-                document = BuildTopicDocument(
-                    title: "Command: import xml",
-                    summary: "Import model + instance XML into a new workspace.",
-                    usage: "meta import xml <modelXmlPath> <instanceXmlPath> --new-workspace <path>",
-                    options: new[] { ("--new-workspace <path>", "Required. Target directory must be empty.") },
-                    examples: new[] { "meta import xml .\\model.xml .\\instance.xml --new-workspace .\\ImportedWorkspace" },
-                    next: "meta status --workspace <path>");
+                    next: "meta import sql --help");
                 return true;
 
             case "import sql":
@@ -821,18 +842,16 @@ internal static class HelpTopics
                 document = BuildTopicDocument(
                     title: "Command: import csv",
                     summary: "Import one CSV file as one entity + rows. The CSV must include a column named Id (case-insensitive match); existing-entity import is deterministic upsert by Id.",
-                    usage: "meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] [--workspace <path> | --new-workspace <path>]",
+                    usage: "meta import csv <csvFile> --entity <EntityName> [--workspace <path> | --new-workspace <path>]",
                     options: new[]
                     {
                         ("--entity <EntityName>", "Required. Entity name to create (sanitized deterministically)."),
-                        ("--plural <PluralName>", "Optional. Explicit plural/container name for the entity."),
                         ("--workspace <path>", "Optional. Target existing workspace (defaults to current workspace)."),
                         ("--new-workspace <path>", "Target new workspace directory (must be empty)."),
                     },
                     examples: new[]
                     {
                         "meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace",
-                        "meta import csv .\\categories.csv --entity Category --plural Categories",
                     },
                     next: "meta check --workspace <path>");
                 return true;
@@ -864,5 +883,6 @@ internal static class HelpTopics
             Next: next);
     }
 }
+
 
 

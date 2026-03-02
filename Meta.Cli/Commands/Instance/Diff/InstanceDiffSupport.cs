@@ -310,7 +310,7 @@ internal sealed partial class CliRuntime
             lines.Add(
                 "entity|" +
                 EscapeCanonicalPart(entity.Name) + "|" +
-                EscapeCanonicalPart(entity.GetPluralName()));
+                EscapeCanonicalPart(entity.GetListName()));
             foreach (var property in entity.Properties.OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
             {
                 lines.Add(
@@ -355,7 +355,6 @@ internal sealed partial class CliRuntime
             var entityClone = new GenericEntity
             {
                 Name = entity.Name ?? string.Empty,
-                Plural = entity.Plural ?? string.Empty,
             };
             foreach (var property in entity.Properties)
             {

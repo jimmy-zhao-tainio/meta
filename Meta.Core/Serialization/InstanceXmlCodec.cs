@@ -180,7 +180,7 @@ public static class InstanceXmlCodec
             .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
-        var listElement = new XElement(modelEntity.GetPluralName());
+        var listElement = new XElement(modelEntity.GetListName());
         root.Add(listElement);
 
         foreach (var record in records.OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase))
@@ -354,7 +354,7 @@ public static class InstanceXmlCodec
         var lookup = new Dictionary<string, GenericEntity>(StringComparer.OrdinalIgnoreCase);
         foreach (var entity in model.Entities.Where(item => !string.IsNullOrWhiteSpace(item.Name)))
         {
-            var containerName = entity.GetPluralName();
+            var containerName = entity.GetListName();
             if (!lookup.TryAdd(containerName, entity))
             {
                 throw new InvalidDataException(

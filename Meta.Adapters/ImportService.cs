@@ -29,21 +29,6 @@ public sealed class ImportService : IImportService
         _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
     }
 
-    public async Task<Workspace> ImportXmlAsync(string modelPath, string instancePath, CancellationToken cancellationToken = default)
-    {
-        if (string.IsNullOrWhiteSpace(modelPath) || string.IsNullOrWhiteSpace(instancePath))
-        {
-            throw new ArgumentException("Model and instance paths are required.");
-        }
-
-        var importRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-import", Guid.NewGuid().ToString("N"));
-        var metadataRoot = Path.Combine(importRoot, "metadata");
-        Directory.CreateDirectory(metadataRoot);
-        File.Copy(modelPath, Path.Combine(metadataRoot, "model.xml"), overwrite: true);
-        File.Copy(instancePath, Path.Combine(metadataRoot, "instance.xml"), overwrite: true);
-        return await _workspaceService.LoadAsync(importRoot, cancellationToken: cancellationToken).ConfigureAwait(false);
-    }
-
     public async Task<Workspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -151,7 +136,6 @@ public sealed class ImportService : IImportService
     public async Task<Workspace> ImportCsvAsync(
         string csvPath,
         string entityName,
-        string? pluralName = null,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -189,9 +173,6 @@ public sealed class ImportService : IImportService
         var idColumnIndex = ResolveIdColumnIndex(header, idColumn);
 
         var entityIdentifier = NormalizeIdentifier(entityName, fallback: "Entity");
-        var pluralIdentifier = string.IsNullOrWhiteSpace(pluralName)
-            ? string.Empty
-            : NormalizeIdentifier(pluralName, fallback: entityIdentifier + "s");
         var modelName = NormalizeIdentifier(entityIdentifier + "Model", fallback: "ImportedModel");
         var columnPlans = BuildCsvColumnPlans(header, idColumnIndex);
 
@@ -232,7 +213,6 @@ public sealed class ImportService : IImportService
         var entity = new GenericEntity
         {
             Name = entityIdentifier,
-            Plural = pluralIdentifier,
         };
         workspace.Model.Entities.Add(entity);
 

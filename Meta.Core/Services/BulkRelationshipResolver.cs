@@ -71,23 +71,10 @@ public static class BulkRelationshipResolver
         }
 
         var trimmed = value.Trim();
-        if (trimmed.StartsWith("id:", StringComparison.OrdinalIgnoreCase))
-        {
-            trimmed = trimmed[3..].Trim();
-        }
-
         if (string.IsNullOrWhiteSpace(trimmed))
         {
             throw new InvalidOperationException(
                 $"Row '{rowId}' relationship '{relationName}' has empty id reference.");
-        }
-
-        if (trimmed.Contains('#', StringComparison.Ordinal) ||
-            trimmed.Contains('[', StringComparison.Ordinal) ||
-            trimmed.Contains(']', StringComparison.Ordinal))
-        {
-            throw new InvalidOperationException(
-                $"Row '{rowId}' relationship '{relationName}' uses unsupported symbolic row reference '{value}'. Use literal id value.");
         }
 
         return trimmed;

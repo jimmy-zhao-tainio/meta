@@ -72,7 +72,6 @@ public sealed class ValidationService : IValidationService
             });
         }
         var entityNameMap = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var entityContainerNameMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var entity in model.Entities)
         {
             if (!entityNameMap.Add(entity.Name))
@@ -86,30 +85,16 @@ public sealed class ValidationService : IValidationService
                 });
             }
 
-            var containerName = entity.GetPluralName();
+            var containerName = entity.GetListName();
             if (!IsValidName(containerName))
             {
                 diagnostics.Issues.Add(new DiagnosticIssue
                 {
-                    Code = "entity.plural.invalid",
-                    Message = $"Entity plural name '{containerName}' on '{entity.Name}' is invalid.",
+                    Code = "entity.list.invalid",
+                    Message = $"Entity list container name '{containerName}' on '{entity.Name}' is invalid.",
                     Severity = IssueSeverity.Error,
-                    Location = $"model/entity/{entity.Name}/@plural",
+                    Location = $"model/entity/{entity.Name}",
                 });
-            }
-            if (entityContainerNameMap.TryGetValue(containerName, out var existingEntity))
-            {
-                diagnostics.Issues.Add(new DiagnosticIssue
-                {
-                    Code = "entity.plural.duplicate",
-                    Message = $"Entity plural name '{containerName}' is duplicated by '{existingEntity}' and '{entity.Name}'.",
-                    Severity = IssueSeverity.Error,
-                    Location = $"model/entity/{entity.Name}/@plural",
-                });
-            }
-            else
-            {
-                entityContainerNameMap[containerName] = entity.Name;
             }
 
             if (filter != null && !filter.Contains(entity.Name))

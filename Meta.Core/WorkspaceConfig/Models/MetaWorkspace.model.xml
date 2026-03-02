@@ -17,28 +17,28 @@
         <Relationship entity="CanonicalOrder" role="AttributesOrder" />
       </Relationships>
     </Entity>
-    <Entity name="WorkspaceLayout" plural="WorkspaceLayouts">
+    <Entity name="WorkspaceLayout">
       <Properties>
         <Property name="ModelFilePath" />
         <Property name="InstanceDirPath" />
       </Properties>
     </Entity>
-    <Entity name="Encoding" plural="Encodings">
+    <Entity name="Encoding">
       <Properties>
         <Property name="Name" />
       </Properties>
     </Entity>
-    <Entity name="Newlines" plural="NewlinesValues">
+    <Entity name="Newlines">
       <Properties>
         <Property name="Name" />
       </Properties>
     </Entity>
-    <Entity name="CanonicalOrder" plural="CanonicalOrders">
+    <Entity name="CanonicalOrder">
       <Properties>
         <Property name="Name" />
       </Properties>
     </Entity>
-    <Entity name="EntityStorage" plural="EntityStorages">
+    <Entity name="EntityStorage">
       <Properties>
         <Property name="EntityName" />
         <Property name="StorageKind" />
@@ -52,3 +52,4 @@
     </Entity>
   </Entities>
 </Model>
+

@@ -1,4 +1,4 @@
-﻿# Meta CLI Command Spec v1
+# Meta CLI Command Spec v1
 
 This spec defines the canonical `meta` command surface.
 
@@ -79,7 +79,7 @@ Writers are byte-stable for identical logical state.
 - `Id` values are opaque strings; they do not need to be numeric.
 - `meta import csv` requires a column named `Id` (case-insensitive header match).
 - Existing-entity CSV import is upsert-by-Id only: matching Id updates, new Id inserts, missing CSV rows are preserved.
-- Use `--plural <PluralName>` when a landed entity needs an explicit container name such as `Category -> Categories`.
+- Entity containers are always named `<EntityName>List` in XML and emitted C# collections use the same naming.
 - Landing relationship candidates should stay as scalar `...Id` fields until promoted.
 - `meta model refactor property-to-relationship` preserves row identities and only rewrites fields.
 - `meta model refactor relationship-to-property` preserves row identities and only rewrites fields.
@@ -92,11 +92,11 @@ Instance addressing:
 - `<Entity> <Id>` only.
 
 Relationship usage:
-- `meta instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId>`
+- `meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId>`
 - `meta instance relationship list <FromEntity> <FromId>`
 
 Semantics:
-- `set` leaves exactly one usage to the target entity.
+- `set` updates exactly one declared relationship usage selected by target entity, role, or implied field name.
 
 ## Query filters
 
@@ -148,7 +148,7 @@ Inspect and validate:
 
 Model mutation and refactor:
 - `meta model suggest [--show-keys] [--explain] [--print-commands] [--workspace <path>]`
-- `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--drop-source-property] [--workspace <path>]`
+- `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--preserve-property] [--workspace <path>]`
 - `meta model refactor relationship-to-property --source <Entity> --target <Entity> [--role <Role>] [--property <PropertyName>] [--workspace <path>]`
 - `meta model add-entity <Name> [--workspace <path>]`
 - `meta model rename-entity <Old> <New> [--workspace <path>]`
@@ -163,7 +163,8 @@ Instance mutation:
 - `meta insert <Entity> [<Id>|--auto-id] --set Field=Value [--set Field=Value ...] [--workspace <path>]`
 - `meta bulk-insert <Entity> [--from tsv|csv] [--file <path>|--stdin] [--key Field[,Field2...]] [--auto-id] [--workspace <path>]`
 - `meta instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]`
-- `meta instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId> [--workspace <path>]`
+- `meta instance rename-id <Entity> <OldId> <NewId> [--workspace <path>]`
+- `meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]`
 - `meta instance relationship list <FromEntity> <FromId> [--workspace <path>]`
 - `meta delete <Entity> <Id> [--workspace <path>]`
 
@@ -174,9 +175,8 @@ Diff and merge:
 - `meta instance merge-aligned <targetWorkspace> <diffWorkspace>`
 
 Import and generate:
-- `meta import xml <modelXmlPath> <instanceXmlPath> --new-workspace <path>`
 - `meta import sql <connectionString> <schema> --new-workspace <path>`
-- `meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] [--workspace <path> | --new-workspace <path>]`
+- `meta import csv <csvFile> --entity <EntityName> [--workspace <path> | --new-workspace <path>]`
 - `meta generate sql --out <dir> [--workspace <path>]`
 - `meta generate csharp --out <dir> [--workspace <path>] [--tooling]`
 - `meta generate ssdt --out <dir> [--workspace <path>]`
@@ -212,10 +212,10 @@ Model mutation and refactor:
 | Command | Summary | Example |
 |---|---|---|
 | `meta model suggest [--show-keys] [--explain] [--print-commands] [--workspace <path>]` | Read-only relationship inference from model + instance data. Only fully resolvable many-to-one promotions are printed, using the sanctioned Id-based `<TargetEntity>Id -> <TargetEntity>.Id` inference path. | `meta model suggest --workspace .\Workspace` |
-| `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--drop-source-property] [--workspace <path>]` | Atomically convert a scalar source property to a required relationship using a target lookup key. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id --drop-source-property` |
+| `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--preserve-property] [--workspace <path>]` | Atomically convert a scalar source property to a required relationship using a target lookup key. Source property is dropped by default; `--preserve-property` keeps it when no naming collision would result. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id` |
 | `meta model refactor relationship-to-property --source <Entity> --target <Entity> [--role <Role>] [--property <PropertyName>] [--workspace <path>]` | Atomically convert a required relationship back to a required scalar Id property. | `meta model refactor relationship-to-property --source Order --target Warehouse` |
 | `meta model add-entity <Name> [--workspace <path>]` | Add a new entity definition. | `meta model add-entity SourceSystem` |
-| `meta model rename-entity <Old> <New> [--workspace <path>]` | Atomically rename an entity and follow implied non-role relationship field names. | `meta model rename-entity Warehouse StorageLocation` |
+| `meta model rename-entity <Old> <New> [--workspace <path>]` | Atomically rename an entity, update relationship targets, and rename implied non-role relationship field names. | `meta model rename-entity Warehouse StorageLocation` |
 | `meta model drop-entity <Entity> [--workspace <path>]` | Drop an entity (blocked if instances or inbound relationships exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> [--required true\|false] [--default-value <Value>] [--workspace <path>]` | Add an entity property. | `meta model add-property Cube Purpose --required true --default-value Unknown` |
 | `meta model rename-property <Entity> <Old> <New> [--workspace <path>]` | Rename a property in one entity. | `meta model rename-property Cube Purpose Description` |
@@ -229,8 +229,9 @@ Instance mutation:
 |---|---|---|
 | `meta insert <Entity> [<Id>\|--auto-id] --set Field=Value [--set Field=Value ...] [--workspace <path>]` | Insert one instance by explicit Id or auto-generated numeric Id. Use --auto-id only when creating a brand-new row with no external identity. | `meta insert Cube 10 --set "CubeName=Ops Cube"` |
 | `meta bulk-insert <Entity> [--from tsv\|csv] [--file <path>\|--stdin] [--key Field[,Field2...]] [--auto-id] [--workspace <path>]` | Bulk insert instances from tsv/csv input. Use --auto-id only for new rows whose source data does not carry an external Id. | `meta bulk-insert Cube --from tsv --file .\cube.tsv --key Id` |
-| `meta instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]` | Update fields on one instance by Id. | `meta instance update Cube 1 --set RefreshMode=Manual` |
-| `meta instance relationship set <FromEntity> <FromId> --to <ToEntity> <ToId> [--workspace <path>]` | Set exact-one relationship usage for target entity. | `meta instance relationship set Measure 1 --to Cube 2` |
+| `meta instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]` | Update fields on one instance by Id. Use `instance rename-id` to change the row Id itself. | `meta instance update Cube 1 --set RefreshMode=Manual` |
+| `meta instance rename-id <Entity> <OldId> <NewId> [--workspace <path>]` | Atomically rename one row Id and update inbound relationships that reference it. | `meta instance rename-id Cube 1 Cube-001` |
+| `meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]` | Set one relationship usage. Selector may be target entity, relationship role, or implied relationship field name. | `meta instance relationship set Measure 1 --to Cube 2` |
 | `meta instance relationship list <FromEntity> <FromId> [--workspace <path>]` | List relationship usage for one instance. | `meta instance relationship list Measure 1` |
 | `meta delete <Entity> <Id> [--workspace <path>]` | Delete one instance by Id. | `meta delete Cube 10` |
 
@@ -247,9 +248,8 @@ Import and generate:
 
 | Command | Summary | Example |
 |---|---|---|
-| `meta import xml <modelXmlPath> <instanceXmlPath> --new-workspace <path>` | Import model + instance XML into a new workspace. | `meta import xml .\model.xml .\instance.xml --new-workspace .\ImportedWorkspace` |
 | `meta import sql <connectionString> <schema> --new-workspace <path>` | Import metadata from SQL into a new workspace. | `meta import sql "Server=...;Database=...;..." dbo --new-workspace .\ImportedWorkspace` |
-| `meta import csv <csvFile> --entity <EntityName> [--plural <PluralName>] [--workspace <path> \| --new-workspace <path>]` | Import one CSV file as one entity + rows. The CSV must include a column named Id (case-insensitive match); existing-entity import is deterministic upsert by Id. | `meta import csv .\landing.csv --entity Landing --new-workspace .\ImportedWorkspace` |
+| `meta import csv <csvFile> --entity <EntityName> [--workspace <path> \| --new-workspace <path>]` | Import one CSV file as one entity + rows. The CSV must include a column named Id (case-insensitive match); existing-entity import is deterministic upsert by Id. | `meta import csv .\landing.csv --entity Landing --new-workspace .\ImportedWorkspace` |
 | `meta generate sql --out <dir> [--workspace <path>]` | Generate SQL schema + data scripts. | `meta generate sql --out .\out\sql` |
 | `meta generate csharp --out <dir> [--workspace <path>] [--tooling]` | Generate C# model and entity classes. | `meta generate csharp --out .\out\csharp` |
 | `meta generate ssdt --out <dir> [--workspace <path>]` | Generate Schema.sql, Data.sql, PostDeploy.sql, and Metadata.sqlproj. | `meta generate ssdt --out .\out\ssdt` |
@@ -264,6 +264,7 @@ meta instance diff .\LeftWorkspace .\RightWorkspace
 
 meta instance merge .\LeftWorkspace "<path from diff output>"
 ```
+
 
 
 

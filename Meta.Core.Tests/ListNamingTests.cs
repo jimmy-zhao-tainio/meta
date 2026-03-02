@@ -7,12 +7,12 @@ using Meta.Adapters;
 
 namespace Meta.Core.Tests;
 
-public sealed class PluralNamingTests
+public sealed class ListNamingTests
 {
     [Fact]
-    public async Task WorkspaceService_UsesDefaultAndOverridePluralNames_ForModelAndInstanceContainers()
+    public async Task WorkspaceService_UsesEntityListContainers_ForModelAndInstance()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metadata-plural-tests", Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "metadata-list-tests", Guid.NewGuid().ToString("N"));
         var metadataRoot = Path.Combine(root, "metadata");
         var instanceRoot = Path.Combine(metadataRoot, "instance");
         Directory.CreateDirectory(instanceRoot);
@@ -23,14 +23,14 @@ public sealed class PluralNamingTests
                 Path.Combine(metadataRoot, "model.xml"),
                 """
                 <?xml version="1.0" encoding="utf-8"?>
-                <Model name="PluralModel">
+                <Model name="ListModel">
                   <Entities>
                     <Entity name="Cube">
                       <Properties>
                         <Property name="Name" />
                       </Properties>
                     </Entity>
-                    <Entity name="Person" plural="People">
+                    <Entity name="Person">
                       <Properties>
                         <Property name="Name" />
                       </Properties>
@@ -43,26 +43,26 @@ public sealed class PluralNamingTests
                 Path.Combine(instanceRoot, "Cube.xml"),
                 """
                 <?xml version="1.0" encoding="utf-8"?>
-                <PluralModel>
-                  <Cubes>
+                <ListModel>
+                  <CubeList>
                     <Cube Id="1">
                       <Name>Sales</Name>
                     </Cube>
-                  </Cubes>
-                </PluralModel>
+                  </CubeList>
+                </ListModel>
                 """);
 
             File.WriteAllText(
                 Path.Combine(instanceRoot, "Person.xml"),
                 """
                 <?xml version="1.0" encoding="utf-8"?>
-                <PluralModel>
-                  <People>
+                <ListModel>
+                  <PersonList>
                     <Person Id="1">
                       <Name>Alex</Name>
                     </Person>
-                  </People>
-                </PluralModel>
+                  </PersonList>
+                </ListModel>
                 """);
 
             var services = new ServiceCollection();
@@ -72,8 +72,8 @@ public sealed class PluralNamingTests
             var person = workspace.Model.FindEntity("Person");
             Assert.NotNull(cube);
             Assert.NotNull(person);
-            Assert.Equal("Cubes", cube!.GetPluralName());
-            Assert.Equal("People", person!.GetPluralName());
+            Assert.Equal("CubeList", cube!.GetListName());
+            Assert.Equal("PersonList", person!.GetListName());
 
             await services.WorkspaceService.SaveAsync(workspace);
 
@@ -84,12 +84,12 @@ public sealed class PluralNamingTests
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Person", StringComparison.OrdinalIgnoreCase));
 
             Assert.Null(cubeEntity.Attribute("plural"));
-            Assert.Equal("People", (string?)personEntity.Attribute("plural"));
+            Assert.Null(personEntity.Attribute("plural"));
 
             var savedCubeShard = XDocument.Load(Path.Combine(instanceRoot, "Cube.xml"));
             var savedPersonShard = XDocument.Load(Path.Combine(instanceRoot, "Person.xml"));
-            Assert.NotNull(savedCubeShard.Root!.Element("Cubes"));
-            Assert.NotNull(savedPersonShard.Root!.Element("People"));
+            Assert.NotNull(savedCubeShard.Root!.Element("CubeList"));
+            Assert.NotNull(savedPersonShard.Root!.Element("PersonList"));
         }
         finally
         {

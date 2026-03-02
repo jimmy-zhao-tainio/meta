@@ -2,14 +2,17 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Meta.Adapters;
+using Meta.Core.Domain;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
+using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
 public sealed class SanctionedModelGenerationTests
 {
     [Fact]
-    public async Task MetaWorkspaceReferenceModel_GeneratesCSharpWithTooling()
+    public void MetaWorkspaceReferenceModel_GeneratesCSharpWithTooling()
     {
         var repoRoot = FindRepositoryRoot();
         var services = new ServiceCollection();
@@ -19,7 +22,7 @@ public sealed class SanctionedModelGenerationTests
 
         try
         {
-            var workspace = await services.ImportService.ImportXmlAsync(modelPath, instancePath);
+            var workspace = LoadWorkspaceFromContractFiles(modelPath, instancePath);
             var manifest = GenerationService.GenerateCSharp(workspace, outputPath, includeTooling: true);
 
             Assert.True(manifest.FileHashes.ContainsKey("MetaWorkspace.Tooling.cs"));
@@ -32,7 +35,7 @@ public sealed class SanctionedModelGenerationTests
     }
 
     [Fact]
-    public async Task SchemaCatalogReferenceModel_GeneratesCSharpWithTooling()
+    public void SchemaCatalogReferenceModel_GeneratesCSharpWithTooling()
     {
         var repoRoot = FindRepositoryRoot();
         var services = new ServiceCollection();
@@ -42,7 +45,7 @@ public sealed class SanctionedModelGenerationTests
 
         try
         {
-            var workspace = await services.ImportService.ImportXmlAsync(modelPath, instancePath);
+            var workspace = LoadWorkspaceFromContractFiles(modelPath, instancePath);
             var manifest = GenerationService.GenerateCSharp(workspace, outputPath, includeTooling: true);
 
             Assert.True(manifest.FileHashes.ContainsKey("SchemaCatalog.Tooling.cs"));
@@ -104,5 +107,20 @@ public sealed class SanctionedModelGenerationTests
         }
 
         throw new InvalidOperationException("Could not locate repository root from test base directory.");
+    }
+
+    private static Workspace LoadWorkspaceFromContractFiles(string modelPath, string instancePath)
+    {
+        var model = ModelXmlCodec.LoadFromPath(modelPath);
+        var instance = InstanceXmlCodec.LoadFromPath(instancePath, model, sourceShardFileName: string.Empty);
+        return new Workspace
+        {
+            WorkspaceRootPath = "memory",
+            MetadataRootPath = "memory/metadata",
+            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
+            Model = model,
+            Instance = instance,
+            IsDirty = false,
+        };
     }
 }

@@ -28,7 +28,7 @@ public sealed class GeneratedSampleApiContractTests
             Assert.Contains("public static class EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("private static readonly EnterpriseBIPlatformInstance _builtIn", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static EnterpriseBIPlatformInstance BuiltIn", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public static IReadOnlyList<Measure> Measures", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("Enterprise Analytics Platform", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("LoadFromXmlWorkspace", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("SaveToXmlWorkspace", modelCode, StringComparison.Ordinal);
