@@ -24,18 +24,18 @@ public sealed class ListNamingTests
                 """
                 <?xml version="1.0" encoding="utf-8"?>
                 <Model name="ListModel">
-                  <Entities>
+                  <EntityList>
                     <Entity name="Cube">
-                      <Properties>
+                      <PropertyList>
                         <Property name="Name" />
-                      </Properties>
+                      </PropertyList>
                     </Entity>
                     <Entity name="Person">
-                      <Properties>
+                      <PropertyList>
                         <Property name="Name" />
-                      </Properties>
+                      </PropertyList>
                     </Entity>
-                  </Entities>
+                  </EntityList>
                 </Model>
                 """);
 
@@ -78,9 +78,9 @@ public sealed class ListNamingTests
             await services.WorkspaceService.SaveAsync(workspace);
 
             var savedModel = XDocument.Load(Path.Combine(metadataRoot, "model.xml"));
-            var cubeEntity = savedModel.Root!.Element("Entities")!.Elements("Entity")
+            var cubeEntity = savedModel.Root!.Element("EntityList")!.Elements("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase));
-            var personEntity = savedModel.Root!.Element("Entities")!.Elements("Entity")
+            var personEntity = savedModel.Root!.Element("EntityList")!.Elements("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Person", StringComparison.OrdinalIgnoreCase));
 
             Assert.Null(cubeEntity.Attribute("plural"));

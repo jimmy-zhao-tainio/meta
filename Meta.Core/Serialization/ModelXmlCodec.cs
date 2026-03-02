@@ -31,7 +31,7 @@ public static class ModelXmlCodec
             Name = (string?)root.Attribute("name") ?? string.Empty,
         };
 
-        var entitiesElement = root.Element("Entities");
+        var entitiesElement = root.Element("EntityList");
         if (entitiesElement == null)
         {
             return model;
@@ -56,7 +56,7 @@ public static class ModelXmlCodec
                     $"Model entity '{entity.Name}' uses unsupported attribute 'plural'. Use singular entity/list naming only.");
             }
 
-            var propertiesElement = entityElement.Element("Properties");
+            var propertiesElement = entityElement.Element("PropertyList");
             if (propertiesElement != null)
             {
                 foreach (var propertyElement in propertiesElement.Elements("Property"))
@@ -84,7 +84,7 @@ public static class ModelXmlCodec
                 }
             }
 
-            var relationshipsElement = entityElement.Element("Relationships");
+            var relationshipsElement = entityElement.Element("RelationshipList");
             if (relationshipsElement != null)
             {
                 foreach (var relationshipElement in relationshipsElement.Elements("Relationship"))
@@ -120,7 +120,7 @@ public static class ModelXmlCodec
         ArgumentNullException.ThrowIfNull(model);
 
         var root = new XElement("Model", new XAttribute("name", model.Name ?? string.Empty));
-        var entitiesElement = new XElement("Entities");
+        var entitiesElement = new XElement("EntityList");
         root.Add(entitiesElement);
 
         foreach (var entity in model.Entities.OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
@@ -134,7 +134,7 @@ public static class ModelXmlCodec
                 .ToList();
             if (nonIdProperties.Count > 0)
             {
-                var propertiesElement = new XElement("Properties");
+                var propertiesElement = new XElement("PropertyList");
                 foreach (var property in nonIdProperties)
                 {
                     var propertyElement = new XElement("Property",
@@ -158,7 +158,7 @@ public static class ModelXmlCodec
 
             if (entity.Relationships.Count > 0)
             {
-                var relationshipsElement = new XElement("Relationships");
+                var relationshipsElement = new XElement("RelationshipList");
                 foreach (var relationship in entity.Relationships
                              .OrderBy(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase)
                              .ThenBy(item => item.Entity, StringComparer.OrdinalIgnoreCase))

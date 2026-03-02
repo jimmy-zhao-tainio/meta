@@ -78,51 +78,51 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="EnterpriseBIPlatform">
-  <Entities>
+  <EntityList>
     <Entity name="Cube">
-      <Properties>
+      <PropertyList>
         <Property name="CubeName" />
         <Property name="Purpose" isRequired="false" />
         <Property name="RefreshMode" isRequired="false" />
-      </Properties>
+      </PropertyList>
     </Entity>
 
     <Entity name="Measure">
-      <Properties>
+      <PropertyList>
         <Property name="MeasureName" />
         <Property name="MDX" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Cube" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
 
     <Entity name="SystemType">
-      <Properties>
+      <PropertyList>
         <Property name="TypeName" />
-      </Properties>
+      </PropertyList>
     </Entity>
 
     <Entity name="System">
-      <Properties>
+      <PropertyList>
         <Property name="SystemName" />
         <Property name="Version" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="SystemType" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
 
     <Entity name="SystemCube">
-      <Properties>
+      <PropertyList>
         <Property name="ProcessingMode" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Cube" />
         <Relationship entity="System" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>
 ```
 
@@ -298,25 +298,25 @@ A model has one root `<Model name="...">` and then:
 - `<Entity>` defines a record type (like a table).
 - `name="Cube"` is the singular name.
 - Instances are grouped under a deterministic `<EntityName>List` container in XML and emitted C# root collections use the same `<EntityName>List` naming.
-- `<Properties>` lists scalar fields for the entity. `dataType="string"` is the default and omitted; properties are required by default (`isRequired="true"`), and optional fields use `isRequired="false"`.
-- `<Relationships>` lists required foreign-key style references to other entities. A relationship points to a target entity and is required by default. In instance XML it becomes `${TargetEntity}Id` by default. If you need multiple relationships to the same target, specify `role="..."` and it becomes `${Role}Id`.
+- `<PropertyList>` lists scalar fields for the entity. `dataType="string"` is the default and omitted; properties are required by default (`isRequired="true"`), and optional fields use `isRequired="false"`.
+- `<RelationshipList>` lists required foreign-key style references to other entities. A relationship points to a target entity and is required by default. In instance XML it becomes `${TargetEntity}Id` by default. If you need multiple relationships to the same target, specify `role="..."` and it becomes `${Role}Id`.
 - `Id` is implicit on every entity, so `Property name="Id"` is not written.
 
 Example:
 
 ```xml
 <Model name="EnterpriseBIPlatform">
-  <Entities>
+  <EntityList>
     <Entity name="Measure">
-      <Properties>
+      <PropertyList>
         <Property name="MeasureName" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Cube" />
         <Relationship entity="Cube" role="SourceCube" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>
 ```
 
@@ -516,13 +516,13 @@ Before (after CSV import, before refactor):
 
 ```xml
 <Entity name="Order">
-  <Properties>
+  <PropertyList>
     <Property name="OrderNumber" />
     <Property name="ProductId" />
     <Property name="SupplierId" />
     <Property name="WarehouseId" />
     <Property name="StatusText" />
-  </Properties>
+  </PropertyList>
 </Entity>
 ```
 
@@ -530,15 +530,15 @@ After running all three `property-to-relationship` refactors (`ProductId`, `Supp
 
 ```xml
 <Entity name="Order">
-  <Properties>
+  <PropertyList>
     <Property name="OrderNumber" />
     <Property name="StatusText" />
-  </Properties>
-  <Relationships>
+  </PropertyList>
+  <RelationshipList>
     <Relationship entity="Product" />
     <Relationship entity="Supplier" />
     <Relationship entity="Warehouse" />
-  </Relationships>
+  </RelationshipList>
 </Entity>
 ```
 

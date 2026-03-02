@@ -1,73 +1,73 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Model name="InstanceDiffModelAlignment">
-  <Entities>
+  <EntityList>
     <Entity name="Alignment">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ModelLeft" />
         <Relationship entity="ModelRight" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="Model">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="ModelLeft">
-      <Relationships>
+      <RelationshipList>
         <Relationship entity="Model" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="ModelRight">
-      <Relationships>
+      <RelationshipList>
         <Relationship entity="Model" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="ModelLeftEntity">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ModelLeft" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="ModelRightEntity">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ModelRight" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="ModelLeftProperty">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ModelLeftEntity" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="ModelRightProperty">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ModelRightEntity" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="EntityMap">
-      <Relationships>
+      <RelationshipList>
         <Relationship entity="ModelLeftEntity" />
         <Relationship entity="ModelRightEntity" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="PropertyMap">
-      <Relationships>
+      <RelationshipList>
         <Relationship entity="ModelLeftProperty" />
         <Relationship entity="ModelRightProperty" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>

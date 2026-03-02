@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="MetaWorkspace">
-  <Entities>
+  <EntityList>
     <Entity name="Workspace">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="FormatVersion" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="WorkspaceLayout" />
         <Relationship entity="Encoding" />
         <Relationship entity="Newlines" />
@@ -15,41 +15,41 @@
         <Relationship entity="CanonicalOrder" role="RelationshipsOrder" />
         <Relationship entity="CanonicalOrder" role="RowsOrder" />
         <Relationship entity="CanonicalOrder" role="AttributesOrder" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="WorkspaceLayout">
-      <Properties>
+      <PropertyList>
         <Property name="ModelFilePath" />
         <Property name="InstanceDirPath" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="Encoding">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="Newlines">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="CanonicalOrder">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="EntityStorage">
-      <Properties>
+      <PropertyList>
         <Property name="EntityName" />
         <Property name="StorageKind" />
         <Property name="DirectoryPath" isRequired="false" />
         <Property name="FilePath" isRequired="false" />
         <Property name="Pattern" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Workspace" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>
 

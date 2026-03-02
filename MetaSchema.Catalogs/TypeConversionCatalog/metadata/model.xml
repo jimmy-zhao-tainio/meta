@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="TypeConversionCatalog">
-  <Entities>
+  <EntityList>
     <Entity name="ConversionImplementation">
-      <Properties>
+      <PropertyList>
         <Property name="CSharpEntryPoint" />
         <Property name="Key" />
         <Property name="Kind" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="DataType">
-      <Properties>
+      <PropertyList>
         <Property name="Category" isRequired="false" />
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="TypeSystem" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="DataTypeFacet">
-      <Properties>
+      <PropertyList>
         <Property name="DefaultBool" dataType="bool" isRequired="false" />
         <Property name="DefaultInt" dataType="int" isRequired="false" />
         <Property name="IsRequired" dataType="bool" />
         <Property name="IsSupported" dataType="bool" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="DataType" />
         <Relationship entity="Facet" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="Facet">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="ValueKind" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="Setting">
-      <Properties>
+      <PropertyList>
         <Property name="DefaultValue" />
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="TypeMapping">
-      <Properties>
+      <PropertyList>
         <Property name="IsImplicit" dataType="bool" />
         <Property name="Lossiness" />
         <Property name="Name" />
         <Property name="Notes" isRequired="false" />
         <Property name="Priority" dataType="int" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="ConversionImplementation" />
         <Relationship entity="Setting" />
         <Relationship entity="DataType" role="SourceDataType" />
         <Relationship entity="TypeSystem" role="SourceTypeSystem" />
         <Relationship entity="DataType" role="TargetDataType" />
         <Relationship entity="TypeSystem" role="TargetTypeSystem" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="TypeMappingCondition">
-      <Properties>
+      <PropertyList>
         <Property name="Operator" />
         <Property name="ValueInt" dataType="int" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Facet" />
         <Relationship entity="TypeMapping" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="TypeMappingFacetTransform">
-      <Properties>
+      <PropertyList>
         <Property name="Mode" />
         <Property name="SetBool" dataType="bool" isRequired="false" />
         <Property name="SetInt" dataType="int" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Facet" />
         <Relationship entity="TypeMapping" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="TypeSpec">
-      <Properties>
+      <PropertyList>
         <Property name="IsFixedLength" dataType="bool" isRequired="false" />
         <Property name="IsUnicode" dataType="bool" isRequired="false" />
         <Property name="Length" dataType="int" isRequired="false" />
         <Property name="Precision" dataType="int" isRequired="false" />
         <Property name="Scale" dataType="int" isRequired="false" />
         <Property name="TimePrecision" dataType="int" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="DataType" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="TypeSystem">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
+      </PropertyList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>

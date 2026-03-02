@@ -87,7 +87,7 @@ public sealed class CliStrictModeTests
             "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
-            "<Model name=\"Broken\"><Entities><Entity name=\"X\"></Entities></Model>");
+            "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
 
         try
         {
@@ -179,7 +179,7 @@ public sealed class CliStrictModeTests
             "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
-            "<Model name=\"Broken\"><Entities><Entity name=\"X\"></Entities></Model>");
+            "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
 
         try
         {
@@ -1211,7 +1211,7 @@ public sealed class CliStrictModeTests
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order_Items", StringComparison.Ordinal));
 
             var properties = entity
-                .Element("Properties")?
+                .Element("PropertyList")?
                 .Elements("Property")
                 .ToList() ?? new List<XElement>();
 
@@ -1468,10 +1468,10 @@ public sealed class CliStrictModeTests
             var orderEntity = model.Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(
-                orderEntity.Element("Relationships")?.Elements("Relationship") ?? Enumerable.Empty<XElement>(),
+                orderEntity.Element("RelationshipList")?.Elements("Relationship") ?? Enumerable.Empty<XElement>(),
                 relationship => string.Equals((string?)relationship.Attribute("entity"), "Product", StringComparison.OrdinalIgnoreCase));
             Assert.DoesNotContain(
-                orderEntity.Element("Properties")?.Elements("Property") ?? Enumerable.Empty<XElement>(),
+                orderEntity.Element("PropertyList")?.Elements("Property") ?? Enumerable.Empty<XElement>(),
                 property => string.Equals((string?)property.Attribute("name"), "ProductId", StringComparison.OrdinalIgnoreCase));
         }
         finally
@@ -1701,7 +1701,7 @@ public sealed class CliStrictModeTests
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Measure", StringComparison.OrdinalIgnoreCase));
             var measureRelationships = measureEntity
-                .Element("Relationships")?
+                .Element("RelationshipList")?
                 .Elements("Relationship") ?? Enumerable.Empty<XElement>();
             Assert.DoesNotContain(
                 measureRelationships,
@@ -1812,7 +1812,7 @@ public sealed class CliStrictModeTests
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase));
             var cubeRelationships = cubeEntity
-                .Element("Relationships")?
+                .Element("RelationshipList")?
                 .Elements("Relationship") ?? Enumerable.Empty<XElement>();
             Assert.Contains(
                 cubeRelationships,
@@ -1929,12 +1929,12 @@ public sealed class CliStrictModeTests
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
             Assert.DoesNotContain(
                 orderEntity
-                    .Element("Properties")?
+                    .Element("PropertyList")?
                     .Elements("Property") ?? Enumerable.Empty<XElement>(),
                 property => string.Equals((string?)property.Attribute("name"), "WarehouseId", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(
                 orderEntity
-                    .Element("Relationships")?
+                    .Element("RelationshipList")?
                     .Elements("Relationship") ?? Enumerable.Empty<XElement>(),
                 relationship =>
                     string.Equals((string?)relationship.Attribute("entity"), "Warehouse", StringComparison.OrdinalIgnoreCase) &&
@@ -2118,12 +2118,12 @@ public sealed class CliStrictModeTests
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(
                 orderEntity
-                    .Element("Properties")?
+                    .Element("PropertyList")?
                     .Elements("Property") ?? Enumerable.Empty<XElement>(),
                 property => string.Equals((string?)property.Attribute("name"), "ProductId", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(
                 orderEntity
-                    .Element("Relationships")?
+                    .Element("RelationshipList")?
                     .Elements("Relationship") ?? Enumerable.Empty<XElement>(),
                 relationship =>
                     string.Equals((string?)relationship.Attribute("entity"), "Product", StringComparison.OrdinalIgnoreCase) &&
@@ -2153,10 +2153,10 @@ public sealed class CliStrictModeTests
             var modelDocument = XDocument.Load(modelPath);
             var orderEntity = modelDocument.Descendants("Entity")
                 .First(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
-            var relationships = orderEntity.Element("Relationships");
+            var relationships = orderEntity.Element("RelationshipList");
             if (relationships == null)
             {
-                relationships = new XElement("Relationships");
+                relationships = new XElement("RelationshipList");
                 orderEntity.Add(relationships);
             }
 
@@ -2763,7 +2763,7 @@ public sealed class CliStrictModeTests
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase));
             var cubeProperties = cubeEntity
-                .Element("Properties")?
+                .Element("PropertyList")?
                 .Elements("Property") ?? Enumerable.Empty<XElement>();
             Assert.Contains(
                 cubeProperties,
@@ -4978,7 +4978,7 @@ public sealed class CliStrictModeTests
         var systemEntity = modelDocument
             .Descendants("Entity")
             .Single(element => string.Equals((string?)element.Attribute("name"), "System", StringComparison.OrdinalIgnoreCase));
-        var relationships = systemEntity.Element("Relationships");
+        var relationships = systemEntity.Element("RelationshipList");
         Assert.NotNull(relationships);
         relationships!.Add(new XElement("Relationship",
             new XAttribute("entity", "Cube"),
@@ -5048,14 +5048,14 @@ public sealed class CliStrictModeTests
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Model name="Mini">
-              <Entities>
+              <EntityList>
                 <Entity name="Warehouse" />
                 <Entity name="Order">
-                  <Relationships>
+                  <RelationshipList>
                     <Relationship entity="Warehouse" />
-                  </Relationships>
+                  </RelationshipList>
                 </Entity>
-              </Entities>
+              </EntityList>
             </Model>
             """);
 
