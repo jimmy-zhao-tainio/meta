@@ -678,7 +678,7 @@ meta instance merge <TargetWs> <DiffWorkspace>
 
 MetaSchema is the separate schema/canonical-catalog toolchain.
 
-It handles schema extraction and sanctioned catalogs that `meta` can treat as metadata workspaces.
+It builds sanctioned metadata workspaces from external source schema and maintains sanctioned catalogs that `meta` can treat as normal metadata workspaces.
 
 Sanctioned model references are kept as XML on disk and loaded by core runtime code:
 - `Meta.Core/WorkspaceConfig/Models/MetaWorkspace.model.xml`
@@ -687,7 +687,7 @@ Sanctioned model references are kept as XML on disk and loaded by core runtime c
 
 To re-emit sanctioned model C# APIs through the same public CLI surface, run `meta generate csharp --tooling` against the sanctioned model workspace you want to publish.
 
-Current status: `meta-schema extract sqlserver` is implemented as a scaffold and does not query SQL Server yet.
+Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `SchemaCatalog` workspace with `System`, `Schema`, `Table`, `FieldType`, and `Field` rows for one declared system/schema/table.
 
 ### TypeConversionCatalog
 

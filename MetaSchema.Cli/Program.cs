@@ -64,6 +64,34 @@ internal static class Program
         }
 
         var workspacePath = Path.GetFullPath(parseResult.Request.NewWorkspacePath);
+        if (string.IsNullOrWhiteSpace(parseResult.Request.ConnectionString))
+        {
+            Console.WriteLine("Error: missing required option --connection <connectionString>.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
+        if (string.IsNullOrWhiteSpace(parseResult.Request.SystemName))
+        {
+            Console.WriteLine("Error: missing required option --system <name>.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
+        if (string.IsNullOrWhiteSpace(parseResult.Request.SchemaName))
+        {
+            Console.WriteLine("Error: missing required option --schema <name>.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
+        if (string.IsNullOrWhiteSpace(parseResult.Request.TableName))
+        {
+            Console.WriteLine("Error: missing required option --table <name>.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
         if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
         {
             Console.WriteLine($"Error: target directory '{workspacePath}' must be empty.");
@@ -74,7 +102,17 @@ internal static class Program
         Directory.CreateDirectory(workspacePath);
 
         var extractor = new SqlServerSchemaExtractor();
-        var workspace = extractor.ExtractEmptySchemaCatalogWorkspace(parseResult.Request);
+        var workspace = default(Meta.Core.Domain.Workspace);
+        try
+        {
+            workspace = extractor.ExtractSchemaCatalogWorkspace(parseResult.Request);
+        }
+        catch (InvalidOperationException exception)
+        {
+            Console.WriteLine($"Error: {exception.Message}");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 4;
+        }
 
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
@@ -84,7 +122,7 @@ internal static class Program
             {
                 Console.WriteLine($"  - {issue.Code}: {issue.Message}");
             }
-            Console.WriteLine("Next: fix model defaults in MetaSchema.Core and retry extract.");
+            Console.WriteLine("Next: fix extractor mapping and retry extract.");
             return 4;
         }
 
@@ -93,6 +131,11 @@ internal static class Program
         Console.WriteLine("OK: schema catalog workspace created");
         Console.WriteLine($"Path: {workspacePath}");
         Console.WriteLine($"Model: {workspace.Model.Name}");
+        Console.WriteLine($"Systems: {workspace.Instance.GetOrCreateEntityRecords("System").Count}");
+        Console.WriteLine($"Schemas: {workspace.Instance.GetOrCreateEntityRecords("Schema").Count}");
+        Console.WriteLine($"Tables: {workspace.Instance.GetOrCreateEntityRecords("Table").Count}");
+        Console.WriteLine($"FieldTypes: {workspace.Instance.GetOrCreateEntityRecords("FieldType").Count}");
+        Console.WriteLine($"Fields: {workspace.Instance.GetOrCreateEntityRecords("Field").Count}");
         return 0;
     }
 
@@ -198,6 +241,28 @@ internal static class Program
                 continue;
             }
 
+            if (string.Equals(arg, "--system", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 >= args.Length)
+                {
+                    return (false, request, "missing value for --system.");
+                }
+
+                request.SystemName = args[++i];
+                continue;
+            }
+
+            if (string.Equals(arg, "--table", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 >= args.Length)
+                {
+                    return (false, request, "missing value for --table.");
+                }
+
+                request.TableName = args[++i];
+                continue;
+            }
+
             return (false, request, $"unknown option '{arg}'.");
         }
 
@@ -253,7 +318,7 @@ internal static class Program
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  help        Show this help.");
-        Console.WriteLine("  extract     Extract sanctioned schema catalogs.");
+        Console.WriteLine("  extract     Materialize sanctioned schema catalogs from external sources.");
         Console.WriteLine("  seed        Materialize sanctioned catalog workspaces.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract --help");
@@ -266,7 +331,7 @@ internal static class Program
         Console.WriteLine("  meta-schema extract <extractor> [options]");
         Console.WriteLine();
         Console.WriteLine("Extractors:");
-        Console.WriteLine("  sqlserver   Extract SQL Server schema into SchemaCatalog workspace (stub: empty catalog).");
+        Console.WriteLine("  sqlserver   Extract SQL Server schema into SchemaCatalog workspace.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract sqlserver --help");
     }
@@ -275,11 +340,11 @@ internal static class Program
     {
         Console.WriteLine("Command: extract sqlserver");
         Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema extract sqlserver --new-workspace <path> [--connection <connectionString>] [--schema <name>]");
+        Console.WriteLine("  meta-schema extract sqlserver --new-workspace <path> --connection <connectionString> --system <name> --schema <name> --table <name>");
         Console.WriteLine();
         Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a workspace with the SchemaCatalog model and validates it.");
-        Console.WriteLine("  Current extractor implementation is a stub and does not query SQL Server yet.");
+        Console.WriteLine("  Creates a new workspace with the SchemaCatalog model and validates it.");
+        Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, FieldType, and Field rows.");
     }
 
     private static void PrintSeedHelp()

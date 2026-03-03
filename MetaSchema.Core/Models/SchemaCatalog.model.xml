@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="SchemaCatalog">
-  <Entities>
+  <EntityList>
     <Entity name="System">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="Description" isRequired="false" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="Schema">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="System" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="Table">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="ObjectType" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Schema" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
     <Entity name="FieldType">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="Family" isRequired="false" />
         <Property name="IsNative" isRequired="false" />
-      </Properties>
+      </PropertyList>
     </Entity>
     <Entity name="Field">
-      <Properties>
+      <PropertyList>
         <Property name="Name" />
         <Property name="Ordinal" isRequired="false" />
         <Property name="IsNullable" isRequired="false" />
         <Property name="Length" isRequired="false" />
         <Property name="NumericPrecision" isRequired="false" />
         <Property name="Scale" isRequired="false" />
-      </Properties>
-      <Relationships>
+      </PropertyList>
+      <RelationshipList>
         <Relationship entity="Table" />
         <Relationship entity="FieldType" />
-      </Relationships>
+      </RelationshipList>
     </Entity>
-  </Entities>
+  </EntityList>
 </Model>
