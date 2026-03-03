@@ -11,8 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Models\SchemaCatalog.model.xml">
-      <LogicalName>MetaSchema.Core.Models.SchemaCatalog.model.xml</LogicalName>
+    <EmbeddedResource Include="Models\MetaDataType.model.xml">
+      <LogicalName>MetaSchema.Core.Models.MetaDataType.model.xml</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\MetaSchema.model.xml">
+      <LogicalName>MetaSchema.Core.Models.MetaSchema.model.xml</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="..\MetaSchema.Catalogs\TypeConversionCatalog\metadata\model.xml">
       <LogicalName>MetaSchema.Core.Models.TypeConversionCatalog.model.xml</LogicalName>

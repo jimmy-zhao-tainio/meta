@@ -7,7 +7,7 @@ namespace MetaSchema.Extractors.SqlServer;
 
 public sealed class SqlServerSchemaExtractor
 {
-    public Workspace ExtractSchemaCatalogWorkspace(SqlServerExtractRequest request)
+    public Workspace ExtractMetaSchemaWorkspace(SqlServerExtractRequest request)
     {
         ArgumentNullException.ThrowIfNull(request);
         if (string.IsNullOrWhiteSpace(request.NewWorkspacePath))
@@ -35,7 +35,7 @@ public sealed class SqlServerSchemaExtractor
             throw new InvalidOperationException("extract sqlserver requires --table <name>.");
         }
 
-        var workspace = MetaSchemaCatalogWorkspaces.CreateEmptySchemaCatalogWorkspace(request.NewWorkspacePath);
+        var workspace = MetaSchemaCatalogWorkspaces.CreateEmptyMetaSchemaWorkspace(request.NewWorkspacePath);
 
         using var connection = new SqlConnection(request.ConnectionString);
         connection.Open();

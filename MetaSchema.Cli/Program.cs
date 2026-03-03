@@ -105,7 +105,7 @@ internal static class Program
         var workspace = default(Meta.Core.Domain.Workspace);
         try
         {
-            workspace = extractor.ExtractSchemaCatalogWorkspace(parseResult.Request);
+            workspace = extractor.ExtractMetaSchemaWorkspace(parseResult.Request);
         }
         catch (InvalidOperationException exception)
         {
@@ -128,7 +128,7 @@ internal static class Program
 
         await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
 
-        Console.WriteLine("OK: schema catalog workspace created");
+        Console.WriteLine("OK: metaschema workspace created");
         Console.WriteLine($"Path: {workspacePath}");
         Console.WriteLine($"Model: {workspace.Model.Name}");
         Console.WriteLine($"Systems: {workspace.Instance.GetOrCreateEntityRecords("System").Count}");
@@ -145,6 +145,11 @@ internal static class Program
         {
             PrintSeedHelp();
             return 0;
+        }
+
+        if (string.Equals(args[1], "data-type", StringComparison.OrdinalIgnoreCase))
+        {
+            return await RunSeedMetaDataTypeAsync(args).ConfigureAwait(false);
         }
 
         if (!string.Equals(args[1], "type-conversion", StringComparison.OrdinalIgnoreCase))
@@ -195,6 +200,54 @@ internal static class Program
         await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
 
         Console.WriteLine("OK: type conversion catalog workspace created");
+        Console.WriteLine($"Path: {workspacePath}");
+        Console.WriteLine($"Model: {workspace.Model.Name}");
+        return 0;
+    }
+
+    private static async Task<int> RunSeedMetaDataTypeAsync(string[] args)
+    {
+        if (args.Length >= 3 && IsHelpToken(args[2]))
+        {
+            PrintSeedMetaDataTypeHelp();
+            return 0;
+        }
+
+        var parseResult = ParseNewWorkspaceOnly(args, startIndex: 2);
+        if (!parseResult.Ok)
+        {
+            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
+            Console.WriteLine("Next: meta-schema seed data-type --help");
+            return 1;
+        }
+
+        var workspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
+        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
+        {
+            Console.WriteLine($"Error: target directory '{workspacePath}' must be empty.");
+            Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
+            return 4;
+        }
+
+        Directory.CreateDirectory(workspacePath);
+
+        var workspace = MetaSchemaCatalogWorkspaces.CreateEmptyMetaDataTypeWorkspace(workspacePath);
+        var validation = new ValidationService().Validate(workspace);
+        if (validation.HasErrors)
+        {
+            Console.WriteLine("Error: MetaDataType workspace is invalid.");
+            foreach (var issue in validation.Issues.Where(item => item.Severity == Meta.Core.Domain.IssueSeverity.Error))
+            {
+                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
+            }
+
+            Console.WriteLine("Next: fix MetaDataType sanctioned model and retry.");
+            return 4;
+        }
+
+        await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
+
+        Console.WriteLine("OK: metadata type workspace created");
         Console.WriteLine($"Path: {workspacePath}");
         Console.WriteLine($"Model: {workspace.Model.Name}");
         return 0;
@@ -318,7 +371,7 @@ internal static class Program
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  help        Show this help.");
-        Console.WriteLine("  extract     Materialize sanctioned schema catalogs from external sources.");
+        Console.WriteLine("  extract     Materialize sanctioned MetaSchema workspaces from external sources.");
         Console.WriteLine("  seed        Materialize sanctioned catalog workspaces.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract --help");
@@ -331,7 +384,7 @@ internal static class Program
         Console.WriteLine("  meta-schema extract <extractor> [options]");
         Console.WriteLine();
         Console.WriteLine("Extractors:");
-        Console.WriteLine("  sqlserver   Extract SQL Server schema into SchemaCatalog workspace.");
+        Console.WriteLine("  sqlserver   Extract SQL Server schema into MetaSchema workspace.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract sqlserver --help");
     }
@@ -343,7 +396,7 @@ internal static class Program
         Console.WriteLine("  meta-schema extract sqlserver --new-workspace <path> --connection <connectionString> --system <name> --schema <name> --table <name>");
         Console.WriteLine();
         Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a new workspace with the SchemaCatalog model and validates it.");
+        Console.WriteLine("  Creates a new workspace with the MetaSchema model and validates it.");
         Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, FieldType, and Field rows.");
     }
 
@@ -354,9 +407,20 @@ internal static class Program
         Console.WriteLine("  meta-schema seed <catalog> [options]");
         Console.WriteLine();
         Console.WriteLine("Catalogs:");
+        Console.WriteLine("  data-type         Materialize sanctioned MetaDataType workspace.");
         Console.WriteLine("  type-conversion   Materialize sanctioned TypeConversionCatalog workspace.");
         Console.WriteLine();
-        Console.WriteLine("Next: meta-schema seed type-conversion --help");
+        Console.WriteLine("Next: meta-schema seed data-type --help");
+    }
+
+    private static void PrintSeedMetaDataTypeHelp()
+    {
+        Console.WriteLine("Command: seed data-type");
+        Console.WriteLine("Usage:");
+        Console.WriteLine("  meta-schema seed data-type --new-workspace <path>");
+        Console.WriteLine();
+        Console.WriteLine("Notes:");
+        Console.WriteLine("  Creates a workspace with the sanctioned MetaDataType model.");
     }
 
     private static void PrintSeedTypeConversionHelp()

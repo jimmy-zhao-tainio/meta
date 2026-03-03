@@ -682,12 +682,17 @@ It builds sanctioned metadata workspaces from external source schema and maintai
 
 Sanctioned model references are kept as XML on disk and loaded by core runtime code:
 - `Meta.Core/WorkspaceConfig/Models/MetaWorkspace.model.xml`
-- `MetaSchema.Core/Models/SchemaCatalog.model.xml`
+- `MetaSchema.Core/Models/MetaDataType.model.xml`
+- `MetaSchema.Core/Models/MetaSchema.model.xml`
 - `MetaSchema.Catalogs/TypeConversionCatalog/metadata/model.xml`
 
 To re-emit sanctioned model C# APIs through the same public CLI surface, run `meta generate csharp --tooling` against the sanctioned model workspace you want to publish.
 
-Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `SchemaCatalog` workspace with `System`, `Schema`, `Table`, `FieldType`, and `Field` rows for one declared system/schema/table.
+Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `FieldType`, and `Field` rows for one declared system/schema/table.
+
+### MetaDataType
+
+`MetaDataType` is the sanctioned shared type model. It currently defines `TypeSystem`, `Type`, and `TypeSpec` as a common type vocabulary that later slices can share between schema discovery and conversion rules.
 
 ### TypeConversionCatalog
 
@@ -753,8 +758,10 @@ Some platform-defaulting rules are encoded as mappings with conditions/transform
 ```powershell
 meta-schema help
 meta-schema extract sqlserver --help
+meta-schema seed data-type --new-workspace .\MetaSchema.Catalogs\MetaDataType
 meta-schema seed type-conversion --new-workspace .\MetaSchema.Catalogs\TypeConversionCatalog
 
+meta check --workspace .\MetaSchema.Catalogs\MetaDataType
 meta check --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
 meta list entities --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
 meta query TypeMapping --contains Name Meta. --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
