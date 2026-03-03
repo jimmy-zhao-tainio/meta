@@ -7,11 +7,11 @@ namespace MetaSchema.Core;
 public static class MetaSchemaModels
 {
     public const string MetaDataTypeModelName = "MetaDataType";
+    public const string MetaDataTypeConversionModelName = "MetaDataTypeConversion";
     public const string MetaSchemaModelName = "MetaSchema";
-    public const string TypeConversionCatalogModelName = "TypeConversionCatalog";
     private const string MetaDataTypeModelResourceName = "MetaSchema.Core.Models.MetaDataType.model.xml";
+    private const string MetaDataTypeConversionModelResourceName = "MetaSchema.Core.Models.MetaDataTypeConversion.model.xml";
     private const string MetaSchemaModelResourceName = "MetaSchema.Core.Models.MetaSchema.model.xml";
-    private const string TypeConversionCatalogModelResourceName = "MetaSchema.Core.Models.TypeConversionCatalog.model.xml";
 
     public static GenericModel CreateMetaDataTypeModel()
     {
@@ -23,9 +23,9 @@ public static class MetaSchemaModels
         return LoadModel(MetaSchemaModelResourceName, MetaSchemaModelName);
     }
 
-    public static GenericModel CreateTypeConversionCatalogModel()
+    public static GenericModel CreateMetaDataTypeConversionModel()
     {
-        return LoadModel(TypeConversionCatalogModelResourceName, TypeConversionCatalogModelName);
+        return LoadModel(MetaDataTypeConversionModelResourceName, MetaDataTypeConversionModelName);
     }
 
     private static GenericModel LoadModel(string resourceName, string expectedModelName)

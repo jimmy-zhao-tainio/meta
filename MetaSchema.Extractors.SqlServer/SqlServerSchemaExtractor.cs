@@ -35,7 +35,7 @@ public sealed class SqlServerSchemaExtractor
             throw new InvalidOperationException("extract sqlserver requires --table <name>.");
         }
 
-        var workspace = MetaSchemaCatalogWorkspaces.CreateEmptyMetaSchemaWorkspace(request.NewWorkspacePath);
+        var workspace = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(request.NewWorkspacePath);
 
         using var connection = new SqlConnection(request.ConnectionString);
         connection.Open();

@@ -3,18 +3,18 @@ using Meta.Core.Domain;
 
 namespace MetaSchema.Core;
 
-public static class TypeConversionCatalogSeed
+public static class MetaDataTypeConversionSeed
 {
     public static Workspace CreateWorkspace(string workspaceRootPath)
     {
         var workspace = MetaSchemaWorkspaceFactory.CreateEmptyWorkspace(
             workspaceRootPath,
-            MetaSchemaModels.CreateTypeConversionCatalogModel());
-        new CatalogSeedBuilder(workspace).Seed();
+            MetaSchemaModels.CreateMetaDataTypeConversionModel());
+        new SeedBuilder(workspace).Seed();
         return workspace;
     }
 
-    private sealed class CatalogSeedBuilder
+    private sealed class SeedBuilder
     {
         private readonly Workspace workspace;
         private readonly Dictionary<string, int> idCounters = new(StringComparer.OrdinalIgnoreCase);
@@ -24,7 +24,7 @@ public static class TypeConversionCatalogSeed
         private readonly Dictionary<string, string> settingIds = new(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, string> implementationIds = new(StringComparer.OrdinalIgnoreCase);
 
-        public CatalogSeedBuilder(Workspace workspace)
+        public SeedBuilder(Workspace workspace)
         {
             this.workspace = workspace;
         }
@@ -43,7 +43,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedTypeSystems()
         {
-            foreach (var value in TypeConversionCatalogSeedData.TypeSystems)
+            foreach (var value in MetaDataTypeConversionSeedData.TypeSystems)
             {
                 var id = AddRow("TypeSystem", new Dictionary<string, string?> { ["Name"] = value });
                 typeSystemIds[value] = id;
@@ -52,7 +52,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedFacets()
         {
-            foreach (var value in TypeConversionCatalogSeedData.Facets)
+            foreach (var value in MetaDataTypeConversionSeedData.Facets)
             {
                 var id = AddRow("Facet", new Dictionary<string, string?>
                 {
@@ -65,7 +65,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedDataTypes()
         {
-            foreach (var value in TypeConversionCatalogSeedData.DataTypes)
+            foreach (var value in MetaDataTypeConversionSeedData.DataTypes)
             {
                 var id = AddRow(
                     "DataType",
@@ -84,7 +84,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedDataTypeFacets()
         {
-            foreach (var value in TypeConversionCatalogSeedData.DataTypeFacets)
+            foreach (var value in MetaDataTypeConversionSeedData.DataTypeFacets)
             {
                 AddRow(
                     "DataTypeFacet",
@@ -105,7 +105,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedTypeSpecs()
         {
-            foreach (var value in TypeConversionCatalogSeedData.TypeSpecs)
+            foreach (var value in MetaDataTypeConversionSeedData.TypeSpecs)
             {
                 AddRow(
                     "TypeSpec",
@@ -127,7 +127,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedSettings()
         {
-            foreach (var value in TypeConversionCatalogSeedData.Settings)
+            foreach (var value in MetaDataTypeConversionSeedData.Settings)
             {
                 var id = AddRow("Setting", new Dictionary<string, string?>
                 {
@@ -140,7 +140,7 @@ public static class TypeConversionCatalogSeed
 
         private void SeedConversionImplementations()
         {
-            foreach (var value in TypeConversionCatalogSeedData.ConversionImplementations)
+            foreach (var value in MetaDataTypeConversionSeedData.ConversionImplementations)
             {
                 var id = AddRow("ConversionImplementation", new Dictionary<string, string?>
                 {
@@ -154,13 +154,13 @@ public static class TypeConversionCatalogSeed
 
         private void SeedMappings()
         {
-            foreach (var value in TypeConversionCatalogSeedData.TypeMappings)
+            foreach (var value in MetaDataTypeConversionSeedData.TypeMappings)
             {
                 AddMapping(value);
             }
         }
 
-        private void AddMapping(TypeConversionCatalogSeedData.MappingSeed value)
+        private void AddMapping(MetaDataTypeConversionSeedData.MappingSeed value)
         {
             var mappingId = AddRow(
                 "TypeMapping",
@@ -182,7 +182,7 @@ public static class TypeConversionCatalogSeed
                     ["SettingId"] = RequireId(settingIds, value.Setting, "Setting"),
                 });
 
-            foreach (var condition in value.Conditions ?? Array.Empty<TypeConversionCatalogSeedData.MappingConditionSeed>())
+            foreach (var condition in value.Conditions ?? Array.Empty<MetaDataTypeConversionSeedData.MappingConditionSeed>())
             {
                 AddRow(
                     "TypeMappingCondition",
@@ -198,7 +198,7 @@ public static class TypeConversionCatalogSeed
                     });
             }
 
-            foreach (var transform in value.Transforms ?? Array.Empty<TypeConversionCatalogSeedData.MappingTransformSeed>())
+            foreach (var transform in value.Transforms ?? Array.Empty<MetaDataTypeConversionSeedData.MappingTransformSeed>())
             {
                 AddRow(
                     "TypeMappingFacetTransform",

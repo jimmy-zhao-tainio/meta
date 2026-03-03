@@ -5,7 +5,7 @@
 This repo ships two CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-schema` (MetaSchema CLI): schema extraction and sanctioned catalogs (for example `TypeConversionCatalog`).
+`meta-schema` (MetaSchema CLI): schema extraction and sanctioned models (for example `MetaDataTypeConversion`).
 
 ## Metadata foundations (project terminology)
 
@@ -678,13 +678,13 @@ meta instance merge <TargetWs> <DiffWorkspace>
 
 MetaSchema is the separate schema/canonical-catalog toolchain.
 
-It builds sanctioned metadata workspaces from external source schema and maintains sanctioned catalogs that `meta` can treat as normal metadata workspaces.
+It builds sanctioned metadata workspaces from external source schema and maintains sanctioned model workspaces that `meta` can treat as normal metadata workspaces.
 
 Sanctioned model references are kept as XML on disk and loaded by core runtime code:
 - `Meta.Core/WorkspaceConfig/Models/MetaWorkspace.model.xml`
 - `MetaSchema.Core/Models/MetaDataType.model.xml`
 - `MetaSchema.Core/Models/MetaSchema.model.xml`
-- `MetaSchema.Catalogs/TypeConversionCatalog/metadata/model.xml`
+- `MetaSchema.Core/Models/MetaDataTypeConversion.model.xml`
 
 To re-emit sanctioned model C# APIs through the same public CLI surface, run `meta generate csharp --tooling` against the sanctioned model workspace you want to publish.
 
@@ -694,9 +694,9 @@ Current status: `meta-schema extract sqlserver` connects to SQL Server and creat
 
 `MetaDataType` is the sanctioned shared type model. It currently defines `TypeSystem`, `Type`, and `TypeSpec` as a common type vocabulary that later slices can share between schema discovery and conversion rules.
 
-### TypeConversionCatalog
+### MetaDataTypeConversion
 
-`TypeConversionCatalog` is a workspace that models a canonical type system (`Meta`) and mappings to/from platform type systems (SqlServer, Synapse, Snowflake, SSIS, CSharp). The model centers around TypeSystems/DataTypes, facets, and mapping rules.
+`MetaDataTypeConversion` is a workspace that models a canonical type system (`Meta`) and mappings to/from platform type systems (SqlServer, Synapse, Snowflake, SSIS, CSharp). The model centers around TypeSystems/DataTypes, facets, and mapping rules.
 
 Key entities include `TypeSystem`, `DataType`, `TypeSpec`, `TypeMapping`, `TypeMappingCondition`, `TypeMappingFacetTransform`, `Setting`, and `ConversionImplementation`.
 
@@ -758,13 +758,13 @@ Some platform-defaulting rules are encoded as mappings with conditions/transform
 ```powershell
 meta-schema help
 meta-schema extract sqlserver --help
-meta-schema seed data-type --new-workspace .\MetaSchema.Catalogs\MetaDataType
-meta-schema seed type-conversion --new-workspace .\MetaSchema.Catalogs\TypeConversionCatalog
+meta-schema seed data-type --new-workspace .\MetaDataType
+meta-schema seed data-type-conversion --new-workspace .\MetaDataTypeConversion
 
-meta check --workspace .\MetaSchema.Catalogs\MetaDataType
-meta check --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
-meta list entities --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
-meta query TypeMapping --contains Name Meta. --workspace .\MetaSchema.Catalogs\TypeConversionCatalog
+meta check --workspace .\MetaDataType
+meta check --workspace .\MetaDataTypeConversion
+meta list entities --workspace .\MetaDataTypeConversion
+meta query TypeMapping --contains Name Meta. --workspace .\MetaDataTypeConversion
 ```
 
 ## References

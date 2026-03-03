@@ -152,7 +152,7 @@ internal static class Program
             return await RunSeedMetaDataTypeAsync(args).ConfigureAwait(false);
         }
 
-        if (!string.Equals(args[1], "type-conversion", StringComparison.OrdinalIgnoreCase))
+        if (!string.Equals(args[1], "data-type-conversion", StringComparison.OrdinalIgnoreCase))
         {
             Console.WriteLine($"Error: unknown seed '{args[1]}'.");
             Console.WriteLine("Next: meta-schema seed --help");
@@ -169,7 +169,7 @@ internal static class Program
         if (!parseResult.Ok)
         {
             Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-schema seed type-conversion --help");
+            Console.WriteLine("Next: meta-schema seed data-type-conversion --help");
             return 1;
         }
 
@@ -183,23 +183,23 @@ internal static class Program
 
         Directory.CreateDirectory(workspacePath);
 
-        var workspace = MetaSchemaCatalogWorkspaces.CreateSeedTypeConversionCatalogWorkspace(workspacePath);
+        var workspace = MetaSchemaWorkspaces.CreateSeedMetaDataTypeConversionWorkspace(workspacePath);
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
-            Console.WriteLine("Error: seed catalog workspace is invalid.");
+            Console.WriteLine("Error: seed workspace is invalid.");
             foreach (var issue in validation.Issues.Where(item => item.Severity == Meta.Core.Domain.IssueSeverity.Error))
             {
                 Console.WriteLine($"  - {issue.Code}: {issue.Message}");
             }
 
-            Console.WriteLine("Next: fix TypeConversionCatalog seed data and retry.");
+            Console.WriteLine("Next: fix MetaDataTypeConversion seed data and retry.");
             return 4;
         }
 
         await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
 
-        Console.WriteLine("OK: type conversion catalog workspace created");
+        Console.WriteLine("OK: metadata type conversion workspace created");
         Console.WriteLine($"Path: {workspacePath}");
         Console.WriteLine($"Model: {workspace.Model.Name}");
         return 0;
@@ -231,7 +231,7 @@ internal static class Program
 
         Directory.CreateDirectory(workspacePath);
 
-        var workspace = MetaSchemaCatalogWorkspaces.CreateEmptyMetaDataTypeWorkspace(workspacePath);
+        var workspace = MetaSchemaWorkspaces.CreateEmptyMetaDataTypeWorkspace(workspacePath);
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
@@ -372,7 +372,7 @@ internal static class Program
         Console.WriteLine("Commands:");
         Console.WriteLine("  help        Show this help.");
         Console.WriteLine("  extract     Materialize sanctioned MetaSchema workspaces from external sources.");
-        Console.WriteLine("  seed        Materialize sanctioned catalog workspaces.");
+        Console.WriteLine("  seed        Materialize sanctioned model workspaces.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract --help");
     }
@@ -406,9 +406,9 @@ internal static class Program
         Console.WriteLine("Usage:");
         Console.WriteLine("  meta-schema seed <catalog> [options]");
         Console.WriteLine();
-        Console.WriteLine("Catalogs:");
-        Console.WriteLine("  data-type         Materialize sanctioned MetaDataType workspace.");
-        Console.WriteLine("  type-conversion   Materialize sanctioned TypeConversionCatalog workspace.");
+        Console.WriteLine("Models:");
+        Console.WriteLine("  data-type               Materialize sanctioned MetaDataType workspace.");
+        Console.WriteLine("  data-type-conversion    Materialize sanctioned MetaDataTypeConversion workspace.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema seed data-type --help");
     }
@@ -425,11 +425,11 @@ internal static class Program
 
     private static void PrintSeedTypeConversionHelp()
     {
-        Console.WriteLine("Command: seed type-conversion");
+        Console.WriteLine("Command: seed data-type-conversion");
         Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema seed type-conversion --new-workspace <path>");
+        Console.WriteLine("  meta-schema seed data-type-conversion --new-workspace <path>");
         Console.WriteLine();
         Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a workspace with the TypeConversionCatalog model and seeded instance data.");
+        Console.WriteLine("  Creates a workspace with the MetaDataTypeConversion model and seeded instance data.");
     }
 }

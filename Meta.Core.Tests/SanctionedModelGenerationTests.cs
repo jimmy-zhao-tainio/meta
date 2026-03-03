@@ -5,6 +5,7 @@ using Meta.Adapters;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
 using Meta.Core.Services;
+using MetaSchema.Core;
 using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
@@ -35,21 +36,20 @@ public sealed class SanctionedModelGenerationTests
     }
 
     [Fact]
-    public void SchemaCatalogReferenceModel_GeneratesCSharpWithTooling()
+    public void MetaSchemaReferenceModel_GeneratesCSharpWithTooling()
     {
         var repoRoot = FindRepositoryRoot();
-        var services = new ServiceCollection();
-        var modelPath = Path.Combine(repoRoot, "MetaSchema.Core", "Models", "SchemaCatalog.model.xml");
-        var instancePath = Path.Combine(repoRoot, "MetaSchema.Core", "Models", "SchemaCatalog.instance.empty.xml");
-        var outputPath = Path.Combine(Path.GetTempPath(), "metadata-sanctioned-tests", Guid.NewGuid().ToString("N"), "schema-catalog");
+        var modelPath = Path.Combine(repoRoot, "MetaSchema.Core", "Models", "MetaSchema.model.xml");
+        var instancePath = Path.Combine(repoRoot, "MetaSchema.Core", "Models", "MetaSchema.instance.empty.xml");
+        var outputPath = Path.Combine(Path.GetTempPath(), "metadata-sanctioned-tests", Guid.NewGuid().ToString("N"), "meta-schema");
 
         try
         {
             var workspace = LoadWorkspaceFromContractFiles(modelPath, instancePath);
             var manifest = GenerationService.GenerateCSharp(workspace, outputPath, includeTooling: true);
 
-            Assert.True(manifest.FileHashes.ContainsKey("SchemaCatalog.Tooling.cs"));
-            Assert.True(File.Exists(Path.Combine(outputPath, "SchemaCatalog.Tooling.cs")));
+            Assert.True(manifest.FileHashes.ContainsKey("MetaSchema.Tooling.cs"));
+            Assert.True(File.Exists(Path.Combine(outputPath, "MetaSchema.Tooling.cs")));
         }
         finally
         {
@@ -58,23 +58,23 @@ public sealed class SanctionedModelGenerationTests
     }
 
     [Fact]
-    public async Task TypeConversionCatalogWorkspace_GeneratesCSharpWithTooling()
+    public void MetaDataTypeConversionWorkspace_GeneratesCSharpWithTooling()
     {
         var repoRoot = FindRepositoryRoot();
-        var services = new ServiceCollection();
-        var workspacePath = Path.Combine(repoRoot, "MetaSchema.Catalogs", "TypeConversionCatalog");
+        var workspacePath = Path.Combine(Path.GetTempPath(), "metadata-sanctioned-tests", Guid.NewGuid().ToString("N"), "type-conversion-workspace");
         var outputPath = Path.Combine(Path.GetTempPath(), "metadata-sanctioned-tests", Guid.NewGuid().ToString("N"), "type-conversion");
 
         try
         {
-            var workspace = await services.WorkspaceService.LoadAsync(workspacePath);
+            var workspace = MetaDataTypeConversionSeed.CreateWorkspace(workspacePath);
             var manifest = GenerationService.GenerateCSharp(workspace, outputPath, includeTooling: true);
 
-            Assert.True(manifest.FileHashes.ContainsKey("TypeConversionCatalog.Tooling.cs"));
-            Assert.True(File.Exists(Path.Combine(outputPath, "TypeConversionCatalog.Tooling.cs")));
+            Assert.True(manifest.FileHashes.ContainsKey("MetaDataTypeConversion.Tooling.cs"));
+            Assert.True(File.Exists(Path.Combine(outputPath, "MetaDataTypeConversion.Tooling.cs")));
         }
         finally
         {
+            DeleteDirectoryIfExists(workspacePath);
             DeleteDirectoryIfExists(Path.GetDirectoryName(outputPath)!);
         }
     }

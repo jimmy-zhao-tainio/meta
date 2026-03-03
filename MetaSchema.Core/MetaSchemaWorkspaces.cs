@@ -2,7 +2,7 @@ using Meta.Core.Domain;
 
 namespace MetaSchema.Core;
 
-public static class MetaSchemaCatalogWorkspaces
+public static class MetaSchemaWorkspaces
 {
     public static Workspace CreateEmptyMetaDataTypeWorkspace(string workspaceRootPath)
     {
@@ -18,15 +18,15 @@ public static class MetaSchemaCatalogWorkspaces
             MetaSchemaModels.CreateMetaSchemaModel());
     }
 
-    public static Workspace CreateEmptyTypeConversionCatalogWorkspace(string workspaceRootPath)
+    public static Workspace CreateEmptyMetaDataTypeConversionWorkspace(string workspaceRootPath)
     {
         return MetaSchemaWorkspaceFactory.CreateEmptyWorkspace(
             workspaceRootPath,
-            MetaSchemaModels.CreateTypeConversionCatalogModel());
+            MetaSchemaModels.CreateMetaDataTypeConversionModel());
     }
 
-    public static Workspace CreateSeedTypeConversionCatalogWorkspace(string workspaceRootPath)
+    public static Workspace CreateSeedMetaDataTypeConversionWorkspace(string workspaceRootPath)
     {
-        return TypeConversionCatalogSeed.CreateWorkspace(workspaceRootPath);
+        return MetaDataTypeConversionSeed.CreateWorkspace(workspaceRootPath);
     }
 }

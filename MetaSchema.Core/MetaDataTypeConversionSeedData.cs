@@ -1,6 +1,6 @@
 namespace MetaSchema.Core;
 
-internal static class TypeConversionCatalogSeedData
+internal static class MetaDataTypeConversionSeedData
 {
     internal readonly record struct FacetSeed(string Name, string ValueKind);
     internal readonly record struct DataTypeSeed(string TypeSystem, string Name, string? Category);
