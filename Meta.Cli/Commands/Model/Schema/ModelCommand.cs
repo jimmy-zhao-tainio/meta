@@ -16,6 +16,7 @@ internal sealed partial class CliRuntime
             "add-property" => await ModelAddPropertyAsync(commandArgs).ConfigureAwait(false),
             "rename-property" => await ModelRenamePropertyAsync(commandArgs).ConfigureAwait(false),
             "add-relationship" => await ModelAddRelationshipAsync(commandArgs).ConfigureAwait(false),
+            "rename-relationship" => await ModelRenameRelationshipAsync(commandArgs).ConfigureAwait(false),
             "refactor" => await ModelRefactorAsync(commandArgs).ConfigureAwait(false),
             "drop-property" => await ModelDropPropertyAsync(commandArgs).ConfigureAwait(false),
             "drop-relationship" => await ModelDropRelationshipAsync(commandArgs).ConfigureAwait(false),

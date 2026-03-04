@@ -447,6 +447,7 @@ internal static class HelpTopics
                         ("add-property", "Add a property to an entity."),
                         ("rename-property", "Rename a property."),
                         ("drop-property", "Remove a property."),
+                        ("rename-relationship", "Rename a relationship usage by setting or clearing its role."),
                         ("add-relationship", "Add a relationship."),
                         ("refactor", "Atomic model+instance refactors."),
                         ("drop-relationship", "Remove a relationship."),
@@ -503,6 +504,24 @@ internal static class HelpTopics
                     options: new[] { ("--workspace <path>", "Override workspace root.") },
                     examples: new[] { "meta model rename-property Cube Purpose Description" },
                     next: "meta model drop-property --help");
+                return true;
+
+            case "model rename-relationship":
+                document = BuildTopicDocument(
+                    title: "Command: model rename-relationship",
+                    summary: "Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically.",
+                    usage: "meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]",
+                    options: new[]
+                    {
+                        ("--role <Role>", "Set a new relationship role (usage column becomes <Role>Id). Omit --role to clear the role and revert usage naming to <TargetEntity>Id."),
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[]
+                    {
+                        "meta model rename-relationship System SystemType --role PrimarySystemType",
+                        "meta model rename-relationship System SystemType",
+                    },
+                    next: "meta model add-relationship --help");
                 return true;
 
             case "model add-relationship":

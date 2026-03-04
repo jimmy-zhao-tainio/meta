@@ -339,6 +339,10 @@ public sealed class CliStrictModeTests
         var relationshipSetHelp = await RunCliAsync("instance", "relationship", "set", "--help");
         Assert.Equal(0, relationshipSetHelp.ExitCode);
         Assert.Contains("meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId>", relationshipSetHelp.StdOut, StringComparison.Ordinal);
+
+        var renameRelationshipHelp = await RunCliAsync("model", "rename-relationship", "--help");
+        Assert.Equal(0, renameRelationshipHelp.ExitCode);
+        Assert.Contains("meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]", renameRelationshipHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("target entity, relationship role, or implied relationship field name", relationshipSetHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -2624,6 +2628,132 @@ public sealed class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.Contains("row 'System:1' already contains relationship 'PlatformTypeId'", result.CombinedOutput, StringComparison.Ordinal);
+            AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameRelationship_SetsRoleAndRewritesUsageName()
+    {
+        InvalidateCliAssemblyCache();
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliAsync(
+                "model",
+                "rename-relationship",
+                "System",
+                "SystemType",
+                "--role",
+                "PrimarySystemType",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("OK: relationship renamed", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("From: System.SystemTypeId", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("To: System.PrimarySystemTypeId", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Target: SystemType", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("OldRole: (none)", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("NewRole: PrimarySystemType", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Rows touched: 2", result.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            Assert.Contains(
+                model.Descendants("Relationship"),
+                element =>
+                    string.Equals((string?)element.Attribute("entity"), "SystemType", StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals((string?)element.Attribute("role"), "PrimarySystemType", StringComparison.OrdinalIgnoreCase));
+
+            var systemRows = LoadEntityRows(workspaceRoot, "System");
+            Assert.All(systemRows, row =>
+            {
+                Assert.NotNull(row.Attribute("PrimarySystemTypeId"));
+                Assert.Null(row.Attribute("SystemTypeId"));
+            });
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameRelationship_ClearsRoleAndRewritesUsageName()
+    {
+        InvalidateCliAssemblyCache();
+        var workspaceRoot = CreateTempWorkspaceWithRoleRenameFixture();
+        try
+        {
+            var result = await RunCliAsync(
+                "model",
+                "rename-relationship",
+                "System",
+                "SystemType",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("OK: relationship renamed", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("From: System.PrimarySystemTypeId", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("To: System.SystemTypeId", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("OldRole: PrimarySystemType", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("NewRole: (none)", result.StdOut, StringComparison.Ordinal);
+            Assert.Contains("Rows touched: 2", result.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            Assert.Contains(
+                model.Descendants("Relationship"),
+                element =>
+                    string.Equals((string?)element.Attribute("entity"), "SystemType", StringComparison.OrdinalIgnoreCase) &&
+                    element.Attribute("role") == null);
+
+            var systemRows = LoadEntityRows(workspaceRoot, "System");
+            Assert.All(systemRows, row =>
+            {
+                Assert.NotNull(row.Attribute("SystemTypeId"));
+                Assert.Null(row.Attribute("PrimarySystemTypeId"));
+            });
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameRelationship_CollisionFailsAndIsAtomic()
+    {
+        InvalidateCliAssemblyCache();
+        var workspaceRoot = CreateTempWorkspaceWithRelationshipRenameCollisionFixture();
+        var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-rename-relationship-expected", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CopyDirectory(workspaceRoot, expectedWorkspace);
+
+            var result = await RunCliAsync(
+                "model",
+                "rename-relationship",
+                "System",
+                "SystemType",
+                "--role",
+                "PrimarySystemType",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains("property 'System.PrimarySystemTypeId' already exists", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -4993,6 +5123,23 @@ public sealed class CliStrictModeTests
         }
 
         systemDocument.Save(systemPath);
+        return root;
+    }
+
+    private static string CreateTempWorkspaceWithRelationshipRenameCollisionFixture()
+    {
+        var root = CreateTempWorkspaceFromSamples();
+
+        var modelPath = Path.Combine(root, "metadata", "model.xml");
+        var modelDocument = XDocument.Load(modelPath);
+        var systemEntity = modelDocument
+            .Descendants("Entity")
+            .Single(element => string.Equals((string?)element.Attribute("name"), "System", StringComparison.OrdinalIgnoreCase));
+        var properties = systemEntity.Element("PropertyList");
+        Assert.NotNull(properties);
+        properties!.Add(new XElement("Property", new XAttribute("name", "PrimarySystemTypeId")));
+        modelDocument.Save(modelPath);
+
         return root;
     }
 

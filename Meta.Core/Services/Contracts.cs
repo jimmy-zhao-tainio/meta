@@ -73,6 +73,10 @@ public interface IModelRefactorService
         Workspace workspace,
         RenameEntityRefactorOptions options);
 
+    RenameRelationshipRefactorResult RenameRelationship(
+        Workspace workspace,
+        RenameRelationshipRefactorOptions options);
+
     PropertyToRelationshipRefactorResult RefactorPropertyToRelationship(
         Workspace workspace,
         PropertyToRelationshipRefactorOptions options);

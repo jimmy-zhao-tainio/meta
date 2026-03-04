@@ -47,6 +47,21 @@ public readonly record struct RenameEntityRefactorResult(
     int FkFieldsRenamed,
     int RowsTouched);
 
+public readonly record struct RenameRelationshipRefactorOptions(
+    string SourceEntityName,
+    string TargetEntityName,
+    string CurrentRole,
+    string NewRole);
+
+public readonly record struct RenameRelationshipRefactorResult(
+    string SourceEntityName,
+    string TargetEntityName,
+    string OldRole,
+    string NewRole,
+    string OldUsageName,
+    string NewUsageName,
+    int RowsTouched);
+
 public sealed class ModelRefactorService : IModelRefactorService
 {
     private static readonly Regex IdentifierPattern = new("^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled);
@@ -185,6 +200,120 @@ public sealed class ModelRefactorService : IModelRefactorService
             NewEntityName: options.NewEntityName,
             RelationshipsUpdated: relationshipPlans.Count,
             FkFieldsRenamed: fkFieldsRenamed,
+            RowsTouched: rowsTouched);
+    }
+
+    public RenameRelationshipRefactorResult RenameRelationship(
+        Workspace workspace,
+        RenameRelationshipRefactorOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(workspace);
+
+        if (string.IsNullOrWhiteSpace(options.SourceEntityName))
+        {
+            throw new InvalidOperationException("Source entity is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.TargetEntityName))
+        {
+            throw new InvalidOperationException("Target entity is required.");
+        }
+
+        var sourceEntity = RequireEntity(workspace.Model, options.SourceEntityName);
+        RequireEntity(workspace.Model, options.TargetEntityName);
+
+        var relationship = sourceEntity.Relationships.FirstOrDefault(item =>
+            string.Equals(item.Entity, options.TargetEntityName, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.Role ?? string.Empty, options.CurrentRole ?? string.Empty, StringComparison.OrdinalIgnoreCase));
+        if (relationship == null)
+        {
+            throw new InvalidOperationException(
+                $"Relationship '{options.SourceEntityName}->{options.TargetEntityName}' was not found.");
+        }
+
+        var normalizedNewRole = NormalizeRole(options.NewRole, options.TargetEntityName);
+        if (!string.IsNullOrWhiteSpace(normalizedNewRole) && !IdentifierPattern.IsMatch(normalizedNewRole))
+        {
+            throw new InvalidOperationException(
+                $"Role '{normalizedNewRole}' is invalid. Use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
+        }
+
+        var oldRoleOrDefault = relationship.GetRoleOrDefault();
+        var oldUsageName = relationship.GetColumnName();
+        var renamedRelationship = new GenericRelationship
+        {
+            Entity = relationship.Entity,
+            Role = normalizedNewRole,
+        };
+        var newUsageName = renamedRelationship.GetColumnName();
+
+        if (string.Equals(relationship.Role ?? string.Empty, normalizedNewRole, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Relationship '{sourceEntity.Name}.{oldUsageName}' already uses the requested role.");
+        }
+
+        if (sourceEntity.Properties.Any(item =>
+                string.Equals(item.Name, newUsageName, StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new InvalidOperationException(
+                $"Cannot rename relationship '{sourceEntity.Name}.{oldUsageName}' because property '{sourceEntity.Name}.{newUsageName}' already exists.");
+        }
+
+        var relationshipCollision = sourceEntity.Relationships.Any(item =>
+            !ReferenceEquals(item, relationship) &&
+            string.Equals(item.GetColumnName(), newUsageName, StringComparison.OrdinalIgnoreCase));
+        if (relationshipCollision)
+        {
+            throw new InvalidOperationException(
+                $"Cannot rename relationship '{sourceEntity.Name}.{oldUsageName}' because relationship usage '{sourceEntity.Name}.{newUsageName}' already exists.");
+        }
+
+        var sourceRows = workspace.Instance.GetOrCreateEntityRecords(sourceEntity.Name)
+            .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Id, StringComparer.Ordinal)
+            .ToList();
+        foreach (var row in sourceRows)
+        {
+            if (string.Equals(oldUsageName, newUsageName, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (row.RelationshipIds.ContainsKey(newUsageName) || row.Values.ContainsKey(newUsageName))
+            {
+                throw new InvalidOperationException(
+                    $"Cannot rename relationship '{sourceEntity.Name}.{oldUsageName}' because row '{sourceEntity.Name}:{row.Id}' already contains '{newUsageName}'.");
+            }
+        }
+
+        relationship.Role = normalizedNewRole;
+
+        var rowsTouched = 0;
+        if (!string.Equals(oldUsageName, newUsageName, StringComparison.OrdinalIgnoreCase))
+        {
+            foreach (var row in sourceRows)
+            {
+                if (!row.RelationshipIds.TryGetValue(oldUsageName, out var relationshipId))
+                {
+                    continue;
+                }
+
+                row.RelationshipIds.Remove(oldUsageName);
+                row.RelationshipIds[newUsageName] = relationshipId;
+                rowsTouched++;
+            }
+        }
+
+        workspace.IsDirty = true;
+
+        return new RenameRelationshipRefactorResult(
+            SourceEntityName: sourceEntity.Name,
+            TargetEntityName: relationship.Entity,
+            OldRole: oldRoleOrDefault,
+            NewRole: renamedRelationship.GetRoleOrDefault(),
+            OldUsageName: oldUsageName,
+            NewUsageName: newUsageName,
             RowsTouched: rowsTouched);
     }
 
@@ -424,6 +553,17 @@ public sealed class ModelRefactorService : IModelRefactorService
         }
 
         return map;
+    }
+
+    private static string NormalizeRole(string? role, string targetEntityName)
+    {
+        var normalized = role?.Trim() ?? string.Empty;
+        if (string.Equals(normalized, targetEntityName, StringComparison.OrdinalIgnoreCase))
+        {
+            return string.Empty;
+        }
+
+        return normalized;
     }
 
     private readonly record struct RenameRelationshipPlan(

@@ -14,7 +14,6 @@ public static class WorkspaceOpTypes
     public const string ChangeNullability = "change_nullability";
     public const string AddRelationship = "add_relationship";
     public const string DeleteRelationship = "delete_relationship";
-    public const string RenameRelationship = "rename_relationship";
     public const string BulkUpsertRows = "bulk_upsert_rows";
     public const string DeleteRows = "delete_rows";
     public const string TransformInstances = "transform_instances";
@@ -33,7 +32,6 @@ public sealed class WorkspaceOp
     public string RelatedEntity { get; set; } = string.Empty;
     public string RelatedRole { get; set; } = string.Empty;
     public string RelatedDefaultId { get; set; } = string.Empty;
-    public string NewRelatedEntity { get; set; } = string.Empty;
     public List<RowPatch> RowPatches { get; set; } = new();
     public List<string> Ids { get; set; } = new();
     public string Description { get; set; } = string.Empty;

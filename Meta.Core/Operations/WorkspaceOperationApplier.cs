@@ -48,9 +48,6 @@ public static class WorkspaceOperationApplier
             case WorkspaceOpTypes.DeleteRelationship:
                 DeleteRelationship(workspace, operation);
                 break;
-            case WorkspaceOpTypes.RenameRelationship:
-                RenameRelationship(workspace, operation);
-                break;
             case WorkspaceOpTypes.BulkUpsertRows:
                 BulkUpsertRows(workspace, operation);
                 break;
@@ -355,40 +352,6 @@ public static class WorkspaceOperationApplier
         }
 
         entity.Relationships.Remove(relationship);
-    }
-
-    private static void RenameRelationship(Workspace workspace, WorkspaceOp operation)
-    {
-        var entityName = RequireValue(operation.EntityName, nameof(operation.EntityName));
-        var relationshipSelector = RequireValue(operation.RelatedEntity, nameof(operation.RelatedEntity));
-        var newRelatedEntity = RequireValue(operation.NewRelatedEntity, nameof(operation.NewRelatedEntity));
-        RequireEntity(workspace.Model, newRelatedEntity);
-
-        var entity = RequireEntity(workspace.Model, entityName);
-        var relationship = ResolveRelationship(entity, relationshipSelector);
-        var oldUsageName = relationship.GetColumnName();
-
-        if (entity.Relationships.Any(item =>
-                !ReferenceEquals(item, relationship) &&
-                string.Equals(item.GetColumnName(), relationship.GetColumnName(), StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(item.Entity, newRelatedEntity, StringComparison.OrdinalIgnoreCase)))
-        {
-            throw new InvalidOperationException($"Relationship '{entityName}->{newRelatedEntity}' already exists.");
-        }
-
-        relationship.Entity = newRelatedEntity;
-        var newUsageName = relationship.GetColumnName();
-        if (workspace.Instance.RecordsByEntity.TryGetValue(entityName, out var records))
-        {
-            foreach (var record in records)
-            {
-                if (record.RelationshipIds.TryGetValue(oldUsageName, out var value))
-                {
-                    record.RelationshipIds.Remove(oldUsageName);
-                    record.RelationshipIds[newUsageName] = value;
-                }
-            }
-        }
     }
 
     private static void BulkUpsertRows(Workspace workspace, WorkspaceOp operation)

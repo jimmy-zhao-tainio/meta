@@ -401,6 +401,7 @@ Global behavior:
 | `meta model drop-entity <Entity>` | Drop entity definition (blocked if instances or inbound refs exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> ...` | Add scalar property; uses `--default-value` to backfill required additions on existing rows. | `meta model add-property Cube Purpose --required true --default-value Unknown` |
 | `meta model rename-property <Entity> <Old> <New>` | Rename one scalar property. | `meta model rename-property Cube Purpose BusinessPurpose` |
+| `meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>]` | Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically. Omit `--role` to clear the role. | `meta model rename-relationship System SystemType --role PrimarySystemType` |
 | `meta model drop-property <Entity> <Property>` | Remove one scalar property. | `meta model drop-property Cube Description` |
 | `meta model add-relationship <From> <To> ...` | Add required relationship; uses `--default-id` for backfill when source has rows. | `meta model add-relationship Measure Cube --default-id 1` |
 | `meta model drop-relationship <From> <To>` | Remove declared relationship from model. | `meta model drop-relationship Measure Cube` |
