@@ -80,7 +80,7 @@ Goal:
 
 Deliverables:
 - `meta-schema extract sqlserver --new-workspace ... --system ... --schema ... --table ...`
-- deterministic `SchemaCatalog` workspace output
+- deterministic `MetaSchema` workspace output
 - no stale command/docs drift
 
 Tasks:
