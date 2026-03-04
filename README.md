@@ -740,6 +740,7 @@ meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaSchema --mode
 meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaType --model MetaType --workspace-path .\MetaType.Instances\MetaType
 meta-weave add-binding --workspace .\MetaWeave.Workspace --name "MetaSchema.Field.TypeId -> MetaType.Type.Id" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
+meta-weave merge --workspace .\MetaWeave.Workspace --new-workspace .\MergedWorkspace
 ```
 
 Sanctioned examples live under:

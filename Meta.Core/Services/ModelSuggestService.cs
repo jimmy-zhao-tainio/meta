@@ -115,7 +115,8 @@ public static class ModelSuggestService
         string targetEntityName,
         string targetPropertyName,
         string? role = null,
-        bool allowSourcePropertyReplacement = true)
+        bool allowSourcePropertyReplacement = true,
+        bool requireSourceReuse = true)
     {
         ArgumentNullException.ThrowIfNull(workspace);
 
@@ -168,7 +169,7 @@ public static class ModelSuggestService
                 $"Property '{targetEntityName}.{targetPropertyName}' does not exist.");
         }
 
-        return BuildLookupRelationshipSuggestion(workspace, source, target, role, allowSourcePropertyReplacement);
+        return BuildLookupRelationshipSuggestion(workspace, source, target, role, allowSourcePropertyReplacement, requireSourceReuse);
     }
 
     private static List<PropertyProfile> BuildPropertyProfiles(Workspace workspace)
@@ -422,7 +423,8 @@ public static class ModelSuggestService
                     source,
                     implicitTargetProfile,
                     role: null,
-                    allowSourcePropertyReplacement: true));
+                    allowSourcePropertyReplacement: true,
+                    requireSourceReuse: true));
             }
         }
 
@@ -444,7 +446,8 @@ public static class ModelSuggestService
         PropertyProfile source,
         PropertyProfile target,
         string? role,
-        bool allowSourcePropertyReplacement)
+        bool allowSourcePropertyReplacement,
+        bool requireSourceReuse)
     {
         var model = workspace.Model ?? throw new InvalidDataException("Workspace model is missing.");
         var sourceStats = source.Stats;
@@ -465,7 +468,8 @@ public static class ModelSuggestService
                 targetStats.EntityName,
                 role,
                 allowSourcePropertyReplacement),
-            SourceShowsClearLookupReuse(sourceStats));
+            SourceShowsClearLookupReuse(sourceStats),
+            requireSourceReuse);
 
         var suggestion = new LookupRelationshipSuggestion
         {
@@ -511,7 +515,8 @@ public static class ModelSuggestService
         bool typeCompatible,
         IReadOnlyDictionary<string, int> targetComparableCounts,
         IReadOnlyList<string> modelShapeBlockers,
-        bool sourceShowsClearLookupReuse)
+        bool sourceShowsClearLookupReuse,
+        bool requireSourceReuse)
     {
         var blockers = new List<string>();
         blockers.AddRange(modelShapeBlockers);
@@ -541,7 +546,7 @@ public static class ModelSuggestService
             blockers.Add("Source values not fully resolvable against target key.");
         }
 
-        if (!sourceShowsClearLookupReuse)
+        if (requireSourceReuse && !sourceShowsClearLookupReuse)
         {
             blockers.Add("Source does not show reuse; lookup direction is ambiguous.");
         }

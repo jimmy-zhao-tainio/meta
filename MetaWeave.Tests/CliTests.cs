@@ -20,6 +20,7 @@ public sealed class CliTests
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("MetaWeave CLI", result.Output);
         Assert.Contains("check", result.Output);
+        Assert.Contains("merge", result.Output);
     }
 
     [Fact]
@@ -310,6 +311,69 @@ public sealed class CliTests
         Assert.Contains("Bindings: 2", result.Output);
         Assert.Contains("Errors: 0", result.Output);
     }
+
+    [Fact]
+    public async Task Merge_SanctionedMetaSchemaWeave_CreatesMergedWorkspaceWithRelationship()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-schema", Guid.NewGuid().ToString("N"));
+        var mergedPath = Path.Combine(root, "Merged");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var merge = RunCli($"merge --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\" --new-workspace \"{mergedPath}\"");
+            Assert.Equal(0, merge.ExitCode);
+            Assert.Contains("OK: weave merge", merge.Output);
+
+            var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
+            var diagnostics = new ValidationService().Validate(workspace);
+            Assert.False(diagnostics.HasErrors);
+
+            var fieldEntity = workspace.Model.FindEntity("Field");
+            Assert.NotNull(fieldEntity);
+            Assert.DoesNotContain(fieldEntity!.Properties, item => string.Equals(item.Name, "TypeId", StringComparison.Ordinal));
+            Assert.Contains(fieldEntity.Relationships, item =>
+                string.Equals(item.Entity, "Type", StringComparison.Ordinal) &&
+                string.Equals(item.GetColumnName(), "TypeId", StringComparison.Ordinal));
+
+            var fieldRow = workspace.Instance.GetOrCreateEntityRecords("Field").Single();
+            Assert.False(fieldRow.Values.ContainsKey("TypeId"));
+            Assert.True(fieldRow.RelationshipIds.ContainsKey("TypeId"));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task Merge_SanctionedMetaTypeConversionWeave_CreatesRoleBasedRelationships()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-conversion", Guid.NewGuid().ToString("N"));
+        var mergedPath = Path.Combine(root, "Merged");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var merge = RunCli($"merge --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\" --new-workspace \"{mergedPath}\"");
+            Assert.Equal(0, merge.ExitCode);
+            Assert.Contains("OK: weave merge", merge.Output);
+
+            var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
+            var diagnostics = new ValidationService().Validate(workspace);
+            Assert.False(diagnostics.HasErrors);
+
+            var typeMappingEntity = workspace.Model.FindEntity("TypeMapping");
+            Assert.NotNull(typeMappingEntity);
+            Assert.DoesNotContain(typeMappingEntity!.Properties, item => string.Equals(item.Name, "SourceTypeId", StringComparison.Ordinal));
+            Assert.DoesNotContain(typeMappingEntity.Properties, item => string.Equals(item.Name, "TargetTypeId", StringComparison.Ordinal));
+            Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "SourceTypeId", StringComparison.Ordinal));
+            Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "TargetTypeId", StringComparison.Ordinal));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();

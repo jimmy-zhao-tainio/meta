@@ -12,7 +12,8 @@ public readonly record struct PropertyToRelationshipRefactorOptions(
     string TargetEntityName,
     string LookupPropertyName,
     string Role,
-    bool DropSourceProperty);
+    bool DropSourceProperty,
+    bool RequireSourceReuse = true);
 
 public readonly record struct PropertyToRelationshipRefactorResult(
     int RowsRewritten,
@@ -225,7 +226,8 @@ public sealed class ModelRefactorService : IModelRefactorService
             targetEntity.Name,
             usesImplicitTargetId ? "Id" : targetLookupProperty!.Name,
             options.Role,
-            options.DropSourceProperty);
+            options.DropSourceProperty,
+            options.RequireSourceReuse);
         if (relationshipAssessment.Status != LookupCandidateStatus.Eligible)
         {
             var blockerMessage = string.Join(" ", relationshipAssessment.Blockers);
