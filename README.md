@@ -2,10 +2,11 @@
 
 `isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships two CLI tools:
+This repo ships three CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.
+`meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
+`meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.
 
 ## Metadata foundations (project terminology)
 
@@ -687,6 +688,20 @@ Current status: `meta-schema extract sqlserver` connects to SQL Server and creat
 ```powershell
 meta-schema help
 meta-schema extract sqlserver --help
+```
+
+## MetaType
+
+MetaType is the sanctioned type-vocabulary toolchain.
+
+It creates normal metadata workspaces using the sanctioned `MetaType` model. That model is the future shared ownership boundary for type systems, types, and type specs; `MetaSchema` should point at it rather than mint extraction-local type identities.
+
+Current status: `meta-type init` creates a new empty `MetaType` workspace.
+
+```cmd
+meta-type help
+meta-type init --help
+meta-type init --new-workspace .\MetaType.Workspace
 ```
 
 ## References

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaType">
+  <EntityList>
+    <Entity name="TypeSystem">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Type">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Description" isRequired="false" />
+        <Property name="IsCanonical" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="TypeSystem" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="TypeSpec">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="RawTypeName" isRequired="false" />
+        <Property name="Length" isRequired="false" />
+        <Property name="NumericPrecision" isRequired="false" />
+        <Property name="Scale" isRequired="false" />
+        <Property name="IsNullable" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Type" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
