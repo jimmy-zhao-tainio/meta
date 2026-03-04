@@ -4,10 +4,13 @@ namespace MetaType.Core;
 
 public static class MetaTypeWorkspaces
 {
-    public static Workspace CreateEmptyMetaTypeWorkspace(string workspaceRootPath)
+    public static Workspace CreateMetaTypeWorkspace(string workspaceRootPath)
     {
-        return MetaTypeWorkspaceFactory.CreateEmptyWorkspace(
+        var workspace = MetaTypeWorkspaceFactory.CreateEmptyWorkspace(
             workspaceRootPath,
             MetaTypeModels.CreateMetaTypeModel());
+
+        MetaTypeSeed.Populate(workspace.Instance);
+        return workspace;
     }
 }

@@ -47,7 +47,7 @@ internal static class Program
 
         Directory.CreateDirectory(workspacePath);
 
-        var workspace = MetaTypeWorkspaces.CreateEmptyMetaTypeWorkspace(workspacePath);
+        var workspace = MetaTypeWorkspaces.CreateMetaTypeWorkspace(workspacePath);
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
@@ -130,6 +130,6 @@ internal static class Program
         Console.WriteLine("  meta-type init --new-workspace <path>");
         Console.WriteLine();
         Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a new workspace with the MetaType model and validates it.");
+        Console.WriteLine("  Creates a new workspace with the MetaType model, sanctioned type instances, and validates it.");
     }
 }

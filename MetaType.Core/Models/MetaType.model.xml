@@ -9,6 +9,7 @@
     </Entity>
     <Entity name="Type">
       <PropertyList>
+        <Property name="Category" isRequired="false" />
         <Property name="Name" />
         <Property name="Description" isRequired="false" />
         <Property name="IsCanonical" isRequired="false" />
@@ -19,12 +20,13 @@
     </Entity>
     <Entity name="TypeSpec">
       <PropertyList>
-        <Property name="Name" />
-        <Property name="RawTypeName" isRequired="false" />
+        <Property name="Name" isRequired="false" />
         <Property name="Length" isRequired="false" />
-        <Property name="NumericPrecision" isRequired="false" />
+        <Property name="Precision" isRequired="false" />
         <Property name="Scale" isRequired="false" />
-        <Property name="IsNullable" isRequired="false" />
+        <Property name="TimePrecision" isRequired="false" />
+        <Property name="IsUnicode" isRequired="false" />
+        <Property name="IsFixedLength" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Type" />

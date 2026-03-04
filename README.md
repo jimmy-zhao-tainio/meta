@@ -696,7 +696,7 @@ MetaType is the sanctioned type-vocabulary toolchain.
 
 It creates normal metadata workspaces using the sanctioned `MetaType` model. That model is the future shared ownership boundary for type systems, types, and type specs; `MetaSchema` should point at it rather than mint extraction-local type identities.
 
-Current status: `meta-type init` creates a new empty `MetaType` workspace.
+Current status: `meta-type init` creates a new populated `MetaType` workspace with sanctioned type systems, types, and type specs.
 
 ```cmd
 meta-type help
