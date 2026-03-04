@@ -683,7 +683,7 @@ MetaSchema is the schema-extraction toolchain.
 
 It builds sanctioned `MetaSchema` workspaces from external source schema. `meta` can then treat those workspaces like any other metadata workspace.
 
-Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, and `Field` rows for one declared system/schema/table. `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`; `MetaSchema` does not mint extraction-local type entities anymore.
+Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, and `Field` rows for one declared system/schema/table. `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`.
 
 #### Commands
 
@@ -696,7 +696,7 @@ meta-schema extract sqlserver --help
 
 MetaType is the sanctioned type-vocabulary toolchain.
 
-It creates normal metadata workspaces using the sanctioned `MetaType` model. That model is the future shared ownership boundary for type systems, types, and type specs; `MetaSchema` should point at it rather than mint extraction-local type identities.
+It creates normal metadata workspaces using the sanctioned `MetaType` model. That model is the shared ownership boundary for type systems, types, and type specs.
 
 Current status: `meta-type init` creates a new populated `MetaType` workspace with sanctioned type systems, types, and type specs.
 
