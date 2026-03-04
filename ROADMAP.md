@@ -29,8 +29,8 @@ Owns source-discovery metadata such as:
 - `Table`
 - `Field`
 
-Short term:
-- `Field` may carry `TypeId` as a scalar property.
+Current state:
+- `Field` carries `TypeId` as a scalar property.
 
 Long term:
 - `Field` should carry enough structured source-type identity to resolve into `MetaType` cleanly.

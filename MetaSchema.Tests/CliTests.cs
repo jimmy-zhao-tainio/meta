@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using MetaSchema.Core;
 
 namespace MetaSchema.Tests;
 
@@ -106,6 +107,17 @@ public sealed class CliTests
         {
             DeleteDirectoryIfExists(workspacePath);
         }
+    }
+
+    [Fact]
+    public void MetaSchemaModel_UsesScalarTypeId_AndNoFieldTypeEntity()
+    {
+        var model = MetaSchemaModels.CreateMetaSchemaModel();
+
+        var field = Assert.Single(model.Entities, entity => entity.Name == "Field");
+        Assert.DoesNotContain(model.Entities, entity => entity.Name == "FieldType");
+        Assert.Contains(field.Properties, property => property.Name == "TypeId");
+        Assert.DoesNotContain(field.Relationships, relationship => relationship.Entity == "FieldType");
     }
 
     private static (int ExitCode, string Output) RunCli(string arguments)

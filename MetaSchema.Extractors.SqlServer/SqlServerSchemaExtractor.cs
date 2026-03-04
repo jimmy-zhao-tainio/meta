@@ -76,28 +76,6 @@ public sealed class SqlServerSchemaExtractor
         var tableRow = LoadTable(connection, schemaName, tableName);
         var columnRows = LoadColumns(connection, schemaName, tableName);
 
-        var fieldTypeIds = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var dataTypeName in columnRows
-                     .Select(row => row.DataTypeName)
-                     .Where(name => !string.IsNullOrWhiteSpace(name))
-                     .Distinct(StringComparer.OrdinalIgnoreCase)
-                     .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(name => name, StringComparer.Ordinal))
-        {
-            var fieldTypeId = BuildFieldTypeId(databaseName, dataTypeName);
-            fieldTypeIds[dataTypeName] = fieldTypeId;
-            AddRecord(
-                workspace,
-                "FieldType",
-                fieldTypeId,
-                values =>
-                {
-                    values["Name"] = dataTypeName;
-                    values["Family"] = ClassifyFamily(dataTypeName);
-                    values["IsNative"] = "true";
-                });
-        }
-
         var tableId = BuildTableId(databaseName, tableRow.SchemaName, tableRow.TableName);
         AddRecord(
             workspace,
@@ -118,7 +96,6 @@ public sealed class SqlServerSchemaExtractor
                      .ThenBy(row => row.TableName, StringComparer.Ordinal)
                      .ThenBy(row => row.OrdinalPosition))
         {
-            var fieldTypeId = fieldTypeIds[columnRow.DataTypeName];
             var fieldId = BuildFieldId(databaseName, columnRow.SchemaName, columnRow.TableName, columnRow.ColumnName);
             AddRecord(
                 workspace,
@@ -127,6 +104,7 @@ public sealed class SqlServerSchemaExtractor
                 values =>
                 {
                     values["Name"] = columnRow.ColumnName;
+                    values["TypeId"] = BuildTypeId(columnRow.DataTypeName);
                     values["Ordinal"] = columnRow.OrdinalPosition.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     values["IsNullable"] = columnRow.IsNullable ? "true" : "false";
                     if (columnRow.Length.HasValue)
@@ -144,11 +122,7 @@ public sealed class SqlServerSchemaExtractor
                         values["Scale"] = columnRow.Scale.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }
                 },
-                relationships =>
-                {
-                    relationships["TableId"] = tableId;
-                    relationships["FieldTypeId"] = fieldTypeId;
-                });
+                relationships => relationships["TableId"] = tableId);
         }
 
         workspace.IsDirty = true;
@@ -274,21 +248,6 @@ public sealed class SqlServerSchemaExtractor
         };
     }
 
-    private static string ClassifyFamily(string dataTypeName)
-    {
-        var typeName = dataTypeName.Trim().ToLowerInvariant();
-        return typeName switch
-        {
-            "bit" => "Boolean",
-            "tinyint" or "smallint" or "int" or "bigint" or "decimal" or "numeric" or "money" or "smallmoney" or "float" or "real" => "Numeric",
-            "date" or "datetime" or "datetime2" or "smalldatetime" or "datetimeoffset" or "time" => "Temporal",
-            "char" or "nchar" or "varchar" or "nvarchar" or "text" or "ntext" or "xml" => "String",
-            "binary" or "varbinary" or "image" or "rowversion" or "timestamp" => "Binary",
-            "uniqueidentifier" => "Identifier",
-            _ => "Other",
-        };
-    }
-
     private static void AddRecord(
         Workspace workspace,
         string entityName,
@@ -320,9 +279,9 @@ public sealed class SqlServerSchemaExtractor
         return "sqlserver:" + databaseName + ":schema:" + schemaName + ":table:" + tableName;
     }
 
-    private static string BuildFieldTypeId(string databaseName, string dataTypeName)
+    private static string BuildTypeId(string dataTypeName)
     {
-        return "sqlserver:" + databaseName + ":fieldtype:" + dataTypeName;
+        return "sqlserver:type:" + dataTypeName;
     }
 
     private static string BuildFieldId(string databaseName, string schemaName, string tableName, string columnName)

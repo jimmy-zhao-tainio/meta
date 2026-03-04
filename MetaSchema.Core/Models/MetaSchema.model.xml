@@ -24,16 +24,10 @@
         <Relationship entity="Schema" />
       </RelationshipList>
     </Entity>
-    <Entity name="FieldType">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="Family" isRequired="false" />
-        <Property name="IsNative" isRequired="false" />
-      </PropertyList>
-    </Entity>
     <Entity name="Field">
       <PropertyList>
         <Property name="Name" />
+        <Property name="TypeId" />
         <Property name="Ordinal" isRequired="false" />
         <Property name="IsNullable" isRequired="false" />
         <Property name="Length" isRequired="false" />
@@ -42,7 +36,6 @@
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Table" />
-        <Relationship entity="FieldType" />
       </RelationshipList>
     </Entity>
   </EntityList>
