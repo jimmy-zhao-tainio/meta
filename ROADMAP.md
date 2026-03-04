@@ -171,7 +171,7 @@ Deliverables:
 - no source-specific hardcoding in core runtime
 
 Minimum viable entities:
-1. `ModelRef`
+1. `ModelReference`
    - identifies a referenced model/workspace
 2. `PropertyBinding`
    - source model/entity/property
@@ -285,3 +285,4 @@ Do this next:
 
 1. Commit the current `MetaSchema` extraction pass.
 2. Start `MetaType` as a sanctioned model with the smallest viable type vocabulary.
+

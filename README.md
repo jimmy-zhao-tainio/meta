@@ -7,7 +7,7 @@ This repo ships four CLI tools:
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
 `meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.  
-`meta-weave` (MetaWeave CLI): validation of sanctioned cross-model property bindings.  
+`meta-weave` (MetaWeave CLI): authoring and validation of sanctioned cross-model property bindings.  
 `meta-type-conversion` (MetaTypeConversion CLI): creation of sanctioned conversion-rule workspaces built on `MetaType`.
 
 ## Metadata foundations (project terminology)
@@ -708,7 +708,7 @@ meta-type init --new-workspace .\MetaType.Workspace
 
 ### `MetaTypeConversion`
 
-`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. The current first slice creates a valid workspace boundary without inventing conversion rules in code.
+`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. The current first slice creates a populated sanctioned workspace boundary with initial type mappings built on `MetaType`.
 
 ```cmd
 meta-type-conversion help
@@ -722,11 +722,14 @@ MetaWeave is the sanctioned cross-model binding toolchain.
 
 It keeps cross-model references isomorphic by treating them as ordinary scalar properties in the source model and carrying the resolution meaning in a separate weave workspace. `meta-weave check` then proves whether those property values resolve with 100% RI into the target model.
 
-Current status: `meta-weave` supports empty workspace initialization and binding validation.
+Current status: `meta-weave` supports workspace initialization, model-reference authoring, property-binding authoring, and binding validation.
 
 ```cmd
 meta-weave help
 meta-weave init --new-workspace .\MetaWeave.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaSchema --model MetaSchema --workspace-path .\MetaSchema.Instances\MetaSchema.TypeIdStub
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaType --model MetaType --workspace-path .\MetaType.Instances\MetaType
+meta-weave add-binding --workspace .\MetaWeave.Workspace --name "MetaSchema.Field.TypeId -> MetaType.Type.Id" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
 ```
 

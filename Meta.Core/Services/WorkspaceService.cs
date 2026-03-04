@@ -24,6 +24,8 @@ public sealed class WorkspaceService : IWorkspaceService
     private const string WorkspaceXmlFileName = "workspace.xml";
     private const string ModelFileName = "model.xml";
     private const string InstanceDirectoryName = "instance";
+    private const int LoadRetryCount = 3;
+    private static readonly TimeSpan LoadRetryDelay = TimeSpan.FromMilliseconds(50);
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     public Task<Workspace> LoadAsync(
@@ -42,29 +44,45 @@ public sealed class WorkspaceService : IWorkspaceService
         var paths = searchUpward
             ? DiscoverWorkspacePaths(absoluteInputPath)
             : ResolveWorkspacePathsFromRoot(absoluteInputPath);
-        var workspaceConfig = ReadWorkspaceConfig(paths.WorkspaceRootPath, paths.MetadataRootPath);
-
-        var modelPath = ResolveModelPath(paths.WorkspaceRootPath, paths.MetadataRootPath, workspaceConfig);
-        if (string.IsNullOrWhiteSpace(modelPath))
+        for (var attempt = 0; ; attempt++)
         {
-            throw new FileNotFoundException(
-                $"Could not find {ModelFileName} in '{paths.MetadataRootPath}'.");
+            try
+            {
+                var workspaceConfig = ReadWorkspaceConfig(paths.WorkspaceRootPath, paths.MetadataRootPath);
+
+                var modelPath = ResolveModelPath(paths.WorkspaceRootPath, paths.MetadataRootPath, workspaceConfig);
+                if (string.IsNullOrWhiteSpace(modelPath))
+                {
+                    throw new FileNotFoundException(
+                        $"Could not find {ModelFileName} in '{paths.MetadataRootPath}'.");
+                }
+
+                var model = ReadModel(modelPath);
+                var instance = ReadInstance(paths.WorkspaceRootPath, paths.MetadataRootPath, workspaceConfig, model);
+
+                var workspace = new Workspace
+                {
+                    WorkspaceRootPath = paths.WorkspaceRootPath,
+                    MetadataRootPath = paths.MetadataRootPath,
+                    WorkspaceConfig = workspaceConfig,
+                    Model = model,
+                    Instance = instance,
+                    IsDirty = false,
+                };
+
+                return Task.FromResult(workspace);
+            }
+            catch (FileNotFoundException) when (attempt < LoadRetryCount - 1 && ShouldRetryLoad(paths.WorkspaceRootPath))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                Thread.Sleep(LoadRetryDelay);
+            }
+            catch (DirectoryNotFoundException) when (attempt < LoadRetryCount - 1 && ShouldRetryLoad(paths.WorkspaceRootPath))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                Thread.Sleep(LoadRetryDelay);
+            }
         }
-
-        var model = ReadModel(modelPath);
-        var instance = ReadInstance(paths.WorkspaceRootPath, paths.MetadataRootPath, workspaceConfig, model);
-
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = paths.WorkspaceRootPath,
-            MetadataRootPath = paths.MetadataRootPath,
-            WorkspaceConfig = workspaceConfig,
-            Model = model,
-            Instance = instance,
-            IsDirty = false,
-        };
-
-        return Task.FromResult(workspace);
     }
 
     public Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default)
@@ -281,6 +299,12 @@ public sealed class WorkspaceService : IWorkspaceService
     {
         var metadataRootPath = Path.Combine(workspaceRootPath, MetadataDirectoryName);
         return Directory.Exists(metadataRootPath) ? metadataRootPath : workspaceRootPath;
+    }
+
+    private static bool ShouldRetryLoad(string workspaceRootPath)
+    {
+        var absoluteRoot = Path.GetFullPath(workspaceRootPath);
+        return Directory.Exists(absoluteRoot) || File.Exists(Path.Combine(absoluteRoot, WorkspaceXmlFileName));
     }
 
     private static MetaWorkspaceGenerated ReadWorkspaceConfig(string workspaceRootPath, string metadataRootPath)

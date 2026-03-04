@@ -35,8 +35,10 @@ public sealed class CliTests
             Assert.Contains("OK: metatypeconversion workspace created", result.Output);
             Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.xml")));
             Assert.True(File.Exists(Path.Combine(workspacePath, "metadata", "model.xml")));
-            Assert.Contains("ConversionImplementations: 0", result.Output);
-            Assert.Contains("TypeMappings: 0", result.Output);
+            Assert.Contains("ConversionImplementations:", result.Output);
+            Assert.Contains("TypeMappings:", result.Output);
+            Assert.DoesNotContain("ConversionImplementations: 0", result.Output);
+            Assert.DoesNotContain("TypeMappings: 0", result.Output);
         }
         finally
         {
@@ -47,10 +49,11 @@ public sealed class CliTests
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
+        var dllPath = Path.Combine(repoRoot, "MetaTypeConversion.Cli", "bin", "Debug", "net8.0", "meta-type-conversion.dll");
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = $"run --project \"{Path.Combine(repoRoot, "MetaTypeConversion.Cli", "MetaTypeConversion.Cli.csproj")}\" -- {arguments}",
+            Arguments = $"\"{dllPath}\" {arguments}",
             WorkingDirectory = repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

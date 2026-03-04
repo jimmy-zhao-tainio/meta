@@ -48,7 +48,7 @@ internal static class Program
 
         Directory.CreateDirectory(workspacePath);
 
-        var workspace = MetaTypeConversionWorkspaces.CreateEmptyMetaTypeConversionWorkspace(workspacePath);
+        var workspace = MetaTypeConversionWorkspaces.CreateMetaTypeConversionWorkspace(workspacePath);
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {

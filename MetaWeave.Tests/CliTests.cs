@@ -29,6 +29,73 @@ public sealed class CliTests
     }
 
     [Fact]
+    public async Task FacadeCommands_CanCreateAWorkingWeaveWorkspace()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-facade-tests", Guid.NewGuid().ToString("N"));
+        var metaTypePath = Path.Combine(root, "MetaType");
+        var metaSchemaPath = Path.Combine(root, "MetaSchema");
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var workspaceService = new WorkspaceService();
+
+            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
+            await workspaceService.SaveAsync(metaType);
+
+            var metaSchema = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(metaSchemaPath);
+            metaSchema.Instance.GetOrCreateEntityRecords("System").Add(new GenericRecord
+            {
+                Id = "sqlserver:system:test",
+                Values = { ["Name"] = "TestSystem" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Schema").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo",
+                Values = { ["Name"] = "dbo" },
+                RelationshipIds = { ["SystemId"] = "sqlserver:system:test" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Table").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo:table:Cube",
+                Values = { ["Name"] = "Cube", ["ObjectType"] = "Table" },
+                RelationshipIds = { ["SchemaId"] = "sqlserver:test:schema:dbo" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Field").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo:table:Cube:field:CubeName",
+                Values =
+                {
+                    ["Name"] = "CubeName",
+                    ["TypeId"] = "sqlserver:type:nvarchar"
+                },
+                RelationshipIds = { ["TableId"] = "sqlserver:test:schema:dbo:table:Cube" }
+            });
+            await workspaceService.SaveAsync(metaSchema);
+
+            var init = RunCli($"init --new-workspace \"{metaWeavePath}\"");
+            Assert.Equal(0, init.ExitCode);
+
+            var addSource = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaSchemaPath}\"");
+            Assert.Equal(0, addSource.ExitCode);
+
+            var addTarget = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaType --model MetaType --workspace-path \"{metaTypePath}\"");
+            Assert.Equal(0, addTarget.ExitCode);
+
+            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"MetaSchema.Field.TypeId -> MetaType.Type.Id\" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id");
+            Assert.Equal(0, addBinding.ExitCode);
+
+            var check = RunCli($"check --workspace \"{metaWeavePath}\"");
+            Assert.Equal(0, check.ExitCode);
+            Assert.Contains("OK: weave check", check.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
     public async Task Check_Resolves_MetaSchema_Field_TypeId_To_MetaType_Type_Id()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-tests", Guid.NewGuid().ToString("N"));
@@ -76,7 +143,7 @@ public sealed class CliTests
             await workspaceService.SaveAsync(metaSchema);
 
             var weave = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(metaWeavePath);
-            weave.Instance.GetOrCreateEntityRecords("ModelRef").Add(new GenericRecord
+            weave.Instance.GetOrCreateEntityRecords("ModelReference").Add(new GenericRecord
             {
                 Id = "1",
                 Values =
@@ -86,7 +153,7 @@ public sealed class CliTests
                     ["ModelName"] = "MetaSchema"
                 }
             });
-            weave.Instance.GetOrCreateEntityRecords("ModelRef").Add(new GenericRecord
+            weave.Instance.GetOrCreateEntityRecords("ModelReference").Add(new GenericRecord
             {
                 Id = "2",
                 Values =
@@ -138,13 +205,25 @@ public sealed class CliTests
         Assert.Contains("Bindings: 1", result.Output);
         Assert.Contains("Errors: 0", result.Output);
     }
+
+    [Fact]
+    public void Check_SanctionedMetaTypeConversionWeaveInstance_Passes()
+    {
+        var result = RunCli("check --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\"");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("OK: weave check", result.Output);
+        Assert.Contains("Bindings: 2", result.Output);
+        Assert.Contains("Errors: 0", result.Output);
+    }
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
+        var dllPath = Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "Debug", "net8.0", "meta-weave.dll");
         var startInfo = new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = $"run --project \"{Path.Combine(repoRoot, "MetaWeave.Cli", "MetaWeave.Cli.csproj")}\" -- {arguments}",
+            Arguments = $"\"{dllPath}\" {arguments}",
             WorkingDirectory = repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

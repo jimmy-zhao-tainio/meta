@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="MetaWeave">
   <EntityList>
-    <Entity name="ModelRef">
+    <Entity name="ModelReference">
       <PropertyList>
         <Property name="Alias" />
         <Property name="ModelName" />
@@ -17,8 +17,8 @@
         <Property name="TargetProperty" />
       </PropertyList>
       <RelationshipList>
-        <Relationship entity="ModelRef" role="SourceModel" />
-        <Relationship entity="ModelRef" role="TargetModel" />
+        <Relationship entity="ModelReference" role="SourceModel" />
+        <Relationship entity="ModelReference" role="TargetModel" />
       </RelationshipList>
     </Entity>
   </EntityList>

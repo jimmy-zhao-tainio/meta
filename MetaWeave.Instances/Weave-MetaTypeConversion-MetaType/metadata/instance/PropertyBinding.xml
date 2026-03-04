@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaWeave>
+  <PropertyBindingList>
+    <PropertyBinding Id="1" SourceModelId="1" TargetModelId="2">
+      <Name>MetaTypeConversion.TypeMapping.SourceTypeId -&gt; MetaType.Type.Id</Name>
+      <SourceEntity>TypeMapping</SourceEntity>
+      <SourceProperty>SourceTypeId</SourceProperty>
+      <TargetEntity>Type</TargetEntity>
+      <TargetProperty>Id</TargetProperty>
+    </PropertyBinding>
+    <PropertyBinding Id="2" SourceModelId="1" TargetModelId="2">
+      <Name>MetaTypeConversion.TypeMapping.TargetTypeId -&gt; MetaType.Type.Id</Name>
+      <SourceEntity>TypeMapping</SourceEntity>
+      <SourceProperty>TargetTypeId</SourceProperty>
+      <TargetEntity>Type</TargetEntity>
+      <TargetProperty>Id</TargetProperty>
+    </PropertyBinding>
+  </PropertyBindingList>
+</MetaWeave>

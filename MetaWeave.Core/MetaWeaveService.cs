@@ -44,7 +44,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
         cancellationToken.ThrowIfCancellationRequested();
         ArgumentNullException.ThrowIfNull(weaveWorkspace);
 
-        var modelRefs = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelRef")
+        var modelRefs = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference")
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
         var propertyBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
@@ -63,7 +63,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
             if (!string.Equals(loaded.Model.Name, expectedModelName, StringComparison.Ordinal))
             {
                 throw new InvalidOperationException(
-                    $"ModelRef '{modelRef.Id}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{loaded.Model.Name}'.");
+                    $"ModelReference '{modelRef.Id}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{loaded.Model.Name}'.");
             }
 
             loadedModels[modelRef.Id] = loaded;
