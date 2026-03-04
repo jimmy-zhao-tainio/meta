@@ -155,6 +155,7 @@ Model mutation and refactor:
 - `meta model rename-entity <Old> <New> [--workspace <path>]`
 - `meta model drop-entity <Entity> [--workspace <path>]`
 - `meta model add-property <Entity> <Property> [--required true|false] [--default-value <Value>] [--workspace <path>]`
+- `meta model set-property-required <Entity> <Property> --required true|false [--default-value <Value>] [--workspace <path>]`
 - `meta model rename-property <Entity> <Old> <New> [--workspace <path>]`
 - `meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]`
 - `meta model drop-property <Entity> <Property> [--workspace <path>]`
@@ -221,6 +222,7 @@ Model mutation and refactor:
 | `meta model rename-entity <Old> <New> [--workspace <path>]` | Atomically rename an entity, update relationship targets, and rename implied non-role relationship field names. | `meta model rename-entity Warehouse StorageLocation` |
 | `meta model drop-entity <Entity> [--workspace <path>]` | Drop an entity (blocked if instances or inbound relationships exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> [--required true\|false] [--default-value <Value>] [--workspace <path>]` | Add an entity property. | `meta model add-property Cube Purpose --required true --default-value Unknown` |
+| `meta model set-property-required <Entity> <Property> --required true\|false [--default-value <Value>] [--workspace <path>]` | Change whether a property is required; use `--default-value` to backfill existing missing rows when switching to required. `--default-value` is only valid with `--required true`. | `meta model set-property-required Cube Purpose --required true --default-value Unknown` |
 | `meta model rename-property <Entity> <Old> <New> [--workspace <path>]` | Rename a property in one entity. | `meta model rename-property Cube Purpose Description` |
 | `meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]` | Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically. Omit `--role` to clear the role. | `meta model rename-relationship System SystemType --role PrimarySystemType` |
 | `meta model drop-property <Entity> <Property> [--workspace <path>]` | Drop a property from an entity. | `meta model drop-property Cube Description` |

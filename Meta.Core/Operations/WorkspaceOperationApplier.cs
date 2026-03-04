@@ -283,6 +283,31 @@ public static class WorkspaceOperationApplier
             throw new InvalidOperationException("ChangeNullability operation requires IsNullable.");
         }
 
+        var sourceRows = workspace.Instance.GetOrCreateEntityRecords(entity.Name);
+        var defaultValueProvided = operation.PropertyDefaultValue != null;
+        if (!operation.IsNullable.Value)
+        {
+            var rowsMissingRequiredValue = sourceRows
+                .Where(record =>
+                    !record.Values.TryGetValue(property.Name, out var value) ||
+                    string.IsNullOrWhiteSpace(value))
+                .ToList();
+
+            if (rowsMissingRequiredValue.Count > 0 && !defaultValueProvided)
+            {
+                throw new InvalidOperationException(
+                    $"Property '{entity.Name}.{property.Name}' requires --default-value because {rowsMissingRequiredValue.Count} existing row(s) are missing a value.");
+            }
+
+            if (defaultValueProvided)
+            {
+                foreach (var record in rowsMissingRequiredValue)
+                {
+                    record.Values[property.Name] = operation.PropertyDefaultValue!;
+                }
+            }
+        }
+
         property.IsNullable = operation.IsNullable.Value;
     }
 

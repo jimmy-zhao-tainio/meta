@@ -445,6 +445,7 @@ internal static class HelpTopics
                         ("rename-entity", "Atomically rename an entity and follow implied relationship field names."),
                         ("drop-entity", "Remove an entity (must be empty)."),
                         ("add-property", "Add a property to an entity."),
+                        ("set-property-required", "Change whether a property is required and backfill existing rows when needed."),
                         ("rename-property", "Rename a property."),
                         ("drop-property", "Remove a property."),
                         ("rename-relationship", "Rename a relationship usage by setting or clearing its role."),
@@ -504,6 +505,25 @@ internal static class HelpTopics
                     options: new[] { ("--workspace <path>", "Override workspace root.") },
                     examples: new[] { "meta model rename-property Cube Purpose Description" },
                     next: "meta model drop-property --help");
+                return true;
+
+            case "model set-property-required":
+                document = BuildTopicDocument(
+                    title: "Command: model set-property-required",
+                    summary: "Change whether a property is required; use --default-value to backfill existing rows when making a property required.",
+                    usage: "meta model set-property-required <Entity> <Property> --required true|false [--default-value <Value>] [--workspace <path>]",
+                    options: new[]
+                    {
+                        ("--required true|false", "Required. Set required/nullable state."),
+                        ("--default-value <Value>", "Backfill existing missing/blank rows when switching to required; only valid with --required true."),
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[]
+                    {
+                        "meta model set-property-required Cube Purpose --required true --default-value Unknown",
+                        "meta model set-property-required Cube Purpose --required false",
+                    },
+                    next: "meta model rename-property --help");
                 return true;
 
             case "model rename-relationship":

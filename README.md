@@ -400,6 +400,7 @@ Global behavior:
 | `meta model rename-entity <Old> <New>` | Atomically rename an entity, update relationship targets, and rename implied non-role FK names. | `meta model rename-entity SourceSystem Source` |
 | `meta model drop-entity <Entity>` | Drop entity definition (blocked if instances or inbound refs exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> ...` | Add scalar property; uses `--default-value` to backfill required additions on existing rows. | `meta model add-property Cube Purpose --required true --default-value Unknown` |
+| `meta model set-property-required <Entity> <Property> ...` | Change whether a property is required; use `--default-value` to backfill existing missing rows when switching to required. `--default-value` is only valid with `--required true`. | `meta model set-property-required Cube Purpose --required true --default-value Unknown` |
 | `meta model rename-property <Entity> <Old> <New>` | Rename one scalar property. | `meta model rename-property Cube Purpose BusinessPurpose` |
 | `meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>]` | Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically. Omit `--role` to clear the role. | `meta model rename-relationship System SystemType --role PrimarySystemType` |
 | `meta model drop-property <Entity> <Property>` | Remove one scalar property. | `meta model drop-property Cube Description` |

@@ -343,6 +343,11 @@ public sealed class CliStrictModeTests
         var renameRelationshipHelp = await RunCliAsync("model", "rename-relationship", "--help");
         Assert.Equal(0, renameRelationshipHelp.ExitCode);
         Assert.Contains("meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]", renameRelationshipHelp.StdOut, StringComparison.Ordinal);
+
+        var setPropertyRequiredHelp = await RunCliAsync("model", "set-property-required", "--help");
+        Assert.Equal(0, setPropertyRequiredHelp.ExitCode);
+        Assert.Contains("meta model set-property-required <Entity> <Property> --required true|false", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("--default-value", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("target entity, relationship role, or implied relationship field name", relationshipSetHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -2970,6 +2975,175 @@ public sealed class CliStrictModeTests
                 "--workspace",
                 workspaceRoot);
             Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelSetPropertyRequired_RequiresDefaultValue_WhenExistingRowsAreMissingValues()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-set-property-required-expected", Guid.NewGuid().ToString("N"));
+        try
+        {
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-property",
+                    "Cube",
+                    "Category",
+                    "--required",
+                    "false",
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            CopyDirectory(workspaceRoot, expectedWorkspace);
+
+            var result = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Cube",
+                "Category",
+                "--required",
+                "true",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains("requires --default-value", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Cube.Category", result.CombinedOutput, StringComparison.Ordinal);
+            AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task ModelSetPropertyRequired_BackfillsExistingRows_WhenDefaultValueProvided()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-property",
+                    "Cube",
+                    "Category",
+                    "--required",
+                    "false",
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Cube",
+                "Category",
+                "--required",
+                "true",
+                "--default-value",
+                "General",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("property requiredness updated", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("DefaultValue: General", result.CombinedOutput, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var property = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase))
+                .Element("PropertyList")!
+                .Elements("Property")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "Category", StringComparison.OrdinalIgnoreCase));
+            Assert.Null(property.Attribute("isRequired"));
+
+            foreach (var row in LoadEntityRows(workspaceRoot, "Cube"))
+            {
+                Assert.Equal("General", row.Element("Category")?.Value);
+            }
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelSetPropertyRequired_AllowsRequiredWithoutDefault_WhenExistingRowsAlreadyHaveValues()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-property",
+                    "Cube",
+                    "Category",
+                    "--required",
+                    "false",
+                    "--default-value",
+                    "General",
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Cube",
+                "Category",
+                "--required",
+                "true",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.DoesNotContain("DefaultValue:", result.CombinedOutput, StringComparison.Ordinal);
+
+            var check = await RunCliAsync(
+                "check",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelSetPropertyRequired_RejectsDefaultValue_WhenSettingOptional()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Cube",
+                "CubeName",
+                "--required",
+                "false",
+                "--default-value",
+                "Ignored",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains("--default-value is only valid with --required true", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
