@@ -9,6 +9,9 @@ namespace MetaWeave.Tests;
 
 public sealed class CliTests
 {
+    private static readonly object CliBuildLock = new();
+    private static bool _cliBuilt;
+
     [Fact]
     public void Help_ShowsCheckCommand()
     {
@@ -88,6 +91,97 @@ public sealed class CliTests
             var check = RunCli($"check --workspace \"{metaWeavePath}\"");
             Assert.Equal(0, check.ExitCode);
             Assert.Contains("OK: weave check", check.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task AddModel_Fails_WhenReferencedWorkspaceDoesNotContainDeclaredModel()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-add-model-fail", Guid.NewGuid().ToString("N"));
+        var metaTypePath = Path.Combine(root, "MetaType");
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var workspaceService = new WorkspaceService();
+            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
+            await workspaceService.SaveAsync(metaType);
+
+            var init = RunCli($"init --new-workspace \"{metaWeavePath}\"");
+            Assert.Equal(0, init.ExitCode);
+
+            var addModel = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaTypePath}\"");
+            Assert.Equal(4, addModel.ExitCode);
+            Assert.Contains("contained model 'MetaType', not 'MetaSchema'", addModel.Output);
+
+            var weave = await workspaceService.LoadAsync(metaWeavePath, searchUpward: false);
+            Assert.Empty(weave.Instance.GetOrCreateEntityRecords("ModelReference"));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task AddBinding_Fails_WhenSourcePropertyDoesNotExist()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-add-binding-fail", Guid.NewGuid().ToString("N"));
+        var metaTypePath = Path.Combine(root, "MetaType");
+        var metaSchemaPath = Path.Combine(root, "MetaSchema");
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var workspaceService = new WorkspaceService();
+
+            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
+            await workspaceService.SaveAsync(metaType);
+
+            var metaSchema = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(metaSchemaPath);
+            metaSchema.Instance.GetOrCreateEntityRecords("System").Add(new GenericRecord
+            {
+                Id = "sqlserver:system:test",
+                Values = { ["Name"] = "TestSystem" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Schema").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo",
+                Values = { ["Name"] = "dbo" },
+                RelationshipIds = { ["SystemId"] = "sqlserver:system:test" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Table").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo:table:Cube",
+                Values = { ["Name"] = "Cube", ["ObjectType"] = "Table" },
+                RelationshipIds = { ["SchemaId"] = "sqlserver:test:schema:dbo" }
+            });
+            metaSchema.Instance.GetOrCreateEntityRecords("Field").Add(new GenericRecord
+            {
+                Id = "sqlserver:test:schema:dbo:table:Cube:field:CubeName",
+                Values =
+                {
+                    ["Name"] = "CubeName",
+                    ["TypeId"] = "sqlserver:type:nvarchar"
+                },
+                RelationshipIds = { ["TableId"] = "sqlserver:test:schema:dbo:table:Cube" }
+            });
+            await workspaceService.SaveAsync(metaSchema);
+
+            Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaSchemaPath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaType --model MetaType --workspace-path \"{metaTypePath}\"").ExitCode);
+
+            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"BrokenBinding\" --source-model MetaSchema --source-entity Field --source-property MissingTypeId --target-model MetaType --target-entity Type --target-property Id");
+            Assert.Equal(4, addBinding.ExitCode);
+            Assert.Contains("source property 'Field.MissingTypeId' was not found", addBinding.Output);
+
+            var weave = await workspaceService.LoadAsync(metaWeavePath, searchUpward: false);
+            Assert.Empty(weave.Instance.GetOrCreateEntityRecords("PropertyBinding"));
         }
         finally
         {
@@ -219,6 +313,7 @@ public sealed class CliTests
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
+        EnsureCliBuilt(repoRoot);
         var dllPath = Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "Debug", "net8.0", "meta-weave.dll");
         var startInfo = new ProcessStartInfo
         {
@@ -237,6 +332,41 @@ public sealed class CliTests
         var stderr = process.StandardError.ReadToEnd();
         process.WaitForExit();
         return (process.ExitCode, stdout + stderr);
+    }
+
+    private static void EnsureCliBuilt(string repoRoot)
+    {
+        lock (CliBuildLock)
+        {
+            if (_cliBuilt)
+            {
+                return;
+            }
+
+            var projectPath = Path.Combine(repoRoot, "MetaWeave.Cli", "MetaWeave.Cli.csproj");
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "dotnet",
+                Arguments = $"build \"{projectPath}\" --no-restore -p:UpdateMetaWeavePublishDir=false",
+                WorkingDirectory = repoRoot,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+
+            using var process = Process.Start(startInfo)
+                                ?? throw new InvalidOperationException("Could not start MetaWeave.Cli build process.");
+            var stdout = process.StandardOutput.ReadToEnd();
+            var stderr = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+            if (process.ExitCode != 0)
+            {
+                throw new InvalidOperationException($"Could not build MetaWeave.Cli for CLI tests.{Environment.NewLine}{stdout}{stderr}");
+            }
+
+            _cliBuilt = true;
+        }
     }
 
     private static string FindRepositoryRoot()

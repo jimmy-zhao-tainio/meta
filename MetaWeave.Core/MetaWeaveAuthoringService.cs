@@ -1,11 +1,12 @@
 using Meta.Core.Domain;
+using Meta.Core.Services;
 
 namespace MetaWeave.Core;
 
 public interface IMetaWeaveAuthoringService
 {
-    void AddModelReference(Workspace weaveWorkspace, string alias, string modelName, string workspacePath);
-    void AddPropertyBinding(
+    Task AddModelReferenceAsync(Workspace weaveWorkspace, string alias, string modelName, string workspacePath, CancellationToken cancellationToken = default);
+    Task AddPropertyBindingAsync(
         Workspace weaveWorkspace,
         string name,
         string sourceModelAlias,
@@ -13,12 +14,25 @@ public interface IMetaWeaveAuthoringService
         string sourceProperty,
         string targetModelAlias,
         string targetEntity,
-        string targetProperty);
+        string targetProperty,
+        CancellationToken cancellationToken = default);
 }
 
 public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
 {
-    public void AddModelReference(Workspace weaveWorkspace, string alias, string modelName, string workspacePath)
+    private readonly IWorkspaceService _workspaceService;
+
+    public MetaWeaveAuthoringService()
+        : this(new WorkspaceService())
+    {
+    }
+
+    public MetaWeaveAuthoringService(IWorkspaceService workspaceService)
+    {
+        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
+    }
+
+    public async Task AddModelReferenceAsync(Workspace weaveWorkspace, string alias, string modelName, string workspacePath, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(weaveWorkspace);
         RequireNonEmpty(alias, nameof(alias));
@@ -29,6 +43,14 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
             throw new InvalidOperationException("Weave workspace root path is required.");
         }
 
+        var resolvedWorkspacePath = Path.GetFullPath(workspacePath);
+        var referencedWorkspace = await _workspaceService.LoadAsync(resolvedWorkspacePath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(referencedWorkspace.Model.Name, modelName, StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException(
+                $"Referenced workspace '{resolvedWorkspacePath}' contained model '{referencedWorkspace.Model.Name}', not '{modelName}'.");
+        }
+
         var records = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference");
         if (records.Any(record => string.Equals(GetRequiredValue(record, "Alias"), alias, StringComparison.Ordinal)))
         {
@@ -37,7 +59,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
 
         var normalizedWorkspacePath = NormalizeWorkspacePathForStorage(
             weaveWorkspace.WorkspaceRootPath,
-            workspacePath);
+            resolvedWorkspacePath);
 
         records.Add(new GenericRecord
         {
@@ -51,7 +73,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         });
     }
 
-    public void AddPropertyBinding(
+    public async Task AddPropertyBindingAsync(
         Workspace weaveWorkspace,
         string name,
         string sourceModelAlias,
@@ -59,7 +81,8 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         string sourceProperty,
         string targetModelAlias,
         string targetEntity,
-        string targetProperty)
+        string targetProperty,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(weaveWorkspace);
         RequireNonEmpty(name, nameof(name));
@@ -75,6 +98,16 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
             ?? throw new InvalidOperationException($"ModelReference alias '{sourceModelAlias}' was not found.");
         var targetModel = modelReferences.SingleOrDefault(record => string.Equals(GetRequiredValue(record, "Alias"), targetModelAlias, StringComparison.Ordinal))
             ?? throw new InvalidOperationException($"ModelReference alias '{targetModelAlias}' was not found.");
+
+        if (string.IsNullOrWhiteSpace(weaveWorkspace.WorkspaceRootPath))
+        {
+            throw new InvalidOperationException("Weave workspace root path is required.");
+        }
+
+        var sourceWorkspace = await LoadReferencedWorkspaceAsync(weaveWorkspace, sourceModel, cancellationToken).ConfigureAwait(false);
+        var targetWorkspace = await LoadReferencedWorkspaceAsync(weaveWorkspace, targetModel, cancellationToken).ConfigureAwait(false);
+        ValidateBindingEndpoint(sourceWorkspace, sourceEntity, sourceProperty, allowId: false, bindingSide: "source");
+        ValidateBindingEndpoint(targetWorkspace, targetEntity, targetProperty, allowId: true, bindingSide: "target");
 
         var bindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding");
         if (bindings.Any(record => string.Equals(GetRequiredValue(record, "Name"), name, StringComparison.Ordinal)))
@@ -150,5 +183,48 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         }
 
         return relativePath.Replace('/', Path.DirectorySeparatorChar);
+    }
+
+    private async Task<Workspace> LoadReferencedWorkspaceAsync(Workspace weaveWorkspace, GenericRecord modelReference, CancellationToken cancellationToken)
+    {
+        var configuredPath = GetRequiredValue(modelReference, "WorkspacePath");
+        var expectedModelName = GetRequiredValue(modelReference, "ModelName");
+        var resolvedPath = ResolveWorkspacePath(weaveWorkspace.WorkspaceRootPath!, configuredPath);
+        var referencedWorkspace = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+        if (!string.Equals(referencedWorkspace.Model.Name, expectedModelName, StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException(
+                $"ModelReference alias '{GetRequiredValue(modelReference, "Alias")}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{referencedWorkspace.Model.Name}'.");
+        }
+
+        return referencedWorkspace;
+    }
+
+    private static void ValidateBindingEndpoint(Workspace workspace, string entityName, string propertyName, bool allowId, string bindingSide)
+    {
+        var entity = workspace.Model.FindEntity(entityName)
+            ?? throw new InvalidOperationException(
+                $"PropertyBinding {bindingSide} entity '{entityName}' was not found in model '{workspace.Model.Name}'.");
+
+        if (allowId && string.Equals(propertyName, "Id", StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        if (!entity.Properties.Any(property => string.Equals(property.Name, propertyName, StringComparison.Ordinal)))
+        {
+            throw new InvalidOperationException(
+                $"PropertyBinding {bindingSide} property '{entityName}.{propertyName}' was not found in model '{workspace.Model.Name}'.");
+        }
+    }
+
+    private static string ResolveWorkspacePath(string weaveWorkspaceRootPath, string configuredPath)
+    {
+        if (Path.IsPathRooted(configuredPath))
+        {
+            return Path.GetFullPath(configuredPath);
+        }
+
+        return Path.GetFullPath(Path.Combine(weaveWorkspaceRootPath, configuredPath));
     }
 }

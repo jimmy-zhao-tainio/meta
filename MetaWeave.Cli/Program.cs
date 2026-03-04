@@ -171,7 +171,7 @@ internal static class Program
         try
         {
             var resolvedWorkspacePath = Path.GetFullPath(parse.ModelWorkspacePath);
-            new MetaWeaveAuthoringService().AddModelReference(workspace, parse.Alias, parse.ModelName, resolvedWorkspacePath);
+            await new MetaWeaveAuthoringService().AddModelReferenceAsync(workspace, parse.Alias, parse.ModelName, resolvedWorkspacePath).ConfigureAwait(false);
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
@@ -231,7 +231,7 @@ internal static class Program
         var workspace = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
         try
         {
-            new MetaWeaveAuthoringService().AddPropertyBinding(
+            await new MetaWeaveAuthoringService().AddPropertyBindingAsync(
                 workspace,
                 parse.Name,
                 parse.SourceModelAlias,
@@ -239,7 +239,7 @@ internal static class Program
                 parse.SourceProperty,
                 parse.TargetModelAlias,
                 parse.TargetEntity,
-                parse.TargetProperty);
+                parse.TargetProperty).ConfigureAwait(false);
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
