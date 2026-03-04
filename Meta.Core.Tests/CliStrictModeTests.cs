@@ -352,6 +352,11 @@ public sealed class CliStrictModeTests
         Assert.Equal(0, setPropertyRequiredHelp.ExitCode);
         Assert.Contains("meta model set-property-required <Entity> <Property> --required true|false", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--default-value", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
+
+        var exportCsvHelp = await RunCliAsync("export", "csv", "--help");
+        Assert.Equal(0, exportCsvHelp.ExitCode);
+        Assert.Contains("meta export csv <Entity> --out <file> [--workspace <path>]", exportCsvHelp.StdOut, StringComparison.Ordinal);
+
         Assert.Contains("target entity, relationship role, or implied relationship field name", relationshipSetHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -3215,6 +3220,39 @@ public sealed class CliStrictModeTests
         {
             DeleteDirectorySafe(workspaceRoot);
             DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task ExportCsv_ExportsEntityRows_WithIdRelationshipsAndProperties()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var csvPath = Path.Combine(Path.GetTempPath(), "metadata-export-csv", Guid.NewGuid().ToString("N"), "systemcube.csv");
+        try
+        {
+            var result = await RunCliAsync(
+                "export",
+                "csv",
+                "SystemCube",
+                "--out",
+                csvPath,
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("exported csv", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.True(File.Exists(csvPath), "Expected CSV file to be written.");
+
+            var lines = await File.ReadAllLinesAsync(csvPath);
+            Assert.NotEmpty(lines);
+            Assert.Equal("Id,CubeId,SystemId,ProcessingMode", lines[0]);
+            Assert.Contains(lines, line => line.StartsWith("1,1,1,", StringComparison.Ordinal));
+            Assert.Contains(lines, line => line.StartsWith("2,2,2,", StringComparison.Ordinal));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(Path.GetDirectoryName(csvPath)!);
         }
     }
 

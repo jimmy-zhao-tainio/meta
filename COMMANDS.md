@@ -181,6 +181,7 @@ Diff and merge:
 Import and generate:
 - `meta import sql <connectionString> <schema> --new-workspace <path>`
 - `meta import csv <csvFile> --entity <EntityName> [--workspace <path> | --new-workspace <path>]`
+- `meta export csv <Entity> --out <file> [--workspace <path>]`
 - `meta generate sql --out <dir> [--workspace <path>]`
 - `meta generate csharp --out <dir> [--workspace <path>] [--tooling]`
 - `meta generate ssdt --out <dir> [--workspace <path>]`
@@ -258,6 +259,7 @@ Import and generate:
 |---|---|---|
 | `meta import sql <connectionString> <schema> --new-workspace <path>` | Import metadata from SQL into a new workspace. | `meta import sql "Server=...;Database=...;..." dbo --new-workspace .\ImportedWorkspace` |
 | `meta import csv <csvFile> --entity <EntityName> [--workspace <path> \| --new-workspace <path>]` | Import one CSV file as one entity + rows. The CSV must include a column named Id (case-insensitive match); existing-entity import is deterministic upsert by Id. | `meta import csv .\landing.csv --entity Landing --new-workspace .\ImportedWorkspace` |
+| `meta export csv <Entity> --out <file> [--workspace <path>]` | Export one entity's instance rows to CSV with `Id` first, then relationship usage columns, then scalar properties. | `meta export csv Cube --out .\cube.csv` |
 | `meta generate sql --out <dir> [--workspace <path>]` | Generate SQL schema + data scripts. | `meta generate sql --out .\out\sql` |
 | `meta generate csharp --out <dir> [--workspace <path>] [--tooling]` | Generate C# model and entity classes. | `meta generate csharp --out .\out\csharp` |
 | `meta generate ssdt --out <dir> [--workspace <path>]` | Generate Schema.sql, Data.sql, PostDeploy.sql, and Metadata.sqlproj. | `meta generate ssdt --out .\out\ssdt` |

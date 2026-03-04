@@ -52,6 +52,7 @@ public interface IImportService
 public interface IExportService
 {
     Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
+    Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
     Task ExportSqlAsync(Workspace workspace, string schemaOutputPath, string dataOutputPath, CancellationToken cancellationToken = default);
     Task ExportCSharpAsync(Workspace workspace, string outputPath, CancellationToken cancellationToken = default);
 }

@@ -937,6 +937,30 @@ internal static class HelpTopics
                     next: "meta check --workspace <path>");
                 return true;
 
+            case "export":
+                document = BuildTopicDocument(
+                    title: "Command: export",
+                    summary: "Export workspace data to external formats.",
+                    usage: "meta export <csv> ...",
+                    options: new[] { ("--workspace <path>", "Override workspace root.") },
+                    examples: new[] { "meta export csv Cube --out .\\cube.csv" },
+                    next: "meta export csv --help");
+                return true;
+
+            case "export csv":
+                document = BuildTopicDocument(
+                    title: "Command: export csv",
+                    summary: "Export one entity's instance rows to a CSV file with Id first, then relationship usages, then scalar properties.",
+                    usage: "meta export csv <Entity> --out <file> [--workspace <path>]",
+                    options: new[]
+                    {
+                        ("--out <file>", "Required CSV output file path."),
+                        ("--workspace <path>", "Override workspace root."),
+                    },
+                    examples: new[] { "meta export csv Cube --out .\\cube.csv" },
+                    next: "meta import csv --help");
+                return true;
+
             default:
                 return false;
         }

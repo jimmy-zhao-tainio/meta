@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Meta.Core.Domain;
@@ -39,6 +42,68 @@ public sealed class ExportService : IExportService
             IsDirty = workspace.IsDirty,
         };
         await _workspaceService.SaveAsync(clone, cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task ExportCsvAsync(
+        Workspace workspace,
+        string entityName,
+        string outputPath,
+        CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (workspace == null)
+        {
+            throw new ArgumentNullException(nameof(workspace));
+        }
+
+        if (string.IsNullOrWhiteSpace(entityName))
+        {
+            throw new ArgumentException("Entity name is required.", nameof(entityName));
+        }
+
+        if (string.IsNullOrWhiteSpace(outputPath))
+        {
+            throw new ArgumentException("CSV output path is required.", nameof(outputPath));
+        }
+
+        var entity = workspace.Model.FindEntity(entityName)
+            ?? throw new InvalidOperationException($"Entity '{entityName}' does not exist.");
+
+        var relationshipColumns = entity.Relationships
+            .Select(relationship => relationship.GetColumnName())
+            .ToList();
+        var propertyColumns = entity.Properties
+            .Select(property => property.Name)
+            .ToList();
+        var rows = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+            .OrderBy(row => row.Id, StringComparer.Ordinal)
+            .ToList();
+
+        var fullOutputPath = Path.GetFullPath(outputPath);
+        var outputDirectory = Path.GetDirectoryName(fullOutputPath);
+        if (!string.IsNullOrWhiteSpace(outputDirectory))
+        {
+            Directory.CreateDirectory(outputDirectory);
+        }
+
+        var builder = new StringBuilder();
+        WriteCsvRow(builder, new[] { "Id" }.Concat(relationshipColumns).Concat(propertyColumns));
+
+        foreach (var row in rows)
+        {
+            var values = new List<string>(1 + relationshipColumns.Count + propertyColumns.Count)
+            {
+                row.Id
+            };
+            values.AddRange(relationshipColumns.Select(name =>
+                row.RelationshipIds.TryGetValue(name, out var relationshipId) ? relationshipId : string.Empty));
+            values.AddRange(propertyColumns.Select(name =>
+                row.Values.TryGetValue(name, out var value) ? value : string.Empty));
+            WriteCsvRow(builder, values);
+        }
+
+        await File.WriteAllTextAsync(fullOutputPath, builder.ToString(), Encoding.UTF8, cancellationToken).ConfigureAwait(false);
     }
 
     public Task ExportSqlAsync(
@@ -133,6 +198,23 @@ public sealed class ExportService : IExportService
         }
 
         return Path.GetFullPath(outputPath);
+    }
+
+    private static void WriteCsvRow(StringBuilder builder, IEnumerable<string> values)
+    {
+        builder.AppendJoin(",", values.Select(EscapeCsv));
+        builder.AppendLine();
+    }
+
+    private static string EscapeCsv(string? value)
+    {
+        var text = value ?? string.Empty;
+        if (!text.Contains(',') && !text.Contains('"') && !text.Contains('\r') && !text.Contains('\n'))
+        {
+            return text;
+        }
+
+        return "\"" + text.Replace("\"", "\"\"", StringComparison.Ordinal) + "\"";
     }
 }
 

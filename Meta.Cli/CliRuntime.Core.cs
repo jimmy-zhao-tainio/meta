@@ -977,6 +977,7 @@ internal sealed partial class CliRuntime
         Register("bulk-insert", "Instance", "Insert many instances from tsv/csv input (supports --auto-id for new rows only).", BulkInsertAsync);
 
         Register("import", "Pipeline", "Import xml/sql into NEW workspace or csv into NEW/existing workspace.", ImportAsync);
+        Register("export", "Pipeline", "Export workspace data to external formats.", ExportAsync);
         Register("generate", "Pipeline", "Generate artifacts from the workspace.", GenerateAsync);
     
         return registry;
