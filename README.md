@@ -708,12 +708,14 @@ meta-type init --new-workspace .\MetaType.Workspace
 
 ### `MetaTypeConversion`
 
-`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. The current first slice creates a populated sanctioned workspace boundary with initial type mappings built on `MetaType`.
+`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. It carries deterministic type-level mappings from source `MetaType.Type.Id` values to target `MetaType.Type.Id` values, plus the sanctioned conversion implementation to use for each mapping.
 
 ```cmd
 meta-type-conversion help
 meta-type-conversion init --help
 meta-type-conversion init --new-workspace .\MetaTypeConversion.Workspace
+meta-type-conversion check --workspace .\MetaTypeConversion.Workspace
+meta-type-conversion resolve --workspace .\MetaTypeConversion.Workspace --source-type sqlserver:type:nvarchar
 ```
 
 ## MetaWeave
