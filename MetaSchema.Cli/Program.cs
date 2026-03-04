@@ -17,11 +17,6 @@ internal static class Program
             return await RunExtractAsync(args).ConfigureAwait(false);
         }
 
-        if (string.Equals(args[0], "seed", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunSeedAsync(args).ConfigureAwait(false);
-        }
-
         Console.WriteLine($"Error: unknown command '{args[0]}'.");
         Console.WriteLine("Next: meta-schema help");
         return 1;
@@ -136,120 +131,6 @@ internal static class Program
         Console.WriteLine($"Tables: {workspace.Instance.GetOrCreateEntityRecords("Table").Count}");
         Console.WriteLine($"FieldTypes: {workspace.Instance.GetOrCreateEntityRecords("FieldType").Count}");
         Console.WriteLine($"Fields: {workspace.Instance.GetOrCreateEntityRecords("Field").Count}");
-        return 0;
-    }
-
-    private static async Task<int> RunSeedAsync(string[] args)
-    {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintSeedHelp();
-            return 0;
-        }
-
-        if (string.Equals(args[1], "data-type", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunSeedMetaDataTypeAsync(args).ConfigureAwait(false);
-        }
-
-        if (!string.Equals(args[1], "data-type-conversion", StringComparison.OrdinalIgnoreCase))
-        {
-            Console.WriteLine($"Error: unknown seed '{args[1]}'.");
-            Console.WriteLine("Next: meta-schema seed --help");
-            return 1;
-        }
-
-        if (args.Length >= 3 && IsHelpToken(args[2]))
-        {
-            PrintSeedTypeConversionHelp();
-            return 0;
-        }
-
-        var parseResult = ParseNewWorkspaceOnly(args, startIndex: 2);
-        if (!parseResult.Ok)
-        {
-            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-schema seed data-type-conversion --help");
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
-        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
-        {
-            Console.WriteLine($"Error: target directory '{workspacePath}' must be empty.");
-            Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
-            return 4;
-        }
-
-        Directory.CreateDirectory(workspacePath);
-
-        var workspace = MetaSchemaWorkspaces.CreateSeedMetaDataTypeConversionWorkspace(workspacePath);
-        var validation = new ValidationService().Validate(workspace);
-        if (validation.HasErrors)
-        {
-            Console.WriteLine("Error: seed workspace is invalid.");
-            foreach (var issue in validation.Issues.Where(item => item.Severity == Meta.Core.Domain.IssueSeverity.Error))
-            {
-                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
-            }
-
-            Console.WriteLine("Next: fix MetaDataTypeConversion seed data and retry.");
-            return 4;
-        }
-
-        await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
-
-        Console.WriteLine("OK: metadata type conversion workspace created");
-        Console.WriteLine($"Path: {workspacePath}");
-        Console.WriteLine($"Model: {workspace.Model.Name}");
-        return 0;
-    }
-
-    private static async Task<int> RunSeedMetaDataTypeAsync(string[] args)
-    {
-        if (args.Length >= 3 && IsHelpToken(args[2]))
-        {
-            PrintSeedMetaDataTypeHelp();
-            return 0;
-        }
-
-        var parseResult = ParseNewWorkspaceOnly(args, startIndex: 2);
-        if (!parseResult.Ok)
-        {
-            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-schema seed data-type --help");
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
-        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
-        {
-            Console.WriteLine($"Error: target directory '{workspacePath}' must be empty.");
-            Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
-            return 4;
-        }
-
-        Directory.CreateDirectory(workspacePath);
-
-        var workspace = MetaSchemaWorkspaces.CreateEmptyMetaDataTypeWorkspace(workspacePath);
-        var validation = new ValidationService().Validate(workspace);
-        if (validation.HasErrors)
-        {
-            Console.WriteLine("Error: MetaDataType workspace is invalid.");
-            foreach (var issue in validation.Issues.Where(item => item.Severity == Meta.Core.Domain.IssueSeverity.Error))
-            {
-                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
-            }
-
-            Console.WriteLine("Next: fix MetaDataType sanctioned model and retry.");
-            return 4;
-        }
-
-        await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
-
-        Console.WriteLine("OK: metadata type workspace created");
-        Console.WriteLine($"Path: {workspacePath}");
-        Console.WriteLine($"Model: {workspace.Model.Name}");
         return 0;
     }
 
@@ -372,7 +253,6 @@ internal static class Program
         Console.WriteLine("Commands:");
         Console.WriteLine("  help        Show this help.");
         Console.WriteLine("  extract     Materialize sanctioned MetaSchema workspaces from external sources.");
-        Console.WriteLine("  seed        Materialize sanctioned model workspaces.");
         Console.WriteLine();
         Console.WriteLine("Next: meta-schema extract --help");
     }
@@ -400,36 +280,4 @@ internal static class Program
         Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, FieldType, and Field rows.");
     }
 
-    private static void PrintSeedHelp()
-    {
-        Console.WriteLine("Command: seed");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema seed <catalog> [options]");
-        Console.WriteLine();
-        Console.WriteLine("Models:");
-        Console.WriteLine("  data-type               Materialize sanctioned MetaDataType workspace.");
-        Console.WriteLine("  data-type-conversion    Materialize sanctioned MetaDataTypeConversion workspace.");
-        Console.WriteLine();
-        Console.WriteLine("Next: meta-schema seed data-type --help");
-    }
-
-    private static void PrintSeedMetaDataTypeHelp()
-    {
-        Console.WriteLine("Command: seed data-type");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema seed data-type --new-workspace <path>");
-        Console.WriteLine();
-        Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a workspace with the sanctioned MetaDataType model.");
-    }
-
-    private static void PrintSeedTypeConversionHelp()
-    {
-        Console.WriteLine("Command: seed data-type-conversion");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema seed data-type-conversion --new-workspace <path>");
-        Console.WriteLine();
-        Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a workspace with the MetaDataTypeConversion model and seeded instance data.");
-    }
 }

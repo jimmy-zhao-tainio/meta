@@ -5,7 +5,7 @@
 This repo ships two CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-schema` (MetaSchema CLI): schema extraction and sanctioned models (for example `MetaDataTypeConversion`).
+`meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.
 
 ## Metadata foundations (project terminology)
 
@@ -676,95 +676,17 @@ meta instance merge <TargetWs> <DiffWorkspace>
 
 ## MetaSchema
 
-MetaSchema is the separate schema/canonical-catalog toolchain.
+MetaSchema is the schema-extraction toolchain.
 
-It builds sanctioned metadata workspaces from external source schema and maintains sanctioned model workspaces that `meta` can treat as normal metadata workspaces.
-
-Sanctioned model references are kept as XML on disk and loaded by core runtime code:
-- `Meta.Core/WorkspaceConfig/Models/MetaWorkspace.model.xml`
-- `MetaSchema.Core/Models/MetaDataType.model.xml`
-- `MetaSchema.Core/Models/MetaSchema.model.xml`
-- `MetaSchema.Core/Models/MetaDataTypeConversion.model.xml`
-
-To re-emit sanctioned model C# APIs through the same public CLI surface, run `meta generate csharp --tooling` against the sanctioned model workspace you want to publish.
+It builds sanctioned `MetaSchema` workspaces from external source schema. `meta` can then treat those workspaces like any other metadata workspace.
 
 Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `FieldType`, and `Field` rows for one declared system/schema/table.
-
-### MetaDataType
-
-`MetaDataType` is the sanctioned shared type model. It currently defines `TypeSystem`, `Type`, and `TypeSpec` as a common type vocabulary that later slices can share between schema discovery and conversion rules.
-
-### MetaDataTypeConversion
-
-`MetaDataTypeConversion` is a workspace that models a canonical type system (`Meta`) and mappings to/from platform type systems (SqlServer, Synapse, Snowflake, SSIS, CSharp). The model centers around TypeSystems/DataTypes, facets, and mapping rules.
-
-Key entities include `TypeSystem`, `DataType`, `TypeSpec`, `TypeMapping`, `TypeMappingCondition`, `TypeMappingFacetTransform`, `Setting`, and `ConversionImplementation`.
-
-#### Seeded conversion table excerpt: Meta -> SqlServer
-
-| Meta type | SqlServer type | Lossiness | Implementation |
-|---|---|---|---|
-| AnsiString | varchar | Exact | Sql.Cast |
-| AnsiStringFixedLength | char | Exact | Sql.Cast |
-| Binary | varbinary | Exact | Sql.Cast |
-| Boolean | bit | Exact | Sql.Identity |
-| Date | date | Exact | Sql.Identity |
-| DateTime2 | datetime2 | Exact | Sql.Cast |
-| DateTimeOffset | datetimeoffset | Exact | Sql.Cast |
-| Decimal | decimal | Exact | Sql.Cast |
-| Guid | uniqueidentifier | Exact | Sql.Identity |
-| Int32 | int | Exact | Sql.Identity |
-| Int64 | bigint | Exact | Sql.Identity |
-| Object | sql_variant | Lossy | Sql.Convert |
-| String | nvarchar | Exact | Sql.Cast |
-| StringFixedLength | nchar | Exact | Sql.Cast |
-| Time | time | Exact | Sql.Cast |
-| Xml | xml | Exact | Sql.Identity |
-
-#### Seeded conversion table excerpt: SqlServer -> SSIS
-
-| SqlServer type | SSIS type | Lossiness | Implementation |
-|---|---|---|---|
-| bigint | DT_I8 | Exact | Ssis.DataConversion |
-| bit | DT_BOOL | Exact | Ssis.DataConversion |
-| datetime2 | DT_DBTIMESTAMP2 | Exact | Ssis.DataConversion |
-| datetimeoffset | DT_DBTIMESTAMPOFFSET | Exact | Ssis.DataConversion |
-| decimal | DT_NUMERIC | Exact | Ssis.DataConversion |
-| int | DT_I4 | Exact | Ssis.DataConversion |
-| nvarchar | DT_WSTR | Exact | Ssis.DataConversion |
-| smallint | DT_I2 | Exact | Ssis.DataConversion |
-| time | DT_DBTIME2 | Exact | Ssis.DataConversion |
-| tinyint | DT_UI1 | Exact | Ssis.DataConversion |
-| uniqueidentifier | DT_GUID | Exact | Ssis.DataConversion |
-| xml | DT_NTEXT | Lossy | Ssis.DataConversion |
-
-#### Defaulting rules excerpt
-
-Some platform-defaulting rules are encoded as mappings with conditions/transforms. (`Length=-1` means MAX.)
-
-| Meta type | SqlServer type | When | Then |
-|---|---|---|---|
-| Decimal | decimal | Precision missing | Precision=18 |
-| Decimal | decimal | Scale missing | Scale=0 |
-| Time | time | TimePrecision missing | TimePrecision=7 |
-| DateTime2 | datetime2 | TimePrecision missing | TimePrecision=7 |
-| DateTimeOffset | datetimeoffset | TimePrecision missing | TimePrecision=7 |
-| AnsiString | varchar | Length >= 8001 | Length=-1 |
-| String | nvarchar | Length >= 4001 | Length=-1 |
-| Binary | varbinary | Length >= 8001 | Length=-1 |
 
 #### Commands
 
 ```powershell
 meta-schema help
 meta-schema extract sqlserver --help
-meta-schema seed data-type --new-workspace .\MetaDataType
-meta-schema seed data-type-conversion --new-workspace .\MetaDataTypeConversion
-
-meta check --workspace .\MetaDataType
-meta check --workspace .\MetaDataTypeConversion
-meta list entities --workspace .\MetaDataTypeConversion
-meta query TypeMapping --contains Name Meta. --workspace .\MetaDataTypeConversion
 ```
 
 ## References
