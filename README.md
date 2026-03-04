@@ -720,9 +720,16 @@ meta-type-conversion init --new-workspace .\MetaTypeConversion.Workspace
 
 MetaWeave is the sanctioned cross-model binding toolchain.
 
-It keeps cross-model references isomorphic by treating them as ordinary scalar properties in the source model and carrying the resolution meaning in a separate weave workspace. `meta-weave check` then proves whether those property values resolve with 100% RI into the target model.
+Cross-model links remain ordinary scalar properties in the source workspace. A weave workspace carries the meaning of those properties separately, so the link stays isomorphic across XML, SQL, and C# while still being validated rigorously.
 
-Current status: `meta-weave` supports workspace initialization, model-reference authoring, property-binding authoring, and binding validation.
+A weave workspace contains:
+
+- `ModelReference` rows: which workspaces and models participate in the weave
+- `PropertyBinding` rows: which source property resolves to which target identity property
+
+`meta-weave check` loads the weave workspace, loads the referenced workspaces, and proves whether every bound value resolves with 100% RI into the target model.
+
+Current authoring flow:
 
 ```cmd
 meta-weave help
@@ -732,6 +739,11 @@ meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaType --model 
 meta-weave add-binding --workspace .\MetaWeave.Workspace --name "MetaSchema.Field.TypeId -> MetaType.Type.Id" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
 ```
+
+Sanctioned examples live under:
+
+- `MetaWeave.Instances\Weave-MetaSchema-MetaType`
+- `MetaWeave.Instances\Weave-MetaTypeConversion-MetaType`
 
 ## References
 
