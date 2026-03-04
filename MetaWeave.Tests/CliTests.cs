@@ -127,6 +127,17 @@ public sealed class CliTests
         }
     }
 
+
+    [Fact]
+    public void Check_SanctionedWeaveInstance_Passes()
+    {
+        var result = RunCli("check --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\"");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("OK: weave check", result.Output);
+        Assert.Contains("Bindings: 1", result.Output);
+        Assert.Contains("Errors: 0", result.Output);
+    }
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
@@ -179,3 +190,4 @@ public sealed class CliTests
         }
     }
 }
+

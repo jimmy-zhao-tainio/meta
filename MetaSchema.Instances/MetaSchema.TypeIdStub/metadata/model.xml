@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaSchema">
+  <EntityList>
+    <Entity name="System">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Schema">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="System" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Table">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="ObjectType" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Schema" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Field">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="TypeId" />
+        <Property name="Ordinal" isRequired="false" />
+        <Property name="IsNullable" isRequired="false" />
+        <Property name="Length" isRequired="false" />
+        <Property name="NumericPrecision" isRequired="false" />
+        <Property name="Scale" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Table" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

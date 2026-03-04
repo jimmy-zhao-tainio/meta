@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaType>
+  <TypeSpecList>
+    <TypeSpec Id="meta:type:AnsiString:spec:length=255;unicode=false;fixed=false" TypeId="meta:type:AnsiString">
+      <IsFixedLength>false</IsFixedLength>
+      <IsUnicode>false</IsUnicode>
+      <Length>255</Length>
+      <Name>AnsiString (Length=255, IsUnicode=false, IsFixedLength=false)</Name>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:AnsiStringFixedLength:spec:length=64;unicode=false;fixed=true" TypeId="meta:type:AnsiStringFixedLength">
+      <IsFixedLength>true</IsFixedLength>
+      <IsUnicode>false</IsUnicode>
+      <Length>64</Length>
+      <Name>AnsiStringFixedLength (Length=64, IsUnicode=false, IsFixedLength=true)</Name>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:Binary:spec:length=8000" TypeId="meta:type:Binary">
+      <Length>8000</Length>
+      <Name>Binary (Length=8000)</Name>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:DateTime2:spec:timeprecision=7" TypeId="meta:type:DateTime2">
+      <Name>DateTime2 (TimePrecision=7)</Name>
+      <TimePrecision>7</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:DateTimeOffset:spec:timeprecision=7" TypeId="meta:type:DateTimeOffset">
+      <Name>DateTimeOffset (TimePrecision=7)</Name>
+      <TimePrecision>7</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:Decimal:spec:precision=18;scale=0" TypeId="meta:type:Decimal">
+      <Name>Decimal (Precision=18, Scale=0)</Name>
+      <Precision>18</Precision>
+      <Scale>0</Scale>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:Double:spec:precision=53" TypeId="meta:type:Double">
+      <Name>Double (Precision=53)</Name>
+      <Precision>53</Precision>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:Single:spec:precision=24" TypeId="meta:type:Single">
+      <Name>Single (Precision=24)</Name>
+      <Precision>24</Precision>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:String:spec:length=255;unicode=true;fixed=false" TypeId="meta:type:String">
+      <IsFixedLength>false</IsFixedLength>
+      <IsUnicode>true</IsUnicode>
+      <Length>255</Length>
+      <Name>String (Length=255, IsUnicode=true, IsFixedLength=false)</Name>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:StringFixedLength:spec:length=64;unicode=true;fixed=true" TypeId="meta:type:StringFixedLength">
+      <IsFixedLength>true</IsFixedLength>
+      <IsUnicode>true</IsUnicode>
+      <Length>64</Length>
+      <Name>StringFixedLength (Length=64, IsUnicode=true, IsFixedLength=true)</Name>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:Time:spec:timeprecision=7" TypeId="meta:type:Time">
+      <Name>Time (TimePrecision=7)</Name>
+      <TimePrecision>7</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="meta:type:VarNumeric:spec:precision=38;scale=10" TypeId="meta:type:VarNumeric">
+      <Name>VarNumeric (Precision=38, Scale=10)</Name>
+      <Precision>38</Precision>
+      <Scale>10</Scale>
+    </TypeSpec>
+    <TypeSpec Id="snowflake:type:timestamp_tz:spec:timeprecision=9" TypeId="snowflake:type:timestamp_tz">
+      <Name>timestamp_tz (TimePrecision=9)</Name>
+      <TimePrecision>9</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:datetime2:spec:timeprecision=7" TypeId="sqlserver:type:datetime2">
+      <Name>datetime2 (TimePrecision=7)</Name>
+      <TimePrecision>7</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:decimal:spec:precision=18;scale=0" TypeId="sqlserver:type:decimal">
+      <Name>decimal (Precision=18, Scale=0)</Name>
+      <Precision>18</Precision>
+      <Scale>0</Scale>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:nvarchar:spec:length=255;unicode=true;fixed=false" TypeId="sqlserver:type:nvarchar">
+      <IsFixedLength>false</IsFixedLength>
+      <IsUnicode>true</IsUnicode>
+      <Length>255</Length>
+      <Name>nvarchar (Length=255, IsUnicode=true, IsFixedLength=false)</Name>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:time:spec:timeprecision=7" TypeId="sqlserver:type:time">
+      <Name>time (TimePrecision=7)</Name>
+      <TimePrecision>7</TimePrecision>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:varbinary:spec:length=8000" TypeId="sqlserver:type:varbinary">
+      <Length>8000</Length>
+      <Name>varbinary (Length=8000)</Name>
+    </TypeSpec>
+    <TypeSpec Id="sqlserver:type:varchar:spec:length=255;unicode=false;fixed=false" TypeId="sqlserver:type:varchar">
+      <IsFixedLength>false</IsFixedLength>
+      <IsUnicode>false</IsUnicode>
+      <Length>255</Length>
+      <Name>varchar (Length=255, IsUnicode=false, IsFixedLength=false)</Name>
+    </TypeSpec>
+    <TypeSpec Id="synapse:type:varchar:spec:length=8000" TypeId="synapse:type:varchar">
+      <Length>8000</Length>
+      <Name>varchar (Length=8000)</Name>
+    </TypeSpec>
+  </TypeSpecList>
+</MetaType>

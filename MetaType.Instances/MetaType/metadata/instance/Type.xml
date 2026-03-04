@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaType>
+  <TypeList>
+    <Type Id="csharp:type:bool" TypeSystemId="csharp:type-system">
+      <Category>Logical</Category>
+      <Name>bool</Name>
+    </Type>
+    <Type Id="csharp:type:byte[]" TypeSystemId="csharp:type-system">
+      <Category>Binary</Category>
+      <Name>byte[]</Name>
+    </Type>
+    <Type Id="csharp:type:DateOnly" TypeSystemId="csharp:type-system">
+      <Category>Temporal</Category>
+      <Name>DateOnly</Name>
+    </Type>
+    <Type Id="csharp:type:DateTime" TypeSystemId="csharp:type-system">
+      <Category>Temporal</Category>
+      <Name>DateTime</Name>
+    </Type>
+    <Type Id="csharp:type:DateTimeOffset" TypeSystemId="csharp:type-system">
+      <Category>Temporal</Category>
+      <Name>DateTimeOffset</Name>
+    </Type>
+    <Type Id="csharp:type:decimal" TypeSystemId="csharp:type-system">
+      <Category>Numeric</Category>
+      <Name>decimal</Name>
+    </Type>
+    <Type Id="csharp:type:double" TypeSystemId="csharp:type-system">
+      <Category>Numeric</Category>
+      <Name>double</Name>
+    </Type>
+    <Type Id="csharp:type:Guid" TypeSystemId="csharp:type-system">
+      <Category>Identifier</Category>
+      <Name>Guid</Name>
+    </Type>
+    <Type Id="csharp:type:int" TypeSystemId="csharp:type-system">
+      <Category>Numeric</Category>
+      <Name>int</Name>
+    </Type>
+    <Type Id="csharp:type:long" TypeSystemId="csharp:type-system">
+      <Category>Numeric</Category>
+      <Name>long</Name>
+    </Type>
+    <Type Id="csharp:type:object" TypeSystemId="csharp:type-system">
+      <Category>Structured</Category>
+      <Name>object</Name>
+    </Type>
+    <Type Id="csharp:type:string" TypeSystemId="csharp:type-system">
+      <Category>Text</Category>
+      <Name>string</Name>
+    </Type>
+    <Type Id="meta:type:AnsiString" TypeSystemId="meta:type-system">
+      <Category>Text</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>AnsiString</Name>
+    </Type>
+    <Type Id="meta:type:AnsiStringFixedLength" TypeSystemId="meta:type-system">
+      <Category>Text</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>AnsiStringFixedLength</Name>
+    </Type>
+    <Type Id="meta:type:Binary" TypeSystemId="meta:type-system">
+      <Category>Binary</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Binary</Name>
+    </Type>
+    <Type Id="meta:type:Boolean" TypeSystemId="meta:type-system">
+      <Category>Logical</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Boolean</Name>
+    </Type>
+    <Type Id="meta:type:Byte" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Byte</Name>
+    </Type>
+    <Type Id="meta:type:Date" TypeSystemId="meta:type-system">
+      <Category>Temporal</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Date</Name>
+    </Type>
+    <Type Id="meta:type:DateTime" TypeSystemId="meta:type-system">
+      <Category>Temporal</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>DateTime</Name>
+    </Type>
+    <Type Id="meta:type:DateTime2" TypeSystemId="meta:type-system">
+      <Category>Temporal</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>DateTime2</Name>
+    </Type>
+    <Type Id="meta:type:DateTimeOffset" TypeSystemId="meta:type-system">
+      <Category>Temporal</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>DateTimeOffset</Name>
+    </Type>
+    <Type Id="meta:type:Decimal" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Decimal</Name>
+    </Type>
+    <Type Id="meta:type:Double" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Double</Name>
+    </Type>
+    <Type Id="meta:type:geography" TypeSystemId="meta:type-system">
+      <Category>Spatial</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>geography</Name>
+    </Type>
+    <Type Id="meta:type:geometry" TypeSystemId="meta:type-system">
+      <Category>Spatial</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>geometry</Name>
+    </Type>
+    <Type Id="meta:type:Guid" TypeSystemId="meta:type-system">
+      <Category>Identifier</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Guid</Name>
+    </Type>
+    <Type Id="meta:type:hierarchyid" TypeSystemId="meta:type-system">
+      <Category>Spatial</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>hierarchyid</Name>
+    </Type>
+    <Type Id="meta:type:Int16" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Int16</Name>
+    </Type>
+    <Type Id="meta:type:Int32" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Int32</Name>
+    </Type>
+    <Type Id="meta:type:Int64" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Int64</Name>
+    </Type>
+    <Type Id="meta:type:Object" TypeSystemId="meta:type-system">
+      <Category>Structured</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Object</Name>
+    </Type>
+    <Type Id="meta:type:SByte" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>SByte</Name>
+    </Type>
+    <Type Id="meta:type:Single" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Single</Name>
+    </Type>
+    <Type Id="meta:type:String" TypeSystemId="meta:type-system">
+      <Category>Text</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>String</Name>
+    </Type>
+    <Type Id="meta:type:StringFixedLength" TypeSystemId="meta:type-system">
+      <Category>Text</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>StringFixedLength</Name>
+    </Type>
+    <Type Id="meta:type:Time" TypeSystemId="meta:type-system">
+      <Category>Temporal</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Time</Name>
+    </Type>
+    <Type Id="meta:type:UInt16" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>UInt16</Name>
+    </Type>
+    <Type Id="meta:type:UInt32" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>UInt32</Name>
+    </Type>
+    <Type Id="meta:type:UInt64" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>UInt64</Name>
+    </Type>
+    <Type Id="meta:type:VarNumeric" TypeSystemId="meta:type-system">
+      <Category>Numeric</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>VarNumeric</Name>
+    </Type>
+    <Type Id="meta:type:Xml" TypeSystemId="meta:type-system">
+      <Category>Structured</Category>
+      <IsCanonical>true</IsCanonical>
+      <Name>Xml</Name>
+    </Type>
+    <Type Id="snowflake:type:binary" TypeSystemId="snowflake:type-system">
+      <Category>Binary</Category>
+      <Name>binary</Name>
+    </Type>
+    <Type Id="snowflake:type:boolean" TypeSystemId="snowflake:type-system">
+      <Category>Logical</Category>
+      <Name>boolean</Name>
+    </Type>
+    <Type Id="snowflake:type:date" TypeSystemId="snowflake:type-system">
+      <Category>Temporal</Category>
+      <Name>date</Name>
+    </Type>
+    <Type Id="snowflake:type:float" TypeSystemId="snowflake:type-system">
+      <Category>Numeric</Category>
+      <Name>float</Name>
+    </Type>
+    <Type Id="snowflake:type:number" TypeSystemId="snowflake:type-system">
+      <Category>Numeric</Category>
+      <Name>number</Name>
+    </Type>
+    <Type Id="snowflake:type:timestamp_ntz" TypeSystemId="snowflake:type-system">
+      <Category>Temporal</Category>
+      <Name>timestamp_ntz</Name>
+    </Type>
+    <Type Id="snowflake:type:timestamp_tz" TypeSystemId="snowflake:type-system">
+      <Category>Temporal</Category>
+      <Name>timestamp_tz</Name>
+    </Type>
+    <Type Id="snowflake:type:varchar" TypeSystemId="snowflake:type-system">
+      <Category>Text</Category>
+      <Name>varchar</Name>
+    </Type>
+    <Type Id="snowflake:type:variant" TypeSystemId="snowflake:type-system">
+      <Category>Structured</Category>
+      <Name>variant</Name>
+    </Type>
+    <Type Id="sqlserver:type:bigint" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>bigint</Name>
+    </Type>
+    <Type Id="sqlserver:type:bit" TypeSystemId="sqlserver:type-system">
+      <Category>Logical</Category>
+      <Name>bit</Name>
+    </Type>
+    <Type Id="sqlserver:type:char" TypeSystemId="sqlserver:type-system">
+      <Category>Text</Category>
+      <Name>char</Name>
+    </Type>
+    <Type Id="sqlserver:type:date" TypeSystemId="sqlserver:type-system">
+      <Category>Temporal</Category>
+      <Name>date</Name>
+    </Type>
+    <Type Id="sqlserver:type:datetime" TypeSystemId="sqlserver:type-system">
+      <Category>Temporal</Category>
+      <Name>datetime</Name>
+    </Type>
+    <Type Id="sqlserver:type:datetime2" TypeSystemId="sqlserver:type-system">
+      <Category>Temporal</Category>
+      <Name>datetime2</Name>
+    </Type>
+    <Type Id="sqlserver:type:datetimeoffset" TypeSystemId="sqlserver:type-system">
+      <Category>Temporal</Category>
+      <Name>datetimeoffset</Name>
+    </Type>
+    <Type Id="sqlserver:type:decimal" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>decimal</Name>
+    </Type>
+    <Type Id="sqlserver:type:float" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>float</Name>
+    </Type>
+    <Type Id="sqlserver:type:geography" TypeSystemId="sqlserver:type-system">
+      <Category>Spatial</Category>
+      <Name>geography</Name>
+    </Type>
+    <Type Id="sqlserver:type:geometry" TypeSystemId="sqlserver:type-system">
+      <Category>Spatial</Category>
+      <Name>geometry</Name>
+    </Type>
+    <Type Id="sqlserver:type:hierarchyid" TypeSystemId="sqlserver:type-system">
+      <Category>Spatial</Category>
+      <Name>hierarchyid</Name>
+    </Type>
+    <Type Id="sqlserver:type:int" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>int</Name>
+    </Type>
+    <Type Id="sqlserver:type:money" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>money</Name>
+    </Type>
+    <Type Id="sqlserver:type:nchar" TypeSystemId="sqlserver:type-system">
+      <Category>Text</Category>
+      <Name>nchar</Name>
+    </Type>
+    <Type Id="sqlserver:type:nvarchar" TypeSystemId="sqlserver:type-system">
+      <Category>Text</Category>
+      <Name>nvarchar</Name>
+    </Type>
+    <Type Id="sqlserver:type:smallint" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>smallint</Name>
+    </Type>
+    <Type Id="sqlserver:type:smallmoney" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>smallmoney</Name>
+    </Type>
+    <Type Id="sqlserver:type:sql_variant" TypeSystemId="sqlserver:type-system">
+      <Category>Structured</Category>
+      <Name>sql_variant</Name>
+    </Type>
+    <Type Id="sqlserver:type:time" TypeSystemId="sqlserver:type-system">
+      <Category>Temporal</Category>
+      <Name>time</Name>
+    </Type>
+    <Type Id="sqlserver:type:tinyint" TypeSystemId="sqlserver:type-system">
+      <Category>Numeric</Category>
+      <Name>tinyint</Name>
+    </Type>
+    <Type Id="sqlserver:type:uniqueidentifier" TypeSystemId="sqlserver:type-system">
+      <Category>Identifier</Category>
+      <Name>uniqueidentifier</Name>
+    </Type>
+    <Type Id="sqlserver:type:varbinary" TypeSystemId="sqlserver:type-system">
+      <Category>Binary</Category>
+      <Name>varbinary</Name>
+    </Type>
+    <Type Id="sqlserver:type:varchar" TypeSystemId="sqlserver:type-system">
+      <Category>Text</Category>
+      <Name>varchar</Name>
+    </Type>
+    <Type Id="sqlserver:type:xml" TypeSystemId="sqlserver:type-system">
+      <Category>Structured</Category>
+      <Name>xml</Name>
+    </Type>
+    <Type Id="ssis:type:DT_BOOL" TypeSystemId="ssis:type-system">
+      <Category>Logical</Category>
+      <Name>DT_BOOL</Name>
+    </Type>
+    <Type Id="ssis:type:DT_BYTES" TypeSystemId="ssis:type-system">
+      <Category>Binary</Category>
+      <Name>DT_BYTES</Name>
+    </Type>
+    <Type Id="ssis:type:DT_CY" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_CY</Name>
+    </Type>
+    <Type Id="ssis:type:DT_DBDATE" TypeSystemId="ssis:type-system">
+      <Category>Temporal</Category>
+      <Name>DT_DBDATE</Name>
+    </Type>
+    <Type Id="ssis:type:DT_DBTIME2" TypeSystemId="ssis:type-system">
+      <Category>Temporal</Category>
+      <Name>DT_DBTIME2</Name>
+    </Type>
+    <Type Id="ssis:type:DT_DBTIMESTAMP" TypeSystemId="ssis:type-system">
+      <Category>Temporal</Category>
+      <Name>DT_DBTIMESTAMP</Name>
+    </Type>
+    <Type Id="ssis:type:DT_DBTIMESTAMP2" TypeSystemId="ssis:type-system">
+      <Category>Temporal</Category>
+      <Name>DT_DBTIMESTAMP2</Name>
+    </Type>
+    <Type Id="ssis:type:DT_DBTIMESTAMPOFFSET" TypeSystemId="ssis:type-system">
+      <Category>Temporal</Category>
+      <Name>DT_DBTIMESTAMPOFFSET</Name>
+    </Type>
+    <Type Id="ssis:type:DT_GUID" TypeSystemId="ssis:type-system">
+      <Category>Identifier</Category>
+      <Name>DT_GUID</Name>
+    </Type>
+    <Type Id="ssis:type:DT_I2" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_I2</Name>
+    </Type>
+    <Type Id="ssis:type:DT_I4" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_I4</Name>
+    </Type>
+    <Type Id="ssis:type:DT_I8" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_I8</Name>
+    </Type>
+    <Type Id="ssis:type:DT_IMAGE" TypeSystemId="ssis:type-system">
+      <Category>Binary</Category>
+      <Name>DT_IMAGE</Name>
+    </Type>
+    <Type Id="ssis:type:DT_NTEXT" TypeSystemId="ssis:type-system">
+      <Category>Structured</Category>
+      <Name>DT_NTEXT</Name>
+    </Type>
+    <Type Id="ssis:type:DT_NUMERIC" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_NUMERIC</Name>
+    </Type>
+    <Type Id="ssis:type:DT_R4" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_R4</Name>
+    </Type>
+    <Type Id="ssis:type:DT_R8" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_R8</Name>
+    </Type>
+    <Type Id="ssis:type:DT_STR" TypeSystemId="ssis:type-system">
+      <Category>Text</Category>
+      <Name>DT_STR</Name>
+    </Type>
+    <Type Id="ssis:type:DT_TEXT" TypeSystemId="ssis:type-system">
+      <Category>Text</Category>
+      <Name>DT_TEXT</Name>
+    </Type>
+    <Type Id="ssis:type:DT_UI1" TypeSystemId="ssis:type-system">
+      <Category>Numeric</Category>
+      <Name>DT_UI1</Name>
+    </Type>
+    <Type Id="ssis:type:DT_WSTR" TypeSystemId="ssis:type-system">
+      <Category>Text</Category>
+      <Name>DT_WSTR</Name>
+    </Type>
+    <Type Id="synapse:type:bigint" TypeSystemId="synapse:type-system">
+      <Category>Numeric</Category>
+      <Name>bigint</Name>
+    </Type>
+    <Type Id="synapse:type:bit" TypeSystemId="synapse:type-system">
+      <Category>Logical</Category>
+      <Name>bit</Name>
+    </Type>
+    <Type Id="synapse:type:date" TypeSystemId="synapse:type-system">
+      <Category>Temporal</Category>
+      <Name>date</Name>
+    </Type>
+    <Type Id="synapse:type:datetime2" TypeSystemId="synapse:type-system">
+      <Category>Temporal</Category>
+      <Name>datetime2</Name>
+    </Type>
+    <Type Id="synapse:type:datetimeoffset" TypeSystemId="synapse:type-system">
+      <Category>Temporal</Category>
+      <Name>datetimeoffset</Name>
+    </Type>
+    <Type Id="synapse:type:decimal" TypeSystemId="synapse:type-system">
+      <Category>Numeric</Category>
+      <Name>decimal</Name>
+    </Type>
+    <Type Id="synapse:type:float" TypeSystemId="synapse:type-system">
+      <Category>Numeric</Category>
+      <Name>float</Name>
+    </Type>
+    <Type Id="synapse:type:int" TypeSystemId="synapse:type-system">
+      <Category>Numeric</Category>
+      <Name>int</Name>
+    </Type>
+    <Type Id="synapse:type:varbinary" TypeSystemId="synapse:type-system">
+      <Category>Binary</Category>
+      <Name>varbinary</Name>
+    </Type>
+    <Type Id="synapse:type:varchar" TypeSystemId="synapse:type-system">
+      <Category>Text</Category>
+      <Name>varchar</Name>
+    </Type>
+  </TypeList>
+</MetaType>
