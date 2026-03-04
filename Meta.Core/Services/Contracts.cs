@@ -17,6 +17,23 @@ public interface IWorkspaceService
     string CalculateHash(Workspace workspace);
 }
 
+public readonly record struct WorkspaceMergeOptions(
+    string MergedModelName);
+
+public readonly record struct WorkspaceMergeResult(
+    int SourceWorkspaceCount,
+    int EntitiesMerged,
+    int RowsMerged,
+    string MergedModelName);
+
+public interface IWorkspaceMergeService
+{
+    WorkspaceMergeResult MergeInto(
+        Workspace targetWorkspace,
+        IReadOnlyList<Workspace> sourceWorkspaces,
+        WorkspaceMergeOptions options);
+}
+
 public interface IValidationService
 {
     WorkspaceDiagnostics Validate(Workspace workspace);

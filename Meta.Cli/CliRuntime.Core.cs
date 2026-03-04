@@ -962,6 +962,7 @@ internal sealed partial class CliRuntime
     
         Register("init", "Workspace", "Initialize workspace.", InitWorkspaceAsync);
         Register("status", "Workspace", "Show workspace summary.", StatusWorkspaceAsync);
+        Register("workspace", "Workspace", "Merge workspaces and inspect workspace-level operations.", WorkspaceAsync);
 
         Register("check", "Model", "Check model and instance integrity.", CheckWorkspaceAsync);
         Register("graph", "Model", "Graph stats and inbound relationships.", GraphAsync);

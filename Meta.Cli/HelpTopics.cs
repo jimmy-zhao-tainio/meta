@@ -191,6 +191,36 @@ internal static class HelpTopics
                     next: "meta check");
                 return true;
 
+            case "workspace":
+                document = BuildTopicDocument(
+                    title: "Command: workspace",
+                    summary: "Workspace-level operations.",
+                    usage: "meta workspace <merge> ...",
+                    options: Array.Empty<(string, string)>(),
+                    examples: new[]
+                    {
+                        "meta workspace merge .\\LeftWorkspace .\\RightWorkspace --new-workspace .\\MergedWorkspace --model MergedModel",
+                    },
+                    next: "meta workspace merge help");
+                return true;
+
+            case "workspace merge":
+                document = BuildTopicDocument(
+                    title: "Command: workspace merge",
+                    summary: "Merge two full workspaces into a new workspace, failing on deterministic collisions.",
+                    usage: "meta workspace merge <leftWorkspace> <rightWorkspace> --new-workspace <path> --model <name>",
+                    options: new[]
+                    {
+                        ("--new-workspace <path>", "Required. Empty target directory for the merged workspace."),
+                        ("--model <name>", "Required. Model name for the merged workspace."),
+                    },
+                    examples: new[]
+                    {
+                        "meta workspace merge .\\LeftWorkspace .\\RightWorkspace --new-workspace .\\MergedWorkspace --model MergedModel",
+                    },
+                    next: "meta workspace help");
+                return true;
+
             case "instance diff":
                 document = BuildTopicDocument(
                     title: "Command: instance diff",

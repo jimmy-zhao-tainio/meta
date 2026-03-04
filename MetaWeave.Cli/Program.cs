@@ -25,9 +25,9 @@ internal static class Program
             return await RunCheckAsync(args).ConfigureAwait(false);
         }
 
-        if (string.Equals(args[0], "merge", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(args[0], "materialize", StringComparison.OrdinalIgnoreCase))
         {
-            return await RunMergeAsync(args).ConfigureAwait(false);
+            return await RunMaterializeAsync(args).ConfigureAwait(false);
         }
 
         if (string.Equals(args[0], "add-model", StringComparison.OrdinalIgnoreCase))
@@ -144,27 +144,27 @@ internal static class Program
         return 0;
     }
 
-    private static async Task<int> RunMergeAsync(string[] args)
+    private static async Task<int> RunMaterializeAsync(string[] args)
     {
         if (args.Length == 1 || IsHelpToken(args[1]))
         {
-            PrintMergeHelp();
+            PrintMaterializeHelp();
             return 0;
         }
 
-        var parseResult = ParseWorkspaceAndNewWorkspace(args, startIndex: 1);
+        var parseResult = ParseWorkspaceAndNewWorkspaceAndModel(args, startIndex: 1);
         if (!parseResult.Ok)
         {
             Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave merge --help");
+            Console.WriteLine("Next: meta-weave materialize --help");
             return 1;
         }
 
         var weaveWorkspacePath = Path.GetFullPath(parseResult.WorkspacePath);
-        var mergedWorkspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
-        if (Directory.Exists(mergedWorkspacePath) && Directory.EnumerateFileSystemEntries(mergedWorkspacePath).Any())
+        var materializedWorkspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
+        if (Directory.Exists(materializedWorkspacePath) && Directory.EnumerateFileSystemEntries(materializedWorkspacePath).Any())
         {
-            Console.WriteLine($"Error: target directory '{mergedWorkspacePath}' must be empty.");
+            Console.WriteLine($"Error: target directory '{materializedWorkspacePath}' must be empty.");
             Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
             return 4;
         }
@@ -173,19 +173,19 @@ internal static class Program
         {
             var workspaceService = new WorkspaceService();
             var weaveWorkspace = await workspaceService.LoadAsync(weaveWorkspacePath, searchUpward: false).ConfigureAwait(false);
-            var mergedWorkspace = await new MetaWeaveService(workspaceService)
-                .MergeAsync(weaveWorkspace, mergedWorkspacePath)
+            var materializedWorkspace = await new MetaWeaveService(workspaceService, new WorkspaceMergeService())
+                .MaterializeAsync(weaveWorkspace, materializedWorkspacePath, parseResult.ModelName)
                 .ConfigureAwait(false);
 
-            Directory.CreateDirectory(mergedWorkspacePath);
-            await workspaceService.SaveAsync(mergedWorkspace).ConfigureAwait(false);
-            await WaitForWorkspaceReadyAsync(mergedWorkspacePath).ConfigureAwait(false);
+            Directory.CreateDirectory(materializedWorkspacePath);
+            await workspaceService.SaveAsync(materializedWorkspace).ConfigureAwait(false);
+            await WaitForWorkspaceReadyAsync(materializedWorkspacePath).ConfigureAwait(false);
 
-            Console.WriteLine("OK: weave merge");
+            Console.WriteLine("OK: weave materialized");
             Console.WriteLine($"Weave: {weaveWorkspacePath}");
-            Console.WriteLine($"Path: {mergedWorkspacePath}");
-            Console.WriteLine($"Model: {mergedWorkspace.Model.Name}");
-            Console.WriteLine($"Entities: {mergedWorkspace.Model.Entities.Count}");
+            Console.WriteLine($"Path: {materializedWorkspacePath}");
+            Console.WriteLine($"Model: {materializedWorkspace.Model.Name}");
+            Console.WriteLine($"Entities: {materializedWorkspace.Model.Entities.Count}");
             Console.WriteLine($"Bindings materialized: {weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding").Count}");
             return 0;
         }
@@ -387,17 +387,18 @@ internal static class Program
         return (true, newWorkspacePath, string.Empty);
     }
 
-    private static (bool Ok, string WorkspacePath, string NewWorkspacePath, string ErrorMessage) ParseWorkspaceAndNewWorkspace(string[] args, int startIndex)
+    private static (bool Ok, string WorkspacePath, string NewWorkspacePath, string ModelName, string ErrorMessage) ParseWorkspaceAndNewWorkspaceAndModel(string[] args, int startIndex)
     {
         var workspacePath = string.Empty;
         var newWorkspacePath = string.Empty;
+        var modelName = string.Empty;
 
         for (var i = startIndex; i < args.Length; i++)
         {
             var arg = args[i];
             if (i + 1 >= args.Length)
             {
-                return (false, workspacePath, newWorkspacePath, $"missing value for {arg}.");
+                return (false, workspacePath, newWorkspacePath, modelName, $"missing value for {arg}.");
             }
 
             switch (arg.ToLowerInvariant())
@@ -408,22 +409,30 @@ internal static class Program
                 case "--new-workspace":
                     newWorkspacePath = EnsureUnsetThenAssign(newWorkspacePath, args[++i], "--new-workspace");
                     break;
+                case "--model":
+                    modelName = EnsureUnsetThenAssign(modelName, args[++i], "--model");
+                    break;
                 default:
-                    return (false, workspacePath, newWorkspacePath, $"unknown option '{arg}'.");
+                    return (false, workspacePath, newWorkspacePath, modelName, $"unknown option '{arg}'.");
             }
         }
 
         if (string.IsNullOrWhiteSpace(workspacePath))
         {
-            return (false, workspacePath, newWorkspacePath, "missing required option --workspace <path>.");
+            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --workspace <path>.");
         }
 
         if (string.IsNullOrWhiteSpace(newWorkspacePath))
         {
-            return (false, workspacePath, newWorkspacePath, "missing required option --new-workspace <path>.");
+            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --new-workspace <path>.");
         }
 
-        return (true, workspacePath, newWorkspacePath, string.Empty);
+        if (string.IsNullOrWhiteSpace(modelName))
+        {
+            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --model <name>.");
+        }
+
+        return (true, workspacePath, newWorkspacePath, modelName, string.Empty);
     }
 
     private static bool IsHelpToken(string value)
@@ -445,9 +454,9 @@ internal static class Program
         Console.WriteLine("  add-model   Add a referenced model workspace.");
         Console.WriteLine("  add-binding Add a property binding between two model references.");
         Console.WriteLine("  check       Validate property bindings across referenced workspaces.");
-        Console.WriteLine("  merge       Materialize a new merged workspace from a valid weave.");
+        Console.WriteLine("  materialize Materialize a new workspace from a valid weave.");
         Console.WriteLine();
-        Console.WriteLine("Next: meta-weave check --help");
+        Console.WriteLine("Next: meta-weave materialize --help");
     }
 
     private static void PrintInitHelp()
@@ -470,14 +479,14 @@ internal static class Program
         Console.WriteLine("  Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model.");
     }
 
-    private static void PrintMergeHelp()
+    private static void PrintMaterializeHelp()
     {
-        Console.WriteLine("Command: merge");
+        Console.WriteLine("Command: materialize");
         Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave merge --workspace <path> --new-workspace <path>");
+        Console.WriteLine("  meta-weave materialize --workspace <path> --new-workspace <path> --model <name>");
         Console.WriteLine();
         Console.WriteLine("Notes:");
-        Console.WriteLine("  Checks the weave, unions the referenced workspaces into a new workspace, and materializes weave bindings as in-workspace relationships.");
+        Console.WriteLine("  Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships.");
     }
 
     private static void PrintAddModelHelp()

@@ -1,4 +1,5 @@
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 using Meta.Core.Services;
 using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
@@ -24,21 +25,23 @@ public sealed record WeaveCheckResult(
 public interface IMetaWeaveService
 {
     Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
-    Task<Workspace> MergeAsync(Workspace weaveWorkspace, string mergedWorkspaceRootPath, CancellationToken cancellationToken = default);
+    Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default);
 }
 
 public sealed class MetaWeaveService : IMetaWeaveService
 {
     private readonly IWorkspaceService _workspaceService;
+    private readonly IWorkspaceMergeService _workspaceMergeService;
 
     public MetaWeaveService()
-        : this(new WorkspaceService())
+        : this(new WorkspaceService(), new WorkspaceMergeService())
     {
     }
 
-    public MetaWeaveService(IWorkspaceService workspaceService)
+    public MetaWeaveService(IWorkspaceService workspaceService, IWorkspaceMergeService workspaceMergeService)
     {
         _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
+        _workspaceMergeService = workspaceMergeService ?? throw new ArgumentNullException(nameof(workspaceMergeService));
     }
 
     public async Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default)
@@ -145,16 +148,17 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return new WeaveCheckResult(results);
     }
 
-    public async Task<Workspace> MergeAsync(Workspace weaveWorkspace, string mergedWorkspaceRootPath, CancellationToken cancellationToken = default)
+    public async Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
         ArgumentNullException.ThrowIfNull(weaveWorkspace);
-        ArgumentException.ThrowIfNullOrWhiteSpace(mergedWorkspaceRootPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(materializedWorkspaceRootPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(mergedModelName);
 
         var check = await CheckAsync(weaveWorkspace, cancellationToken).ConfigureAwait(false);
         if (check.HasErrors)
         {
-            throw new InvalidOperationException("Weave check failed. Run 'meta-weave check' and fix the reported errors before merge.");
+            throw new InvalidOperationException("Weave check failed. Run 'meta-weave check' and fix the reported errors before materialize.");
         }
 
         var modelRefs = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference")
@@ -171,40 +175,47 @@ public sealed class MetaWeaveService : IMetaWeaveService
             referencedWorkspaces[modelRef.Id] = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
         }
 
-        var mergedWorkspace = CreateMergedWorkspaceSkeleton(mergedWorkspaceRootPath);
+        var mergedWorkspace = CreateWorkspaceShell(materializedWorkspaceRootPath, mergedModelName);
+        _workspaceMergeService.MergeInto(
+            mergedWorkspace,
+            modelRefs.Select(item => referencedWorkspaces[item.Id]).ToArray(),
+            new WorkspaceMergeOptions(mergedModelName));
 
-        foreach (var modelRef in modelRefs)
-        {
-            var sourceWorkspace = referencedWorkspaces[modelRef.Id];
-            MergeModelInto(mergedWorkspace.Model, sourceWorkspace.Model, sourceWorkspace.Model.Name);
-            MergeInstanceInto(mergedWorkspace.Instance, sourceWorkspace.Instance, sourceWorkspace.Model.Name);
-        }
+        var beforeBindings = WorkspaceSnapshotCloner.Capture(mergedWorkspace);
 
         var modelRefById = modelRefs.ToDictionary(record => record.Id, StringComparer.Ordinal);
         var refactorService = new ModelRefactorService();
-        foreach (var binding in propertyBindings)
+        try
         {
-            var sourceModelRef = modelRefById[RequireRelationshipId(binding, "SourceModelId")];
-            var targetModelRef = modelRefById[RequireRelationshipId(binding, "TargetModelId")];
-            _ = sourceModelRef;
-            _ = targetModelRef;
+            foreach (var binding in propertyBindings)
+            {
+                var sourceModelRef = modelRefById[RequireRelationshipId(binding, "SourceModelId")];
+                var targetModelRef = modelRefById[RequireRelationshipId(binding, "TargetModelId")];
+                _ = sourceModelRef;
+                _ = targetModelRef;
 
-            var sourceEntity = RequireValue(binding, "SourceEntity");
-            var sourceProperty = RequireValue(binding, "SourceProperty");
-            var targetEntity = RequireValue(binding, "TargetEntity");
-            var targetProperty = RequireValue(binding, "TargetProperty");
-            var role = DeriveMergeRole(sourceProperty, targetEntity);
+                var sourceEntity = RequireValue(binding, "SourceEntity");
+                var sourceProperty = RequireValue(binding, "SourceProperty");
+                var targetEntity = RequireValue(binding, "TargetEntity");
+                var targetProperty = RequireValue(binding, "TargetProperty");
+                var role = DeriveMaterializedRole(sourceProperty, targetEntity);
 
-            refactorService.RefactorPropertyToRelationship(
-                mergedWorkspace,
-                new PropertyToRelationshipRefactorOptions(
-                    SourceEntityName: sourceEntity,
-                    SourcePropertyName: sourceProperty,
-                    TargetEntityName: targetEntity,
-                    LookupPropertyName: targetProperty,
-                    Role: role,
-                    DropSourceProperty: true,
-                    RequireSourceReuse: false));
+                refactorService.RefactorPropertyToRelationship(
+                    mergedWorkspace,
+                    new PropertyToRelationshipRefactorOptions(
+                        SourceEntityName: sourceEntity,
+                        SourcePropertyName: sourceProperty,
+                        TargetEntityName: targetEntity,
+                        LookupPropertyName: targetProperty,
+                        Role: role,
+                        DropSourceProperty: true,
+                        RequireSourceReuse: false));
+            }
+        }
+        catch
+        {
+            WorkspaceSnapshotCloner.Restore(mergedWorkspace, beforeBindings);
+            throw;
         }
 
         var validation = new ValidationService().Validate(mergedWorkspace);
@@ -281,7 +292,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return value;
     }
 
-    private static Workspace CreateMergedWorkspaceSkeleton(string workspaceRootPath)
+    private static Workspace CreateWorkspaceShell(string workspaceRootPath, string mergedModelName)
     {
         var rootPath = Path.GetFullPath(workspaceRootPath);
         return new Workspace
@@ -289,85 +300,13 @@ public sealed class MetaWeaveService : IMetaWeaveService
             WorkspaceRootPath = rootPath,
             MetadataRootPath = Path.Combine(rootPath, "metadata"),
             WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel { Name = "MergedModel" },
-            Instance = new GenericInstance { ModelName = "MergedModel" },
+            Model = new GenericModel { Name = mergedModelName },
+            Instance = new GenericInstance { ModelName = mergedModelName },
             IsDirty = true,
         };
     }
 
-    private static void MergeModelInto(GenericModel mergedModel, GenericModel sourceModel, string sourceModelName)
-    {
-        foreach (var entity in sourceModel.Entities.OrderBy(item => item.Name, StringComparer.Ordinal))
-        {
-            if (mergedModel.FindEntity(entity.Name) != null)
-            {
-                throw new InvalidOperationException(
-                    $"Cannot merge model '{sourceModelName}' because entity '{entity.Name}' already exists in the merged model.");
-            }
-
-            var clone = new GenericEntity
-            {
-                Name = entity.Name,
-            };
-            foreach (var property in entity.Properties.OrderBy(item => item.Name, StringComparer.Ordinal))
-            {
-                clone.Properties.Add(new GenericProperty
-                {
-                    Name = property.Name,
-                    DataType = property.DataType,
-                    IsNullable = property.IsNullable,
-                });
-            }
-
-            foreach (var relationship in entity.Relationships
-                         .OrderBy(item => item.GetColumnName(), StringComparer.Ordinal))
-            {
-                clone.Relationships.Add(new GenericRelationship
-                {
-                    Entity = relationship.Entity,
-                    Role = relationship.Role,
-                });
-            }
-
-            mergedModel.Entities.Add(clone);
-        }
-    }
-
-    private static void MergeInstanceInto(GenericInstance mergedInstance, GenericInstance sourceInstance, string sourceModelName)
-    {
-        foreach (var entityPair in sourceInstance.RecordsByEntity.OrderBy(item => item.Key, StringComparer.Ordinal))
-        {
-            var targetRecords = mergedInstance.GetOrCreateEntityRecords(entityPair.Key);
-            foreach (var record in entityPair.Value.OrderBy(item => item.Id, StringComparer.Ordinal))
-            {
-                if (targetRecords.Any(existing => string.Equals(existing.Id, record.Id, StringComparison.Ordinal)))
-                {
-                    throw new InvalidOperationException(
-                        $"Cannot merge model '{sourceModelName}' because row '{entityPair.Key}:{record.Id}' already exists in the merged workspace.");
-                }
-
-                var clone = new GenericRecord
-                {
-                    Id = record.Id,
-                    SourceShardFileName = record.SourceShardFileName,
-                };
-
-                foreach (var value in record.Values.OrderBy(item => item.Key, StringComparer.Ordinal))
-                {
-                    clone.Values[value.Key] = value.Value;
-                }
-
-                foreach (var relationship in record.RelationshipIds.OrderBy(item => item.Key, StringComparer.Ordinal))
-                {
-                    clone.RelationshipIds[relationship.Key] = relationship.Value;
-                }
-
-                targetRecords.Add(clone);
-            }
-        }
-    }
-
-    private static string DeriveMergeRole(string sourcePropertyName, string targetEntityName)
+    private static string DeriveMaterializedRole(string sourcePropertyName, string targetEntityName)
     {
         var defaultRelationshipColumnName = targetEntityName + "Id";
         if (string.Equals(sourcePropertyName, defaultRelationshipColumnName, StringComparison.Ordinal))
@@ -381,6 +320,6 @@ public sealed class MetaWeaveService : IMetaWeaveService
         }
 
         throw new InvalidOperationException(
-            $"Cannot materialize weave binding for property '{sourcePropertyName}'. A mergeable binding must use a source property ending with 'Id'.");
+            $"Cannot materialize weave binding for property '{sourcePropertyName}'. A materialized binding must use a source property ending with 'Id'.");
     }
 }

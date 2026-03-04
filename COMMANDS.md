@@ -134,6 +134,7 @@ Exit codes:
 Workspace:
 - `meta init [<path>]`
 - `meta status [--workspace <path>]`
+- `meta workspace merge <leftWorkspace> <rightWorkspace> --new-workspace <path> --model <name>`
 
 Inspect and validate:
 - `meta check [--workspace <path>]`
@@ -192,6 +193,7 @@ Workspace:
 |---|---|---|
 | `meta init [<path>]` | Initialize a metadata workspace. | `meta init .` |
 | `meta status [--workspace <path>]` | Show workspace summary and model/instance sizes. | `meta status` |
+| `meta workspace merge <leftWorkspace> <rightWorkspace> --new-workspace <path> --model <name>` | Merge two full workspaces into a new workspace with a required merged model name. | `meta workspace merge .\LeftWorkspace .\RightWorkspace --new-workspace .\MergedWorkspace --model MergedModel` |
 
 Inspect and validate:
 

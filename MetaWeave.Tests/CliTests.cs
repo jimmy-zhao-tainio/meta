@@ -20,7 +20,7 @@ public sealed class CliTests
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("MetaWeave CLI", result.Output);
         Assert.Contains("check", result.Output);
-        Assert.Contains("merge", result.Output);
+        Assert.Contains("materialize", result.Output);
     }
 
     [Fact]
@@ -313,16 +313,16 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Merge_SanctionedMetaSchemaWeave_CreatesMergedWorkspaceWithRelationship()
+    public async Task Materialize_SanctionedMetaSchemaWeave_CreatesMergedWorkspaceWithRelationship()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-schema", Guid.NewGuid().ToString("N"));
         var mergedPath = Path.Combine(root, "Merged");
         Directory.CreateDirectory(root);
         try
         {
-            var merge = RunCli($"merge --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\" --new-workspace \"{mergedPath}\"");
-            Assert.Equal(0, merge.ExitCode);
-            Assert.Contains("OK: weave merge", merge.Output);
+            var materialize = RunCli($"materialize --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\" --new-workspace \"{mergedPath}\" --model MetaSchemaMetaTypeMaterialized");
+            Assert.Equal(0, materialize.ExitCode);
+            Assert.Contains("OK: weave materialized", materialize.Output);
 
             var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
             var diagnostics = new ValidationService().Validate(workspace);
@@ -346,16 +346,16 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Merge_SanctionedMetaTypeConversionWeave_CreatesRoleBasedRelationships()
+    public async Task Materialize_SanctionedMetaTypeConversionWeave_CreatesRoleBasedRelationships()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-conversion", Guid.NewGuid().ToString("N"));
         var mergedPath = Path.Combine(root, "Merged");
         Directory.CreateDirectory(root);
         try
         {
-            var merge = RunCli($"merge --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\" --new-workspace \"{mergedPath}\"");
-            Assert.Equal(0, merge.ExitCode);
-            Assert.Contains("OK: weave merge", merge.Output);
+            var materialize = RunCli($"materialize --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\" --new-workspace \"{mergedPath}\" --model MetaTypeConversionMetaTypeMaterialized");
+            Assert.Equal(0, materialize.ExitCode);
+            Assert.Contains("OK: weave materialized", materialize.Output);
 
             var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
             var diagnostics = new ValidationService().Validate(workspace);
@@ -367,6 +367,28 @@ public sealed class CliTests
             Assert.DoesNotContain(typeMappingEntity.Properties, item => string.Equals(item.Name, "TargetTypeId", StringComparison.Ordinal));
             Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "SourceTypeId", StringComparison.Ordinal));
             Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "TargetTypeId", StringComparison.Ordinal));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Materialize_Fails_WhenReferencedWorkspacesContainDuplicateEntityNames()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-materialize-collision", Guid.NewGuid().ToString("N"));
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        Directory.CreateDirectory(root);
+        try
+        {
+            Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Left --model MetaType --workspace-path \".\\MetaType.Instances\\MetaType\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Right --model MetaType --workspace-path \".\\MetaType.Instances\\MetaType\"").ExitCode);
+
+            var materialize = RunCli($"materialize --workspace \"{metaWeavePath}\" --new-workspace \"{Path.Combine(root, "Merged")}\" --model DuplicateEntities");
+            Assert.Equal(4, materialize.ExitCode);
+            Assert.Contains("entity 'Type' already exists", materialize.Output);
         }
         finally
         {
