@@ -2,11 +2,12 @@
 
 `isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships three CLI tools:
+This repo ships four CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
-`meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.
+`meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.  
+`meta-weave` (MetaWeave CLI): validation of sanctioned cross-model property bindings.
 
 ## Metadata foundations (project terminology)
 
@@ -702,6 +703,20 @@ Current status: `meta-type init` creates a new populated `MetaType` workspace wi
 meta-type help
 meta-type init --help
 meta-type init --new-workspace .\MetaType.Workspace
+```
+
+## MetaWeave
+
+MetaWeave is the sanctioned cross-model binding toolchain.
+
+It keeps cross-model references isomorphic by treating them as ordinary scalar properties in the source model and carrying the resolution meaning in a separate weave workspace. `meta-weave check` then proves whether those property values resolve with 100% RI into the target model.
+
+Current status: `meta-weave` supports empty workspace initialization and binding validation.
+
+```cmd
+meta-weave help
+meta-weave init --new-workspace .\MetaWeave.Workspace
+meta-weave check --workspace .\MetaWeave.Workspace
 ```
 
 ## References
