@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaTypeConversion">
+  <EntityList>
+    <Entity name="ConversionImplementation">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="TypeMapping">
+      <PropertyList>
+        <Property name="SourceTypeId" />
+        <Property name="TargetTypeId" />
+        <Property name="Notes" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ConversionImplementation" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

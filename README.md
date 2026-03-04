@@ -7,7 +7,8 @@ This repo ships four CLI tools:
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
 `meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.  
-`meta-weave` (MetaWeave CLI): validation of sanctioned cross-model property bindings.
+`meta-weave` (MetaWeave CLI): validation of sanctioned cross-model property bindings.  
+`meta-type-conversion` (MetaTypeConversion CLI): creation of sanctioned conversion-rule workspaces built on `MetaType`.
 
 ## Metadata foundations (project terminology)
 
@@ -705,6 +706,16 @@ meta-type init --help
 meta-type init --new-workspace .\MetaType.Workspace
 ```
 
+### `MetaTypeConversion`
+
+`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. The current first slice creates a valid workspace boundary without inventing conversion rules in code.
+
+```cmd
+meta-type-conversion help
+meta-type-conversion init --help
+meta-type-conversion init --new-workspace .\MetaTypeConversion.Workspace
+```
+
 ## MetaWeave
 
 MetaWeave is the sanctioned cross-model binding toolchain.
@@ -728,5 +739,7 @@ Full command surface and contracts: `COMMANDS.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 ```
+
+
 
 
