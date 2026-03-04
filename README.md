@@ -397,6 +397,7 @@ Global behavior:
 | `meta model refactor property-to-relationship ...` | Atomic model+instance rewrite from scalar property to required relationship. Source property is dropped by default; `--preserve-property` keeps it only when the implied relationship usage name would not collide. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id` |
 | `meta model refactor relationship-to-property ...` | Atomic model+instance rewrite from required relationship back to scalar Id property. | `meta model refactor relationship-to-property --source Order --target Warehouse` |
 | `meta model add-entity <Name>` | Add a new entity definition. | `meta model add-entity SourceSystem` |
+| `meta model rename-model <Old> <New>` | Rename the model contract and instance root element. | `meta model rename-model EnterpriseBIPlatform AnalyticsModel` |
 | `meta model rename-entity <Old> <New>` | Atomically rename an entity, update relationship targets, and rename implied non-role FK names. | `meta model rename-entity SourceSystem Source` |
 | `meta model drop-entity <Entity>` | Drop entity definition (blocked if instances or inbound refs exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> ...` | Add scalar property; uses `--default-value` to backfill required additions on existing rows. | `meta model add-property Cube Purpose --required true --default-value Unknown` |

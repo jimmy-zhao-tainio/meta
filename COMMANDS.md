@@ -152,6 +152,7 @@ Model mutation and refactor:
 - `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--preserve-property] [--workspace <path>]`
 - `meta model refactor relationship-to-property --source <Entity> --target <Entity> [--role <Role>] [--property <PropertyName>] [--workspace <path>]`
 - `meta model add-entity <Name> [--workspace <path>]`
+- `meta model rename-model <Old> <New> [--workspace <path>]`
 - `meta model rename-entity <Old> <New> [--workspace <path>]`
 - `meta model drop-entity <Entity> [--workspace <path>]`
 - `meta model add-property <Entity> <Property> [--required true|false] [--default-value <Value>] [--workspace <path>]`
@@ -219,6 +220,7 @@ Model mutation and refactor:
 | `meta model refactor property-to-relationship --source <Entity.Property> --target <Entity> --lookup <Property> [--role <Role>] [--preserve-property] [--workspace <path>]` | Atomically convert a scalar source property to a required relationship using a target lookup key. Source property is dropped by default; `--preserve-property` keeps it when no naming collision would result. | `meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id` |
 | `meta model refactor relationship-to-property --source <Entity> --target <Entity> [--role <Role>] [--property <PropertyName>] [--workspace <path>]` | Atomically convert a required relationship back to a required scalar Id property. | `meta model refactor relationship-to-property --source Order --target Warehouse` |
 | `meta model add-entity <Name> [--workspace <path>]` | Add a new entity definition. | `meta model add-entity SourceSystem` |
+| `meta model rename-model <Old> <New> [--workspace <path>]` | Rename the model contract and instance root element. | `meta model rename-model EnterpriseBIPlatform AnalyticsModel` |
 | `meta model rename-entity <Old> <New> [--workspace <path>]` | Atomically rename an entity, update relationship targets, and rename implied non-role relationship field names. | `meta model rename-entity Warehouse StorageLocation` |
 | `meta model drop-entity <Entity> [--workspace <path>]` | Drop an entity (blocked if instances or inbound relationships exist). | `meta model drop-entity SourceSystem` |
 | `meta model add-property <Entity> <Property> [--required true\|false] [--default-value <Value>] [--workspace <path>]` | Add an entity property. | `meta model add-property Cube Purpose --required true --default-value Unknown` |

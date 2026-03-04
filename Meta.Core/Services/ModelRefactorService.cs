@@ -47,6 +47,14 @@ public readonly record struct RenameEntityRefactorResult(
     int FkFieldsRenamed,
     int RowsTouched);
 
+public readonly record struct RenameModelRefactorOptions(
+    string OldModelName,
+    string NewModelName);
+
+public readonly record struct RenameModelRefactorResult(
+    string OldModelName,
+    string NewModelName);
+
 public readonly record struct RenameRelationshipRefactorOptions(
     string SourceEntityName,
     string TargetEntityName,
@@ -65,6 +73,40 @@ public readonly record struct RenameRelationshipRefactorResult(
 public sealed class ModelRefactorService : IModelRefactorService
 {
     private static readonly Regex IdentifierPattern = new("^[A-Za-z_][A-Za-z0-9_]*$", RegexOptions.Compiled);
+
+    public RenameModelRefactorResult RenameModel(
+        Workspace workspace,
+        RenameModelRefactorOptions options)
+    {
+        ArgumentNullException.ThrowIfNull(workspace);
+
+        if (string.IsNullOrWhiteSpace(options.OldModelName))
+        {
+            throw new InvalidOperationException("Model name is required.");
+        }
+
+        if (string.IsNullOrWhiteSpace(options.NewModelName))
+        {
+            throw new InvalidOperationException("New model name is required.");
+        }
+
+        if (!IdentifierPattern.IsMatch(options.NewModelName))
+        {
+            throw new InvalidOperationException(
+                $"Model '{options.NewModelName}' is invalid. Use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
+        }
+
+        if (!string.Equals(workspace.Model.Name, options.OldModelName, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Workspace model is '{workspace.Model.Name}', not '{options.OldModelName}'.");
+        }
+
+        workspace.Model.Name = options.NewModelName;
+        workspace.Instance.ModelName = options.NewModelName;
+
+        return new RenameModelRefactorResult(options.OldModelName, options.NewModelName);
+    }
 
     public RenameEntityRefactorResult RenameEntity(
         Workspace workspace,

@@ -434,6 +434,7 @@ internal static class HelpTopics
                     examples: new[]
                     {
                         "meta model suggest",
+                        "meta model rename-model OldModel NewModel",
                         "meta model add-entity SalesCube",
                         "meta model rename-entity OldName NewName",
                         "meta model add-property Cube Purpose --required true --default-value Unknown",
@@ -442,6 +443,7 @@ internal static class HelpTopics
                     subcommands: new[]
                     {
                         ("add-entity", "Create an entity."),
+                        ("rename-model", "Rename the model contract and instance root element."),
                         ("rename-entity", "Atomically rename an entity and follow implied relationship field names."),
                         ("drop-entity", "Remove an entity (must be empty)."),
                         ("add-property", "Add a property to an entity."),
@@ -463,6 +465,16 @@ internal static class HelpTopics
                     usage: "meta model add-entity <Name> [--workspace <path>]",
                     options: new[] { ("--workspace <path>", "Override workspace root.") },
                     examples: new[] { "meta model add-entity SourceSystem" },
+                    next: "meta model rename-entity --help");
+                return true;
+
+            case "model rename-model":
+                document = BuildTopicDocument(
+                    title: "Command: model rename-model",
+                    summary: "Rename the model contract and instance root element.",
+                    usage: "meta model rename-model <Old> <New> [--workspace <path>]",
+                    options: new[] { ("--workspace <path>", "Override workspace root.") },
+                    examples: new[] { "meta model rename-model EnterpriseBIPlatform AnalyticsModel" },
                     next: "meta model rename-entity --help");
                 return true;
 

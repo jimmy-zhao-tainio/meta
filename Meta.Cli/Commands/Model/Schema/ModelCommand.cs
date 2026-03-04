@@ -12,6 +12,7 @@ internal sealed partial class CliRuntime
         return mode switch
         {
             "add-entity" => await ModelAddEntityAsync(commandArgs).ConfigureAwait(false),
+            "rename-model" => await ModelRenameModelAsync(commandArgs).ConfigureAwait(false),
             "rename-entity" => await ModelRenameEntityAsync(commandArgs).ConfigureAwait(false),
             "add-property" => await ModelAddPropertyAsync(commandArgs).ConfigureAwait(false),
             "set-property-required" => await ModelSetPropertyRequiredAsync(commandArgs).ConfigureAwait(false),

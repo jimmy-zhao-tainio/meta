@@ -336,6 +336,10 @@ public sealed class CliStrictModeTests
         Assert.Contains("meta instance rename-id <Entity> <OldId> <NewId>", renameIdHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--workspace <path>", renameIdHelp.StdOut, StringComparison.Ordinal);
 
+        var renameModelHelp = await RunCliAsync("model", "rename-model", "--help");
+        Assert.Equal(0, renameModelHelp.ExitCode);
+        Assert.Contains("meta model rename-model <Old> <New> [--workspace <path>]", renameModelHelp.StdOut, StringComparison.Ordinal);
+
         var relationshipSetHelp = await RunCliAsync("instance", "relationship", "set", "--help");
         Assert.Equal(0, relationshipSetHelp.ExitCode);
         Assert.Contains("meta instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId>", relationshipSetHelp.StdOut, StringComparison.Ordinal);
@@ -3148,6 +3152,69 @@ public sealed class CliStrictModeTests
         finally
         {
             DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameModel_UpdatesModelAndInstanceRoots()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliAsync(
+                "model",
+                "rename-model",
+                "EnterpriseBIPlatform",
+                "AnalyticsModel",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("model renamed", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+
+            var modelDocument = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            Assert.Equal("AnalyticsModel", modelDocument.Root?.Attribute("name")?.Value);
+
+            var cubeDocument = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "instance", "Cube.xml"));
+            Assert.Equal("AnalyticsModel", cubeDocument.Root?.Name.LocalName);
+
+            var check = await RunCliAsync(
+                "check",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameModel_FailsWhenWorkspaceModelDoesNotMatchRequestedSource()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-rename-model-expected", Guid.NewGuid().ToString("N"));
+        try
+        {
+            CopyDirectory(workspaceRoot, expectedWorkspace);
+
+            var result = await RunCliAsync(
+                "model",
+                "rename-model",
+                "WrongModel",
+                "AnalyticsModel",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains("Workspace model is 'EnterpriseBIPlatform', not 'WrongModel'.", result.CombinedOutput, StringComparison.Ordinal);
+            AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(expectedWorkspace);
         }
     }
 
