@@ -203,7 +203,7 @@ Initial command surface:
 1. `meta-weave check --workspace <WeaveWorkspace>`
 2. optional later:
    - `meta-weave explain --workspace <WeaveWorkspace>`
-   - `meta-weave merge --workspace <WeaveWorkspace> --out <path>`
+   - `meta-weave materialize --workspace <WeaveWorkspace> --new-workspace <path> --model <name>`
 
 First slice should only do:
 - load weave workspace
@@ -248,7 +248,7 @@ Goal:
 - support downstream tooling that wants a merged view
 
 Possible command:
-- `meta-weave merge --workspace <WeaveWorkspace> --out <path>`
+- `meta-weave materialize --workspace <WeaveWorkspace> --new-workspace <path> --model <name>`
 
 Important rule:
 - merged output is a generated view/artifact, not necessarily canonical source metadata
@@ -280,7 +280,7 @@ This phase should only start after:
 - if `MetaSchema` keeps its own `FieldType` world while `MetaTypeConversion` keeps another, the architecture will remain muddy
 
 4. Overbuilding weave
-- `meta-weave merge` is tempting, but `meta-weave check` is the real first necessity
+- `meta-weave materialize` is tempting, but `meta-weave check` is the real first necessity
 
 ## Current Status
 
