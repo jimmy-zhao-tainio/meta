@@ -229,12 +229,15 @@ Goal:
 
 Deliverables:
 - `MetaTypeConversion` sanctioned model aligned to `MetaType`
+- `meta-type-conversion check`
+- `meta-type-conversion resolve`
 
 Tasks:
 1. Review current `TypeConversionCatalog` concepts and rename/reframe as needed.
 2. Remove duplicate type identity concepts if `MetaType` now owns them.
 3. Bind conversion rules to shared `Type` / `TypeSpec` concepts.
 4. Keep conversion logic separate from schema extraction.
+5. Keep runtime conversion code out of `MetaTypeConversion`; downstream tools can consume `ConversionImplementationId` and implement execution themselves.
 
 Exit condition:
 - type conversion consumes shared type metadata instead of a parallel copy.
@@ -279,10 +282,18 @@ This phase should only start after:
 4. Overbuilding weave
 - `meta-weave merge` is tempting, but `meta-weave check` is the real first necessity
 
+## Current Status
+
+- `MetaSchema` exists as a focused extraction boundary.
+- `MetaType` exists as a sanctioned shared type vocabulary.
+- `MetaSchema.Field.TypeId` points into `MetaType` at the `Type` level.
+- `MetaWeave` exists with sanctioned weave instances and façade/check commands.
+- `MetaTypeConversion` exists with sanctioned mappings plus `check` and `resolve`.
+
 ## Immediate Next Step
 
 Do this next:
 
-1. Commit the current `MetaSchema` extraction pass.
-2. Start `MetaType` as a sanctioned model with the smallest viable type vocabulary.
+1. Tighten `MetaTypeConversion` semantics where needed, but keep it at `Type` level for now.
+2. Keep runtime conversion implementations out of `MetaTypeConversion`; let downstream tools interpret `ConversionImplementationId`.
 
