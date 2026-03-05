@@ -25,7 +25,9 @@ public sealed class CliTests
         Assert.Contains("--connection <connectionString>", result.Output);
         Assert.Contains("--system <name>", result.Output);
         Assert.Contains("--schema <name>", result.Output);
+        Assert.Contains("--all-schemas", result.Output);
         Assert.Contains("--table <name>", result.Output);
+        Assert.Contains("--all-tables", result.Output);
     }
 
     [Fact]
@@ -82,7 +84,7 @@ public sealed class CliTests
             var result = RunCli($"extract sqlserver --new-workspace \"{workspacePath}\" --connection \"Server=.;Database=master;Trusted_Connection=True;Encrypt=False\" --system TestSystem --table Cube");
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("Error: missing required option --schema <name>.", result.Output);
+            Assert.Contains("Error: missing required scope option --schema <name> or --all-schemas.", result.Output);
             Assert.False(Directory.Exists(workspacePath));
         }
         finally
@@ -100,7 +102,43 @@ public sealed class CliTests
             var result = RunCli($"extract sqlserver --new-workspace \"{workspacePath}\" --connection \"Server=.;Database=master;Trusted_Connection=True;Encrypt=False\" --system TestSystem --schema dbo");
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("Error: missing required option --table <name>.", result.Output);
+            Assert.Contains("Error: missing required scope option --table <name> or --all-tables.", result.Output);
+            Assert.False(Directory.Exists(workspacePath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(workspacePath);
+        }
+    }
+
+    [Fact]
+    public void ExtractSqlServer_FailsWhenSchemaAndAllSchemasProvided()
+    {
+        var workspacePath = Path.Combine(Path.GetTempPath(), "metaschema-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var result = RunCli($"extract sqlserver --new-workspace \"{workspacePath}\" --connection \"Server=.;Database=master;Trusted_Connection=True;Encrypt=False\" --system TestSystem --schema dbo --all-schemas --table Cube");
+
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains("Error: --schema and --all-schemas cannot be used together.", result.Output);
+            Assert.False(Directory.Exists(workspacePath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(workspacePath);
+        }
+    }
+
+    [Fact]
+    public void ExtractSqlServer_FailsWhenTableAndAllTablesProvided()
+    {
+        var workspacePath = Path.Combine(Path.GetTempPath(), "metaschema-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var result = RunCli($"extract sqlserver --new-workspace \"{workspacePath}\" --connection \"Server=.;Database=master;Trusted_Connection=True;Encrypt=False\" --system TestSystem --schema dbo --table Cube --all-tables");
+
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains("Error: --table and --all-tables cannot be used together.", result.Output);
             Assert.False(Directory.Exists(workspacePath));
         }
         finally

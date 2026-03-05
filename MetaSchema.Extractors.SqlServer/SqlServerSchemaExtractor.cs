@@ -25,14 +25,24 @@ public sealed class SqlServerSchemaExtractor
             throw new InvalidOperationException("extract sqlserver requires --system <name>.");
         }
 
-        if (string.IsNullOrWhiteSpace(request.SchemaName))
+        if (string.IsNullOrWhiteSpace(request.SchemaName) && !request.AllSchemas)
         {
-            throw new InvalidOperationException("extract sqlserver requires --schema <name>.");
+            throw new InvalidOperationException("extract sqlserver requires --schema <name> or --all-schemas.");
         }
 
-        if (string.IsNullOrWhiteSpace(request.TableName))
+        if (!string.IsNullOrWhiteSpace(request.SchemaName) && request.AllSchemas)
         {
-            throw new InvalidOperationException("extract sqlserver requires --table <name>.");
+            throw new InvalidOperationException("extract sqlserver does not allow --schema with --all-schemas.");
+        }
+
+        if (string.IsNullOrWhiteSpace(request.TableName) && !request.AllTables)
+        {
+            throw new InvalidOperationException("extract sqlserver requires --table <name> or --all-tables.");
+        }
+
+        if (!string.IsNullOrWhiteSpace(request.TableName) && request.AllTables)
+        {
+            throw new InvalidOperationException("extract sqlserver does not allow --table with --all-tables.");
         }
 
         var workspace = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(request.NewWorkspacePath);
@@ -45,13 +55,28 @@ public sealed class SqlServerSchemaExtractor
             : connection.Database;
         var dataSource = connection.DataSource ?? string.Empty;
         var systemName = request.SystemName.Trim();
-        var schemaName = request.SchemaName.Trim();
-        var tableName = request.TableName.Trim();
-
-        EnsureTableExists(connection, schemaName, tableName);
+        var schemaFilter = request.AllSchemas ? null : request.SchemaName.Trim();
+        var tableFilter = request.AllTables ? null : request.TableName.Trim();
+        var tableRows = LoadTables(connection, schemaFilter, tableFilter)
+            .OrderBy(row => row.SchemaName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(row => row.SchemaName, StringComparer.Ordinal)
+            .ThenBy(row => row.TableName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(row => row.TableName, StringComparer.Ordinal)
+            .ToList();
+        if (tableRows.Count == 0)
+        {
+            var filterDescription = (schemaFilter, tableFilter) switch
+            {
+                (null, null) => "any schema/table filter",
+                (not null, null) => $"schema '{schemaFilter}'",
+                (null, not null) => $"table '{tableFilter}'",
+                (not null, not null) => $"table '{schemaFilter}.{tableFilter}'",
+            };
+            throw new InvalidOperationException(
+                $"No SQL Server tables matched {filterDescription} in database '{connection.Database}'.");
+        }
 
         var systemId = BuildSystemId(systemName);
-        var schemaId = BuildSchemaId(databaseName, schemaName);
 
         AddRecord(
             workspace,
@@ -66,125 +91,133 @@ public sealed class SqlServerSchemaExtractor
                 }
             });
 
-        AddRecord(
-            workspace,
-            "Schema",
-            schemaId,
-            values => values["Name"] = schemaName,
-            relationships => relationships["SystemId"] = systemId);
-
-        var tableRow = LoadTable(connection, schemaName, tableName);
-        var columnRows = LoadColumns(connection, schemaName, tableName);
-        var foreignKeys = LoadForeignKeys(connection, schemaName, tableName);
-        var foreignKeyColumns = LoadForeignKeyColumns(connection, schemaName, tableName);
-
-        var tableId = BuildTableId(databaseName, tableRow.SchemaName, tableRow.TableName);
-        AddRecord(
-            workspace,
-            "Table",
-            tableId,
-            values =>
-            {
-                values["Name"] = tableRow.TableName;
-                if (!string.IsNullOrWhiteSpace(tableRow.ObjectType))
-                {
-                    values["ObjectType"] = tableRow.ObjectType;
-                }
-            },
-            relationships => relationships["SchemaId"] = schemaId);
-
-        var sourceFieldIdByColumnName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var columnRow in columnRows
-                     .OrderBy(row => row.TableName, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(row => row.TableName, StringComparer.Ordinal)
-                     .ThenBy(row => row.OrdinalPosition))
+        var schemaNames = tableRows.Select(row => row.SchemaName).Distinct(StringComparer.Ordinal).OrderBy(name => name, StringComparer.Ordinal);
+        foreach (var schemaName in schemaNames)
         {
-            var fieldId = BuildFieldId(databaseName, columnRow.SchemaName, columnRow.TableName, columnRow.ColumnName);
-            sourceFieldIdByColumnName[columnRow.ColumnName] = fieldId;
+            var schemaId = BuildSchemaId(databaseName, schemaName);
             AddRecord(
                 workspace,
-                "Field",
-                fieldId,
-                values =>
-                {
-                    values["Name"] = columnRow.ColumnName;
-                    values["TypeId"] = BuildTypeId(columnRow.DataTypeName);
-                    values["Ordinal"] = columnRow.OrdinalPosition.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    values["IsNullable"] = columnRow.IsNullable ? "true" : "false";
-                    if (columnRow.Length.HasValue)
-                    {
-                        values["Length"] = columnRow.Length.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    }
-
-                    if (columnRow.NumericPrecision.HasValue)
-                    {
-                        values["NumericPrecision"] = columnRow.NumericPrecision.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    }
-
-                    if (columnRow.Scale.HasValue)
-                    {
-                        values["Scale"] = columnRow.Scale.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    }
-                },
-                relationships => relationships["TableId"] = tableId);
+                "Schema",
+                schemaId,
+                values => values["Name"] = schemaName,
+                relationships => relationships["SystemId"] = systemId);
         }
 
-        var foreignKeyColumnsByName = foreignKeyColumns
-            .GroupBy(row => row.ForeignKeyName, StringComparer.Ordinal)
-            .ToDictionary(group => group.Key, group => group
-                .OrderBy(item => item.Ordinal)
-                .ToList(), StringComparer.Ordinal);
-
-        foreach (var foreignKey in foreignKeys
-                     .OrderBy(row => row.Name, StringComparer.Ordinal))
+        foreach (var tableRow in tableRows)
         {
-            var relationshipId = BuildRelationshipId(databaseName, tableRow.SchemaName, tableRow.TableName, foreignKey.Name);
+            var schemaId = BuildSchemaId(databaseName, tableRow.SchemaName);
+            var columnRows = LoadColumns(connection, tableRow.SchemaName, tableRow.TableName);
+            var foreignKeys = LoadForeignKeys(connection, tableRow.SchemaName, tableRow.TableName);
+            var foreignKeyColumns = LoadForeignKeyColumns(connection, tableRow.SchemaName, tableRow.TableName);
+
+            var tableId = BuildTableId(databaseName, tableRow.SchemaName, tableRow.TableName);
             AddRecord(
                 workspace,
-                "TableRelationship",
-                relationshipId,
+                "Table",
+                tableId,
                 values =>
                 {
-                    values["Name"] = foreignKey.Name;
-                    values["TargetSchemaName"] = foreignKey.TargetSchemaName;
-                    values["TargetTableName"] = foreignKey.TargetTableName;
+                    values["Name"] = tableRow.TableName;
+                    if (!string.IsNullOrWhiteSpace(tableRow.ObjectType))
+                    {
+                        values["ObjectType"] = tableRow.ObjectType;
+                    }
                 },
-                relationships => relationships["SourceTableId"] = tableId);
+                relationships => relationships["SchemaId"] = schemaId);
 
-            if (!foreignKeyColumnsByName.TryGetValue(foreignKey.Name, out var fkColumns))
+            var sourceFieldIdByColumnName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var columnRow in columnRows
+                         .OrderBy(row => row.TableName, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(row => row.TableName, StringComparer.Ordinal)
+                         .ThenBy(row => row.OrdinalPosition))
             {
-                continue;
-            }
-
-            foreach (var fkColumn in fkColumns)
-            {
-                if (!sourceFieldIdByColumnName.TryGetValue(fkColumn.SourceColumnName, out var sourceFieldId))
-                {
-                    throw new InvalidOperationException(
-                        $"SQL Server foreign key '{tableRow.SchemaName}.{tableRow.TableName}.{foreignKey.Name}' referenced source column '{fkColumn.SourceColumnName}' that was not extracted.");
-                }
-
-                var relationshipFieldId = BuildRelationshipFieldId(
-                    databaseName,
-                    tableRow.SchemaName,
-                    tableRow.TableName,
-                    foreignKey.Name,
-                    fkColumn.Ordinal);
+                var fieldId = BuildFieldId(databaseName, columnRow.SchemaName, columnRow.TableName, columnRow.ColumnName);
+                sourceFieldIdByColumnName[columnRow.ColumnName] = fieldId;
                 AddRecord(
                     workspace,
-                    "TableRelationshipField",
-                    relationshipFieldId,
+                    "Field",
+                    fieldId,
                     values =>
                     {
-                        values["Ordinal"] = fkColumn.Ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                        values["SourceFieldName"] = fkColumn.SourceColumnName;
-                        values["TargetFieldName"] = fkColumn.TargetColumnName;
+                        values["Name"] = columnRow.ColumnName;
+                        values["TypeId"] = BuildTypeId(columnRow.DataTypeName);
+                        values["Ordinal"] = columnRow.OrdinalPosition.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        values["IsNullable"] = columnRow.IsNullable ? "true" : "false";
+                        if (columnRow.Length.HasValue)
+                        {
+                            values["Length"] = columnRow.Length.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        }
+
+                        if (columnRow.NumericPrecision.HasValue)
+                        {
+                            values["NumericPrecision"] = columnRow.NumericPrecision.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        }
+
+                        if (columnRow.Scale.HasValue)
+                        {
+                            values["Scale"] = columnRow.Scale.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        }
                     },
-                    relationships =>
+                    relationships => relationships["TableId"] = tableId);
+            }
+
+            var foreignKeyColumnsByName = foreignKeyColumns
+                .GroupBy(row => row.ForeignKeyName, StringComparer.Ordinal)
+                .ToDictionary(group => group.Key, group => group
+                    .OrderBy(item => item.Ordinal)
+                    .ToList(), StringComparer.Ordinal);
+
+            foreach (var foreignKey in foreignKeys
+                         .OrderBy(row => row.Name, StringComparer.Ordinal))
+            {
+                var relationshipId = BuildRelationshipId(databaseName, tableRow.SchemaName, tableRow.TableName, foreignKey.Name);
+                AddRecord(
+                    workspace,
+                    "TableRelationship",
+                    relationshipId,
+                    values =>
                     {
-                        relationships["TableRelationshipId"] = relationshipId;
-                        relationships["SourceFieldId"] = sourceFieldId;
-                    });
+                        values["Name"] = foreignKey.Name;
+                        values["TargetSchemaName"] = foreignKey.TargetSchemaName;
+                        values["TargetTableName"] = foreignKey.TargetTableName;
+                    },
+                    relationships => relationships["SourceTableId"] = tableId);
+
+                if (!foreignKeyColumnsByName.TryGetValue(foreignKey.Name, out var fkColumns))
+                {
+                    continue;
+                }
+
+                foreach (var fkColumn in fkColumns)
+                {
+                    if (!sourceFieldIdByColumnName.TryGetValue(fkColumn.SourceColumnName, out var sourceFieldId))
+                    {
+                        throw new InvalidOperationException(
+                            $"SQL Server foreign key '{tableRow.SchemaName}.{tableRow.TableName}.{foreignKey.Name}' referenced source column '{fkColumn.SourceColumnName}' that was not extracted.");
+                    }
+
+                    var relationshipFieldId = BuildRelationshipFieldId(
+                        databaseName,
+                        tableRow.SchemaName,
+                        tableRow.TableName,
+                        foreignKey.Name,
+                        fkColumn.Ordinal);
+                    AddRecord(
+                        workspace,
+                        "TableRelationshipField",
+                        relationshipFieldId,
+                        values =>
+                        {
+                            values["Ordinal"] = fkColumn.Ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                            values["SourceFieldName"] = fkColumn.SourceColumnName;
+                            values["TargetFieldName"] = fkColumn.TargetColumnName;
+                        },
+                        relationships =>
+                        {
+                            relationships["TableRelationshipId"] = relationshipId;
+                            relationships["SourceFieldId"] = sourceFieldId;
+                        });
+                }
             }
         }
 
@@ -192,27 +225,7 @@ public sealed class SqlServerSchemaExtractor
         return workspace;
     }
 
-    private static void EnsureTableExists(SqlConnection connection, string schemaName, string tableName)
-    {
-        using var command = connection.CreateCommand();
-        command.CommandText = """
-            select 1
-            from INFORMATION_SCHEMA.TABLES
-            where TABLE_SCHEMA = @schemaName
-              and TABLE_NAME = @tableName
-              and TABLE_TYPE in ('BASE TABLE', 'VIEW')
-            """;
-        command.Parameters.Add(new SqlParameter("@schemaName", SqlDbType.NVarChar, 128) { Value = schemaName });
-        command.Parameters.Add(new SqlParameter("@tableName", SqlDbType.NVarChar, 128) { Value = tableName });
-        var exists = command.ExecuteScalar();
-        if (exists == null)
-        {
-            throw new InvalidOperationException(
-                $"SQL Server table '{schemaName}.{tableName}' was not found in database '{connection.Database}'.");
-        }
-    }
-
-    private static TableRow LoadTable(SqlConnection connection, string schemaName, string tableName)
+    private static List<TableRow> LoadTables(SqlConnection connection, string? schemaName, string? tableName)
     {
         using var command = connection.CreateCommand();
         command.CommandText = """
@@ -221,24 +234,25 @@ public sealed class SqlServerSchemaExtractor
                 TABLE_NAME,
                 TABLE_TYPE
             from INFORMATION_SCHEMA.TABLES
-            where TABLE_SCHEMA = @schemaName
-              and TABLE_NAME = @tableName
-              and TABLE_TYPE in ('BASE TABLE', 'VIEW')
+            where TABLE_TYPE in ('BASE TABLE', 'VIEW')
+              and (@schemaName is null or TABLE_SCHEMA = @schemaName)
+              and (@tableName is null or TABLE_NAME = @tableName)
+            order by TABLE_SCHEMA, TABLE_NAME
             """;
-        command.Parameters.Add(new SqlParameter("@schemaName", SqlDbType.NVarChar, 128) { Value = schemaName });
-        command.Parameters.Add(new SqlParameter("@tableName", SqlDbType.NVarChar, 128) { Value = tableName });
+        command.Parameters.Add(new SqlParameter("@schemaName", SqlDbType.NVarChar, 128) { Value = string.IsNullOrWhiteSpace(schemaName) ? DBNull.Value : schemaName });
+        command.Parameters.Add(new SqlParameter("@tableName", SqlDbType.NVarChar, 128) { Value = string.IsNullOrWhiteSpace(tableName) ? DBNull.Value : tableName });
 
+        var rows = new List<TableRow>();
         using var reader = command.ExecuteReader();
-        if (!reader.Read())
+        while (reader.Read())
         {
-            throw new InvalidOperationException(
-                $"SQL Server table '{schemaName}.{tableName}' was not found in database '{connection.Database}'.");
+            rows.Add(new TableRow(
+                SchemaName: reader.GetString(0),
+                TableName: reader.GetString(1),
+                ObjectType: NormalizeTableType(reader.GetString(2))));
         }
 
-        return new TableRow(
-            SchemaName: reader.GetString(0),
-            TableName: reader.GetString(1),
-            ObjectType: NormalizeTableType(reader.GetString(2)));
+        return rows;
     }
 
     private static List<ColumnRow> LoadColumns(SqlConnection connection, string schemaName, string tableName)
@@ -469,5 +483,7 @@ public sealed class SqlServerExtractRequest
     public string ConnectionString { get; set; } = string.Empty;
     public string SystemName { get; set; } = string.Empty;
     public string SchemaName { get; set; } = string.Empty;
+    public bool AllSchemas { get; set; }
     public string TableName { get; set; } = string.Empty;
+    public bool AllTables { get; set; }
 }

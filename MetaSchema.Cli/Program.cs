@@ -73,16 +73,30 @@ internal static class Program
             return 1;
         }
 
-        if (string.IsNullOrWhiteSpace(parseResult.Request.SchemaName))
+        if (!string.IsNullOrWhiteSpace(parseResult.Request.SchemaName) && parseResult.Request.AllSchemas)
         {
-            Console.WriteLine("Error: missing required option --schema <name>.");
+            Console.WriteLine("Error: --schema and --all-schemas cannot be used together.");
             Console.WriteLine("Next: meta-schema extract sqlserver --help");
             return 1;
         }
 
-        if (string.IsNullOrWhiteSpace(parseResult.Request.TableName))
+        if (string.IsNullOrWhiteSpace(parseResult.Request.SchemaName) && !parseResult.Request.AllSchemas)
         {
-            Console.WriteLine("Error: missing required option --table <name>.");
+            Console.WriteLine("Error: missing required scope option --schema <name> or --all-schemas.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
+        if (!string.IsNullOrWhiteSpace(parseResult.Request.TableName) && parseResult.Request.AllTables)
+        {
+            Console.WriteLine("Error: --table and --all-tables cannot be used together.");
+            Console.WriteLine("Next: meta-schema extract sqlserver --help");
+            return 1;
+        }
+
+        if (string.IsNullOrWhiteSpace(parseResult.Request.TableName) && !parseResult.Request.AllTables)
+        {
+            Console.WriteLine("Error: missing required scope option --table <name> or --all-tables.");
             Console.WriteLine("Next: meta-schema extract sqlserver --help");
             return 1;
         }
@@ -177,6 +191,12 @@ internal static class Program
                 continue;
             }
 
+            if (string.Equals(arg, "--all-schemas", StringComparison.OrdinalIgnoreCase))
+            {
+                request.AllSchemas = true;
+                continue;
+            }
+
             if (string.Equals(arg, "--system", StringComparison.OrdinalIgnoreCase))
             {
                 if (i + 1 >= args.Length)
@@ -196,6 +216,12 @@ internal static class Program
                 }
 
                 request.TableName = args[++i];
+                continue;
+            }
+
+            if (string.Equals(arg, "--all-tables", StringComparison.OrdinalIgnoreCase))
+            {
+                request.AllTables = true;
                 continue;
             }
 
@@ -275,11 +301,11 @@ internal static class Program
     {
         Console.WriteLine("Command: extract sqlserver");
         Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-schema extract sqlserver --new-workspace <path> --connection <connectionString> --system <name> --schema <name> --table <name>");
+        Console.WriteLine("  meta-schema extract sqlserver --new-workspace <path> --connection <connectionString> --system <name> (--schema <name> | --all-schemas) (--table <name> | --all-tables)");
         Console.WriteLine();
         Console.WriteLine("Notes:");
         Console.WriteLine("  Creates a new workspace with the MetaSchema model and validates it.");
-        Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, Field, and table-relationship rows.");
+        Console.WriteLine("  Scope is controlled by schema/table filters or all-schemas/all-tables discovery switches.");
         Console.WriteLine("  TableRelationship rows are emitted only for enforced and trusted SQL Server foreign keys.");
         Console.WriteLine("  Field rows carry a scalar TypeId such as sqlserver:type:nvarchar.");
     }

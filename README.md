@@ -688,7 +688,7 @@ MetaSchema is the schema-extraction toolchain.
 
 It builds sanctioned `MetaSchema` workspaces from external source schema. `meta` can then treat those workspaces like any other metadata workspace.
 
-Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `Field`, `TableRelationship`, and `TableRelationshipField` rows for one declared system/schema/table. `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`. `TableRelationship` rows include only enforced/trusted SQL Server foreign keys.
+Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `Field`, `TableRelationship`, and `TableRelationshipField` rows for the declared scope. Scope can be one table (`--schema` + `--table`), one schema (`--schema --all-tables`), all schemas for one table name (`--all-schemas --table`), or full discovery (`--all-schemas --all-tables`). `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`. `TableRelationship` rows include only enforced/trusted SQL Server foreign keys.
 
 #### Commands
 
