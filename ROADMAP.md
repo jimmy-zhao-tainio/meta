@@ -297,3 +297,13 @@ Do this next:
 1. Tighten `MetaTypeConversion` semantics where needed, but keep it at `Type` level for now.
 2. Keep runtime conversion implementations out of `MetaTypeConversion`; let downstream tools interpret `ConversionImplementationId`.
 
+## Deferred Scope Note
+
+- Data quality is a planned sanctioned modeling area.
+- It should be introduced as its own explicit model boundary, not mixed into `MetaSchema` or `MetaRawDataVault` first slices.
+- It must cover more than rule checks and RI: at minimum accuracy, completeness, consistency, timeliness, uniqueness, reliability, usefulness, and controlled differences.
+- It should model both:
+  - quality definitions/expectations (what "good" means for a dataset/use-case),
+  - quality outcomes/incidents (what actually happened, severity, ownership, resolution state).
+- Issue tracking, confidence/trust signals, and decision-impact metadata should be first-class parts of that model boundary.
+

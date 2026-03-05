@@ -2,10 +2,11 @@
 
 `isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships four CLI tools:
+This repo ships six CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
+`meta-datavault` (MetaDataVault CLI): raw-vault workspace creation and projection from `MetaSchema`.  
 `meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.  
 `meta-weave` (MetaWeave CLI): authoring and validation of sanctioned cross-model property bindings.  
 `meta-type-conversion` (MetaTypeConversion CLI): creation of sanctioned conversion-rule workspaces built on `MetaType`.
@@ -687,13 +688,32 @@ MetaSchema is the schema-extraction toolchain.
 
 It builds sanctioned `MetaSchema` workspaces from external source schema. `meta` can then treat those workspaces like any other metadata workspace.
 
-Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, and `Field` rows for one declared system/schema/table. `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`.
+Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `Field`, `TableRelationship`, and `TableRelationshipField` rows for one declared system/schema/table. `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`. `TableRelationship` rows include only enforced/trusted SQL Server foreign keys.
 
 #### Commands
 
 ```powershell
 meta-schema help
 meta-schema extract sqlserver --help
+```
+
+## MetaDataVault
+
+MetaDataVault is the raw-vault metadata toolchain.
+
+It creates sanctioned `MetaRawDataVault` workspaces and can project from `MetaSchema` using explicit extracted table relationships.
+
+Current status:
+- `meta-datavault init` creates an empty `MetaRawDataVault` workspace.
+- `meta-datavault from-metaschema` projects `Source*`, `RawHub`, `RawLink`, and `RawSatellite` metadata.
+- `RawLink` rows are created only from explicit `MetaSchema.TableRelationship` rows when both source and target tables exist in the source workspace.
+- No guessed links from naming heuristics.
+
+```cmd
+meta-datavault help
+meta-datavault init --help
+meta-datavault init --new-workspace .\MetaRawDataVault.Workspace
+meta-datavault from-metaschema --source-workspace .\MetaSchema.Workspace --new-workspace .\MetaRawDataVault.Workspace
 ```
 
 ## MetaType

@@ -75,6 +75,8 @@ public sealed class SqlServerSchemaExtractor
 
         var tableRow = LoadTable(connection, schemaName, tableName);
         var columnRows = LoadColumns(connection, schemaName, tableName);
+        var foreignKeys = LoadForeignKeys(connection, schemaName, tableName);
+        var foreignKeyColumns = LoadForeignKeyColumns(connection, schemaName, tableName);
 
         var tableId = BuildTableId(databaseName, tableRow.SchemaName, tableRow.TableName);
         AddRecord(
@@ -91,12 +93,14 @@ public sealed class SqlServerSchemaExtractor
             },
             relationships => relationships["SchemaId"] = schemaId);
 
+        var sourceFieldIdByColumnName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var columnRow in columnRows
                      .OrderBy(row => row.TableName, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(row => row.TableName, StringComparer.Ordinal)
                      .ThenBy(row => row.OrdinalPosition))
         {
             var fieldId = BuildFieldId(databaseName, columnRow.SchemaName, columnRow.TableName, columnRow.ColumnName);
+            sourceFieldIdByColumnName[columnRow.ColumnName] = fieldId;
             AddRecord(
                 workspace,
                 "Field",
@@ -123,6 +127,65 @@ public sealed class SqlServerSchemaExtractor
                     }
                 },
                 relationships => relationships["TableId"] = tableId);
+        }
+
+        var foreignKeyColumnsByName = foreignKeyColumns
+            .GroupBy(row => row.ForeignKeyName, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group
+                .OrderBy(item => item.Ordinal)
+                .ToList(), StringComparer.Ordinal);
+
+        foreach (var foreignKey in foreignKeys
+                     .OrderBy(row => row.Name, StringComparer.Ordinal))
+        {
+            var relationshipId = BuildRelationshipId(databaseName, tableRow.SchemaName, tableRow.TableName, foreignKey.Name);
+            AddRecord(
+                workspace,
+                "TableRelationship",
+                relationshipId,
+                values =>
+                {
+                    values["Name"] = foreignKey.Name;
+                    values["TargetSchemaName"] = foreignKey.TargetSchemaName;
+                    values["TargetTableName"] = foreignKey.TargetTableName;
+                },
+                relationships => relationships["SourceTableId"] = tableId);
+
+            if (!foreignKeyColumnsByName.TryGetValue(foreignKey.Name, out var fkColumns))
+            {
+                continue;
+            }
+
+            foreach (var fkColumn in fkColumns)
+            {
+                if (!sourceFieldIdByColumnName.TryGetValue(fkColumn.SourceColumnName, out var sourceFieldId))
+                {
+                    throw new InvalidOperationException(
+                        $"SQL Server foreign key '{tableRow.SchemaName}.{tableRow.TableName}.{foreignKey.Name}' referenced source column '{fkColumn.SourceColumnName}' that was not extracted.");
+                }
+
+                var relationshipFieldId = BuildRelationshipFieldId(
+                    databaseName,
+                    tableRow.SchemaName,
+                    tableRow.TableName,
+                    foreignKey.Name,
+                    fkColumn.Ordinal);
+                AddRecord(
+                    workspace,
+                    "TableRelationshipField",
+                    relationshipFieldId,
+                    values =>
+                    {
+                        values["Ordinal"] = fkColumn.Ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        values["SourceFieldName"] = fkColumn.SourceColumnName;
+                        values["TargetFieldName"] = fkColumn.TargetColumnName;
+                    },
+                    relationships =>
+                    {
+                        relationships["TableRelationshipId"] = relationshipId;
+                        relationships["SourceFieldId"] = sourceFieldId;
+                    });
+            }
         }
 
         workspace.IsDirty = true;
@@ -219,6 +282,77 @@ public sealed class SqlServerSchemaExtractor
         return rows;
     }
 
+    private static List<ForeignKeyRow> LoadForeignKeys(SqlConnection connection, string schemaName, string tableName)
+    {
+        using var command = connection.CreateCommand();
+        command.CommandText = """
+            select
+                fk.name as ForeignKeyName,
+                refSchema.name as TargetSchemaName,
+                refTable.name as TargetTableName
+            from sys.foreign_keys fk
+            join sys.tables srcTable on srcTable.object_id = fk.parent_object_id
+            join sys.schemas srcSchema on srcSchema.schema_id = srcTable.schema_id
+            join sys.tables refTable on refTable.object_id = fk.referenced_object_id
+            join sys.schemas refSchema on refSchema.schema_id = refTable.schema_id
+            where srcSchema.name = @schemaName
+              and srcTable.name = @tableName
+              and fk.is_disabled = 0
+              and fk.is_not_trusted = 0
+            order by fk.name
+            """;
+        command.Parameters.Add(new SqlParameter("@schemaName", SqlDbType.NVarChar, 128) { Value = schemaName });
+        command.Parameters.Add(new SqlParameter("@tableName", SqlDbType.NVarChar, 128) { Value = tableName });
+
+        var rows = new List<ForeignKeyRow>();
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            rows.Add(new ForeignKeyRow(
+                Name: reader.GetString(0),
+                TargetSchemaName: reader.GetString(1),
+                TargetTableName: reader.GetString(2)));
+        }
+
+        return rows;
+    }
+
+    private static List<ForeignKeyColumnRow> LoadForeignKeyColumns(SqlConnection connection, string schemaName, string tableName)
+    {
+        using var command = connection.CreateCommand();
+        command.CommandText = """
+            select
+                fk.name as ForeignKeyName,
+                fkc.constraint_column_id as Ordinal,
+                srcColumn.name as SourceColumnName,
+                refColumn.name as TargetColumnName
+            from sys.foreign_keys fk
+            join sys.tables srcTable on srcTable.object_id = fk.parent_object_id
+            join sys.schemas srcSchema on srcSchema.schema_id = srcTable.schema_id
+            join sys.foreign_key_columns fkc on fkc.constraint_object_id = fk.object_id
+            join sys.columns srcColumn on srcColumn.object_id = fkc.parent_object_id and srcColumn.column_id = fkc.parent_column_id
+            join sys.columns refColumn on refColumn.object_id = fkc.referenced_object_id and refColumn.column_id = fkc.referenced_column_id
+            where srcSchema.name = @schemaName
+              and srcTable.name = @tableName
+            order by fk.name, fkc.constraint_column_id
+            """;
+        command.Parameters.Add(new SqlParameter("@schemaName", SqlDbType.NVarChar, 128) { Value = schemaName });
+        command.Parameters.Add(new SqlParameter("@tableName", SqlDbType.NVarChar, 128) { Value = tableName });
+
+        var rows = new List<ForeignKeyColumnRow>();
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            rows.Add(new ForeignKeyColumnRow(
+                ForeignKeyName: reader.GetString(0),
+                Ordinal: reader.GetInt32(1),
+                SourceColumnName: reader.GetString(2),
+                TargetColumnName: reader.GetString(3)));
+        }
+
+        return rows;
+    }
+
     private static int? ReadNullableInt(SqlDataReader reader, int ordinal)
     {
         if (reader.IsDBNull(ordinal))
@@ -289,6 +423,18 @@ public sealed class SqlServerSchemaExtractor
         return "sqlserver:" + databaseName + ":schema:" + schemaName + ":table:" + tableName + ":field:" + columnName;
     }
 
+    private static string BuildRelationshipId(string databaseName, string schemaName, string tableName, string relationshipName)
+    {
+        return "sqlserver:" + databaseName + ":schema:" + schemaName + ":table:" + tableName + ":relationship:" + relationshipName;
+    }
+
+    private static string BuildRelationshipFieldId(string databaseName, string schemaName, string tableName, string relationshipName, int ordinal)
+    {
+        return BuildRelationshipId(databaseName, schemaName, tableName, relationshipName) +
+               ":field:" +
+               ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    }
+
     private readonly record struct TableRow(
         string SchemaName,
         string TableName,
@@ -304,6 +450,17 @@ public sealed class SqlServerSchemaExtractor
         int? Length,
         int? NumericPrecision,
         int? Scale);
+
+    private readonly record struct ForeignKeyRow(
+        string Name,
+        string TargetSchemaName,
+        string TargetTableName);
+
+    private readonly record struct ForeignKeyColumnRow(
+        string ForeignKeyName,
+        int Ordinal,
+        string SourceColumnName,
+        string TargetColumnName);
 }
 
 public sealed class SqlServerExtractRequest

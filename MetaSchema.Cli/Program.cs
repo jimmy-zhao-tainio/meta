@@ -130,6 +130,8 @@ internal static class Program
         Console.WriteLine($"Schemas: {workspace.Instance.GetOrCreateEntityRecords("Schema").Count}");
         Console.WriteLine($"Tables: {workspace.Instance.GetOrCreateEntityRecords("Table").Count}");
         Console.WriteLine($"Fields: {workspace.Instance.GetOrCreateEntityRecords("Field").Count}");
+        Console.WriteLine($"TableRelationships: {workspace.Instance.GetOrCreateEntityRecords("TableRelationship").Count}");
+        Console.WriteLine($"TableRelationshipFields: {workspace.Instance.GetOrCreateEntityRecords("TableRelationshipField").Count}");
         Console.WriteLine($"TypeIds: {workspace.Instance.GetOrCreateEntityRecords("Field").Select(record => record.Values.TryGetValue("TypeId", out var typeId) ? typeId : string.Empty).Where(typeId => !string.IsNullOrWhiteSpace(typeId)).Distinct(StringComparer.Ordinal).Count()}");
         return 0;
     }
@@ -277,7 +279,8 @@ internal static class Program
         Console.WriteLine();
         Console.WriteLine("Notes:");
         Console.WriteLine("  Creates a new workspace with the MetaSchema model and validates it.");
-        Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, and Field rows.");
+        Console.WriteLine("  Extracts exactly one SQL Server table into System, Schema, Table, Field, and table-relationship rows.");
+        Console.WriteLine("  TableRelationship rows are emitted only for enforced and trusted SQL Server foreign keys.");
         Console.WriteLine("  Field rows carry a scalar TypeId such as sqlserver:type:nvarchar.");
     }
 

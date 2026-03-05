@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaRawDataVault">
+  <EntityList>
+    <Entity name="SourceSystem">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="SourceSchema">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceSystem" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SourceTable">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="ObjectType" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceSchema" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SourceField">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="TypeId" />
+        <Property name="Ordinal" isRequired="false" />
+        <Property name="IsNullable" isRequired="false" />
+        <Property name="Length" isRequired="false" />
+        <Property name="NumericPrecision" isRequired="false" />
+        <Property name="Scale" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceTable" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SourceTableRelationship">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="TargetSchemaName" />
+        <Property name="TargetTableName" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceTable" role="SourceTable" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SourceTableRelationshipField">
+      <PropertyList>
+        <Property name="Ordinal" />
+        <Property name="SourceFieldName" />
+        <Property name="TargetFieldName" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceTableRelationship" />
+        <Relationship entity="SourceField" role="SourceField" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawHub">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="BusinessKeyName" />
+        <Property name="BusinessKeySourceFieldName" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceTable" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawHubKeyPart">
+      <PropertyList>
+        <Property name="Ordinal" />
+        <Property name="SourceFieldName" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="RawHub" />
+        <Relationship entity="SourceField" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawSatellite">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="SatelliteKind" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="RawHub" />
+        <Relationship entity="SourceTable" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawSatelliteAttribute">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Ordinal" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="RawSatellite" />
+        <Relationship entity="SourceField" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawLink">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SourceTableRelationship" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="RawLinkEnd">
+      <PropertyList>
+        <Property name="Ordinal" />
+        <Property name="RoleName" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="RawLink" />
+        <Relationship entity="RawHub" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

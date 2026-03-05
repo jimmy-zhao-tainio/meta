@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>meta-datavault</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UpdateMetaDataVaultPublishDir Condition="'$(UpdateMetaDataVaultPublishDir)' == ''">true</UpdateMetaDataVaultPublishDir>
+    <RepoMetaDataVaultPublishDir>$(MSBuildThisFileDirectory)bin\publish\win-x64\</RepoMetaDataVaultPublishDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Meta.Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\MetaDataVault.Core\MetaDataVault.Core.csproj" />
+  </ItemGroup>
+
+  <Target
+    Name="PublishMetaDataVaultAfterBuild"
+    AfterTargets="Build"
+    Condition="'$(OS)' == 'Windows_NT' and '$(UpdateMetaDataVaultPublishDir)' == 'true' and '$(DesignTimeBuild)' != 'true'">
+    <Message Importance="High" Text="Publishing meta-datavault.exe to $(RepoMetaDataVaultPublishDir)" />
+    <Exec
+      Command="dotnet publish &quot;$(MSBuildProjectFullPath)&quot; --configuration $(Configuration) -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UpdateMetaDataVaultPublishDir=false -o &quot;$(RepoMetaDataVaultPublishDir)&quot;" />
+  </Target>
+
+</Project>

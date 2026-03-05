@@ -110,14 +110,20 @@ public sealed class CliTests
     }
 
     [Fact]
-    public void MetaSchemaModel_UsesScalarTypeId_AndNoFieldTypeEntity()
+    public void MetaSchemaModel_UsesScalarTypeId_AndIncludesTableRelationships()
     {
         var model = MetaSchemaModels.CreateMetaSchemaModel();
 
         var field = Assert.Single(model.Entities, entity => entity.Name == "Field");
+        var tableRelationship = Assert.Single(model.Entities, entity => entity.Name == "TableRelationship");
+        var tableRelationshipField = Assert.Single(model.Entities, entity => entity.Name == "TableRelationshipField");
         Assert.DoesNotContain(model.Entities, entity => entity.Name == "FieldType");
         Assert.Contains(field.Properties, property => property.Name == "TypeId");
         Assert.DoesNotContain(field.Relationships, relationship => relationship.Entity == "FieldType");
+        Assert.Contains(tableRelationship.Properties, property => property.Name == "TargetTableName");
+        Assert.Contains(tableRelationship.Relationships, relationship => relationship.Entity == "Table" && string.Equals(relationship.Role, "SourceTable", StringComparison.Ordinal));
+        Assert.Contains(tableRelationshipField.Relationships, relationship => relationship.Entity == "TableRelationship");
+        Assert.Contains(tableRelationshipField.Relationships, relationship => relationship.Entity == "Field" && string.Equals(relationship.Role, "SourceField", StringComparison.Ordinal));
     }
 
     private static (int ExitCode, string Output) RunCli(string arguments)
