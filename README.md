@@ -781,6 +781,7 @@ Sanctioned examples live under:
 ## References
 
 Full command surface and contracts: `COMMANDS.md`
+C# tooling services API: `docs/SERVICES_API.md`
 
 ## Tests
 
