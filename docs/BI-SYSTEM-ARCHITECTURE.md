@@ -14,6 +14,49 @@ This document keeps the stack explicit:
 - what must stay generic
 - what must be modeled in full rather than as a toy subset
 
+## Current implemented architecture (repo state)
+
+This diagram reflects the currently implemented architecture and flow in this repository.
+
+```mermaid
+flowchart LR
+  subgraph Core["Core platform (generic)"]
+    CLI["meta (CLI)"]
+    CORE["Meta.Core\nDomain + Services"]
+    ADAPT["Meta.Adapters\n(ServiceCollection, Import/Export)"]
+    WS["Workspace on disk\nworkspace.xml + metadata/model.xml + metadata/instance/*.xml"]
+  end
+
+  CLI --> CORE
+  CLI --> ADAPT
+  ADAPT --> CORE
+  CORE <--> WS
+
+  subgraph Specialized["Specialized sanctioned toolchains"]
+    MSC["meta-schema"]
+    MTC["meta-type"]
+    MTCC["meta-type-conversion"]
+    MWC["meta-weave"]
+    MDVC["meta-datavault"]
+  end
+
+  SQL["SQL Server schema"] -->|extract| MSC
+  MSC --> MSW["MetaSchema workspace"]
+
+  MTC --> MTW["MetaType workspace"]
+  MTCC --> MTCW["MetaTypeConversion workspace"]
+
+  MSW --> MWC
+  MTW --> MWC
+  MTCW --> MWC
+  MWC -->|check/materialize| Merged["Materialized merged workspace"]
+
+  MSW --> MDVC
+  MDVC --> DVW["MetaRawDataVault workspace"]
+
+  WS -->|meta generate sql/csharp/ssdt| OUT["C#/SQL/SSDT outputs"]
+```
+
 ## Design stance
 
 The project should hit hard where it can be generic.
