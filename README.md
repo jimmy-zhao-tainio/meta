@@ -291,6 +291,12 @@ Or run the executable directly:
 Meta.Cli\bin\publish\win-x64\meta.exe help
 ```
 
+Install the foundation CLIs (`meta`, `meta-weave`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
+
+```cmd
+install-meta.cmd
+```
+
 ## XML contracts summary
 
 ### Model XML
