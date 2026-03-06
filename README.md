@@ -5,7 +5,7 @@
 This repo ships two CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-weave` (MetaWeave CLI): authoring, validation, and materialization of sanctioned cross-model property bindings.
+`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -709,7 +709,8 @@ For model-contract drift between workspaces, use the aligned diff/merge path (`i
 meta instance diff <LeftWs> <RightWs>
 meta instance merge <TargetWs> <DiffWorkspace>
 ```
-`r`n## MetaWeave
+
+## MetaWeave
 
 MetaWeave is the sanctioned cross-model binding toolchain.
 
@@ -720,7 +721,7 @@ A weave workspace contains:
 - `ModelReference` rows: which workspaces and models participate in the weave
 - `PropertyBinding` rows: which source property resolves to which target identity property
 
-`meta-weave check` loads the weave workspace, loads the referenced workspaces, and proves whether every bound value resolves with 100% RI into the target model.
+`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and proposes missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
 
 Current authoring flow:
 
@@ -729,6 +730,7 @@ meta-weave help
 meta-weave init --new-workspace .\MetaWeave.Workspace
 meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SampleSourceCatalog --workspace-path .\MetaWeave.Workspaces\SampleSourceCatalog
 meta-weave add-model --workspace .\MetaWeave.Workspace --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceCatalog
+meta-weave suggest --workspace .\MetaWeave.Workspace
 meta-weave add-binding --workspace .\MetaWeave.Workspace --name "SampleSourceCatalog.Attribute.TypeId -> SampleReferenceCatalog.ReferenceType.Id" --source-model Source --source-entity Attribute --source-property TypeId --target-model Reference --target-entity ReferenceType --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
 meta-weave materialize --workspace .\MetaWeave.Workspace --new-workspace .\MergedWorkspace --model SampleCatalogMaterialized
@@ -755,11 +757,4 @@ C# tooling services API: `docs/SERVICES_API.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 ```
-
-
-
-
-
-
-
 

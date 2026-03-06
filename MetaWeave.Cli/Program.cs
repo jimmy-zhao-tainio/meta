@@ -1,4 +1,5 @@
 using Meta.Core.Domain;
+using Meta.Core.Presentation;
 using Meta.Core.Services;
 using MetaWeave.Core;
 
@@ -6,6 +7,7 @@ internal static class Program
 {
     private const int PersistRetryCount = 3;
     private static readonly TimeSpan PersistRetryDelay = TimeSpan.FromMilliseconds(50);
+    private static readonly ConsolePresenter Presenter = new();
 
     static async Task<int> Main(string[] args)
     {
@@ -40,8 +42,12 @@ internal static class Program
             return await RunAddBindingAsync(args).ConfigureAwait(false);
         }
 
-        Console.WriteLine($"Error: unknown command '{args[0]}'.");
-        Console.WriteLine("Next: meta-weave help");
+        if (string.Equals(args[0], "suggest", StringComparison.OrdinalIgnoreCase))
+        {
+            return await RunSuggestAsync(args).ConfigureAwait(false);
+        }
+
+        Presenter.WriteFailure($"unknown command '{args[0]}'.", new[] { "Next: meta-weave help" });
         return 1;
     }
 
@@ -56,16 +62,14 @@ internal static class Program
         var parseResult = ParseNewWorkspaceOnly(args, startIndex: 1);
         if (!parseResult.Ok)
         {
-            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave init --help");
+            Presenter.WriteFailure(parseResult.ErrorMessage, new[] { "Next: meta-weave init --help" });
             return 1;
         }
 
         var workspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
         if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
         {
-            Console.WriteLine($"Error: target directory '{workspacePath}' must be empty.");
-            Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
+            Presenter.WriteFailure($"target directory '{workspacePath}' must be empty.", new[] { "Next: choose a new folder or empty the target directory and retry." });
             return 4;
         }
 
@@ -75,22 +79,63 @@ internal static class Program
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
-            Console.WriteLine("Error: metaweave workspace is invalid.");
-            foreach (var issue in validation.Issues.Where(item => item.Severity == IssueSeverity.Error))
-            {
-                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
-            }
-            Console.WriteLine("Next: fix the sanctioned model and retry init.");
+            Presenter.WriteFailure("metaweave workspace is invalid.", validation.Issues.Where(item => item.Severity == IssueSeverity.Error).Select(item => $"  - {item.Code}: {item.Message}").Concat(new[] { "Next: fix the sanctioned model and retry init." }));
             return 4;
         }
 
         await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
         await WaitForWorkspaceReadyAsync(workspacePath).ConfigureAwait(false);
 
-        Console.WriteLine("OK: metaweave workspace created");
-        Console.WriteLine($"Path: {workspacePath}");
-        Console.WriteLine($"Model: {workspace.Model.Name}");
+        Presenter.WriteOk("weave init", ("Workspace", workspacePath), ("Model", workspace.Model.Name));
         return 0;
+    }
+
+    private static async Task<int> RunSuggestAsync(string[] args)
+    {
+        if (args.Length == 1 || IsHelpToken(args[1]))
+        {
+            PrintSuggestHelp();
+            return 0;
+        }
+
+        var parseResult = ParseWorkspaceOnly(args, startIndex: 1);
+        if (!parseResult.Ok)
+        {
+            Presenter.WriteFailure(parseResult.ErrorMessage, new[] { "Next: meta-weave suggest --help" });
+            return 1;
+        }
+
+        var workspacePath = Path.GetFullPath(parseResult.WorkspacePath);
+        try
+        {
+            var workspace = await new WorkspaceService().LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
+            var result = await new MetaWeaveSuggestService().SuggestAsync(workspace).ConfigureAwait(false);
+
+            Presenter.WriteOk(
+                "weave suggest",
+                ("Workspace", workspacePath),
+                ("Suggestions", result.SuggestionCount.ToString()));
+            Line(string.Empty);
+            Line("Binding suggestions");
+            if (result.Suggestions.Count == 0)
+            {
+                Line("  (none)");
+                return 0;
+            }
+
+            for (var index = 0; index < result.Suggestions.Count; index++)
+            {
+                var suggestion = result.Suggestions[index];
+                Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}");
+            }
+
+            return 0;
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
+        {
+            Presenter.WriteFailure(ex.Message, new[] { "Next: fix the weave workspace or referenced workspaces and retry." });
+            return 4;
+        }
     }
 
     private static async Task<int> RunCheckAsync(string[] args)
@@ -104,44 +149,36 @@ internal static class Program
         var parseResult = ParseWorkspaceOnly(args, startIndex: 1);
         if (!parseResult.Ok)
         {
-            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave check --help");
+            Presenter.WriteFailure(parseResult.ErrorMessage, new[] { "Next: meta-weave check --help" });
             return 1;
         }
 
         var workspacePath = Path.GetFullPath(parseResult.WorkspacePath);
-        Workspace workspace;
-        WeaveCheckResult result;
         try
         {
-            workspace = await new WorkspaceService().LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-            result = await new MetaWeaveService().CheckAsync(workspace).ConfigureAwait(false);
+            var workspace = await new WorkspaceService().LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
+            var result = await new MetaWeaveService().CheckAsync(workspace).ConfigureAwait(false);
+            if (result.HasErrors)
+            {
+                Presenter.WriteFailure(
+                    "weave check failed.",
+                    result.Bindings.SelectMany(binding => binding.Errors.Select(error => $"  - {binding.BindingName}: {error}")).Concat(new[] { "Next: fix the reported bindings and retry meta-weave check." }));
+                return 2;
+            }
+
+            Presenter.WriteOk(
+                "weave check",
+                ("Workspace", workspacePath),
+                ("Bindings", result.BindingCount.ToString()),
+                ("ResolvedRows", result.ResolvedRowCount.ToString()),
+                ("Errors", result.ErrorCount.ToString()));
+            return 0;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: fix the weave workspace or referenced workspaces and retry." });
             return 4;
         }
-
-        if (result.HasErrors)
-        {
-            Console.WriteLine("Error: weave check failed.");
-            foreach (var binding in result.Bindings)
-            {
-                foreach (var error in binding.Errors)
-                {
-                    Console.WriteLine($"  - {binding.BindingName}: {error}");
-                }
-            }
-            return 2;
-        }
-
-        Console.WriteLine("OK: weave check");
-        Console.WriteLine($"Workspace: {workspacePath}");
-        Console.WriteLine($"Bindings: {result.BindingCount}");
-        Console.WriteLine($"ResolvedRows: {result.ResolvedRowCount}");
-        Console.WriteLine($"Errors: {result.ErrorCount}");
-        return 0;
     }
 
     private static async Task<int> RunMaterializeAsync(string[] args)
@@ -155,8 +192,7 @@ internal static class Program
         var parseResult = ParseWorkspaceAndNewWorkspaceAndModel(args, startIndex: 1);
         if (!parseResult.Ok)
         {
-            Console.WriteLine($"Error: {parseResult.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave materialize --help");
+            Presenter.WriteFailure(parseResult.ErrorMessage, new[] { "Next: meta-weave materialize --help" });
             return 1;
         }
 
@@ -164,8 +200,7 @@ internal static class Program
         var materializedWorkspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
         if (Directory.Exists(materializedWorkspacePath) && Directory.EnumerateFileSystemEntries(materializedWorkspacePath).Any())
         {
-            Console.WriteLine($"Error: target directory '{materializedWorkspacePath}' must be empty.");
-            Console.WriteLine("Next: choose a new folder or empty the target directory and retry.");
+            Presenter.WriteFailure($"target directory '{materializedWorkspacePath}' must be empty.", new[] { "Next: choose a new folder or empty the target directory and retry." });
             return 4;
         }
 
@@ -181,21 +216,21 @@ internal static class Program
             await workspaceService.SaveAsync(materializedWorkspace).ConfigureAwait(false);
             await WaitForWorkspaceReadyAsync(materializedWorkspacePath).ConfigureAwait(false);
 
-            Console.WriteLine("OK: weave materialized");
-            Console.WriteLine($"Weave: {weaveWorkspacePath}");
-            Console.WriteLine($"Path: {materializedWorkspacePath}");
-            Console.WriteLine($"Model: {materializedWorkspace.Model.Name}");
-            Console.WriteLine($"Entities: {materializedWorkspace.Model.Entities.Count}");
-            Console.WriteLine($"Bindings materialized: {weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding").Count}");
+            Presenter.WriteOk(
+                "weave materialize",
+                ("Weave", weaveWorkspacePath),
+                ("Workspace", materializedWorkspacePath),
+                ("Model", materializedWorkspace.Model.Name),
+                ("Entities", materializedWorkspace.Model.Entities.Count.ToString()),
+                ("BindingsMaterialized", weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding").Count.ToString()));
             return 0;
         }
         catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: run meta-weave check and resolve all reported issues before materialize." });
             return 4;
         }
     }
-
     private static async Task<int> RunAddModelAsync(string[] args)
     {
         if (args.Length == 1 || IsHelpToken(args[1]))
@@ -211,14 +246,12 @@ internal static class Program
         }
         catch (InvalidOperationException ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-            Console.WriteLine("Next: meta-weave add-model --help");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: meta-weave add-model --help" });
             return 1;
         }
         if (!parse.Ok)
         {
-            Console.WriteLine($"Error: {parse.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave add-model --help");
+            Presenter.WriteFailure(parse.ErrorMessage, new[] { "Next: meta-weave add-model --help" });
             return 1;
         }
 
@@ -232,28 +265,25 @@ internal static class Program
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: meta-weave add-model --help" });
             return 4;
         }
 
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
-            Console.WriteLine("Error: weave workspace is invalid after add-model.");
-            foreach (var issue in validation.Issues.Where(item => item.Severity == IssueSeverity.Error))
-            {
-                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
-            }
+            Presenter.WriteFailure("weave workspace is invalid after add-model.", validation.Issues.Where(item => item.Severity == IssueSeverity.Error).Select(item => $"  - {item.Code}: {item.Message}").Concat(new[] { "Next: fix the weave workspace and retry add-model." }));
             return 4;
         }
 
         await workspaceService.SaveAsync(workspace).ConfigureAwait(false);
         await WaitForPersistedModelReferenceAsync(workspacePath, parse.Alias).ConfigureAwait(false);
-        Console.WriteLine("OK: weave model reference added");
-        Console.WriteLine($"Workspace: {workspacePath}");
-        Console.WriteLine($"Alias: {parse.Alias}");
-        Console.WriteLine($"Model: {parse.ModelName}");
-        Console.WriteLine($"WorkspacePath: {parse.ModelWorkspacePath}");
+        Presenter.WriteOk(
+            "weave model reference added",
+            ("Workspace", workspacePath),
+            ("Alias", parse.Alias),
+            ("Model", parse.ModelName),
+            ("WorkspacePath", parse.ModelWorkspacePath));
         return 0;
     }
 
@@ -272,14 +302,12 @@ internal static class Program
         }
         catch (InvalidOperationException ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
-            Console.WriteLine("Next: meta-weave add-binding --help");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: meta-weave add-binding --help" });
             return 1;
         }
         if (!parse.Ok)
         {
-            Console.WriteLine($"Error: {parse.ErrorMessage}");
-            Console.WriteLine("Next: meta-weave add-binding --help");
+            Presenter.WriteFailure(parse.ErrorMessage, new[] { "Next: meta-weave add-binding --help" });
             return 1;
         }
 
@@ -300,26 +328,23 @@ internal static class Program
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
         {
-            Console.WriteLine($"Error: {ex.Message}");
+            Presenter.WriteFailure(ex.Message, new[] { "Next: meta-weave add-binding --help" });
             return 4;
         }
 
         var validation = new ValidationService().Validate(workspace);
         if (validation.HasErrors)
         {
-            Console.WriteLine("Error: weave workspace is invalid after add-binding.");
-            foreach (var issue in validation.Issues.Where(item => item.Severity == IssueSeverity.Error))
-            {
-                Console.WriteLine($"  - {issue.Code}: {issue.Message}");
-            }
+            Presenter.WriteFailure("weave workspace is invalid after add-binding.", validation.Issues.Where(item => item.Severity == IssueSeverity.Error).Select(item => $"  - {item.Code}: {item.Message}").Concat(new[] { "Next: fix the weave workspace and retry add-binding." }));
             return 4;
         }
 
         await workspaceService.SaveAsync(workspace).ConfigureAwait(false);
         await WaitForPersistedBindingAsync(workspacePath, parse.Name).ConfigureAwait(false);
-        Console.WriteLine("OK: weave property binding added");
-        Console.WriteLine($"Workspace: {workspacePath}");
-        Console.WriteLine($"Binding: {parse.Name}");
+        Presenter.WriteOk(
+            "weave property binding added",
+            ("Workspace", workspacePath),
+            ("Binding", parse.Name));
         return 0;
     }
 
@@ -444,63 +469,69 @@ internal static class Program
 
     private static void PrintHelp()
     {
-        Console.WriteLine("MetaWeave CLI");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave <command> [options]");
-        Console.WriteLine();
-        Console.WriteLine("Commands:");
-        Console.WriteLine("  help        Show this help.");
-        Console.WriteLine("  init        Create a new MetaWeave workspace.");
-        Console.WriteLine("  add-model   Add a referenced model workspace.");
-        Console.WriteLine("  add-binding Add a property binding between two model references.");
-        Console.WriteLine("  check       Validate property bindings across referenced workspaces.");
-        Console.WriteLine("  materialize Materialize a new workspace from a valid weave.");
-        Console.WriteLine();
-        Console.WriteLine("Next: meta-weave materialize --help");
+        Presenter.WriteInfo("MetaWeave CLI");
+        Presenter.WriteUsage("meta-weave <command> [options]");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteCommandCatalog("Commands:", new[]
+        {
+            ("help", "Show this help."),
+            ("init", "Create a new MetaWeave workspace."),
+            ("add-model", "Add a referenced model workspace."),
+            ("add-binding", "Add a property binding between two model references."),
+            ("suggest", "Suggest missing property bindings only when the source values resolve uniquely and completely in a target key."),
+            ("check", "Validate property bindings across referenced workspaces."),
+            ("materialize", "Materialize a new workspace from a valid weave."),
+        });
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteNext("meta-weave suggest --help");
     }
 
     private static void PrintInitHelp()
     {
-        Console.WriteLine("Command: init");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave init --new-workspace <path>");
-        Console.WriteLine();
-        Console.WriteLine("Notes:");
-        Console.WriteLine("  Creates a new workspace with the MetaWeave model and validates it.");
+        Presenter.WriteInfo("Command: init");
+        Presenter.WriteUsage("meta-weave init --new-workspace <path>");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Notes:");
+        Presenter.WriteInfo("  Creates a new workspace with the MetaWeave model and validates it.");
+    }
+
+    private static void PrintSuggestHelp()
+    {
+        Presenter.WriteInfo("Command: suggest");
+        Presenter.WriteUsage("meta-weave suggest --workspace <path>");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Notes:");
+        Presenter.WriteInfo("  Loads referenced workspaces and suggests missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key.");
     }
 
     private static void PrintCheckHelp()
     {
-        Console.WriteLine("Command: check");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave check --workspace <path>");
-        Console.WriteLine();
-        Console.WriteLine("Notes:");
-        Console.WriteLine("  Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model.");
+        Presenter.WriteInfo("Command: check");
+        Presenter.WriteUsage("meta-weave check --workspace <path>");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Notes:");
+        Presenter.WriteInfo("  Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model.");
     }
 
     private static void PrintMaterializeHelp()
     {
-        Console.WriteLine("Command: materialize");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave materialize --workspace <path> --new-workspace <path> --model <name>");
-        Console.WriteLine();
-        Console.WriteLine("Notes:");
-        Console.WriteLine("  Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships.");
+        Presenter.WriteInfo("Command: materialize");
+        Presenter.WriteUsage("meta-weave materialize --workspace <path> --new-workspace <path> --model <name>");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Notes:");
+        Presenter.WriteInfo("  Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships.");
     }
 
     private static void PrintAddModelHelp()
     {
-        Console.WriteLine("Command: add-model");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave add-model --workspace <path> --alias <alias> --model <modelName> --workspace-path <path>");
+        Presenter.WriteInfo("Command: add-model");
+        Presenter.WriteUsage("meta-weave add-model --workspace <path> --alias <alias> --model <modelName> --workspace-path <path>");
     }
 
     private static void PrintAddBindingHelp()
     {
-        Console.WriteLine("Command: add-binding");
-        Console.WriteLine("Usage:");
-        Console.WriteLine("  meta-weave add-binding --workspace <path> --name <bindingName> --source-model <alias> --source-entity <entity> --source-property <property> --target-model <alias> --target-entity <entity> --target-property <property>");
+        Presenter.WriteInfo("Command: add-binding");
+        Presenter.WriteUsage("meta-weave add-binding --workspace <path> --name <bindingName> --source-model <alias> --source-entity <entity> --source-property <property> --target-model <alias> --target-entity <entity> --target-property <property>");
     }
 
     private static (bool Ok, string WorkspacePath, string Alias, string ModelName, string ModelWorkspacePath, string ErrorMessage) ParseAddModelArgs(string[] args, int startIndex)
@@ -725,4 +756,11 @@ internal static class Program
 
         throw new InvalidOperationException($"Workspace save did not persist expected {description}.");
     }
+
+
+    private static void Line(string message)
+    {
+        Presenter.WriteInfo(message);
+    }
 }
+

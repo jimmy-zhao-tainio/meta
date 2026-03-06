@@ -1,7 +1,7 @@
 internal sealed partial class CliRuntime
 {
     private readonly ServiceCollection services = new();
-    private readonly ConsolePresenter presenter = new();
+    private readonly Meta.Core.Presentation.ConsolePresenter presenter = new();
     private const int SupportedContractMajorVersion = 1;
     private const int SupportedContractMinorVersion = 0;
     private string[] args = Array.Empty<string>();
@@ -1000,5 +1000,4 @@ internal sealed partial class CliRuntime
         int TotalRelationships,
         int TotalRows);
 }
-
 

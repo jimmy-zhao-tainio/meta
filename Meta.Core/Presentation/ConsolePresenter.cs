@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-internal sealed class ConsolePresenter
+namespace Meta.Core.Presentation;
+
+public sealed class ConsolePresenter
 {
     public void WriteOk(string summary, params (string Key, string Value)[] details)
     {
@@ -387,3 +389,5 @@ internal sealed class ConsolePresenter
         return value.TrimEnd();
     }
 }
+
+

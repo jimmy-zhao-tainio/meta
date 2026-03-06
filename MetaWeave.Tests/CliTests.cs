@@ -13,6 +13,7 @@ public sealed class CliTests
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("MetaWeave CLI", result.Output);
         Assert.Contains("check", result.Output);
+        Assert.Contains("suggest", result.Output);
         Assert.Contains("materialize", result.Output);
     }
 
@@ -20,6 +21,15 @@ public sealed class CliTests
     public void Check_Help_ShowsWorkspaceOption()
     {
         var result = RunCli("check --help");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("--workspace <path>", result.Output);
+    }
+
+    [Fact]
+    public void Suggest_Help_ShowsWorkspaceOption()
+    {
+        var result = RunCli("suggest --help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("--workspace <path>", result.Output);
@@ -331,3 +341,4 @@ public sealed class CliTests
         }
     }
 }
+
