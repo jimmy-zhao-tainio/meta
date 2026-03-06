@@ -896,6 +896,32 @@ public sealed class WorkspaceServiceTests
         return workspace;
     }
 
+
+    private static Workspace BuildModelOnlyWorkspace(string workspaceRoot)
+    {
+        var workspace = new Workspace
+        {
+            WorkspaceRootPath = workspaceRoot,
+            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
+            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
+            Model = new GenericModel
+            {
+                Name = "ModelOnly",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "ModelOnly",
+            },
+            IsDirty = true,
+        };
+
+        workspace.Model.Entities.Add(new GenericEntity
+        {
+            Name = "Capability",
+        });
+
+        return workspace;
+    }
     private static void SplitEntityShard(
         string workspaceRoot,
         string entityName,
@@ -1009,6 +1035,7 @@ public sealed class WorkspaceServiceTests
     }
 
 }
+
 
 
 
