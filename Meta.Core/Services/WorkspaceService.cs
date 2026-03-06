@@ -393,8 +393,10 @@ public sealed class WorkspaceService : IWorkspaceService
             };
         }
 
-        throw new FileNotFoundException(
-            $"Could not find sharded instance files in '{shardDirectoryPath}'.");
+        return new GenericInstance
+        {
+            ModelName = model.Name ?? string.Empty,
+        };
     }
 
     private static GenericInstance ReadInstanceShards(
@@ -406,13 +408,19 @@ public sealed class WorkspaceService : IWorkspaceService
 
     private static void WriteInstanceShards(Workspace workspace, string instanceDirectoryPath)
     {
-        Directory.CreateDirectory(instanceDirectoryPath);
-
         var modelName = !string.IsNullOrWhiteSpace(workspace.Model.Name)
             ? workspace.Model.Name
             : workspace.Instance.ModelName;
         var rootName = string.IsNullOrWhiteSpace(modelName) ? "MetadataModel" : modelName;
         var shardPlans = BuildInstanceShardWritePlans(workspace, persistAssignments: true);
+
+        if (shardPlans.Count == 0)
+        {
+            DeleteDirectoryIfExists(instanceDirectoryPath);
+            return;
+        }
+
+        Directory.CreateDirectory(instanceDirectoryPath);
 
         var expectedPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var shardPlan in shardPlans)
@@ -507,6 +515,11 @@ public sealed class WorkspaceService : IWorkspaceService
             .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
             .ToList();
 
+        if (orderedRecords.Count == 0)
+        {
+            return Array.Empty<InstanceShardWritePlan>();
+        }
+
         var defaultShardFileName = NormalizeShardFileName(null, entityName);
         var assignedNames = orderedRecords
             .Select(record => NormalizeLoadedShardFileName(record.SourceShardFileName, entityName))
@@ -539,10 +552,6 @@ public sealed class WorkspaceService : IWorkspaceService
             shardRecords.Add(record);
         }
 
-        if (recordsByShard.Count == 0)
-        {
-            recordsByShard[defaultShardFileName] = new List<GenericRecord>();
-        }
 
         return recordsByShard
             .OrderBy(item => item.Key, StringComparer.OrdinalIgnoreCase)
@@ -873,6 +882,7 @@ public sealed class WorkspaceService : IWorkspaceService
         public string MetadataRootPath { get; }
     }
 }
+
 
 
 

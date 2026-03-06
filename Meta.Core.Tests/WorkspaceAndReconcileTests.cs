@@ -897,6 +897,34 @@ public sealed class WorkspaceServiceTests
     }
 
 
+    [Fact]
+    public async Task Save_ModelOnlyWorkspace_OmitsInstanceDirectory_AndReloads()
+    {
+        var services = new ServiceCollection();
+        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var workspace = BuildModelOnlyWorkspace(tempRoot);
+            await services.WorkspaceService.SaveAsync(workspace);
+
+            var metadataRoot = Path.Combine(tempRoot, "metadata");
+            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(metadataRoot, "model.xml")));
+            Assert.False(Directory.Exists(Path.Combine(metadataRoot, "instance")));
+
+            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            Assert.Equal("ModelOnly", reloaded.Model.Name);
+            Assert.Equal("ModelOnly", reloaded.Instance.ModelName);
+            Assert.Empty(reloaded.Instance.RecordsByEntity);
+        }
+        finally
+        {
+            if (Directory.Exists(tempRoot))
+            {
+                Directory.Delete(tempRoot, recursive: true);
+            }
+        }
+    }
     private static Workspace BuildModelOnlyWorkspace(string workspaceRoot)
     {
         var workspace = new Workspace
@@ -1035,6 +1063,7 @@ public sealed class WorkspaceServiceTests
     }
 
 }
+
 
 
 
