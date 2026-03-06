@@ -471,6 +471,8 @@ pack-internal.cmd
 
 Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.
 
+Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it so downstream repos can adopt weave-core package references without reopening the source boundary.
+
 ### Suggest workflow
 
 #### Full example: CSV import -> suggest -> refactor
