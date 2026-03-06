@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <MetaInternalPackageVersion Condition="'$(MetaInternalPackageVersion)' == ''">0.1.0-internal.1</MetaInternalPackageVersion>
+    <Version Condition="'$(Version)' == ''">$(MetaInternalPackageVersion)</Version>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">$(MetaInternalPackageVersion)</PackageVersion>
+    <Authors>Jimmy Zhao-Tainio</Authors>
+    <RepositoryUrl>https://github.com/jimmy-zhao-tainio/isomorphic-metadata</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageOutputPath>$(MSBuildThisFileDirectory).nupkg\</PackageOutputPath>
+  </PropertyGroup>
+</Project>

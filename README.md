@@ -455,6 +455,22 @@ Id policy:
 
 `meta import csv` is Id-first: the file must contain a column named `Id` (case-insensitive header match). On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Entity containers are always `<EntityName>List`. There is no alternate id-column mapping and no best-effort reconciliation.
 
+## Internal packages
+
+The foundation libraries are packable as internal NuGet packages:
+
+- `Meta.Core`
+- `Meta.Adapters`
+- `MetaWeave.Core`
+
+Pack them into the local feed at `.nupkg` with:
+
+```cmd
+pack-internal.cmd
+```
+
+Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.
+
 ### Suggest workflow
 
 #### Full example: CSV import -> suggest -> refactor
