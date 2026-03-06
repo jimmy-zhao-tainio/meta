@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="Architecture">
+  <EntityList>
+    <Entity name="ArtifactKind">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="MetaModel">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="IsSanctioned" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="MetaTool">
+      <PropertyList>
+        <Property name="CliName" />
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="MetaToolCommand">
+      <PropertyList>
+        <Property name="CommandPath" />
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="MetaTool" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Weave">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="WeaveMetaModel">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="ModelRole" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="MetaModel" />
+        <Relationship entity="Weave" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

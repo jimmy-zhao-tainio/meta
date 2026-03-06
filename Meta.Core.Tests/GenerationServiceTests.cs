@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Meta.Adapters;
+using Meta.Core.Domain;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -105,6 +106,74 @@ public sealed class GenerationServiceTests
         finally
         {
             TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
+            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
+    public void GenerateCSharp_ModelAndEntityNameCollision_UsesModelSuffixForFacade()
+    {
+        var workspace = new Workspace
+        {
+            Model =
+            {
+                Name = "Architecture",
+                Entities =
+                {
+                    new GenericEntity
+                    {
+                        Name = "Architecture",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "Name" },
+                        },
+                    },
+                },
+            },
+            Instance =
+            {
+                ModelName = "Architecture",
+            },
+        };
+        workspace.Instance.GetOrCreateEntityRecords("Architecture").Add(new GenericRecord
+        {
+            Id = "1",
+            Values =
+            {
+                ["Name"] = "FrameworkArchitecture",
+            },
+        });
+
+        var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "collision");
+
+        try
+        {
+            var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
+            var modelPath = Path.Combine(output, "ArchitectureModel.cs");
+            var toolingPath = Path.Combine(output, "ArchitectureModel.Tooling.cs");
+            var entityPath = Path.Combine(output, "Architecture.cs");
+
+            Assert.True(File.Exists(modelPath));
+            Assert.True(File.Exists(toolingPath));
+            Assert.True(File.Exists(entityPath));
+            Assert.True(manifest.FileHashes.ContainsKey("ArchitectureModel.cs"));
+            Assert.True(manifest.FileHashes.ContainsKey("ArchitectureModel.Tooling.cs"));
+            Assert.True(manifest.FileHashes.ContainsKey("Architecture.cs"));
+
+            var modelCode = File.ReadAllText(modelPath);
+            var toolingCode = File.ReadAllText(toolingPath);
+            var entityCode = File.ReadAllText(entityPath);
+
+            Assert.Contains("namespace Architecture", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static class ArchitectureModel", modelCode, StringComparison.Ordinal);
+            Assert.Contains("private static readonly ArchitectureModelInstance _builtIn", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static IReadOnlyList<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static class ArchitectureModelTooling", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("namespace Architecture", entityCode, StringComparison.Ordinal);
+            Assert.Contains("public sealed class Architecture", entityCode, StringComparison.Ordinal);
+        }
+        finally
+        {
             DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
         }
     }

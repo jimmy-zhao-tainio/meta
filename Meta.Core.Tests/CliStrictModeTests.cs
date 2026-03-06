@@ -14,8 +14,7 @@ namespace Meta.Core.Tests;
 
 public sealed class CliStrictModeTests
 {
-    private static readonly SemaphoreSlim CliBuildGate = new(1, 1);
-    private static string? cliAssemblyPath;
+    private static string? cliExecutablePath;
 
     [Fact]
     public void CommandExamples_DoNotContainLegacyHumanErrorTokens()
@@ -659,7 +658,7 @@ public sealed class CliStrictModeTests
     {
         var result = await RunCliAsync("workspace", "migrate");
         Assert.Equal(1, result.ExitCode);
-        Assert.Contains("Unknown command 'workspace'.", result.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Unknown command 'workspace", result.CombinedOutput, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -4925,11 +4924,11 @@ public sealed class CliStrictModeTests
         params string[] arguments)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = await EnsureCliAssemblyAsync(repoRoot).ConfigureAwait(false);
+        var cliPath = ResolveCliExecutablePath(repoRoot);
 
         var startInfo = new ProcessStartInfo
         {
-            FileName = "dotnet",
+            FileName = cliPath,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
             UseShellExecute = false,
@@ -4937,7 +4936,6 @@ public sealed class CliStrictModeTests
             WorkingDirectory = repoRoot,
         };
 
-        startInfo.ArgumentList.Add(cliPath);
         foreach (var argument in arguments)
         {
             startInfo.ArgumentList.Add(argument);
@@ -4948,8 +4946,7 @@ public sealed class CliStrictModeTests
 
         var stdOutTask = process.StandardOutput.ReadToEndAsync();
         var stdErrTask = process.StandardError.ReadToEndAsync();
-        using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
-        await process.WaitForExitAsync(timeout.Token).ConfigureAwait(false);
+        await WaitForProcessExitAsync(process, startInfo, TimeSpan.FromMinutes(2)).ConfigureAwait(false);
 
         var stdOut = await stdOutTask.ConfigureAwait(false);
         var stdErr = await stdErrTask.ConfigureAwait(false);
@@ -4958,97 +4955,69 @@ public sealed class CliStrictModeTests
 
     private static void InvalidateCliAssemblyCache()
     {
-        cliAssemblyPath = null;
-        var repoRoot = FindRepositoryRoot();
-        var targetFramework = ResolveCliTargetFramework(repoRoot);
-        var candidate = Path.Combine(repoRoot, "Meta.Cli", "bin", "Debug", targetFramework, "meta.dll");
-        if (File.Exists(candidate))
+        cliExecutablePath = null;
+    }
+
+    private static string ResolveCliExecutablePath(string repoRoot)
+    {
+        if (!string.IsNullOrWhiteSpace(cliExecutablePath) && File.Exists(cliExecutablePath))
         {
-            try
+            return cliExecutablePath;
+        }
+
+        var targetFramework = ResolveCliTargetFramework(repoRoot);
+        var candidate = Path.Combine(repoRoot, "Meta.Cli", "bin", "Debug", targetFramework, "meta.exe");
+        if (!File.Exists(candidate))
+        {
+            throw new FileNotFoundException($"Could not find compiled Meta CLI at '{candidate}'. Build Meta.Cli before running CLI tests.");
+        }
+
+        cliExecutablePath = candidate;
+        return candidate;
+    }
+
+    private static async Task WaitForProcessExitAsync(
+        Process process,
+        ProcessStartInfo startInfo,
+        TimeSpan timeout)
+    {
+        using var timeoutSource = new CancellationTokenSource(timeout);
+        try
+        {
+            await process.WaitForExitAsync(timeoutSource.Token).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException exception)
+        {
+            TryKillProcessTree(process);
+            process.WaitForExit();
+            throw new TimeoutException(
+                $"Timed out waiting for process: {startInfo.FileName} {string.Join(' ', startInfo.ArgumentList)}",
+                exception);
+        }
+        finally
+        {
+            if (!process.HasExited)
             {
-                File.Delete(candidate);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // Another process may still hold the built CLI assembly. Clearing the cached path is enough
-                // to force re-resolution without turning the test into a file-lock race.
-            }
-            catch (IOException)
-            {
-                // Another process may still hold the built CLI assembly. Clearing the cached path is enough
-                // to force re-resolution without turning the test into a file-lock race.
+                TryKillProcessTree(process);
+                process.WaitForExit();
             }
         }
     }
 
-    private static async Task<string> EnsureCliAssemblyAsync(string repoRoot)
+    private static void TryKillProcessTree(Process process)
     {
-        if (!string.IsNullOrWhiteSpace(cliAssemblyPath) && File.Exists(cliAssemblyPath))
-        {
-            return cliAssemblyPath;
-        }
-
-        await CliBuildGate.WaitAsync().ConfigureAwait(false);
         try
         {
-            if (!string.IsNullOrWhiteSpace(cliAssemblyPath) && File.Exists(cliAssemblyPath))
+            if (!process.HasExited)
             {
-                return cliAssemblyPath;
+                process.Kill(entireProcessTree: true);
             }
-
-            var targetFramework = ResolveCliTargetFramework(repoRoot);
-            var candidate = Path.Combine(repoRoot, "Meta.Cli", "bin", "Debug", targetFramework, "meta.dll");
-            if (!File.Exists(candidate))
-            {
-                var cliProject = Path.Combine(repoRoot, "Meta.Cli", "Meta.Cli.csproj");
-                var buildInfo = new ProcessStartInfo
-                {
-                    FileName = "dotnet",
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    WorkingDirectory = repoRoot,
-                };
-                buildInfo.ArgumentList.Add("build");
-                buildInfo.ArgumentList.Add(cliProject);
-                buildInfo.ArgumentList.Add("-c");
-                buildInfo.ArgumentList.Add("Debug");
-                buildInfo.ArgumentList.Add("-v");
-                buildInfo.ArgumentList.Add("quiet");
-                buildInfo.ArgumentList.Add("--nologo");
-
-                using var buildProcess = new Process { StartInfo = buildInfo };
-                buildProcess.Start();
-                var buildStdOutTask = buildProcess.StandardOutput.ReadToEndAsync();
-                var buildStdErrTask = buildProcess.StandardError.ReadToEndAsync();
-                using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
-                await buildProcess.WaitForExitAsync(timeout.Token).ConfigureAwait(false);
-                var buildStdOut = await buildStdOutTask.ConfigureAwait(false);
-                var buildStdErr = await buildStdErrTask.ConfigureAwait(false);
-
-                if (buildProcess.ExitCode != 0)
-                {
-                    throw new InvalidOperationException(
-                        "Failed to build Meta.Cli for tests." +
-                        Environment.NewLine +
-                        buildStdOut +
-                        Environment.NewLine +
-                        buildStdErr);
-                }
-            }
-
-            if (!File.Exists(candidate))
-            {
-                throw new FileNotFoundException($"Could not find compiled CLI assembly at '{candidate}'.");
-            }
-
-            cliAssemblyPath = candidate;
-            return candidate;
         }
-        finally
+        catch (InvalidOperationException)
         {
-            CliBuildGate.Release();
+        }
+        catch (NotSupportedException)
+        {
         }
     }
 

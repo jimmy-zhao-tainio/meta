@@ -23,7 +23,7 @@ public sealed class ValidationServiceTests
     }
 
     [Fact]
-    public void Validate_ModelAndEntityNameCollision_IsError()
+    public void Validate_ModelAndEntityNameCollision_IsAllowed()
     {
         var workspace = BuildWorkspace(
             modelName: "Cube",
@@ -32,7 +32,8 @@ public sealed class ValidationServiceTests
 
         var diagnostics = new ValidationService().Validate(workspace);
 
-        Assert.Contains(diagnostics.Issues, issue => issue.Code == "model.entity.collision");
+        Assert.DoesNotContain(diagnostics.Issues, issue => issue.Code == "model.entity.collision");
+        Assert.DoesNotContain(diagnostics.Issues, issue => issue.Severity == IssueSeverity.Error);
     }
 
     [Fact]

@@ -42,8 +42,8 @@ public static class GenerationService
         }
 
         var outputRoot = PrepareOutputDirectory(outputDirectory);
-        var modelTypeName = ResolveModelTypeName(workspace.Model.Name);
-        var namespaceName = modelTypeName;
+        var namespaceName = ResolveModelNamespaceName(workspace.Model.Name);
+        var modelTypeName = ResolveModelTypeName(workspace.Model);
         var modelFileName = modelTypeName + ".cs";
         WriteText(Path.Combine(outputRoot, modelFileName), BuildCSharpModel(workspace, modelTypeName, namespaceName));
         var emittedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -554,9 +554,33 @@ public static class GenerationService
         return NormalizeNewlines(builder.ToString());
     }
 
-    private static string ResolveModelTypeName(string? modelName)
+    private static string ResolveModelNamespaceName(string? modelName)
     {
         return string.IsNullOrWhiteSpace(modelName) ? "MetadataModel" : modelName.Trim();
+    }
+
+    private static string ResolveModelTypeName(GenericModel model)
+    {
+        var baseName = ResolveModelNamespaceName(model.Name);
+        var entityNames = model.Entities
+            .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
+            .Select(entity => entity.Name.Trim())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        if (!entityNames.Contains(baseName))
+        {
+            return baseName;
+        }
+
+        var candidate = baseName + "Model";
+        var suffix = 2;
+        while (entityNames.Contains(candidate))
+        {
+            candidate = baseName + "Model" + suffix.ToString(CultureInfo.InvariantCulture);
+            suffix++;
+        }
+
+        return candidate;
     }
 
     private static string ToCSharpStringLiteral(string? value)

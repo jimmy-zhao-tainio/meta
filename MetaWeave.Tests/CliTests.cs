@@ -9,9 +9,6 @@ namespace MetaWeave.Tests;
 
 public sealed class CliTests
 {
-    private static readonly object CliBuildLock = new();
-    private static bool _cliBuilt;
-
     [Fact]
     public void Help_ShowsCheckCommand()
     {
@@ -399,12 +396,11 @@ public sealed class CliTests
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
-        EnsureCliBuilt(repoRoot);
-        var dllPath = Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "Debug", "net8.0", "meta-weave.dll");
+        var cliPath = ResolveCliPath(repoRoot);
         var startInfo = new ProcessStartInfo
         {
-            FileName = "dotnet",
-            Arguments = $"\"{dllPath}\" {arguments}",
+            FileName = cliPath,
+            Arguments = arguments,
             WorkingDirectory = repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -412,46 +408,69 @@ public sealed class CliTests
             CreateNoWindow = true,
         };
 
-        using var process = Process.Start(startInfo)
-                            ?? throw new InvalidOperationException("Could not start meta-weave CLI process.");
-        var stdout = process.StandardOutput.ReadToEnd();
-        var stderr = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        return (process.ExitCode, stdout + stderr);
+        return RunProcess(startInfo, "Could not start meta-weave CLI process.");
     }
 
-    private static void EnsureCliBuilt(string repoRoot)
+    private static (int ExitCode, string Output) RunProcess(ProcessStartInfo startInfo, string errorMessage)
     {
-        lock (CliBuildLock)
+        using var process = Process.Start(startInfo)
+                            ?? throw new InvalidOperationException(errorMessage);
+        var stdoutTask = process.StandardOutput.ReadToEndAsync();
+        var stderrTask = process.StandardError.ReadToEndAsync();
+
+        try
         {
-            if (_cliBuilt)
+            using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+            try
             {
-                return;
+                process.WaitForExitAsync(timeout.Token).GetAwaiter().GetResult();
+            }
+            catch (OperationCanceledException exception)
+            {
+                TryKillProcessTree(process);
+                process.WaitForExit();
+                throw new TimeoutException($"Timed out waiting for process: {startInfo.FileName} {startInfo.Arguments}", exception);
             }
 
-            var projectPath = Path.Combine(repoRoot, "MetaWeave.Cli", "MetaWeave.Cli.csproj");
-            var startInfo = new ProcessStartInfo
+            var stdout = stdoutTask.GetAwaiter().GetResult();
+            var stderr = stderrTask.GetAwaiter().GetResult();
+            return (process.ExitCode, stdout + stderr);
+        }
+        finally
+        {
+            if (!process.HasExited)
             {
-                FileName = "dotnet",
-                Arguments = $"build \"{projectPath}\" --no-restore -p:UpdateMetaWeavePublishDir=false",
-                WorkingDirectory = repoRoot,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            };
-
-            using var process = Process.Start(startInfo)
-                                ?? throw new InvalidOperationException("Could not start MetaWeave.Cli build process.");
-            var stdout = process.StandardOutput.ReadToEnd();
-            var stderr = process.StandardError.ReadToEnd();
-            process.WaitForExit();
-            if (process.ExitCode != 0)
-            {
-                throw new InvalidOperationException($"Could not build MetaWeave.Cli for CLI tests.{Environment.NewLine}{stdout}{stderr}");
+                TryKillProcessTree(process);
+                process.WaitForExit();
             }
+        }
+    }
 
-            _cliBuilt = true;
+    private static string ResolveCliPath(string repoRoot)
+    {
+        var cliPath = Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "Debug", "net8.0", "meta-weave.exe");
+        if (!File.Exists(cliPath))
+        {
+            throw new FileNotFoundException($"Could not find compiled MetaWeave CLI at '{cliPath}'. Build MetaWeave.Cli before running tests.");
+        }
+
+        return cliPath;
+    }
+
+    private static void TryKillProcessTree(Process process)
+    {
+        try
+        {
+            if (!process.HasExited)
+            {
+                process.Kill(entireProcessTree: true);
+            }
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (NotSupportedException)
+        {
         }
     }
 

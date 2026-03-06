@@ -68,10 +68,11 @@ public sealed class CliTests
     private static (int ExitCode, string Output) RunCli(string arguments)
     {
         var repoRoot = FindRepositoryRoot();
+        var cliPath = ResolveCliPath(repoRoot);
         var startInfo = new ProcessStartInfo
         {
-            FileName = "dotnet",
-            Arguments = $"run --project \"{Path.Combine(repoRoot, "MetaType.Cli", "MetaType.Cli.csproj")}\" -- {arguments}",
+            FileName = cliPath,
+            Arguments = arguments,
             WorkingDirectory = repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -79,12 +80,70 @@ public sealed class CliTests
             CreateNoWindow = true,
         };
 
+        return RunProcess(startInfo, "Could not start meta-type CLI process.");
+    }
+
+    private static (int ExitCode, string Output) RunProcess(ProcessStartInfo startInfo, string errorMessage)
+    {
         using var process = Process.Start(startInfo)
-                            ?? throw new InvalidOperationException("Could not start meta-type CLI process.");
-        var stdout = process.StandardOutput.ReadToEnd();
-        var stderr = process.StandardError.ReadToEnd();
-        process.WaitForExit();
-        return (process.ExitCode, stdout + stderr);
+                            ?? throw new InvalidOperationException(errorMessage);
+        var stdoutTask = process.StandardOutput.ReadToEndAsync();
+        var stderrTask = process.StandardError.ReadToEndAsync();
+
+        try
+        {
+            using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+            try
+            {
+                process.WaitForExitAsync(timeout.Token).GetAwaiter().GetResult();
+            }
+            catch (OperationCanceledException exception)
+            {
+                TryKillProcessTree(process);
+                process.WaitForExit();
+                throw new TimeoutException($"Timed out waiting for process: {startInfo.FileName} {startInfo.Arguments}", exception);
+            }
+
+            var stdout = stdoutTask.GetAwaiter().GetResult();
+            var stderr = stderrTask.GetAwaiter().GetResult();
+            return (process.ExitCode, stdout + stderr);
+        }
+        finally
+        {
+            if (!process.HasExited)
+            {
+                TryKillProcessTree(process);
+                process.WaitForExit();
+            }
+        }
+    }
+
+    private static string ResolveCliPath(string repoRoot)
+    {
+        var cliPath = Path.Combine(repoRoot, "MetaType.Cli", "bin", "Debug", "net8.0", "meta-type.exe");
+        if (!File.Exists(cliPath))
+        {
+            throw new FileNotFoundException($"Could not find compiled MetaType CLI at '{cliPath}'. Build MetaType.Cli before running tests.");
+        }
+
+        return cliPath;
+    }
+
+    private static void TryKillProcessTree(Process process)
+    {
+        try
+        {
+            if (!process.HasExited)
+            {
+                process.Kill(entireProcessTree: true);
+            }
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (NotSupportedException)
+        {
+        }
     }
 
     private static string FindRepositoryRoot()

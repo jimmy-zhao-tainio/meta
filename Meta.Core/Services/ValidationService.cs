@@ -112,17 +112,6 @@ public sealed class ValidationService : IValidationService
                     Location = $"model/entity/{entity.Name}",
                 });
             }
-            if (string.Equals(model.Name, entity.Name, StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Issues.Add(new DiagnosticIssue
-                {
-                    Code = "model.entity.collision",
-                    Message = $"Model name '{model.Name}' collides with entity '{entity.Name}'.",
-                    Severity = IssueSeverity.Error,
-                    Location = $"model/entity/{entity.Name}",
-                });
-            }
-
             ValidateEntityProperties(entity, diagnostics);
             ValidateEntityIdProperty(entity, diagnostics);
             ValidateEntityMemberNameCollisions(entity, diagnostics);

@@ -14,6 +14,8 @@ This document keeps the stack explicit:
 - what must stay generic
 - what must be modeled in full rather than as a toy subset
 
+Companion inventory document: [Platform.md](Platform.md)
+
 ## Current implemented architecture (repo state)
 
 This diagram reflects the currently implemented architecture and flow in this repository.
