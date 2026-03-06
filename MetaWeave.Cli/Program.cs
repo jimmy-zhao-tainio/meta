@@ -469,7 +469,6 @@ internal static class Program
 
     private static void PrintHelp()
     {
-        Presenter.WriteInfo("MetaWeave CLI");
         Presenter.WriteUsage("meta-weave <command> [options]");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteCommandCatalog("Commands:", new[]
@@ -481,6 +480,12 @@ internal static class Program
             ("suggest", "Suggest missing property bindings only when the source values resolve uniquely and completely in a target key."),
             ("check", "Validate property bindings across referenced workspaces."),
             ("materialize", "Materialize a new workspace from a valid weave."),
+        });
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteExamples(new[]
+        {
+            "meta-weave suggest --workspace MetaWeave.Workspaces\\Weave-Mapping-ReferenceType",
+            "meta-weave check --workspace MetaWeave.Workspaces\\Weave-Mapping-ReferenceType"
         });
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteNext("meta-weave suggest --help");
@@ -763,4 +768,7 @@ internal static class Program
         Presenter.WriteInfo(message);
     }
 }
+
+
+
 

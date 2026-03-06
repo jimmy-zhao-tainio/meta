@@ -1,10 +1,19 @@
 using System.Runtime.InteropServices;
+using Meta.Core.Presentation;
 using Microsoft.Win32;
+
+var presenter = new ConsolePresenter();
+
+if (args.Length > 0 && IsHelpToken(args[0]))
+{
+    PrintHelp(presenter);
+    return 0;
+}
 
 var repoRoot = FindRepoRoot(AppContext.BaseDirectory, "Metadata.Framework.sln");
 if (repoRoot is null)
 {
-    WriteError("Could not locate the repository root.");
+    presenter.WriteFailure("could not locate the repository root.", new[] { "Next: run install-meta.exe from a built meta-core checkout." });
     return 1;
 }
 
@@ -17,16 +26,14 @@ var tools = new[]
 var missing = tools.Where(tool => !File.Exists(tool.SourcePath)).ToArray();
 if (missing.Length > 0)
 {
-    WriteError("Required published CLI binaries are missing.");
-    foreach (var tool in missing)
-    {
-        Console.WriteLine($"Missing: {tool.SourcePath}");
-    }
-
-    Console.WriteLine();
-    Console.WriteLine("Build the foundation CLIs first:");
-    Console.WriteLine("  dotnet build Metadata.Framework.sln");
-    Console.WriteLine("  dotnet build MetaWeave.sln");
+    presenter.WriteFailure(
+        "required published CLI binaries are missing.",
+        missing.Select(tool => $"  Missing: {tool.SourcePath}")
+            .Concat(new[]
+            {
+                "Next: dotnet build Metadata.Framework.sln",
+                "Next: dotnet build MetaWeave.sln"
+            }));
     return 1;
 }
 
@@ -45,15 +52,34 @@ foreach (var tool in tools)
 EnsureUserPathContains(targetDir);
 BroadcastEnvironmentChange();
 
-Console.WriteLine("Installed:");
-foreach (var tool in tools)
+presenter.WriteOk(
+    "install meta",
+    ("Target", targetDir),
+    ("Tools", tools.Length.ToString()));
+Console.WriteLine();
+presenter.WriteKeyValueBlock(
+    "Installed",
+    tools.Select(tool => (tool.FileName, Path.Combine(targetDir, tool.FileName))));
+presenter.WriteNext("restart cmd to pick up PATH changes");
+return 0;
+
+static void PrintHelp(ConsolePresenter presenter)
 {
-    Console.WriteLine($"  {Path.Combine(targetDir, tool.FileName)}");
+    presenter.WriteUsage("install-meta.exe");
+    presenter.WriteInfo(string.Empty);
+    presenter.WriteInfo("Notes:");
+    presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
+    presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
+    presenter.WriteInfo("  Expects published binaries under the current meta-core checkout.");
+    presenter.WriteNext("dotnet build Metadata.Framework.sln");
 }
 
-Console.WriteLine();
-Console.WriteLine("Restart cmd to pick up PATH changes.");
-return 0;
+static bool IsHelpToken(string value)
+{
+    return string.Equals(value, "help", StringComparison.OrdinalIgnoreCase) ||
+           string.Equals(value, "--help", StringComparison.OrdinalIgnoreCase) ||
+           string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
+}
 
 static string? FindRepoRoot(string startDirectory, string markerFileName)
 {
@@ -98,11 +124,6 @@ static void BroadcastEnvironmentChange()
         0x0002,
         5000,
         out _);
-}
-
-static void WriteError(string message)
-{
-    Console.Error.WriteLine($"Error: {message}");
 }
 
 internal sealed record ToolSpec(string FileName, string SourcePath);
