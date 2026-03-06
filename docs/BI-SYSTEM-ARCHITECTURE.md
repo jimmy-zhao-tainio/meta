@@ -14,7 +14,8 @@ This document keeps the stack explicit:
 - what must stay generic
 - what must be modeled in full rather than as a toy subset
 
-Companion inventory document: [Platform.md](Platform.md)
+Companion inventory document: [Platform.md](Platform.md)  
+Architecture metamodel curation note: [ARCHITECTURE-CURATION.md](ARCHITECTURE-CURATION.md)
 
 ## Current implemented architecture (repo state)
 

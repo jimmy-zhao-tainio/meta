@@ -1,51 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="Architecture">
   <EntityList>
-    <Entity name="ArtifactKind">
+    <Entity name="Constraint">
       <PropertyList>
         <Property name="Description" isRequired="false" />
         <Property name="Name" />
       </PropertyList>
     </Entity>
-    <Entity name="MetaModel">
+    <Entity name="ConstraintElement">
       <PropertyList>
         <Property name="Description" isRequired="false" />
-        <Property name="IsSanctioned" />
-        <Property name="Name" />
       </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Constraint" />
+        <Relationship entity="Element" />
+      </RelationshipList>
     </Entity>
-    <Entity name="MetaTool">
+    <Entity name="Element">
       <PropertyList>
-        <Property name="CliName" />
-        <Property name="Description" isRequired="false" />
-        <Property name="Name" />
-      </PropertyList>
-    </Entity>
-    <Entity name="MetaToolCommand">
-      <PropertyList>
-        <Property name="CommandPath" />
         <Property name="Description" isRequired="false" />
         <Property name="Name" />
       </PropertyList>
       <RelationshipList>
-        <Relationship entity="MetaTool" />
+        <Relationship entity="ElementType" />
       </RelationshipList>
     </Entity>
-    <Entity name="Weave">
+    <Entity name="ElementRelationship">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="RelationshipType" />
+        <Relationship entity="Element" role="SourceElement" />
+        <Relationship entity="Element" role="TargetElement" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ElementType">
       <PropertyList>
         <Property name="Description" isRequired="false" />
         <Property name="Name" />
       </PropertyList>
     </Entity>
-    <Entity name="WeaveMetaModel">
+    <Entity name="RelationshipType">
       <PropertyList>
         <Property name="Description" isRequired="false" />
-        <Property name="ModelRole" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="View">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
       </PropertyList>
       <RelationshipList>
-        <Relationship entity="MetaModel" />
-        <Relationship entity="Weave" />
+        <Relationship entity="Viewpoint" />
       </RelationshipList>
+    </Entity>
+    <Entity name="ViewElement">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="PresentationRole" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Element" />
+        <Relationship entity="View" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ViewElementRelationship">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ElementRelationship" />
+        <Relationship entity="View" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Viewpoint">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
     </Entity>
   </EntityList>
 </Model>
