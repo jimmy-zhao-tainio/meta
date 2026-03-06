@@ -2,14 +2,12 @@
 
 `isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships six CLI tools:
+This repo ships two CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-schema` (MetaSchema CLI): schema extraction into sanctioned `MetaSchema` workspaces.  
-`meta-datavault` (MetaDataVault CLI): raw-vault workspace creation and projection from `MetaSchema`.  
-`meta-type` (MetaType CLI): creation of sanctioned `MetaType` workspaces.  
-`meta-weave` (MetaWeave CLI): authoring and validation of sanctioned cross-model property bindings.  
-`meta-type-conversion` (MetaTypeConversion CLI): creation of sanctioned conversion-rule workspaces built on `MetaType`.
+`meta-weave` (MetaWeave CLI): authoring, validation, and materialization of sanctioned cross-model property bindings.
+
+BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
 ## Metadata foundations (project terminology)
 
@@ -711,68 +709,7 @@ For model-contract drift between workspaces, use the aligned diff/merge path (`i
 meta instance diff <LeftWs> <RightWs>
 meta instance merge <TargetWs> <DiffWorkspace>
 ```
-
-## MetaSchema
-
-MetaSchema is the schema-extraction toolchain.
-
-It builds sanctioned `MetaSchema` workspaces from external source schema. `meta` can then treat those workspaces like any other metadata workspace.
-
-Current status: `meta-schema extract sqlserver` connects to SQL Server and creates a `MetaSchema` workspace with `System`, `Schema`, `Table`, `Field`, `TableRelationship`, and `TableRelationshipField` rows for the declared scope. Scope can be one table (`--schema` + `--table`), one schema (`--schema --all-tables`), all schemas for one table name (`--all-schemas --table`), or full discovery (`--all-schemas --all-tables`). `Field.TypeId` is a scalar type identity such as `sqlserver:type:nvarchar`. `TableRelationship` rows include only enforced/trusted SQL Server foreign keys.
-
-#### Commands
-
-```powershell
-meta-schema help
-meta-schema extract sqlserver --help
-```
-
-## MetaDataVault
-
-MetaDataVault is the raw-vault metadata toolchain.
-
-It creates sanctioned `MetaRawDataVault` workspaces and can project from `MetaSchema` using explicit extracted table relationships.
-
-Current status:
-- `meta-datavault init` creates an empty `MetaRawDataVault` workspace.
-- `meta-datavault from-metaschema` projects `Source*`, `RawHub`, `RawLink`, and `RawSatellite` metadata.
-- `RawLink` rows are created only from explicit `MetaSchema.TableRelationship` rows when both source and target tables exist in the source workspace.
-- No guessed links from naming heuristics.
-
-```cmd
-meta-datavault help
-meta-datavault init --help
-meta-datavault init --new-workspace .\MetaRawDataVault.Workspace
-meta-datavault from-metaschema --source-workspace .\MetaSchema.Workspace --new-workspace .\MetaRawDataVault.Workspace
-```
-
-## MetaType
-
-MetaType is the sanctioned type-vocabulary toolchain.
-
-It creates normal metadata workspaces using the sanctioned `MetaType` model. That model is the shared ownership boundary for type systems, types, and type specs.
-
-Current status: `meta-type init` creates a new populated `MetaType` workspace with sanctioned type systems, types, and type specs.
-
-```cmd
-meta-type help
-meta-type init --help
-meta-type init --new-workspace .\MetaType.Workspace
-```
-
-### `MetaTypeConversion`
-
-`meta-type-conversion` owns sanctioned conversion metadata and is intentionally separate from `MetaSchema` and `MetaType`. It carries deterministic type-level mappings from source `MetaType.Type.Id` values to target `MetaType.Type.Id` values, plus the sanctioned conversion implementation to use for each mapping.
-
-```cmd
-meta-type-conversion help
-meta-type-conversion init --help
-meta-type-conversion init --new-workspace .\MetaTypeConversion.Workspace
-meta-type-conversion check --workspace .\MetaTypeConversion.Workspace
-meta-type-conversion resolve --workspace .\MetaTypeConversion.Workspace --source-type sqlserver:type:nvarchar
-```
-
-## MetaWeave
+`r`n## MetaWeave
 
 MetaWeave is the sanctioned cross-model binding toolchain.
 
@@ -790,11 +727,11 @@ Current authoring flow:
 ```cmd
 meta-weave help
 meta-weave init --new-workspace .\MetaWeave.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaSchema --model MetaSchema --workspace-path .\MetaSchema.Instances\MetaSchema.TypeIdStub
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias MetaType --model MetaType --workspace-path .\MetaType.Instances\MetaType
-meta-weave add-binding --workspace .\MetaWeave.Workspace --name "MetaSchema.Field.TypeId -> MetaType.Type.Id" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SampleSourceCatalog --workspace-path .\MetaWeave.Workspaces\SampleSourceCatalog
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceCatalog
+meta-weave add-binding --workspace .\MetaWeave.Workspace --name "SampleSourceCatalog.Attribute.TypeId -> SampleReferenceCatalog.ReferenceType.Id" --source-model Source --source-entity Attribute --source-property TypeId --target-model Reference --target-entity ReferenceType --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
-meta-weave materialize --workspace .\MetaWeave.Workspace --new-workspace .\MergedWorkspace --model MetaSchemaMetaTypeMaterialized
+meta-weave materialize --workspace .\MetaWeave.Workspace --new-workspace .\MergedWorkspace --model SampleCatalogMaterialized
 ```
 
 For plain full-workspace composition without weave bindings:
@@ -805,8 +742,8 @@ meta workspace merge .\LeftWorkspace .\RightWorkspace --new-workspace .\MergedWo
 
 Sanctioned examples live under:
 
-- `MetaWeave.Instances\Weave-MetaSchema-MetaType`
-- `MetaWeave.Instances\Weave-MetaTypeConversion-MetaType`
+- `MetaWeave.Workspaces\Weave-Attribute-ReferenceType`
+- `MetaWeave.Workspaces\Weave-Mapping-ReferenceType`
 
 ## References
 
@@ -818,6 +755,10 @@ C# tooling services API: `docs/SERVICES_API.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 ```
+
+
+
+
 
 
 

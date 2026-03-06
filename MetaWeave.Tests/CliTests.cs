@@ -1,9 +1,5 @@
 using System.Diagnostics;
-using Meta.Core.Domain;
 using Meta.Core.Services;
-using MetaSchema.Core;
-using MetaType.Core;
-using MetaWeave.Core;
 
 namespace MetaWeave.Tests;
 
@@ -33,62 +29,29 @@ public sealed class CliTests
     public async Task FacadeCommands_CanCreateAWorkingWeaveWorkspace()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-facade-tests", Guid.NewGuid().ToString("N"));
-        var metaTypePath = Path.Combine(root, "MetaType");
-        var metaSchemaPath = Path.Combine(root, "MetaSchema");
         var metaWeavePath = Path.Combine(root, "MetaWeave");
         Directory.CreateDirectory(root);
         try
         {
-            var workspaceService = new WorkspaceService();
-
-            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
-            await workspaceService.SaveAsync(metaType);
-
-            var metaSchema = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(metaSchemaPath);
-            metaSchema.Instance.GetOrCreateEntityRecords("System").Add(new GenericRecord
-            {
-                Id = "sqlserver:system:test",
-                Values = { ["Name"] = "TestSystem" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Schema").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo",
-                Values = { ["Name"] = "dbo" },
-                RelationshipIds = { ["SystemId"] = "sqlserver:system:test" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Table").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube",
-                Values = { ["Name"] = "Cube", ["ObjectType"] = "Table" },
-                RelationshipIds = { ["SchemaId"] = "sqlserver:test:schema:dbo" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Field").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube:field:CubeName",
-                Values =
-                {
-                    ["Name"] = "CubeName",
-                    ["TypeId"] = "sqlserver:type:nvarchar"
-                },
-                RelationshipIds = { ["TableId"] = "sqlserver:test:schema:dbo:table:Cube" }
-            });
-            await workspaceService.SaveAsync(metaSchema);
-
             var init = RunCli($"init --new-workspace \"{metaWeavePath}\"");
             Assert.Equal(0, init.ExitCode);
 
-            var addSource = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaSchemaPath}\"");
+            var addSource = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleSourceCatalog")}\"");
             Assert.Equal(0, addSource.ExitCode);
 
-            var addTarget = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaType --model MetaType --workspace-path \"{metaTypePath}\"");
+            var addTarget = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Reference --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"");
             Assert.Equal(0, addTarget.ExitCode);
 
-            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"MetaSchema.Field.TypeId -> MetaType.Type.Id\" --source-model MetaSchema --source-entity Field --source-property TypeId --target-model MetaType --target-entity Type --target-property Id");
+            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"SampleSourceCatalog.Attribute.TypeId -> SampleReferenceCatalog.ReferenceType.Id\" --source-model Source --source-entity Attribute --source-property TypeId --target-model Reference --target-entity ReferenceType --target-property Id");
             Assert.Equal(0, addBinding.ExitCode);
 
             var check = RunCli($"check --workspace \"{metaWeavePath}\"");
             Assert.Equal(0, check.ExitCode);
             Assert.Contains("OK: weave check", check.Output);
+
+            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
+            Assert.Equal(2, weave.Instance.GetOrCreateEntityRecords("ModelReference").Count);
+            Assert.Single(weave.Instance.GetOrCreateEntityRecords("PropertyBinding"));
         }
         finally
         {
@@ -100,23 +63,18 @@ public sealed class CliTests
     public async Task AddModel_Fails_WhenReferencedWorkspaceDoesNotContainDeclaredModel()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-add-model-fail", Guid.NewGuid().ToString("N"));
-        var metaTypePath = Path.Combine(root, "MetaType");
         var metaWeavePath = Path.Combine(root, "MetaWeave");
         Directory.CreateDirectory(root);
         try
         {
-            var workspaceService = new WorkspaceService();
-            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
-            await workspaceService.SaveAsync(metaType);
-
             var init = RunCli($"init --new-workspace \"{metaWeavePath}\"");
             Assert.Equal(0, init.ExitCode);
 
-            var addModel = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaTypePath}\"");
+            var addModel = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"");
             Assert.Equal(4, addModel.ExitCode);
-            Assert.Contains("contained model 'MetaType', not 'MetaSchema'", addModel.Output);
+            Assert.Contains("contained model 'SampleReferenceCatalog', not 'SampleSourceCatalog'", addModel.Output);
 
-            var weave = await workspaceService.LoadAsync(metaWeavePath, searchUpward: false);
+            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
             Assert.Empty(weave.Instance.GetOrCreateEntityRecords("ModelReference"));
         }
         finally
@@ -129,56 +87,19 @@ public sealed class CliTests
     public async Task AddBinding_Fails_WhenSourcePropertyDoesNotExist()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-add-binding-fail", Guid.NewGuid().ToString("N"));
-        var metaTypePath = Path.Combine(root, "MetaType");
-        var metaSchemaPath = Path.Combine(root, "MetaSchema");
         var metaWeavePath = Path.Combine(root, "MetaWeave");
         Directory.CreateDirectory(root);
         try
         {
-            var workspaceService = new WorkspaceService();
-
-            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
-            await workspaceService.SaveAsync(metaType);
-
-            var metaSchema = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(metaSchemaPath);
-            metaSchema.Instance.GetOrCreateEntityRecords("System").Add(new GenericRecord
-            {
-                Id = "sqlserver:system:test",
-                Values = { ["Name"] = "TestSystem" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Schema").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo",
-                Values = { ["Name"] = "dbo" },
-                RelationshipIds = { ["SystemId"] = "sqlserver:system:test" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Table").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube",
-                Values = { ["Name"] = "Cube", ["ObjectType"] = "Table" },
-                RelationshipIds = { ["SchemaId"] = "sqlserver:test:schema:dbo" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Field").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube:field:CubeName",
-                Values =
-                {
-                    ["Name"] = "CubeName",
-                    ["TypeId"] = "sqlserver:type:nvarchar"
-                },
-                RelationshipIds = { ["TableId"] = "sqlserver:test:schema:dbo:table:Cube" }
-            });
-            await workspaceService.SaveAsync(metaSchema);
-
             Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaSchema --model MetaSchema --workspace-path \"{metaSchemaPath}\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias MetaType --model MetaType --workspace-path \"{metaTypePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleSourceCatalog")}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Reference --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
 
-            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"BrokenBinding\" --source-model MetaSchema --source-entity Field --source-property MissingTypeId --target-model MetaType --target-entity Type --target-property Id");
+            var addBinding = RunCli($"add-binding --workspace \"{metaWeavePath}\" --name \"BrokenBinding\" --source-model Source --source-entity Attribute --source-property MissingTypeId --target-model Reference --target-entity ReferenceType --target-property Id");
             Assert.Equal(4, addBinding.ExitCode);
-            Assert.Contains("source property 'Field.MissingTypeId' was not found", addBinding.Output);
+            Assert.Contains("source property 'Attribute.MissingTypeId' was not found", addBinding.Output);
 
-            var weave = await workspaceService.LoadAsync(metaWeavePath, searchUpward: false);
+            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
             Assert.Empty(weave.Instance.GetOrCreateEntityRecords("PropertyBinding"));
         }
         finally
@@ -188,109 +109,9 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Check_Resolves_MetaSchema_Field_TypeId_To_MetaType_Type_Id()
+    public void Check_SanctionedAttributeReferenceWeave_Passes()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metaweave-tests", Guid.NewGuid().ToString("N"));
-        var metaTypePath = Path.Combine(root, "MetaType");
-        var metaSchemaPath = Path.Combine(root, "MetaSchema");
-        var metaWeavePath = Path.Combine(root, "MetaWeave");
-        Directory.CreateDirectory(root);
-        try
-        {
-            var workspaceService = new WorkspaceService();
-
-            var metaType = MetaTypeWorkspaces.CreateMetaTypeWorkspace(metaTypePath);
-            await workspaceService.SaveAsync(metaType);
-
-            var metaSchema = MetaSchemaWorkspaces.CreateEmptyMetaSchemaWorkspace(metaSchemaPath);
-            metaSchema.Instance.GetOrCreateEntityRecords("System").Add(new GenericRecord
-            {
-                Id = "sqlserver:system:test",
-                Values = { ["Name"] = "TestSystem" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Schema").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo",
-                Values = { ["Name"] = "dbo" },
-                RelationshipIds = { ["SystemId"] = "sqlserver:system:test" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Table").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube",
-                Values = { ["Name"] = "Cube", ["ObjectType"] = "Table" },
-                RelationshipIds = { ["SchemaId"] = "sqlserver:test:schema:dbo" }
-            });
-            metaSchema.Instance.GetOrCreateEntityRecords("Field").Add(new GenericRecord
-            {
-                Id = "sqlserver:test:schema:dbo:table:Cube:field:CubeName",
-                Values =
-                {
-                    ["Name"] = "CubeName",
-                    ["TypeId"] = "sqlserver:type:nvarchar",
-                    ["Ordinal"] = "1",
-                    ["IsNullable"] = "false"
-                },
-                RelationshipIds = { ["TableId"] = "sqlserver:test:schema:dbo:table:Cube" }
-            });
-            await workspaceService.SaveAsync(metaSchema);
-
-            var weave = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(metaWeavePath);
-            weave.Instance.GetOrCreateEntityRecords("ModelReference").Add(new GenericRecord
-            {
-                Id = "1",
-                Values =
-                {
-                    ["Alias"] = "MetaSchema",
-                    ["WorkspacePath"] = "..\\MetaSchema",
-                    ["ModelName"] = "MetaSchema"
-                }
-            });
-            weave.Instance.GetOrCreateEntityRecords("ModelReference").Add(new GenericRecord
-            {
-                Id = "2",
-                Values =
-                {
-                    ["Alias"] = "MetaType",
-                    ["WorkspacePath"] = "..\\MetaType",
-                    ["ModelName"] = "MetaType"
-                }
-            });
-            weave.Instance.GetOrCreateEntityRecords("PropertyBinding").Add(new GenericRecord
-            {
-                Id = "1",
-                Values =
-                {
-                    ["Name"] = "MetaSchema.Field.TypeId -> MetaType.Type.Id",
-                    ["SourceEntity"] = "Field",
-                    ["SourceProperty"] = "TypeId",
-                    ["TargetEntity"] = "Type",
-                    ["TargetProperty"] = "Id"
-                },
-                RelationshipIds =
-                {
-                    ["SourceModelId"] = "1",
-                    ["TargetModelId"] = "2"
-                }
-            });
-            await workspaceService.SaveAsync(weave);
-
-            var result = RunCli($"check --workspace \"{metaWeavePath}\"");
-            Assert.Equal(0, result.ExitCode);
-            Assert.Contains("OK: weave check", result.Output);
-            Assert.Contains("Bindings: 1", result.Output);
-            Assert.Contains("Errors: 0", result.Output);
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(root);
-        }
-    }
-
-
-    [Fact]
-    public void Check_SanctionedWeaveInstance_Passes()
-    {
-        var result = RunCli("check --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\"");
+        var result = RunCli($"check --workspace \"{GetFixtureWorkspacePath("Weave-Attribute-ReferenceType")}\"");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("OK: weave check", result.Output);
@@ -299,9 +120,9 @@ public sealed class CliTests
     }
 
     [Fact]
-    public void Check_SanctionedMetaTypeConversionWeaveInstance_Passes()
+    public void Check_SanctionedMappingReferenceWeave_Passes()
     {
-        var result = RunCli("check --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\"");
+        var result = RunCli($"check --workspace \"{GetFixtureWorkspacePath("Weave-Mapping-ReferenceType")}\"");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("OK: weave check", result.Output);
@@ -310,14 +131,14 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Materialize_SanctionedMetaSchemaWeave_CreatesMergedWorkspaceWithRelationship()
+    public async Task Materialize_SanctionedAttributeReferenceWeave_CreatesMergedWorkspaceWithRelationship()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-schema", Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-attribute", Guid.NewGuid().ToString("N"));
         var mergedPath = Path.Combine(root, "Merged");
         Directory.CreateDirectory(root);
         try
         {
-            var materialize = RunCli($"materialize --workspace \".\\MetaWeave.Instances\\Weave-MetaSchema-MetaType\" --new-workspace \"{mergedPath}\" --model MetaSchemaMetaTypeMaterialized");
+            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Attribute-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model AttributeReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("OK: weave materialized", materialize.Output);
 
@@ -325,16 +146,17 @@ public sealed class CliTests
             var diagnostics = new ValidationService().Validate(workspace);
             Assert.False(diagnostics.HasErrors);
 
-            var fieldEntity = workspace.Model.FindEntity("Field");
-            Assert.NotNull(fieldEntity);
-            Assert.DoesNotContain(fieldEntity!.Properties, item => string.Equals(item.Name, "TypeId", StringComparison.Ordinal));
-            Assert.Contains(fieldEntity.Relationships, item =>
-                string.Equals(item.Entity, "Type", StringComparison.Ordinal) &&
+            var attributeEntity = workspace.Model.FindEntity("Attribute");
+            Assert.NotNull(attributeEntity);
+            Assert.DoesNotContain(attributeEntity!.Properties, item => string.Equals(item.Name, "TypeId", StringComparison.Ordinal));
+            Assert.Contains(attributeEntity.Relationships, item =>
+                string.Equals(item.Entity, "ReferenceType", StringComparison.Ordinal) &&
                 string.Equals(item.GetColumnName(), "TypeId", StringComparison.Ordinal));
 
-            var fieldRow = workspace.Instance.GetOrCreateEntityRecords("Field").Single();
-            Assert.False(fieldRow.Values.ContainsKey("TypeId"));
-            Assert.True(fieldRow.RelationshipIds.ContainsKey("TypeId"));
+            var attributeRow = workspace.Instance.GetOrCreateEntityRecords("Attribute").Single(record => string.Equals(record.Id, "attribute:CustomerName", StringComparison.Ordinal));
+            Assert.False(attributeRow.Values.ContainsKey("TypeId"));
+            Assert.True(attributeRow.RelationshipIds.ContainsKey("TypeId"));
+            Assert.Equal("type:string", attributeRow.RelationshipIds["TypeId"]);
         }
         finally
         {
@@ -343,14 +165,14 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Materialize_SanctionedMetaTypeConversionWeave_CreatesRoleBasedRelationships()
+    public async Task Materialize_SanctionedMappingReferenceWeave_CreatesRoleBasedRelationships()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-conversion", Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-merge-mapping", Guid.NewGuid().ToString("N"));
         var mergedPath = Path.Combine(root, "Merged");
         Directory.CreateDirectory(root);
         try
         {
-            var materialize = RunCli($"materialize --workspace \".\\MetaWeave.Instances\\Weave-MetaTypeConversion-MetaType\" --new-workspace \"{mergedPath}\" --model MetaTypeConversionMetaTypeMaterialized");
+            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Mapping-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model MappingReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("OK: weave materialized", materialize.Output);
 
@@ -358,12 +180,12 @@ public sealed class CliTests
             var diagnostics = new ValidationService().Validate(workspace);
             Assert.False(diagnostics.HasErrors);
 
-            var typeMappingEntity = workspace.Model.FindEntity("TypeMapping");
-            Assert.NotNull(typeMappingEntity);
-            Assert.DoesNotContain(typeMappingEntity!.Properties, item => string.Equals(item.Name, "SourceTypeId", StringComparison.Ordinal));
-            Assert.DoesNotContain(typeMappingEntity.Properties, item => string.Equals(item.Name, "TargetTypeId", StringComparison.Ordinal));
-            Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "SourceTypeId", StringComparison.Ordinal));
-            Assert.Contains(typeMappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "TargetTypeId", StringComparison.Ordinal));
+            var mappingEntity = workspace.Model.FindEntity("Mapping");
+            Assert.NotNull(mappingEntity);
+            Assert.DoesNotContain(mappingEntity!.Properties, item => string.Equals(item.Name, "SourceTypeId", StringComparison.Ordinal));
+            Assert.DoesNotContain(mappingEntity.Properties, item => string.Equals(item.Name, "TargetTypeId", StringComparison.Ordinal));
+            Assert.Contains(mappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "SourceTypeId", StringComparison.Ordinal));
+            Assert.Contains(mappingEntity.Relationships, item => string.Equals(item.GetColumnName(), "TargetTypeId", StringComparison.Ordinal));
         }
         finally
         {
@@ -380,12 +202,12 @@ public sealed class CliTests
         try
         {
             Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Left --model MetaType --workspace-path \".\\MetaType.Instances\\MetaType\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Right --model MetaType --workspace-path \".\\MetaType.Instances\\MetaType\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Left --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Right --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
 
             var materialize = RunCli($"materialize --workspace \"{metaWeavePath}\" --new-workspace \"{Path.Combine(root, "Merged")}\" --model DuplicateEntities");
             Assert.Equal(4, materialize.ExitCode);
-            Assert.Contains("entity 'Type' already exists", materialize.Output);
+            Assert.Contains("entity 'ReferenceType' already exists", materialize.Output);
         }
         finally
         {
@@ -446,6 +268,11 @@ public sealed class CliTests
         }
     }
 
+    private static string GetFixtureWorkspacePath(string name)
+    {
+        return Path.Combine(FindRepositoryRoot(), "MetaWeave.Workspaces", name);
+    }
+
     private static string ResolveCliPath(string repoRoot)
     {
         var cliPath = Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "Debug", "net8.0", "meta-weave.exe");
@@ -504,4 +331,3 @@ public sealed class CliTests
         }
     }
 }
-
