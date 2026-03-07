@@ -13,7 +13,7 @@ if (args.Length > 0 && IsHelpToken(args[0]))
 var repoRoot = FindRepoRoot(AppContext.BaseDirectory, "Metadata.Framework.sln");
 if (repoRoot is null)
 {
-    presenter.WriteFailure("could not locate the repository root.", new[] { "Next: run install-meta.exe from a built meta-core checkout." });
+    presenter.WriteFailure("could not locate the repository root.", new[] { "Next: run install-meta.exe from a built meta checkout." });
     return 1;
 }
 
@@ -70,7 +70,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteInfo("Notes:");
     presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
-    presenter.WriteInfo("  Expects published binaries under the current meta-core checkout.");
+    presenter.WriteInfo("  Expects published binaries under the current meta checkout.");
     presenter.WriteNext("dotnet build Metadata.Framework.sln");
 }
 
@@ -140,3 +140,4 @@ internal static class NativeMethods
         uint uTimeout,
         out IntPtr lpdwResult);
 }
+
