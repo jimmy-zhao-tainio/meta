@@ -20,6 +20,11 @@ internal static class Program
             return await RunInitAsync(args).ConfigureAwait(false);
         }
 
+        if (string.Equals(args[0], "suggest", StringComparison.OrdinalIgnoreCase))
+        {
+            return await RunSuggestAsync(args).ConfigureAwait(false);
+        }
+
         if (string.Equals(args[0], "check", StringComparison.OrdinalIgnoreCase))
         {
             return await RunCheckAsync(args).ConfigureAwait(false);
@@ -68,6 +73,76 @@ internal static class Program
 
         Presenter.WriteOk("fabric init", ("Workspace", workspacePath), ("Model", workspace.Model.Name));
         return 0;
+    }
+
+    private static async Task<int> RunSuggestAsync(string[] args)
+    {
+        if (args.Length == 1 || IsHelpToken(args[1]))
+        {
+            PrintSuggestHelp();
+            return 0;
+        }
+
+        var parseResult = ParseWorkspaceOnly(args, 1);
+        if (!parseResult.Ok)
+        {
+            Presenter.WriteFailure(parseResult.ErrorMessage, new[] { "Next: meta-fabric suggest --help" });
+            return 1;
+        }
+
+        var workspacePath = Path.GetFullPath(parseResult.WorkspacePath);
+        try
+        {
+            var workspaceService = new WorkspaceService();
+            var workspace = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
+            var result = await new MetaFabricSuggestService(workspaceService).SuggestAsync(workspace).ConfigureAwait(false);
+
+            Presenter.WriteOk(
+                "fabric suggest",
+                ("Workspace", workspacePath),
+                ("Suggestions", result.SuggestionCount.ToString()),
+                ("WeakSuggestions", result.WeakSuggestionCount.ToString()));
+            Presenter.WriteInfo(string.Empty);
+            Presenter.WriteInfo("Scope suggestions");
+            if (result.Suggestions.Count == 0)
+            {
+                Presenter.WriteInfo("  (none)");
+            }
+            else
+            {
+                for (var index = 0; index < result.Suggestions.Count; index++)
+                {
+                    var suggestion = result.Suggestions[index];
+                    Presenter.WriteInfo($"  {index + 1}) {suggestion.ChildBindingReferenceName} -> {suggestion.ParentBindingReferenceName} (source parent: {suggestion.SourceParentReferenceName}, target parent: {suggestion.TargetParentReferenceName})");
+                }
+            }
+
+            Presenter.WriteInfo(string.Empty);
+            Presenter.WriteInfo("Weak scope suggestions");
+            if (result.WeakSuggestions.Count == 0)
+            {
+                Presenter.WriteInfo("  (none)");
+            }
+            else
+            {
+                var weakIndex = 1;
+                foreach (var weakSuggestion in result.WeakSuggestions)
+                {
+                    foreach (var candidate in weakSuggestion.Candidates)
+                    {
+                        Presenter.WriteInfo($"  {weakIndex}) {candidate.ChildBindingReferenceName} -> {candidate.ParentBindingReferenceName} (source parent: {candidate.SourceParentReferenceName}, target parent: {candidate.TargetParentReferenceName})");
+                        weakIndex++;
+                    }
+                }
+            }
+
+            return 0;
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
+        {
+            Presenter.WriteFailure(ex.Message, new[] { "Next: fix the fabric workspace or referenced weave workspaces and retry." });
+            return 4;
+        }
     }
 
     private static async Task<int> RunCheckAsync(string[] args)
@@ -195,15 +270,17 @@ internal static class Program
         {
             ("help", "Show this help."),
             ("init", "Create a new MetaFabric workspace."),
+            ("suggest", "Suggest parent-scoped requirements over referenced weave workspaces."),
             ("check", "Validate scoped binding over referenced weave workspaces."),
         });
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteExamples(new[]
         {
+            "meta-fabric suggest --workspace MetaFabric.Workspaces\\Fabric-Suggest-Scoped-Group-CategoryItem",
             "meta-fabric check --workspace MetaFabric.Workspaces\\Fabric-Scoped-Group-CategoryItem"
         });
         Presenter.WriteInfo(string.Empty);
-        Presenter.WriteNext("meta-fabric check --help");
+        Presenter.WriteNext("meta-fabric suggest --help");
     }
 
     private static void PrintInitHelp()
@@ -213,6 +290,16 @@ internal static class Program
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteInfo("Notes:");
         Presenter.WriteInfo("  Creates a new workspace with the MetaFabric model and validates it.");
+    }
+
+    private static void PrintSuggestHelp()
+    {
+        Presenter.WriteInfo("Command: suggest");
+        Presenter.WriteUsage("meta-fabric suggest --workspace <path>");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Notes:");
+        Presenter.WriteInfo("  Suggests parent-scoped binding requirements only when one scope pattern makes an ambiguous child weave deterministic.");
+        Presenter.WriteInfo("  Weak suggestions are printed when more than one scope pattern would work.");
     }
 
     private static void PrintCheckHelp()

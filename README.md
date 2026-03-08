@@ -987,10 +987,30 @@ Current command surface:
 ```cmd
 meta-fabric help
 meta-fabric init --new-workspace .\MetaFabric.Workspace
+meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
 meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
 ```
 
-Scoped example:
+Scoped suggest example:
+
+```cmd
+meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
+```
+
+```text
+OK: fabric suggest
+Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
+Suggestions: 1
+WeakSuggestions: 0
+
+Scope suggestions
+  1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
+
+Weak scope suggestions
+  (none)
+```
+
+Scoped validation example:
 
 ```cmd
 meta-weave check --workspace .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
@@ -1019,12 +1039,5 @@ Additional sanctioned examples:
 
 - `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
+- `MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
-
-
-
-
-
-
-
-

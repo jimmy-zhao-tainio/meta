@@ -5,22 +5,37 @@ namespace MetaFabric.Tests;
 public sealed class CliTests
 {
     [Fact]
-    public void Help_ShowsCheckCommand()
+    public void Help_ShowsSuggestCommand()
     {
         var result = RunCli("help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("meta-fabric <command>", result.Output);
+        Assert.Contains("suggest", result.Output);
         Assert.Contains("check", result.Output);
     }
 
     [Fact]
-    public void Check_Help_ShowsWorkspaceOption()
+    public void Suggest_Help_ShowsWorkspaceOption()
     {
-        var result = RunCli("check --help");
+        var result = RunCli("suggest --help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("--workspace <path>", result.Output);
+    }
+
+    [Fact]
+    public void Suggest_SanctionedUnscopedFabric_PrintsScopeSuggestion()
+    {
+        var result = RunCli($"suggest --workspace \"{GetFixtureWorkspacePath("Fabric-Suggest-Scoped-Group-CategoryItem")}\"");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("OK: fabric suggest", result.Output);
+        Assert.Contains("Suggestions: 1", result.Output);
+        Assert.Contains("WeakSuggestions: 0", result.Output);
+        Assert.Contains("ChildItem -> ParentGroup", result.Output);
+        Assert.Contains("source parent: GroupId", result.Output);
+        Assert.Contains("target parent: CategoryId", result.Output);
     }
 
     [Fact]

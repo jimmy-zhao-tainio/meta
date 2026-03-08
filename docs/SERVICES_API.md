@@ -353,6 +353,27 @@ Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWo
 
 ## MetaFabric Services
 
+### `MetaFabricSuggestService`
+
+```csharp
+Task<FabricSuggestResult> SuggestAsync(Workspace fabricWorkspace, CancellationToken cancellationToken = default);
+```
+
+Example CLI output from the sanctioned unscoped fabric workspace:
+
+```text
+OK: fabric suggest
+Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
+Suggestions: 1
+WeakSuggestions: 0
+
+Scope suggestions
+  1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
+
+Weak scope suggestions
+  (none)
+```
+
 ### `MetaFabricService`
 
 ```csharp
@@ -375,6 +396,7 @@ Errors: 0
 | CLI command family | Primary C# API path |
 |---|---|
 | `meta-fabric init` | `MetaFabricWorkspaces.CreateEmptyMetaFabricWorkspace(...)` + `WorkspaceService.SaveAsync(...)` |
+| `meta-fabric suggest` | `MetaFabricSuggestService.SuggestAsync(...)` |
 | `meta-fabric check` | `MetaFabricService.CheckAsync(...)` |
 
 ## ModelSuggestService Example
@@ -429,6 +451,3 @@ Weak relationship suggestions
   1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
-
-
-

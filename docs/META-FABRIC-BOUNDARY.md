@@ -123,6 +123,8 @@ With instance rows like:
 
 The parent weave binds `Group.Name -> Category.Name`. The child weave binds `Item.Name -> CategoryItem.Name`. On its own, the child weave fails because `Common` is globally ambiguous. Fabric closes that gap by saying the child binding must be evaluated under the parent binding using `GroupId` on the source side and `CategoryId` on the target side.
 
+The sanctioned unscoped sample MetaFabric.Workspaces\\Fabric-Suggest-Scoped-Group-CategoryItem is intentionally missing that scope requirement so meta-fabric suggest can propose it deterministically.
+
 ## Current sanctioned concepts
 
 ### `WeaveReference`
@@ -203,4 +205,3 @@ It keeps the foundation honest:
 - Eclipse QVT Declarative documentation PDF: <https://download.eclipse.org/qvtd/doc/0.14.0/qvtd.pdf>
 - Triple Graph Grammar discussion of correspondence language: <https://link.springer.com/article/10.1007/s10270-024-01238-1>
 - Algebraic semantics for QVT Relations (`when` / `where` dependencies): <https://repositorio.uam.es/bitstreams/9457c950-13cd-463c-a898-b466d58ef93f/download>
-
