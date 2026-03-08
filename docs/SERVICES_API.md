@@ -294,3 +294,76 @@ This maps CLI surfaces to the primary C# service entrypoints used today.
 Practical rule for non-CLI tooling:
 - use `ServiceCollection` and call services directly when the service contract exists
 - for diff/merge internals, either invoke CLI or mirror CLI support code until a dedicated diff/merge service contract is introduced
+
+## MetaWeave Services
+
+### `MetaWeaveSuggestService`
+
+```csharp
+Task<WeaveSuggestResult> SuggestAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
+```
+
+Example CLI output from the sanctioned ambiguous weave workspace:
+
+```text
+OK: weave suggest
+Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+Suggestions: 0
+WeakSuggestions: 2
+
+Binding suggestions
+  (none)
+
+Weak binding suggestions
+  1) Source.Mapping.SourceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+  2) Source.Mapping.TargetTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+```
+
+### `MetaWeaveAuthoringService`
+
+```csharp
+Task AddModelReferenceAsync(Workspace weaveWorkspace, string alias, string modelName, string workspacePath, CancellationToken cancellationToken = default);
+Task AddPropertyBindingAsync(
+    Workspace weaveWorkspace,
+    string name,
+    string sourceModelAlias,
+    string sourceEntity,
+    string sourceProperty,
+    string targetModelAlias,
+    string targetEntity,
+    string targetProperty,
+    CancellationToken cancellationToken = default);
+```
+
+### `MetaWeaveService`
+
+```csharp
+Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
+Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default);
+```
+
+### Additional CLI to Services API mappings
+
+| CLI command family | Primary C# API path |
+|---|---|
+| `meta-weave add-model` | `MetaWeaveAuthoringService.AddModelReferenceAsync(...)` |
+| `meta-weave add-binding` | `MetaWeaveAuthoringService.AddPropertyBindingAsync(...)` |
+| `meta-weave suggest` | `MetaWeaveSuggestService.SuggestAsync(...)` |
+| `meta-weave check` | `MetaWeaveService.CheckAsync(...)` |
+| `meta-weave materialize` | `MetaWeaveService.MaterializeAsync(...)` |
+
+## ModelSuggestService Example
+
+Example CLI output from the sanctioned Suggest demo workspace:
+
+```text
+OK: model suggest
+Workspace: C:\Users\jimmy\Desktop\meta\Samples\Demos\SuggestDemo\Workspace
+Model: ProductModel
+Suggestions: 3
+
+Relationship suggestions
+  1) Order.ProductId -> Product (lookup: Product.Id)
+  2) Order.SupplierId -> Supplier (lookup: Supplier.Id)
+  3) Order.WarehouseId -> Warehouse (lookup: Warehouse.Id)
+```

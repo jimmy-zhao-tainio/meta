@@ -760,3 +760,29 @@ dotnet test Metadata.Framework.sln
 
 
 
+
+## Weave Suggest Example
+
+Weak suggestion example:
+
+```cmd
+meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+```
+
+```text
+OK: weave suggest
+Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+Suggestions: 0
+WeakSuggestions: 2
+
+Binding suggestions
+  (none)
+
+Weak binding suggestions
+  1) Source.Mapping.SourceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+  2) Source.Mapping.TargetTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+```
+
+Additional sanctioned example:
+
+- `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`
