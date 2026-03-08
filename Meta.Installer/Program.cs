@@ -19,17 +19,17 @@ if (repoRoot is null)
 
 var tools = new[]
 {
-    new ToolSpec("meta.exe", Path.Combine(repoRoot, "Meta.Cli", "bin", "publish", "win-x64", "meta.exe")),
-    new ToolSpec("meta-weave.exe", Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "publish", "win-x64", "meta-weave.exe")),
-    new ToolSpec("meta-fabric.exe", Path.Combine(repoRoot, "MetaFabric.Cli", "bin", "publish", "win-x64", "meta-fabric.exe")),
+    new ToolSpec("meta.exe", ResolveBuiltToolPath(repoRoot, "Meta.Cli", "meta.exe")),
+    new ToolSpec("meta-weave.exe", ResolveBuiltToolPath(repoRoot, "MetaWeave.Cli", "meta-weave.exe")),
+    new ToolSpec("meta-fabric.exe", ResolveBuiltToolPath(repoRoot, "MetaFabric.Cli", "meta-fabric.exe")),
 };
 
-var missing = tools.Where(tool => !File.Exists(tool.SourcePath)).ToArray();
+var missing = tools.Where(tool => tool.SourcePath is null).ToArray();
 if (missing.Length > 0)
 {
     presenter.WriteFailure(
-        "required published CLI binaries are missing.",
-        missing.Select(tool => $"  Missing: {tool.SourcePath}")
+        "required CLI binaries are missing.",
+        missing.Select(tool => $"  Missing: {tool.FileName}")
             .Concat(new[]
             {
                 "Next: dotnet build Metadata.Framework.sln",
@@ -48,7 +48,7 @@ Directory.CreateDirectory(targetDir);
 
 foreach (var tool in tools)
 {
-    File.Copy(tool.SourcePath, Path.Combine(targetDir, tool.FileName), overwrite: true);
+    File.Copy(tool.SourcePath!, Path.Combine(targetDir, tool.FileName), overwrite: true);
 }
 
 EnsureUserPathContains(targetDir);
@@ -72,7 +72,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteInfo("Notes:");
     presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-fabric.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
-    presenter.WriteInfo("  Expects published binaries under the current meta checkout.");
+    presenter.WriteInfo("  Uses the newest available built binary from the current meta checkout.");
     presenter.WriteNext("dotnet build Metadata.Framework.sln");
 }
 
@@ -97,6 +97,21 @@ static string? FindRepoRoot(string startDirectory, string markerFileName)
     }
 
     return null;
+}
+
+static string? ResolveBuiltToolPath(string repoRoot, string projectDirectory, string fileName)
+{
+    var candidates = new[]
+    {
+        Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64", fileName),
+        Path.Combine(repoRoot, projectDirectory, "bin", "Debug", "net8.0", fileName),
+        Path.Combine(repoRoot, projectDirectory, "bin", "Release", "net8.0", fileName)
+    };
+
+    return candidates
+        .Where(File.Exists)
+        .OrderByDescending(path => File.GetLastWriteTimeUtc(path))
+        .FirstOrDefault();
 }
 
 static void EnsureUserPathContains(string targetDir)
@@ -128,7 +143,7 @@ static void BroadcastEnvironmentChange()
         out _);
 }
 
-internal sealed record ToolSpec(string FileName, string SourcePath);
+internal sealed record ToolSpec(string FileName, string? SourcePath);
 
 internal static class NativeMethods
 {

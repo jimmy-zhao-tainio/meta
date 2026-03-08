@@ -779,12 +779,14 @@ public static class GenerationService
         builder.AppendLine("            {");
         builder.AppendLine("                throw new global::System.InvalidOperationException(");
         builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\"");
+        builder.AppendLine("                );");
         builder.AppendLine("            }");
         builder.AppendLine();
         builder.AppendLine("            if (!rowsById.TryGetValue(targetId, out var target))");
         builder.AppendLine("            {");
         builder.AppendLine("                throw new global::System.InvalidOperationException(");
         builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{targetId}'.\"");
+        builder.AppendLine("                );");
         builder.AppendLine("            }");
         builder.AppendLine();
         builder.AppendLine("            return target;");
