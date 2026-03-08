@@ -53,6 +53,76 @@ This keeps layering clean:
 - weave models own direct cross-model equivalence
 - fabric owns grouped and scoped consistency across weave bindings
 
+## Concrete XML example
+
+The sanctioned sample workspaces show the minimal scoped-binding case.
+
+Source model:
+
+```xml
+<Model name="SampleScopedSourceCatalog">
+  <EntityList>
+    <Entity name="Group">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Item">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Group" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
+```
+
+Reference model:
+
+```xml
+<Model name="SampleScopedReferenceCatalog">
+  <EntityList>
+    <Entity name="Category">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="CategoryItem">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Category" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
+```
+
+With instance rows like:
+
+```xml
+<Item Id="item:alpha:common" GroupId="group:alpha">
+  <Name>Common</Name>
+</Item>
+<Item Id="item:beta:common" GroupId="group:beta">
+  <Name>Common</Name>
+</Item>
+```
+
+```xml
+<CategoryItem Id="categoryitem:alpha:common" CategoryId="category:alpha">
+  <Name>Common</Name>
+</CategoryItem>
+<CategoryItem Id="categoryitem:beta:common" CategoryId="category:beta">
+  <Name>Common</Name>
+</CategoryItem>
+```
+
+The parent weave binds `Group.Name -> Category.Name`. The child weave binds `Item.Name -> CategoryItem.Name`. On its own, the child weave fails because `Common` is globally ambiguous. Fabric closes that gap by saying the child binding must be evaluated under the parent binding using `GroupId` on the source side and `CategoryId` on the target side.
+
 ## Current sanctioned concepts
 
 ### `WeaveReference`
@@ -133,3 +203,4 @@ It keeps the foundation honest:
 - Eclipse QVT Declarative documentation PDF: <https://download.eclipse.org/qvtd/doc/0.14.0/qvtd.pdf>
 - Triple Graph Grammar discussion of correspondence language: <https://link.springer.com/article/10.1007/s10270-024-01238-1>
 - Algebraic semantics for QVT Relations (`when` / `where` dependencies): <https://repositorio.uam.es/bitstreams/9457c950-13cd-463c-a898-b466d58ef93f/download>
+

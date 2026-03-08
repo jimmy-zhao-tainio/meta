@@ -872,6 +872,116 @@ A fabric workspace contains:
 
 `meta-fabric check` loads the referenced weave workspaces, then validates child bindings under their declared parent scope. This closes the gap where a child weave is globally ambiguous on its own but becomes deterministic once the parent binding is known.
 
+Concrete XML example:
+
+Source model:
+
+```xml
+<Model name="SampleScopedSourceCatalog">
+  <EntityList>
+    <Entity name="Group">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Item">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Group" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
+```
+
+Reference model:
+
+```xml
+<Model name="SampleScopedReferenceCatalog">
+  <EntityList>
+    <Entity name="Category">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="CategoryItem">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Category" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
+```
+
+The instance data contains two different `Common` items under different parents:
+
+```xml
+<Item Id="item:alpha:common" GroupId="group:alpha">
+  <Name>Common</Name>
+</Item>
+<Item Id="item:beta:common" GroupId="group:beta">
+  <Name>Common</Name>
+</Item>
+```
+
+```xml
+<CategoryItem Id="categoryitem:alpha:common" CategoryId="category:alpha">
+  <Name>Common</Name>
+</CategoryItem>
+<CategoryItem Id="categoryitem:beta:common" CategoryId="category:beta">
+  <Name>Common</Name>
+</CategoryItem>
+```
+
+Parent weave:
+
+```xml
+<PropertyBinding Id="1" SourceModelId="1" TargetModelId="2">
+  <Name>Group.Name -&gt; Category.Name</Name>
+  <SourceEntity>Group</SourceEntity>
+  <SourceProperty>Name</SourceProperty>
+  <TargetEntity>Category</TargetEntity>
+  <TargetProperty>Name</TargetProperty>
+</PropertyBinding>
+```
+
+Child weave:
+
+```xml
+<PropertyBinding Id="1" SourceModelId="1" TargetModelId="2">
+  <Name>Item.Name -&gt; CategoryItem.Name</Name>
+  <SourceEntity>Item</SourceEntity>
+  <SourceProperty>Name</SourceProperty>
+  <TargetEntity>CategoryItem</TargetEntity>
+  <TargetProperty>Name</TargetProperty>
+</PropertyBinding>
+```
+
+The child weave alone is not enough, because `Common` matches two target rows. Fabric adds the parent scope requirement:
+
+```xml
+<BindingReference Id="1" WeaveReferenceId="1">
+  <Name>ParentGroup</Name>
+  <BindingName>Group.Name -&gt; Category.Name</BindingName>
+</BindingReference>
+<BindingReference Id="2" WeaveReferenceId="2">
+  <Name>ChildItem</Name>
+  <BindingName>Item.Name -&gt; CategoryItem.Name</BindingName>
+</BindingReference>
+<BindingScopeRequirement Id="1" BindingId="2" ParentBindingId="1">
+  <SourceParentReferenceName>GroupId</SourceParentReferenceName>
+  <TargetParentReferenceName>CategoryId</TargetParentReferenceName>
+</BindingScopeRequirement>
+```
+
+That tells `meta-fabric` to resolve `Item.Name -> CategoryItem.Name` only inside the parent mapping already established by `Group.Name -> Category.Name`. So `item:alpha:common` is checked only against `category:alpha:*`, and `item:beta:common` only against `category:beta:*`.
+
+
 Current command surface:
 
 ```cmd
@@ -910,6 +1020,7 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+
 
 
 
