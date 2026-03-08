@@ -115,7 +115,7 @@ internal static class Program
                 "weave suggest",
                 ("Workspace", workspacePath),
                 ("Suggestions", result.SuggestionCount.ToString()),
-                ("WeakSuggestions", result.WeakSuggestionCount.ToString()));
+                ("WeakSuggestions", CountWeakSuggestions(result.WeakSuggestions).ToString()));
             Line(string.Empty);
             Line("Binding suggestions");
             if (result.Suggestions.Count == 0)
@@ -138,19 +138,17 @@ internal static class Program
             {
                 Line(string.Empty);
                 Line("Weak binding suggestions");
-                for (var index = 0; index < result.WeakSuggestions.Count; index++)
+                var weakIndex = 1;
+                foreach (var weakSuggestion in result.WeakSuggestions)
                 {
-                    var weakSuggestion = result.WeakSuggestions[index];
-                    var candidates = string.Join(
-                        ", ",
-                        weakSuggestion.Candidates.Select(candidate =>
-                        {
-                            var roleSuffix = string.IsNullOrWhiteSpace(candidate.InferredRole)
-                                ? string.Empty
-                                : $" (role: {candidate.InferredRole})";
-                            return $"{candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}{roleSuffix}";
-                        }));
-                    Line($"  {index + 1}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidates}");
+                    foreach (var candidate in weakSuggestion.Candidates)
+                    {
+                        var roleSuffix = string.IsNullOrWhiteSpace(candidate.InferredRole)
+                            ? string.Empty
+                            : $" (role: {candidate.InferredRole})";
+                        Line($"  {weakIndex}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}{roleSuffix}");
+                        weakIndex++;
+                    }
                 }
             }
 
@@ -532,7 +530,7 @@ internal static class Program
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteInfo("Notes:");
         Presenter.WriteInfo("  Strong suggestions require exact property-name alignment plus complete and unique resolution.");
-        Presenter.WriteInfo("  Weak suggestions allow role-style suffix matches such as SourceProductId -> Product.Id when RI still resolves completely.");
+        Presenter.WriteInfo("  Weak suggestions cover role-style suffix matches and cases where one source property resolves to more than one eligible target.");
     }
 
     private static void PrintCheckHelp()
@@ -713,6 +711,11 @@ internal static class Program
         }
 
         return (true, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, string.Empty);
+    }
+
+    private static int CountWeakSuggestions(IReadOnlyList<WeaveWeakBindingSuggestion> suggestions)
+    {
+        return suggestions.Sum(item => item.Candidates.Count);
     }
 
     private static string EnsureUnsetThenAssign(string currentValue, string nextValue, string optionName)

@@ -182,7 +182,7 @@ LookupRelationshipSuggestion AnalyzeLookupRelationship(
     bool requireSourceReuse = true);
 ```
 
-Use this for read-only structural suggestion analysis in tooling flows.
+Use this for read-only structural suggestion analysis in tooling flows. Strong suggestions require one exact eligible target; weak suggestions capture role-style suffix matches and cases where one source property still matches more than one eligible target.
 
 ### `GenerationService` (static)
 
@@ -375,7 +375,7 @@ Role-style weak example:
 
 ```text
 OK: model suggest
-Workspace: C:\path\to\WeakSuggestModel
+Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weak-role-doc
 Model: WeakSuggestModel
 Suggestions: 0
 WeakSuggestions: 1
@@ -385,4 +385,21 @@ Relationship suggestions
 
 Weak relationship suggestions
   1) Order.SourceProductId -> Product (lookup: Product.Id, role: SourceProduct)
+```
+
+Ambiguous weak example:
+
+```text
+OK: model suggest
+Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weak-ambiguous-doc
+Model: AmbiguousSuggestModel
+Suggestions: 0
+WeakSuggestions: 2
+
+Relationship suggestions
+  (none)
+
+Weak relationship suggestions
+  1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
+  2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```

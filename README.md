@@ -489,7 +489,7 @@ Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is publish
 
 This is the intended landing workflow: import flat CSVs with stable row Ids, run suggest, then apply an atomic model+instance refactor.
 
-`meta model suggest` is structural and deterministic. It prints strong exact-name relationship promotions by default and weak role-style suffix matches separately when RI is still complete.
+`meta model suggest` is structural and deterministic. It prints strong exact-name relationship promotions by default and prints weak suggestions separately when RI is still complete but the target is only a role-style suffix match or the same source property matches more than one eligible target.
 
 Eligible means the promotion satisfies 100% referential integrity (RI) before any mutation:
 - source lands first as a scalar `...Id` field (for example `WarehouseId`)
@@ -558,7 +558,7 @@ Weak role-style example:
 
 ```text
 OK: model suggest
-Workspace: C:\path\to\WeakSuggestModel
+Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weak-role-doc
 Model: WeakSuggestModel
 Suggestions: 0
 WeakSuggestions: 1
@@ -568,6 +568,23 @@ Relationship suggestions
 
 Weak relationship suggestions
   1) Order.SourceProductId -> Product (lookup: Product.Id, role: SourceProduct)
+```
+
+Weak ambiguous example:
+
+```text
+OK: model suggest
+Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weak-ambiguous-doc
+Model: AmbiguousSuggestModel
+Suggestions: 0
+WeakSuggestions: 2
+
+Relationship suggestions
+  (none)
+
+Weak relationship suggestions
+  1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
+  2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
 
 Model change example (`metadata/model.xml`) for `Order`:
@@ -745,7 +762,7 @@ A weave workspace contains:
 - `ModelReference` rows: which workspaces and models participate in the weave
 - `PropertyBinding` rows: which source property resolves to which target identity property
 
-`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and prints strong missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key with exact name alignment. Weak suggestions cover role-style suffix matches and ambiguous exact matches instead of choosing for you. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
+`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and prints strong missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key with exact name alignment. Weak suggestions cover role-style suffix matches and any case where one source property still resolves to more than one eligible target instead of choosing for you. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
 
 Current authoring flow:
 
@@ -816,13 +833,14 @@ meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-AmbiguousRef
 OK: weave suggest
 Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
 Suggestions: 0
-WeakSuggestions: 1
+WeakSuggestions: 2
 
 Binding suggestions
   (none)
 
 Weak binding suggestions
-  1) Source.Mapping.ReferenceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+  1) Source.Mapping.ReferenceTypeId -> ReferenceA.ReferenceType.Id
+  2) Source.Mapping.ReferenceTypeId -> ReferenceB.ReferenceType.Id
 ```
 
 Additional sanctioned examples:

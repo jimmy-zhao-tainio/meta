@@ -83,7 +83,7 @@ internal sealed partial class CliRuntime
             ("Workspace", report.WorkspaceRootPath),
             ("Model", report.ModelName),
             ("Suggestions", report.EligibleRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)),
-            ("WeakSuggestions", report.WeakRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)));
+            ("WeakSuggestions", CountWeakRelationshipSuggestions(report.WeakRelationshipSuggestions).ToString(CultureInfo.InvariantCulture)));
 
         // Keep a fixed, compact structure for default output.
         presenter.WriteInfo(string.Empty);
@@ -141,37 +141,39 @@ internal sealed partial class CliRuntime
             return;
         }
 
-        for (var index = 0; index < suggestions.Count; index++)
+        var suggestionIndex = 1;
+        foreach (var suggestion in suggestions)
         {
-            var suggestion = suggestions[index];
-            var candidates = string.Join(
-                ", ",
-                suggestion.Candidates.Select(candidate =>
-                    string.IsNullOrWhiteSpace(candidate.Role)
-                        ? $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName})"
-                        : $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}, role: {candidate.Role})"));
-            presenter.WriteInfo(
-                $"  {(index + 1).ToString(CultureInfo.InvariantCulture)}) {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} -> {candidates}");
-
-            if (!explain)
-            {
-                continue;
-            }
-
-            presenter.WriteInfo("     Plan candidates:");
             foreach (var candidate in suggestion.Candidates)
             {
-                var relationshipLabel = string.IsNullOrWhiteSpace(candidate.Role)
-                    ? candidate.TargetLookup.EntityName
-                    : $"{candidate.TargetLookup.EntityName} (role: {candidate.Role})";
+                var candidateText = string.IsNullOrWhiteSpace(candidate.Role)
+                    ? $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName})"
+                    : $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}, role: {candidate.Role})";
                 presenter.WriteInfo(
-                    $"       - Add relationship {suggestion.Source.EntityName} -> {relationshipLabel}");
-                presenter.WriteInfo(
-                    $"       - Rewrite {suggestion.Source.EntityName} rows by resolving {suggestion.Source.PropertyName} against {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}");
-                presenter.WriteInfo(
-                    $"       - Drop {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} after successful rewrite");
+                    $"  {suggestionIndex.ToString(CultureInfo.InvariantCulture)}) {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} -> {candidateText}");
+
+                if (explain)
+                {
+                    var relationshipLabel = string.IsNullOrWhiteSpace(candidate.Role)
+                        ? candidate.TargetLookup.EntityName
+                        : $"{candidate.TargetLookup.EntityName} (role: {candidate.Role})";
+                    presenter.WriteInfo("     Plan:");
+                    presenter.WriteInfo(
+                        $"       - Add relationship {suggestion.Source.EntityName} -> {relationshipLabel}");
+                    presenter.WriteInfo(
+                        $"       - Rewrite {suggestion.Source.EntityName} rows by resolving {suggestion.Source.PropertyName} against {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}");
+                    presenter.WriteInfo(
+                        $"       - Drop {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} after successful rewrite");
+                }
+
+                suggestionIndex++;
             }
         }
+    }
+
+    static int CountWeakRelationshipSuggestions(IReadOnlyList<WeakLookupRelationshipSuggestion> suggestions)
+    {
+        return suggestions.Sum(item => item.Candidates.Count);
     }
 
     void PrintKeySection(IReadOnlyList<BusinessKeyCandidate> keys, bool explain)

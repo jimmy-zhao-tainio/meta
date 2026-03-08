@@ -62,12 +62,12 @@ public sealed class CliTests
             var result = RunCli($"suggest --workspace \"{metaWeavePath}\"");
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("Suggestions: 0", result.Output);
-            Assert.Contains("WeakSuggestions: 1", result.Output);
+            Assert.Contains("WeakSuggestions: 2", result.Output);
             Assert.Contains("Binding suggestions", result.Output);
             Assert.Contains("  (none)", result.Output);
             Assert.Contains("Weak binding suggestions", result.Output);
-            Assert.Contains("ReferenceA.ReferenceType.Id", result.Output);
-            Assert.Contains("ReferenceB.ReferenceType.Id", result.Output);
+            Assert.Contains("1) Source.Mapping.ReferenceTypeId -> ReferenceA.ReferenceType.Id", result.Output);
+            Assert.Contains("2) Source.Mapping.ReferenceTypeId -> ReferenceB.ReferenceType.Id", result.Output);
         }
         finally
         {

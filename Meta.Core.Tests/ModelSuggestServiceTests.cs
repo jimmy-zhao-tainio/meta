@@ -140,6 +140,46 @@ public sealed class ModelSuggestServiceTests
     }
 
     [Fact]
+    public void Analyze_PropertyMatchingMoreThanOneTarget_IsReportedAsWeakAmbiguousSuggestion()
+    {
+        var workspace = CreateWorkspaceSkeleton();
+        AddEntity(workspace.Model, "Type", ("TypeName", "string"));
+        AddEntity(workspace.Model, "ReferenceType", ("ReferenceTypeName", "string"));
+        AddEntity(workspace.Model, "Mapping",
+            ("ReferenceTypeId", "string"),
+            ("MappingName", "string"));
+
+        AddRow(workspace.Instance, "Type", "TYPE-001", ("TypeName", "Alpha"));
+        AddRow(workspace.Instance, "Type", "TYPE-002", ("TypeName", "Beta"));
+
+        AddRow(workspace.Instance, "ReferenceType", "TYPE-001", ("ReferenceTypeName", "Alpha"));
+        AddRow(workspace.Instance, "ReferenceType", "TYPE-002", ("ReferenceTypeName", "Beta"));
+
+        AddRow(workspace.Instance, "Mapping", "MAP-001", ("ReferenceTypeId", "TYPE-001"), ("MappingName", "One"));
+        AddRow(workspace.Instance, "Mapping", "MAP-002", ("ReferenceTypeId", "TYPE-002"), ("MappingName", "Two"));
+        AddRow(workspace.Instance, "Mapping", "MAP-003", ("ReferenceTypeId", "TYPE-001"), ("MappingName", "Three"));
+
+        var report = ModelSuggestService.Analyze(workspace);
+
+        AssertDoesNotContainTarget(report.EligibleRelationshipSuggestions, "Mapping", "ReferenceTypeId", "ReferenceType", "Id");
+        AssertDoesNotContainTarget(report.EligibleRelationshipSuggestions, "Mapping", "ReferenceTypeId", "Type", "Id");
+
+        var weak = Assert.Single(report.WeakRelationshipSuggestions);
+        Assert.Equal("Mapping", weak.Source.EntityName);
+        Assert.Equal("ReferenceTypeId", weak.Source.PropertyName);
+        Assert.Equal(2, weak.Candidates.Count);
+
+        Assert.Contains(weak.Candidates, item =>
+            string.Equals(item.TargetLookup.EntityName, "ReferenceType", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.TargetLookup.PropertyName, "Id", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.Role, string.Empty, StringComparison.Ordinal));
+        Assert.Contains(weak.Candidates, item =>
+            string.Equals(item.TargetLookup.EntityName, "Type", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.TargetLookup.PropertyName, "Id", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.Role, "ReferenceType", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
     public void Analyze_SymmetricPeerKeys_AreBlockedAsAmbiguous()
     {
         var workspace = CreateWorkspaceSkeleton();

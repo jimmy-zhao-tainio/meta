@@ -665,7 +665,7 @@ internal static class HelpTopics
             case "model suggest":
                 document = BuildTopicDocument(
                     title: "Command: model suggest",
-                    summary: "Read-only relationship inference from model + instance data. Only fully resolvable many-to-one promotions are printed, using the sanctioned Id-based `<TargetEntity>Id -> <TargetEntity>.Id` inference path.",
+                    summary: "Read-only relationship inference from model + instance data. Strong suggestions require one exact eligible Id-based target; weak suggestions cover role-style suffix matches and other ambiguous multi-target cases.",
                     usage: "meta model suggest [--show-keys] [--explain] [--print-commands] [--workspace <path>]",
                     options: new[]
                     {

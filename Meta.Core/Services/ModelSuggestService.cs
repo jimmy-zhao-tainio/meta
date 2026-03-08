@@ -88,6 +88,12 @@ public sealed class WeakLookupRelationshipSuggestion
     public List<LookupRelationshipSuggestion> Candidates { get; } = new();
 }
 
+internal sealed class ClassifiedImplicitLookupSuggestion
+{
+    public required LookupRelationshipSuggestion Suggestion { get; init; }
+    public required bool IsWeak { get; init; }
+}
+
 public static class ModelSuggestService
 {
     public static ModelSuggestReport Analyze(Workspace workspace)
@@ -419,22 +425,15 @@ public static class ModelSuggestService
                      .ThenBy(item => item.Stats.EntityName, StringComparer.Ordinal)
                      .ThenBy(item => item.Stats.PropertyName, StringComparer.Ordinal))
         {
-            var sourceStats = source.Stats;
-            if (TryResolveImplicitTargetEntity(model, sourceStats.PropertyName, out var implicitTargetEntityName) &&
-                !string.Equals(sourceStats.EntityName, implicitTargetEntityName, StringComparison.OrdinalIgnoreCase) &&
-                sourceStats.RowCount >= 2 &&
-                sourceStats.DistinctNonBlankCount > 0 &&
-                implicitIdProfiles.TryGetValue(implicitTargetEntityName, out var implicitTargetProfile) &&
-                implicitTargetProfile.Stats.RowCount >= 2 &&
-                implicitTargetProfile.Stats.DistinctNonBlankCount > 0)
+            var classifiedCandidates = BuildImplicitLookupCandidatesForSource(workspace, model, source, implicitIdProfiles);
+            var exactCandidates = classifiedCandidates
+                .Where(item => !item.IsWeak)
+                .Select(item => item.Suggestion)
+                .ToList();
+
+            if (exactCandidates.Count == 1 && classifiedCandidates.Count == 1)
             {
-                candidates.Add(BuildLookupRelationshipSuggestion(
-                    workspace,
-                    source,
-                    implicitTargetProfile,
-                    role: null,
-                    allowSourcePropertyReplacement: true,
-                    requireSourceReuse: true));
+                candidates.Add(exactCandidates[0]);
             }
         }
 
@@ -465,49 +464,18 @@ public static class ModelSuggestService
                      .ThenBy(item => item.Stats.EntityName, StringComparer.Ordinal)
                      .ThenBy(item => item.Stats.PropertyName, StringComparer.Ordinal))
         {
-            var candidates = new List<LookupRelationshipSuggestion>();
-            foreach (var targetEntity in model.Entities
-                         .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(item => item.Name, StringComparer.Ordinal))
-            {
-                if (string.Equals(source.Stats.EntityName, targetEntity.Name, StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                if (!TryResolveWeakImplicitTargetEntity(source.Stats.PropertyName, targetEntity.Name, out var role))
-                {
-                    continue;
-                }
-
-                if (!implicitIdProfiles.TryGetValue(targetEntity.Name, out var target))
-                {
-                    continue;
-                }
-
-                var suggestion = BuildLookupRelationshipSuggestion(
-                    workspace,
-                    source,
-                    target,
-                    role,
-                    allowSourcePropertyReplacement: true,
-                    requireSourceReuse: true);
-                if (suggestion.Status != LookupCandidateStatus.Eligible)
-                {
-                    continue;
-                }
-
-                var duplicate = candidates.Any(item =>
-                    string.Equals(item.TargetLookup.EntityName, suggestion.TargetLookup.EntityName, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(item.TargetLookup.PropertyName, suggestion.TargetLookup.PropertyName, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(item.Role, suggestion.Role, StringComparison.OrdinalIgnoreCase));
-                if (!duplicate)
-                {
-                    candidates.Add(suggestion);
-                }
-            }
+            var classifiedCandidates = BuildImplicitLookupCandidatesForSource(workspace, model, source, implicitIdProfiles);
+            var candidates = classifiedCandidates
+                .Select(item => item.Suggestion)
+                .ToList();
 
             if (candidates.Count == 0)
+            {
+                continue;
+            }
+
+            var hasSingleStrongCandidate = candidates.Count == 1 && classifiedCandidates.Count == 1 && !classifiedCandidates[0].IsWeak;
+            if (hasSingleStrongCandidate)
             {
                 continue;
             }
@@ -532,6 +500,71 @@ public static class ModelSuggestService
             .ThenBy(item => item.Source.EntityName, StringComparer.Ordinal)
             .ThenBy(item => item.Source.PropertyName, StringComparer.Ordinal)
             .ToList();
+    }
+
+    private static List<ClassifiedImplicitLookupSuggestion> BuildImplicitLookupCandidatesForSource(
+        Workspace workspace,
+        GenericModel model,
+        PropertyProfile source,
+        IReadOnlyDictionary<string, PropertyProfile> implicitIdProfiles)
+    {
+        var sourceStats = source.Stats;
+        var result = new List<ClassifiedImplicitLookupSuggestion>();
+        if (sourceStats.RowCount < 2 || sourceStats.DistinctNonBlankCount == 0)
+        {
+            return result;
+        }
+
+        foreach (var targetEntity in model.Entities
+                     .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Name, StringComparer.Ordinal))
+        {
+            if (string.Equals(sourceStats.EntityName, targetEntity.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (!TryClassifyImplicitTargetEntity(sourceStats.PropertyName, targetEntity.Name, out var role, out var isWeak))
+            {
+                continue;
+            }
+
+            if (!implicitIdProfiles.TryGetValue(targetEntity.Name, out var target) ||
+                target.Stats.RowCount < 2 ||
+                target.Stats.DistinctNonBlankCount == 0)
+            {
+                continue;
+            }
+
+            var suggestion = BuildLookupRelationshipSuggestion(
+                workspace,
+                source,
+                target,
+                role,
+                allowSourcePropertyReplacement: true,
+                requireSourceReuse: true);
+            if (suggestion.Status != LookupCandidateStatus.Eligible)
+            {
+                continue;
+            }
+
+            var duplicate = result.Any(item =>
+                string.Equals(item.Suggestion.TargetLookup.EntityName, suggestion.TargetLookup.EntityName, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(item.Suggestion.TargetLookup.PropertyName, suggestion.TargetLookup.PropertyName, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(item.Suggestion.Role, suggestion.Role, StringComparison.OrdinalIgnoreCase));
+            if (duplicate)
+            {
+                continue;
+            }
+
+            result.Add(new ClassifiedImplicitLookupSuggestion
+            {
+                Suggestion = suggestion,
+                IsWeak = isWeak,
+            });
+        }
+
+        return result;
     }
 
     private static LookupRelationshipSuggestion BuildLookupRelationshipSuggestion(
@@ -882,38 +915,14 @@ public static class ModelSuggestService
         return source.NonBlankCount > source.DistinctNonBlankCount;
     }
 
-    private static bool TryResolveImplicitTargetEntity(
-        GenericModel model,
-        string propertyName,
-        out string targetEntityName)
-    {
-        targetEntityName = string.Empty;
-        if (string.IsNullOrWhiteSpace(propertyName) ||
-            string.Equals(propertyName, "Id", StringComparison.OrdinalIgnoreCase) ||
-            !propertyName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) ||
-            propertyName.Length <= 2)
-        {
-            return false;
-        }
-
-        var candidate = propertyName[..^2];
-        var targetEntity = model.Entities.FirstOrDefault(item =>
-            string.Equals(item.Name, candidate, StringComparison.OrdinalIgnoreCase));
-        if (targetEntity == null)
-        {
-            return false;
-        }
-
-        targetEntityName = targetEntity.Name;
-        return true;
-    }
-
-    private static bool TryResolveWeakImplicitTargetEntity(
+    private static bool TryClassifyImplicitTargetEntity(
         string propertyName,
         string targetEntityName,
-        out string role)
+        out string role,
+        out bool isWeak)
     {
         role = string.Empty;
+        isWeak = false;
         if (string.IsNullOrWhiteSpace(propertyName) ||
             string.IsNullOrWhiteSpace(targetEntityName) ||
             string.Equals(propertyName, "Id", StringComparison.OrdinalIgnoreCase) ||
@@ -923,13 +932,18 @@ public static class ModelSuggestService
         }
 
         var canonicalColumnName = targetEntityName + "Id";
-        if (!propertyName.EndsWith(canonicalColumnName, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(propertyName, canonicalColumnName, StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(propertyName, canonicalColumnName, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        if (!propertyName.EndsWith(canonicalColumnName, StringComparison.OrdinalIgnoreCase))
         {
             return false;
         }
 
         role = propertyName[..^2];
+        isWeak = true;
         return !string.IsNullOrWhiteSpace(role);
     }
 
