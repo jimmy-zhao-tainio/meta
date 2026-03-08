@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EnterpriseBIPlatform>
+  <SystemCubeList>
+    <SystemCube Id="system-cube:enterprise-sales" CubeId="cube:sales-performance" SystemId="system:enterprise-platform">
+      <ProcessingMode>InMemory</ProcessingMode>
+    </SystemCube>
+    <SystemCube Id="system-cube:sandbox-finance" CubeId="cube:finance-overview" SystemId="system:sandbox">
+      <ProcessingMode>DirectQuery</ProcessingMode>
+    </SystemCube>
+  </SystemCubeList>
+</EnterpriseBIPlatform>

@@ -43,9 +43,15 @@ public static class GenerationService
 
         var outputRoot = PrepareOutputDirectory(outputDirectory);
         var namespaceName = ResolveModelNamespaceName(workspace.Model.Name);
-        var modelTypeName = ResolveModelTypeName(workspace.Model);
+        var modelTypeName = includeTooling
+            ? ResolveToolingModelTypeName(workspace.Model)
+            : ResolveConsumerModelTypeName(workspace.Model);
         var modelFileName = modelTypeName + ".cs";
-        WriteText(Path.Combine(outputRoot, modelFileName), BuildCSharpModel(workspace, modelTypeName, namespaceName));
+        WriteText(
+            Path.Combine(outputRoot, modelFileName),
+            includeTooling
+                ? BuildCSharpToolingModel(workspace, modelTypeName, namespaceName)
+                : BuildCSharpConsumerModel(workspace, modelTypeName, namespaceName));
         var emittedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             modelFileName,
@@ -53,7 +59,7 @@ public static class GenerationService
 
         if (includeTooling)
         {
-            var toolingFileName = modelTypeName + ".Tooling.cs";
+            var toolingFileName = namespaceName + ".Tooling.cs";
             if (!emittedFiles.Add(toolingFileName))
             {
                 throw new InvalidOperationException(
@@ -91,15 +97,15 @@ public static class GenerationService
         builder.AppendLine();
         builder.AppendLine($"namespace {namespaceName}");
         builder.AppendLine("{");
-        builder.AppendLine($"    public static class {modelTypeName}Tooling");
+        builder.AppendLine($"    public static class {namespaceName}Tooling");
         builder.AppendLine("    {");
-        builder.AppendLine($"        public static async Task<{modelTypeName}Instance> LoadAsync(");
+        builder.AppendLine($"        public static async Task<{modelTypeName}> LoadAsync(");
         builder.AppendLine("            string workspacePath,");
         builder.AppendLine("            bool searchUpward = true,");
         builder.AppendLine("            CancellationToken cancellationToken = default)");
         builder.AppendLine("        {");
         builder.AppendLine("            var workspace = await LoadWorkspaceAsync(workspacePath, searchUpward, cancellationToken).ConfigureAwait(false);");
-        builder.AppendLine($"            return {modelTypeName}InstanceFactory.CreateFromWorkspace(workspace);");
+        builder.AppendLine($"            return {modelTypeName}Factory.CreateFromWorkspace(workspace);");
         builder.AppendLine("        }");
         builder.AppendLine();
         builder.AppendLine("        public static Task<Workspace> LoadWorkspaceAsync(");
@@ -129,21 +135,21 @@ public static class GenerationService
         builder.AppendLine("        }");
         builder.AppendLine("    }");
         builder.AppendLine();
-        builder.AppendLine($"    public static partial class {namespaceName}Model");
+        builder.AppendLine($"    public sealed partial class {modelTypeName}");
         builder.AppendLine("    {");
-        builder.AppendLine($"        public static {modelTypeName}Instance LoadFromXmlWorkspace(");
+        builder.AppendLine($"        public static {modelTypeName} LoadFromXmlWorkspace(");
         builder.AppendLine("            string workspacePath,");
         builder.AppendLine("            bool searchUpward = true)");
         builder.AppendLine("        {");
         builder.AppendLine("            return LoadFromXmlWorkspaceAsync(workspacePath, searchUpward).GetAwaiter().GetResult();");
         builder.AppendLine("        }");
         builder.AppendLine();
-        builder.AppendLine($"        public static Task<{modelTypeName}Instance> LoadFromXmlWorkspaceAsync(");
+        builder.AppendLine($"        public static Task<{modelTypeName}> LoadFromXmlWorkspaceAsync(");
         builder.AppendLine("            string workspacePath,");
         builder.AppendLine("            bool searchUpward = true,");
         builder.AppendLine("            CancellationToken cancellationToken = default)");
         builder.AppendLine("        {");
-        builder.AppendLine($"            return {modelTypeName}Tooling.LoadAsync(workspacePath, searchUpward, cancellationToken);");
+        builder.AppendLine($"            return {namespaceName}Tooling.LoadAsync(workspacePath, searchUpward, cancellationToken);");
         builder.AppendLine("        }");
         builder.AppendLine("    }");
         builder.AppendLine("}");
@@ -373,7 +379,7 @@ public static class GenerationService
         return NormalizeNewlines(builder.ToString());
     }
 
-    private static string BuildCSharpModel(Workspace workspace, string modelTypeName, string namespaceName)
+    private static string BuildCSharpConsumerModel(Workspace workspace, string modelTypeName, string namespaceName)
     {
         var builder = new StringBuilder();
         var entities = workspace.Model.Entities
@@ -640,6 +646,153 @@ public static class GenerationService
         return NormalizeNewlines(builder.ToString());
     }
 
+    private static string BuildCSharpToolingModel(Workspace workspace, string modelTypeName, string namespaceName)
+    {
+        var builder = new StringBuilder();
+        var entities = workspace.Model.Entities
+            .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
+            .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(entity => entity.Name, StringComparer.Ordinal)
+            .ToList();
+        builder.AppendLine("using System.Collections.Generic;");
+        builder.AppendLine("using System.Collections.ObjectModel;");
+        builder.AppendLine("using System.Linq;");
+        builder.AppendLine("using Meta.Core.Domain;");
+        builder.AppendLine();
+        builder.AppendLine($"namespace {namespaceName}");
+        builder.AppendLine("{");
+        builder.AppendLine($"    public sealed partial class {modelTypeName}");
+        builder.AppendLine("    {");
+        builder.AppendLine($"        internal {modelTypeName}(");
+        for (var index = 0; index < entities.Count; index++)
+        {
+            var entity = entities[index];
+            var suffix = index == entities.Count - 1 ? string.Empty : ",";
+            builder.AppendLine($"            IReadOnlyList<{entity.Name}> {ToCamelIdentifier(entity.GetListName())}{suffix}");
+        }
+        builder.AppendLine("        )");
+        builder.AppendLine("        {");
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"            {entity.GetListName()} = {ToCamelIdentifier(entity.GetListName())};");
+        }
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"        public IReadOnlyList<{entity.Name}> {entity.GetListName()} {{ get; }}");
+        }
+        builder.AppendLine("    }");
+        builder.AppendLine();
+        builder.AppendLine($"    internal static class {modelTypeName}Factory");
+        builder.AppendLine("    {");
+        builder.AppendLine($"        internal static {modelTypeName} CreateFromWorkspace(Workspace workspace)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            if (workspace == null)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new global::System.ArgumentNullException(nameof(workspace));");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        foreach (var entity in entities)
+        {
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
+            builder.AppendLine($"            var {rowsVar} = new List<{entity.Name}>();");
+            builder.AppendLine($"            if (workspace.Instance.RecordsByEntity.TryGetValue({ToCSharpStringLiteral(entity.Name)}, out var {rowsVar}Records))");
+            builder.AppendLine("            {");
+            builder.AppendLine($"                foreach (var record in {rowsVar}Records.OrderBy(item => item.Id, global::System.StringComparer.OrdinalIgnoreCase).ThenBy(item => item.Id, global::System.StringComparer.Ordinal))");
+            builder.AppendLine("                {");
+            builder.AppendLine($"                    {rowsVar}.Add(new {entity.Name}");
+            builder.AppendLine("                    {");
+            builder.AppendLine("                        Id = record.Id ?? string.Empty,");
+            foreach (var property in entity.Properties
+                         .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                         .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(property => property.Name, StringComparer.Ordinal))
+            {
+                var localValueName = ToCamelIdentifier(property.Name) + "Value";
+                builder.AppendLine($"                        {property.Name} = record.Values.TryGetValue({ToCSharpStringLiteral(property.Name)}, out var {localValueName}) ? {localValueName} ?? string.Empty : string.Empty,");
+            }
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
+            {
+                var localRelationshipIdName = ToCamelIdentifier(relationship.GetNavigationName()) + "RelationshipId";
+                builder.AppendLine($"                        {relationship.GetColumnName()} = record.RelationshipIds.TryGetValue({ToCSharpStringLiteral(relationship.GetColumnName())}, out var {localRelationshipIdName}) ? {localRelationshipIdName} ?? string.Empty : string.Empty,");
+            }
+            builder.AppendLine("                    });");
+            builder.AppendLine("                }");
+            builder.AppendLine("            }");
+            builder.AppendLine();
+        }
+        foreach (var entity in entities)
+        {
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
+            builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.Ordinal);");
+            builder.AppendLine($"            foreach (var row in {rowsVar})");
+            builder.AppendLine("            {");
+            builder.AppendLine($"                {rowsVar}ById[row.Id] = row;");
+            builder.AppendLine("            }");
+            builder.AppendLine();
+        }
+        foreach (var entity in entities)
+        {
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
+            {
+                var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
+                var targetVar = ToCamelIdentifier(targetEntity.GetListName());
+                builder.AppendLine($"            foreach (var row in {rowsVar})");
+                builder.AppendLine("            {");
+                builder.AppendLine($"                row.{relationship.GetNavigationName()} = RequireTarget(");
+                builder.AppendLine($"                    {targetVar}ById,");
+                builder.AppendLine($"                    row.{relationship.GetColumnName()},");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(entity.Name)},");
+                builder.AppendLine("                    row.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                builder.AppendLine("            }");
+                builder.AppendLine();
+            }
+        }
+        builder.AppendLine($"            return new {modelTypeName}(");
+        for (var index = 0; index < entities.Count; index++)
+        {
+            var entity = entities[index];
+            var suffix = index == entities.Count - 1 ? string.Empty : ",";
+            builder.AppendLine($"                new ReadOnlyCollection<{entity.Name}>({ToCamelIdentifier(entity.GetListName())}){suffix}");
+        }
+        builder.AppendLine("            );");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static T RequireTarget<T>(");
+        builder.AppendLine("            Dictionary<string, T> rowsById,");
+        builder.AppendLine("            string targetId,");
+        builder.AppendLine("            string sourceEntityName,");
+        builder.AppendLine("            string sourceId,");
+        builder.AppendLine("            string relationshipName)");
+        builder.AppendLine("            where T : class");
+        builder.AppendLine("        {");
+        builder.AppendLine("            if (string.IsNullOrEmpty(targetId))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new global::System.InvalidOperationException(");
+        builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\"");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            if (!rowsById.TryGetValue(targetId, out var target))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new global::System.InvalidOperationException(");
+        builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{targetId}'.\"");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            return target;");
+        builder.AppendLine("        }");
+        builder.AppendLine("    }");
+        builder.AppendLine("}");
+        return NormalizeNewlines(builder.ToString());
+    }
     private static string BuildCSharpEntity(GenericEntity entity, string namespaceName)
     {
         var builder = new StringBuilder();
@@ -676,7 +829,7 @@ public static class GenerationService
         return string.IsNullOrWhiteSpace(modelName) ? "MetadataModel" : modelName.Trim();
     }
 
-    private static string ResolveModelTypeName(GenericModel model)
+    private static string ResolveConsumerModelTypeName(GenericModel model)
     {
         var baseName = ResolveModelNamespaceName(model.Name);
         var entityNames = model.Entities
@@ -700,6 +853,26 @@ public static class GenerationService
         return candidate;
     }
 
+    private static string ResolveToolingModelTypeName(GenericModel model)
+    {
+        var baseName = ResolveModelNamespaceName(model.Name) + "Model";
+        var entityNames = model.Entities
+            .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
+            .Select(entity => entity.Name.Trim())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (!entityNames.Contains(baseName))
+        {
+            return baseName;
+        }
+        var candidate = baseName + "2";
+        var suffix = 3;
+        while (entityNames.Contains(candidate))
+        {
+            candidate = baseName + suffix.ToString(CultureInfo.InvariantCulture);
+            suffix++;
+        }
+        return candidate;
+    }
     private static string ToCSharpStringLiteral(string? value)
     {
         if (value == null)

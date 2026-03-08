@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EnterpriseBIPlatform>
+  <MeasureList>
+    <Measure Id="measure:order-count" CubeId="cube:sales-performance">
+      <MeasureName>Order Count</MeasureName>
+      <MDX>Count([Order].[Order Number].Members)</MDX>
+    </Measure>
+    <Measure Id="measure:gross-margin" CubeId="cube:finance-overview">
+      <MeasureName>Gross Margin</MeasureName>
+      <MDX>[Measures].[Revenue] - [Measures].[Cost]</MDX>
+    </Measure>
+  </MeasureList>
+</EnterpriseBIPlatform>

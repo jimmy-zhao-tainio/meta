@@ -98,17 +98,24 @@ public sealed class GenerationServiceTests
         try
         {
             var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
+            var modelFile = workspace.Model.Name + "Model.cs";
             var toolingFile = workspace.Model.Name + ".Tooling.cs";
+            var modelPath = Path.Combine(output, modelFile);
             var toolingPath = Path.Combine(output, toolingFile);
 
+            Assert.True(File.Exists(modelPath));
             Assert.True(File.Exists(toolingPath));
+            Assert.True(manifest.FileHashes.ContainsKey(modelFile));
             Assert.True(manifest.FileHashes.ContainsKey(toolingFile));
+            var modelCode = File.ReadAllText(modelPath);
             var toolingCode = File.ReadAllText(toolingPath);
+            Assert.Contains($"public sealed partial class {workspace.Model.Name}Model", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static class {workspace.Model.Name}Tooling", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public static partial class {workspace.Model.Name}Model", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public static {workspace.Model.Name}Instance LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public static async Task<{workspace.Model.Name}Instance> LoadAsync(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"return {workspace.Model.Name}InstanceFactory.CreateFromWorkspace(workspace);", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public sealed partial class {workspace.Model.Name}Model", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static {workspace.Model.Name}Model LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static async Task<{workspace.Model.Name}Model> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"return {workspace.Model.Name}ModelFactory.CreateFromWorkspace(workspace);", toolingCode, StringComparison.Ordinal);
         }
         finally
         {
@@ -157,14 +164,14 @@ public sealed class GenerationServiceTests
         {
             var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
             var modelPath = Path.Combine(output, "ArchitectureModel.cs");
-            var toolingPath = Path.Combine(output, "ArchitectureModel.Tooling.cs");
+            var toolingPath = Path.Combine(output, "Architecture.Tooling.cs");
             var entityPath = Path.Combine(output, "Architecture.cs");
 
             Assert.True(File.Exists(modelPath));
             Assert.True(File.Exists(toolingPath));
             Assert.True(File.Exists(entityPath));
             Assert.True(manifest.FileHashes.ContainsKey("ArchitectureModel.cs"));
-            Assert.True(manifest.FileHashes.ContainsKey("ArchitectureModel.Tooling.cs"));
+            Assert.True(manifest.FileHashes.ContainsKey("Architecture.Tooling.cs"));
             Assert.True(manifest.FileHashes.ContainsKey("Architecture.cs"));
 
             var modelCode = File.ReadAllText(modelPath);
@@ -172,14 +179,14 @@ public sealed class GenerationServiceTests
             var entityCode = File.ReadAllText(entityPath);
 
             Assert.Contains("namespace Architecture", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public static partial class ArchitectureModel", modelCode, StringComparison.Ordinal);
-            Assert.Contains("private static readonly ArchitectureModelInstance _builtIn", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public static IReadOnlyList<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
-            Assert.Contains("internal static ArchitectureModelInstance CreateFromWorkspace(Workspace workspace)", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public static class ArchitectureModelTooling", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public static partial class ArchitectureModel", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public static ArchitectureModelInstance LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public static async Task<ArchitectureModelInstance> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public sealed partial class ArchitectureModel", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public IReadOnlyList<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
+            Assert.Contains("internal static class ArchitectureModelFactory", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static class ArchitectureTooling", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public sealed partial class ArchitectureModel", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static ArchitectureModel LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static async Task<ArchitectureModel> LoadAsync(", toolingCode, StringComparison.Ordinal);
             Assert.Contains("namespace Architecture", entityCode, StringComparison.Ordinal);
             Assert.Contains("public sealed class Architecture", entityCode, StringComparison.Ordinal);
         }

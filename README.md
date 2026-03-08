@@ -260,7 +260,33 @@ foreach (var measure in EnterpriseBIPlatform.MeasureList)
 
 #### Optional tooling surface (`--tooling`)
 
-If you also run `meta generate csharp --tooling`, `meta` emits `<ModelName>.Tooling.cs` in the same model-name namespace, with workspace load/save helpers backed by Meta runtime services. Keep this separate from dependency-free consumer usage.
+If you also run `meta generate csharp --tooling`, `meta` emits a typed loaded model plus `<ModelName>.Tooling.cs` in the same model-name namespace. This tooling path is for workspace-backed runtime use; it does not emit the static built-in facade used by the dependency-free consumer path.
+
+```csharp
+using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in model.SystemCubeList.Where(x => x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}
+```
 
 ## Install and run
 
@@ -1081,6 +1107,7 @@ dotnet test Metadata.Framework.sln
 dotnet test MetaWeave.sln
 dotnet test MetaFabric.sln
 ```
+
 
 
 

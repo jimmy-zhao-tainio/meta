@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="EnterpriseBIPlatform">
+  <EntityList>
+    <Entity name="Cube">
+      <PropertyList>
+        <Property name="CubeName" />
+        <Property name="Purpose" isRequired="false" />
+        <Property name="RefreshMode" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Dimension">
+      <PropertyList>
+        <Property name="DimensionName" />
+        <Property name="IsConformed" />
+        <Property name="HierarchyCount" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Fact">
+      <PropertyList>
+        <Property name="FactName" />
+        <Property name="Grain" isRequired="false" />
+        <Property name="MeasureCount" isRequired="false" />
+        <Property name="BusinessArea" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Measure">
+      <PropertyList>
+        <Property name="MeasureName" />
+        <Property name="MDX" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Cube" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="System">
+      <PropertyList>
+        <Property name="SystemName" />
+        <Property name="Version" isRequired="false" />
+        <Property name="DeploymentDate" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="SystemType" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SystemCube">
+      <PropertyList>
+        <Property name="ProcessingMode" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Cube" />
+        <Relationship entity="System" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SystemDimension">
+      <PropertyList>
+        <Property name="ConformanceLevel" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Dimension" />
+        <Relationship entity="System" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SystemFact">
+      <PropertyList>
+        <Property name="LoadPattern" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Fact" />
+        <Relationship entity="System" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="SystemType">
+      <PropertyList>
+        <Property name="TypeName" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+  </EntityList>
+</Model>
