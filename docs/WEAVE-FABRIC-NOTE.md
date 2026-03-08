@@ -102,6 +102,14 @@ Use "fabric" only if the foundational layer grows to support a broader connected
 
 That would be a real semantic step up from flat weaving.
 
+## Current sanctioned next step
+
+The next foundational artifact is `MetaFabric`, a sanctioned model for scoped binding over weave workspaces only.
+
+It does not replace `MetaWeave`. It composes `MetaWeave` workspaces and adds parent-scoped binding requirements where flat property bindings are not enough.
+
+See `docs/META-FABRIC-BOUNDARY.md` and `MetaFabric.Workspaces/MetaFabric`.
+
 ## Current recommendation
 
 Do not rename `MetaWeave` yet.

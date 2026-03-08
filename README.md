@@ -757,6 +757,8 @@ MetaWeave is the sanctioned cross-model binding toolchain.
 
 Cross-model links remain ordinary scalar properties in the source workspace. A weave workspace carries the meaning of those properties separately, so the link stays isomorphic across XML, SQL, and C# while still being validated rigorously.
 
+For scoped binding over weave workspaces, the foundation repo also carries the sanctioned `MetaFabric` model at `MetaFabric.Workspaces\MetaFabric`. That is a model-only sanctioned workspace for the next tier of grouped/scoped binding; no `meta-fabric` CLI exists yet. See `docs/META-FABRIC-BOUNDARY.md` and `docs/WEAVE-FABRIC-NOTE.md`.
+
 A weave workspace contains:
 
 - `ModelReference` rows: which workspaces and models participate in the weave
