@@ -21,6 +21,7 @@ var tools = new[]
 {
     new ToolSpec("meta.exe", Path.Combine(repoRoot, "Meta.Cli", "bin", "publish", "win-x64", "meta.exe")),
     new ToolSpec("meta-weave.exe", Path.Combine(repoRoot, "MetaWeave.Cli", "bin", "publish", "win-x64", "meta-weave.exe")),
+    new ToolSpec("meta-fabric.exe", Path.Combine(repoRoot, "MetaFabric.Cli", "bin", "publish", "win-x64", "meta-fabric.exe")),
 };
 
 var missing = tools.Where(tool => !File.Exists(tool.SourcePath)).ToArray();
@@ -32,7 +33,8 @@ if (missing.Length > 0)
             .Concat(new[]
             {
                 "Next: dotnet build Metadata.Framework.sln",
-                "Next: dotnet build MetaWeave.sln"
+                "Next: dotnet build MetaWeave.sln",
+                "Next: dotnet build MetaFabric.sln"
             }));
     return 1;
 }
@@ -68,7 +70,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteUsage("install-meta.exe");
     presenter.WriteInfo(string.Empty);
     presenter.WriteInfo("Notes:");
-    presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
+    presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-fabric.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
     presenter.WriteInfo("  Expects published binaries under the current meta checkout.");
     presenter.WriteNext("dotnet build Metadata.Framework.sln");
@@ -140,4 +142,3 @@ internal static class NativeMethods
         uint uTimeout,
         out IntPtr lpdwResult);
 }
-

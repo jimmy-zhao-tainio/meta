@@ -108,7 +108,9 @@ The next foundational artifact is `MetaFabric`, a sanctioned model for scoped bi
 
 It does not replace `MetaWeave`. It composes `MetaWeave` workspaces and adds parent-scoped binding requirements where flat property bindings are not enough.
 
-See `docs/META-FABRIC-BOUNDARY.md` and `MetaFabric.Workspaces/MetaFabric`.
+The corresponding CLI is `meta-fabric`, starting with `init` and `check` over sanctioned fabric workspaces.
+
+See `docs/META-FABRIC-BOUNDARY.md`, `MetaFabric.Workspaces/MetaFabric`, and `MetaFabric.Workspaces/Fabric-Scoped-Group-CategoryItem`.
 
 ## Current recommendation
 
@@ -131,3 +133,4 @@ That keeps the language honest.
 - Gartner, What is Data Fabric?: <https://www.gartner.com/en/data-analytics/topics/data-fabric>
 - Microsoft Learn, What is Microsoft Fabric?: <https://learn.microsoft.com/en-us/fabric/fundamentals/microsoft-fabric-overview>
 - Microsoft Learn, Microsoft Fabric overview: <https://learn.microsoft.com/en-us/fabric/get-started/microsoft-fabric-overview>
+

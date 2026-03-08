@@ -351,6 +351,32 @@ Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWo
 | `meta-weave check` | `MetaWeaveService.CheckAsync(...)` |
 | `meta-weave materialize` | `MetaWeaveService.MaterializeAsync(...)` |
 
+## MetaFabric Services
+
+### `MetaFabricService`
+
+```csharp
+Task<FabricCheckResult> CheckAsync(Workspace fabricWorkspace, CancellationToken cancellationToken = default);
+```
+
+Example CLI output from the sanctioned scoped fabric workspace:
+
+```text
+OK: fabric check
+Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
+Weaves: 2
+Bindings: 2
+ResolvedRows: 5
+Errors: 0
+```
+
+### Additional CLI to Services API mappings
+
+| CLI command family | Primary C# API path |
+|---|---|
+| `meta-fabric init` | `MetaFabricWorkspaces.CreateEmptyMetaFabricWorkspace(...)` + `WorkspaceService.SaveAsync(...)` |
+| `meta-fabric check` | `MetaFabricService.CheckAsync(...)` |
+
 ## ModelSuggestService Example
 
 Example CLI output from the sanctioned Suggest demo workspace:
@@ -403,3 +429,5 @@ Weak relationship suggestions
   1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
+
+

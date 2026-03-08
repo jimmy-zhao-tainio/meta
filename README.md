@@ -2,10 +2,11 @@
 
 `isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships two CLI tools:
+This repo ships three CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
+`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.  
+`meta-fabric` (MetaFabric CLI): scoped validation over sanctioned weave workspaces.
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -267,9 +268,15 @@ Build:
 
 ```powershell
 dotnet build Metadata.Framework.sln
+dotnet build MetaWeave.sln
+dotnet build MetaFabric.sln
 ```
 
-On Windows, building `Metadata.Framework.sln` refreshes the published single-file CLI at `Meta.Cli\bin\publish\win-x64\meta.exe`.
+On Windows, these builds refresh the published single-file CLIs at:
+
+- `Meta.Cli\bin\publish\win-x64\meta.exe`
+- `MetaWeave.Cli\bin\publish\win-x64\meta-weave.exe`
+- `MetaFabric.Cli\bin\publish\win-x64\meta-fabric.exe`
 
 Run directly:
 
@@ -295,7 +302,7 @@ Build the installer:
 dotnet build Meta.Installer\Meta.Installer.csproj
 ```
 
-Then install the foundation CLIs (`meta`, `meta-weave`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
+Then install the foundation CLIs (`meta`, `meta-weave`, `meta-fabric`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
 
 ```cmd
 Meta.Installer\bin\publish\win-x64\install-meta.exe
@@ -472,6 +479,7 @@ The foundation libraries are packable as internal NuGet packages:
 - `Meta.Core`
 - `Meta.Adapters`
 - `MetaWeave.Core`
+- `MetaFabric.Core`
 
 Pack them into the local feed at `.nupkg` with:
 
@@ -481,7 +489,7 @@ pack-internal.cmd
 
 Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.
 
-Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it so downstream repos can adopt weave-core package references without reopening the source boundary.
+Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` and `MetaFabric.Core` are published alongside it so downstream repos can adopt weave/fabric core package references without reopening the source boundary.
 
 ### Suggest workflow
 
@@ -757,7 +765,7 @@ MetaWeave is the sanctioned cross-model binding toolchain.
 
 Cross-model links remain ordinary scalar properties in the source workspace. A weave workspace carries the meaning of those properties separately, so the link stays isomorphic across XML, SQL, and C# while still being validated rigorously.
 
-For scoped binding over weave workspaces, the foundation repo also carries the sanctioned `MetaFabric` model at `MetaFabric.Workspaces\MetaFabric`. That is a model-only sanctioned workspace for the next tier of grouped/scoped binding; no `meta-fabric` CLI exists yet. See `docs/META-FABRIC-BOUNDARY.md` and `docs/WEAVE-FABRIC-NOTE.md`.
+For scoped binding over weave workspaces, the foundation repo carries the sanctioned `MetaFabric` model at `MetaFabric.Workspaces\MetaFabric` and the `meta-fabric` CLI for validation of parent-scoped binding requirements. See `docs/META-FABRIC-BOUNDARY.md` and `docs/WEAVE-FABRIC-NOTE.md`.
 
 A weave workspace contains:
 
@@ -799,6 +807,8 @@ C# tooling services API: `docs/SERVICES_API.md`
 
 ```powershell
 dotnet test Metadata.Framework.sln
+dotnet test MetaWeave.sln
+dotnet test MetaFabric.sln
 ```
 
 
@@ -849,3 +859,58 @@ Additional sanctioned examples:
 
 - `MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType`
 - `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`
+
+## MetaFabric
+
+MetaFabric is the sanctioned scoped-binding layer over weave workspaces.
+
+A fabric workspace contains:
+
+- `WeaveReference` rows: which sanctioned weave workspaces participate
+- `BindingReference` rows: which weave bindings are in scope
+- `BindingScopeRequirement` rows: which child bindings must resolve inside an already resolved parent binding
+
+`meta-fabric check` loads the referenced weave workspaces, then validates child bindings under their declared parent scope. This closes the gap where a child weave is globally ambiguous on its own but becomes deterministic once the parent binding is known.
+
+Current command surface:
+
+```cmd
+meta-fabric help
+meta-fabric init --new-workspace .\MetaFabric.Workspace
+meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
+```
+
+Scoped example:
+
+```cmd
+meta-weave check --workspace .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
+meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
+```
+
+```text
+OK: fabric check
+Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
+Weaves: 2
+Bindings: 2
+ResolvedRows: 5
+Errors: 0
+```
+
+The corresponding child weave is intentionally ambiguous on its own:
+
+```text
+Error: weave check failed.
+  - Item.Name -> CategoryItem.Name: Source row 'Item:item:alpha:common' value 'Common' resolved ambiguously to 'CategoryItem.Name'.
+  - Item.Name -> CategoryItem.Name: Source row 'Item:item:beta:common' value 'Common' resolved ambiguously to 'CategoryItem.Name'.
+Next: fix the reported bindings and retry meta-weave check.
+```
+
+Additional sanctioned examples:
+
+- `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
+- `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
+- `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+
+
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaFabric">
+  <EntityList>
+    <Entity name="WeaveReference">
+      <PropertyList>
+        <Property name="Alias" />
+        <Property name="WorkspacePath" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="BindingReference">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="BindingName" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="WeaveReference" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="BindingScopeRequirement">
+      <PropertyList>
+        <Property name="SourceParentReferenceName" />
+        <Property name="TargetParentReferenceName" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="BindingReference" role="Binding" />
+        <Relationship entity="BindingReference" role="ParentBinding" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
+
