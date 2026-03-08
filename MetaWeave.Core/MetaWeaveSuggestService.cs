@@ -17,9 +17,19 @@ public sealed record WeaveBindingSuggestion(
     int SourceComparableRowCount,
     int MatchedSourceRowCount);
 
-public sealed record WeaveSuggestResult(IReadOnlyList<WeaveBindingSuggestion> Suggestions)
+public sealed record WeaveWeakBindingSuggestion(
+    string SourceModelAlias,
+    string SourceModelName,
+    string SourceEntity,
+    string SourceProperty,
+    IReadOnlyList<WeaveBindingSuggestion> Candidates);
+
+public sealed record WeaveSuggestResult(
+    IReadOnlyList<WeaveBindingSuggestion> Suggestions,
+    IReadOnlyList<WeaveWeakBindingSuggestion> WeakSuggestions)
 {
     public int SuggestionCount => Suggestions.Count;
+    public int WeakSuggestionCount => WeakSuggestions.Count;
 }
 
 public interface IMetaWeaveSuggestService
@@ -58,6 +68,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         var suggestions = new List<WeaveBindingSuggestion>();
+        var weakSuggestions = new List<WeaveWeakBindingSuggestion>();
         foreach (var sourceModel in loadedModels)
         {
             foreach (var sourceEntity in sourceModel.Workspace.Model.Entities
@@ -150,6 +161,22 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                     {
                         suggestions.Add(eligibleTargets[0]);
                     }
+                    else if (eligibleTargets.Count > 1)
+                    {
+                        weakSuggestions.Add(new WeaveWeakBindingSuggestion(
+                            SourceModelAlias: sourceModel.Alias,
+                            SourceModelName: sourceModel.ModelName,
+                            SourceEntity: sourceEntity.Name,
+                            SourceProperty: sourceProperty.Name,
+                            Candidates: eligibleTargets
+                                .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
+                                .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
+                                .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
+                                .ToList()));
+                    }
                 }
             }
         }
@@ -168,6 +195,14 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                 .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
                 .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
                 .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
+                .ToList(),
+            weakSuggestions
+                .OrderBy(item => item.SourceModelAlias, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.SourceEntity, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.SourceProperty, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.SourceModelAlias, StringComparer.Ordinal)
+                .ThenBy(item => item.SourceEntity, StringComparer.Ordinal)
+                .ThenBy(item => item.SourceProperty, StringComparer.Ordinal)
                 .ToList());
     }
 

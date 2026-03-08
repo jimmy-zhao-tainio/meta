@@ -14,6 +14,7 @@ public sealed class SuggestServiceTests
         var result = await new MetaWeaveSuggestService().SuggestAsync(workspace);
 
         Assert.Empty(result.Suggestions);
+        Assert.Empty(result.WeakSuggestions);
     }
 
     [Fact]
@@ -51,6 +52,7 @@ public sealed class SuggestServiceTests
             var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace);
 
             Assert.Equal(2, result.SuggestionCount);
+            Assert.Empty(result.WeakSuggestions);
             Assert.Contains(result.Suggestions, item =>
                 string.Equals(item.SourceModelAlias, "Source", StringComparison.Ordinal) &&
                 string.Equals(item.SourceEntity, "Mapping", StringComparison.Ordinal) &&
@@ -73,7 +75,7 @@ public sealed class SuggestServiceTests
     }
 
     [Fact]
-    public async Task SuggestAsync_OmitsAmbiguousCrossWorkspaceMatches()
+    public async Task SuggestAsync_ReportsAmbiguousCrossWorkspaceMatchesAsWeakSuggestions()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-suggest-ambiguous", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
@@ -110,6 +112,17 @@ public sealed class SuggestServiceTests
             var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace);
 
             Assert.Empty(result.Suggestions);
+            Assert.Equal(2, result.WeakSuggestionCount);
+            Assert.Contains(result.WeakSuggestions, item =>
+                string.Equals(item.SourceModelAlias, "Source", StringComparison.Ordinal) &&
+                string.Equals(item.SourceEntity, "Mapping", StringComparison.Ordinal) &&
+                string.Equals(item.SourceProperty, "SourceTypeId", StringComparison.Ordinal) &&
+                item.Candidates.Count == 2);
+            Assert.Contains(result.WeakSuggestions, item =>
+                string.Equals(item.SourceModelAlias, "Source", StringComparison.Ordinal) &&
+                string.Equals(item.SourceEntity, "Mapping", StringComparison.Ordinal) &&
+                string.Equals(item.SourceProperty, "TargetTypeId", StringComparison.Ordinal) &&
+                item.Candidates.Count == 2);
         }
         finally
         {

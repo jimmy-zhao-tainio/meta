@@ -114,19 +114,33 @@ internal static class Program
             Presenter.WriteOk(
                 "weave suggest",
                 ("Workspace", workspacePath),
-                ("Suggestions", result.SuggestionCount.ToString()));
+                ("Suggestions", result.SuggestionCount.ToString()),
+                ("WeakSuggestions", result.WeakSuggestionCount.ToString()));
             Line(string.Empty);
             Line("Binding suggestions");
             if (result.Suggestions.Count == 0)
             {
                 Line("  (none)");
-                return 0;
+            }
+            else
+            {
+                for (var index = 0; index < result.Suggestions.Count; index++)
+                {
+                    var suggestion = result.Suggestions[index];
+                    Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}");
+                }
             }
 
-            for (var index = 0; index < result.Suggestions.Count; index++)
+            if (result.WeakSuggestions.Count > 0)
             {
-                var suggestion = result.Suggestions[index];
-                Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}");
+                Line(string.Empty);
+                Line("Weak binding suggestions");
+                for (var index = 0; index < result.WeakSuggestions.Count; index++)
+                {
+                    var weakSuggestion = result.WeakSuggestions[index];
+                    var candidates = string.Join(", ", weakSuggestion.Candidates.Select(candidate => $"{candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}"));
+                    Line($"  {index + 1}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidates}");
+                }
             }
 
             return 0;
@@ -506,7 +520,7 @@ internal static class Program
         Presenter.WriteUsage("meta-weave suggest --workspace <path>");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Loads referenced workspaces and suggests missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key.");
+        Presenter.WriteInfo("  Loads referenced workspaces and prints strong missing property bindings when the source values resolve uniquely and completely. Ambiguous but otherwise valid candidates are listed separately as weak suggestions.");
     }
 
     private static void PrintCheckHelp()
@@ -768,6 +782,7 @@ internal static class Program
         Presenter.WriteInfo(message);
     }
 }
+
 
 
 

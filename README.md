@@ -721,7 +721,7 @@ A weave workspace contains:
 - `ModelReference` rows: which workspaces and models participate in the weave
 - `PropertyBinding` rows: which source property resolves to which target identity property
 
-`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and proposes missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
+`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and prints strong missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key. If more than one target qualifies, it prints a separate weak suggestion instead of choosing for you. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
 
 Current authoring flow:
 
@@ -757,4 +757,5 @@ C# tooling services API: `docs/SERVICES_API.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 ```
+
 

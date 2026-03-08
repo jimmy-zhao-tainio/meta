@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Meta.Core.Domain;
 using Meta.Core.Services;
 
 namespace MetaWeave.Tests;
@@ -33,6 +34,57 @@ public sealed class CliTests
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("--workspace <path>", result.Output);
+    }
+
+    [Fact]
+    public async Task Suggest_ShowsWeakSuggestions_WhenMatchesAreAmbiguous()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-cli-suggest-ambiguous", Guid.NewGuid().ToString("N"));
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        var sourcePath = Path.Combine(root, "Source");
+        var referenceAPath = Path.Combine(root, "ReferenceA");
+        var referenceBPath = Path.Combine(root, "ReferenceB");
+        Directory.CreateDirectory(root);
+        try
+        {
+            CopyDirectory(GetFixtureWorkspacePath("SampleSourceCatalog"), sourcePath);
+            CopyDirectory(GetFixtureWorkspacePath("SampleReferenceCatalog"), referenceAPath);
+            CopyDirectory(GetFixtureWorkspacePath("SampleReferenceCatalog"), referenceBPath);
+
+            var workspaceService = new WorkspaceService();
+            var sourceWorkspace = await workspaceService.LoadAsync(sourcePath, searchUpward: false);
+            sourceWorkspace.Instance.GetOrCreateEntityRecords("Mapping").Add(new GenericRecord
+            {
+                Id = "mapping:string-to-decimal:again",
+                Values =
+                {
+                    ["Name"] = "StringToDecimalAgain",
+                    ["SourceTypeId"] = "type:string",
+                    ["TargetTypeId"] = "type:decimal",
+                },
+            });
+            sourceWorkspace.IsDirty = true;
+            await workspaceService.SaveAsync(sourceWorkspace);
+
+            Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{sourcePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceA --model SampleReferenceCatalog --workspace-path \"{referenceAPath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceB --model SampleReferenceCatalog --workspace-path \"{referenceBPath}\"").ExitCode);
+
+            var result = RunCli($"suggest --workspace \"{metaWeavePath}\"");
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Suggestions: 0", result.Output);
+            Assert.Contains("WeakSuggestions: 2", result.Output);
+            Assert.Contains("Binding suggestions", result.Output);
+            Assert.Contains("  (none)", result.Output);
+            Assert.Contains("Weak binding suggestions", result.Output);
+            Assert.Contains("ReferenceA.ReferenceType.Id", result.Output);
+            Assert.Contains("ReferenceB.ReferenceType.Id", result.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
     }
 
     [Fact]
@@ -333,6 +385,24 @@ public sealed class CliTests
         throw new InvalidOperationException("Could not locate repository root from test base directory.");
     }
 
+    private static void CopyDirectory(string sourcePath, string targetPath)
+    {
+        Directory.CreateDirectory(targetPath);
+        foreach (var directory in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+        {
+            var relative = Path.GetRelativePath(sourcePath, directory);
+            Directory.CreateDirectory(Path.Combine(targetPath, relative));
+        }
+
+        foreach (var file in Directory.GetFiles(sourcePath, "*", SearchOption.AllDirectories))
+        {
+            var relative = Path.GetRelativePath(sourcePath, file);
+            var targetFile = Path.Combine(targetPath, relative);
+            Directory.CreateDirectory(Path.GetDirectoryName(targetFile)!);
+            File.Copy(file, targetFile, overwrite: true);
+        }
+    }
+
     private static void DeleteDirectoryIfExists(string path)
     {
         if (Directory.Exists(path))
@@ -341,4 +411,3 @@ public sealed class CliTests
         }
     }
 }
-
