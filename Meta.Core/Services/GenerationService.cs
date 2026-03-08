@@ -263,7 +263,7 @@ public static class GenerationService
                          .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase))
             {
                 var nullable = property.IsNullable ? "NULL" : "NOT NULL";
-                columns.Add($"    [{EscapeSqlIdentifier(property.Name)}] NVARCHAR(256) {nullable}");
+                columns.Add($"    [{EscapeSqlIdentifier(property.Name)}] NVARCHAR(MAX) {nullable}");
             }
 
             foreach (var relationship in entity.Relationships

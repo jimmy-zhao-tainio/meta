@@ -177,33 +177,33 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 ```sql
 CREATE TABLE [dbo].[Cube] (
   [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [CubeName] NVARCHAR(256) NOT NULL,
-  [Purpose] NVARCHAR(256) NULL,
-  [RefreshMode] NVARCHAR(256) NULL
+  [CubeName] NVARCHAR(MAX) NOT NULL,
+  [Purpose] NVARCHAR(MAX) NULL,
+  [RefreshMode] NVARCHAR(MAX) NULL
 );
 
 CREATE TABLE [dbo].[Measure] (
   [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [MeasureName] NVARCHAR(256) NOT NULL,
-  [MDX] NVARCHAR(256) NULL,
+  [MeasureName] NVARCHAR(MAX) NOT NULL,
+  [MDX] NVARCHAR(MAX) NULL,
   [CubeId] INT NOT NULL
 );
 
 CREATE TABLE [dbo].[SystemType] (
   [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [TypeName] NVARCHAR(256) NOT NULL
+  [TypeName] NVARCHAR(MAX) NOT NULL
 );
 
 CREATE TABLE [dbo].[System] (
   [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [SystemName] NVARCHAR(256) NOT NULL,
-  [Version] NVARCHAR(256) NULL,
+  [SystemName] NVARCHAR(MAX) NOT NULL,
+  [Version] NVARCHAR(MAX) NULL,
   [SystemTypeId] INT NOT NULL
 );
 
 CREATE TABLE [dbo].[SystemCube] (
   [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [ProcessingMode] NVARCHAR(256) NULL,
+  [ProcessingMode] NVARCHAR(MAX) NULL,
   [CubeId] INT NOT NULL,
   [SystemId] INT NOT NULL
 );

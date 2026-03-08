@@ -24,6 +24,8 @@ public sealed class GenerationServiceTests
             Assert.True(GenerationService.AreEquivalent(manifestA, manifestB, out var message), message);
             Assert.True(File.Exists(Path.Combine(outputA, "schema.sql")));
             Assert.True(File.Exists(Path.Combine(outputA, "data.sql")));
+            var schemaText = await File.ReadAllTextAsync(Path.Combine(outputA, "schema.sql"));
+            Assert.Contains("NVARCHAR(MAX)", schemaText, StringComparison.Ordinal);
         }
         finally
         {
