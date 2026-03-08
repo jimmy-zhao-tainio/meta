@@ -20,8 +20,8 @@ public interface IMetaFabricAuthoringService
         Workspace fabricWorkspace,
         string bindingReferenceName,
         string parentBindingReferenceName,
-        string sourceParentReferenceName,
-        string targetParentReferenceName,
+        string sourceParentPath,
+        string targetParentPath,
         CancellationToken cancellationToken = default);
 }
 
@@ -158,16 +158,16 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
         Workspace fabricWorkspace,
         string bindingReferenceName,
         string parentBindingReferenceName,
-        string sourceParentReferenceName,
-        string targetParentReferenceName,
+        string sourceParentPath,
+        string targetParentPath,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
         ArgumentNullException.ThrowIfNull(fabricWorkspace);
         RequireNonEmpty(bindingReferenceName, nameof(bindingReferenceName));
         RequireNonEmpty(parentBindingReferenceName, nameof(parentBindingReferenceName));
-        RequireNonEmpty(sourceParentReferenceName, nameof(sourceParentReferenceName));
-        RequireNonEmpty(targetParentReferenceName, nameof(targetParentReferenceName));
+        RequireNonEmpty(sourceParentPath, nameof(sourceParentPath));
+        RequireNonEmpty(targetParentPath, nameof(targetParentPath));
 
         var bindingReferences = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingReference");
         var bindingReference = bindingReferences.SingleOrDefault(record => string.Equals(GetRequiredValue(record, "Name"), bindingReferenceName, StringComparison.Ordinal))
@@ -180,30 +180,33 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
             throw new InvalidOperationException("BindingReference and parent binding must be different.");
         }
 
+        var sourcePathSteps = MetaFabricPathing.ParsePath(sourceParentPath);
+        var targetPathSteps = MetaFabricPathing.ParsePath(targetParentPath);
+
         var scopeRequirements = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopeRequirement");
+        var pathSteps = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopePathStep");
         if (scopeRequirements.Any(record =>
                 string.Equals(GetRequiredRelationshipId(record, "BindingId"), bindingReference.Id, StringComparison.Ordinal) &&
                 string.Equals(GetRequiredRelationshipId(record, "ParentBindingId"), parentBindingReference.Id, StringComparison.Ordinal) &&
-                string.Equals(GetRequiredValue(record, "SourceParentReferenceName"), sourceParentReferenceName, StringComparison.Ordinal) &&
-                string.Equals(GetRequiredValue(record, "TargetParentReferenceName"), targetParentReferenceName, StringComparison.Ordinal)))
+                string.Equals(GetScopePath(pathSteps, record.Id, "Source"), MetaFabricPathing.SerializePath(sourcePathSteps), StringComparison.Ordinal) &&
+                string.Equals(GetScopePath(pathSteps, record.Id, "Target"), MetaFabricPathing.SerializePath(targetPathSteps), StringComparison.Ordinal)))
         {
             throw new InvalidOperationException("An equivalent BindingScopeRequirement already exists.");
         }
 
+        var requirementId = AllocateNumericId(scopeRequirements);
         scopeRequirements.Add(new GenericRecord
         {
-            Id = AllocateNumericId(scopeRequirements),
-            Values =
-            {
-                ["SourceParentReferenceName"] = sourceParentReferenceName,
-                ["TargetParentReferenceName"] = targetParentReferenceName,
-            },
+            Id = requirementId,
             RelationshipIds =
             {
                 ["BindingId"] = bindingReference.Id,
                 ["ParentBindingId"] = parentBindingReference.Id,
             },
         });
+
+        AddPathSteps(pathSteps, pathSteps, requirementId, "Source", sourcePathSteps);
+        AddPathSteps(pathSteps, pathSteps, requirementId, "Target", targetPathSteps);
 
         return Task.CompletedTask;
     }
@@ -220,6 +223,49 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
         }
 
         return referencedWorkspace;
+    }
+
+    private static void AddPathSteps(IReadOnlyCollection<GenericRecord> existingPathSteps, ICollection<GenericRecord> pathSteps, string requirementId, string side, IReadOnlyList<string> references)
+    {
+        for (var index = 0; index < references.Count; index++)
+        {
+            pathSteps.Add(new GenericRecord
+            {
+                Id = AllocateNumericId(existingPathSteps.Concat(pathSteps).ToList()),
+                Values =
+                {
+                    ["Side"] = side,
+                    ["Ordinal"] = (index + 1).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    ["ReferenceName"] = references[index],
+                },
+                RelationshipIds =
+                {
+                    ["BindingScopeRequirementId"] = requirementId,
+                },
+            });
+        }
+    }
+
+    private static string GetScopePath(IReadOnlyCollection<GenericRecord> pathSteps, string requirementId, string side)
+    {
+        var steps = pathSteps
+            .Where(record =>
+                string.Equals(GetRequiredRelationshipId(record, "BindingScopeRequirementId"), requirementId, StringComparison.Ordinal) &&
+                string.Equals(GetRequiredValue(record, "Side"), side, StringComparison.Ordinal))
+            .OrderBy(record => ParseRequiredOrdinal(record))
+            .Select(record => GetRequiredValue(record, "ReferenceName"))
+            .ToList();
+        return MetaFabricPathing.SerializePath(steps);
+    }
+
+    private static int ParseRequiredOrdinal(GenericRecord record)
+    {
+        if (!int.TryParse(GetRequiredValue(record, "Ordinal"), out var ordinal))
+        {
+            throw new InvalidOperationException($"Record '{record.Id}' has invalid Ordinal value.");
+        }
+
+        return ordinal;
     }
 
     private static void RequireNonEmpty(string value, string name)
@@ -282,3 +328,4 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
         return Path.GetFullPath(Path.Combine(fabricWorkspaceRootPath, configuredPath));
     }
 }
+

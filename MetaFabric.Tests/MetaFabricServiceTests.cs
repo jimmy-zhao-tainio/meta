@@ -34,8 +34,8 @@ public sealed class MetaFabricServiceTests
         Assert.Equal("Item.Name -> CategoryItem.Name", suggestion.ChildBindingName);
         Assert.Equal("ParentGroup", suggestion.ParentBindingReferenceName);
         Assert.Equal("Group.Name -> Category.Name", suggestion.ParentBindingName);
-        Assert.Equal("GroupId", suggestion.SourceParentReferenceName);
-        Assert.Equal("CategoryId", suggestion.TargetParentReferenceName);
+        Assert.Equal("GroupId", suggestion.SourceParentPath);
+        Assert.Equal("CategoryId", suggestion.TargetParentPath);
     }
 
     [Fact]
@@ -47,6 +47,36 @@ public sealed class MetaFabricServiceTests
 
         Assert.Equal(0, result.SuggestionCount);
         Assert.Equal(0, result.WeakSuggestionCount);
+    }
+
+    [Fact]
+    public async Task SuggestAsync_MultiHopScope_SuggestsPathBasedScope()
+    {
+        var workspace = await new WorkspaceService().LoadAsync(GetBiFixtureWorkspacePath("Fabric-Suggest-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce"), searchUpward: false);
+
+        var result = await new MetaFabricSuggestService().SuggestAsync(workspace);
+
+        Assert.Equal(1, result.SuggestionCount);
+        Assert.Equal(0, result.WeakSuggestionCount);
+
+        var suggestion = Assert.Single(result.Suggestions);
+        Assert.Equal("ChildKeyPart", suggestion.ChildBindingReferenceName);
+        Assert.Equal("ParentHub", suggestion.ParentBindingReferenceName);
+        Assert.Equal("BusinessHubId", suggestion.SourceParentPath);
+        Assert.Equal("BusinessKeyId.BusinessObjectId", suggestion.TargetParentPath);
+    }
+
+    [Fact]
+    public async Task CheckAsync_MultiHopScopedFabric_Passes()
+    {
+        var workspace = await new WorkspaceService().LoadAsync(GetBiFixtureWorkspacePath("Fabric-Scoped-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce"), searchUpward: false);
+
+        var result = await new MetaFabricService().CheckAsync(workspace);
+
+        Assert.False(result.HasErrors);
+        Assert.Equal(2, result.WeaveCount);
+        Assert.Equal(2, result.BindingCount);
+        Assert.Equal(6, result.ResolvedRowCount);
     }
 
     [Fact]
@@ -75,18 +105,20 @@ public sealed class MetaFabricServiceTests
             workspace.Instance.GetOrCreateEntityRecords("BindingReference").Add(childBinding);
 
             var scopeA = new GenericRecord { Id = "1" };
-            scopeA.Values["SourceParentReferenceName"] = "Id";
-            scopeA.Values["TargetParentReferenceName"] = "Id";
             scopeA.RelationshipIds["BindingId"] = childBinding.Id;
             scopeA.RelationshipIds["ParentBindingId"] = parentBinding.Id;
             workspace.Instance.GetOrCreateEntityRecords("BindingScopeRequirement").Add(scopeA);
 
             var scopeB = new GenericRecord { Id = "2" };
-            scopeB.Values["SourceParentReferenceName"] = "Id";
-            scopeB.Values["TargetParentReferenceName"] = "Id";
             scopeB.RelationshipIds["BindingId"] = parentBinding.Id;
             scopeB.RelationshipIds["ParentBindingId"] = childBinding.Id;
             workspace.Instance.GetOrCreateEntityRecords("BindingScopeRequirement").Add(scopeB);
+
+            var pathSteps = workspace.Instance.GetOrCreateEntityRecords("BindingScopePathStep");
+            AddPathStep(pathSteps, "1", "Source", 1, "Id");
+            AddPathStep(pathSteps, "1", "Target", 1, "Id");
+            AddPathStep(pathSteps, "2", "Source", 1, "Id");
+            AddPathStep(pathSteps, "2", "Target", 1, "Id");
 
             var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => new MetaFabricService().CheckAsync(workspace));
             Assert.Contains("contains a cycle", ex.Message);
@@ -97,9 +129,32 @@ public sealed class MetaFabricServiceTests
         }
     }
 
+    private static void AddPathStep(ICollection<GenericRecord> records, string requirementId, string side, int ordinal, string referenceName)
+    {
+        records.Add(new GenericRecord
+        {
+            Id = (records.Count + 1).ToString(System.Globalization.CultureInfo.InvariantCulture),
+            Values =
+            {
+                ["Side"] = side,
+                ["Ordinal"] = ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture),
+                ["ReferenceName"] = referenceName,
+            },
+            RelationshipIds =
+            {
+                ["BindingScopeRequirementId"] = requirementId,
+            },
+        });
+    }
+
     private static string GetFixtureWorkspacePath(string name)
     {
         return Path.Combine(FindRepositoryRoot(), "MetaFabric.Workspaces", name);
+    }
+
+    private static string GetBiFixtureWorkspacePath(string name)
+    {
+        return Path.Combine(FindRepositoryRoot(), "..", "meta-bi", "Fabrics", name);
     }
 
     private static string GetWeaveWorkspacePath(string name)

@@ -976,10 +976,17 @@ The child weave alone is not enough, because `Common` matches two target rows. F
   <Name>ChildItem</Name>
   <BindingName>Item.Name -&gt; CategoryItem.Name</BindingName>
 </BindingReference>
-<BindingScopeRequirement Id="1" BindingId="2" ParentBindingId="1">
-  <SourceParentReferenceName>GroupId</SourceParentReferenceName>
-  <TargetParentReferenceName>CategoryId</TargetParentReferenceName>
-</BindingScopeRequirement>
+<BindingScopeRequirement Id="1" BindingId="2" ParentBindingId="1" />
+<BindingScopePathStep Id="1" BindingScopeRequirementId="1">
+  <Side>Source</Side>
+  <Ordinal>1</Ordinal>
+  <ReferenceName>GroupId</ReferenceName>
+</BindingScopePathStep>
+<BindingScopePathStep Id="2" BindingScopeRequirementId="1">
+  <Side>Target</Side>
+  <Ordinal>1</Ordinal>
+  <ReferenceName>CategoryId</ReferenceName>
+</BindingScopePathStep>
 ```
 
 That tells `meta-fabric` to resolve `Item.Name -> CategoryItem.Name` only inside the parent mapping already established by `Group.Name -> Category.Name`. So `item:alpha:common` is checked only against `category:alpha:*`, and `item:beta:common` only against `category:beta:*`.
@@ -992,7 +999,7 @@ meta-fabric help
 meta-fabric init --new-workspace .\MetaFabric.Workspace
 meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
 meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
-meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
 meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
 meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
 ```
@@ -1010,10 +1017,10 @@ Suggestions: 1
 WeakSuggestions: 0
 
 Scope suggestions
-  1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
+  1) ChildItem -> ParentGroup (source path: GroupId, target path: CategoryId)
 
 Commands
-  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
 
 Weak scope suggestions
   (none)
@@ -1027,7 +1034,7 @@ meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --worksp
 meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Child --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
 meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
 meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ChildItem --weave Child --source-entity Item --source-property Name --target-entity CategoryItem --target-property Name
-meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
 ```
 
 Scoped validation example:
@@ -1074,4 +1081,7 @@ dotnet test Metadata.Framework.sln
 dotnet test MetaWeave.sln
 dotnet test MetaFabric.sln
 ```
+
+
+
 

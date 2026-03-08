@@ -2,90 +2,68 @@
 
 ## Current strength
 
-The current `MetaFabric` model and service are strong enough for shared-parent scoped bindings.
+The current `MetaFabric` model and service are strong enough for both:
 
-That pattern looks like this:
+- shared-parent scoped bindings
+- multi-hop path-to-parent scoped bindings
 
-- child weave binding is ambiguous on its own
-- a parent weave binding already resolves source parent rows to target parent rows
-- the child source rows carry a parent reference to the source parent rows
-- the child target rows carry a parent reference to the target parent rows
-- applying the parent mapping removes the ambiguity deterministically
-
-This is the case already proven by the current sample fabric workspace:
+That is now proven by:
 
 - `MetaFabric.Workspaces/Fabric-Scoped-Group-CategoryItem`
-
-And by the BI-side fabric sample:
-
 - `meta-bi/Fabrics/Fabric-Scoped-MetaBusiness-MetaBusinessDataVault-LinkEndParticipant-Commerce`
+- `meta-bi/Fabrics/Fabric-Scoped-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce`
+
+The last case matters because the child target rows scope through `BusinessKeyId.BusinessObjectId`, so fabric now handles a multi-hop path instead of only a one-step shared parent.
 
 ## Current limitation
 
-The current model is not strong enough for multi-hop or cross-parent scope.
+The next gap is no longer path depth. The next gap is scope that depends on more than one already-resolved binding or on path conditions that are not reducible to one parent binding.
 
 The unresolved pattern looks like this:
 
-- child source rows scope through source parent `A`
-- child target rows scope through target parent `B`
-- `A` and `B` are not themselves the direct endpoints of one already-resolved parent binding
-- instead, the target-side path runs through another intermediate binding or relationship
+- child binding `C` is ambiguous
+- resolving `C` requires more than one parent binding context
+- or resolving `C` requires structural predicates beyond a simple source path / target path equality under one parent binding
 
-This is the current Business/BDV key-part problem:
+Examples of future pressure:
 
-- source child: `BusinessHubKeyPart`
-- source parent: `BusinessHub`
-- target child: `BusinessKeyPart`
-- target parent: `BusinessKey`
-
-But the flat business anchor is:
-
-- `BusinessHub.Name` -> `BusinessObject.Name`
-
-The target child does not scope directly through `BusinessObject`. It scopes through `BusinessKey`, which itself belongs to `BusinessObject`.
-
-So the needed path is not:
-
-- parent binding + child binding
-
-It is more like:
-
-- parent binding
-- plus an additional target-side structural step
-- then child binding
+- one child binding must be valid only when two different parent bindings agree
+- one child binding must be scoped by a parent binding and an ordinal or role constraint at the same time
+- one child binding depends on several sibling bindings, not just one parent binding
 
 ## What this means
 
-The current `BindingScopeRequirement` concept is intentionally narrow:
+The current `BindingScopeRequirement` concept is intentionally focused:
 
 - one child binding
 - one parent binding
-- one source parent reference name
-- one target parent reference name
+- one source-side path
+- one target-side path
 
-That is enough for shared-parent scope.
+That is enough for:
 
-It is not enough for:
+- one-hop shared-parent scope
+- multi-hop path-to-parent scope
 
-- multi-hop target scope
-- multi-hop source scope
-- chained binding scope
-- scope that depends on more than one already-resolved binding
+It is not yet enough for:
+
+- multi-parent scope
+- conjunctive scope across different parent bindings
+- richer structural predicates beyond path traversal
 
 ## Next likely extension
 
-The next fabric capability should probably not be another ad hoc property on `BindingScopeRequirement`.
+If those cases become real across more than one domain, the next fabric capability will likely need some concept in the family of:
 
-The missing concept is a scoped path, not just a scoped parent.
+- `BindingScopeGroup`
+- `BindingPredicate`
+- `BindingScopeCondition`
 
-In practical terms, that likely means some future concept in the family of:
+The likely shape is:
 
-- `BindingPathRequirement`
-- `BindingScopePathStep`
-- or another equivalent way to express:
-  - from child source row, follow this source-side path
-  - from child target row, follow this target-side path
-  - compare those rows through already-resolved binding references
+- keep path steps for navigation
+- add explicit grouped or conditional scope semantics on top
+- continue to operate only over referenced weave bindings, not domain models directly
 
 ## Design rule
 
@@ -93,6 +71,6 @@ The important rule is unchanged:
 
 - keep `MetaWeave` flat
 - keep `MetaFabric` operating on weave workspaces only
-- do not push this multi-hop scope problem down into domain CLIs unless it proves truly domain-specific
+- do not push foundational scoped-binding complexity down into domain CLIs unless it proves truly domain-specific
 
-At the moment, the Business/BDV key-part seam is evidence that the next issue is foundational.
+At the moment, the next issue is no longer “can fabric do multi-hop?” It can. The next issue is whether future sanctioned model families need multi-parent or conditional scope.

@@ -12,7 +12,7 @@ That is enough for direct correspondence such as:
 - `BusinessHub.Name -> BusinessObject.Name`
 - `BusinessLink.Name -> BusinessRelationship.Name`
 
-It is not enough for child rows whose validity depends on an already resolved parent binding.
+It is not enough for child rows whose validity depends on an already resolved parent binding, especially when the child rows must follow one or more structural steps to reach that parent context.
 
 Examples:
 - a child key-part binding is only valid inside the parent hub/object binding already chosen
@@ -123,7 +123,7 @@ With instance rows like:
 
 The parent weave binds `Group.Name -> Category.Name`. The child weave binds `Item.Name -> CategoryItem.Name`. On its own, the child weave fails because `Common` is globally ambiguous. Fabric closes that gap by saying the child binding must be evaluated under the parent binding using `GroupId` on the source side and `CategoryId` on the target side.
 
-The sanctioned unscoped sample MetaFabric.Workspaces\\Fabric-Suggest-Scoped-Group-CategoryItem is intentionally missing that scope requirement so meta-fabric suggest can propose it deterministically.
+The sanctioned unscoped sample `MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem` is intentionally missing that scope requirement so `meta-fabric suggest` can propose it deterministically.
 
 ## Current sanctioned concepts
 
@@ -157,18 +157,33 @@ Declares that one binding is only valid within the context of another binding.
 It carries:
 - relationship `Binding` -> the child binding being constrained
 - relationship `ParentBinding` -> the already resolved parent binding
-- `SourceParentReferenceName`
-- `TargetParentReferenceName`
 - optional `Description`
 
-`...ReferenceName` is used deliberately instead of `...Property` because the scoped parent link may be represented as either a scalar property or a relationship usage column in the contributing models.
-
 Semantics:
-- when evaluating a row pair under `Binding`, the source row must point to a source parent row through `SourceParentReferenceName`
-- the target row must point to a target parent row through `TargetParentReferenceName`
+- when evaluating a row pair under `Binding`, the source row must resolve to a source parent row through its source-side scope path
+- the target row must resolve to a target parent row through its target-side scope path
 - those parent rows must themselves resolve through `ParentBinding`
 
 A binding may have multiple scope requirements. They are conjunctive.
+
+### `BindingScopePathStep`
+
+Carries one ordered step in a scope path.
+
+It carries:
+- `Side`
+- `Ordinal`
+- `ReferenceName`
+- relationship `BindingScopeRequirement`
+
+Semantics:
+- `Side` is `Source` or `Target`
+- `Ordinal` orders the path
+- `ReferenceName` is the relationship usage name or reference column name to follow at that step
+
+This keeps the model general enough for both:
+- shared-parent scope such as `GroupId` / `CategoryId`
+- multi-hop scope such as `BusinessKeyId.BusinessObjectId`
 
 ## What this model is deliberately not doing yet
 
@@ -176,29 +191,36 @@ Not yet in scope:
 - grouped execution plans
 - transitive materialization semantics
 - domain-specific shortcuts
-- alternative scope kinds beyond parent-scoped requirements
+- alternative scope kinds beyond path-based parent-scoped requirements
 - cyclic dependency handling beyond the general rule that cycles should be invalid
 
 Those may come later if real use cases require them.
 
-See also: docs/META-FABRIC-NEXT-NOTE.md.
+See also: `docs/META-FABRIC-NEXT-NOTE.md`.
 
 ## Current rule set
 
 1. A fabric workspace references weave workspaces only.
 2. A fabric binding reference points to an existing weave `PropertyBinding` by name.
 3. A scope requirement constrains one binding by another binding.
-4. Multiple scope requirements on the same binding are all required.
-5. Fabric should reject cyclic scope graphs.
+4. Scope paths are expressed by ordered `BindingScopePathStep` rows.
+5. Multiple scope requirements on the same binding are all required.
+6. Fabric should reject cyclic scope graphs.
 
 ## Why this is the current minimum
 
-This is the smallest model that closes the parent-scoped binding gap without pushing that complexity into domain CLIs.
+This is the smallest model that closes the scoped binding gap without pushing that complexity into domain CLIs.
 
 It keeps the foundation honest:
 - no Data Vault-specific hacks in `meta-datavault`
 - no pretending flat weave is enough when it is not
 - no premature generalization beyond the scoped binding problem already visible in sanctioned models
+
+Current sanctioned samples prove both shapes:
+- shared-parent scope:
+  - `MetaFabric.Workspaces/Fabric-Scoped-Group-CategoryItem`
+- multi-hop path scope:
+  - `meta-bi/Fabrics/Fabric-Scoped-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce`
 
 ## Sources
 
@@ -207,4 +229,3 @@ It keeps the foundation honest:
 - Eclipse QVT Declarative documentation PDF: <https://download.eclipse.org/qvtd/doc/0.14.0/qvtd.pdf>
 - Triple Graph Grammar discussion of correspondence language: <https://link.springer.com/article/10.1007/s10270-024-01238-1>
 - Algebraic semantics for QVT Relations (`when` / `where` dependencies): <https://repositorio.uam.es/bitstreams/9457c950-13cd-463c-a898-b466d58ef93f/download>
-

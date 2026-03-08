@@ -55,9 +55,12 @@ public sealed class MetaFabricService : IMetaFabricService
         var scopeRequirements = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopeRequirement")
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
+        var pathSteps = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopePathStep")
+            .OrderBy(record => record.Id, StringComparer.Ordinal)
+            .ToList();
 
         var loadedWeaves = await LoadWeavesAsync(fabricWorkspace, weaveReferences, cancellationToken).ConfigureAwait(false);
-        var bindingDefinitions = BuildBindingDefinitions(bindingReferences, scopeRequirements, loadedWeaves);
+        var bindingDefinitions = BuildBindingDefinitions(bindingReferences, scopeRequirements, pathSteps, loadedWeaves);
         var orderedBindings = TopologicallyOrderBindings(bindingDefinitions);
 
         var resolvedBindings = new Dictionary<string, FabricResolvedBinding>(StringComparer.Ordinal);
@@ -103,31 +106,37 @@ public sealed class MetaFabricService : IMetaFabricService
             var scopeFailure = false;
             foreach (var scopeRequirement in binding.ScopeRequirements)
             {
-                if (!TryGetReferenceValue(sourceRow, scopeRequirement.SourceParentReferenceName, out var sourceParentId))
+                if (!resolvedBindings.TryGetValue(scopeRequirement.ParentBinding.ReferenceId, out var parentResolution))
                 {
-                    errors.Add($"Source row '{binding.SourceEntityName}:{sourceRow.Id}' is missing scope reference '{scopeRequirement.SourceParentReferenceName}'.");
+                    throw new InvalidOperationException(
+                        $"Fabric binding '{binding.ReferenceName}' depends on unresolved parent binding '{scopeRequirement.ParentBinding.ReferenceName}'.");
+                }
+
+                if (!MetaFabricPathing.TryResolvePath(binding.SourceWorkspace, binding.SourceEntityName, sourceRow, scopeRequirement.SourcePathSteps, out var sourcePath, out var sourceError))
+                {
+                    errors.Add($"Source row '{binding.SourceEntityName}:{sourceRow.Id}' {sourceError}");
                     scopeFailure = true;
                     break;
                 }
 
-                var parentBinding = scopeRequirement.ParentBinding;
-                if (!resolvedBindings.TryGetValue(parentBinding.ReferenceId, out var parentResolution))
+                if (!string.Equals(sourcePath.EntityName, scopeRequirement.ParentBinding.SourceEntityName, StringComparison.Ordinal))
                 {
-                    throw new InvalidOperationException(
-                        $"Fabric binding '{binding.ReferenceName}' depends on unresolved parent binding '{parentBinding.ReferenceName}'.");
+                    errors.Add($"Source row '{binding.SourceEntityName}:{sourceRow.Id}' source path for scope '{scopeRequirement.RequirementId}' terminates at '{sourcePath.EntityName}', expected '{scopeRequirement.ParentBinding.SourceEntityName}'.");
+                    scopeFailure = true;
+                    break;
                 }
 
-                var sourceParentKey = BuildRowKey(parentBinding.SourceWorkspace, parentBinding.SourceEntityName, sourceParentId);
+                var sourceParentKey = BuildRowKey(scopeRequirement.ParentBinding.SourceWorkspace, sourcePath.EntityName, sourcePath.RowId);
                 if (!parentResolution.SourceToTargetRowKey.TryGetValue(sourceParentKey, out var expectedTargetParentKey))
                 {
                     errors.Add(
-                        $"Source row '{binding.SourceEntityName}:{sourceRow.Id}' scope parent '{parentBinding.SourceEntityName}:{sourceParentId}' is not resolved by parent binding '{parentBinding.ReferenceName}'.");
+                        $"Source row '{binding.SourceEntityName}:{sourceRow.Id}' scope source path '{MetaFabricPathing.SerializePath(scopeRequirement.SourcePathSteps)}' is not resolved by parent binding '{scopeRequirement.ParentBinding.ReferenceName}'.");
                     scopeFailure = true;
                     break;
                 }
 
                 scopedCandidates = scopedCandidates
-                    .Where(candidate => CandidateMatchesScope(candidate, scopeRequirement, parentBinding, expectedTargetParentKey))
+                    .Where(candidate => CandidateMatchesScope(candidate, binding, scopeRequirement, expectedTargetParentKey, out _))
                     .ToList();
             }
 
@@ -218,8 +227,12 @@ public sealed class MetaFabricService : IMetaFabricService
     private static Dictionary<string, FabricBindingDefinition> BuildBindingDefinitions(
         IReadOnlyCollection<GenericRecord> bindingReferences,
         IReadOnlyCollection<GenericRecord> scopeRequirements,
+        IReadOnlyCollection<GenericRecord> pathSteps,
         IReadOnlyDictionary<string, LoadedWeaveReference> loadedWeaves)
     {
+        var pathStepsByRequirementId = pathSteps
+            .GroupBy(record => RequireRelationshipId(record, "BindingScopeRequirementId"), StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.OrderBy(ParseRequiredOrdinal).ToList(), StringComparer.Ordinal);
         var scopeRequirementsByBindingId = scopeRequirements
             .GroupBy(record => RequireRelationshipId(record, "BindingId"), StringComparer.Ordinal)
             .ToDictionary(group => group.Key, group => group.OrderBy(record => record.Id, StringComparer.Ordinal).ToList(), StringComparer.Ordinal);
@@ -311,11 +324,37 @@ public sealed class MetaFabricService : IMetaFabricService
                             $"BindingScopeRequirement '{record.Id}' references missing parent binding '{parentBindingId}'.");
                     }
 
+                    var scopedPathSteps = pathStepsByRequirementId.TryGetValue(record.Id, out var definedSteps)
+                        ? definedSteps
+                        : new List<GenericRecord>();
+                    var sourcePathSteps = scopedPathSteps
+                        .Where(item => string.Equals(RequireValue(item, "Side"), "Source", StringComparison.Ordinal))
+                        .Select(item => new FabricScopePathStepDefinition(RequireValue(item, "ReferenceName"), ParseRequiredOrdinal(item)))
+                        .OrderBy(item => item.Ordinal)
+                        .ToArray();
+                    var targetPathSteps = scopedPathSteps
+                        .Where(item => string.Equals(RequireValue(item, "Side"), "Target", StringComparison.Ordinal))
+                        .Select(item => new FabricScopePathStepDefinition(RequireValue(item, "ReferenceName"), ParseRequiredOrdinal(item)))
+                        .OrderBy(item => item.Ordinal)
+                        .ToArray();
+                    if (sourcePathSteps.Length == 0)
+                    {
+                        throw new InvalidOperationException($"BindingScopeRequirement '{record.Id}' is missing source path steps.");
+                    }
+
+                    if (targetPathSteps.Length == 0)
+                    {
+                        throw new InvalidOperationException($"BindingScopeRequirement '{record.Id}' is missing target path steps.");
+                    }
+
+                    MetaFabricPathing.ValidatePath(binding.SourceWorkspace.Model, binding.SourceEntityName, sourcePathSteps, parentBinding.SourceEntityName, $"BindingScopeRequirement '{record.Id}' source path");
+                    MetaFabricPathing.ValidatePath(binding.TargetWorkspace.Model, binding.TargetEntityName, targetPathSteps, parentBinding.TargetEntityName, $"BindingScopeRequirement '{record.Id}' target path");
+
                     return new FabricScopeRequirementDefinition(
                         record.Id,
                         parentBinding,
-                        RequireValue(record, "SourceParentReferenceName"),
-                        RequireValue(record, "TargetParentReferenceName"));
+                        sourcePathSteps,
+                        targetPathSteps);
                 })
                 .ToArray();
             bindingDefinitions[bindingId] = binding with { ScopeRequirements = requirements };
@@ -422,16 +461,25 @@ public sealed class MetaFabricService : IMetaFabricService
 
     private static bool CandidateMatchesScope(
         GenericRecord candidate,
+        FabricBindingDefinition binding,
         FabricScopeRequirementDefinition scopeRequirement,
-        FabricBindingDefinition parentBinding,
-        string expectedTargetParentKey)
+        string expectedTargetParentKey,
+        out string? error)
     {
-        if (!TryGetReferenceValue(candidate, scopeRequirement.TargetParentReferenceName, out var targetParentId))
+        if (!MetaFabricPathing.TryResolvePath(binding.TargetWorkspace, binding.TargetEntityName, candidate, scopeRequirement.TargetPathSteps, out var targetPath, out var targetError))
         {
+            error = targetError;
             return false;
         }
 
-        var candidateTargetParentKey = BuildRowKey(parentBinding.TargetWorkspace, parentBinding.TargetEntityName, targetParentId);
+        if (!string.Equals(targetPath.EntityName, scopeRequirement.ParentBinding.TargetEntityName, StringComparison.Ordinal))
+        {
+            error = $"Target path for scope '{scopeRequirement.RequirementId}' terminates at '{targetPath.EntityName}', expected '{scopeRequirement.ParentBinding.TargetEntityName}'.";
+            return false;
+        }
+
+        var candidateTargetParentKey = BuildRowKey(scopeRequirement.ParentBinding.TargetWorkspace, targetPath.EntityName, targetPath.RowId);
+        error = null;
         return string.Equals(candidateTargetParentKey, expectedTargetParentKey, StringComparison.Ordinal);
     }
 
@@ -462,14 +510,14 @@ public sealed class MetaFabricService : IMetaFabricService
         return false;
     }
 
-    private static string ResolveWorkspacePath(string fabricWorkspaceRootPath, string configuredPath)
+    private static string ResolveWorkspacePath(string? fabricWorkspaceRootPath, string configuredPath)
     {
         if (Path.IsPathRooted(configuredPath))
         {
             return Path.GetFullPath(configuredPath);
         }
 
-        return Path.GetFullPath(Path.Combine(fabricWorkspaceRootPath, configuredPath));
+        return Path.GetFullPath(Path.Combine(fabricWorkspaceRootPath ?? string.Empty, configuredPath));
     }
 
     private static string RequireValue(GenericRecord record, string propertyName)
@@ -490,6 +538,16 @@ public sealed class MetaFabricService : IMetaFabricService
         }
 
         return value;
+    }
+
+    private static int ParseRequiredOrdinal(GenericRecord record)
+    {
+        if (!int.TryParse(RequireValue(record, "Ordinal"), out var ordinal))
+        {
+            throw new InvalidOperationException($"Record '{record.Id}' has invalid Ordinal value.");
+        }
+
+        return ordinal;
     }
 
     private sealed record LoadedWeaveReference(
@@ -527,8 +585,8 @@ public sealed class MetaFabricService : IMetaFabricService
     private sealed record FabricScopeRequirementDefinition(
         string RequirementId,
         FabricBindingDefinition ParentBinding,
-        string SourceParentReferenceName,
-        string TargetParentReferenceName);
+        IReadOnlyList<FabricScopePathStepDefinition> SourcePathSteps,
+        IReadOnlyList<FabricScopePathStepDefinition> TargetPathSteps);
 
     private enum VisitState
     {

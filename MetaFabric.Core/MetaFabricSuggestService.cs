@@ -10,8 +10,8 @@ public sealed record FabricScopeSuggestion(
     string ChildBindingName,
     string ParentBindingReferenceName,
     string ParentBindingName,
-    string SourceParentReferenceName,
-    string TargetParentReferenceName);
+    string SourceParentPath,
+    string TargetParentPath);
 
 public sealed record FabricWeakScopeSuggestion(
     string ChildBindingReferenceName,
@@ -61,6 +61,9 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         var scopeRequirements = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopeRequirement")
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
+        var pathSteps = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingScopePathStep")
+            .OrderBy(record => record.Id, StringComparer.Ordinal)
+            .ToList();
         var existingScopesByBindingId = scopeRequirements
             .GroupBy(record => RequireRelationshipId(record, "BindingId"), StringComparer.Ordinal)
             .ToDictionary(group => group.Key, group => group.ToList(), StringComparer.Ordinal);
@@ -89,18 +92,21 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
                          .Where(item => !string.Equals(item.BindingReferenceId, childBinding.BindingReferenceId, StringComparison.Ordinal))
                          .OrderBy(item => item.BindingReferenceId, StringComparer.Ordinal))
             {
-                foreach (var sourceParentReferenceName in EnumerateCandidateReferenceNames(childBinding.SourceEntity))
+                var sourcePaths = MetaFabricPathing.EnumerateCandidatePaths(childBinding.SourceModel, childBinding.SourceEntity, parentBinding.SourceEntity.Name);
+                var targetPaths = MetaFabricPathing.EnumerateCandidatePaths(childBinding.TargetModel, childBinding.TargetEntity, parentBinding.TargetEntity.Name);
+                foreach (var sourceParentPath in sourcePaths)
                 {
-                    foreach (var targetParentReferenceName in EnumerateCandidateReferenceNames(childBinding.TargetEntity))
+                    foreach (var targetParentPath in targetPaths)
                     {
                         if (!await CandidatePassesAsync(
                                 fabricWorkspace,
                                 weaveReferences,
                                 existingScopesByBindingId,
+                                pathSteps,
                                 childBinding,
                                 parentBinding,
-                                sourceParentReferenceName,
-                                targetParentReferenceName,
+                                sourceParentPath,
+                                targetParentPath,
                                 cancellationToken).ConfigureAwait(false))
                         {
                             continue;
@@ -111,8 +117,8 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
                             ChildBindingName: childBinding.BindingName,
                             ParentBindingReferenceName: parentBinding.ReferenceName,
                             ParentBindingName: parentBinding.BindingName,
-                            SourceParentReferenceName: sourceParentReferenceName,
-                            TargetParentReferenceName: targetParentReferenceName));
+                            SourceParentPath: sourceParentPath,
+                            TargetParentPath: targetParentPath));
                     }
                 }
             }
@@ -121,11 +127,11 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
                 .GroupBy(item => MakeSuggestionKey(item), StringComparer.OrdinalIgnoreCase)
                 .Select(group => group.First())
                 .OrderBy(item => item.ParentBindingReferenceName, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.SourceParentReferenceName, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.TargetParentReferenceName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.SourceParentPath, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.TargetParentPath, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.ParentBindingReferenceName, StringComparer.Ordinal)
-                .ThenBy(item => item.SourceParentReferenceName, StringComparer.Ordinal)
-                .ThenBy(item => item.TargetParentReferenceName, StringComparer.Ordinal)
+                .ThenBy(item => item.SourceParentPath, StringComparer.Ordinal)
+                .ThenBy(item => item.TargetParentPath, StringComparer.Ordinal)
                 .ToList();
 
             if (distinctCandidates.Count == 1)
@@ -145,12 +151,12 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
             suggestions
                 .OrderBy(item => item.ChildBindingReferenceName, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.ParentBindingReferenceName, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.SourceParentReferenceName, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(item => item.TargetParentReferenceName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.SourceParentPath, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.TargetParentPath, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.ChildBindingReferenceName, StringComparer.Ordinal)
                 .ThenBy(item => item.ParentBindingReferenceName, StringComparer.Ordinal)
-                .ThenBy(item => item.SourceParentReferenceName, StringComparer.Ordinal)
-                .ThenBy(item => item.TargetParentReferenceName, StringComparer.Ordinal)
+                .ThenBy(item => item.SourceParentPath, StringComparer.Ordinal)
+                .ThenBy(item => item.TargetParentPath, StringComparer.Ordinal)
                 .ToList(),
             weakSuggestions
                 .OrderBy(item => item.ChildBindingReferenceName, StringComparer.OrdinalIgnoreCase)
@@ -164,7 +170,7 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         GenericRecord childBindingReference,
         CancellationToken cancellationToken)
     {
-        var tempWorkspace = CreateScopedWorkspaceClone(fabricWorkspace, weaveReferences, new[] { childBindingReference }, Array.Empty<GenericRecord>());
+        var tempWorkspace = CreateScopedWorkspaceClone(fabricWorkspace, weaveReferences, new[] { childBindingReference }, Array.Empty<GenericRecord>(), Array.Empty<GenericRecord>());
         var result = await _fabricService.CheckAsync(tempWorkspace, cancellationToken).ConfigureAwait(false);
         return result.HasErrors;
     }
@@ -173,10 +179,11 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         Workspace fabricWorkspace,
         IReadOnlyCollection<GenericRecord> weaveReferences,
         IReadOnlyDictionary<string, List<GenericRecord>> existingScopesByBindingId,
+        IReadOnlyCollection<GenericRecord> existingPathSteps,
         LoadedBindingReference childBinding,
         LoadedBindingReference parentBinding,
-        string sourceParentReferenceName,
-        string targetParentReferenceName,
+        string sourceParentPath,
+        string targetParentPath,
         CancellationToken cancellationToken)
     {
         var includedBindingIds = new HashSet<string>(StringComparer.Ordinal)
@@ -195,16 +202,20 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
                              includedBindingIds.Contains(RequireRelationshipId(record, "ParentBindingId")))
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
+        var selectedPathSteps = existingPathSteps
+            .Where(record => selectedScopeRequirements.Any(scope => string.Equals(scope.Id, RequireRelationshipId(record, "BindingScopeRequirementId"), StringComparison.Ordinal)))
+            .OrderBy(record => record.Id, StringComparer.Ordinal)
+            .ToList();
 
-        var nextScopeId = GetNextSyntheticId(selectedScopeRequirements.Select(record => record.Id));
+        var nextScopeId = GetNextSyntheticId(selectedScopeRequirements.Select(record => record.Id)).ToString(System.Globalization.CultureInfo.InvariantCulture);
         var candidateScope = new GenericRecord { Id = nextScopeId };
-        candidateScope.Values["SourceParentReferenceName"] = sourceParentReferenceName;
-        candidateScope.Values["TargetParentReferenceName"] = targetParentReferenceName;
         candidateScope.RelationshipIds["BindingId"] = childBinding.BindingReferenceId;
         candidateScope.RelationshipIds["ParentBindingId"] = parentBinding.BindingReferenceId;
         selectedScopeRequirements.Add(candidateScope);
+        AddSyntheticPathSteps(selectedPathSteps, nextScopeId, "Source", MetaFabricPathing.ParsePath(sourceParentPath));
+        AddSyntheticPathSteps(selectedPathSteps, nextScopeId, "Target", MetaFabricPathing.ParsePath(targetParentPath));
 
-        var tempWorkspace = CreateScopedWorkspaceClone(fabricWorkspace, weaveReferences, selectedBindingReferences, selectedScopeRequirements);
+        var tempWorkspace = CreateScopedWorkspaceClone(fabricWorkspace, weaveReferences, selectedBindingReferences, selectedScopeRequirements, selectedPathSteps);
         var result = await _fabricService.CheckAsync(tempWorkspace, cancellationToken).ConfigureAwait(false);
         return !result.HasErrors;
     }
@@ -229,11 +240,33 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         }
     }
 
+    private static void AddSyntheticPathSteps(List<GenericRecord> pathSteps, string requirementId, string side, IReadOnlyList<string> references)
+    {
+        for (var index = 0; index < references.Count; index++)
+        {
+            pathSteps.Add(new GenericRecord
+            {
+                Id = GetNextSyntheticId(pathSteps.Select(record => record.Id)).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                Values =
+                {
+                    ["Side"] = side,
+                    ["Ordinal"] = (index + 1).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    ["ReferenceName"] = references[index],
+                },
+                RelationshipIds =
+                {
+                    ["BindingScopeRequirementId"] = requirementId,
+                },
+            });
+        }
+    }
+
     private static Workspace CreateScopedWorkspaceClone(
         Workspace sourceWorkspace,
         IReadOnlyCollection<GenericRecord> weaveReferences,
         IReadOnlyCollection<GenericRecord> bindingReferences,
-        IReadOnlyCollection<GenericRecord> scopeRequirements)
+        IReadOnlyCollection<GenericRecord> scopeRequirements,
+        IReadOnlyCollection<GenericRecord> pathSteps)
     {
         var snapshot = WorkspaceSnapshotCloner.Capture(sourceWorkspace);
         var clone = new Workspace
@@ -248,6 +281,7 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         CopyRecords(clone.Instance, "WeaveReference", weaveReferences);
         CopyRecords(clone.Instance, "BindingReference", bindingReferences);
         CopyRecords(clone.Instance, "BindingScopeRequirement", scopeRequirements);
+        CopyRecords(clone.Instance, "BindingScopePathStep", pathSteps);
         return clone;
     }
 
@@ -315,7 +349,9 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
                 BindingReference: bindingReference,
                 ReferenceName: RequireValue(bindingReference, "Name"),
                 BindingName: bindingName,
+                SourceModel: sourceWorkspace.Model,
                 SourceEntity: sourceEntity,
+                TargetModel: targetWorkspace.Model,
                 TargetEntity: targetEntity);
         }
 
@@ -374,29 +410,7 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         return loadedWeaves;
     }
 
-    private static IEnumerable<string> EnumerateCandidateReferenceNames(GenericEntity entity)
-    {
-        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "Id",
-        };
-
-        foreach (var property in entity.Properties)
-        {
-            names.Add(property.Name);
-        }
-
-        foreach (var relationship in entity.Relationships)
-        {
-            names.Add(relationship.GetColumnName());
-        }
-
-        return names
-            .OrderBy(item => item, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item, StringComparer.Ordinal);
-    }
-
-    private static string GetNextSyntheticId(IEnumerable<string> existingIds)
+    private static int GetNextSyntheticId(IEnumerable<string> existingIds)
     {
         var max = 0;
         foreach (var id in existingIds)
@@ -407,7 +421,7 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
             }
         }
 
-        return (max + 1).ToString();
+        return max + 1;
     }
 
     private static string MakeSuggestionKey(FabricScopeSuggestion suggestion)
@@ -416,19 +430,19 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         {
             suggestion.ChildBindingReferenceName,
             suggestion.ParentBindingReferenceName,
-            suggestion.SourceParentReferenceName,
-            suggestion.TargetParentReferenceName,
+            suggestion.SourceParentPath,
+            suggestion.TargetParentPath,
         });
     }
 
-    private static string ResolveWorkspacePath(string fabricWorkspaceRootPath, string configuredPath)
+    private static string ResolveWorkspacePath(string? fabricWorkspaceRootPath, string configuredPath)
     {
         if (Path.IsPathRooted(configuredPath))
         {
             return Path.GetFullPath(configuredPath);
         }
 
-        return Path.GetFullPath(Path.Combine(fabricWorkspaceRootPath, configuredPath));
+        return Path.GetFullPath(Path.Combine(fabricWorkspaceRootPath ?? string.Empty, configuredPath));
     }
 
     private static string RequireValue(GenericRecord record, string propertyName)
@@ -462,6 +476,9 @@ public sealed class MetaFabricSuggestService : IMetaFabricSuggestService
         GenericRecord BindingReference,
         string ReferenceName,
         string BindingName,
+        GenericModel SourceModel,
         GenericEntity SourceEntity,
+        GenericModel TargetModel,
         GenericEntity TargetEntity);
 }
+

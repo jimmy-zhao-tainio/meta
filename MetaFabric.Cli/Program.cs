@@ -220,8 +220,8 @@ internal static class Program
                     workspace,
                     parseResult.BindingReferenceName,
                     parseResult.ParentBindingReferenceName,
-                    parseResult.SourceParentReferenceName,
-                    parseResult.TargetParentReferenceName)
+                    parseResult.SourceParentPath,
+                    parseResult.TargetParentPath)
                 .ConfigureAwait(false);
 
             var validation = new ValidationService().Validate(workspace);
@@ -240,8 +240,8 @@ internal static class Program
                 ("Workspace", workspacePath),
                 ("Binding", parseResult.BindingReferenceName),
                 ("ParentBinding", parseResult.ParentBindingReferenceName),
-                ("SourceParentReference", parseResult.SourceParentReferenceName),
-                ("TargetParentReference", parseResult.TargetParentReferenceName));
+                ("SourceParentReference", parseResult.SourceParentPath),
+                ("TargetParentReference", parseResult.TargetParentPath));
             return 0;
         }
         catch (Exception ex) when (ex is ArgumentException or InvalidOperationException or IOException or UnauthorizedAccessException)
@@ -289,7 +289,7 @@ internal static class Program
                 for (var index = 0; index < result.Suggestions.Count; index++)
                 {
                     var suggestion = result.Suggestions[index];
-                    Presenter.WriteInfo($"  {index + 1}) {suggestion.ChildBindingReferenceName} -> {suggestion.ParentBindingReferenceName} (source parent: {suggestion.SourceParentReferenceName}, target parent: {suggestion.TargetParentReferenceName})");
+                    Presenter.WriteInfo($"  {index + 1}) {suggestion.ChildBindingReferenceName} -> {suggestion.ParentBindingReferenceName} (source path: {suggestion.SourceParentPath}, target path: {suggestion.TargetParentPath})");
                 }
             }
 
@@ -305,7 +305,7 @@ internal static class Program
                 {
                     foreach (var suggestion in result.Suggestions)
                     {
-                        Presenter.WriteInfo($"  meta-fabric add-scope --workspace \"{workspacePath}\" --binding {suggestion.ChildBindingReferenceName} --parent-binding {suggestion.ParentBindingReferenceName} --source-parent-reference {suggestion.SourceParentReferenceName} --target-parent-reference {suggestion.TargetParentReferenceName}");
+                        Presenter.WriteInfo($"  meta-fabric add-scope --workspace \"{workspacePath}\" --binding {suggestion.ChildBindingReferenceName} --parent-binding {suggestion.ParentBindingReferenceName} --source-parent-path {suggestion.SourceParentPath} --target-parent-path {suggestion.TargetParentPath}");
                     }
                 }
             }
@@ -323,7 +323,7 @@ internal static class Program
                 {
                     foreach (var candidate in weakSuggestion.Candidates)
                     {
-                        Presenter.WriteInfo($"  {weakIndex}) {candidate.ChildBindingReferenceName} -> {candidate.ParentBindingReferenceName} (source parent: {candidate.SourceParentReferenceName}, target parent: {candidate.TargetParentReferenceName})");
+                        Presenter.WriteInfo($"  {weakIndex}) {candidate.ChildBindingReferenceName} -> {candidate.ParentBindingReferenceName} (source path: {candidate.SourceParentPath}, target path: {candidate.TargetParentPath})");
                         weakIndex++;
                     }
                 }
@@ -618,7 +618,7 @@ internal static class Program
         return (true, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, string.Empty);
     }
 
-    private static (bool Ok, string WorkspacePath, string BindingReferenceName, string ParentBindingReferenceName, string SourceParentReferenceName, string TargetParentReferenceName, string ErrorMessage) ParseAddScopeArgs(string[] args, int startIndex)
+    private static (bool Ok, string WorkspacePath, string BindingReferenceName, string ParentBindingReferenceName, string SourceParentPath, string TargetParentPath, string ErrorMessage) ParseAddScopeArgs(string[] args, int startIndex)
     {
         var workspacePath = string.Empty;
         var bindingReferenceName = string.Empty;
@@ -645,11 +645,11 @@ internal static class Program
                 case "--parent-binding":
                     parentBindingReferenceName = EnsureUnsetThenAssign(parentBindingReferenceName, args[++i], "--parent-binding");
                     break;
-                case "--source-parent-reference":
-                    sourceParentReferenceName = EnsureUnsetThenAssign(sourceParentReferenceName, args[++i], "--source-parent-reference");
+                case "--source-parent-path":
+                    sourceParentReferenceName = EnsureUnsetThenAssign(sourceParentReferenceName, args[++i], "--source-parent-path");
                     break;
-                case "--target-parent-reference":
-                    targetParentReferenceName = EnsureUnsetThenAssign(targetParentReferenceName, args[++i], "--target-parent-reference");
+                case "--target-parent-path":
+                    targetParentReferenceName = EnsureUnsetThenAssign(targetParentReferenceName, args[++i], "--target-parent-path");
                     break;
                 default:
                     return (false, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, $"unknown option '{arg}'.");
@@ -673,12 +673,12 @@ internal static class Program
 
         if (string.IsNullOrWhiteSpace(sourceParentReferenceName))
         {
-            return (false, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, "missing required option --source-parent-reference <name>.");
+            return (false, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, "missing required option --source-parent-path <name>.");
         }
 
         if (string.IsNullOrWhiteSpace(targetParentReferenceName))
         {
-            return (false, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, "missing required option --target-parent-reference <name>.");
+            return (false, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, "missing required option --target-parent-path <name>.");
         }
 
         return (true, workspacePath, bindingReferenceName, parentBindingReferenceName, sourceParentReferenceName, targetParentReferenceName, string.Empty);
@@ -747,7 +747,7 @@ internal static class Program
     private static void PrintAddScopeHelp()
     {
         Presenter.WriteInfo("Command: add-scope");
-        Presenter.WriteUsage("meta-fabric add-scope --workspace <path> --binding <name> --parent-binding <name> --source-parent-reference <name> --target-parent-reference <name>");
+        Presenter.WriteUsage("meta-fabric add-scope --workspace <path> --binding <name> --parent-binding <name> --source-parent-path <name> --target-parent-path <name>");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteInfo("Notes:");
         Presenter.WriteInfo("  Adds a parent-scoped requirement that constrains one binding by another binding.");
@@ -783,4 +783,5 @@ internal static class Program
         return nextValue;
     }
 }
+
 

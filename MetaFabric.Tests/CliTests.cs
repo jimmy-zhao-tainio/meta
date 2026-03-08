@@ -38,8 +38,8 @@ public sealed class CliTests
         Assert.Contains("Suggestions: 1", result.Output);
         Assert.Contains("WeakSuggestions: 0", result.Output);
         Assert.Contains("ChildItem -> ParentGroup", result.Output);
-        Assert.Contains("source parent: GroupId", result.Output);
-        Assert.Contains("target parent: CategoryId", result.Output);
+        Assert.Contains("source path: GroupId", result.Output);
+        Assert.Contains("target path: CategoryId", result.Output);
     }
 
     [Fact]
@@ -50,7 +50,21 @@ public sealed class CliTests
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("Commands", result.Output);
-        Assert.Contains($"meta-fabric add-scope --workspace \"{workspacePath}\" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId", result.Output);
+        Assert.Contains($"meta-fabric add-scope --workspace \"{workspacePath}\" --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId", result.Output);
+    }
+
+    [Fact]
+    public void Suggest_MultiHopBiSample_PrintsPathSuggestion()
+    {
+        var workspacePath = GetBiFixtureWorkspacePath("Fabric-Suggest-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce");
+        var result = RunCli($"suggest --workspace \"{workspacePath}\" --print-commands");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("Suggestions: 1", result.Output);
+        Assert.Contains("ChildKeyPart -> ParentHub", result.Output);
+        Assert.Contains("source path: BusinessHubId", result.Output);
+        Assert.Contains("target path: BusinessKeyId.BusinessObjectId", result.Output);
+        Assert.Contains("--source-parent-path BusinessHubId --target-parent-path BusinessKeyId.BusinessObjectId", result.Output);
     }
 
     [Fact]
@@ -78,7 +92,7 @@ public sealed class CliTests
             var addChildBinding = RunCli($"add-binding --workspace \"{workspacePath}\" --name ChildItem --weave Child --source-entity Item --source-property Name --target-entity CategoryItem --target-property Name");
             Assert.Equal(0, addChildBinding.ExitCode);
 
-            var addScope = RunCli($"add-scope --workspace \"{workspacePath}\" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId");
+            var addScope = RunCli($"add-scope --workspace \"{workspacePath}\" --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId");
             Assert.Equal(0, addScope.ExitCode);
 
             var check = RunCli($"check --workspace \"{workspacePath}\"");
@@ -102,6 +116,17 @@ public sealed class CliTests
         Assert.Contains("Weaves: 2", result.Output);
         Assert.Contains("Bindings: 2", result.Output);
         Assert.Contains("ResolvedRows: 5", result.Output);
+        Assert.Contains("Errors: 0", result.Output);
+    }
+
+    [Fact]
+    public void Check_MultiHopBiSample_Passes()
+    {
+        var result = RunCli($"check --workspace \"{GetBiFixtureWorkspacePath("Fabric-Scoped-MetaBusiness-MetaBusinessDataVault-HubKeyPart-KeyPart-Commerce")}\"");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("OK: fabric check", result.Output);
+        Assert.Contains("ResolvedRows: 6", result.Output);
         Assert.Contains("Errors: 0", result.Output);
     }
 
@@ -131,6 +156,11 @@ public sealed class CliTests
     private static string GetFixtureWorkspacePath(string name)
     {
         return Path.Combine(FindRepositoryRoot(), "MetaFabric.Workspaces", name);
+    }
+
+    private static string GetBiFixtureWorkspacePath(string name)
+    {
+        return Path.Combine(FindRepositoryRoot(), "..", "meta-bi", "Fabrics", name);
     }
 
     private static string GetWeaveWorkspacePath(string name)

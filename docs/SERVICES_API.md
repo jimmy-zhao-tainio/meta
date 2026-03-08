@@ -370,8 +370,7 @@ Task AddScopeRequirementAsync(
     Workspace fabricWorkspace,
     string bindingReferenceName,
     string parentBindingReferenceName,
-    string sourceParentReferenceName,
-    string targetParentReferenceName,
+    string sourceParentPath,`r`n    string targetParentPath,
     CancellationToken cancellationToken = default);
 ```
 
@@ -390,10 +389,10 @@ Suggestions: 1
 WeakSuggestions: 0
 
 Scope suggestions
-  1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
+  1) ChildItem -> ParentGroup (source path: GroupId, target path: CategoryId)
 
 Commands
-  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
 
 Weak scope suggestions
   (none)
@@ -479,4 +478,6 @@ Weak relationship suggestions
   1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
+
+
 
