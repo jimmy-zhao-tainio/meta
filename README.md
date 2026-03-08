@@ -798,23 +798,26 @@ Sanctioned examples live under:
 - `MetaWeave.Workspaces\Weave-Attribute-ReferenceType`
 - `MetaWeave.Workspaces\Weave-Mapping-ReferenceType`
 
-## References
+### Weave suggest examples
 
-Full command surface and contracts: `COMMANDS.md`
-C# tooling services API: `docs/SERVICES_API.md`
+Strong exact-name example:
 
-## Tests
-
-```powershell
-dotnet test Metadata.Framework.sln
-dotnet test MetaWeave.sln
-dotnet test MetaFabric.sln
+```cmd
+meta-weave init --new-workspace %TEMP%\meta-weave-strong-doc
+meta-weave add-model --workspace %TEMP%\meta-weave-strong-doc --alias Source --model SampleReferenceBindingCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceBindingCatalog
+meta-weave add-model --workspace %TEMP%\meta-weave-strong-doc --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceCatalog
+meta-weave suggest --workspace %TEMP%\meta-weave-strong-doc
 ```
 
+```text
+OK: weave suggest
+Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weave-strong-doc
+Suggestions: 1
+WeakSuggestions: 0
 
-
-
-## Weave Suggest Example
+Binding suggestions
+  1) Source.Mapping.ReferenceTypeId -> Reference.ReferenceType.Id
+```
 
 Weak role-style example:
 
@@ -1058,4 +1061,17 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+
+### References
+
+Full command surface and contracts: `COMMANDS.md`
+C# tooling services API: `docs/SERVICES_API.md`
+
+### Tests
+
+```powershell
+dotnet test Metadata.Framework.sln
+dotnet test MetaWeave.sln
+dotnet test MetaFabric.sln
+```
 
