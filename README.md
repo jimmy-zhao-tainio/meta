@@ -896,7 +896,7 @@ ResolvedRows: 5
 Errors: 0
 ```
 
-The corresponding child weave is intentionally ambiguous on its own:
+If you run the child weave on its own, it fails because the child binding is globally ambiguous without parent scope:
 
 ```text
 Error: weave check failed.
@@ -910,6 +910,7 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+
 
 
 
