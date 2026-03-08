@@ -1,6 +1,6 @@
 # C# Tooling Services API
 
-This page documents the supported C# service surface for building tooling on top of `isomorphic-metadata` without going through the CLI command parser.
+This page documents the supported C# service surface for building tooling on top of `meta` without going through the CLI command parser.
 
 Scope:
 - `Meta.Core.Services` contracts and core implementations
@@ -429,5 +429,6 @@ Weak relationship suggestions
   1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
+
 
 

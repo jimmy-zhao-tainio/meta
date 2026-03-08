@@ -4,8 +4,9 @@
     <Version Condition="'$(Version)' == ''">$(MetaInternalPackageVersion)</Version>
     <PackageVersion Condition="'$(PackageVersion)' == ''">$(MetaInternalPackageVersion)</PackageVersion>
     <Authors>Jimmy Zhao-Tainio</Authors>
-    <RepositoryUrl>https://github.com/jimmy-zhao-tainio/isomorphic-metadata</RepositoryUrl>
+    <RepositoryUrl>https://github.com/jimmy-zhao-tainio/meta</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageOutputPath>$(MSBuildThisFileDirectory).nupkg\</PackageOutputPath>
   </PropertyGroup>
 </Project>
+

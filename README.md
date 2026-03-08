@@ -1,6 +1,6 @@
-# isomorphic-metadata
+# meta
 
-`isomorphic-metadata` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
+`meta` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
 This repo ships three CLI tools:
 
@@ -1020,6 +1020,7 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+
 
 
 
