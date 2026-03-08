@@ -987,14 +987,17 @@ Current command surface:
 ```cmd
 meta-fabric help
 meta-fabric init --new-workspace .\MetaFabric.Workspace
-meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
+meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --binding "Group.Name -> Category.Name"
+meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
 meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
 ```
 
 Scoped suggest example:
 
 ```cmd
-meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
+meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
 ```
 
 ```text
@@ -1006,8 +1009,22 @@ WeakSuggestions: 0
 Scope suggestions
   1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
 
+Commands
+  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
+
 Weak scope suggestions
   (none)
+```
+
+Scoped authoring example:
+
+```cmd
+meta-fabric init --new-workspace .\MetaFabric.Workspace
+meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
+meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Child --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --binding "Group.Name -> Category.Name"
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ChildItem --weave Child --binding "Item.Name -> CategoryItem.Name"
+meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
 ```
 
 Scoped validation example:
@@ -1041,3 +1058,4 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem`
 - `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
+

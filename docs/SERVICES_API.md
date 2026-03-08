@@ -353,6 +353,20 @@ Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWo
 
 ## MetaFabric Services
 
+### `MetaFabricAuthoringService`
+
+```csharp
+Task AddWeaveReferenceAsync(Workspace fabricWorkspace, string alias, string workspacePath, CancellationToken cancellationToken = default);
+Task AddBindingReferenceAsync(Workspace fabricWorkspace, string name, string weaveAlias, string bindingName, CancellationToken cancellationToken = default);
+Task AddScopeRequirementAsync(
+    Workspace fabricWorkspace,
+    string bindingReferenceName,
+    string parentBindingReferenceName,
+    string sourceParentReferenceName,
+    string targetParentReferenceName,
+    CancellationToken cancellationToken = default);
+```
+
 ### `MetaFabricSuggestService`
 
 ```csharp
@@ -369,6 +383,9 @@ WeakSuggestions: 0
 
 Scope suggestions
   1) ChildItem -> ParentGroup (source parent: GroupId, target parent: CategoryId)
+
+Commands
+  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
 
 Weak scope suggestions
   (none)
@@ -396,6 +413,9 @@ Errors: 0
 | CLI command family | Primary C# API path |
 |---|---|
 | `meta-fabric init` | `MetaFabricWorkspaces.CreateEmptyMetaFabricWorkspace(...)` + `WorkspaceService.SaveAsync(...)` |
+| `meta-fabric add-weave` | `MetaFabricAuthoringService.AddWeaveReferenceAsync(...)` |
+| `meta-fabric add-binding` | `MetaFabricAuthoringService.AddBindingReferenceAsync(...)` |
+| `meta-fabric add-scope` | `MetaFabricAuthoringService.AddScopeRequirementAsync(...)` |
 | `meta-fabric suggest` | `MetaFabricSuggestService.SuggestAsync(...)` |
 | `meta-fabric check` | `MetaFabricService.CheckAsync(...)` |
 
@@ -451,3 +471,4 @@ Weak relationship suggestions
   1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
+
