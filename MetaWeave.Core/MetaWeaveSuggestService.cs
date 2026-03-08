@@ -14,6 +14,7 @@ public sealed record WeaveBindingSuggestion(
     string TargetModelName,
     string TargetEntity,
     string TargetProperty,
+    string InferredRole,
     int SourceComparableRowCount,
     int MatchedSourceRowCount);
 
@@ -101,7 +102,8 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                         continue;
                     }
 
-                    var eligibleTargets = new List<WeaveBindingSuggestion>();
+                    var strongTargets = new List<WeaveBindingSuggestion>();
+                    var weakTargets = new List<WeaveBindingSuggestion>();
                     foreach (var targetModel in loadedModels)
                     {
                         if (string.Equals(targetModel.Reference.Id, sourceModel.Reference.Id, StringComparison.Ordinal))
@@ -111,6 +113,11 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
 
                         foreach (var targetCandidate in EnumerateTargetCandidates(targetModel.Workspace, sourceProperty.Name))
                         {
+                            if (!TryClassifyTargetCandidate(sourceProperty.Name, targetCandidate, out var inferredRole, out var isWeak))
+                            {
+                                continue;
+                            }
+
                             var equivalentBindingKey = MakeEquivalentBindingKey(
                                 sourceModel.Reference.Id,
                                 sourceEntity.Name,
@@ -142,7 +149,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                                 continue;
                             }
 
-                            eligibleTargets.Add(new WeaveBindingSuggestion(
+                            var suggestion = new WeaveBindingSuggestion(
                                 BindingName: $"{sourceModel.Alias}.{sourceEntity.Name}.{sourceProperty.Name} -> {targetModel.Alias}.{targetCandidate.EntityName}.{targetCandidate.PropertyName}",
                                 SourceModelAlias: sourceModel.Alias,
                                 SourceModelName: sourceModel.ModelName,
@@ -152,29 +159,58 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                                 TargetModelName: targetModel.ModelName,
                                 TargetEntity: targetCandidate.EntityName,
                                 TargetProperty: targetCandidate.PropertyName,
+                                InferredRole: inferredRole,
                                 SourceComparableRowCount: sourceProfile.NonBlankCount,
-                                MatchedSourceRowCount: coverage.MatchedSourceRowCount));
+                                MatchedSourceRowCount: coverage.MatchedSourceRowCount);
+                            if (isWeak)
+                            {
+                                weakTargets.Add(suggestion);
+                            }
+                            else
+                            {
+                                strongTargets.Add(suggestion);
+                            }
                         }
                     }
 
-                    if (eligibleTargets.Count == 1)
+                    if (strongTargets.Count == 1)
                     {
-                        suggestions.Add(eligibleTargets[0]);
+                        suggestions.Add(strongTargets[0]);
                     }
-                    else if (eligibleTargets.Count > 1)
+                    else if (strongTargets.Count > 1)
                     {
                         weakSuggestions.Add(new WeaveWeakBindingSuggestion(
                             SourceModelAlias: sourceModel.Alias,
                             SourceModelName: sourceModel.ModelName,
                             SourceEntity: sourceEntity.Name,
                             SourceProperty: sourceProperty.Name,
-                            Candidates: eligibleTargets
+                            Candidates: strongTargets
                                 .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
                                 .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
                                 .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.InferredRole, StringComparer.OrdinalIgnoreCase)
                                 .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
                                 .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
                                 .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
+                                .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
+                                .ToList()));
+                    }
+                    else if (weakTargets.Count > 0)
+                    {
+                        weakSuggestions.Add(new WeaveWeakBindingSuggestion(
+                            SourceModelAlias: sourceModel.Alias,
+                            SourceModelName: sourceModel.ModelName,
+                            SourceEntity: sourceEntity.Name,
+                            SourceProperty: sourceProperty.Name,
+                            Candidates: weakTargets
+                                .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.InferredRole, StringComparer.OrdinalIgnoreCase)
+                                .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
+                                .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
+                                .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
+                                .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
                                 .ToList()));
                     }
                 }
@@ -261,6 +297,53 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                 yield return new TargetCandidate(entity.Name, property.Name, property, rows, IsImplicitId: false);
             }
         }
+    }
+
+    private static bool TryClassifyTargetCandidate(
+        string sourcePropertyName,
+        TargetCandidate targetCandidate,
+        out string inferredRole,
+        out bool isWeak)
+    {
+        inferredRole = string.Empty;
+        isWeak = false;
+
+        if (targetCandidate.IsImplicitId)
+        {
+            var canonicalColumnName = targetCandidate.EntityName + "Id";
+            if (string.Equals(sourcePropertyName, canonicalColumnName, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            if (sourcePropertyName.EndsWith(canonicalColumnName, StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(sourcePropertyName, canonicalColumnName, StringComparison.OrdinalIgnoreCase))
+            {
+                inferredRole = sourcePropertyName[..^2];
+                isWeak = true;
+                return !string.IsNullOrWhiteSpace(inferredRole);
+            }
+
+            return false;
+        }
+
+        if (string.Equals(sourcePropertyName, targetCandidate.PropertyName, StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        if (string.Equals(targetCandidate.PropertyName, "Id", StringComparison.OrdinalIgnoreCase) ||
+            !sourcePropertyName.EndsWith(targetCandidate.PropertyName, StringComparison.OrdinalIgnoreCase) ||
+            sourcePropertyName.Length <= targetCandidate.PropertyName.Length)
+        {
+            return false;
+        }
+
+        inferredRole = sourcePropertyName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) && sourcePropertyName.Length > 2
+            ? sourcePropertyName[..^2]
+            : sourcePropertyName;
+        isWeak = true;
+        return !string.IsNullOrWhiteSpace(inferredRole);
     }
 
     private static PropertyProfile ProfileProperty(string entityName, GenericProperty property, IReadOnlyList<GenericRecord> rows)

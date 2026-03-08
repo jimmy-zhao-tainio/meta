@@ -489,7 +489,7 @@ Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is publish
 
 This is the intended landing workflow: import flat CSVs with stable row Ids, run suggest, then apply an atomic model+instance refactor.
 
-`meta model suggest` is structural and deterministic. It scans model+instance data and only prints eligible relationship promotions by default.
+`meta model suggest` is structural and deterministic. It prints strong exact-name relationship promotions by default and weak role-style suffix matches separately when RI is still complete.
 
 Eligible means the promotion satisfies 100% referential integrity (RI) before any mutation:
 - source lands first as a scalar `...Id` field (for example `WarehouseId`)
@@ -527,11 +527,15 @@ OK: model suggest
 Workspace: .\Workspace
 Model: ProductModel
 Suggestions: 3
+WeakSuggestions: 0
 
 Relationship suggestions
   1) Order.ProductId -> Product (lookup: Product.Id)
   2) Order.SupplierId -> Supplier (lookup: Supplier.Id)
   3) Order.WarehouseId -> Warehouse (lookup: Warehouse.Id)
+
+Weak relationship suggestions
+  (none)
 ```
 
 `meta model suggest` output after all three refactors:
@@ -541,9 +545,29 @@ OK: model suggest
 Workspace: .\Workspace
 Model: ProductModel
 Suggestions: 0
+WeakSuggestions: 0
 
 Relationship suggestions
   (none)
+
+Weak relationship suggestions
+  (none)
+```
+
+Weak role-style example:
+
+```text
+OK: model suggest
+Workspace: C:\path\to\WeakSuggestModel
+Model: WeakSuggestModel
+Suggestions: 0
+WeakSuggestions: 1
+
+Relationship suggestions
+  (none)
+
+Weak relationship suggestions
+  1) Order.SourceProductId -> Product (lookup: Product.Id, role: SourceProduct)
 ```
 
 Model change example (`metadata/model.xml`) for `Order`:
@@ -721,7 +745,7 @@ A weave workspace contains:
 - `ModelReference` rows: which workspaces and models participate in the weave
 - `PropertyBinding` rows: which source property resolves to which target identity property
 
-`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and prints strong missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key. If more than one target qualifies, it prints a separate weak suggestion instead of choosing for you. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
+`meta-weave suggest` loads the weave workspace, loads the referenced workspaces, and prints strong missing property bindings only when the source values are complete, reused, and 100% resolvable against a unique target key with exact name alignment. Weak suggestions cover role-style suffix matches and ambiguous exact matches instead of choosing for you. `meta-weave check` then proves that every bound value resolves with 100% RI into the target model.
 
 Current authoring flow:
 
@@ -763,7 +787,26 @@ dotnet test Metadata.Framework.sln
 
 ## Weave Suggest Example
 
-Weak suggestion example:
+Weak role-style example:
+
+```cmd
+meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType
+```
+
+```text
+OK: weave suggest
+Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType
+Suggestions: 0
+WeakSuggestions: 1
+
+Binding suggestions
+  (none)
+
+Weak binding suggestions
+  1) Source.Mapping.SourceReferenceTypeId -> Reference.ReferenceType.Id (role: SourceReferenceType)
+```
+
+Ambiguous exact-name example:
 
 ```cmd
 meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
@@ -773,16 +816,16 @@ meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-AmbiguousRef
 OK: weave suggest
 Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
 Suggestions: 0
-WeakSuggestions: 2
+WeakSuggestions: 1
 
 Binding suggestions
   (none)
 
 Weak binding suggestions
-  1) Source.Mapping.SourceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
-  2) Source.Mapping.TargetTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+  1) Source.Mapping.ReferenceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
 ```
 
-Additional sanctioned example:
+Additional sanctioned examples:
 
+- `MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType`
 - `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`

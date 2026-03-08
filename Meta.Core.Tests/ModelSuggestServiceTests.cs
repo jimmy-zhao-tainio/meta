@@ -110,6 +110,36 @@ public sealed class ModelSuggestServiceTests
     }
 
     [Fact]
+    public void Analyze_RoleStyleIdSuffix_IsReportedAsWeakSuggestion()
+    {
+        var workspace = CreateWorkspaceSkeleton();
+        AddEntity(workspace.Model, "Product", ("ProductName", "string"));
+        AddEntity(workspace.Model, "Order",
+            ("OrderNumber", "string"),
+            ("SourceProductId", "string"));
+
+        AddRow(workspace.Instance, "Product", "PRD-001", ("ProductName", "Road Bike"));
+        AddRow(workspace.Instance, "Product", "PRD-002", ("ProductName", "Bottle Cage"));
+
+        AddRow(workspace.Instance, "Order", "ORD-001", ("OrderNumber", "ORD-1001"), ("SourceProductId", "PRD-001"));
+        AddRow(workspace.Instance, "Order", "ORD-002", ("OrderNumber", "ORD-1002"), ("SourceProductId", "PRD-002"));
+        AddRow(workspace.Instance, "Order", "ORD-003", ("OrderNumber", "ORD-1003"), ("SourceProductId", "PRD-001"));
+
+        var report = ModelSuggestService.Analyze(workspace);
+
+        AssertDoesNotContainTarget(report.EligibleRelationshipSuggestions, "Order", "SourceProductId", "Product", "Id");
+        var weak = Assert.Single(report.WeakRelationshipSuggestions);
+        Assert.Equal("Order", weak.Source.EntityName);
+        Assert.Equal("SourceProductId", weak.Source.PropertyName);
+
+        var candidate = Assert.Single(weak.Candidates);
+        Assert.Equal("Product", candidate.TargetLookup.EntityName);
+        Assert.Equal("Id", candidate.TargetLookup.PropertyName);
+        Assert.Equal("SourceProduct", candidate.Role);
+        Assert.Equal(LookupCandidateStatus.Eligible, candidate.Status);
+    }
+
+    [Fact]
     public void Analyze_SymmetricPeerKeys_AreBlockedAsAmbiguous()
     {
         var workspace = CreateWorkspaceSkeleton();
@@ -150,6 +180,14 @@ public sealed class ModelSuggestServiceTests
             .Select(ToProjection)
             .ToArray();
         Assert.Equal(firstEligible, secondEligible);
+
+        var firstWeak = first.WeakRelationshipSuggestions
+            .Select(item => item.Source.EntityName + "|" + item.Source.PropertyName + "|" + string.Join(";", item.Candidates.Select(ToProjection)))
+            .ToArray();
+        var secondWeak = second.WeakRelationshipSuggestions
+            .Select(item => item.Source.EntityName + "|" + item.Source.PropertyName + "|" + string.Join(";", item.Candidates.Select(ToProjection)))
+            .ToArray();
+        Assert.Equal(firstWeak, secondWeak);
     }
 
     private static string ToProjection(LookupRelationshipSuggestion suggestion)
@@ -160,6 +198,7 @@ public sealed class ModelSuggestServiceTests
             suggestion.Source.PropertyName,
             suggestion.TargetLookup.EntityName,
             suggestion.TargetLookup.PropertyName,
+            suggestion.Role,
             suggestion.Status.ToString(),
             suggestion.Score.ToString("0.000"),
             string.Join(";", suggestion.Blockers),
@@ -191,8 +230,18 @@ public sealed class ModelSuggestServiceTests
         string targetEntity,
         string targetProperty)
     {
+        AssertDoesNotContainTarget(report.EligibleRelationshipSuggestions, sourceEntity, sourceProperty, targetEntity, targetProperty);
+    }
+
+    private static void AssertDoesNotContainTarget(
+        System.Collections.Generic.IEnumerable<LookupRelationshipSuggestion> suggestions,
+        string sourceEntity,
+        string sourceProperty,
+        string targetEntity,
+        string targetProperty)
+    {
         Assert.DoesNotContain(
-            report.EligibleRelationshipSuggestions,
+            suggestions,
             item => Matches(item, sourceEntity, sourceProperty, targetEntity, targetProperty));
     }
 

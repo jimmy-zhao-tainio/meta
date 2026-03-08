@@ -303,20 +303,19 @@ Practical rule for non-CLI tooling:
 Task<WeaveSuggestResult> SuggestAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
 ```
 
-Example CLI output from the sanctioned ambiguous weave workspace:
+Example CLI output from the sanctioned weak role weave workspace:
 
 ```text
 OK: weave suggest
-Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType
 Suggestions: 0
-WeakSuggestions: 2
+WeakSuggestions: 1
 
 Binding suggestions
   (none)
 
 Weak binding suggestions
-  1) Source.Mapping.SourceTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
-  2) Source.Mapping.TargetTypeId -> ReferenceA.ReferenceType.Id, ReferenceB.ReferenceType.Id
+  1) Source.Mapping.SourceReferenceTypeId -> Reference.ReferenceType.Id (role: SourceReferenceType)
 ```
 
 ### `MetaWeaveAuthoringService`
@@ -361,9 +360,29 @@ OK: model suggest
 Workspace: C:\Users\jimmy\Desktop\meta\Samples\Demos\SuggestDemo\Workspace
 Model: ProductModel
 Suggestions: 3
+WeakSuggestions: 0
 
 Relationship suggestions
   1) Order.ProductId -> Product (lookup: Product.Id)
   2) Order.SupplierId -> Supplier (lookup: Supplier.Id)
   3) Order.WarehouseId -> Warehouse (lookup: Warehouse.Id)
+
+Weak relationship suggestions
+  (none)
+```
+
+Role-style weak example:
+
+```text
+OK: model suggest
+Workspace: C:\path\to\WeakSuggestModel
+Model: WeakSuggestModel
+Suggestions: 0
+WeakSuggestions: 1
+
+Relationship suggestions
+  (none)
+
+Weak relationship suggestions
+  1) Order.SourceProductId -> Product (lookup: Product.Id, role: SourceProduct)
 ```

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Meta.Core.Domain;
 using Meta.Core.Services;
 
@@ -37,49 +39,67 @@ public sealed class CliTests
     }
 
     [Fact]
-    public async Task Suggest_ShowsWeakSuggestions_WhenMatchesAreAmbiguous()
+    public void Suggest_ShowsWeakSuggestions_WhenMatchesAreAmbiguous()
     {
         var root = Path.Combine(Path.GetTempPath(), "metaweave-cli-suggest-ambiguous", Guid.NewGuid().ToString("N"));
         var metaWeavePath = Path.Combine(root, "MetaWeave");
-        var sourcePath = Path.Combine(root, "Source");
-        var referenceAPath = Path.Combine(root, "ReferenceA");
-        var referenceBPath = Path.Combine(root, "ReferenceB");
         Directory.CreateDirectory(root);
         try
         {
-            CopyDirectory(GetFixtureWorkspacePath("SampleSourceCatalog"), sourcePath);
-            CopyDirectory(GetFixtureWorkspacePath("SampleReferenceCatalog"), referenceAPath);
-            CopyDirectory(GetFixtureWorkspacePath("SampleReferenceCatalog"), referenceBPath);
-
-            var workspaceService = new WorkspaceService();
-            var sourceWorkspace = await workspaceService.LoadAsync(sourcePath, searchUpward: false);
-            sourceWorkspace.Instance.GetOrCreateEntityRecords("Mapping").Add(new GenericRecord
-            {
-                Id = "mapping:string-to-decimal:again",
-                Values =
-                {
-                    ["Name"] = "StringToDecimalAgain",
-                    ["SourceTypeId"] = "type:string",
-                    ["TargetTypeId"] = "type:decimal",
-                },
-            });
-            sourceWorkspace.IsDirty = true;
-            await workspaceService.SaveAsync(sourceWorkspace);
+            var sourcePath = CreateSourceWorkspace(
+                root,
+                "Source",
+                "SampleReferenceBindingCatalog",
+                ("ReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
+            var referenceAPath = CreateReferenceWorkspace(root, "ReferenceA");
+            var referenceBPath = CreateReferenceWorkspace(root, "ReferenceB");
 
             Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{sourcePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleReferenceBindingCatalog --workspace-path \"{sourcePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceA --model SampleReferenceCatalog --workspace-path \"{referenceAPath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceB --model SampleReferenceCatalog --workspace-path \"{referenceBPath}\"").ExitCode);
 
             var result = RunCli($"suggest --workspace \"{metaWeavePath}\"");
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("Suggestions: 0", result.Output);
-            Assert.Contains("WeakSuggestions: 2", result.Output);
+            Assert.Contains("WeakSuggestions: 1", result.Output);
             Assert.Contains("Binding suggestions", result.Output);
             Assert.Contains("  (none)", result.Output);
             Assert.Contains("Weak binding suggestions", result.Output);
             Assert.Contains("ReferenceA.ReferenceType.Id", result.Output);
             Assert.Contains("ReferenceB.ReferenceType.Id", result.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Suggest_ShowsWeakRoleSuggestions_WhenNamesAreRoleStyled()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metaweave-cli-suggest-weak-role", Guid.NewGuid().ToString("N"));
+        var metaWeavePath = Path.Combine(root, "MetaWeave");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var sourcePath = CreateSourceWorkspace(
+                root,
+                "Source",
+                "SampleReferenceBindingCatalog",
+                ("SourceReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
+            var referencePath = CreateReferenceWorkspace(root, "Reference");
+
+            Assert.Equal(0, RunCli($"init --new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleReferenceBindingCatalog --workspace-path \"{sourcePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Reference --model SampleReferenceCatalog --workspace-path \"{referencePath}\"").ExitCode);
+
+            var result = RunCli($"suggest --workspace \"{metaWeavePath}\"");
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Suggestions: 0", result.Output);
+            Assert.Contains("WeakSuggestions: 1", result.Output);
+            Assert.Contains("Weak binding suggestions", result.Output);
+            Assert.Contains("Reference.ReferenceType.Id (role: SourceReferenceType)", result.Output);
         }
         finally
         {
@@ -275,6 +295,106 @@ public sealed class CliTests
         {
             DeleteDirectoryIfExists(root);
         }
+    }
+
+    private static string CreateReferenceWorkspace(string root, string folderName)
+    {
+        var path = Path.Combine(root, folderName);
+        var workspace = new Workspace
+        {
+            WorkspaceRootPath = path,
+            MetadataRootPath = Path.Combine(path, "metadata"),
+            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
+            Model = new GenericModel
+            {
+                Name = "SampleReferenceCatalog",
+                Entities =
+                {
+                    new GenericEntity
+                    {
+                        Name = "ReferenceType",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "Name", DataType = "string", IsNullable = false },
+                        },
+                    },
+                },
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "SampleReferenceCatalog",
+            },
+            IsDirty = true,
+        };
+        AddRow(workspace.Instance, "ReferenceType", "type:decimal", ("Name", "decimal"));
+        AddRow(workspace.Instance, "ReferenceType", "type:int", ("Name", "int"));
+        AddRow(workspace.Instance, "ReferenceType", "type:string", ("Name", "string"));
+        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        return path;
+    }
+
+    private static string CreateSourceWorkspace(string root, string folderName, string modelName, params (string PropertyName, string[] Values)[] propertySets)
+    {
+        var path = Path.Combine(root, folderName);
+        var entity = new GenericEntity
+        {
+            Name = "Mapping",
+        };
+        entity.Properties.Add(new GenericProperty { Name = "Name", DataType = "string", IsNullable = false });
+        foreach (var propertySet in propertySets)
+        {
+            entity.Properties.Add(new GenericProperty { Name = propertySet.PropertyName, DataType = "string", IsNullable = false });
+        }
+
+        var workspace = new Workspace
+        {
+            WorkspaceRootPath = path,
+            MetadataRootPath = Path.Combine(path, "metadata"),
+            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
+            Model = new GenericModel
+            {
+                Name = modelName,
+                Entities = { entity },
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = modelName,
+            },
+            IsDirty = true,
+        };
+
+        var rowCount = propertySets.Max(item => item.Values.Length);
+        for (var index = 0; index < rowCount; index++)
+        {
+            var values = new List<(string Key, string Value)>
+            {
+                ("Name", $"Mapping{index + 1}")
+            };
+            foreach (var propertySet in propertySets)
+            {
+                values.Add((propertySet.PropertyName, propertySet.Values[index]));
+            }
+
+            AddRow(workspace.Instance, "Mapping", $"mapping:{index + 1}", values.ToArray());
+        }
+
+        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        return path;
+    }
+
+    private static void AddRow(GenericInstance instance, string entityName, string id, params (string Key, string Value)[] values)
+    {
+        var row = new GenericRecord
+        {
+            Id = id,
+        };
+
+        foreach (var (key, value) in values)
+        {
+            row.Values[key] = value;
+        }
+
+        instance.GetOrCreateEntityRecords(entityName).Add(row);
     }
 
     private static (int ExitCode, string Output) RunCli(string arguments)

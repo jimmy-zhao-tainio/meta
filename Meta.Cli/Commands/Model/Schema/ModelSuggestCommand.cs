@@ -82,11 +82,14 @@ internal sealed partial class CliRuntime
             "model suggest",
             ("Workspace", report.WorkspaceRootPath),
             ("Model", report.ModelName),
-            ("Suggestions", report.EligibleRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)));
+            ("Suggestions", report.EligibleRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)),
+            ("WeakSuggestions", report.WeakRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)));
 
         // Keep a fixed, compact structure for default output.
         presenter.WriteInfo(string.Empty);
         PrintRelationshipSection(report.EligibleRelationshipSuggestions, explain);
+        presenter.WriteInfo(string.Empty);
+        PrintWeakRelationshipSection(report.WeakRelationshipSuggestions, explain);
         if (printCommands)
         {
             PrintSuggestedCommandSection(report.WorkspaceRootPath, report.EligibleRelationshipSuggestions);
@@ -126,6 +129,48 @@ internal sealed partial class CliRuntime
                 $"       - Rewrite {suggestion.Source.EntityName} rows by resolving {suggestion.Source.PropertyName} against {suggestion.TargetLookup.EntityName}.{suggestion.TargetLookup.PropertyName}");
             presenter.WriteInfo(
                 $"       - Drop {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} after successful rewrite");
+        }
+    }
+
+    void PrintWeakRelationshipSection(IReadOnlyList<WeakLookupRelationshipSuggestion> suggestions, bool explain)
+    {
+        presenter.WriteInfo("Weak relationship suggestions");
+        if (suggestions.Count == 0)
+        {
+            presenter.WriteInfo("  (none)");
+            return;
+        }
+
+        for (var index = 0; index < suggestions.Count; index++)
+        {
+            var suggestion = suggestions[index];
+            var candidates = string.Join(
+                ", ",
+                suggestion.Candidates.Select(candidate =>
+                    string.IsNullOrWhiteSpace(candidate.Role)
+                        ? $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName})"
+                        : $"{candidate.TargetLookup.EntityName} (lookup: {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}, role: {candidate.Role})"));
+            presenter.WriteInfo(
+                $"  {(index + 1).ToString(CultureInfo.InvariantCulture)}) {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} -> {candidates}");
+
+            if (!explain)
+            {
+                continue;
+            }
+
+            presenter.WriteInfo("     Plan candidates:");
+            foreach (var candidate in suggestion.Candidates)
+            {
+                var relationshipLabel = string.IsNullOrWhiteSpace(candidate.Role)
+                    ? candidate.TargetLookup.EntityName
+                    : $"{candidate.TargetLookup.EntityName} (role: {candidate.Role})";
+                presenter.WriteInfo(
+                    $"       - Add relationship {suggestion.Source.EntityName} -> {relationshipLabel}");
+                presenter.WriteInfo(
+                    $"       - Rewrite {suggestion.Source.EntityName} rows by resolving {suggestion.Source.PropertyName} against {candidate.TargetLookup.EntityName}.{candidate.TargetLookup.PropertyName}");
+                presenter.WriteInfo(
+                    $"       - Drop {suggestion.Source.EntityName}.{suggestion.Source.PropertyName} after successful rewrite");
+            }
         }
     }
 
