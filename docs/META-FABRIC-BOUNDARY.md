@@ -181,6 +181,8 @@ Not yet in scope:
 
 Those may come later if real use cases require them.
 
+See also: docs/META-FABRIC-NEXT-NOTE.md.
+
 ## Current rule set
 
 1. A fabric workspace references weave workspaces only.
@@ -205,3 +207,4 @@ It keeps the foundation honest:
 - Eclipse QVT Declarative documentation PDF: <https://download.eclipse.org/qvtd/doc/0.14.0/qvtd.pdf>
 - Triple Graph Grammar discussion of correspondence language: <https://link.springer.com/article/10.1007/s10270-024-01238-1>
 - Algebraic semantics for QVT Relations (`when` / `where` dependencies): <https://repositorio.uam.es/bitstreams/9457c950-13cd-463c-a898-b466d58ef93f/download>
+
