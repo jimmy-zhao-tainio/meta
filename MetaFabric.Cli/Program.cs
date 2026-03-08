@@ -160,7 +160,14 @@ internal static class Program
             var workspaceService = new WorkspaceService();
             var workspace = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
             await new MetaFabricAuthoringService(workspaceService)
-                .AddBindingReferenceAsync(workspace, parseResult.Name, parseResult.WeaveAlias, parseResult.BindingName)
+                .AddBindingReferenceAsync(
+                    workspace,
+                    parseResult.Name,
+                    parseResult.WeaveAlias,
+                    parseResult.SourceEntity,
+                    parseResult.SourceProperty,
+                    parseResult.TargetEntity,
+                    parseResult.TargetProperty)
                 .ConfigureAwait(false);
 
             var validation = new ValidationService().Validate(workspace);
@@ -527,19 +534,22 @@ internal static class Program
         return (true, workspacePath, alias, weaveWorkspacePath, string.Empty);
     }
 
-    private static (bool Ok, string WorkspacePath, string Name, string WeaveAlias, string BindingName, string ErrorMessage) ParseAddBindingArgs(string[] args, int startIndex)
+    private static (bool Ok, string WorkspacePath, string Name, string WeaveAlias, string SourceEntity, string SourceProperty, string TargetEntity, string TargetProperty, string ErrorMessage) ParseAddBindingArgs(string[] args, int startIndex)
     {
         var workspacePath = string.Empty;
         var name = string.Empty;
         var weaveAlias = string.Empty;
-        var bindingName = string.Empty;
+        var sourceEntity = string.Empty;
+        var sourceProperty = string.Empty;
+        var targetEntity = string.Empty;
+        var targetProperty = string.Empty;
 
         for (var i = startIndex; i < args.Length; i++)
         {
             var arg = args[i];
             if (i + 1 >= args.Length)
             {
-                return (false, workspacePath, name, weaveAlias, bindingName, $"missing value for {arg}.");
+                return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, $"missing value for {arg}.");
             }
 
             switch (arg.ToLowerInvariant())
@@ -553,35 +563,59 @@ internal static class Program
                 case "--weave":
                     weaveAlias = EnsureUnsetThenAssign(weaveAlias, args[++i], "--weave");
                     break;
-                case "--binding":
-                    bindingName = EnsureUnsetThenAssign(bindingName, args[++i], "--binding");
+                case "--source-entity":
+                    sourceEntity = EnsureUnsetThenAssign(sourceEntity, args[++i], "--source-entity");
+                    break;
+                case "--source-property":
+                    sourceProperty = EnsureUnsetThenAssign(sourceProperty, args[++i], "--source-property");
+                    break;
+                case "--target-entity":
+                    targetEntity = EnsureUnsetThenAssign(targetEntity, args[++i], "--target-entity");
+                    break;
+                case "--target-property":
+                    targetProperty = EnsureUnsetThenAssign(targetProperty, args[++i], "--target-property");
                     break;
                 default:
-                    return (false, workspacePath, name, weaveAlias, bindingName, $"unknown option '{arg}'.");
+                    return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, $"unknown option '{arg}'.");
             }
         }
 
         if (string.IsNullOrWhiteSpace(workspacePath))
         {
-            return (false, workspacePath, name, weaveAlias, bindingName, "missing required option --workspace <path>.");
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --workspace <path>.");
         }
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            return (false, workspacePath, name, weaveAlias, bindingName, "missing required option --name <bindingReferenceName>.");
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --name <bindingReferenceName>.");
         }
 
         if (string.IsNullOrWhiteSpace(weaveAlias))
         {
-            return (false, workspacePath, name, weaveAlias, bindingName, "missing required option --weave <alias>.");
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --weave <alias>.");
         }
 
-        if (string.IsNullOrWhiteSpace(bindingName))
+        if (string.IsNullOrWhiteSpace(sourceEntity))
         {
-            return (false, workspacePath, name, weaveAlias, bindingName, "missing required option --binding <bindingName>.");
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --source-entity <entity>.");
         }
 
-        return (true, workspacePath, name, weaveAlias, bindingName, string.Empty);
+        if (string.IsNullOrWhiteSpace(sourceProperty))
+        {
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --source-property <property>.");
+        }
+
+        if (string.IsNullOrWhiteSpace(targetEntity))
+        {
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --target-entity <entity>.");
+        }
+
+        if (string.IsNullOrWhiteSpace(targetProperty))
+        {
+            return (false, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, "missing required option --target-property <property>.");
+        }
+
+        return (true, workspacePath, name, weaveAlias, sourceEntity, sourceProperty, targetEntity, targetProperty, string.Empty);
     }
 
     private static (bool Ok, string WorkspacePath, string BindingReferenceName, string ParentBindingReferenceName, string SourceParentReferenceName, string TargetParentReferenceName, string ErrorMessage) ParseAddScopeArgs(string[] args, int startIndex)
@@ -674,9 +708,10 @@ internal static class Program
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteExamples(new[]
         {
-            "meta-fabric add-weave --workspace MetaFabric.Workspace --alias Parent --workspace-path MetaWeave.Workspaces\\Weave-Scoped-Group-Category",
-            "meta-fabric suggest --workspace MetaFabric.Workspaces\\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands",
-            "meta-fabric check --workspace MetaFabric.Workspaces\\Fabric-Scoped-Group-CategoryItem"
+            @"meta-fabric add-weave --workspace MetaFabric.Workspace --alias Parent --workspace-path MetaWeave.Workspaces\Weave-Scoped-Group-Category",
+            @"meta-fabric add-binding --workspace MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name",
+            @"meta-fabric suggest --workspace MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands",
+            @"meta-fabric check --workspace MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem"
         });
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteNext("meta-fabric suggest --help");
@@ -703,10 +738,10 @@ internal static class Program
     private static void PrintAddBindingHelp()
     {
         Presenter.WriteInfo("Command: add-binding");
-        Presenter.WriteUsage("meta-fabric add-binding --workspace <path> --name <referenceName> --weave <alias> --binding <bindingName>");
+        Presenter.WriteUsage("meta-fabric add-binding --workspace <path> --name <referenceName> --weave <alias> --source-entity <entity> --source-property <property> --target-entity <entity> --target-property <property>");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Adds a binding reference to a named PropertyBinding inside one referenced weave workspace.");
+        Presenter.WriteInfo("  Resolves one PropertyBinding inside the referenced weave workspace by its source and target endpoints.");
     }
 
     private static void PrintAddScopeHelp()
@@ -748,3 +783,4 @@ internal static class Program
         return nextValue;
     }
 }
+

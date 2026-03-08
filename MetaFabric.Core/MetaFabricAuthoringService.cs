@@ -7,7 +7,15 @@ namespace MetaFabric.Core;
 public interface IMetaFabricAuthoringService
 {
     Task AddWeaveReferenceAsync(Workspace fabricWorkspace, string alias, string workspacePath, CancellationToken cancellationToken = default);
-    Task AddBindingReferenceAsync(Workspace fabricWorkspace, string name, string weaveAlias, string bindingName, CancellationToken cancellationToken = default);
+    Task AddBindingReferenceAsync(
+        Workspace fabricWorkspace,
+        string name,
+        string weaveAlias,
+        string sourceEntity,
+        string sourceProperty,
+        string targetEntity,
+        string targetProperty,
+        CancellationToken cancellationToken = default);
     Task AddScopeRequirementAsync(
         Workspace fabricWorkspace,
         string bindingReferenceName,
@@ -70,12 +78,23 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
         });
     }
 
-    public async Task AddBindingReferenceAsync(Workspace fabricWorkspace, string name, string weaveAlias, string bindingName, CancellationToken cancellationToken = default)
+    public async Task AddBindingReferenceAsync(
+        Workspace fabricWorkspace,
+        string name,
+        string weaveAlias,
+        string sourceEntity,
+        string sourceProperty,
+        string targetEntity,
+        string targetProperty,
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(fabricWorkspace);
         RequireNonEmpty(name, nameof(name));
         RequireNonEmpty(weaveAlias, nameof(weaveAlias));
-        RequireNonEmpty(bindingName, nameof(bindingName));
+        RequireNonEmpty(sourceEntity, nameof(sourceEntity));
+        RequireNonEmpty(sourceProperty, nameof(sourceProperty));
+        RequireNonEmpty(targetEntity, nameof(targetEntity));
+        RequireNonEmpty(targetProperty, nameof(targetProperty));
         if (string.IsNullOrWhiteSpace(fabricWorkspace.WorkspaceRootPath))
         {
             throw new InvalidOperationException("Fabric workspace root path is required.");
@@ -86,12 +105,27 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
             ?? throw new InvalidOperationException($"WeaveReference alias '{weaveAlias}' was not found.");
 
         var weaveWorkspace = await LoadReferencedWeaveWorkspaceAsync(fabricWorkspace, weaveReference, cancellationToken).ConfigureAwait(false);
-        var weaveBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding");
-        if (!weaveBindings.Any(record => string.Equals(GetRequiredValue(record, "Name"), bindingName, StringComparison.Ordinal)))
+        var matchingWeaveBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
+            .Where(record =>
+                string.Equals(GetRequiredValue(record, "SourceEntity"), sourceEntity, StringComparison.Ordinal) &&
+                string.Equals(GetRequiredValue(record, "SourceProperty"), sourceProperty, StringComparison.Ordinal) &&
+                string.Equals(GetRequiredValue(record, "TargetEntity"), targetEntity, StringComparison.Ordinal) &&
+                string.Equals(GetRequiredValue(record, "TargetProperty"), targetProperty, StringComparison.Ordinal))
+            .ToList();
+
+        if (matchingWeaveBindings.Count == 0)
         {
-            throw new InvalidOperationException($"PropertyBinding '{bindingName}' was not found in weave '{weaveAlias}'.");
+            throw new InvalidOperationException(
+                $"No PropertyBinding in weave '{weaveAlias}' matched '{sourceEntity}.{sourceProperty} -> {targetEntity}.{targetProperty}'.");
         }
 
+        if (matchingWeaveBindings.Count > 1)
+        {
+            throw new InvalidOperationException(
+                $"Multiple PropertyBindings in weave '{weaveAlias}' matched '{sourceEntity}.{sourceProperty} -> {targetEntity}.{targetProperty}'.");
+        }
+
+        var weaveBindingName = GetRequiredValue(matchingWeaveBindings[0], "Name");
         var bindingReferences = fabricWorkspace.Instance.GetOrCreateEntityRecords("BindingReference");
         if (bindingReferences.Any(record => string.Equals(GetRequiredValue(record, "Name"), name, StringComparison.Ordinal)))
         {
@@ -99,7 +133,7 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
         }
 
         if (bindingReferences.Any(record =>
-                string.Equals(GetRequiredValue(record, "BindingName"), bindingName, StringComparison.Ordinal) &&
+                string.Equals(GetRequiredValue(record, "BindingName"), weaveBindingName, StringComparison.Ordinal) &&
                 string.Equals(GetRequiredRelationshipId(record, "WeaveReferenceId"), weaveReference.Id, StringComparison.Ordinal)))
         {
             throw new InvalidOperationException("An equivalent BindingReference already exists.");
@@ -111,7 +145,7 @@ public sealed class MetaFabricAuthoringService : IMetaFabricAuthoringService
             Values =
             {
                 ["Name"] = name,
-                ["BindingName"] = bindingName,
+                ["BindingName"] = weaveBindingName,
             },
             RelationshipIds =
             {

@@ -988,7 +988,7 @@ Current command surface:
 meta-fabric help
 meta-fabric init --new-workspace .\MetaFabric.Workspace
 meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --binding "Group.Name -> Category.Name"
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
 meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
 meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
 meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
@@ -1022,8 +1022,8 @@ Scoped authoring example:
 meta-fabric init --new-workspace .\MetaFabric.Workspace
 meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
 meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Child --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --binding "Group.Name -> Category.Name"
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ChildItem --weave Child --binding "Item.Name -> CategoryItem.Name"
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
+meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ChildItem --weave Child --source-entity Item --source-property Name --target-entity CategoryItem --target-property Name
 meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId
 ```
 

@@ -72,10 +72,10 @@ public sealed class CliTests
             var addChildWeave = RunCli($"add-weave --workspace \"{workspacePath}\" --alias Child --workspace-path \"{childWeavePath}\"");
             Assert.Equal(0, addChildWeave.ExitCode);
 
-            var addParentBinding = RunCli($"add-binding --workspace \"{workspacePath}\" --name ParentGroup --weave Parent --binding \"Group.Name -> Category.Name\"");
+            var addParentBinding = RunCli($"add-binding --workspace \"{workspacePath}\" --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name");
             Assert.Equal(0, addParentBinding.ExitCode);
 
-            var addChildBinding = RunCli($"add-binding --workspace \"{workspacePath}\" --name ChildItem --weave Child --binding \"Item.Name -> CategoryItem.Name\"");
+            var addChildBinding = RunCli($"add-binding --workspace \"{workspacePath}\" --name ChildItem --weave Child --source-entity Item --source-property Name --target-entity CategoryItem --target-property Name");
             Assert.Equal(0, addChildBinding.ExitCode);
 
             var addScope = RunCli($"add-scope --workspace \"{workspacePath}\" --binding ChildItem --parent-binding ParentGroup --source-parent-reference GroupId --target-parent-reference CategoryId");

@@ -357,7 +357,15 @@ Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWo
 
 ```csharp
 Task AddWeaveReferenceAsync(Workspace fabricWorkspace, string alias, string workspacePath, CancellationToken cancellationToken = default);
-Task AddBindingReferenceAsync(Workspace fabricWorkspace, string name, string weaveAlias, string bindingName, CancellationToken cancellationToken = default);
+Task AddBindingReferenceAsync(
+    Workspace fabricWorkspace,
+    string name,
+    string weaveAlias,
+    string sourceEntity,
+    string sourceProperty,
+    string targetEntity,
+    string targetProperty,
+    CancellationToken cancellationToken = default);
 Task AddScopeRequirementAsync(
     Workspace fabricWorkspace,
     string bindingReferenceName,
