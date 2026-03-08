@@ -25,7 +25,7 @@ public sealed class GeneratedSampleApiContractTests
             var entityCode = File.ReadAllText(entityPath);
 
             Assert.Contains("namespace EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public static class EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public static partial class EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("private static readonly EnterpriseBIPlatformInstance _builtIn", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static EnterpriseBIPlatformInstance BuiltIn", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelCode, StringComparison.Ordinal);
