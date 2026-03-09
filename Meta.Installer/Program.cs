@@ -32,9 +32,9 @@ if (missing.Length > 0)
         missing.Select(tool => $"  Missing: {tool.FileName}")
             .Concat(new[]
             {
-                "Next: dotnet build Metadata.Framework.sln",
-                "Next: dotnet build MetaWeave.sln",
-                "Next: dotnet build MetaFabric.sln"
+                "Next: dotnet publish Meta.Cli\\Meta.Cli.csproj -c Debug -r win-x64",
+                "Next: dotnet publish MetaWeave.Cli\\MetaWeave.Cli.csproj -c Debug -r win-x64",
+                "Next: dotnet publish MetaFabric.Cli\\MetaFabric.Cli.csproj -c Debug -r win-x64"
             }));
     return 1;
 }
@@ -72,8 +72,8 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteInfo("Notes:");
     presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-fabric.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
-    presenter.WriteInfo("  Uses the newest available built binary from the current meta checkout.");
-    presenter.WriteNext("dotnet build Metadata.Framework.sln");
+    presenter.WriteInfo("  Installs published single-file binaries from the current meta checkout.");
+    presenter.WriteNext("dotnet publish Meta.Cli\\Meta.Cli.csproj -c Debug -r win-x64");
 }
 
 static bool IsHelpToken(string value)
@@ -101,17 +101,10 @@ static string? FindRepoRoot(string startDirectory, string markerFileName)
 
 static string? ResolveBuiltToolPath(string repoRoot, string projectDirectory, string fileName)
 {
-    var candidates = new[]
-    {
-        Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64", fileName),
-        Path.Combine(repoRoot, projectDirectory, "bin", "Debug", "net8.0", fileName),
-        Path.Combine(repoRoot, projectDirectory, "bin", "Release", "net8.0", fileName)
-    };
-
-    return candidates
-        .Where(File.Exists)
-        .OrderByDescending(path => File.GetLastWriteTimeUtc(path))
-        .FirstOrDefault();
+    var publishPath = Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64", fileName);
+    return File.Exists(publishPath)
+        ? publishPath
+        : null;
 }
 
 static void EnsureUserPathContains(string targetDir)
