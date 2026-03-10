@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Meta.Core.Ddl;
 using Meta.Core.Domain;
 
 namespace Meta.Core.Services;
@@ -332,9 +333,74 @@ public static class GenerationService
 
     private static string BuildSqlData(Workspace workspace)
     {
-        var builder = new StringBuilder();
-        builder.AppendLine("-- Deterministic data script");
-        builder.AppendLine();
+        return DdlSqlServerRenderer.RenderData(BuildDdlDatabase(workspace));
+    }
+
+    private static DdlDatabase BuildDdlDatabase(Workspace workspace)
+    {
+        var database = new DdlDatabase();
+        var entities = workspace.Model.Entities
+            .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
+            .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        foreach (var entity in entities)
+        {
+            var table = new DdlTable
+            {
+                Schema = "dbo",
+                Name = entity.Name,
+                PrimaryKey = new DdlPrimaryKeyConstraint
+                {
+                    Name = $"PK_{entity.Name}",
+                    IsClustered = true,
+                },
+            };
+            table.PrimaryKey.ColumnNames.Add("Id");
+            table.Columns.Add(new DdlColumn
+            {
+                Name = "Id",
+                DataType = "NVARCHAR(128)",
+                IsNullable = false,
+            });
+
+            foreach (var property in entity.Properties
+                         .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                         .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase))
+            {
+                table.Columns.Add(new DdlColumn
+                {
+                    Name = property.Name,
+                    DataType = "NVARCHAR(MAX)",
+                    IsNullable = property.IsNullable,
+                });
+            }
+
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase))
+            {
+                var relationshipName = relationship.GetColumnName();
+                table.Columns.Add(new DdlColumn
+                {
+                    Name = relationshipName,
+                    DataType = "NVARCHAR(128)",
+                    IsNullable = false,
+                });
+
+                var foreignKey = new DdlForeignKeyConstraint
+                {
+                    Name = $"FK_{entity.Name}_{relationship.Entity}_{relationshipName}",
+                    ReferencedSchema = "dbo",
+                    ReferencedTableName = relationship.Entity,
+                };
+                foreignKey.ColumnNames.Add(relationshipName);
+                foreignKey.ReferencedColumnNames.Add("Id");
+                table.ForeignKeys.Add(foreignKey);
+            }
+
+            database.Tables.Add(table);
+        }
 
         foreach (var entity in GetEntitiesTopologically(workspace.Model))
         {
@@ -345,17 +411,28 @@ public static class GenerationService
 
             foreach (var row in records.OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase))
             {
-                var columns = new List<string> { "[Id]" };
-                var values = new List<string> { ToSqlLiteral(row.Id) };
+                var statement = new DdlInsertStatement
+                {
+                    Schema = "dbo",
+                    TableName = entity.Name,
+                };
+                statement.Values.Add(new DdlInsertValue
+                {
+                    ColumnName = "Id",
+                    SqlLiteral = ToSqlLiteral(row.Id),
+                });
 
                 foreach (var property in entity.Properties
                              .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
                              .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase))
                 {
-                    columns.Add($"[{EscapeSqlIdentifier(property.Name)}]");
-                    values.Add(row.Values.TryGetValue(property.Name, out var propertyValue)
-                        ? ToSqlLiteral(propertyValue)
-                        : "NULL");
+                    statement.Values.Add(new DdlInsertValue
+                    {
+                        ColumnName = property.Name,
+                        SqlLiteral = row.Values.TryGetValue(property.Name, out var propertyValue)
+                            ? ToSqlLiteral(propertyValue)
+                            : "NULL",
+                    });
                 }
 
                 foreach (var relationship in entity.Relationships
@@ -363,20 +440,20 @@ public static class GenerationService
                              .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase))
                 {
                     var relationshipName = relationship.GetColumnName();
-                    columns.Add($"[{EscapeSqlIdentifier(relationshipName)}]");
-                    values.Add(row.RelationshipIds.TryGetValue(relationship.GetColumnName(), out var relationshipValue)
-                        ? ToSqlLiteral(relationshipValue)
-                        : "NULL");
+                    statement.Values.Add(new DdlInsertValue
+                    {
+                        ColumnName = relationshipName,
+                        SqlLiteral = row.RelationshipIds.TryGetValue(relationshipName, out var relationshipValue)
+                            ? ToSqlLiteral(relationshipValue)
+                            : "NULL",
+                    });
                 }
 
-                builder.AppendLine(
-                    $"INSERT INTO [dbo].[{EscapeSqlIdentifier(entity.Name)}] ({string.Join(", ", columns)}) VALUES ({string.Join(", ", values)});");
+                database.Inserts.Add(statement);
             }
-
-            builder.AppendLine();
         }
 
-        return NormalizeNewlines(builder.ToString());
+        return database;
     }
 
     private static string BuildCSharpConsumerModel(Workspace workspace, string modelTypeName, string namespaceName)
