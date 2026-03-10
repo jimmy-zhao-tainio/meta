@@ -1,4 +1,4 @@
-# Weave and Fabric Note
+# Weave and Fabric Note [to be revised]
 
 ## Purpose
 

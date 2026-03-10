@@ -6,7 +6,7 @@ This repo ships three CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.  
-`meta-fabric` (MetaFabric CLI): scoped validation over meta-weave workspaces.
+`meta-fabric` (MetaFabric CLI): scoped validation over meta-weave workspaces. [to be revised]
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -889,9 +889,9 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType`
 - `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`
 
-## MetaFabric
+## MetaFabric [to be revised]
 
-MetaFabric is the sanctioned scoped-binding layer over weave workspaces.
+MetaFabric is the current sanctioned scoped-binding layer over weave workspaces. The current shape works, but the abstraction is still under review.
 
 A fabric workspace contains:
 
