@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -29,6 +29,13 @@ public static class GenerationService
         var outputRoot = PrepareOutputDirectory(outputDirectory);
         WriteText(Path.Combine(outputRoot, "schema.sql"), BuildSqlSchema(workspace));
         WriteText(Path.Combine(outputRoot, "data.sql"), BuildSqlData(workspace));
+        WriteText(
+            Path.Combine(outputRoot, "_meta-sqlserver-order.txt"),
+            string.Join(Environment.NewLine, new[]
+            {
+                "schema.sql",
+                "data.sql",
+            }) + Environment.NewLine);
         return BuildManifest(outputRoot);
     }
 
@@ -275,60 +282,7 @@ public static class GenerationService
 
     private static string BuildSqlSchema(Workspace workspace)
     {
-        var builder = new StringBuilder();
-        builder.AppendLine("-- Deterministic schema script");
-        builder.AppendLine();
-
-        var entities = workspace.Model.Entities
-            .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
-            .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
-            .ToList();
-
-        var relationships = new List<(string Source, string Target, string RelationshipName)>();
-        foreach (var entity in entities)
-        {
-            var columns = new List<string>
-            {
-                "    [Id] NVARCHAR(128) NOT NULL",
-            };
-
-            foreach (var property in entity.Properties
-                         .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-                         .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase))
-            {
-                var nullable = property.IsNullable ? "NULL" : "NOT NULL";
-                columns.Add($"    [{EscapeSqlIdentifier(property.Name)}] NVARCHAR(MAX) {nullable}");
-            }
-
-            foreach (var relationship in entity.Relationships
-                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase))
-            {
-                var relationshipName = relationship.GetColumnName();
-                columns.Add($"    [{EscapeSqlIdentifier(relationshipName)}] NVARCHAR(128) NOT NULL");
-                relationships.Add((entity.Name, relationship.Entity, relationshipName));
-            }
-
-            columns.Add($"    CONSTRAINT [PK_{EscapeSqlIdentifier(entity.Name)}] PRIMARY KEY CLUSTERED ([Id] ASC)");
-            builder.AppendLine($"CREATE TABLE [dbo].[{EscapeSqlIdentifier(entity.Name)}] (");
-            builder.AppendLine(string.Join(",\n", columns));
-            builder.AppendLine(");");
-            builder.AppendLine("GO");
-            builder.AppendLine();
-        }
-
-        foreach (var relationship in relationships
-                     .OrderBy(item => item.Source, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(item => item.Target, StringComparer.OrdinalIgnoreCase))
-        {
-            var constraintName = $"FK_{relationship.Source}_{relationship.Target}_{relationship.RelationshipName}";
-            builder.AppendLine(
-                $"ALTER TABLE [dbo].[{EscapeSqlIdentifier(relationship.Source)}] WITH CHECK ADD CONSTRAINT [{EscapeSqlIdentifier(constraintName)}] FOREIGN KEY([{EscapeSqlIdentifier(relationship.RelationshipName)}]) REFERENCES [dbo].[{EscapeSqlIdentifier(relationship.Target)}]([Id]);");
-            builder.AppendLine("GO");
-            builder.AppendLine();
-        }
-
-        return NormalizeNewlines(builder.ToString());
+        return DdlSqlServerRenderer.RenderSchema(BuildDdlDatabase(workspace));
     }
 
     private static string BuildSqlData(Workspace workspace)

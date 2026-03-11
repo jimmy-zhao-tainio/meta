@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Meta.Core.Presentation;
 using Microsoft.Win32;
 
@@ -19,12 +19,12 @@ if (repoRoot is null)
 
 var tools = new[]
 {
-    new ToolSpec("meta.exe", ResolveBuiltToolPath(repoRoot, "Meta.Cli", "meta.exe")),
-    new ToolSpec("meta-weave.exe", ResolveBuiltToolPath(repoRoot, "MetaWeave.Cli", "meta-weave.exe")),
-    new ToolSpec("meta-fabric.exe", ResolveBuiltToolPath(repoRoot, "MetaFabric.Cli", "meta-fabric.exe")),
+    new ToolSpec("meta.exe", ResolvePublishDirectory(repoRoot, "Meta.Cli", "meta.exe")),
+    new ToolSpec("meta-weave.exe", ResolvePublishDirectory(repoRoot, "MetaWeave.Cli", "meta-weave.exe")),
+    new ToolSpec("meta-fabric.exe", ResolvePublishDirectory(repoRoot, "MetaFabric.Cli", "meta-fabric.exe")),
 };
 
-var missing = tools.Where(tool => tool.SourcePath is null).ToArray();
+var missing = tools.Where(tool => tool.SourceDirectory is null).ToArray();
 if (missing.Length > 0)
 {
     presenter.WriteFailure(
@@ -48,7 +48,7 @@ Directory.CreateDirectory(targetDir);
 
 foreach (var tool in tools)
 {
-    File.Copy(tool.SourcePath!, Path.Combine(targetDir, tool.FileName), overwrite: true);
+    CopyPublishPayload(tool.SourceDirectory!, targetDir);
 }
 
 EnsureUserPathContains(targetDir);
@@ -72,7 +72,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteInfo("Notes:");
     presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-fabric.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
-    presenter.WriteInfo("  Installs published single-file binaries from the current meta checkout.");
+    presenter.WriteInfo("  Installs the full published payload from the current meta checkout.");
     presenter.WriteNext("dotnet publish Meta.Cli\\Meta.Cli.csproj -c Debug -r win-x64");
 }
 
@@ -99,12 +99,23 @@ static string? FindRepoRoot(string startDirectory, string markerFileName)
     return null;
 }
 
-static string? ResolveBuiltToolPath(string repoRoot, string projectDirectory, string fileName)
+static string? ResolvePublishDirectory(string repoRoot, string projectDirectory, string fileName)
 {
-    var publishPath = Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64", fileName);
-    return File.Exists(publishPath)
+    var publishPath = Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64");
+    return Directory.Exists(publishPath) && File.Exists(Path.Combine(publishPath, fileName))
         ? publishPath
         : null;
+}
+
+static void CopyPublishPayload(string sourceDirectory, string targetDirectory)
+{
+    foreach (var sourcePath in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+    {
+        var relativePath = Path.GetRelativePath(sourceDirectory, sourcePath);
+        var targetPath = Path.Combine(targetDirectory, relativePath);
+        Directory.CreateDirectory(Path.GetDirectoryName(targetPath)!);
+        File.Copy(sourcePath, targetPath, overwrite: true);
+    }
 }
 
 static void EnsureUserPathContains(string targetDir)
@@ -136,7 +147,7 @@ static void BroadcastEnvironmentChange()
         out _);
 }
 
-internal sealed record ToolSpec(string FileName, string? SourcePath);
+internal sealed record ToolSpec(string FileName, string? SourceDirectory);
 
 internal static class NativeMethods
 {

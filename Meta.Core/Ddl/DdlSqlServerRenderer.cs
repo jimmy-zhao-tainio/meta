@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Meta.Core.Ddl;
@@ -28,14 +29,14 @@ public static class DdlSqlServerRenderer
             {
                 var pkColumns = string.Join(", ", table.PrimaryKey.ColumnNames.Select(name => $"[{EscapeIdentifier(name)}] ASC"));
                 var clustered = table.PrimaryKey.IsClustered ? "CLUSTERED" : "NONCLUSTERED";
-                lines.Add($"    CONSTRAINT [{EscapeIdentifier(table.PrimaryKey.Name)}] PRIMARY KEY {clustered} ({pkColumns})");
+                lines.Add($"    CONSTRAINT [{EscapeIdentifier(NormalizeIdentifier(table.PrimaryKey.Name))}] PRIMARY KEY {clustered} ({pkColumns})");
             }
 
             foreach (var constraint in table.UniqueConstraints
                          .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
             {
                 var uniqueColumns = string.Join(", ", constraint.ColumnNames.Select(name => $"[{EscapeIdentifier(name)}] ASC"));
-                lines.Add($"    CONSTRAINT [{EscapeIdentifier(constraint.Name)}] UNIQUE ({uniqueColumns})");
+                lines.Add($"    CONSTRAINT [{EscapeIdentifier(NormalizeIdentifier(constraint.Name))}] UNIQUE ({uniqueColumns})");
             }
 
             builder.AppendLine(string.Join(",\n", lines));
@@ -54,7 +55,7 @@ public static class DdlSqlServerRenderer
                 var localColumns = string.Join(", ", constraint.ColumnNames.Select(name => $"[{EscapeIdentifier(name)}]"));
                 var referencedColumns = string.Join(", ", constraint.ReferencedColumnNames.Select(name => $"[{EscapeIdentifier(name)}]"));
                 builder.AppendLine(
-                    $"ALTER TABLE [{EscapeIdentifier(table.Schema)}].[{EscapeIdentifier(table.Name)}] WITH CHECK ADD CONSTRAINT [{EscapeIdentifier(constraint.Name)}] FOREIGN KEY({localColumns}) REFERENCES [{EscapeIdentifier(constraint.ReferencedSchema)}].[{EscapeIdentifier(constraint.ReferencedTableName)}]({referencedColumns});");
+                    $"ALTER TABLE [{EscapeIdentifier(table.Schema)}].[{EscapeIdentifier(table.Name)}] WITH CHECK ADD CONSTRAINT [{EscapeIdentifier(NormalizeIdentifier(constraint.Name))}] FOREIGN KEY({localColumns}) REFERENCES [{EscapeIdentifier(constraint.ReferencedSchema)}].[{EscapeIdentifier(constraint.ReferencedTableName)}]({referencedColumns});");
                 builder.AppendLine("GO");
                 builder.AppendLine();
             }
@@ -65,7 +66,7 @@ public static class DdlSqlServerRenderer
                 var uniqueness = index.IsUnique ? "UNIQUE " : string.Empty;
                 var clustering = index.IsClustered ? "CLUSTERED " : "NONCLUSTERED ";
                 var keyColumns = string.Join(", ", index.KeyColumns.Select(column => $"[{EscapeIdentifier(column.Name)}] {(column.IsDescending ? "DESC" : "ASC")}"));
-                builder.Append($"CREATE {uniqueness}{clustering}INDEX [{EscapeIdentifier(index.Name)}] ON [{EscapeIdentifier(table.Schema)}].[{EscapeIdentifier(table.Name)}] ({keyColumns})");
+                builder.Append($"CREATE {uniqueness}{clustering}INDEX [{EscapeIdentifier(NormalizeIdentifier(index.Name))}] ON [{EscapeIdentifier(table.Schema)}].[{EscapeIdentifier(table.Name)}] ({keyColumns})");
                 if (index.IncludedColumnNames.Count > 0)
                 {
                     var includedColumns = string.Join(", ", index.IncludedColumnNames.Select(name => $"[{EscapeIdentifier(name)}]"));
@@ -108,6 +109,21 @@ public static class DdlSqlServerRenderer
     private static string EscapeIdentifier(string identifier)
     {
         return identifier.Replace("]", "]]", StringComparison.Ordinal);
+    }
+
+    private static string NormalizeIdentifier(string identifier)
+    {
+        const int maxIdentifierLength = 128;
+        if (identifier.Length <= maxIdentifierLength)
+        {
+            return identifier;
+        }
+
+        using var sha256 = SHA256.Create();
+        var hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(identifier));
+        var hash = Convert.ToHexString(hashBytes).Substring(0, 16);
+        var prefixLength = maxIdentifierLength - 1 - hash.Length;
+        return identifier.Substring(0, prefixLength) + "_" + hash;
     }
 
     private static string NormalizeNewlines(string value)
