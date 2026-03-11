@@ -114,7 +114,9 @@ internal sealed partial class CliRuntime
         presenter.WriteInfo("  meta deploy sqlserver --scripts <dir> --connection-string <value> [--database <name>]");
         presenter.WriteInfo("Notes:");
         presenter.WriteInfo("  Deploys SQL scripts in deterministic file-name order.");
+        presenter.WriteInfo("  If _meta-sqlserver-order.txt exists, that manifest defines the deployment order.");
         presenter.WriteInfo("  Supports GO batch separators inside each script.");
         presenter.WriteInfo("  If --database is provided, the database is created if missing and used as the deploy target.");
     }
 }
+

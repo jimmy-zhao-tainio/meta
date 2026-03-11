@@ -7,6 +7,8 @@ namespace Meta.Adapters;
 
 public sealed class SqlServerDeploymentService
 {
+    public const string DeployOrderManifestFileName = "_meta-sqlserver-order.txt";
+
     public async Task<SqlServerDeploymentResult> DeployAsync(string scriptsDirectory, string connectionString, string? databaseName = null)
     {
         if (string.IsNullOrWhiteSpace(scriptsDirectory))
@@ -24,10 +26,7 @@ public sealed class SqlServerDeploymentService
             throw new ArgumentException("connection string is required.", nameof(connectionString));
         }
 
-        var scriptFiles = Directory.GetFiles(scriptsDirectory, "*.sql", SearchOption.TopDirectoryOnly)
-            .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
+        var scriptFiles = ResolveScriptFiles(scriptsDirectory);
         if (scriptFiles.Length == 0)
         {
             throw new InvalidOperationException($"No .sql files found in '{scriptsDirectory}'.");
@@ -59,6 +58,31 @@ public sealed class SqlServerDeploymentService
         }
 
         return new SqlServerDeploymentResult(scriptFiles.Length, executedBatches, builder.InitialCatalog);
+    }
+
+    static string[] ResolveScriptFiles(string scriptsDirectory)
+    {
+        var manifestPath = Path.Combine(scriptsDirectory, DeployOrderManifestFileName);
+        if (File.Exists(manifestPath))
+        {
+            var orderedFiles = File.ReadAllLines(manifestPath)
+                .Select(line => line.Trim())
+                .Where(line => !string.IsNullOrWhiteSpace(line))
+                .Select(fileName => Path.Combine(scriptsDirectory, fileName))
+                .ToArray();
+
+            var missing = orderedFiles.Where(path => !File.Exists(path)).ToArray();
+            if (missing.Length > 0)
+            {
+                throw new InvalidOperationException($"Deployment order manifest '{manifestPath}' references missing SQL files: {string.Join(", ", missing.Select(Path.GetFileName))}.");
+            }
+
+            return orderedFiles;
+        }
+
+        return Directory.GetFiles(scriptsDirectory, "*.sql", SearchOption.TopDirectoryOnly)
+            .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
     }
 
     static async Task EnsureDatabaseExistsAsync(SqlConnectionStringBuilder builder, string databaseName)
