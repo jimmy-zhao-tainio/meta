@@ -891,6 +891,41 @@ internal static class HelpTopics
                     next: "meta check");
                 return true;
 
+            case "deploy":
+                document = BuildTopicDocument(
+                    title: "Command: deploy",
+                    summary: "Deploy generated artifacts to external targets.",
+                    usage: "meta deploy <sqlserver> ...",
+                    options: new[]
+                    {
+                        ("--scripts <dir>", "Input directory containing generated SQL scripts."),
+                        ("--connection-string <value>", "Target SQL Server connection string."),
+                        ("--database <name>", "Optional database to create/use before deployment."),
+                    },
+                    examples: new[]
+                    {
+                        "meta deploy sqlserver --scripts .\\out\\sql --connection-string \"Server=.;Integrated Security=true;TrustServerCertificate=true\" --database DemoDv",
+                    },
+                    next: "meta deploy sqlserver --help");
+                return true;
+
+            case "deploy sqlserver":
+                document = BuildTopicDocument(
+                    title: "Command: deploy sqlserver",
+                    summary: "Deploy SQL scripts to SQL Server in deterministic file order.",
+                    usage: "meta deploy sqlserver --scripts <dir> --connection-string <value> [--database <name>]",
+                    options: new[]
+                    {
+                        ("--scripts <dir>", "Required directory containing SQL scripts."),
+                        ("--connection-string <value>", "Required SQL Server connection string."),
+                        ("--database <name>", "Optional database to create/use before deployment."),
+                    },
+                    examples: new[]
+                    {
+                        "meta deploy sqlserver --scripts .\\out\\sql --connection-string \"Server=.;Integrated Security=true;TrustServerCertificate=true\" --database DemoDv",
+                    },
+                    next: "meta status");
+                return true;
             case "import":
                 document = BuildTopicDocument(
                     title: "Command: import",
@@ -988,6 +1023,7 @@ internal static class HelpTopics
             Next: next);
     }
 }
+
 
 
 

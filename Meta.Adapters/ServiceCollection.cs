@@ -12,6 +12,7 @@ public sealed class ServiceCollection
     public IModelRefactorService ModelRefactorService { get; }
     public IInstanceRefactorService InstanceRefactorService { get; }
     public IWorkspaceMergeService WorkspaceMergeService { get; }
+    public SqlServerDeploymentService SqlServerDeploymentService { get; }
 
     public ServiceCollection()
     {
@@ -23,5 +24,6 @@ public sealed class ServiceCollection
         WorkspaceMergeService = new WorkspaceMergeService();
         ImportService = new ImportService(WorkspaceService);
         ExportService = new ExportService(WorkspaceService);
+        SqlServerDeploymentService = new SqlServerDeploymentService();
     }
 }

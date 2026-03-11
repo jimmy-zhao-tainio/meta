@@ -979,6 +979,7 @@ internal sealed partial class CliRuntime
         Register("import", "Pipeline", "Import xml/sql into NEW workspace or csv into NEW/existing workspace.", ImportAsync);
         Register("export", "Pipeline", "Export workspace data to external formats.", ExportAsync);
         Register("generate", "Pipeline", "Generate artifacts from the workspace.", GenerateAsync);
+        Register("deploy", "Pipeline", "Deploy generated artifacts to external targets.", DeployAsync);
     
         return registry;
     
@@ -1000,4 +1001,6 @@ internal sealed partial class CliRuntime
         int TotalRelationships,
         int TotalRows);
 }
+
+
 

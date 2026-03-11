@@ -18,7 +18,7 @@ It is not meant to replace domain generators. Domain tools such as `meta-datavau
 - force SSDT or Visual Studio into the workflow
 - hide destructive schema changes behind weak defaults
 
-## Phase 1: deploy generated SQL
+## Phase 1: deploy generated SQL [implemented baseline]
 
 Goal:
 - take an ordered SQL artifact set and apply it to SQL Server deterministically

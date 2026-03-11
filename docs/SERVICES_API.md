@@ -481,3 +481,8 @@ Weak relationship suggestions
 
 
 
+
+
+## SqlServerDeploymentService
+
+Implemented in `Meta.Adapters`. Deploys generated `.sql` files to SQL Server in deterministic file-name order, supports `GO` batch separators, and can optionally create/use a target database before applying scripts.
