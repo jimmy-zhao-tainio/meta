@@ -78,18 +78,30 @@ internal sealed partial class CliRuntime
         bool explain,
         bool printCommands)
     {
-        presenter.WriteOk(
-            "model suggest",
+        var weakSuggestionCount = CountWeakRelationshipSuggestions(report.WeakRelationshipSuggestions);
+        var summaryDetails = new List<(string Key, string Value)>
+        {
             ("Workspace", report.WorkspaceRootPath),
             ("Model", report.ModelName),
             ("Suggestions", report.EligibleRelationshipSuggestions.Count.ToString(CultureInfo.InvariantCulture)),
-            ("WeakSuggestions", CountWeakRelationshipSuggestions(report.WeakRelationshipSuggestions).ToString(CultureInfo.InvariantCulture)));
+        };
+        if (weakSuggestionCount > 0)
+        {
+            summaryDetails.Add(("WeakSuggestions", weakSuggestionCount.ToString(CultureInfo.InvariantCulture)));
+        }
+
+        presenter.WriteOk(
+            "model suggest",
+            summaryDetails.ToArray());
 
         // Keep a fixed, compact structure for default output.
         presenter.WriteInfo(string.Empty);
         PrintRelationshipSection(report.EligibleRelationshipSuggestions, explain);
-        presenter.WriteInfo(string.Empty);
-        PrintWeakRelationshipSection(report.WeakRelationshipSuggestions, explain);
+        if (weakSuggestionCount > 0)
+        {
+            presenter.WriteInfo(string.Empty);
+            PrintWeakRelationshipSection(report.WeakRelationshipSuggestions, explain);
+        }
         if (printCommands)
         {
             PrintSuggestedCommandSection(report.WorkspaceRootPath, report.EligibleRelationshipSuggestions);

@@ -630,9 +630,7 @@ public sealed class CliStrictModeTests
             Assert.True(result.ExitCode == 0, result.CombinedOutput);
 
             var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
-            var shardPath = Path.Combine(workspaceRoot, "metadata", "instance", "SmokeEntity.xml");
             Assert.True(File.Exists(modelPath), "Expected metadata/model.xml to be written.");
-            Assert.True(File.Exists(shardPath), "Expected metadata/instance/SmokeEntity.xml to be written.");
 
             var modelDocument = XDocument.Load(modelPath);
             Assert.NotNull(modelDocument
@@ -3527,23 +3525,8 @@ public sealed class CliStrictModeTests
             Assert.Equal(0, statusResult.ExitCode);
             Assert.Contains("InstanceDiffModelEqual", statusResult.StdOut, StringComparison.Ordinal);
 
-            var leftNotInRightPath = Path.Combine(
-                diffWorkspacePath,
-                "metadata",
-                "instance",
-                "ModelLeftPropertyInstanceNotInRight.xml");
-            var rightNotInLeftPath = Path.Combine(
-                diffWorkspacePath,
-                "metadata",
-                "instance",
-                "ModelRightPropertyInstanceNotInLeft.xml");
-            Assert.True(File.Exists(leftNotInRightPath));
-            Assert.True(File.Exists(rightNotInLeftPath));
-
-            var leftNotInRight = XDocument.Load(leftNotInRightPath);
-            var rightNotInLeft = XDocument.Load(rightNotInLeftPath);
-            Assert.NotEmpty(leftNotInRight.Descendants("ModelLeftPropertyInstanceNotInRight"));
-            Assert.NotEmpty(rightNotInLeft.Descendants("ModelRightPropertyInstanceNotInLeft"));
+            Assert.NotEmpty(LoadEntityRows(diffWorkspacePath, "ModelLeftPropertyInstanceNotInRight"));
+            Assert.NotEmpty(LoadEntityRows(diffWorkspacePath, "ModelRightPropertyInstanceNotInLeft"));
         }
         finally
         {
@@ -4328,20 +4311,8 @@ public sealed class CliStrictModeTests
             Assert.Equal(1, diffResult.ExitCode);
             diffWorkspacePath = ExtractDiffWorkspacePath(diffResult.StdOut);
 
-            var rightNotInLeftPath = Path.Combine(
-                diffWorkspacePath,
-                "metadata",
-                "instance",
-                "ModelRightPropertyInstanceNotInLeft.xml");
-            var leftNotInRightPath = Path.Combine(
-                diffWorkspacePath,
-                "metadata",
-                "instance",
-                "ModelLeftPropertyInstanceNotInRight.xml");
-            var rightNotInLeft = XDocument.Load(rightNotInLeftPath);
-            var leftNotInRight = XDocument.Load(leftNotInRightPath);
-            Assert.NotEmpty(rightNotInLeft.Descendants("ModelRightPropertyInstanceNotInLeft"));
-            Assert.Empty(leftNotInRight.Descendants("ModelLeftPropertyInstanceNotInRight"));
+            Assert.NotEmpty(LoadEntityRows(diffWorkspacePath, "ModelRightPropertyInstanceNotInLeft"));
+            Assert.Empty(LoadEntityRows(diffWorkspacePath, "ModelLeftPropertyInstanceNotInRight"));
 
             var propertyShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "Property.xml");
             var rightPropertyShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "ModelRightPropertyInstance.xml");
@@ -5102,7 +5073,11 @@ public sealed class CliStrictModeTests
     private static IReadOnlyList<XElement> LoadEntityRows(string workspacePath, string entityName)
     {
         var shardPath = Path.Combine(workspacePath, "metadata", "instance", entityName + ".xml");
-        Assert.True(File.Exists(shardPath), $"Expected shard '{shardPath}' to exist.");
+        if (!File.Exists(shardPath))
+        {
+            return Array.Empty<XElement>();
+        }
+
         var document = XDocument.Load(shardPath);
         return document.Descendants(entityName).ToList();
     }

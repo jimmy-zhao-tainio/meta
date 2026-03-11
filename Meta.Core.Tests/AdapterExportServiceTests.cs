@@ -54,7 +54,7 @@ public sealed class AdapterExportServiceTests
 
             var modelText = await File.ReadAllTextAsync(modelPath);
             Assert.Contains($"namespace {workspace.Model.Name}", modelText, StringComparison.Ordinal);
-            Assert.Contains($"public static class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
+            Assert.Contains($"public static partial class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelText, StringComparison.Ordinal);
             Assert.Contains("private static readonly EnterpriseBIPlatformInstance _builtIn", modelText, StringComparison.Ordinal);
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
