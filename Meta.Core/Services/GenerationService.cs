@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -29,13 +29,8 @@ public static class GenerationService
         var outputRoot = PrepareOutputDirectory(outputDirectory);
         WriteText(Path.Combine(outputRoot, "schema.sql"), BuildSqlSchema(workspace));
         WriteText(Path.Combine(outputRoot, "data.sql"), BuildSqlData(workspace));
-        WriteText(
-            Path.Combine(outputRoot, "_meta-sqlserver-order.txt"),
-            string.Join(Environment.NewLine, new[]
-            {
-                "schema.sql",
-                "data.sql",
-            }) + Environment.NewLine);
+
+
         return BuildManifest(outputRoot);
     }
 
@@ -1083,5 +1078,6 @@ public static class GenerationService
         return Convert.ToHexString(hash).ToLowerInvariant();
     }
 }
+
 
 

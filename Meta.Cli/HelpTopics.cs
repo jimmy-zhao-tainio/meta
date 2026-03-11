@@ -912,7 +912,7 @@ internal static class HelpTopics
             case "deploy sqlserver":
                 document = BuildTopicDocument(
                     title: "Command: deploy sqlserver",
-                    summary: "Deploy SQL scripts to SQL Server in deterministic file order.",
+                    summary: "Deploy SQL scripts to SQL Server in dependency-derived order.",
                     usage: "meta deploy sqlserver --scripts <dir> --connection-string <value> [--database <name>]",
                     options: new[]
                     {
@@ -1023,6 +1023,7 @@ internal static class HelpTopics
             Next: next);
     }
 }
+
 
 
 

@@ -7,7 +7,10 @@ namespace Meta.Adapters;
 
 public sealed class SqlServerDeploymentService
 {
-    public const string DeployOrderManifestFileName = "_meta-sqlserver-order.txt";
+    private static readonly Regex GoBatchPattern = new(@"^\s*GO\s*(?:--.*)?$", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex CreateTablePattern = new(@"CREATE\s+TABLE\s+\[(?<schema>[^\]]+)\]\.\[(?<name>[^\]]+)\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex ReferencesPattern = new(@"REFERENCES\s+\[(?<schema>[^\]]+)\]\.\[(?<name>[^\]]+)\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex InsertIntoPattern = new(@"INSERT\s+INTO\s+\[(?<schema>[^\]]+)\]\.\[(?<name>[^\]]+)\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public async Task<SqlServerDeploymentResult> DeployAsync(string scriptsDirectory, string connectionString, string? databaseName = null)
     {
@@ -62,27 +65,80 @@ public sealed class SqlServerDeploymentService
 
     static string[] ResolveScriptFiles(string scriptsDirectory)
     {
-        var manifestPath = Path.Combine(scriptsDirectory, DeployOrderManifestFileName);
-        if (File.Exists(manifestPath))
-        {
-            var orderedFiles = File.ReadAllLines(manifestPath)
-                .Select(line => line.Trim())
-                .Where(line => !string.IsNullOrWhiteSpace(line))
-                .Select(fileName => Path.Combine(scriptsDirectory, fileName))
-                .ToArray();
-
-            var missing = orderedFiles.Where(path => !File.Exists(path)).ToArray();
-            if (missing.Length > 0)
-            {
-                throw new InvalidOperationException($"Deployment order manifest '{manifestPath}' references missing SQL files: {string.Join(", ", missing.Select(Path.GetFileName))}.");
-            }
-
-            return orderedFiles;
-        }
-
-        return Directory.GetFiles(scriptsDirectory, "*.sql", SearchOption.TopDirectoryOnly)
+        var allFiles = Directory.GetFiles(scriptsDirectory, "*.sql", SearchOption.TopDirectoryOnly)
             .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+
+        var descriptors = allFiles.Select(path => SqlScriptDescriptor.Create(path, File.ReadAllText(path))).ToList();
+        var providersByTable = descriptors
+            .SelectMany(descriptor => descriptor.ProvidedTables.Select(table => (table, descriptor)))
+            .GroupBy(item => item.table, item => item.descriptor, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(group => group.Key, group => group.OrderBy(item => item.FileName, StringComparer.OrdinalIgnoreCase).First(), StringComparer.OrdinalIgnoreCase);
+
+        var dependencies = descriptors.ToDictionary(
+            descriptor => descriptor.FilePath,
+            descriptor => new HashSet<string>(StringComparer.OrdinalIgnoreCase),
+            StringComparer.OrdinalIgnoreCase);
+
+        foreach (var descriptor in descriptors)
+        {
+            foreach (var requiredTable in descriptor.RequiredTables)
+            {
+                if (!providersByTable.TryGetValue(requiredTable, out var provider))
+                {
+                    continue;
+                }
+
+                if (!string.Equals(provider.FilePath, descriptor.FilePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    dependencies[descriptor.FilePath].Add(provider.FilePath);
+                }
+            }
+        }
+
+        return TopologicallySort(descriptors, dependencies).Select(item => item.FilePath).ToArray();
+    }
+
+    static IReadOnlyList<SqlScriptDescriptor> TopologicallySort(
+        IReadOnlyList<SqlScriptDescriptor> descriptors,
+        IReadOnlyDictionary<string, HashSet<string>> dependencies)
+    {
+        var remaining = descriptors.ToDictionary(item => item.FilePath, item => new HashSet<string>(dependencies[item.FilePath], StringComparer.OrdinalIgnoreCase), StringComparer.OrdinalIgnoreCase);
+        var queue = new List<SqlScriptDescriptor>();
+        var ordered = new List<SqlScriptDescriptor>();
+
+        void RebuildQueue()
+        {
+            queue.Clear();
+            queue.AddRange(descriptors.Where(item => remaining.TryGetValue(item.FilePath, out var deps) && deps.Count == 0));
+            queue.Sort((left, right) => StringComparer.OrdinalIgnoreCase.Compare(left.FileName, right.FileName));
+        }
+
+        RebuildQueue();
+        while (queue.Count > 0)
+        {
+            var next = queue[0];
+            queue.RemoveAt(0);
+            ordered.Add(next);
+            remaining.Remove(next.FilePath);
+
+            foreach (var deps in remaining.Values)
+            {
+                deps.Remove(next.FilePath);
+            }
+
+            RebuildQueue();
+        }
+
+        if (remaining.Count > 0)
+        {
+            var cycleFiles = remaining.Keys
+                .Select(Path.GetFileName)
+                .OrderBy(name => name, StringComparer.OrdinalIgnoreCase);
+            throw new InvalidOperationException($"Could not determine SQL deployment order because of cyclic or unresolved dependencies among: {string.Join(", ", cycleFiles)}.");
+        }
+
+        return ordered;
     }
 
     static async Task EnsureDatabaseExistsAsync(SqlConnectionStringBuilder builder, string databaseName)
@@ -109,10 +165,36 @@ END";
 
     static string[] SplitGoBatches(string scriptText)
     {
-        return Regex.Split(scriptText, @"^\s*GO\s*(?:--.*)?$", RegexOptions.Multiline | RegexOptions.IgnoreCase)
+        return GoBatchPattern.Split(scriptText)
             .Select(batch => batch.Trim())
             .Where(batch => !string.IsNullOrWhiteSpace(batch))
             .ToArray();
+    }
+
+    private sealed record SqlScriptDescriptor(
+        string FilePath,
+        string FileName,
+        IReadOnlyCollection<string> ProvidedTables,
+        IReadOnlyCollection<string> RequiredTables)
+    {
+        public static SqlScriptDescriptor Create(string filePath, string scriptText)
+        {
+            var fileName = Path.GetFileName(filePath);
+            var providedTables = CreateTablePattern.Matches(scriptText)
+                .Select(match => $"{match.Groups["schema"].Value}.{match.Groups["name"].Value}")
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+            var referencedTables = ReferencesPattern.Matches(scriptText)
+                .Select(match => $"{match.Groups["schema"].Value}.{match.Groups["name"].Value}");
+            var insertedTables = InsertIntoPattern.Matches(scriptText)
+                .Select(match => $"{match.Groups["schema"].Value}.{match.Groups["name"].Value}");
+            var requiredTables = referencedTables
+                .Concat(insertedTables)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+            return new SqlScriptDescriptor(filePath, fileName, providedTables, requiredTables);
+        }
     }
 }
 
