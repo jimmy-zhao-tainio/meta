@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="InstanceDiffModelEqual">
+  <EntityList>
+    <Entity name="Diff">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="DiffModelVersion" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Model" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Model">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Entity">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Model" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Property">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Entity" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelLeftEntityInstance">
+      <PropertyList>
+        <Property name="EntityInstanceIdentifier" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Diff" />
+        <Relationship entity="Entity" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelRightEntityInstance">
+      <PropertyList>
+        <Property name="EntityInstanceIdentifier" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Diff" />
+        <Relationship entity="Entity" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelLeftPropertyInstance">
+      <PropertyList>
+        <Property name="Value" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ModelLeftEntityInstance" />
+        <Relationship entity="Property" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelRightPropertyInstance">
+      <PropertyList>
+        <Property name="Value" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ModelRightEntityInstance" />
+        <Relationship entity="Property" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelLeftEntityInstanceNotInRight">
+      <RelationshipList>
+        <Relationship entity="ModelLeftEntityInstance" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelRightEntityInstanceNotInLeft">
+      <RelationshipList>
+        <Relationship entity="ModelRightEntityInstance" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelLeftPropertyInstanceNotInRight">
+      <RelationshipList>
+        <Relationship entity="ModelLeftPropertyInstance" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ModelRightPropertyInstanceNotInLeft">
+      <RelationshipList>
+        <Relationship entity="ModelRightPropertyInstance" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>
