@@ -20,12 +20,6 @@
     <ProjectReference Include="..\Meta.Core\Meta.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\InstanceDiffModel.Equal.xml" />
-    <EmbeddedResource Include="Templates\InstanceDiffModel.Alignment.xml" />
-    <EmbeddedResource Include="Templates\InstanceDiffModel.Aligned.xml" />
-  </ItemGroup>
-
   <Target
     Name="PublishMetaAfterBuild"
     AfterTargets="Build"

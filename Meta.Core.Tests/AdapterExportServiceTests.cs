@@ -60,7 +60,7 @@ public sealed class AdapterExportServiceTests
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
 
             var entityText = await File.ReadAllTextAsync(entityPath);
-            Assert.Contains("public string CubeName { get; internal set; }", entityText, StringComparison.Ordinal);
+            Assert.Contains("public string CubeName { get; set; }", entityText, StringComparison.Ordinal);
         }
         finally
         {

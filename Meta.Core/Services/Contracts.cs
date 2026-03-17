@@ -97,3 +97,36 @@ public interface IInstanceRefactorService
         Workspace workspace,
         RenameInstanceIdRefactorOptions options);
 }
+
+public readonly record struct InstanceDiffBuildResult(
+    Workspace DiffWorkspace,
+    string DiffWorkspacePath,
+    bool HasDifferences,
+    int LeftRowCount,
+    int RightRowCount,
+    int LeftPropertyCount,
+    int RightPropertyCount,
+    int LeftNotInRightCount,
+    int RightNotInLeftCount);
+
+public interface IInstanceDiffService
+{
+    InstanceDiffBuildResult BuildEqualDiffWorkspace(
+        Workspace leftWorkspace,
+        Workspace rightWorkspace,
+        string rightWorkspacePath);
+
+    InstanceDiffBuildResult BuildAlignedDiffWorkspace(
+        Workspace leftWorkspace,
+        Workspace rightWorkspace,
+        Workspace alignmentWorkspace,
+        string rightWorkspacePath);
+
+    void ApplyEqualDiffWorkspace(
+        Workspace targetWorkspace,
+        Workspace diffWorkspace);
+
+    void ApplyAlignedDiffWorkspace(
+        Workspace targetWorkspace,
+        Workspace diffWorkspace);
+}

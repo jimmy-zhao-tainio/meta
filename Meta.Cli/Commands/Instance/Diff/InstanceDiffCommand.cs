@@ -35,7 +35,16 @@ internal sealed partial class CliRuntime
                 });
         }
 
-        var diff = BuildEqualInstanceDiffWorkspace(leftWorkspace, rightWorkspace, leftPath, rightPath);
+        Meta.Core.Services.InstanceDiffBuildResult diff;
+        try
+        {
+            diff = services.InstanceDiffService.BuildEqualDiffWorkspace(leftWorkspace, rightWorkspace, rightPath);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return PrintDataError("E_OPERATION", exception.Message);
+        }
+
         if (Directory.Exists(diff.DiffWorkspacePath))
         {
             Directory.Delete(diff.DiffWorkspacePath, recursive: true);

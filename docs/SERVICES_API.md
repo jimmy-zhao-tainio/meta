@@ -42,6 +42,7 @@ if (diagnostics.HasErrors)
 - `IOperationService OperationService`
 - `IModelRefactorService ModelRefactorService`
 - `IInstanceRefactorService InstanceRefactorService`
+- `IInstanceDiffService InstanceDiffService`
 - `IWorkspaceMergeService WorkspaceMergeService`
 
 Use this when you want a single default object graph for tooling code.
@@ -141,6 +142,50 @@ RenameInstanceIdRefactorResult RenameInstanceId(
 Behavior:
 - renames row Id and rewrites inbound relationship usages referencing that Id
 - fail-only on collisions/missing entity or row
+
+### `IInstanceDiffService`
+
+```csharp
+InstanceDiffBuildResult BuildEqualDiffWorkspace(
+    Workspace leftWorkspace,
+    Workspace rightWorkspace,
+    string rightWorkspacePath);
+
+InstanceDiffBuildResult BuildAlignedDiffWorkspace(
+    Workspace leftWorkspace,
+    Workspace rightWorkspace,
+    Workspace alignmentWorkspace,
+    string rightWorkspacePath);
+
+void ApplyEqualDiffWorkspace(
+    Workspace targetWorkspace,
+    Workspace diffWorkspace);
+
+void ApplyAlignedDiffWorkspace(
+    Workspace targetWorkspace,
+    Workspace diffWorkspace);
+```
+
+`InstanceDiffBuildResult`:
+
+```csharp
+InstanceDiffBuildResult(
+    Workspace DiffWorkspace,
+    string DiffWorkspacePath,
+    bool HasDifferences,
+    int LeftRowCount,
+    int RightRowCount,
+    int LeftPropertyCount,
+    int RightPropertyCount,
+    int LeftNotInRightCount,
+    int RightNotInLeftCount);
+```
+
+Behavior:
+- builds the sanctioned diff workspace used by `meta instance diff`
+- supports both equal-model diff and aligned-model diff
+- applies a sanctioned diff workspace back onto a target workspace for merge flows
+- fails on diff/merge precondition mismatches with explicit `InvalidOperationException` messages
 
 ### `IImportService` (implemented in `Meta.Adapters`)
 
@@ -289,11 +334,11 @@ This maps CLI surfaces to the primary C# service entrypoints used today.
 | `meta import csv` | `ImportService.ImportCsvAsync(...)`; for existing workspace import path, CLI upserts into loaded workspace then validates and saves |
 | `meta export csv` | `ExportService.ExportCsvAsync(...)` |
 | `meta generate sql/csharp/ssdt` | `GenerationService.GenerateSql/GenerateCSharp/GenerateSsdt` |
-| `meta instance diff/merge` and aligned variants | currently implemented via CLI diff support and workspace services; no dedicated public `IInstanceDiffService` contract yet |
+| `meta instance diff/merge` and aligned variants | `InstanceDiffService.BuildEqualDiffWorkspace/BuildAlignedDiffWorkspace` and `ApplyEqualDiffWorkspace/ApplyAlignedDiffWorkspace` |
 
 Practical rule for non-CLI tooling:
 - use `ServiceCollection` and call services directly when the service contract exists
-- for diff/merge internals, either invoke CLI or mirror CLI support code until a dedicated diff/merge service contract is introduced
+- diff/merge now has a dedicated `IInstanceDiffService`; tooling should use that instead of mirroring CLI support code
 
 ## MetaWeave Services
 

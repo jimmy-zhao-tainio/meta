@@ -15,40 +15,10 @@ internal sealed partial class CliRuntime
         PrintContractCompatibilityWarning(targetWorkspace.WorkspaceConfig);
         PrintContractCompatibilityWarning(diffWorkspace.WorkspaceConfig);
 
-        AlignedDiffData diffData;
-        try
-        {
-            diffData = ParseAlignedDiffWorkspace(diffWorkspace);
-            ValidateWorkspaceMatchesAlignment(
-                targetWorkspace,
-                diffData.Alignment.ModelLeftName,
-                diffData.Alignment.LeftEntityNameById,
-                diffData.Alignment.LeftPropertyNameById,
-                diffData.Alignment.LeftPropertyEntityIdByPropertyId);
-        }
-        catch (InvalidOperationException exception)
-        {
-            return PrintDataError("E_OPERATION", exception.Message);
-        }
-
-        var preSnapshot = BuildWorkspaceSnapshotForAlignedDiff(targetWorkspace, diffData.Alignment);
-        if (!preSnapshot.RowSet.SetEquals(diffData.LeftRowSet) ||
-            !preSnapshot.PropertySet.SetEquals(diffData.LeftPropertySet))
-        {
-            return PrintFormattedError(
-                "E_CONFLICT",
-                "instance merge-aligned precondition failed: target does not match the diff left snapshot.",
-                exitCode: 1,
-                hints: new[]
-                {
-                    "Next: re-run meta instance diff-aligned on the current target, intended right workspace, and alignment workspace.",
-                });
-        }
-
         var before = WorkspaceSnapshotCloner.Capture(targetWorkspace);
         try
         {
-            ApplyAlignedRightSnapshotToWorkspace(targetWorkspace, diffData);
+            services.InstanceDiffService.ApplyAlignedDiffWorkspace(targetWorkspace, diffWorkspace);
             ApplyImplicitNormalization(targetWorkspace);
 
             var diagnostics = services.ValidationService.Validate(targetWorkspace);
@@ -57,16 +27,6 @@ internal sealed partial class CliRuntime
             {
                 WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
                 return PrintOperationValidationFailure("instance merge-aligned", Array.Empty<WorkspaceOp>(), diagnostics);
-            }
-
-            var postSnapshot = BuildWorkspaceSnapshotForAlignedDiff(targetWorkspace, diffData.Alignment);
-            if (!postSnapshot.RowSet.SetEquals(diffData.RightRowSet) ||
-                !postSnapshot.PropertySet.SetEquals(diffData.RightPropertySet))
-            {
-                WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
-                return PrintDataError(
-                    "E_OPERATION",
-                    "instance merge-aligned postcondition failed: target does not match the diff right snapshot.");
             }
 
             await services.WorkspaceService.SaveAsync(targetWorkspace).ConfigureAwait(false);
@@ -79,6 +39,21 @@ internal sealed partial class CliRuntime
         catch (InvalidOperationException exception)
         {
             WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
+            if (string.Equals(
+                    exception.Message,
+                    "instance merge-aligned precondition failed: target does not match the diff left snapshot.",
+                    StringComparison.Ordinal))
+            {
+                return PrintFormattedError(
+                    "E_CONFLICT",
+                    exception.Message,
+                    exitCode: 1,
+                    hints: new[]
+                    {
+                        "Next: re-run meta instance diff-aligned on the current target, intended right workspace, and alignment workspace.",
+                    });
+            }
+
             return PrintDataError("E_OPERATION", exception.Message);
         }
     }

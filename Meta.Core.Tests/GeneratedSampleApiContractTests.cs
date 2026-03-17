@@ -35,9 +35,9 @@ public sealed class GeneratedSampleApiContractTests
             Assert.DoesNotContain("GetId(int id)", modelCode, StringComparison.Ordinal);
 
             Assert.Contains("namespace EnterpriseBIPlatform", entityCode, StringComparison.Ordinal);
-            Assert.Contains("public string Id { get; internal set; }", entityCode, StringComparison.Ordinal);
-            Assert.Contains("public string CubeId { get; internal set; }", entityCode, StringComparison.Ordinal);
-            Assert.Contains("public Cube Cube { get; internal set; }", entityCode, StringComparison.Ordinal);
+            Assert.Contains("public string Id { get; set; }", entityCode, StringComparison.Ordinal);
+            Assert.Contains("public string CubeId { get; set; }", entityCode, StringComparison.Ordinal);
+            Assert.Contains("public Cube Cube { get; set; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int Id { get; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int CubeId { get; }", entityCode, StringComparison.Ordinal);
         }

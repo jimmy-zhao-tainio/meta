@@ -24,37 +24,19 @@ internal sealed partial class CliRuntime
             return PrintOperationValidationFailure("instance diff-aligned right workspace", Array.Empty<WorkspaceOp>(), rightDiagnostics);
         }
 
-        AlignmentCatalog alignment;
+        Meta.Core.Services.InstanceDiffBuildResult diff;
         try
         {
-            alignment = ParseAlignmentCatalog(
-                alignmentWorkspace,
-                InstanceDiffAlignmentModelName,
-                InstanceDiffAlignmentModelSignature.Value);
-            ValidateWorkspaceMatchesAlignment(
+            diff = services.InstanceDiffService.BuildAlignedDiffWorkspace(
                 leftWorkspace,
-                alignment.ModelLeftName,
-                alignment.LeftEntityNameById,
-                alignment.LeftPropertyNameById,
-                alignment.LeftPropertyEntityIdByPropertyId);
-            ValidateWorkspaceMatchesAlignment(
                 rightWorkspace,
-                alignment.ModelRightName,
-                alignment.RightEntityNameById,
-                alignment.RightPropertyNameById,
-                alignment.RightPropertyEntityIdByPropertyId);
+                alignmentWorkspace,
+                rightPath);
         }
         catch (InvalidOperationException exception)
         {
             return PrintDataError("E_OPERATION", exception.Message);
         }
-
-        var diff = BuildAlignedInstanceDiffWorkspace(
-            leftWorkspace,
-            rightWorkspace,
-            alignmentWorkspace,
-            alignment,
-            rightPath);
         if (Directory.Exists(diff.DiffWorkspacePath))
         {
             Directory.Delete(diff.DiffWorkspacePath, recursive: true);

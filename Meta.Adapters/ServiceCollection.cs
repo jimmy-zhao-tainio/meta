@@ -11,6 +11,7 @@ public sealed class ServiceCollection
     public IOperationService OperationService { get; }
     public IModelRefactorService ModelRefactorService { get; }
     public IInstanceRefactorService InstanceRefactorService { get; }
+    public IInstanceDiffService InstanceDiffService { get; }
     public IWorkspaceMergeService WorkspaceMergeService { get; }
     public SqlServerDeploymentService SqlServerDeploymentService { get; }
 
@@ -21,6 +22,7 @@ public sealed class ServiceCollection
         OperationService = new OperationService();
         ModelRefactorService = new ModelRefactorService();
         InstanceRefactorService = new InstanceRefactorService();
+        InstanceDiffService = new InstanceDiffService();
         WorkspaceMergeService = new WorkspaceMergeService();
         ImportService = new ImportService(WorkspaceService);
         ExportService = new ExportService(WorkspaceService);

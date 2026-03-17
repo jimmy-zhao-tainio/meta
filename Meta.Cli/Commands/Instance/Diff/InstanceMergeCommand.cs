@@ -15,34 +15,10 @@ internal sealed partial class CliRuntime
         PrintContractCompatibilityWarning(targetWorkspace.WorkspaceConfig);
         PrintContractCompatibilityWarning(diffWorkspace.WorkspaceConfig);
 
-        EqualDiffData diffData;
-        try
-        {
-            diffData = ParseEqualDiffWorkspace(diffWorkspace);
-        }
-        catch (InvalidOperationException exception)
-        {
-            return PrintDataError("E_OPERATION", exception.Message);
-        }
-
-        var preSnapshot = BuildWorkspaceSnapshotForEqualDiff(targetWorkspace, diffData);
-        if (!preSnapshot.RowSet.SetEquals(diffData.LeftRowSet) ||
-            !preSnapshot.PropertySet.SetEquals(diffData.LeftPropertySet))
-        {
-            return PrintFormattedError(
-                "E_CONFLICT",
-                "instance merge precondition failed: target does not match the diff left snapshot.",
-                exitCode: 1,
-                hints: new[]
-                {
-                    "Next: re-run meta instance diff on the current target and intended right workspace.",
-                });
-        }
-
         var before = WorkspaceSnapshotCloner.Capture(targetWorkspace);
         try
         {
-            ApplyEqualRightSnapshotToWorkspace(targetWorkspace, diffData);
+            services.InstanceDiffService.ApplyEqualDiffWorkspace(targetWorkspace, diffWorkspace);
             ApplyImplicitNormalization(targetWorkspace);
 
             var diagnostics = services.ValidationService.Validate(targetWorkspace);
@@ -51,16 +27,6 @@ internal sealed partial class CliRuntime
             {
                 WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
                 return PrintOperationValidationFailure("instance merge", Array.Empty<WorkspaceOp>(), diagnostics);
-            }
-
-            var postSnapshot = BuildWorkspaceSnapshotForEqualDiff(targetWorkspace, diffData);
-            if (!postSnapshot.RowSet.SetEquals(diffData.RightRowSet) ||
-                !postSnapshot.PropertySet.SetEquals(diffData.RightPropertySet))
-            {
-                WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
-                return PrintDataError(
-                    "E_OPERATION",
-                    "instance merge postcondition failed: target does not match the diff right snapshot.");
             }
 
             await services.WorkspaceService.SaveAsync(targetWorkspace).ConfigureAwait(false);
@@ -73,6 +39,21 @@ internal sealed partial class CliRuntime
         catch (InvalidOperationException exception)
         {
             WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
+            if (string.Equals(
+                    exception.Message,
+                    "instance merge precondition failed: target does not match the diff left snapshot.",
+                    StringComparison.Ordinal))
+            {
+                return PrintFormattedError(
+                    "E_CONFLICT",
+                    exception.Message,
+                    exitCode: 1,
+                    hints: new[]
+                    {
+                        "Next: re-run meta instance diff on the current target and intended right workspace.",
+                    });
+            }
+
             return PrintDataError("E_OPERATION", exception.Message);
         }
     }

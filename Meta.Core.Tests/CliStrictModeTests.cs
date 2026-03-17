@@ -5145,7 +5145,7 @@ public sealed class CliStrictModeTests
         var instanceRoot = Path.Combine(metadataRoot, "instance");
         Directory.CreateDirectory(instanceRoot);
         File.Copy(
-            Path.Combine(repoRoot, "Meta.Cli", "Templates", "InstanceDiffModel.Alignment.xml"),
+            Path.Combine(repoRoot, "Meta.Core.Workspaces", "InstanceDiff.Alignment", "metadata", "model.xml"),
             Path.Combine(metadataRoot, "model.xml"),
             overwrite: true);
 
