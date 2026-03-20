@@ -408,6 +408,7 @@ public static class GenerationService
     private static string BuildCSharpConsumerModel(Workspace workspace, string modelTypeName, string namespaceName)
     {
         var builder = new StringBuilder();
+        var contractSignature = workspace.Model.ComputeContractSignature();
         var entities = workspace.Model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
@@ -424,6 +425,8 @@ public static class GenerationService
         builder.AppendLine($"    public static partial class {modelTypeName}");
         builder.AppendLine("    {");
         builder.AppendLine($"        private static readonly {modelTypeName}Instance _builtIn = {modelTypeName}InstanceFactory.CreateBuiltIn();");
+        builder.AppendLine();
+        builder.AppendLine($"        public static string Signature => {ToCSharpStringLiteral(contractSignature)};");
         builder.AppendLine();
         builder.AppendLine($"        public static {modelTypeName}Instance BuiltIn => _builtIn;");
         foreach (var entity in entities)
@@ -675,6 +678,7 @@ public static class GenerationService
     private static string BuildCSharpToolingModel(Workspace workspace, string modelTypeName, string namespaceName)
     {
         var builder = new StringBuilder();
+        var contractSignature = workspace.Model.ComputeContractSignature();
         var entities = workspace.Model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
@@ -704,6 +708,8 @@ public static class GenerationService
             builder.AppendLine($"            {entity.GetListName()} = {ToCamelIdentifier(entity.GetListName())};");
         }
         builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine($"        public static string Signature => {ToCSharpStringLiteral(contractSignature)};");
         builder.AppendLine();
         builder.AppendLine($"        public static {modelTypeName} CreateEmpty()");
         builder.AppendLine("        {");

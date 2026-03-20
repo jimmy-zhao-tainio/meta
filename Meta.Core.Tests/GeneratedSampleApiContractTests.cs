@@ -27,6 +27,7 @@ public sealed class GeneratedSampleApiContractTests
             Assert.Contains("namespace EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static partial class EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("private static readonly EnterpriseBIPlatformInstance _builtIn", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static EnterpriseBIPlatformInstance BuiltIn", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("Enterprise Analytics Platform", modelCode, StringComparison.Ordinal);

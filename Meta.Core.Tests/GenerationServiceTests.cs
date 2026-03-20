@@ -77,6 +77,7 @@ public sealed class GenerationServiceTests
             Assert.True(File.Exists(Path.Combine(outputA, "Cube.cs")));
             var modelText = await File.ReadAllTextAsync(Path.Combine(outputA, workspace.Model.Name + ".cs"));
             Assert.Contains($"public static partial class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
+            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelText, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelText, StringComparison.Ordinal);
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
         }
@@ -111,6 +112,7 @@ public sealed class GenerationServiceTests
             var toolingCode = File.ReadAllText(toolingPath);
             Assert.Contains($"public sealed partial class {workspace.Model.Name}Model", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static {workspace.Model.Name}Model CreateEmpty()", modelCode, StringComparison.Ordinal);
             Assert.Contains("public Workspace ToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.Contains("public Task SaveToXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
@@ -184,6 +186,7 @@ public sealed class GenerationServiceTests
             Assert.Contains("namespace Architecture", modelCode, StringComparison.Ordinal);
             Assert.Contains("public sealed partial class ArchitectureModel", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains("public List<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static ArchitectureModel CreateEmpty()", modelCode, StringComparison.Ordinal);
             Assert.Contains("public Workspace ToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
