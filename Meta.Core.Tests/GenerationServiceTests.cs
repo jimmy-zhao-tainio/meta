@@ -77,9 +77,11 @@ public sealed class GenerationServiceTests
             Assert.True(File.Exists(Path.Combine(outputA, "Cube.cs")));
             var modelText = await File.ReadAllTextAsync(Path.Combine(outputA, workspace.Model.Name + ".cs"));
             Assert.Contains($"public static partial class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
-            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelText, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelText, StringComparison.Ordinal);
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
+            Assert.DoesNotContain("Signature", modelText, StringComparison.Ordinal);
+            Assert.DoesNotContain("ModelDefinitionXml", modelText, StringComparison.Ordinal);
+            Assert.DoesNotContain("CreateFromWorkspace", modelText, StringComparison.Ordinal);
         }
         finally
         {
@@ -101,26 +103,51 @@ public sealed class GenerationServiceTests
             var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
             var modelFile = workspace.Model.Name + "Model.cs";
             var toolingFile = workspace.Model.Name + ".Tooling.cs";
+            var modelXmlFile = "model.xml";
             var modelPath = Path.Combine(output, modelFile);
             var toolingPath = Path.Combine(output, toolingFile);
+            var modelXmlPath = Path.Combine(output, modelXmlFile);
 
             Assert.True(File.Exists(modelPath));
             Assert.True(File.Exists(toolingPath));
+            Assert.True(File.Exists(modelXmlPath));
             Assert.True(manifest.FileHashes.ContainsKey(modelFile));
             Assert.True(manifest.FileHashes.ContainsKey(toolingFile));
+            Assert.True(manifest.FileHashes.ContainsKey(modelXmlFile));
             var modelCode = File.ReadAllText(modelPath);
             var toolingCode = File.ReadAllText(toolingPath);
             Assert.Contains($"public sealed partial class {workspace.Model.Name}Model", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
-            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static {workspace.Model.Name}Model CreateEmpty()", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public Workspace ToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public void SaveToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.Contains("public Task SaveToXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"public static {workspace.Model.Name}Model LoadFromXmlWorkspace(", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"public static Task<{workspace.Model.Name}Model> LoadFromXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlRoot(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlArrayItem(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("TypedWorkspaceXmlSerializer.Load", modelCode, StringComparison.Ordinal);
+            Assert.Contains("TypedWorkspaceXmlSerializer.Save", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("CreateModelDefinition", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("CreateFromWorkspace", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("GenericRecord", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("GenericInstance", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("GenericModel", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("XElement", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("XDocument", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("MergeShard", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("WriteDocument", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static class {workspace.Model.Name}Tooling", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public sealed partial class {workspace.Model.Name}Model", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public static {workspace.Model.Name}Model LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"public static async Task<{workspace.Model.Name}Model> LoadAsync(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains($"return {workspace.Model.Name}ModelFactory.CreateFromWorkspace(workspace);", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static {workspace.Model.Name}Model Load(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static Task<{workspace.Model.Name}Model> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static void Save({workspace.Model.Name}Model model, string workspacePath)", toolingCode, StringComparison.Ordinal);
+            Assert.Contains($"public static Task SaveAsync({workspace.Model.Name}Model model, string workspacePath,", toolingCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("LoadWorkspaceAsync", toolingCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("SaveWorkspaceAsync", toolingCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("ImportSqlAsync", toolingCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("Task<Workspace>", toolingCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("Workspace workspace", toolingCode, StringComparison.Ordinal);
         }
         finally
         {
@@ -186,15 +213,19 @@ public sealed class GenerationServiceTests
             Assert.Contains("namespace Architecture", modelCode, StringComparison.Ordinal);
             Assert.Contains("public sealed partial class ArchitectureModel", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("_builtIn", modelCode, StringComparison.Ordinal);
-            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains("public List<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static ArchitectureModel CreateEmpty()", modelCode, StringComparison.Ordinal);
-            Assert.Contains("public Workspace ToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("public void SaveToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlRoot(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("TypedWorkspaceXmlSerializer.Load", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("XElement", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("XDocument", modelCode, StringComparison.Ordinal);
             Assert.Contains("internal static class ArchitectureModelFactory", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static class ArchitectureTooling", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public sealed partial class ArchitectureModel", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public static ArchitectureModel LoadFromXmlWorkspace(", toolingCode, StringComparison.Ordinal);
-            Assert.Contains("public static async Task<ArchitectureModel> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static ArchitectureModel Load(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static Task<ArchitectureModel> LoadAsync(", toolingCode, StringComparison.Ordinal);
             Assert.Contains("namespace Architecture", entityCode, StringComparison.Ordinal);
             Assert.Contains("public sealed class Architecture", entityCode, StringComparison.Ordinal);
         }

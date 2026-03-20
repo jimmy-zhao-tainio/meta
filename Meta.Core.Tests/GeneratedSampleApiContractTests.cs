@@ -27,20 +27,27 @@ public sealed class GeneratedSampleApiContractTests
             Assert.Contains("namespace EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static partial class EnterpriseBIPlatform", modelCode, StringComparison.Ordinal);
             Assert.Contains("private static readonly EnterpriseBIPlatformInstance _builtIn", modelCode, StringComparison.Ordinal);
-            Assert.Contains($"public static string Signature => \"{workspace.Model.ComputeContractSignature()}\";", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static EnterpriseBIPlatformInstance BuiltIn", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("Enterprise Analytics Platform", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("CreateFromWorkspace", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("LoadFromXmlWorkspace", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("SaveToXmlWorkspace", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("GetId(int id)", modelCode, StringComparison.Ordinal);
 
             Assert.Contains("namespace EnterpriseBIPlatform", entityCode, StringComparison.Ordinal);
+            Assert.Contains("using System.Xml.Serialization;", entityCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlAttribute(\"Id\")]", entityCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlAttribute(\"CubeId\")]", entityCode, StringComparison.Ordinal);
+            Assert.Contains("[XmlIgnore]", entityCode, StringComparison.Ordinal);
             Assert.Contains("public string Id { get; set; }", entityCode, StringComparison.Ordinal);
             Assert.Contains("public string CubeId { get; set; }", entityCode, StringComparison.Ordinal);
             Assert.Contains("public Cube Cube { get; set; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int Id { get; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int CubeId { get; }", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("new Cube()", entityCode, StringComparison.Ordinal);
         }
         finally
         {
