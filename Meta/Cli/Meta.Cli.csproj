@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>meta</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UpdateMetaPublishDir Condition="'$(UpdateMetaPublishDir)' == ''">true</UpdateMetaPublishDir>
+    <RepoRootPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</RepoRootPath>
+    <RepoMetaPublishDir>$(MSBuildThisFileDirectory)bin\publish\win-x64\</RepoMetaPublishDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Adapters\Meta.Adapters.csproj" />
+    <ProjectReference Include="..\Core\Meta.Core.csproj" />
+  </ItemGroup>
+
+  <Target
+    Name="PublishMetaAfterBuild"
+    AfterTargets="Build"
+    Condition="'$(OS)' == 'Windows_NT' and '$(UpdateMetaPublishDir)' == 'true' and '$(DesignTimeBuild)' != 'true'">
+    <Message Importance="High" Text="Publishing meta.exe to $(RepoMetaPublishDir)" />
+    <Exec
+      Command="dotnet publish &quot;$(MSBuildProjectFullPath)&quot; --configuration $(Configuration) -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UpdateMetaPublishDir=false -o &quot;$(RepoMetaPublishDir)&quot;" />
+  </Target>
+
+</Project>
