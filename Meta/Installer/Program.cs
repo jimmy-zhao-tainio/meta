@@ -21,7 +21,6 @@ var tools = new[]
 {
     new ToolSpec("meta.exe", ResolvePublishDirectory(repoRoot, Path.Combine("Meta", "Cli"), "meta.exe")),
     new ToolSpec("meta-weave.exe", ResolvePublishDirectory(repoRoot, Path.Combine("MetaWeave", "Cli"), "meta-weave.exe")),
-    new ToolSpec("meta-fabric.exe", ResolvePublishDirectory(repoRoot, Path.Combine("MetaFabric", "Cli"), "meta-fabric.exe")),
 };
 
 var missing = tools.Where(tool => tool.SourceDirectory is null).ToArray();
@@ -33,8 +32,7 @@ if (missing.Length > 0)
             .Concat(new[]
             {
                 "Next: dotnet publish Meta\\Cli\\Meta.Cli.csproj -c Debug -r win-x64",
-                "Next: dotnet publish MetaWeave\\Cli\\MetaWeave.Cli.csproj -c Debug -r win-x64",
-                "Next: dotnet publish MetaFabric\\Cli\\MetaFabric.Cli.csproj -c Debug -r win-x64"
+                "Next: dotnet publish MetaWeave\\Cli\\MetaWeave.Cli.csproj -c Debug -r win-x64"
             }));
     return 1;
 }
@@ -70,7 +68,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteUsage("install-meta.exe");
     presenter.WriteInfo(string.Empty);
     presenter.WriteInfo("Notes:");
-    presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-fabric.exe into %LOCALAPPDATA%\\meta\\bin.");
+    presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
     presenter.WriteInfo("  Installs the full published payload from the current meta checkout.");
     presenter.WriteNext("dotnet publish Meta\\Cli\\Meta.Cli.csproj -c Debug -r win-x64");

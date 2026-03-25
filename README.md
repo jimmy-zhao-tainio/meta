@@ -5,8 +5,7 @@
 This repo ships three CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.  
-`meta-fabric` (MetaFabric CLI): scoped validation over meta-weave workspaces.
+`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
 - `meta deploy sqlserver`: deploy generated SQL scripts to SQL Server in dependency-derived order. [to be revised]
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
@@ -296,14 +295,12 @@ Build:
 ```powershell
 dotnet build Metadata.Framework.sln
 dotnet build MetaWeave.sln
-dotnet build MetaFabric.sln
 ```
 
 On Windows, these builds refresh the published single-file CLIs at:
 
 - `Meta.Cli\bin\publish\win-x64\meta.exe`
 - `MetaWeave.Cli\bin\publish\win-x64\meta-weave.exe`
-- `MetaFabric.Cli\bin\publish\win-x64\meta-fabric.exe`
 
 Run directly:
 
@@ -329,7 +326,7 @@ Build the installer:
 dotnet build Meta.Installer\Meta.Installer.csproj
 ```
 
-Then install the foundation CLIs (`meta`, `meta-weave`, `meta-fabric`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
+Then install the foundation CLIs (`meta`, `meta-weave`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
 
 ```cmd
 Meta.Installer\bin\publish\win-x64\install-meta.exe
@@ -506,7 +503,6 @@ The foundation libraries are packable as internal NuGet packages:
 - `Meta.Core`
 - `Meta.Adapters`
 - `MetaWeave.Core`
-- `MetaFabric.Core`
 
 Pack them into the local feed at `.nupkg` with:
 
@@ -516,7 +512,7 @@ pack-internal.cmd
 
 Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.
 
-Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` and `MetaFabric.Core` are published alongside it so downstream repos can adopt weave/fabric core package references without reopening the source boundary.
+Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it so downstream repos can adopt weave core package references without reopening the source boundary.
 
 ### Suggest workflow
 
@@ -792,8 +788,6 @@ MetaWeave is the sanctioned cross-model binding toolchain.
 
 Cross-model links remain ordinary scalar properties in the source workspace. A weave workspace carries the meaning of those properties separately, so the link stays isomorphic across XML, SQL, and C# while still being validated rigorously.
 
-For scoped binding over weave workspaces, the foundation repo carries the sanctioned `MetaFabric` model at `MetaFabric.Workspaces\MetaFabric` and the `meta-fabric` CLI for validation of parent-scoped binding requirements. See `docs/META-FABRIC-BOUNDARY.md` and `docs/WEAVE-FABRIC-NOTE.md`.
-
 A weave workspace contains:
 
 - `ModelReference` rows: which workspaces and models participate in the weave
@@ -890,212 +884,6 @@ Additional sanctioned examples:
 - `MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType`
 - `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`
 
-## MetaFabric [to be revised]
-
-MetaFabric is the current sanctioned scoped-binding layer over weave workspaces. The current shape works, but the abstraction is still under review.
-
-A fabric workspace contains:
-
-- `WeaveReference` rows: which sanctioned weave workspaces participate
-- `BindingReference` rows: which weave bindings are in scope
-- `BindingScopeRequirement` rows: which child bindings must resolve inside an already resolved parent binding
-
-`meta-fabric check` loads the referenced weave workspaces, then validates child bindings under their declared parent scope. This closes the gap where a child weave is globally ambiguous on its own but becomes deterministic once the parent binding is known.
-
-Concrete XML example:
-
-Source model:
-
-```xml
-<Model name="SampleScopedSourceCatalog">
-  <EntityList>
-    <Entity name="Group">
-      <PropertyList>
-        <Property name="Name" />
-      </PropertyList>
-    </Entity>
-    <Entity name="Item">
-      <PropertyList>
-        <Property name="Name" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Group" />
-      </RelationshipList>
-    </Entity>
-  </EntityList>
-</Model>
-```
-
-Reference model:
-
-```xml
-<Model name="SampleScopedReferenceCatalog">
-  <EntityList>
-    <Entity name="Category">
-      <PropertyList>
-        <Property name="Name" />
-      </PropertyList>
-    </Entity>
-    <Entity name="CategoryItem">
-      <PropertyList>
-        <Property name="Name" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Category" />
-      </RelationshipList>
-    </Entity>
-  </EntityList>
-</Model>
-```
-
-The instance data contains two different `Common` items under different parents:
-
-```xml
-<Item Id="item:alpha:common" GroupId="group:alpha">
-  <Name>Common</Name>
-</Item>
-<Item Id="item:beta:common" GroupId="group:beta">
-  <Name>Common</Name>
-</Item>
-```
-
-```xml
-<CategoryItem Id="categoryitem:alpha:common" CategoryId="category:alpha">
-  <Name>Common</Name>
-</CategoryItem>
-<CategoryItem Id="categoryitem:beta:common" CategoryId="category:beta">
-  <Name>Common</Name>
-</CategoryItem>
-```
-
-Parent weave:
-
-```xml
-<PropertyBinding Id="1" SourceModelId="1" TargetModelId="2">
-  <Name>Group.Name -&gt; Category.Name</Name>
-  <SourceEntity>Group</SourceEntity>
-  <SourceProperty>Name</SourceProperty>
-  <TargetEntity>Category</TargetEntity>
-  <TargetProperty>Name</TargetProperty>
-</PropertyBinding>
-```
-
-Child weave:
-
-```xml
-<PropertyBinding Id="1" SourceModelId="1" TargetModelId="2">
-  <Name>Item.Name -&gt; CategoryItem.Name</Name>
-  <SourceEntity>Item</SourceEntity>
-  <SourceProperty>Name</SourceProperty>
-  <TargetEntity>CategoryItem</TargetEntity>
-  <TargetProperty>Name</TargetProperty>
-</PropertyBinding>
-```
-
-The child weave alone is not enough, because `Common` matches two target rows. Fabric adds the parent scope requirement:
-
-```xml
-<BindingReference Id="1" WeaveReferenceId="1">
-  <Name>ParentGroup</Name>
-  <BindingName>Group.Name -&gt; Category.Name</BindingName>
-</BindingReference>
-<BindingReference Id="2" WeaveReferenceId="2">
-  <Name>ChildItem</Name>
-  <BindingName>Item.Name -&gt; CategoryItem.Name</BindingName>
-</BindingReference>
-<BindingScopeRequirement Id="1" BindingId="2" ParentBindingId="1" />
-<BindingScopePathStep Id="1" BindingScopeRequirementId="1">
-  <Side>Source</Side>
-  <Ordinal>1</Ordinal>
-  <ReferenceName>GroupId</ReferenceName>
-</BindingScopePathStep>
-<BindingScopePathStep Id="2" BindingScopeRequirementId="1">
-  <Side>Target</Side>
-  <Ordinal>1</Ordinal>
-  <ReferenceName>CategoryId</ReferenceName>
-</BindingScopePathStep>
-```
-
-That tells `meta-fabric` to resolve `Item.Name -> CategoryItem.Name` only inside the parent mapping already established by `Group.Name -> Category.Name`. So `item:alpha:common` is checked only against `category:alpha:*`, and `item:beta:common` only against `category:beta:*`.
-
-
-Current command surface:
-
-```cmd
-meta-fabric help
-meta-fabric init --new-workspace .\MetaFabric.Workspace
-meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
-meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
-meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
-meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
-```
-
-Scoped suggest example:
-
-```cmd
-meta-fabric suggest --workspace .\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem --print-commands
-```
-
-```text
-OK: fabric suggest
-Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem
-Suggestions: 1
-WeakSuggestions: 0
-
-Scope suggestions
-  1) ChildItem -> ParentGroup (source path: GroupId, target path: CategoryId)
-
-Commands
-  meta-fabric add-scope --workspace "C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem" --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
-
-Weak scope suggestions
-  (none)
-```
-
-Scoped authoring example:
-
-```cmd
-meta-fabric init --new-workspace .\MetaFabric.Workspace
-meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Parent --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Group-Category
-meta-fabric add-weave --workspace .\MetaFabric.Workspace --alias Child --workspace-path .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ParentGroup --weave Parent --source-entity Group --source-property Name --target-entity Category --target-property Name
-meta-fabric add-binding --workspace .\MetaFabric.Workspace --name ChildItem --weave Child --source-entity Item --source-property Name --target-entity CategoryItem --target-property Name
-meta-fabric add-scope --workspace .\MetaFabric.Workspace --binding ChildItem --parent-binding ParentGroup --source-parent-path GroupId --target-parent-path CategoryId
-```
-
-Scoped validation example:
-
-```cmd
-meta-weave check --workspace .\MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem
-meta-fabric check --workspace .\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
-```
-
-```text
-OK: fabric check
-Workspace: C:\Users\jimmy\Desktop\meta\MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem
-Weaves: 2
-Bindings: 2
-ResolvedRows: 5
-Errors: 0
-```
-
-If you run the child weave on its own, it fails because the child binding is globally ambiguous without parent scope:
-
-```text
-Error: weave check failed.
-  - Item.Name -> CategoryItem.Name: Source row 'Item:item:alpha:common' value 'Common' resolved ambiguously to 'CategoryItem.Name'.
-  - Item.Name -> CategoryItem.Name: Source row 'Item:item:beta:common' value 'Common' resolved ambiguously to 'CategoryItem.Name'.
-Next: fix the reported bindings and retry meta-weave check.
-```
-
-Additional sanctioned examples:
-
-- `MetaWeave.Workspaces\Weave-Scoped-Group-Category`
-- `MetaWeave.Workspaces\Weave-Scoped-Item-CategoryItem`
-- `MetaFabric.Workspaces\Fabric-Suggest-Scoped-Group-CategoryItem`
-- `MetaFabric.Workspaces\Fabric-Scoped-Group-CategoryItem`
-
 ### References
 
 Full command surface and contracts: `COMMANDS.md`
@@ -1106,7 +894,6 @@ C# tooling services API: `docs/SERVICES_API.md`
 ```powershell
 dotnet test Metadata.Framework.sln
 dotnet test MetaWeave.sln
-dotnet test MetaFabric.sln
 ```
 
 
