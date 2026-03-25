@@ -14,7 +14,7 @@ public sealed class CliTests
         var result = RunCli("help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("MetaWeave CLI", result.Output);
+        Assert.Contains("meta-weave <command>", result.Output);
         Assert.Contains("check", result.Output);
         Assert.Contains("suggest", result.Output);
         Assert.Contains("materialize", result.Output);
@@ -222,7 +222,7 @@ public sealed class CliTests
         {
             var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Attribute-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model AttributeReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
-            Assert.Contains("OK: weave materialized", materialize.Output);
+            Assert.Contains("OK: weave materialize", materialize.Output);
 
             var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
             var diagnostics = new ValidationService().Validate(workspace);
@@ -256,7 +256,7 @@ public sealed class CliTests
         {
             var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Mapping-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model MappingReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
-            Assert.Contains("OK: weave materialized", materialize.Output);
+            Assert.Contains("OK: weave materialize", materialize.Output);
 
             var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
             var diagnostics = new ValidationService().Validate(workspace);
@@ -452,7 +452,7 @@ public sealed class CliTests
 
     private static string GetFixtureWorkspacePath(string name)
     {
-        return Path.Combine(FindRepositoryRoot(), "MetaWeave.Workspaces", name);
+        return Path.Combine(FindRepositoryRoot(), "MetaWeave", "Workspaces", name);
     }
 
     private static string ResolveCliPath(string repoRoot)

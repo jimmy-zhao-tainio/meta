@@ -134,7 +134,7 @@ public sealed class SuggestServiceTests
 
     private static string GetFixtureWorkspacePath(string name)
     {
-        return Path.Combine(FindRepositoryRoot(), "MetaWeave.Workspaces", name);
+        return Path.Combine(FindRepositoryRoot(), "MetaWeave", "Workspaces", name);
     }
 
     private static string FindRepositoryRoot()
