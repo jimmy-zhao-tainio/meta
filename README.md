@@ -6,7 +6,6 @@ This repo ships three CLI tools:
 
 `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
 `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
-- `meta deploy sqlserver`: deploy generated SQL scripts to SQL Server in dependency-derived order. [to be revised]
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -902,9 +901,4 @@ dotnet test MetaWeave.sln
 
 
 
-### SQL Server deploy
-
-```cmd
-meta deploy sqlserver --scripts .\out\sql --connection-string "Server=.\SQLEXPRESS;Integrated Security=true;TrustServerCertificate=true" --database DemoDv
-```
 
