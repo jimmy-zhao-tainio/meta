@@ -18,8 +18,8 @@ Workspace discovery:
 
 Canonical files:
 - `workspace.xml`
-- `metadata/model.xml`
-- `metadata/instance/<Entity>.xml`
+- `model.xml`
+- `instances/<Entity>.xml`
 
 ## Instance XML contract
 

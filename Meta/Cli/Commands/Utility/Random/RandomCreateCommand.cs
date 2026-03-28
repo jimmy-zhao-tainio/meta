@@ -150,7 +150,7 @@ internal sealed partial class CliRuntime
     
             var workspaceRoot = Path.GetFullPath(workspacePath);
             randomWorkspace.Workspace.WorkspaceRootPath = workspaceRoot;
-            randomWorkspace.Workspace.MetadataRootPath = Path.Combine(workspaceRoot, "metadata");
+            randomWorkspace.Workspace.MetadataRootPath = workspaceRoot;
             await services.WorkspaceService.SaveAsync(randomWorkspace.Workspace).ConfigureAwait(false);
     
             var generatedRoot = Path.Combine(workspaceRoot, "generated");
@@ -482,7 +482,7 @@ internal sealed partial class CliRuntime
             ResolveWorkspaceConfigPathFromWorkspaceRoot(
                 workspace,
                 MetaWorkspaceConfig.GetModelFile(workspace.WorkspaceConfig),
-                "metadata/model.xml"),
+                "model.xml"),
             Path.Combine(workspace.MetadataRootPath, "model.xml"),
             Path.Combine(workspace.WorkspaceRootPath, "model.xml"),
         });
@@ -493,7 +493,7 @@ internal sealed partial class CliRuntime
         var shardDirectory = ResolveWorkspaceConfigPathFromWorkspaceRoot(
             workspace,
             MetaWorkspaceConfig.GetInstanceDir(workspace.WorkspaceConfig),
-            "metadata/instance");
+            "instances");
         if (Directory.Exists(shardDirectory))
         {
             var shardFiles = Directory.GetFiles(shardDirectory, "*.xml");
@@ -606,7 +606,7 @@ internal sealed partial class CliRuntime
     {
         return File.Exists(Path.Combine(workspaceRoot, "workspace.xml")) ||
                File.Exists(Path.Combine(metadataRoot, "model.xml")) ||
-               Directory.Exists(Path.Combine(metadataRoot, "instance"));
+               Directory.Exists(Path.Combine(metadataRoot, "instances"));
     }
     
     (string WorkspaceRootPath, string MetadataRootPath) ResolveWorkspaceFilesystemContext(string workspacePath)
@@ -625,7 +625,7 @@ internal sealed partial class CliRuntime
     
         while (!string.IsNullOrWhiteSpace(current))
         {
-            var metadataRoot = Path.Combine(current, "metadata");
+            var metadataRoot = current;
             var workspaceXml = Path.Combine(current, "workspace.xml");
             if (File.Exists(workspaceXml) || IsWorkspaceMetadataCandidate(metadataRoot))
             {
@@ -641,27 +641,27 @@ internal sealed partial class CliRuntime
             current = parent.FullName;
         }
     
-        throw new FileNotFoundException($"Could not find workspace metadata starting from '{startPath}'.");
+        throw new FileNotFoundException($"Could not find workspace starting from '{startPath}'.");
     }
-    
+
     (string WorkspaceRootPath, string MetadataRootPath) ResolveWorkspaceFilesystemContextWithoutSearch(string workspacePath)
     {
-        if (string.Equals(Path.GetFileName(workspacePath), "metadata", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(Path.GetFileName(workspacePath), "instances", StringComparison.OrdinalIgnoreCase))
         {
             var workspaceRoot = Directory.GetParent(workspacePath)?.FullName ?? workspacePath;
             if (IsWorkspaceMetadataCandidate(workspacePath) || Directory.Exists(workspacePath))
             {
-                return (workspaceRoot, workspacePath);
+                return (workspaceRoot, workspaceRoot);
             }
         }
     
-        var metadataRoot = Path.Combine(workspacePath, "metadata");
+        var metadataRoot = workspacePath;
         if (IsWorkspaceMetadataCandidate(metadataRoot) || Directory.Exists(metadataRoot))
         {
             return (workspacePath, metadataRoot);
         }
     
-        throw new FileNotFoundException($"Could not find workspace metadata under '{workspacePath}'.");
+        throw new FileNotFoundException($"Could not find workspace under '{workspacePath}'.");
     }
     
     bool IsWorkspaceMetadataCandidate(string metadataRootPath)
@@ -669,7 +669,7 @@ internal sealed partial class CliRuntime
         var workspaceRootPath = Directory.GetParent(metadataRootPath)?.FullName ?? metadataRootPath;
         return File.Exists(Path.Combine(workspaceRootPath, "workspace.xml")) ||
                File.Exists(Path.Combine(metadataRootPath, "model.xml")) ||
-               Directory.Exists(Path.Combine(metadataRootPath, "instance"));
+               Directory.Exists(Path.Combine(metadataRootPath, "instances"));
     }
     
     void PrintSelectedRecord(string entityName, GenericRecord record)

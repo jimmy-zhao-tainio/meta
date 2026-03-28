@@ -144,7 +144,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         return new Workspace
         {
             WorkspaceRootPath = workspaceRootPath,
-            MetadataRootPath = Path.Combine(workspaceRootPath, "metadata"),
+            MetadataRootPath = workspaceRootPath,
             WorkspaceConfig = MetaWorkspaceConfig.Normalize(definition.WorkspaceConfig, workspaceRootPath),
             Model = model,
             Instance = new GenericInstance

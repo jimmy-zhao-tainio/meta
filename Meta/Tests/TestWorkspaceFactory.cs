@@ -69,7 +69,7 @@ internal static class TestWorkspaceFactory
 
     private static string GetTestDataPath(string fileName)
     {
-        return Path.Combine(FindRepositoryRoot(), "Meta.Core.Tests", "TestData", fileName);
+        return Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", fileName);
     }
 
     private static string FindRepositoryRoot()

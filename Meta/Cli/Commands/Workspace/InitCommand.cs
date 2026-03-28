@@ -9,7 +9,7 @@ internal sealed partial class CliRuntime
     
         var workspacePath = commandArgs.Length == 2 ? commandArgs[1] : ".";
         var workspaceRoot = Path.GetFullPath(workspacePath);
-        var metadataRoot = Path.Combine(workspaceRoot, "metadata");
+        var metadataRoot = workspaceRoot;
     
         if (WorkspaceLooksInitialized(workspaceRoot, metadataRoot))
         {

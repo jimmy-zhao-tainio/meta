@@ -13,8 +13,8 @@ public sealed class ListNamingTests
     public async Task WorkspaceService_UsesEntityListContainers_ForModelAndInstance()
     {
         var root = Path.Combine(Path.GetTempPath(), "metadata-list-tests", Guid.NewGuid().ToString("N"));
-        var metadataRoot = Path.Combine(root, "metadata");
-        var instanceRoot = Path.Combine(metadataRoot, "instance");
+        var metadataRoot = root;
+        var instanceRoot = Path.Combine(metadataRoot, "instances");
         Directory.CreateDirectory(instanceRoot);
 
         try

@@ -298,7 +298,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return new Workspace
         {
             WorkspaceRootPath = rootPath,
-            MetadataRootPath = Path.Combine(rootPath, "metadata"),
+            MetadataRootPath = rootPath,
             WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
             Model = new GenericModel { Name = mergedModelName },
             Instance = new GenericInstance { ModelName = mergedModelName },

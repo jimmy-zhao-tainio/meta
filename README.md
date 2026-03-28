@@ -13,8 +13,8 @@ BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository
 
 In this project, metadata is not "extra comments about data". Metadata is the product model itself:
 
-- `metadata/model.xml`: the schema contract (entities, scalar properties, required relationships).
-- `metadata/instance/*.xml`: the instance graph for that model (rows + relationship usages).
+- `model.xml`: the schema contract (entities, scalar properties, required relationships).
+- `instances/*.xml`: the instance graph for that model (rows + relationship usages).
 - `workspace.xml`: workspace-level configuration for layout/encoding/order and storage.
 
 Core terms:
@@ -56,8 +56,8 @@ The workspace is designed for version control:
 A workspace is a directory containing:
 
 `workspace.xml`  
-`metadata/model.xml`  
-`metadata/instance/...`
+`model.xml`  
+`instances/...`
 
 Instance data may be sharded: multiple instance files can contain rows for the same entity; load merges those shards and save preserves existing shard file layout (new rows for an entity are written to that entity's primary shard).
 
@@ -75,7 +75,7 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 
 ## One sample across XML, SQL, and C#
 
-### XML model (`metadata/model.xml`)
+### XML model (`model.xml`)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -128,7 +128,7 @@ Workflow: model + instance workspace -> `meta` emits C#/SQL consumables -> your 
 </Model>
 ```
 
-### XML instance (`metadata/instance/*.xml`)
+### XML instance (`instances/*.xml`)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -335,7 +335,7 @@ Meta.Installer\bin\publish\win-x64\install-meta.exe
 
 ### Model XML
 
-`metadata/model.xml` defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.
+`model.xml` defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.
 
 A model has one root `<Model name="...">` and then:
 
@@ -366,7 +366,7 @@ Example:
 
 ### Instance XML
 
-`metadata/instance/*.xml` stores the data for a model.
+`instances/*.xml` stores the data for a model.
 
 The root element is the model name (for example `<EnterpriseBIPlatform>`).
 
@@ -617,7 +617,7 @@ Weak relationship suggestions
   2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
 ```
 
-Model change example (`metadata/model.xml`) for `Order`:
+Model change example (`model.xml`) for `Order`:
 
 Before (after CSV import, before refactor):
 
@@ -677,7 +677,7 @@ Output:
 
 Mechanics:
 
-- requires byte-identical `metadata/model.xml` for equal-model diff.
+- requires byte-identical `model.xml` for equal-model diff.
 - compares row identity by entity + `Id`.
 - compares scalar property values.
 - compares relationship usage values (`...Id` attributes).

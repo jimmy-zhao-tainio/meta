@@ -49,10 +49,9 @@ public sealed class WorkspaceServiceTests
         {
             await services.ExportService.ExportXmlAsync(workspace, tempRoot);
 
-            var metadataRoot = Path.Combine(tempRoot, "metadata");
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
-            var modelPath = Path.Combine(metadataRoot, "model.xml");
-            var instanceDir = Path.Combine(metadataRoot, "instance");
+            var modelPath = Path.Combine(tempRoot, "model.xml");
+            var instanceDir = Path.Combine(tempRoot, "instances");
             Assert.True(File.Exists(workspaceConfigPath), "workspace.xml should exist after save.");
             Assert.True(File.Exists(modelPath), "model.xml should exist after save.");
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
@@ -82,7 +81,6 @@ public sealed class WorkspaceServiceTests
         try
         {
             await services.ExportService.ExportXmlAsync(workspace, tempRoot);
-            var metadataRoot = Path.Combine(tempRoot, "metadata");
             var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
             Assert.True(File.Exists(workspaceXmlPath));
             File.Delete(workspaceXmlPath);
@@ -91,6 +89,40 @@ public sealed class WorkspaceServiceTests
             Assert.NotNull(loaded.WorkspaceConfig);
             Assert.Equal("1.0", MetaWorkspaceConfig.GetContractVersion(loaded.WorkspaceConfig));
             Assert.False(File.Exists(workspaceXmlPath), "workspace.xml should not be auto-created when loading defaults.");
+        }
+        finally
+        {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
+            if (Directory.Exists(tempRoot))
+            {
+                Directory.Delete(tempRoot, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Load_MissingWorkspaceConfig_UsesCanonicalRootLayout()
+    {
+        var services = new ServiceCollection();
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            workspace.WorkspaceRootPath = tempRoot;
+            workspace.MetadataRootPath = tempRoot;
+            workspace.WorkspaceConfig.WorkspaceLayout[0].ModelFilePath = "model.xml";
+            workspace.WorkspaceConfig.WorkspaceLayout[0].InstanceDirPath = "instances";
+            await services.WorkspaceService.SaveAsync(workspace);
+
+            var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
+            Assert.True(File.Exists(workspaceXmlPath));
+            File.Delete(workspaceXmlPath);
+
+            var loaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(loaded.MetadataRootPath));
+            Assert.NotEmpty(loaded.Instance.RecordsByEntity);
+            Assert.Equal("model.xml", MetaWorkspaceConfig.GetModelFile(loaded.WorkspaceConfig));
+            Assert.Equal("instances", MetaWorkspaceConfig.GetInstanceDir(loaded.WorkspaceConfig));
         }
         finally
         {
@@ -124,7 +156,7 @@ public sealed class WorkspaceServiceTests
 
             await services.WorkspaceService.SaveAsync(splitLoaded);
 
-            var instanceDir = Path.Combine(tempRoot, "metadata", "instance");
+            var instanceDir = Path.Combine(tempRoot, "instances");
             Assert.True(File.Exists(Path.Combine(instanceDir, "Cube.part-a.xml")));
             Assert.True(File.Exists(Path.Combine(instanceDir, "Cube.part-b.xml")));
             Assert.False(File.Exists(Path.Combine(instanceDir, "Cube.xml")));
@@ -170,8 +202,8 @@ public sealed class WorkspaceServiceTests
 
             await services.WorkspaceService.SaveAsync(splitLoaded);
 
-            var primaryShard = XDocument.Load(Path.Combine(tempRoot, "metadata", "instance", "Cube.part-a.xml"));
-            var secondaryShard = XDocument.Load(Path.Combine(tempRoot, "metadata", "instance", "Cube.part-b.xml"));
+            var primaryShard = XDocument.Load(Path.Combine(tempRoot, "instances", "Cube.part-a.xml"));
+            var secondaryShard = XDocument.Load(Path.Combine(tempRoot, "instances", "Cube.part-b.xml"));
 
             Assert.NotNull(primaryShard
                 .Descendants("Cube")
@@ -204,7 +236,7 @@ public sealed class WorkspaceServiceTests
 
             var discovered = await services.WorkspaceService.LoadAsync(nestedPath);
             Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(discovered.WorkspaceRootPath));
-            Assert.Equal(Path.Combine(Path.GetFullPath(tempRoot), "metadata"), Path.GetFullPath(discovered.MetadataRootPath));
+            Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(discovered.MetadataRootPath));
         }
         finally
         {
@@ -456,10 +488,13 @@ public sealed class WorkspaceServiceTests
             await services.WorkspaceService.SaveAsync(workspace);
 
             var leftovers = Directory.Exists(tempRoot)
-                ? Directory.GetDirectories(tempRoot, "metadata.__*")
+                ? Directory.GetDirectories(tempRoot, ".__workspace-*")
+                    .Concat(Directory.GetDirectories(tempRoot, "metadata.__*"))
+                    .ToArray()
                 : Array.Empty<string>();
             Assert.Empty(leftovers);
-            Assert.True(Directory.Exists(Path.Combine(tempRoot, "metadata")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "model.xml")));
         }
         finally
         {
@@ -599,7 +634,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: false, optionalPropValue: null);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var itemShardPath = Path.Combine(tempRoot, "metadata", "instance", "Item.xml");
+            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", shardXml, StringComparison.Ordinal);
 
@@ -626,7 +661,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: string.Empty);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var itemShardPath = Path.Combine(tempRoot, "metadata", "instance", "Item.xml");
+            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardDoc = XDocument.Load(itemShardPath);
             Assert.Contains(
                 shardDoc.Descendants("OptionalProp"),
@@ -656,7 +691,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: null);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var itemShardPath = Path.Combine(tempRoot, "metadata", "instance", "Item.xml");
+            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", shardXml, StringComparison.Ordinal);
 
@@ -683,7 +718,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithRelationship(tempRoot);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var childShardPath = Path.Combine(tempRoot, "metadata", "instance", "Child.xml");
+            var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
             var childShardXml = await File.ReadAllTextAsync(childShardPath);
             Assert.Contains("ParentId=\"1\"", childShardXml, StringComparison.Ordinal);
             Assert.DoesNotContain("Ghost", childShardXml, StringComparison.Ordinal);
@@ -757,7 +792,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: false, optionalPropValue: null);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var itemShardPath = Path.Combine(tempRoot, "metadata", "instance", "Item.xml");
+            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var firstXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", firstXml, StringComparison.Ordinal);
 
@@ -791,7 +826,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: string.Empty);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var itemShardPath = Path.Combine(tempRoot, "metadata", "instance", "Item.xml");
+            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var firstDoc = XDocument.Load(itemShardPath);
             Assert.Contains(
                 firstDoc.Descendants("OptionalProp"),
@@ -830,7 +865,7 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildWorkspaceWithRelationship(tempRoot);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var childShardPath = Path.Combine(tempRoot, "metadata", "instance", "Child.xml");
+            var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
             var childShard = XDocument.Load(childShardPath);
             var childRow = childShard
                 .Descendants("Child")
@@ -907,10 +942,9 @@ public sealed class WorkspaceServiceTests
             var workspace = BuildModelOnlyWorkspace(tempRoot);
             await services.WorkspaceService.SaveAsync(workspace);
 
-            var metadataRoot = Path.Combine(tempRoot, "metadata");
             Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
-            Assert.True(File.Exists(Path.Combine(metadataRoot, "model.xml")));
-            Assert.False(Directory.Exists(Path.Combine(metadataRoot, "instance")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "model.xml")));
+            Assert.False(Directory.Exists(Path.Combine(tempRoot, "instances")));
 
             var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
             Assert.Equal("ModelOnly", reloaded.Model.Name);
@@ -956,7 +990,7 @@ public sealed class WorkspaceServiceTests
         string firstShardFileName,
         string secondShardFileName)
     {
-        var shardPath = Path.Combine(workspaceRoot, "metadata", "instance", entityName + ".xml");
+        var shardPath = Path.Combine(workspaceRoot, "instances", entityName + ".xml");
         var shard = XDocument.Load(shardPath);
         var root = shard.Root ?? throw new InvalidDataException("Entity shard has no root.");
         var listElement = root.Elements().Single();
@@ -997,7 +1031,7 @@ public sealed class WorkspaceServiceTests
             new XElement(
                 rootName,
                 new XElement(listName, rowCopies)));
-        document.Save(Path.Combine(workspaceRoot, "metadata", "instance", shardFileName));
+        document.Save(Path.Combine(workspaceRoot, "instances", shardFileName));
     }
 
     private static Workspace BuildWorkspaceWithRelationship(string workspaceRoot)

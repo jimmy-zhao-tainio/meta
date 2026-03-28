@@ -36,7 +36,7 @@ internal sealed partial class CliRuntime
         var mergedWorkspace = new Meta.Core.Domain.Workspace
         {
             WorkspaceRootPath = newWorkspacePath,
-            MetadataRootPath = Path.Combine(newWorkspacePath, "metadata"),
+            MetadataRootPath = newWorkspacePath,
             WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
             Model = new GenericModel { Name = parse.ModelName },
             Instance = new GenericInstance { ModelName = parse.ModelName },

@@ -8,8 +8,8 @@ namespace Meta.Core.WorkspaceConfig.Generated;
 public sealed partial class MetaWorkspace
 {
     private const string DefaultContractVersion = "1.0";
-    private const string DefaultModelFile = "metadata/model.xml";
-    private const string DefaultInstanceDir = "metadata/instance";
+    private const string DefaultModelFile = "model.xml";
+    private const string DefaultInstanceDir = "instances";
     private const string DefaultEncoding = "utf-8-no-bom";
     private const string DefaultNewlines = "lf";
     private const string DefaultWorkspaceName = MetaWorkspaceModels.DefaultWorkspaceName;

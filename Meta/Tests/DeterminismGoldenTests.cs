@@ -136,7 +136,7 @@ public sealed class DeterminismGoldenTests
         var workspaceXmlPath = Path.Combine(root, "workspace.xml");
         fileHashes["workspace.xml"] = ComputeFileHash(workspaceXmlPath);
 
-        var metadataRoot = Path.Combine(root, "metadata");
+        var metadataRoot = root;
         foreach (var filePath in Directory.GetFiles(metadataRoot, "*", SearchOption.AllDirectories)
                      .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
         {
@@ -203,8 +203,8 @@ public sealed class DeterminismGoldenTests
     {
         _ = services;
         return Task.FromResult(LoadWorkspaceFromContractFiles(
-            Path.Combine(FindRepositoryRoot(), "Meta.Core.Tests", "TestData", "SampleModel.xml"),
-            Path.Combine(FindRepositoryRoot(), "Meta.Core.Tests", "TestData", "SampleInstance.xml")));
+            Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", "SampleModel.xml"),
+            Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", "SampleInstance.xml")));
     }
 
     private static Workspace LoadWorkspaceFromContractFiles(string modelPath, string instancePath)
@@ -214,7 +214,7 @@ public sealed class DeterminismGoldenTests
         return new Workspace
         {
             WorkspaceRootPath = "memory",
-            MetadataRootPath = "memory/metadata",
+            MetadataRootPath = "memory",
             WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
             Model = model,
             Instance = instance,

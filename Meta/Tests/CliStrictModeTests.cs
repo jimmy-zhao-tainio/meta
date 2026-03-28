@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -80,12 +80,12 @@ public sealed class CliStrictModeTests
         Directory.CreateDirectory(nonEmptyImportTarget);
         await File.WriteAllTextAsync(Path.Combine(nonEmptyImportTarget, "placeholder.txt"), "x");
 
-        Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "metadata", "instance"));
+        Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
-            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
+            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
+            Path.Combine(brokenWorkspaceRoot, "model.xml"),
             "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
 
         try
@@ -172,12 +172,12 @@ public sealed class CliStrictModeTests
     {
         var brokenWorkspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-broken", Guid.NewGuid().ToString("N"));
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-generate-out", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "metadata", "instance"));
+        Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
-            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>metadata/model.xml</ModelFilePath><InstanceDirPath>metadata/instance</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
+            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "metadata", "model.xml"),
+            Path.Combine(brokenWorkspaceRoot, "model.xml"),
             "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
 
         try
@@ -194,8 +194,8 @@ public sealed class CliStrictModeTests
             Assert.Equal(4, status.ExitCode);
             Assert.Equal(4, generate.ExitCode);
 
-            Assert.Contains("Cannot parse metadata/model.xml.", status.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Cannot parse metadata/model.xml.", generate.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Cannot parse model.xml.", status.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Cannot parse model.xml.", generate.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("Location: line 1, position", status.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("Location: line 1, position", generate.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("Next: meta check", status.CombinedOutput, StringComparison.Ordinal);
@@ -215,7 +215,7 @@ public sealed class CliStrictModeTests
         var workspaceRoot = CreateTempWorkspaceFromSamples();
         try
         {
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             var firstEntity = model.Descendants("Entity").First();
             firstEntity.SetAttributeValue("displayKey", "Name");
@@ -629,8 +629,8 @@ public sealed class CliStrictModeTests
             var result = await RunCliAsync("model", "add-entity", "SmokeEntity", "--workspace", workspaceRoot);
             Assert.True(result.ExitCode == 0, result.CombinedOutput);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
-            Assert.True(File.Exists(modelPath), "Expected metadata/model.xml to be written.");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
+            Assert.True(File.Exists(modelPath), "Expected model.xml to be written.");
 
             var modelDocument = XDocument.Load(modelPath);
             Assert.NotNull(modelDocument
@@ -1089,7 +1089,7 @@ public sealed class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.Contains("CSV file must include Id column 'Id'.", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.False(Directory.Exists(Path.Combine(workspaceRoot, "metadata")));
+            Assert.False(Directory.Exists(workspaceRoot));
         }
         finally
         {
@@ -1127,7 +1127,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(1, result.ExitCode);
             Assert.Contains("unknown option", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("--id-column", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.False(Directory.Exists(Path.Combine(workspaceRoot, "metadata")));
+            Assert.False(Directory.Exists(workspaceRoot));
         }
         finally
         {
@@ -1219,7 +1219,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("imported csv", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             var entity = model
                 .Descendants("Entity")
@@ -1306,12 +1306,12 @@ public sealed class CliStrictModeTests
 
             Assert.Equal(0, result.ExitCode);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             var entity = model.Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Category", StringComparison.Ordinal));
             Assert.Null(entity.Attribute("plural"));
 
-            var instance = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "instance", "Category.xml"));
+            var instance = XDocument.Load(Path.Combine(workspaceRoot, "instances", "Category.xml"));
             Assert.NotNull(instance.Root?.Element("CategoryList"));
         }
         finally
@@ -1479,7 +1479,7 @@ public sealed class CliStrictModeTests
             Assert.Equal("PRD-002", (string?)rows[0].Attribute("ProductId"));
             Assert.Null(rows[0].Element("ProductId"));
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             var orderEntity = model.Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(
@@ -1669,7 +1669,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("imported csv", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("Entity: Landing", result.CombinedOutput, StringComparison.Ordinal);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             Assert.Contains(
                 model.Descendants("Entity"),
@@ -1710,7 +1710,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("relationship removed", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             var measureEntity = model
                 .Descendants("Entity")
@@ -1821,7 +1821,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("Name: SystemId", result.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("DefaultId: 1", result.CombinedOutput, StringComparison.Ordinal);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             var cubeEntity = model
                 .Descendants("Entity")
@@ -1938,7 +1938,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("Rows rewritten: 5", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Property dropped: yes", refactor.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             var orderEntity = model
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
@@ -1984,7 +1984,7 @@ public sealed class CliStrictModeTests
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-refactor-expected", Guid.NewGuid().ToString("N"));
         try
         {
-            var warehousePath = Path.Combine(workspaceRoot, "metadata", "instance", "Warehouse.xml");
+            var warehousePath = Path.Combine(workspaceRoot, "instances", "Warehouse.xml");
             var warehouseDocument = XDocument.Load(warehousePath);
             var warehouses = warehouseDocument.Descendants("Warehouse").ToList();
             Assert.True(warehouses.Count >= 2);
@@ -2023,7 +2023,7 @@ public sealed class CliStrictModeTests
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-refactor-expected", Guid.NewGuid().ToString("N"));
         try
         {
-            var orderPath = Path.Combine(workspaceRoot, "metadata", "instance", "Order.xml");
+            var orderPath = Path.Combine(workspaceRoot, "instances", "Order.xml");
             var orderDocument = XDocument.Load(orderPath);
             var firstOrder = orderDocument.Descendants("Order")
                 .First(element => string.Equals((string?)element.Attribute("Id"), "ORD-001", StringComparison.Ordinal));
@@ -2127,7 +2127,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("Preserve property: yes", refactor.StdOut, StringComparison.Ordinal);
             Assert.Contains("Property dropped: no", refactor.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             var orderEntity = model
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
@@ -2164,7 +2164,7 @@ public sealed class CliStrictModeTests
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-refactor-expected", Guid.NewGuid().ToString("N"));
         try
         {
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var modelDocument = XDocument.Load(modelPath);
             var orderEntity = modelDocument.Descendants("Entity")
                 .First(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
@@ -2180,7 +2180,7 @@ public sealed class CliStrictModeTests
                 new XAttribute("role", "WarehouseRef")));
             modelDocument.Save(modelPath);
 
-            var orderPath = Path.Combine(workspaceRoot, "metadata", "instance", "Order.xml");
+            var orderPath = Path.Combine(workspaceRoot, "instances", "Order.xml");
             var orderDocument = XDocument.Load(orderPath);
             foreach (var row in orderDocument.Descendants("Order"))
             {
@@ -2431,7 +2431,7 @@ public sealed class CliStrictModeTests
                 "--workspace",
                 workspaceRoot)).ExitCode);
 
-            var orderPath = Path.Combine(workspaceRoot, "metadata", "instance", "Order.xml");
+            var orderPath = Path.Combine(workspaceRoot, "instances", "Order.xml");
             var orderDocument = XDocument.Load(orderPath);
             var firstOrder = orderDocument.Descendants("Order")
                 .First(element => string.Equals((string?)element.Attribute("Id"), "ORD-001", StringComparison.Ordinal));
@@ -2543,7 +2543,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("FK fields renamed: 1", result.StdOut, StringComparison.Ordinal);
             Assert.Contains("Rows touched: 2", result.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             Assert.DoesNotContain(
                 model.Descendants("Entity"),
                 element => string.Equals((string?)element.Attribute("name"), "SystemType", StringComparison.OrdinalIgnoreCase));
@@ -2566,8 +2566,8 @@ public sealed class CliStrictModeTests
                 Assert.Null(row.Attribute("SystemTypeId"));
             });
 
-            Assert.True(File.Exists(Path.Combine(workspaceRoot, "metadata", "instance", "PlatformType.xml")));
-            Assert.False(File.Exists(Path.Combine(workspaceRoot, "metadata", "instance", "SystemType.xml")));
+            Assert.True(File.Exists(Path.Combine(workspaceRoot, "instances", "PlatformType.xml")));
+            Assert.False(File.Exists(Path.Combine(workspaceRoot, "instances", "SystemType.xml")));
 
             var check = await RunCliAsync("check", "--workspace", workspaceRoot);
             Assert.Equal(0, check.ExitCode);
@@ -2597,7 +2597,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("FK fields renamed: 0", result.StdOut, StringComparison.Ordinal);
             Assert.Contains("Rows touched: 0", result.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             Assert.Contains(
                 model.Descendants("Relationship"),
                 element =>
@@ -2674,7 +2674,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("NewRole: PrimarySystemType", result.StdOut, StringComparison.Ordinal);
             Assert.Contains("Rows touched: 2", result.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             Assert.Contains(
                 model.Descendants("Relationship"),
                 element =>
@@ -2720,7 +2720,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("NewRole: (none)", result.StdOut, StringComparison.Ordinal);
             Assert.Contains("Rows touched: 2", result.StdOut, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             Assert.Contains(
                 model.Descendants("Relationship"),
                 element =>
@@ -2898,7 +2898,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("property added", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("DefaultValue: General", result.CombinedOutput, StringComparison.Ordinal);
 
-            var modelPath = Path.Combine(workspaceRoot, "metadata", "model.xml");
+            var modelPath = Path.Combine(workspaceRoot, "model.xml");
             var model = XDocument.Load(modelPath);
             var cubeEntity = model
                 .Descendants("Entity")
@@ -3065,7 +3065,7 @@ public sealed class CliStrictModeTests
             Assert.Contains("property requiredness updated", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("DefaultValue: General", result.CombinedOutput, StringComparison.Ordinal);
 
-            var model = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             var property = model
                 .Descendants("Entity")
                 .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase))
@@ -3174,10 +3174,10 @@ public sealed class CliStrictModeTests
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("model renamed", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
 
-            var modelDocument = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "model.xml"));
+            var modelDocument = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
             Assert.Equal("AnalyticsModel", modelDocument.Root?.Attribute("name")?.Value);
 
-            var cubeDocument = XDocument.Load(Path.Combine(workspaceRoot, "metadata", "instance", "Cube.xml"));
+            var cubeDocument = XDocument.Load(Path.Combine(workspaceRoot, "instances", "Cube.xml"));
             Assert.Equal("AnalyticsModel", cubeDocument.Root?.Name.LocalName);
 
             var check = await RunCliAsync(
@@ -3416,7 +3416,7 @@ public sealed class CliStrictModeTests
         var rightWorkspace = await CreateTempCanonicalWorkspaceFromSamplesAsync();
         try
         {
-            var measureShardPath = Path.Combine(rightWorkspace, "metadata", "instance", "Measure.xml");
+            var measureShardPath = Path.Combine(rightWorkspace, "instances", "Measure.xml");
             var measureShard = XDocument.Load(measureShardPath);
             var measureOne = measureShard
                 .Descendants("Measure")
@@ -3921,7 +3921,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(1, diffResult.ExitCode);
             diffWorkspacePath = ExtractDiffWorkspacePath(diffResult.StdOut);
 
-            var diffShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "Diff.xml");
+            var diffShardPath = Path.Combine(diffWorkspacePath, "instances", "Diff.xml");
             var diffShard = XDocument.Load(diffShardPath);
             var summaryRow = diffShard.Descendants("Diff").Single();
             summaryRow.SetAttributeValue("ModelId", null);
@@ -4167,7 +4167,7 @@ public sealed class CliStrictModeTests
         var duplicateRightWorkspace = await CreateTempCanonicalWorkspaceFromSamplesAsync();
         try
         {
-            var blankInstancePath = Path.Combine(blankLeftWorkspace, "metadata", "instance", "Cube.xml");
+            var blankInstancePath = Path.Combine(blankLeftWorkspace, "instances", "Cube.xml");
             var blankInstance = XDocument.Load(blankInstancePath);
             blankInstance.Descendants("Cube").First().SetAttributeValue("Id", string.Empty);
             blankInstance.Save(blankInstancePath);
@@ -4180,7 +4180,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(4, blankDiffResult.ExitCode);
             Assert.Contains("missing valid Id", blankDiffResult.CombinedOutput, StringComparison.OrdinalIgnoreCase);
 
-            var duplicateInstancePath = Path.Combine(duplicateLeftWorkspace, "metadata", "instance", "Cube.xml");
+            var duplicateInstancePath = Path.Combine(duplicateLeftWorkspace, "instances", "Cube.xml");
             var duplicateInstance = XDocument.Load(duplicateInstancePath);
             var cubes = duplicateInstance.Descendants("Cube").Take(2).ToList();
             Assert.True(cubes.Count == 2);
@@ -4234,7 +4234,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(1, diffResult.ExitCode);
             diffWorkspacePath = ExtractDiffWorkspacePath(diffResult.StdOut);
 
-            var summaryShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "Diff.xml");
+            var summaryShardPath = Path.Combine(diffWorkspacePath, "instances", "Diff.xml");
             var summaryShard = XDocument.Load(summaryShardPath);
             var summaryRow = summaryShard.Descendants("Diff").Single();
             var duplicateSummaryRow = new XElement(summaryRow);
@@ -4314,8 +4314,8 @@ public sealed class CliStrictModeTests
             Assert.NotEmpty(LoadEntityRows(diffWorkspacePath, "ModelRightPropertyInstanceNotInLeft"));
             Assert.Empty(LoadEntityRows(diffWorkspacePath, "ModelLeftPropertyInstanceNotInRight"));
 
-            var propertyShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "Property.xml");
-            var rightPropertyShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "ModelRightPropertyInstance.xml");
+            var propertyShardPath = Path.Combine(diffWorkspacePath, "instances", "Property.xml");
+            var rightPropertyShardPath = Path.Combine(diffWorkspacePath, "instances", "ModelRightPropertyInstance.xml");
             var propertyShard = XDocument.Load(propertyShardPath);
             var optionalPropertyId = propertyShard
                 .Descendants("Property")
@@ -4392,7 +4392,7 @@ public sealed class CliStrictModeTests
                 diffToEmptyWorkspace);
             Assert.Equal(0, mergeToEmpty.ExitCode);
 
-            var missingCubeShard = XDocument.Load(Path.Combine(missingWorkspace, "metadata", "instance", "Cube.xml"));
+            var missingCubeShard = XDocument.Load(Path.Combine(missingWorkspace, "instances", "Cube.xml"));
             var missingCubeOne = missingCubeShard
                 .Descendants("Cube")
                 .Single(element => string.Equals((string?)element.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
@@ -4413,7 +4413,7 @@ public sealed class CliStrictModeTests
                 diffToMissingWorkspace);
             Assert.Equal(0, mergeToMissing.ExitCode);
 
-            var emptyCubeShard = XDocument.Load(Path.Combine(emptyWorkspace, "metadata", "instance", "Cube.xml"));
+            var emptyCubeShard = XDocument.Load(Path.Combine(emptyWorkspace, "instances", "Cube.xml"));
             var emptyCubeOne = emptyCubeShard
                 .Descendants("Cube")
                 .Single(element => string.Equals((string?)element.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
@@ -4465,8 +4465,7 @@ public sealed class CliStrictModeTests
 
             var rightPropertyShardPath = Path.Combine(
                 diffWorkspacePath,
-                "metadata",
-                "instance",
+                "instances",
                 "ModelRightPropertyInstance.xml");
             var rightPropertyShard = XDocument.Load(rightPropertyShardPath);
             var tampered = rightPropertyShard
@@ -4558,7 +4557,7 @@ public sealed class CliStrictModeTests
                 diffWorkspacePath);
             Assert.Equal(0, mergeResult.ExitCode);
 
-            var mergedCubeShard = XDocument.Load(Path.Combine(leftWorkspace, "metadata", "instance", "Cube.xml"));
+            var mergedCubeShard = XDocument.Load(Path.Combine(leftWorkspace, "instances", "Cube.xml"));
             var updatedCube = mergedCubeShard
                 .Descendants("Cube")
                 .Single(element => string.Equals((string?)element.Attribute("Id"), "2", StringComparison.OrdinalIgnoreCase));
@@ -4695,7 +4694,7 @@ public sealed class CliStrictModeTests
             Assert.Equal(1, diffResult.ExitCode);
             diffWorkspacePath = ExtractDiffWorkspacePath(diffResult.StdOut);
 
-            var alignmentShardPath = Path.Combine(diffWorkspacePath, "metadata", "instance", "Alignment.xml");
+            var alignmentShardPath = Path.Combine(diffWorkspacePath, "instances", "Alignment.xml");
             var alignmentShard = XDocument.Load(alignmentShardPath);
             var alignmentRow = alignmentShard.Descendants("Alignment").Single();
             alignmentRow.Attribute("ModelRightId")?.Remove();
@@ -4872,7 +4871,7 @@ public sealed class CliStrictModeTests
                 diffWorkspacePath);
             Assert.Equal(0, mergeResult.ExitCode);
 
-            var cubeShard = XDocument.Load(Path.Combine(leftWorkspace, "metadata", "instance", "Cube.xml"));
+            var cubeShard = XDocument.Load(Path.Combine(leftWorkspace, "instances", "Cube.xml"));
             var cubeOne = cubeShard
                 .Descendants("Cube")
                 .Single(element => string.Equals((string?)element.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
@@ -5072,7 +5071,7 @@ public sealed class CliStrictModeTests
 
     private static IReadOnlyList<XElement> LoadEntityRows(string workspacePath, string entityName)
     {
-        var shardPath = Path.Combine(workspacePath, "metadata", "instance", entityName + ".xml");
+        var shardPath = Path.Combine(workspacePath, "instances", entityName + ".xml");
         if (!File.Exists(shardPath))
         {
             return Array.Empty<XElement>();
@@ -5141,11 +5140,11 @@ public sealed class CliStrictModeTests
         }
 
         var repoRoot = FindRepositoryRoot();
-        var metadataRoot = Path.Combine(workspaceRoot, "metadata");
-        var instanceRoot = Path.Combine(metadataRoot, "instance");
+        var metadataRoot = workspaceRoot;
+        var instanceRoot = Path.Combine(metadataRoot, "instances");
         Directory.CreateDirectory(instanceRoot);
         File.Copy(
-            Path.Combine(repoRoot, "Meta.Core.Workspaces", "InstanceDiff.Alignment", "metadata", "model.xml"),
+            Path.Combine(repoRoot, "Meta", "Workspaces", "InstanceDiff.Alignment", "model.xml"),
             Path.Combine(metadataRoot, "model.xml"),
             overwrite: true);
 
@@ -5289,7 +5288,7 @@ public sealed class CliStrictModeTests
                 new XAttribute("WorkspaceId", "1"),
                 new XElement("EntityName", "SystemType"),
                 new XElement("StorageKind", "Sharded"),
-                new XElement("FilePath", "metadata/instance/SystemType.xml")));
+                new XElement("FilePath", "instances/SystemType.xml")));
         workspaceConfig.Save(workspaceConfigPath);
         return root;
     }
@@ -5298,7 +5297,7 @@ public sealed class CliStrictModeTests
     {
         var root = CreateTempWorkspaceFromSamples();
 
-        var modelPath = Path.Combine(root, "metadata", "model.xml");
+        var modelPath = Path.Combine(root, "model.xml");
         var modelDocument = XDocument.Load(modelPath);
         var systemEntity = modelDocument
             .Descendants("Entity")
@@ -5309,7 +5308,7 @@ public sealed class CliStrictModeTests
         relationship.SetAttributeValue("role", "PrimarySystemType");
         modelDocument.Save(modelPath);
 
-        var systemPath = Path.Combine(root, "metadata", "instance", "System.xml");
+        var systemPath = Path.Combine(root, "instances", "System.xml");
         var systemDocument = XDocument.Load(systemPath);
         foreach (var row in systemDocument.Descendants("System"))
         {
@@ -5326,7 +5325,7 @@ public sealed class CliStrictModeTests
     {
         var root = CreateTempWorkspaceFromSamples();
 
-        var modelPath = Path.Combine(root, "metadata", "model.xml");
+        var modelPath = Path.Combine(root, "model.xml");
         var modelDocument = XDocument.Load(modelPath);
         var systemEntity = modelDocument
             .Descendants("Entity")
@@ -5338,7 +5337,7 @@ public sealed class CliStrictModeTests
             new XAttribute("role", "PlatformType")));
         modelDocument.Save(modelPath);
 
-        var systemPath = Path.Combine(root, "metadata", "instance", "System.xml");
+        var systemPath = Path.Combine(root, "instances", "System.xml");
         var systemDocument = XDocument.Load(systemPath);
         foreach (var row in systemDocument.Descendants("System"))
         {
@@ -5353,7 +5352,7 @@ public sealed class CliStrictModeTests
     {
         var root = CreateTempWorkspaceFromSamples();
 
-        var modelPath = Path.Combine(root, "metadata", "model.xml");
+        var modelPath = Path.Combine(root, "model.xml");
         var modelDocument = XDocument.Load(modelPath);
         var systemEntity = modelDocument
             .Descendants("Entity")
@@ -5369,7 +5368,7 @@ public sealed class CliStrictModeTests
     private static string CreateTempWorkspaceWithMissingRequiredRelationship()
     {
         var root = Path.Combine(Path.GetTempPath(), "metadata-invalid-load-tests", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(Path.Combine(root, "metadata", "instance"));
+        Directory.CreateDirectory(Path.Combine(root, "instances"));
 
         File.WriteAllText(
             Path.Combine(root, "workspace.xml"),
@@ -5384,8 +5383,8 @@ public sealed class CliStrictModeTests
               </WorkspaceList>
               <WorkspaceLayoutList>
                 <WorkspaceLayout Id="1">
-                  <ModelFilePath>metadata/model.xml</ModelFilePath>
-                  <InstanceDirPath>metadata/instance</InstanceDirPath>
+                  <ModelFilePath>model.xml</ModelFilePath>
+                  <InstanceDirPath>instances</InstanceDirPath>
                 </WorkspaceLayout>
               </WorkspaceLayoutList>
               <EncodingList>
@@ -5414,7 +5413,7 @@ public sealed class CliStrictModeTests
             """);
 
         File.WriteAllText(
-            Path.Combine(root, "metadata", "model.xml"),
+            Path.Combine(root, "model.xml"),
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Model name="Mini">
@@ -5430,7 +5429,7 @@ public sealed class CliStrictModeTests
             """);
 
         File.WriteAllText(
-            Path.Combine(root, "metadata", "instance", "Warehouse.xml"),
+            Path.Combine(root, "instances", "Warehouse.xml"),
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Mini>
@@ -5441,7 +5440,7 @@ public sealed class CliStrictModeTests
             """);
 
         File.WriteAllText(
-            Path.Combine(root, "metadata", "instance", "Order.xml"),
+            Path.Combine(root, "instances", "Order.xml"),
             """
             <?xml version="1.0" encoding="utf-8"?>
             <Mini>

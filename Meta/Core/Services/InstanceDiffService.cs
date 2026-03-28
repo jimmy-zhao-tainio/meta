@@ -12,13 +12,13 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 {
     private const string InstanceDiffEqualModelName = "InstanceDiffModelEqual";
     private const string InstanceDiffEqualWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.workspace.xml";
-    private const string InstanceDiffEqualModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.metadata.model.xml";
+    private const string InstanceDiffEqualModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.model.xml";
     private const string InstanceDiffAlignedModelName = "InstanceDiffModelAligned";
     private const string InstanceDiffAlignedWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.workspace.xml";
-    private const string InstanceDiffAlignedModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.metadata.model.xml";
+    private const string InstanceDiffAlignedModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.model.xml";
     private const string InstanceDiffAlignmentModelName = "InstanceDiffModelAlignment";
     private const string InstanceDiffAlignmentWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.workspace.xml";
-    private const string InstanceDiffAlignmentModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.metadata.model.xml";
+    private const string InstanceDiffAlignmentModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.model.xml";
 
     private const string DiffEntityName = "Diff";
     private const string ModelEntityName = "Model";

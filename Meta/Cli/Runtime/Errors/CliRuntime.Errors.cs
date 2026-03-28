@@ -650,11 +650,11 @@ internal sealed partial class CliRuntime
             finalCode = "E_WORKSPACE_XML_INVALID";
             var fileMatch = Regex.Match(
                 normalized,
-                "(metadata[\\\\/](?:model\\.xml|instance[\\\\/][^\\s:]+\\.xml))",
+                "((?:model\\.xml|instances[\\\\/][^\\s:]+\\.xml))",
                 RegexOptions.IgnoreCase);
             var file = fileMatch.Success
                 ? fileMatch.Groups[1].Value.Replace('\\', '/')
-                : "metadata/model.xml";
+                : "model.xml";
             normalized = $"Cannot parse {file}.";
             if (xmlEndMatch.Success)
             {

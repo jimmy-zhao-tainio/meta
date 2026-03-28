@@ -9,9 +9,9 @@ namespace Meta.Core.Serialization;
 
 public static class TypedWorkspaceXmlSerializer
 {
-    private const string MetadataDirectoryName = "metadata";
     private const string WorkspaceXmlFileName = "workspace.xml";
-    private const string DefaultInstanceDirectoryRelativePath = "metadata/instance";
+    private const string DefaultModelFileRelativePath = "model.xml";
+    private const string DefaultInstanceDirectoryRelativePath = "instances";
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
     private static readonly object CacheLock = new();
     private static readonly Dictionary<Type, ModelMap> ModelMaps = new();
@@ -63,12 +63,16 @@ public static class TypedWorkspaceXmlSerializer
             WriteWorkspaceDocument(workspaceXmlPath);
         }
 
-        var metadataRootPath = Path.Combine(workspaceRootPath, MetadataDirectoryName);
-        Directory.CreateDirectory(metadataRootPath);
-
+        var modelPath = ResolveModelFilePath(workspaceRootPath);
         if (!string.IsNullOrWhiteSpace(modelXmlSourcePath) && File.Exists(modelXmlSourcePath))
         {
-            File.Copy(modelXmlSourcePath, Path.Combine(metadataRootPath, "model.xml"), overwrite: true);
+            var modelDirectory = Path.GetDirectoryName(modelPath);
+            if (!string.IsNullOrWhiteSpace(modelDirectory))
+            {
+                Directory.CreateDirectory(modelDirectory);
+            }
+
+            File.Copy(modelXmlSourcePath, modelPath, overwrite: true);
         }
 
         var instanceDirectoryPath = ResolveInstanceDirectoryPath(workspaceRootPath);
@@ -136,7 +140,7 @@ public static class TypedWorkspaceXmlSerializer
 
         if (string.Equals(
                 Path.GetFileName(fullPath),
-                MetadataDirectoryName,
+                DefaultInstanceDirectoryRelativePath,
                 OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
         {
             return Directory.GetParent(fullPath)?.FullName ?? fullPath;
@@ -278,9 +282,8 @@ public static class TypedWorkspaceXmlSerializer
             return true;
         }
 
-        var metadataRootPath = Path.Combine(workspaceRootPath, MetadataDirectoryName);
-        return File.Exists(Path.Combine(metadataRootPath, "model.xml")) ||
-               Directory.Exists(Path.Combine(metadataRootPath, "instance"));
+        return File.Exists(Path.Combine(workspaceRootPath, Path.GetFileName(DefaultModelFileRelativePath))) ||
+               Directory.Exists(Path.Combine(workspaceRootPath, DefaultInstanceDirectoryRelativePath));
     }
 
     private static string ReadInstanceDirectoryRelativePath(string workspaceRootPath)
@@ -302,6 +305,38 @@ public static class TypedWorkspaceXmlSerializer
         return string.IsNullOrWhiteSpace(instanceDirPath)
             ? DefaultInstanceDirectoryRelativePath
             : instanceDirPath!;
+    }
+
+    private static string ResolveModelFilePath(string workspaceRootPath)
+    {
+        var relativePath = ReadModelFileRelativePath(workspaceRootPath);
+        var normalizedRelativePath = relativePath
+            .Replace('/', Path.DirectorySeparatorChar)
+            .Replace('\\', Path.DirectorySeparatorChar);
+        var modelFilePath = Path.GetFullPath(Path.Combine(workspaceRootPath, normalizedRelativePath));
+        EnsurePathUnderWorkspaceRoot(workspaceRootPath, modelFilePath, "ModelFilePath");
+        return modelFilePath;
+    }
+
+    private static string ReadModelFileRelativePath(string workspaceRootPath)
+    {
+        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
+        if (!File.Exists(workspaceXmlPath))
+        {
+            return DefaultModelFileRelativePath;
+        }
+
+        var document = XDocument.Load(workspaceXmlPath, LoadOptions.None);
+        var modelFilePath = document.Root?
+            .Element("WorkspaceLayoutList")?
+            .Elements("WorkspaceLayout")
+            .Elements("ModelFilePath")
+            .Select(element => element.Value?.Trim())
+            .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
+
+        return string.IsNullOrWhiteSpace(modelFilePath)
+            ? DefaultModelFileRelativePath
+            : modelFilePath!;
     }
 
     private static void EnsurePathUnderWorkspaceRoot(string workspaceRootPath, string path, string memberName)
@@ -339,7 +374,7 @@ public static class TypedWorkspaceXmlSerializer
             new XElement("WorkspaceLayoutList",
                 new XElement("WorkspaceLayout",
                     new XAttribute("Id", "1"),
-                    new XElement("ModelFilePath", "metadata/model.xml"),
+                    new XElement("ModelFilePath", DefaultModelFileRelativePath.Replace(Path.DirectorySeparatorChar, '/')),
                     new XElement("InstanceDirPath", DefaultInstanceDirectoryRelativePath.Replace(Path.DirectorySeparatorChar, '/')))),
             new XElement("EncodingList",
                 new XElement("Encoding",
