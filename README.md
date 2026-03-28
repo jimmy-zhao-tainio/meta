@@ -799,8 +799,8 @@ Current authoring flow:
 ```cmd
 meta-weave help
 meta-weave init --new-workspace .\MetaWeave.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SampleSourceCatalog --workspace-path .\MetaWeave.Workspaces\SampleSourceCatalog
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceCatalog
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SampleSourceCatalog --workspace-path .\MetaWeave\Workspaces\SampleSourceCatalog
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave\Workspaces\SampleReferenceCatalog
 meta-weave suggest --workspace .\MetaWeave.Workspace
 meta-weave add-binding --workspace .\MetaWeave.Workspace --name "SampleSourceCatalog.Attribute.TypeId -> SampleReferenceCatalog.ReferenceType.Id" --source-model Source --source-entity Attribute --source-property TypeId --target-model Reference --target-entity ReferenceType --target-property Id
 meta-weave check --workspace .\MetaWeave.Workspace
@@ -815,23 +815,23 @@ meta workspace merge .\LeftWorkspace .\RightWorkspace --new-workspace .\MergedWo
 
 Sanctioned examples live under:
 
-- `MetaWeave.Workspaces\Weave-Attribute-ReferenceType`
-- `MetaWeave.Workspaces\Weave-Mapping-ReferenceType`
+- `MetaWeave\Workspaces\Weave-Attribute-ReferenceType`
+- `MetaWeave\Workspaces\Weave-Mapping-ReferenceType`
 
 ### Weave suggest examples
 
 Strong exact-name example:
 
 ```cmd
-meta-weave init --new-workspace %TEMP%\meta-weave-strong-doc
-meta-weave add-model --workspace %TEMP%\meta-weave-strong-doc --alias Source --model SampleReferenceBindingCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceBindingCatalog
-meta-weave add-model --workspace %TEMP%\meta-weave-strong-doc --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave.Workspaces\SampleReferenceCatalog
-meta-weave suggest --workspace %TEMP%\meta-weave-strong-doc
+meta-weave init --new-workspace .\MetaWeave\Workspaces\Weave-Suggest-StrongReferenceType
+meta-weave add-model --workspace .\MetaWeave\Workspaces\Weave-Suggest-StrongReferenceType --alias Source --model SampleReferenceBindingCatalog --workspace-path .\MetaWeave\Workspaces\SampleReferenceBindingCatalog
+meta-weave add-model --workspace .\MetaWeave\Workspaces\Weave-Suggest-StrongReferenceType --alias Reference --model SampleReferenceCatalog --workspace-path .\MetaWeave\Workspaces\SampleReferenceCatalog
+meta-weave suggest --workspace .\MetaWeave\Workspaces\Weave-Suggest-StrongReferenceType
 ```
 
 ```text
 OK: weave suggest
-Workspace: C:\Users\jimmy\AppData\Local\Temp\meta-weave-strong-doc
+Workspace: .\MetaWeave\Workspaces\Weave-Suggest-StrongReferenceType
 Suggestions: 1
 WeakSuggestions: 0
 
@@ -842,12 +842,12 @@ Binding suggestions
 Weak role-style example:
 
 ```cmd
-meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType
+meta-weave suggest --workspace .\MetaWeave\Workspaces\Weave-Suggest-WeakRoleReferenceType
 ```
 
 ```text
 OK: weave suggest
-Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType
+Workspace: .\MetaWeave\Workspaces\Weave-Suggest-WeakRoleReferenceType
 Suggestions: 0
 WeakSuggestions: 1
 
@@ -861,12 +861,12 @@ Weak binding suggestions
 Ambiguous exact-name example:
 
 ```cmd
-meta-weave suggest --workspace .\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+meta-weave suggest --workspace .\MetaWeave\Workspaces\Weave-Suggest-AmbiguousReferenceType
 ```
 
 ```text
 OK: weave suggest
-Workspace: C:\Users\jimmy\Desktop\meta\MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType
+Workspace: .\MetaWeave\Workspaces\Weave-Suggest-AmbiguousReferenceType
 Suggestions: 0
 WeakSuggestions: 2
 
@@ -880,8 +880,8 @@ Weak binding suggestions
 
 Additional sanctioned examples:
 
-- `MetaWeave.Workspaces\Weave-Suggest-WeakRoleReferenceType`
-- `MetaWeave.Workspaces\Weave-Suggest-AmbiguousReferenceType`
+- `MetaWeave\Workspaces\Weave-Suggest-WeakRoleReferenceType`
+- `MetaWeave\Workspaces\Weave-Suggest-AmbiguousReferenceType`
 
 ### References
 
