@@ -899,12 +899,12 @@ internal static class HelpTopics
                     options: new[]
                     {
                         ("--scripts <dir>", "Input directory containing generated SQL scripts."),
-                        ("--connection-string <value>", "Target SQL Server connection string."),
+                        ("--connection-env <name>", "Environment variable name that contains the target SQL Server connection string."),
                         ("--database <name>", "Optional database to create/use before deployment."),
                     },
                     examples: new[]
                     {
-                        "meta deploy sqlserver --scripts .\\out\\sql --connection-string \"Server=.;Integrated Security=true;TrustServerCertificate=true\" --database DemoDv",
+                        "meta deploy sqlserver --scripts .\\out\\sql --connection-env META_SQL_DEV --database DemoDv",
                     },
                     next: "meta deploy sqlserver --help");
                 return true;
@@ -913,16 +913,16 @@ internal static class HelpTopics
                 document = BuildTopicDocument(
                     title: "Command: deploy sqlserver",
                     summary: "Deploy SQL scripts to SQL Server in dependency-derived order.",
-                    usage: "meta deploy sqlserver --scripts <dir> --connection-string <value> [--database <name>]",
+                    usage: "meta deploy sqlserver --scripts <dir> --connection-env <name> [--database <name>]",
                     options: new[]
                     {
                         ("--scripts <dir>", "Required directory containing SQL scripts."),
-                        ("--connection-string <value>", "Required SQL Server connection string."),
+                        ("--connection-env <name>", "Required environment variable name that contains the SQL Server connection string."),
                         ("--database <name>", "Optional database to create/use before deployment."),
                     },
                     examples: new[]
                     {
-                        "meta deploy sqlserver --scripts .\\out\\sql --connection-string \"Server=.;Integrated Security=true;TrustServerCertificate=true\" --database DemoDv",
+                        "meta deploy sqlserver --scripts .\\out\\sql --connection-env META_SQL_DEV --database DemoDv",
                     },
                     next: "meta status");
                 return true;
@@ -938,7 +938,7 @@ internal static class HelpTopics
                     },
                     examples: new[]
                     {
-                        "meta import sql \"Server=...;Database=...;...\" dbo --new-workspace .\\ImportedWorkspace",
+                        "meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\\ImportedWorkspace",
                         "meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace",
                     },
                     next: "meta import sql --help");
@@ -948,9 +948,13 @@ internal static class HelpTopics
                 document = BuildTopicDocument(
                     title: "Command: import sql",
                     summary: "Import metadata from SQL into a new workspace.",
-                    usage: "meta import sql <connectionString> <schema> --new-workspace <path>",
-                    options: new[] { ("--new-workspace <path>", "Required. Target directory must be empty.") },
-                    examples: new[] { "meta import sql \"Server=...;Database=...;...\" dbo --new-workspace .\\ImportedWorkspace" },
+                    usage: "meta import sql --connection-env <name> <schema> --new-workspace <path>",
+                    options: new[]
+                    {
+                        ("--connection-env <name>", "Required environment variable name that contains the SQL Server connection string."),
+                        ("--new-workspace <path>", "Required. Target directory must be empty."),
+                    },
+                    examples: new[] { "meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\\ImportedWorkspace" },
                     next: "meta status --workspace <path>");
                 return true;
 

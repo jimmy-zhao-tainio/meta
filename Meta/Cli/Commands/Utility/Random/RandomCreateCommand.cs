@@ -1,3 +1,5 @@
+using Meta.Core.Connections;
+
 using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 internal sealed partial class CliRuntime
@@ -15,9 +17,10 @@ internal sealed partial class CliRuntime
         var rowsMax = 12;
         var maxRelationships = 4;
         var modelName = "RandomModel100";
-        var dbConnection = "Server=localhost;Trusted_Connection=True;TrustServerCertificate=True;";
+        var connectionEnvironmentVariableName = string.Empty;
         var dbName = "MetadataRandom100";
-        var applyDb = true;
+        var applyDb = false;
+        var skipDatabaseExplicit = false;
     
         for (var i = 2; i < commandArgs.Length; i++)
         {
@@ -89,13 +92,14 @@ internal sealed partial class CliRuntime
     
                     modelName = commandArgs[++i];
                     break;
-                case "--database-connection":
+                case "--connection-env":
                     if (i + 1 >= commandArgs.Length)
                     {
-                        return PrintArgumentError("Error: --database-connection requires a value.");
+                        return PrintArgumentError("Error: --connection-env requires a name.");
                     }
-    
-                    dbConnection = commandArgs[++i];
+
+                    connectionEnvironmentVariableName = commandArgs[++i];
+                    applyDb = true;
                     break;
                 case "--database-name":
                     if (i + 1 >= commandArgs.Length)
@@ -104,9 +108,11 @@ internal sealed partial class CliRuntime
                     }
     
                     dbName = commandArgs[++i];
+                    applyDb = true;
                     break;
                 case "--no-database":
                     applyDb = false;
+                    skipDatabaseExplicit = true;
                     break;
                 default:
                     return PrintArgumentError($"Error: unknown random create option '{arg}'.");
@@ -160,12 +166,18 @@ internal sealed partial class CliRuntime
             var sqlManifest = GenerationService.GenerateSql(randomWorkspace.Workspace, sqlRoot);
             var csharpManifest = GenerationService.GenerateCSharp(randomWorkspace.Workspace, csharpRoot);
             var ssdtManifest = GenerationService.GenerateSsdt(randomWorkspace.Workspace, ssdtRoot);
-    
+
             if (applyDb)
             {
                 var schemaPath = Path.Combine(sqlRoot, "schema.sql");
                 var dataPath = Path.Combine(sqlRoot, "data.sql");
-                await RecreateDatabaseFromScriptsAsync(dbConnection, dbName, schemaPath, dataPath).ConfigureAwait(false);
+                if (string.IsNullOrWhiteSpace(connectionEnvironmentVariableName))
+                {
+                    return PrintArgumentError("Error: random create database apply requires --connection-env <name>.");
+                }
+
+                var connectionString = ConnectionEnvironmentVariableResolver.ResolveRequired(connectionEnvironmentVariableName);
+                await RecreateDatabaseFromScriptsAsync(connectionString, dbName, schemaPath, dataPath).ConfigureAwait(false);
             }
 
             presenter.WriteOk(
@@ -191,10 +203,16 @@ internal sealed partial class CliRuntime
             }
             else
             {
-                presenter.WriteInfo("Database: skipped (--no-database)");
+                presenter.WriteInfo(skipDatabaseExplicit
+                    ? "Database: skipped (--no-database)"
+                    : "Database: skipped (no --connection-env)");
             }
     
             return 0;
+        }
+        catch (ConnectionEnvironmentVariableException exception)
+        {
+            return PrintArgumentError(exception.Message);
         }
         catch (SqlException exception)
         {

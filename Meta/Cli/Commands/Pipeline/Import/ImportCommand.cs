@@ -1,3 +1,5 @@
+using Meta.Core.Connections;
+
 internal sealed partial class CliRuntime
 {
     async Task<int> ImportAsync(string[] commandArgs)
@@ -13,25 +15,29 @@ internal sealed partial class CliRuntime
             switch (mode)
             {
                 case "sql":
-                    if (commandArgs.Length < 4)
+                    if (commandArgs.Length < 5)
                     {
-                        return PrintUsageError("Usage: import sql <connectionString> <schema> --new-workspace <path>");
+                        return PrintUsageError("Usage: import sql --connection-env <name> <schema> --new-workspace <path>");
                     }
-    
-                    var sqlOptions = ParseRequiredNewWorkspaceOption(commandArgs, startIndex: 4);
+
+                    var sqlOptions = ParseImportSqlOptions(commandArgs, startIndex: 2);
                     if (!sqlOptions.Ok)
                     {
                         return PrintArgumentError(sqlOptions.ErrorMessage);
                     }
-    
+
                     var workspacePath = sqlOptions.NewWorkspacePath;
                     var targetValidation = ValidateNewWorkspaceTarget(workspacePath);
                     if (targetValidation != 0)
                     {
                         return targetValidation;
                     }
-    
-                    var importedFromSql = await services.ImportService.ImportSqlAsync(commandArgs[2], commandArgs[3]).ConfigureAwait(false);
+
+                    var connectionString = ConnectionEnvironmentVariableResolver.ResolveRequired(
+                        sqlOptions.ConnectionEnvironmentVariableName);
+                    var importedFromSql = await services.ImportService
+                        .ImportSqlAsync(connectionString, sqlOptions.Schema)
+                        .ConfigureAwait(false);
                     ApplyImplicitNormalization(importedFromSql);
                     var sqlDiagnostics = services.ValidationService.Validate(importedFromSql);
                     importedFromSql.Diagnostics = sqlDiagnostics;
@@ -131,10 +137,87 @@ internal sealed partial class CliRuntime
                     return PrintUsageError("Usage: import <sql|csv> ...");
             }
         }
+        catch (ConnectionEnvironmentVariableException exception)
+        {
+            return PrintArgumentError(exception.Message);
+        }
         catch (Exception exception)
         {
             return PrintDataError("E_IMPORT", exception.Message);
         }
+    }
+
+    (bool Ok, string ConnectionEnvironmentVariableName, string Schema, string NewWorkspacePath, string ErrorMessage)
+        ParseImportSqlOptions(string[] commandArgs, int startIndex)
+    {
+        var connectionEnvironmentVariableName = string.Empty;
+        var schema = string.Empty;
+        var newWorkspacePath = string.Empty;
+
+        for (var i = startIndex; i < commandArgs.Length; i++)
+        {
+            var arg = commandArgs[i];
+            if (string.Equals(arg, "--connection-env", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 >= commandArgs.Length)
+                {
+                    return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: --connection-env requires a name.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(connectionEnvironmentVariableName))
+                {
+                    return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: --connection-env can only be provided once.");
+                }
+
+                connectionEnvironmentVariableName = commandArgs[++i];
+                continue;
+            }
+
+            if (string.Equals(arg, "--new-workspace", StringComparison.OrdinalIgnoreCase))
+            {
+                if (i + 1 >= commandArgs.Length)
+                {
+                    return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: --new-workspace requires a path.");
+                }
+
+                if (!string.IsNullOrWhiteSpace(newWorkspacePath))
+                {
+                    return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: --new-workspace can only be provided once.");
+                }
+
+                newWorkspacePath = commandArgs[++i];
+                continue;
+            }
+
+            if (arg.StartsWith("--", StringComparison.Ordinal))
+            {
+                return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, $"Error: unknown option '{arg}'.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(schema))
+            {
+                return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, $"Error: unexpected argument '{arg}'.");
+            }
+
+            schema = arg;
+        }
+
+        if (string.IsNullOrWhiteSpace(connectionEnvironmentVariableName))
+        {
+            return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: import sql requires --connection-env <name>.");
+        }
+
+        if (string.IsNullOrWhiteSpace(schema))
+        {
+            return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: import sql requires <schema>.");
+        }
+
+        if (string.IsNullOrWhiteSpace(newWorkspacePath))
+        {
+            return (false, connectionEnvironmentVariableName, schema, newWorkspacePath, "Error: import sql requires --new-workspace <path>.");
+        }
+
+        return (true, connectionEnvironmentVariableName, schema, newWorkspacePath, string.Empty);
     }
 
     private static void MergeCsvImportIntoExistingEntity(

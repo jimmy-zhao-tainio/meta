@@ -360,6 +360,51 @@ public sealed class CliStrictModeTests
     }
 
     [Fact]
+    public async Task PipelineHelp_UsesConnectionEnvironmentVariableLanguage()
+    {
+        var importHelp = await RunCliAsync("import", "sql", "--help");
+        Assert.Equal(0, importHelp.ExitCode);
+        Assert.Contains("meta import sql --connection-env <name> <schema> --new-workspace <path>", importHelp.StdOut, StringComparison.Ordinal);
+        Assert.DoesNotContain("<connectionString>", importHelp.StdOut, StringComparison.OrdinalIgnoreCase);
+
+        var deployHelp = await RunCliAsync("deploy", "sqlserver", "--help");
+        Assert.Equal(0, deployHelp.ExitCode);
+        Assert.Contains("meta deploy sqlserver --scripts <dir> --connection-env <name> [--database <name>]", deployHelp.StdOut, StringComparison.Ordinal);
+        Assert.DoesNotContain("--connection-string", deployHelp.StdOut, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ImportSql_FailsWhenConnectionEnvironmentVariableIsMissing()
+    {
+        var workspacePath = Path.Combine(Path.GetTempPath(), "meta-import-env-tests", Guid.NewGuid().ToString("N"));
+        var environmentVariableName = "META_IMPORT_TEST_" + Guid.NewGuid().ToString("N").ToUpperInvariant();
+        var originalValue = Environment.GetEnvironmentVariable(environmentVariableName);
+
+        try
+        {
+            Environment.SetEnvironmentVariable(environmentVariableName, null);
+
+            var result = await RunCliAsync(
+                "import",
+                "sql",
+                "--connection-env",
+                environmentVariableName,
+                "dbo",
+                "--new-workspace",
+                workspacePath);
+
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains($"Connection environment variable '{environmentVariableName}' was not found.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.False(Directory.Exists(workspacePath));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(environmentVariableName, originalValue);
+            DeleteDirectorySafe(workspacePath);
+        }
+    }
+
+    [Fact]
     public async Task ModelSuggest_DefaultOutput_IsActionableOnly()
     {
         var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
@@ -1023,14 +1068,29 @@ public sealed class CliStrictModeTests
     [Fact]
     public async Task ImportSql_RequiresNewWorkspaceOption()
     {
-        var result = await RunCliAsync(
-            "import",
-            "sql",
-            "Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False",
-            "dbo");
+        var environmentVariableName = "META_IMPORT_TEST_" + Guid.NewGuid().ToString("N").ToUpperInvariant();
+        var originalValue = Environment.GetEnvironmentVariable(environmentVariableName);
 
-        Assert.Equal(1, result.ExitCode);
-        Assert.Contains("import requires --new-workspace", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+        try
+        {
+            Environment.SetEnvironmentVariable(
+                environmentVariableName,
+                "Server=localhost;Database=master;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False");
+
+            var result = await RunCliAsync(
+                "import",
+                "sql",
+                "--connection-env",
+                environmentVariableName,
+                "dbo");
+
+            Assert.Equal(1, result.ExitCode);
+            Assert.Contains("import sql requires --new-workspace <path>.", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(environmentVariableName, originalValue);
+        }
     }
 
     [Fact]

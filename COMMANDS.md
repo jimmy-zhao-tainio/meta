@@ -179,7 +179,7 @@ Diff and merge:
 - `meta instance merge-aligned <targetWorkspace> <diffWorkspace>`
 
 Import and generate:
-- `meta import sql <connectionString> <schema> --new-workspace <path>`
+- `meta import sql --connection-env <name> <schema> --new-workspace <path>`
 - `meta import csv <csvFile> --entity <EntityName> [--workspace <path> | --new-workspace <path>]`
 - `meta export csv <Entity> --out <file> [--workspace <path>]`
 - `meta generate sql --out <dir> [--workspace <path>]`
@@ -257,7 +257,7 @@ Import and generate:
 
 | Command | Summary | Example |
 |---|---|---|
-| `meta import sql <connectionString> <schema> --new-workspace <path>` | Import metadata from SQL into a new workspace. | `meta import sql "Server=...;Database=...;..." dbo --new-workspace .\ImportedWorkspace` |
+| `meta import sql --connection-env <name> <schema> --new-workspace <path>` | Import metadata from SQL into a new workspace. | `meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\ImportedWorkspace` |
 | `meta import csv <csvFile> --entity <EntityName> [--workspace <path> \| --new-workspace <path>]` | Import one CSV file as one entity + rows. The CSV must include a column named Id (case-insensitive match); existing-entity import is deterministic upsert by Id. | `meta import csv .\landing.csv --entity Landing --new-workspace .\ImportedWorkspace` |
 | `meta export csv <Entity> --out <file> [--workspace <path>]` | Export one entity's instance rows to CSV with `Id` first, then relationship usage columns, then scalar properties. | `meta export csv Cube --out .\cube.csv` |
 | `meta generate sql --out <dir> [--workspace <path>]` | Generate SQL schema + data scripts. | `meta generate sql --out .\out\sql` |

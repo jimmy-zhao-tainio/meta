@@ -422,7 +422,7 @@ internal sealed partial class CliRuntime
             var importMode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "sql";
             if (string.Equals(importMode, "sql", StringComparison.OrdinalIgnoreCase))
             {
-                detailHints.Add("example: meta import sql \"Server=...;Database=...;...\" dbo --new-workspace .\\ImportedWorkspace");
+                detailHints.Add("example: meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\\ImportedWorkspace");
             }
             else if (string.Equals(importMode, "csv", StringComparison.OrdinalIgnoreCase))
             {

@@ -1,3 +1,5 @@
+using Meta.Core.Connections;
+
 internal sealed partial class CliRuntime
 {
     private readonly ServiceCollection services = new();
@@ -65,6 +67,10 @@ internal sealed partial class CliRuntime
         catch (IOException exception)
         {
             return PrintDataError("E_IO", exception.Message);
+        }
+        catch (ConnectionEnvironmentVariableException exception)
+        {
+            return PrintArgumentError(exception.Message);
         }
         catch (ArgumentException exception)
         {

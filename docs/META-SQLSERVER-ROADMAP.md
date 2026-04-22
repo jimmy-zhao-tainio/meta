@@ -31,7 +31,7 @@ Scope:
 - optional deployment journal table later
 
 Likely command surface:
-- `meta-sqlserver deploy --scripts <path> --connection-string <value>`
+- `meta-sqlserver deploy --scripts <path> --connection-env <name>`
 - or later under `meta deploy sqlserver ...`
 
 ## Phase 2: introduce a shared deployment artifact
