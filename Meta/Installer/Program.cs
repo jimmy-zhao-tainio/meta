@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using Meta.Core.Presentation;
 using Microsoft.Win32;
 
@@ -10,20 +10,30 @@ if (args.Length > 0 && IsHelpToken(args[0]))
     return 0;
 }
 
-var repoRoot = FindRepoRoot(AppContext.BaseDirectory, "Metadata.Framework.sln");
-if (repoRoot is null)
+var installerDir = AppContext.BaseDirectory;
+var payloadBinDir = Path.Combine(installerDir, "payload", "meta", "bin");
+
+if (!Directory.Exists(payloadBinDir))
 {
-    presenter.WriteFailure("could not locate the repository root.", new[] { "Next: run install-meta.exe from a built meta checkout." });
+    presenter.WriteFailure(
+        "installer payload directory is missing.",
+        new[]
+        {
+            $"  Expected: {payloadBinDir}",
+            "Next: package install-meta.exe with payload\\meta\\bin beside it."
+        });
     return 1;
 }
 
 var tools = new[]
 {
-    new ToolSpec("meta.exe", ResolvePublishDirectory(repoRoot, Path.Combine("Meta", "Cli"), "meta.exe")),
-    new ToolSpec("meta-weave.exe", ResolvePublishDirectory(repoRoot, Path.Combine("MetaWeave", "Cli"), "meta-weave.exe")),
+    new ToolSpec("meta.exe"),
+    new ToolSpec("meta-weave.exe"),
 };
 
-var missing = tools.Where(tool => tool.SourceDirectory is null).ToArray();
+var missing = tools
+    .Where(tool => !File.Exists(Path.Combine(payloadBinDir, tool.FileName)))
+    .ToArray();
 if (missing.Length > 0)
 {
     presenter.WriteFailure(
@@ -31,8 +41,8 @@ if (missing.Length > 0)
         missing.Select(tool => $"  Missing: {tool.FileName}")
             .Concat(new[]
             {
-                "Next: dotnet publish Meta\\Cli\\Meta.Cli.csproj -c Debug -r win-x64",
-                "Next: dotnet publish MetaWeave\\Cli\\MetaWeave.Cli.csproj -c Debug -r win-x64"
+                $"  Payload: {payloadBinDir}",
+                "Next: package install-meta.exe with payload\\meta\\bin containing required binaries."
             }));
     return 1;
 }
@@ -43,11 +53,7 @@ var targetDir = Path.Combine(
     "bin");
 
 Directory.CreateDirectory(targetDir);
-
-foreach (var tool in tools)
-{
-    CopyPublishPayload(tool.SourceDirectory!, targetDir);
-}
+CopyPayloadRecursively(payloadBinDir, targetDir);
 
 EnsureUserPathContains(targetDir);
 BroadcastEnvironmentChange();
@@ -70,8 +76,8 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteInfo("Notes:");
     presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
-    presenter.WriteInfo("  Installs the full published payload from the current meta checkout.");
-    presenter.WriteNext("dotnet publish Meta\\Cli\\Meta.Cli.csproj -c Debug -r win-x64");
+    presenter.WriteInfo("  Copies all files from payload\\meta\\bin beside install-meta.exe.");
+    presenter.WriteNext("keep install-meta.exe and payload\\meta\\bin together");
 }
 
 static bool IsHelpToken(string value)
@@ -81,31 +87,7 @@ static bool IsHelpToken(string value)
            string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
 }
 
-static string? FindRepoRoot(string startDirectory, string markerFileName)
-{
-    var current = new DirectoryInfo(startDirectory);
-    while (current is not null)
-    {
-        if (File.Exists(Path.Combine(current.FullName, markerFileName)))
-        {
-            return current.FullName;
-        }
-
-        current = current.Parent;
-    }
-
-    return null;
-}
-
-static string? ResolvePublishDirectory(string repoRoot, string projectDirectory, string fileName)
-{
-    var publishPath = Path.Combine(repoRoot, projectDirectory, "bin", "publish", "win-x64");
-    return Directory.Exists(publishPath) && File.Exists(Path.Combine(publishPath, fileName))
-        ? publishPath
-        : null;
-}
-
-static void CopyPublishPayload(string sourceDirectory, string targetDirectory)
+static void CopyPayloadRecursively(string sourceDirectory, string targetDirectory)
 {
     foreach (var sourcePath in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
     {
@@ -145,7 +127,7 @@ static void BroadcastEnvironmentChange()
         out _);
 }
 
-internal sealed record ToolSpec(string FileName, string? SourceDirectory);
+internal sealed record ToolSpec(string FileName);
 
 internal static class NativeMethods
 {
