@@ -23,6 +23,9 @@ echo Publishing meta-weave.exe payload...
 dotnet publish "%REPO_ROOT%\MetaWeave\Cli\MetaWeave.Cli.csproj" -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:UpdateMetaWeavePublishDir=false -o "%PAYLOAD_DIR%"
 if errorlevel 1 goto :fail
 
+echo Removing debug symbol files (*.pdb) from release payload...
+for /r "%OUT_DIR%" %%F in (*.pdb) do del /q "%%F"
+
 echo.
 echo Offline package ready:
 echo   %OUT_DIR%
