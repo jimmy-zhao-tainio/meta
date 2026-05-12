@@ -81,6 +81,7 @@ public sealed class GenericModel
                 {
                     Entity = relationship.Entity ?? string.Empty,
                     Role = relationship.Role ?? string.Empty,
+                    IsNullable = relationship.IsNullable,
                 });
             }
 
@@ -162,6 +163,7 @@ public sealed class GenericRelationship
 {
     public string Entity { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
+    public bool IsNullable { get; set; }
 
     public string GetRoleOrDefault()
     {

@@ -105,6 +105,7 @@ public static class ModelXmlCodec
                     {
                         Entity = ((string?)relationshipElement.Attribute("entity") ?? string.Empty).Trim(),
                         Role = ((string?)relationshipElement.Attribute("role") ?? string.Empty).Trim(),
+                        IsNullable = !ParseRequired((string?)relationshipElement.Attribute("isRequired")),
                     });
                 }
             }
@@ -170,6 +171,11 @@ public static class ModelXmlCodec
                     if (!string.Equals(role, defaultRole, StringComparison.Ordinal))
                     {
                         relationshipElement.Add(new XAttribute("role", role));
+                    }
+
+                    if (relationship.IsNullable)
+                    {
+                        relationshipElement.Add(new XAttribute("isRequired", "false"));
                     }
 
                     relationshipsElement.Add(relationshipElement);

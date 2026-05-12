@@ -148,6 +148,7 @@ public sealed class ModelRefactorService : IModelRefactorService
                 {
                     Entity = options.NewEntityName,
                     Role = relationship.Role,
+                    IsNullable = relationship.IsNullable,
                 };
                 var newFieldName = renamedRelationship.GetColumnName();
 
@@ -286,6 +287,7 @@ public sealed class ModelRefactorService : IModelRefactorService
         {
             Entity = relationship.Entity,
             Role = normalizedNewRole,
+            IsNullable = relationship.IsNullable,
         };
         var newUsageName = renamedRelationship.GetColumnName();
 

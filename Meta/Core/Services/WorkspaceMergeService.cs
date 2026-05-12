@@ -182,6 +182,7 @@ public sealed class WorkspaceMergeService : IWorkspaceMergeService
                 {
                     Entity = relationship.Entity,
                     Role = relationship.Role,
+                    IsNullable = relationship.IsNullable,
                 });
             }
 

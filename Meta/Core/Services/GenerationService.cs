@@ -300,18 +300,38 @@ public static class GenerationService
             var navigationName = pair.Relationship.GetNavigationName();
             builder.AppendLine($"            foreach (var row in model.{pair.Entity.GetListName()})");
             builder.AppendLine("            {");
-            builder.AppendLine($"                row.{relationshipIdName} = ResolveRelationshipId(");
-            builder.AppendLine($"                    row.{relationshipIdName},");
-            builder.AppendLine($"                    row.{navigationName}?.Id,");
-            builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
-            builder.AppendLine("                    row.Id,");
-            builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
-            builder.AppendLine($"                row.{navigationName} = RequireTarget(");
-            builder.AppendLine($"                    {ToCamelIdentifier(targetEntity.GetListName())}ById,");
-            builder.AppendLine($"                    row.{relationshipIdName},");
-            builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
-            builder.AppendLine("                    row.Id,");
-            builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
+            if (pair.Relationship.IsNullable)
+            {
+                builder.AppendLine($"                row.{relationshipIdName} = ResolveOptionalRelationshipId(");
+                builder.AppendLine($"                    row.{relationshipIdName},");
+                builder.AppendLine($"                    row.{navigationName}?.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
+                builder.AppendLine("                    row.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
+                builder.AppendLine($"                row.{navigationName} = string.IsNullOrEmpty(row.{relationshipIdName})");
+                builder.AppendLine("                    ? null");
+                builder.AppendLine("                    : RequireTarget(");
+                builder.AppendLine($"                        {ToCamelIdentifier(targetEntity.GetListName())}ById,");
+                builder.AppendLine($"                        row.{relationshipIdName},");
+                builder.AppendLine($"                        {ToCSharpStringLiteral(pair.Entity.Name)},");
+                builder.AppendLine("                        row.Id,");
+                builder.AppendLine($"                        {ToCSharpStringLiteral(relationshipIdName)});");
+            }
+            else
+            {
+                builder.AppendLine($"                row.{relationshipIdName} = ResolveRelationshipId(");
+                builder.AppendLine($"                    row.{relationshipIdName},");
+                builder.AppendLine($"                    row.{navigationName}?.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
+                builder.AppendLine("                    row.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
+                builder.AppendLine($"                row.{navigationName} = RequireTarget(");
+                builder.AppendLine($"                    {ToCamelIdentifier(targetEntity.GetListName())}ById,");
+                builder.AppendLine($"                    row.{relationshipIdName},");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
+                builder.AppendLine("                    row.Id,");
+                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
+            }
             builder.AppendLine("            }");
             builder.AppendLine();
         }
@@ -414,6 +434,27 @@ public static class GenerationService
         builder.AppendLine("                ? normalizedNavigationId");
         builder.AppendLine("                : normalizedRelationshipId;");
         builder.AppendLine("            return RequireIdentity(resolvedTargetId, $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\");");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static string ResolveOptionalRelationshipId(");
+        builder.AppendLine("            string relationshipId,");
+        builder.AppendLine("            string? navigationId,");
+        builder.AppendLine("            string sourceEntityName,");
+        builder.AppendLine("            string sourceId,");
+        builder.AppendLine("            string relationshipName)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            var normalizedRelationshipId = NormalizeIdentity(relationshipId);");
+        builder.AppendLine("            var normalizedNavigationId = NormalizeIdentity(navigationId);");
+        builder.AppendLine("            if (!string.IsNullOrEmpty(normalizedRelationshipId) &&");
+        builder.AppendLine("                !string.IsNullOrEmpty(normalizedNavigationId) &&");
+        builder.AppendLine("                !string.Equals(normalizedRelationshipId, normalizedNavigationId, StringComparison.Ordinal))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new InvalidOperationException($\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' conflicts between '{normalizedRelationshipId}' and '{normalizedNavigationId}'.\");");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            return string.IsNullOrEmpty(normalizedRelationshipId)");
+        builder.AppendLine("                ? normalizedNavigationId");
+        builder.AppendLine("                : normalizedRelationshipId;");
         builder.AppendLine("        }");
         builder.AppendLine();
         builder.AppendLine("        private static string RequireIdentity(string? value, string errorMessage)");
@@ -622,7 +663,7 @@ public static class GenerationService
                 {
                     Name = relationshipName,
                     DataType = "NVARCHAR(128)",
-                    IsNullable = false,
+                    IsNullable = relationship.IsNullable,
                 });
 
                 var foreignKey = new DdlForeignKeyConstraint
@@ -822,12 +863,26 @@ public static class GenerationService
                 var targetVar = ToCamelIdentifier(targetEntity.GetListName());
                 builder.AppendLine($"            foreach (var row in {rowsVar})");
                 builder.AppendLine("            {");
-                builder.AppendLine($"                row.{relationship.GetNavigationName()} = RequireTarget(");
-                builder.AppendLine($"                    {targetVar}ById,");
-                builder.AppendLine($"                    row.{relationship.GetColumnName()},");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(entity.Name)},");
-                builder.AppendLine("                    row.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                if (relationship.IsNullable)
+                {
+                    builder.AppendLine($"                row.{relationship.GetNavigationName()} = string.IsNullOrWhiteSpace(row.{relationship.GetColumnName()})");
+                    builder.AppendLine("                    ? null");
+                    builder.AppendLine("                    : RequireTarget(");
+                    builder.AppendLine($"                        {targetVar}ById,");
+                    builder.AppendLine($"                        row.{relationship.GetColumnName()},");
+                    builder.AppendLine($"                        {ToCSharpStringLiteral(entity.Name)},");
+                    builder.AppendLine("                        row.Id,");
+                    builder.AppendLine($"                        {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                }
+                else
+                {
+                    builder.AppendLine($"                row.{relationship.GetNavigationName()} = RequireTarget(");
+                    builder.AppendLine($"                    {targetVar}ById,");
+                    builder.AppendLine($"                    row.{relationship.GetColumnName()},");
+                    builder.AppendLine($"                    {ToCSharpStringLiteral(entity.Name)},");
+                    builder.AppendLine("                    row.Id,");
+                    builder.AppendLine($"                    {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                }
                 builder.AppendLine("            }");
                 builder.AppendLine();
             }
@@ -898,6 +953,11 @@ public static class GenerationService
             var relationshipName = relationship.GetColumnName();
             builder.AppendLine($"        [XmlAttribute({ToCSharpStringLiteral(relationshipName)})]");
             builder.AppendLine($"        public string {relationshipName} {{ get; set; }} = string.Empty;");
+            if (relationship.IsNullable)
+            {
+                builder.AppendLine($"        public bool ShouldSerialize{relationshipName}() => !string.IsNullOrWhiteSpace({relationshipName});");
+            }
+
             builder.AppendLine();
         }
 
@@ -923,7 +983,14 @@ public static class GenerationService
         {
             var navigationName = relationship.GetNavigationName();
             builder.AppendLine("        [XmlIgnore]");
-            builder.AppendLine($"        public {relationship.Entity} {navigationName} {{ get; set; }} = null!;");
+            if (relationship.IsNullable)
+            {
+                builder.AppendLine($"        public {relationship.Entity}? {navigationName} {{ get; set; }}");
+            }
+            else
+            {
+                builder.AppendLine($"        public {relationship.Entity} {navigationName} {{ get; set; }} = null!;");
+            }
             builder.AppendLine();
         }
 

@@ -79,6 +79,7 @@ public static class WorkspaceSnapshotCloner
                 {
                     Entity = relationship.Entity,
                     Role = relationship.Role,
+                    IsNullable = relationship.IsNullable,
                 });
             }
 

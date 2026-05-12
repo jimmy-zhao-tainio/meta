@@ -42,7 +42,14 @@ public static class TypedWorkspaceXmlSerializer
                      .ThenBy(path => path, StringComparer.Ordinal))
         {
             var shard = Deserialize<TModel>(shardPath, modelMap);
-            MergeShard(model, shard, modelMap);
+            if (modelMap.ShardPropertiesByFileName.TryGetValue(Path.GetFileName(shardPath), out var shardProperty))
+            {
+                MergeShardProperty(model, shard, shardProperty);
+            }
+            else
+            {
+                MergeShard(model, shard, modelMap);
+            }
         }
 
         return model;
@@ -72,24 +79,25 @@ public static class TypedWorkspaceXmlSerializer
                 Directory.CreateDirectory(modelDirectory);
             }
 
-            File.Copy(modelXmlSourcePath, modelPath, overwrite: true);
+            CopyFileIfChanged(modelXmlSourcePath, modelPath);
         }
 
         var instanceDirectoryPath = ResolveInstanceDirectoryPath(workspaceRootPath);
         Directory.CreateDirectory(instanceDirectoryPath);
-        foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, "*.xml")
-                     .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(path => path, StringComparer.Ordinal))
-        {
-            File.Delete(shardPath);
-        }
 
         var modelMap = GetModelMap(typeof(TModel));
+        var expectedShardPaths = new HashSet<string>(
+            modelMap.ShardProperties
+                .Select(shardProperty => Path.GetFullPath(Path.Combine(instanceDirectoryPath, shardProperty.FileName))),
+            OperatingSystem.IsWindows() ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+
         foreach (var shardProperty in modelMap.ShardProperties)
         {
+            var shardPath = Path.Combine(instanceDirectoryPath, shardProperty.FileName);
             var sourceRows = shardProperty.GetList(model);
             if (sourceRows.Count == 0)
             {
+                DeleteIfExists(shardPath);
                 continue;
             }
 
@@ -100,7 +108,17 @@ public static class TypedWorkspaceXmlSerializer
                 targetRows.Add(row);
             }
 
-            Serialize(Path.Combine(instanceDirectoryPath, shardProperty.FileName), shardModel, modelMap);
+            SerializeIfChanged(shardPath, shardModel, modelMap);
+        }
+
+        foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, "*.xml")
+                     .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(path => path, StringComparer.Ordinal))
+        {
+            if (!expectedShardPaths.Contains(Path.GetFullPath(shardPath)))
+            {
+                File.Delete(shardPath);
+            }
         }
     }
 
@@ -196,6 +214,7 @@ public static class TypedWorkspaceXmlSerializer
             modelType,
             xmlRootAttribute.ElementName,
             shardProperties,
+            shardProperties.ToDictionary(item => item.FileName, StringComparer.OrdinalIgnoreCase),
             new XmlSerializer(modelType));
     }
 
@@ -235,8 +254,32 @@ public static class TypedWorkspaceXmlSerializer
         return deserialized;
     }
 
-    private static void Serialize<TModel>(string path, TModel model, ModelMap modelMap)
+    private static void SerializeIfChanged<TModel>(string path, TModel model, ModelMap modelMap)
         where TModel : class
+    {
+        WriteBytesIfChanged(path, SerializeToBytes(model, modelMap));
+    }
+
+    private static byte[] SerializeToBytes<TModel>(TModel model, ModelMap modelMap)
+        where TModel : class
+    {
+        using var stream = new MemoryStream();
+        using (var writer = XmlWriter.Create(stream, new XmlWriterSettings
+        {
+            Encoding = Utf8NoBom,
+            Indent = true,
+            NewLineChars = "\n",
+            NewLineHandling = NewLineHandling.Replace,
+            OmitXmlDeclaration = false,
+        }))
+        {
+            modelMap.Serializer.Serialize(writer, model);
+        }
+
+        return stream.ToArray();
+    }
+
+    private static void WriteBytesIfChanged(string path, byte[] contents)
     {
         var directory = Path.GetDirectoryName(path);
         if (!string.IsNullOrWhiteSpace(directory))
@@ -244,16 +287,89 @@ public static class TypedWorkspaceXmlSerializer
             Directory.CreateDirectory(directory);
         }
 
-        using var stream = File.Create(path);
-        using var writer = XmlWriter.Create(stream, new XmlWriterSettings
+        if (File.Exists(path) && FileEquals(path, contents))
         {
-            Encoding = Utf8NoBom,
-            Indent = true,
-            NewLineChars = "\n",
-            NewLineHandling = NewLineHandling.Replace,
-            OmitXmlDeclaration = false,
-        });
-        modelMap.Serializer.Serialize(writer, model);
+            return;
+        }
+
+        File.WriteAllBytes(path, contents);
+    }
+
+    private static void CopyFileIfChanged(string sourcePath, string destinationPath)
+    {
+        if (File.Exists(destinationPath) && FilesEqual(sourcePath, destinationPath))
+        {
+            return;
+        }
+
+        File.Copy(sourcePath, destinationPath, overwrite: true);
+    }
+
+    private static bool FilesEqual(string leftPath, string rightPath)
+    {
+        var leftInfo = new FileInfo(leftPath);
+        var rightInfo = new FileInfo(rightPath);
+        if (leftInfo.Length != rightInfo.Length)
+        {
+            return false;
+        }
+
+        using var left = File.OpenRead(leftPath);
+        using var right = File.OpenRead(rightPath);
+        return StreamsEqual(left, right);
+    }
+
+    private static bool FileEquals(string path, ReadOnlySpan<byte> contents)
+    {
+        var fileInfo = new FileInfo(path);
+        if (fileInfo.Length != contents.Length)
+        {
+            return false;
+        }
+
+        using var stream = File.OpenRead(path);
+        Span<byte> buffer = stackalloc byte[8192];
+        var offset = 0;
+        while (true)
+        {
+            var read = stream.Read(buffer);
+            if (read == 0)
+            {
+                return true;
+            }
+
+            if (!buffer[..read].SequenceEqual(contents.Slice(offset, read)))
+            {
+                return false;
+            }
+
+            offset += read;
+        }
+    }
+
+    private static bool StreamsEqual(Stream left, Stream right)
+    {
+        Span<byte> leftBuffer = stackalloc byte[8192];
+        Span<byte> rightBuffer = stackalloc byte[8192];
+        while (true)
+        {
+            var leftRead = left.Read(leftBuffer);
+            var rightRead = right.Read(rightBuffer);
+            if (leftRead != rightRead)
+            {
+                return false;
+            }
+
+            if (leftRead == 0)
+            {
+                return true;
+            }
+
+            if (!leftBuffer[..leftRead].SequenceEqual(rightBuffer[..rightRead]))
+            {
+                return false;
+            }
+        }
     }
 
     private static void MergeShard<TModel>(TModel target, TModel source, ModelMap modelMap)
@@ -272,6 +388,30 @@ public static class TypedWorkspaceXmlSerializer
             {
                 targetRows.Add(row);
             }
+        }
+    }
+
+    private static void MergeShardProperty<TModel>(TModel target, TModel source, ShardProperty shardProperty)
+        where TModel : class
+    {
+        var sourceRows = shardProperty.GetList(source);
+        if (sourceRows.Count == 0)
+        {
+            return;
+        }
+
+        var targetRows = shardProperty.GetList(target);
+        foreach (var row in sourceRows)
+        {
+            targetRows.Add(row);
+        }
+    }
+
+    private static void DeleteIfExists(string path)
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
         }
     }
 
@@ -406,6 +546,7 @@ public static class TypedWorkspaceXmlSerializer
         Type ModelType,
         string RootElementName,
         IReadOnlyList<ShardProperty> ShardProperties,
+        IReadOnlyDictionary<string, ShardProperty> ShardPropertiesByFileName,
         XmlSerializer Serializer);
 
     private sealed class ShardProperty
