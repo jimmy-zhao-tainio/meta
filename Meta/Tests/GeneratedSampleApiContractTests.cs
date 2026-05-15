@@ -8,7 +8,7 @@ namespace Meta.Core.Tests;
 public sealed class GeneratedSampleApiContractTests
 {
     [Fact]
-    public async Task GeneratedCSharp_FromCanonicalSample_UsesStaticFacadeAndStringIds()
+    public async Task GeneratedCSharp_FromCanonicalSample_UsesStaticFacadeAndReferenceRelationships()
     {
         var services = new ServiceCollection();
         var workspaceRoot = await TestWorkspaceFactory.CreateTempCanonicalWorkspaceFromCanonicalSampleAsync();
@@ -38,13 +38,19 @@ public sealed class GeneratedSampleApiContractTests
             Assert.DoesNotContain("GetId(int id)", modelCode, StringComparison.Ordinal);
 
             Assert.Contains("namespace EnterpriseBIPlatform", entityCode, StringComparison.Ordinal);
-            Assert.Contains("using System.Xml.Serialization;", entityCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlAttribute(\"Id\")]", entityCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlAttribute(\"CubeId\")]", entityCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlIgnore]", entityCode, StringComparison.Ordinal);
             Assert.Contains("public string Id { get; set; }", entityCode, StringComparison.Ordinal);
-            Assert.Contains("public string CubeId { get; set; }", entityCode, StringComparison.Ordinal);
-            Assert.Contains("public Cube Cube { get; set; }", entityCode, StringComparison.Ordinal);
+            Assert.Contains("public Cube Cube { get; set; } = null!;", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("using System.Xml.Serialization;", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("using Meta.Core.Serialization;", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlAttribute", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlElement", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlIgnore", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[MetaRelationship", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlAttribute(\"CubeId\")]", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("private string _cubeId", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("private Cube? _cube", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("public string CubeId", entityCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("__MetaCubeReference", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int Id { get; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("public int CubeId { get; }", entityCode, StringComparison.Ordinal);
             Assert.DoesNotContain("new Cube()", entityCode, StringComparison.Ordinal);

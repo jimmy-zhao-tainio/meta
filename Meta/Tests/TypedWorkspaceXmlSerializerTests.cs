@@ -11,8 +11,6 @@ public sealed class TypedWorkspaceXmlSerializerTests
         var tempRoot = CreateTempRoot();
         try
         {
-            var modelSourcePath = Path.Combine(tempRoot, "source-model.xml");
-            File.WriteAllText(modelSourcePath, "<TestModelDefinition />");
             var workspacePath = Path.Combine(tempRoot, "workspace");
             var model = new TestTypedModel
             {
@@ -26,7 +24,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 },
             };
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath, modelSourcePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
 
             var modelXmlPath = Path.Combine(workspacePath, "model.xml");
             var alphaShardPath = Path.Combine(workspacePath, "instances", "Alpha.xml");
@@ -36,7 +34,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             File.SetLastWriteTimeUtc(alphaShardPath, oldTimestamp);
             File.SetLastWriteTimeUtc(betaShardPath, oldTimestamp);
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath, modelSourcePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
 
             Assert.Equal(oldTimestamp, File.GetLastWriteTimeUtc(modelXmlPath));
             Assert.Equal(oldTimestamp, File.GetLastWriteTimeUtc(alphaShardPath));

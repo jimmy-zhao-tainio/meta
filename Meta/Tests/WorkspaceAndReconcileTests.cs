@@ -741,6 +741,33 @@ public sealed class WorkspaceServiceTests
     }
 
     [Fact]
+    public async Task SaveLoad_NullableMissingRelationship_StaysMissing()
+    {
+        var services = new ServiceCollection();
+        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var workspace = BuildWorkspaceWithOptionalRelationship(tempRoot);
+            await services.WorkspaceService.SaveAsync(workspace);
+
+            var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
+            var childShardXml = await File.ReadAllTextAsync(childShardPath);
+            Assert.DoesNotContain("OptionalParentId", childShardXml, StringComparison.Ordinal);
+
+            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var child = reloaded.Instance.GetOrCreateEntityRecords("Child").Single();
+            Assert.False(child.RelationshipIds.ContainsKey("OptionalParentId"));
+        }
+        finally
+        {
+            if (Directory.Exists(tempRoot))
+            {
+                Directory.Delete(tempRoot, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
     public async Task SaveLoad_DoesNotLeaveNullValuesInMemory()
     {
         var services = new ServiceCollection();
@@ -1092,6 +1119,20 @@ public sealed class WorkspaceServiceTests
         };
         childRow.RelationshipIds["ParentId"] = "1";
         workspace.Instance.GetOrCreateEntityRecords("Child").Add(childRow);
+
+        return workspace;
+    }
+
+    private static Workspace BuildWorkspaceWithOptionalRelationship(string workspaceRoot)
+    {
+        var workspace = BuildWorkspaceWithRelationship(workspaceRoot);
+        var child = workspace.Model.Entities.Single(entity => string.Equals(entity.Name, "Child", StringComparison.Ordinal));
+        child.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Parent",
+            Role = "OptionalParent",
+            IsNullable = true,
+        });
 
         return workspace;
     }

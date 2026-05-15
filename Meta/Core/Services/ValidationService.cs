@@ -532,6 +532,11 @@ public sealed class ValidationService : IValidationService
                     if (!record.RelationshipIds.TryGetValue(relationshipName, out var relatedId) ||
                         string.IsNullOrWhiteSpace(relatedId))
                     {
+                        if (relationship.IsNullable)
+                        {
+                            continue;
+                        }
+
                         diagnostics.Issues.Add(new DiagnosticIssue
                         {
                             Code = "instance.relationship.missing",

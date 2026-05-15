@@ -208,6 +208,11 @@ public static class InstanceXmlCodec
                 if (!record.RelationshipIds.TryGetValue(relationshipName, out var relationshipId) ||
                     string.IsNullOrWhiteSpace(relationshipId))
                 {
+                    if (relationship.IsNullable)
+                    {
+                        continue;
+                    }
+
                     throw new InvalidOperationException(
                         $"Entity '{entityName}' row '{recordId}' is missing required relationship '{relationshipName}'.");
                 }
@@ -341,6 +346,11 @@ public static class InstanceXmlCodec
             if (!record.RelationshipIds.TryGetValue(relationshipName, out var relationshipId) ||
                 string.IsNullOrWhiteSpace(relationshipId))
             {
+                if (relationship.IsNullable)
+                {
+                    continue;
+                }
+
                 throw new InvalidDataException(
                     $"Entity '{entityName}' row '{record.Id}' is missing required relationship '{relationship.GetColumnName()}'.");
             }

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using Meta.Adapters;
 using Meta.Core.Domain;
@@ -141,10 +142,18 @@ public sealed class GenerationServiceTests
             Assert.Contains("public Task SaveToXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static {workspace.Model.Name}Model LoadFromXmlWorkspace(", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static Task<{workspace.Model.Name}Model> LoadFromXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlRoot(", modelCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlArrayItem(", modelCode, StringComparison.Ordinal);
-            Assert.Contains("TypedWorkspaceXmlSerializer.Load", modelCode, StringComparison.Ordinal);
-            Assert.Contains("TypedWorkspaceXmlSerializer.Save", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("HydrateReferences", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("PrepareForXmlSerialization", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain($"{workspace.Model.Name}ModelFactory", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain(".Bind(", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlRoot", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlArray", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlArrayItem", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"{workspace.Model.Name}ModelXmlSerializer.Load(workspacePath, searchUpward)", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"{workspace.Model.Name}ModelXmlSerializer.Save(this, workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("TypedWorkspaceXmlSerializer.SaveModel(model, workspacePath);", modelCode, StringComparison.Ordinal);
+            Assert.Contains("SerializeCubeShard(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("ReadCube(", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("CreateModelDefinition", modelCode, StringComparison.Ordinal);
@@ -242,13 +251,14 @@ public sealed class GenerationServiceTests
             Assert.Contains("public List<Architecture> ArchitectureList", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static ArchitectureModel CreateEmpty()", modelCode, StringComparison.Ordinal);
             Assert.Contains("public void SaveToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
-            Assert.Contains("[XmlRoot(", modelCode, StringComparison.Ordinal);
-            Assert.Contains("TypedWorkspaceXmlSerializer.Load", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlRoot", modelCode, StringComparison.Ordinal);
+            Assert.Contains("ArchitectureModelXmlSerializer.Load(workspacePath, searchUpward)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("ArchitectureModelXmlSerializer.Save(this, workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("XElement", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("XDocument", modelCode, StringComparison.Ordinal);
-            Assert.Contains("internal static class ArchitectureModelFactory", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("ArchitectureModelFactory", modelCode, StringComparison.Ordinal);
             Assert.Contains("public static class ArchitectureTooling", toolingCode, StringComparison.Ordinal);
             Assert.Contains("public static ArchitectureModel Load(", toolingCode, StringComparison.Ordinal);
             Assert.Contains("public static Task<ArchitectureModel> LoadAsync(", toolingCode, StringComparison.Ordinal);
@@ -258,6 +268,70 @@ public sealed class GenerationServiceTests
         finally
         {
             DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
+    public void GenerateCSharp_RelationshipsUsePublicObjectReferencesOnly()
+    {
+        var workspace = CreateSalesWorkspace();
+        var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "reference-api");
+
+        try
+        {
+            GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
+
+            var customerCode = File.ReadAllText(Path.Combine(output, "Customer.cs"));
+            var orderCode = File.ReadAllText(Path.Combine(output, "Order.cs"));
+
+            Assert.Contains("public string CustomerId { get; set; } = string.Empty;", customerCode, StringComparison.Ordinal);
+            Assert.Contains("public Customer Customer { get; set; } = null!;", orderCode, StringComparison.Ordinal);
+            Assert.Contains("public string ExternalOrderId { get; set; } = string.Empty;", orderCode, StringComparison.Ordinal);
+            Assert.Contains("public Customer? ReferralCustomer { get; set; }", orderCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("public string CustomerId", orderCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("public string ReferralCustomerId", orderCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[XmlAttribute(\"CustomerId\")]", orderCode, StringComparison.Ordinal);
+            var invoiceCode = File.ReadAllText(Path.Combine(output, "Invoice.cs"));
+            Assert.Contains("public Customer BillingCustomer { get; set; } = null!;", invoiceCode, StringComparison.Ordinal);
+            Assert.Contains("public Customer ShippingCustomer { get; set; } = null!;", invoiceCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("public string BillingCustomerId", invoiceCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("public string ShippingCustomerId", invoiceCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[Xml", orderCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[MetaRelationship", orderCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[Xml", invoiceCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("[MetaRelationship", invoiceCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("HydrateReferences", File.ReadAllText(Path.Combine(output, "SalesModel.cs")), StringComparison.Ordinal);
+            Assert.DoesNotContain("ModelFactory.Bind", File.ReadAllText(Path.Combine(output, "SalesModel.cs")), StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
+    public void GeneratedCSharpTooling_CanAuthorLoadModifyAndSaveReferenceModel()
+    {
+        var workspace = CreateSalesWorkspace();
+        var projectRoot = Path.Combine(Path.GetTempPath(), "metadata-gen-runtime-tests", Guid.NewGuid().ToString("N"));
+
+        try
+        {
+            Directory.CreateDirectory(projectRoot);
+            GenerationService.GenerateCSharp(workspace, projectRoot, includeTooling: true);
+            File.WriteAllText(Path.Combine(projectRoot, "Sales.Extensions.cs"), BuildSalesExtensionsCode());
+            File.WriteAllText(Path.Combine(projectRoot, "Program.cs"), BuildSalesRuntimeProgramCode());
+            File.WriteAllText(Path.Combine(projectRoot, "GeneratedRuntime.csproj"), BuildGeneratedRuntimeProjectFile());
+
+            var result = RunDotNet(projectRoot, "run", "--project", Path.Combine(projectRoot, "GeneratedRuntime.csproj"), "--nologo");
+
+            Assert.True(
+                result.ExitCode == 0,
+                "Generated C# runtime contract failed." + Environment.NewLine + result.Output + Environment.NewLine + result.Error);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(projectRoot);
         }
     }
 
@@ -275,5 +349,302 @@ public sealed class GenerationServiceTests
             ? ".\\<workspace>"
             : $".\\{Path.GetFileName(Path.GetFullPath(workspace.WorkspaceRootPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))}";
     }
+
+    private static Workspace CreateSalesWorkspace()
+    {
+        var workspace = new Workspace
+        {
+            Model =
+            {
+                Name = "Sales",
+                Entities =
+                {
+                    new GenericEntity
+                    {
+                        Name = "Customer",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "CustomerId" },
+                            new GenericProperty { Name = "Name" },
+                        },
+                    },
+                    new GenericEntity
+                    {
+                        Name = "Order",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "ExternalOrderId" },
+                        },
+                        Relationships =
+                        {
+                            new GenericRelationship { Entity = "Customer" },
+                            new GenericRelationship { Entity = "Customer", Role = "ReferralCustomer", IsNullable = true },
+                        },
+                    },
+                    new GenericEntity
+                    {
+                        Name = "Invoice",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "InvoiceNumber" },
+                        },
+                        Relationships =
+                        {
+                            new GenericRelationship { Entity = "Customer", Role = "BillingCustomer" },
+                            new GenericRelationship { Entity = "Customer", Role = "ShippingCustomer" },
+                        },
+                    },
+                },
+            },
+            Instance =
+            {
+                ModelName = "Sales",
+            },
+        };
+
+        return workspace;
+    }
+
+    private static string BuildSalesExtensionsCode()
+    {
+        return """
+            using System.Collections.Generic;
+
+            namespace Sales;
+
+            public sealed class Product
+            {
+                public string Id { get; set; } = string.Empty;
+
+                public string ProductId { get; set; } = string.Empty;
+
+                public string Name { get; set; } = string.Empty;
+            }
+
+            public sealed class Shipment
+            {
+                public string Id { get; set; } = string.Empty;
+
+                public string TrackingId { get; set; } = string.Empty;
+
+                public Order Order { get; set; } = null!;
+            }
+
+            public sealed partial class SalesModel
+            {
+                public List<Product> ProductList { get; set; } = new();
+
+                public List<Shipment> ShipmentList { get; set; } = new();
+            }
+            """;
+    }
+
+    private static string BuildSalesRuntimeProgramCode()
+    {
+        return """
+            using System;
+            using System.IO;
+            using System.Reflection;
+            using Sales;
+
+            var workspace = Path.Combine(AppContext.BaseDirectory, "runtime-workspace");
+            if (Directory.Exists(workspace))
+            {
+                Directory.Delete(workspace, recursive: true);
+            }
+
+            Require(typeof(Order).GetProperty("Customer")?.PropertyType == typeof(Customer), "Order.Customer is not a Customer reference.");
+            Require(typeof(Order).GetProperty("CustomerId") == null, "Order leaked a public CustomerId transport property.");
+            Require(typeof(Customer).GetProperty("CustomerId") != null, "Scalar Customer.CustomerId was not generated.");
+            Require(typeof(Shipment).GetProperty("Order")?.PropertyType == typeof(Order), "Shipment.Order is not an Order reference.");
+            Require(typeof(Shipment).GetProperty("OrderId") == null, "Shipment leaked a public OrderId transport property.");
+            Require(typeof(SalesModel).GetMethod("HydrateReferences", BindingFlags.Instance | BindingFlags.Public) == null, "HydrateReferences is public.");
+
+            var customer = new Customer { Id = "C001", CustomerId = "LEGACY-C001", Name = "Acme" };
+            var shippingCustomer = new Customer { Id = "C002", CustomerId = "LEGACY-C002", Name = "Beta" };
+            var order = new Order { Id = "O001", ExternalOrderId = "EXT-001", Customer = customer, ReferralCustomer = null };
+            var invoice = new Invoice { Id = "I001", InvoiceNumber = "INV-001", BillingCustomer = customer, ShippingCustomer = shippingCustomer };
+            var product = new Product { Id = "P001", ProductId = "SKU-001", Name = "Widget" };
+            var shipment = new Shipment { Id = "S001", TrackingId = "TRK-001", Order = order };
+            var model = SalesModel.CreateEmpty();
+            model.CustomerList.Add(customer);
+            model.CustomerList.Add(shippingCustomer);
+            model.OrderList.Add(order);
+            model.InvoiceList.Add(invoice);
+            model.ProductList.Add(product);
+            model.ShipmentList.Add(shipment);
+
+            model.SaveToXmlWorkspace(workspace);
+
+            var orderXml = File.ReadAllText(Path.Combine(workspace, "instances", "Order.xml"));
+            Require(orderXml.Contains("CustomerId=\"C001\"", StringComparison.Ordinal), "Order relationship was not serialized as CustomerId.");
+            Require(!orderXml.Contains("ReferralCustomerId=", StringComparison.Ordinal), "Absent optional relationship was serialized.");
+            Require(!orderXml.Contains("<Customer>", StringComparison.Ordinal), "Order relationship was serialized as nested object.");
+            var invoiceXml = File.ReadAllText(Path.Combine(workspace, "instances", "Invoice.xml"));
+            Require(invoiceXml.Contains("BillingCustomerId=\"C001\"", StringComparison.Ordinal), "BillingCustomer relationship was not serialized distinctly.");
+            Require(invoiceXml.Contains("ShippingCustomerId=\"C002\"", StringComparison.Ordinal), "ShippingCustomer relationship was not serialized distinctly.");
+            var shipmentXml = File.ReadAllText(Path.Combine(workspace, "instances", "Shipment.xml"));
+            Require(shipmentXml.Contains("OrderId=\"O001\"", StringComparison.Ordinal), "Shipment relationship was not serialized as OrderId.");
+            var modelXml = File.ReadAllText(Path.Combine(workspace, "model.xml"));
+            Require(!modelXml.Contains("role=\"CustomerId\"", StringComparison.Ordinal), "Model XML used transport CustomerId as the relationship role.");
+            Require(modelXml.Contains("<Relationship entity=\"Customer\" role=\"BillingCustomer\" />", StringComparison.Ordinal), "BillingCustomer role was not written to model.xml.");
+            Require(modelXml.Contains("<Relationship entity=\"Customer\" role=\"ShippingCustomer\" />", StringComparison.Ordinal), "ShippingCustomer role was not written to model.xml.");
+            Require(!modelXml.Contains("role=\"BillingCustomerId\"", StringComparison.Ordinal), "Model XML used transport BillingCustomerId as the relationship role.");
+            Require(!modelXml.Contains("role=\"ShippingCustomerId\"", StringComparison.Ordinal), "Model XML used transport ShippingCustomerId as the relationship role.");
+            Require(modelXml.Contains("<Entity name=\"Product\">", StringComparison.Ordinal), "C# authored Product entity was not written to model.xml.");
+            Require(modelXml.Contains("<Property name=\"ProductId\" />", StringComparison.Ordinal), "C# authored Product.ProductId was not written as metadata.");
+            Require(modelXml.Contains("<Entity name=\"Shipment\">", StringComparison.Ordinal), "C# authored Shipment entity was not written to model.xml.");
+            Require(modelXml.Contains("<Relationship entity=\"Order\" />", StringComparison.Ordinal), "C# authored Shipment.Order relationship was not written as metadata.");
+
+            var loaded = SalesModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            Require(ReferenceEquals(loaded.CustomerList[0], loaded.OrderList[0].Customer), "Loaded Order.Customer is not the canonical Customer row.");
+            Require(loaded.OrderList[0].ReferralCustomer == null, "Absent optional relationship did not load as null.");
+            Require(loaded.OrderList[0].Customer.Name == "Acme", "Loaded model did not support direct relationship traversal.");
+            Require(ReferenceEquals(loaded.CustomerList[0], loaded.InvoiceList[0].BillingCustomer), "Loaded Invoice.BillingCustomer is not canonical.");
+            Require(ReferenceEquals(loaded.CustomerList[1], loaded.InvoiceList[0].ShippingCustomer), "Loaded Invoice.ShippingCustomer is not canonical.");
+            Require(ReferenceEquals(loaded.OrderList[0], loaded.ShipmentList[0].Order), "Loaded Shipment.Order is not the canonical Order row.");
+
+            loaded.CustomerList[0].Name = "Acme Corp";
+            loaded.OrderList[0].ExternalOrderId = "EXT-002";
+            loaded.OrderList[0].ReferralCustomer = loaded.CustomerList[1];
+            loaded.ProductList[0].Name = "Widget Pro";
+            loaded.ShipmentList[0].TrackingId = "TRK-002";
+            var customer3 = new Customer { Id = "C003", CustomerId = "LEGACY-C003", Name = "Gamma" };
+            var order2 = new Order { Id = "O002", ExternalOrderId = "EXT-003", Customer = customer3, ReferralCustomer = loaded.CustomerList[0] };
+            loaded.CustomerList.Add(customer3);
+            loaded.OrderList.Add(order2);
+            loaded.SaveToXmlWorkspace(workspace);
+
+            var reloaded = SalesModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            Require(reloaded.CustomerList[0].Name == "Acme Corp", "Modified customer instance data did not persist.");
+            Require(reloaded.OrderList[0].ExternalOrderId == "EXT-002", "Modified order instance data did not persist.");
+            Require(ReferenceEquals(reloaded.CustomerList[1], reloaded.OrderList[0].ReferralCustomer), "Optional relationship did not reload when present.");
+            Require(reloaded.ProductList[0].Name == "Widget Pro", "Modified C# authored entity instance data did not persist.");
+            Require(ReferenceEquals(reloaded.CustomerList[2], reloaded.OrderList[1].Customer), "New authored relationship did not reload.");
+            Require(ReferenceEquals(reloaded.CustomerList[0], reloaded.OrderList[1].ReferralCustomer), "New authored optional relationship did not reload.");
+
+            var externalCustomer = new Customer { Id = "C001", CustomerId = "OUTSIDE", Name = "Outside" };
+            reloaded.OrderList[0].Customer = externalCustomer;
+            ExpectFailure<InvalidOperationException>(
+                () => reloaded.SaveToXmlWorkspace(Path.Combine(AppContext.BaseDirectory, "invalid-outside")),
+                "not the canonical row");
+
+            var duplicate = SalesModel.CreateEmpty();
+            var duplicateCustomerA = new Customer { Id = "DUP", CustomerId = "A", Name = "A" };
+            var duplicateCustomerB = new Customer { Id = "DUP", CustomerId = "B", Name = "B" };
+            duplicate.CustomerList.Add(duplicateCustomerA);
+            duplicate.CustomerList.Add(duplicateCustomerB);
+            duplicate.OrderList.Add(new Order { Id = "ODUP", ExternalOrderId = "EXT-DUP", Customer = duplicateCustomerA });
+            ExpectFailure<InvalidOperationException>(
+                () => duplicate.SaveToXmlWorkspace(Path.Combine(AppContext.BaseDirectory, "invalid-duplicate")),
+                "duplicate Id");
+
+            var missingWorkspace = Path.Combine(AppContext.BaseDirectory, "missing-target-workspace");
+            var missingModel = SalesModel.CreateEmpty();
+            var missingCustomer = new Customer { Id = "C003", CustomerId = "LEGACY-C003", Name = "Gamma" };
+            missingModel.CustomerList.Add(missingCustomer);
+            missingModel.OrderList.Add(new Order { Id = "O003", ExternalOrderId = "EXT-004", Customer = missingCustomer });
+            missingModel.SaveToXmlWorkspace(missingWorkspace);
+            var missingOrderPath = Path.Combine(missingWorkspace, "instances", "Order.xml");
+            File.WriteAllText(
+                missingOrderPath,
+                File.ReadAllText(missingOrderPath).Replace("CustomerId=\"C003\"", "CustomerId=\"MISSING\"", StringComparison.Ordinal));
+            ExpectFailure<InvalidDataException>(
+                () => SalesModel.LoadFromXmlWorkspace(missingWorkspace, searchUpward: false),
+                "points to missing Id 'MISSING'");
+
+            var wrongTypeWorkspace = Path.Combine(AppContext.BaseDirectory, "wrong-type-workspace");
+            var wrongTypeModel = SalesModel.CreateEmpty();
+            var wrongTypeCustomer = new Customer { Id = "C004", CustomerId = "LEGACY-C004", Name = "Delta" };
+            wrongTypeModel.CustomerList.Add(wrongTypeCustomer);
+            wrongTypeModel.OrderList.Add(new Order { Id = "O004", ExternalOrderId = "EXT-005", Customer = wrongTypeCustomer });
+            wrongTypeModel.SaveToXmlWorkspace(wrongTypeWorkspace);
+            var wrongTypeOrderPath = Path.Combine(wrongTypeWorkspace, "instances", "Order.xml");
+            File.WriteAllText(
+                wrongTypeOrderPath,
+                File.ReadAllText(wrongTypeOrderPath).Replace("CustomerId=\"C004\"", "CustomerId=\"O004\"", StringComparison.Ordinal));
+            ExpectFailure<InvalidDataException>(
+                () => SalesModel.LoadFromXmlWorkspace(wrongTypeWorkspace, searchUpward: false),
+                "points to missing Id 'O004'");
+
+            static void Require(bool condition, string message)
+            {
+                if (!condition)
+                {
+                    throw new InvalidOperationException(message);
+                }
+            }
+
+            static void ExpectFailure<TException>(Action action, string expectedMessage)
+                where TException : Exception
+            {
+                try
+                {
+                    action();
+                }
+                catch (TException ex) when (ex.Message.Contains(expectedMessage, StringComparison.Ordinal))
+                {
+                    return;
+                }
+
+                throw new InvalidOperationException($"Expected {typeof(TException).Name} containing '{expectedMessage}'.");
+            }
+            """;
+    }
+
+    private static string BuildGeneratedRuntimeProjectFile()
+    {
+        var coreProjectPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Core", "Meta.Core.csproj"));
+        return $"""
+            <Project Sdk="Microsoft.NET.Sdk">
+              <PropertyGroup>
+                <OutputType>Exe</OutputType>
+                <TargetFramework>net8.0</TargetFramework>
+                <ImplicitUsings>enable</ImplicitUsings>
+                <Nullable>enable</Nullable>
+              </PropertyGroup>
+              <ItemGroup>
+                <ProjectReference Include="{EscapeXmlAttribute(coreProjectPath)}" />
+              </ItemGroup>
+            </Project>
+            """;
+    }
+
+    private static DotNetResult RunDotNet(string workingDirectory, params string[] arguments)
+    {
+        using var process = new Process();
+        process.StartInfo.FileName = "dotnet";
+        foreach (var argument in arguments)
+        {
+            process.StartInfo.ArgumentList.Add(argument);
+        }
+
+        process.StartInfo.WorkingDirectory = workingDirectory;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.RedirectStandardError = true;
+        process.StartInfo.UseShellExecute = false;
+        process.Start();
+
+        var output = process.StandardOutput.ReadToEnd();
+        var error = process.StandardError.ReadToEnd();
+        if (!process.WaitForExit(milliseconds: 120_000))
+        {
+            process.Kill(entireProcessTree: true);
+            throw new TimeoutException("dotnet process did not exit within 120 seconds.");
+        }
+
+        return new DotNetResult(process.ExitCode, output, error);
+    }
+
+    private static string EscapeXmlAttribute(string value)
+    {
+        return value
+            .Replace("&", "&amp;", StringComparison.Ordinal)
+            .Replace("\"", "&quot;", StringComparison.Ordinal)
+            .Replace("<", "&lt;", StringComparison.Ordinal)
+            .Replace(">", "&gt;", StringComparison.Ordinal);
+    }
+
+    private sealed record DotNetResult(int ExitCode, string Output, string Error);
 }
 

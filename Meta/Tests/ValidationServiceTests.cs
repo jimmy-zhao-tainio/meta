@@ -131,6 +131,40 @@ public sealed class ValidationServiceTests
             issue => issue.Code == "instance.required.missing" && issue.Location.EndsWith("/Rank"));
     }
 
+    [Fact]
+    public void Validate_NullableRelationship_AllowsMissingValue()
+    {
+        var workspace = new Workspace
+        {
+            Model = new GenericModel
+            {
+                Name = "MetadataModel",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "MetadataModel",
+            },
+        };
+
+        workspace.Model.Entities.Add(new GenericEntity { Name = "Attribute" });
+
+        var measure = new GenericEntity { Name = "Measure" };
+        measure.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Attribute",
+            Role = "SemiAdditiveByAttribute",
+            IsNullable = true,
+        });
+        workspace.Model.Entities.Add(measure);
+
+        workspace.Instance.GetOrCreateEntityRecords("Measure").Add(new GenericRecord { Id = "SalesAmount" });
+
+        var diagnostics = new ValidationService().Validate(workspace);
+
+        Assert.DoesNotContain(diagnostics.Issues, issue => issue.Code == "instance.relationship.missing");
+        Assert.False(diagnostics.HasErrors);
+    }
+
     private static Workspace BuildWorkspace(string modelName, string entityName, string propertyName)
     {
         var workspace = new Workspace

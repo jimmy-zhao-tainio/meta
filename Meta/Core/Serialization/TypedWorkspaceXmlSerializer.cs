@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using Meta.Core.Domain;
 
 namespace Meta.Core.Serialization;
 
@@ -37,55 +38,31 @@ public static class TypedWorkspaceXmlSerializer
             return model;
         }
 
+        var pendingRows = new List<PendingRow>();
         foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, "*.xml")
                      .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(path => path, StringComparer.Ordinal))
         {
-            var shard = Deserialize<TModel>(shardPath, modelMap);
-            if (modelMap.ShardPropertiesByFileName.TryGetValue(Path.GetFileName(shardPath), out var shardProperty))
-            {
-                MergeShardProperty(model, shard, shardProperty);
-            }
-            else
-            {
-                MergeShard(model, shard, modelMap);
-            }
+            LoadShard(model, shardPath, modelMap, pendingRows);
         }
 
+        ResolveReferences(model, modelMap, pendingRows);
         return model;
     }
 
-    public static void Save<TModel>(TModel model, string workspacePath, string? modelXmlSourcePath = null)
+    public static void Save<TModel>(TModel model, string workspacePath)
         where TModel : class, new()
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
 
-        var workspaceRootPath = Path.GetFullPath(workspacePath);
-        Directory.CreateDirectory(workspaceRootPath);
-
-        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
-        if (!File.Exists(workspaceXmlPath))
-        {
-            WriteWorkspaceDocument(workspaceXmlPath);
-        }
-
-        var modelPath = ResolveModelFilePath(workspaceRootPath);
-        if (!string.IsNullOrWhiteSpace(modelXmlSourcePath) && File.Exists(modelXmlSourcePath))
-        {
-            var modelDirectory = Path.GetDirectoryName(modelPath);
-            if (!string.IsNullOrWhiteSpace(modelDirectory))
-            {
-                Directory.CreateDirectory(modelDirectory);
-            }
-
-            CopyFileIfChanged(modelXmlSourcePath, modelPath);
-        }
+        var modelMap = GetModelMap(typeof(TModel));
+        var indexes = ValidateForSave(model, modelMap);
+        var workspaceRootPath = SaveModelDocument(workspacePath, modelMap);
 
         var instanceDirectoryPath = ResolveInstanceDirectoryPath(workspaceRootPath);
         Directory.CreateDirectory(instanceDirectoryPath);
 
-        var modelMap = GetModelMap(typeof(TModel));
         var expectedShardPaths = new HashSet<string>(
             modelMap.ShardProperties
                 .Select(shardProperty => Path.GetFullPath(Path.Combine(instanceDirectoryPath, shardProperty.FileName))),
@@ -101,14 +78,7 @@ public static class TypedWorkspaceXmlSerializer
                 continue;
             }
 
-            var shardModel = new TModel();
-            var targetRows = shardProperty.GetList(shardModel);
-            foreach (var row in sourceRows)
-            {
-                targetRows.Add(row);
-            }
-
-            SerializeIfChanged(shardPath, shardModel, modelMap);
+            WriteBytesIfChanged(shardPath, SerializeShardToBytes(model, modelMap, shardProperty, indexes));
         }
 
         foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, "*.xml")
@@ -120,6 +90,15 @@ public static class TypedWorkspaceXmlSerializer
                 File.Delete(shardPath);
             }
         }
+    }
+
+    public static void SaveModel<TModel>(TModel model, string workspacePath)
+        where TModel : class, new()
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
+
+        SaveModelDocument(workspacePath, GetModelMap(typeof(TModel)));
     }
 
     public static string DiscoverWorkspaceRoot(string inputPath)
@@ -178,6 +157,22 @@ public static class TypedWorkspaceXmlSerializer
         return instanceDirectoryPath;
     }
 
+    public static void WriteBytesIfChanged(string path, byte[] contents)
+    {
+        var directory = Path.GetDirectoryName(path);
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        if (File.Exists(path) && FileEquals(path, contents))
+        {
+            return;
+        }
+
+        File.WriteAllBytes(path, contents);
+    }
+
     private static ModelMap GetModelMap(Type modelType)
     {
         lock (CacheLock)
@@ -195,74 +190,547 @@ public static class TypedWorkspaceXmlSerializer
     private static ModelMap BuildModelMap(Type modelType)
     {
         var xmlRootAttribute = modelType.GetCustomAttribute<XmlRootAttribute>();
-        if (xmlRootAttribute == null || string.IsNullOrWhiteSpace(xmlRootAttribute.ElementName))
-        {
-            throw new InvalidOperationException(
-                $"Model type '{modelType.FullName}' must declare [XmlRoot].");
-        }
+        var rootElementName = string.IsNullOrWhiteSpace(xmlRootAttribute?.ElementName)
+            ? InferModelName(modelType)
+            : xmlRootAttribute!.ElementName;
 
         var shardProperties = modelType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
             .Where(property => property.CanRead && property.CanWrite)
             .Select(property => ShardProperty.TryCreate(modelType, property))
             .Where(item => item != null)
             .Cast<ShardProperty>()
-            .OrderBy(item => item.FileName, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.FileName, StringComparer.Ordinal)
+            .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.EntityName, StringComparer.Ordinal)
             .ToList();
 
-        return new ModelMap(
-            modelType,
-            xmlRootAttribute.ElementName,
-            shardProperties,
-            shardProperties.ToDictionary(item => item.FileName, StringComparer.OrdinalIgnoreCase),
-            new XmlSerializer(modelType));
-    }
-
-    private static TModel Deserialize<TModel>(string shardPath, ModelMap modelMap)
-        where TModel : class, new()
-    {
-        using var stream = File.OpenRead(shardPath);
-        using var reader = XmlReader.Create(stream, new XmlReaderSettings
+        var entityNameByType = new Dictionary<Type, string>();
+        foreach (var shardProperty in shardProperties)
         {
-            IgnoreComments = true,
-            IgnoreWhitespace = true,
-        });
-
-        var events = new XmlDeserializationEvents
-        {
-            OnUnknownAttribute = (_, args) =>
-                throw new InvalidDataException($"Unknown XML attribute '{args.Attr.Name}' in '{shardPath}'."),
-            OnUnknownElement = (_, args) =>
-                throw new InvalidDataException($"Unknown XML element '{args.Element.Name}' in '{shardPath}'."),
-            OnUnknownNode = (_, args) =>
+            if (!entityNameByType.TryAdd(shardProperty.ItemType, shardProperty.EntityName))
             {
-                if (string.IsNullOrWhiteSpace(args.Name))
-                {
-                    return;
-                }
-
-                throw new InvalidDataException($"Unknown XML node '{args.Name}' in '{shardPath}'.");
-            },
-        };
-
-        var deserialized = modelMap.Serializer.Deserialize(reader, events) as TModel;
-        if (deserialized == null)
-        {
-            throw new InvalidDataException($"Could not deserialize '{shardPath}' into '{typeof(TModel).FullName}'.");
+                throw new InvalidOperationException(
+                    $"Model type '{modelType.FullName}' contains more than one collection for entity type '{shardProperty.ItemType.FullName}'.");
+            }
         }
 
-        return deserialized;
+        var entityTypes = entityNameByType.Keys.ToHashSet();
+        foreach (var shardProperty in shardProperties)
+        {
+            shardProperty.EntityMap = BuildEntityMap(modelType, shardProperty, entityTypes, entityNameByType);
+        }
+
+        var entityMaps = shardProperties.Select(item => item.EntityMap).ToList();
+        var entityMapsByName = new Dictionary<string, EntityMap>(StringComparer.OrdinalIgnoreCase);
+        foreach (var entityMap in entityMaps)
+        {
+            if (!entityMapsByName.TryAdd(entityMap.EntityName, entityMap))
+            {
+                throw new InvalidOperationException(
+                    $"Model type '{modelType.FullName}' contains duplicate entity name '{entityMap.EntityName}'.");
+            }
+        }
+
+        var modelMap = new ModelMap(
+            rootElementName,
+            shardProperties,
+            shardProperties.ToDictionary(item => item.XmlArrayName, StringComparer.OrdinalIgnoreCase),
+            entityMapsByName,
+            entityMaps);
+
+        ValidateRequiredRelationshipGraphIsAcyclic(modelMap);
+        return modelMap;
     }
 
-    private static void SerializeIfChanged<TModel>(string path, TModel model, ModelMap modelMap)
-        where TModel : class
+    private static EntityMap BuildEntityMap(
+        Type modelType,
+        ShardProperty shardProperty,
+        ISet<Type> entityTypes,
+        IReadOnlyDictionary<Type, string> entityNameByType)
     {
-        WriteBytesIfChanged(path, SerializeToBytes(model, modelMap));
+        var itemType = shardProperty.ItemType;
+        var idProperty = itemType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .FirstOrDefault(property =>
+                property.CanRead &&
+                property.CanWrite &&
+                property.GetIndexParameters().Length == 0 &&
+                property.PropertyType == typeof(string) &&
+                string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase));
+        if (idProperty == null)
+        {
+            throw new InvalidOperationException(
+                $"Entity type '{itemType.FullName}' in model '{modelType.FullName}' must declare public string Id {{ get; set; }}.");
+        }
+
+        var scalarProperties = new List<ScalarProperty>();
+        var relationshipProperties = new List<RelationshipProperty>();
+        foreach (var property in itemType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                     .Where(property => property.CanRead && property.CanWrite && property.GetIndexParameters().Length == 0)
+                     .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(property => property.Name, StringComparer.Ordinal))
+        {
+            if (property == idProperty)
+            {
+                continue;
+            }
+
+            var isEntityReference = entityTypes.Contains(property.PropertyType);
+            if (isEntityReference)
+            {
+                var relationshipRole = property.Name;
+                var relationshipName = relationshipRole + "Id";
+
+                relationshipProperties.Add(new RelationshipProperty(
+                    property,
+                    relationshipRole,
+                    relationshipName,
+                    entityNameByType[property.PropertyType],
+                    !IsNullableProperty(property)));
+                continue;
+            }
+
+            if (property.GetCustomAttribute<XmlIgnoreAttribute>() != null)
+            {
+                continue;
+            }
+
+            if (property.PropertyType == typeof(string))
+            {
+                scalarProperties.Add(new ScalarProperty(
+                    property,
+                    GetXmlElementName(property),
+                    !IsNullableProperty(property)));
+                continue;
+            }
+
+            throw new InvalidOperationException(
+                $"Property '{itemType.FullName}.{property.Name}' is neither a string scalar nor an entity relationship.");
+        }
+
+        return new EntityMap(
+            shardProperty,
+            itemType,
+            shardProperty.EntityName,
+            idProperty,
+            scalarProperties
+                .OrderBy(item => item.XmlElementName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.XmlElementName, StringComparer.Ordinal)
+                .ToList(),
+            relationshipProperties
+                .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.TargetEntityName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(item => item.Name, StringComparer.Ordinal)
+                .ToList());
     }
 
-    private static byte[] SerializeToBytes<TModel>(TModel model, ModelMap modelMap)
+    private static void ValidateRequiredRelationshipGraphIsAcyclic(ModelMap modelMap)
+    {
+        var visiting = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        var ordered = new List<EntityMap>();
+
+        foreach (var entityMap in modelMap.EntityMaps
+                     .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.EntityName, StringComparer.Ordinal))
+        {
+            Visit(entityMap, new Stack<string>());
+        }
+
+        modelMap.LoadOrder = ordered;
+
+        void Visit(EntityMap entityMap, Stack<string> path)
+        {
+            if (visited.Contains(entityMap.EntityName))
+            {
+                return;
+            }
+
+            if (visiting.Contains(entityMap.EntityName))
+            {
+                var cycle = string.Join(" -> ", path.Reverse().Append(entityMap.EntityName));
+                throw new InvalidOperationException(
+                    $"Required relationship graph for model '{modelMap.RootElementName}' contains a cycle: {cycle}.");
+            }
+
+            visiting.Add(entityMap.EntityName);
+            path.Push(entityMap.EntityName);
+            foreach (var relationship in entityMap.RelationshipProperties
+                         .Where(item => item.IsRequired)
+                         .OrderBy(item => item.TargetEntityName, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
+            {
+                Visit(modelMap.EntityMapsByName[relationship.TargetEntityName], path);
+            }
+
+            path.Pop();
+            visiting.Remove(entityMap.EntityName);
+            visited.Add(entityMap.EntityName);
+            ordered.Add(entityMap);
+        }
+    }
+
+    private static void LoadShard<TModel>(
+        TModel model,
+        string shardPath,
+        ModelMap modelMap,
+        List<PendingRow> pendingRows)
         where TModel : class
     {
+        var document = XDocument.Load(shardPath, LoadOptions.None);
+        var root = document.Root ?? throw new InvalidDataException($"Instance XML '{shardPath}' has no root element.");
+        if (!string.Equals(root.Name.LocalName, modelMap.RootElementName, StringComparison.Ordinal))
+        {
+            throw new InvalidDataException(
+                $"Instance XML '{shardPath}' root must be <{modelMap.RootElementName}>.");
+        }
+
+        foreach (var listElement in root.Elements())
+        {
+            if (!modelMap.ShardPropertiesByListElementName.TryGetValue(listElement.Name.LocalName, out var shardProperty))
+            {
+                throw new InvalidDataException(
+                    $"Unknown XML element '{listElement.Name.LocalName}' in '{shardPath}'.");
+            }
+
+            LoadListElement(model, shardPath, shardProperty, listElement, pendingRows);
+        }
+    }
+
+    private static void LoadListElement<TModel>(
+        TModel model,
+        string shardPath,
+        ShardProperty shardProperty,
+        XElement listElement,
+        List<PendingRow> pendingRows)
+        where TModel : class
+    {
+        var entityMap = shardProperty.EntityMap;
+        var rows = shardProperty.GetList(model);
+        foreach (var rowElement in listElement.Elements())
+        {
+            if (!string.Equals(rowElement.Name.LocalName, shardProperty.XmlArrayItemName, StringComparison.Ordinal))
+            {
+                throw new InvalidDataException(
+                    $"Unknown XML element '{rowElement.Name.LocalName}' in '{shardPath}'.");
+            }
+
+            var row = Activator.CreateInstance(entityMap.ItemType)
+                ?? throw new InvalidOperationException($"Could not create entity '{entityMap.ItemType.FullName}'.");
+            var relationshipValues = new Dictionary<RelationshipProperty, string>();
+
+            foreach (var attribute in rowElement.Attributes())
+            {
+                if (attribute.IsNamespaceDeclaration)
+                {
+                    continue;
+                }
+
+                var attributeName = attribute.Name.LocalName;
+                if (string.Equals(attributeName, GetXmlAttributeName(entityMap.IdProperty), StringComparison.Ordinal))
+                {
+                    entityMap.IdProperty.SetValue(row, attribute.Value);
+                    continue;
+                }
+
+                var relationship = entityMap.RelationshipProperties
+                    .FirstOrDefault(item => string.Equals(item.Name, attributeName, StringComparison.Ordinal));
+                if (relationship != null)
+                {
+                    relationshipValues[relationship] = attribute.Value;
+                    continue;
+                }
+
+                throw new InvalidDataException(
+                    $"Unknown XML attribute '{attributeName}' on '{entityMap.EntityName}' in '{shardPath}'.");
+            }
+
+            var seenScalars = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var valueElement in rowElement.Elements())
+            {
+                var scalar = entityMap.ScalarProperties
+                    .FirstOrDefault(item => string.Equals(item.XmlElementName, valueElement.Name.LocalName, StringComparison.Ordinal));
+                if (scalar == null)
+                {
+                    throw new InvalidDataException(
+                        $"Unknown XML element '{valueElement.Name.LocalName}' on '{entityMap.EntityName}' in '{shardPath}'.");
+                }
+
+                if (!seenScalars.Add(scalar.XmlElementName))
+                {
+                    throw new InvalidDataException(
+                        $"Duplicate XML element '{scalar.XmlElementName}' on '{entityMap.EntityName}' in '{shardPath}'.");
+                }
+
+                scalar.Property.SetValue(row, valueElement.Value);
+            }
+
+            rows.Add(row);
+            pendingRows.Add(new PendingRow(entityMap, row, relationshipValues));
+        }
+    }
+
+    private static void ResolveReferences<TModel>(TModel model, ModelMap modelMap, IReadOnlyList<PendingRow> pendingRows)
+        where TModel : class
+    {
+        var indexes = BuildIndexes(model, modelMap);
+        foreach (var pendingRow in pendingRows)
+        {
+            ValidateRequiredScalars(pendingRow.EntityMap, pendingRow.Row);
+        }
+
+        var pendingByEntity = pendingRows
+            .GroupBy(item => item.EntityMap.EntityName, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(item => item.Key, item => item.ToList(), StringComparer.OrdinalIgnoreCase);
+        foreach (var entityMap in modelMap.LoadOrder)
+        {
+            if (!pendingByEntity.TryGetValue(entityMap.EntityName, out var entityRows))
+            {
+                continue;
+            }
+
+            foreach (var pendingRow in entityRows)
+            {
+                foreach (var relationship in entityMap.RelationshipProperties)
+                {
+                    pendingRow.RelationshipValues.TryGetValue(relationship, out var targetId);
+                    var normalizedTargetId = NormalizeIdentity(targetId);
+                    if (string.IsNullOrEmpty(normalizedTargetId))
+                    {
+                        if (relationship.IsRequired)
+                        {
+                            throw new InvalidDataException(
+                                $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, pendingRow.Row)}' is empty.");
+                        }
+
+                        relationship.Property.SetValue(pendingRow.Row, null);
+                        continue;
+                    }
+
+                    var targetIndex = indexes[relationship.TargetEntityName];
+                    if (!targetIndex.TryGetValue(normalizedTargetId, out var target))
+                    {
+                        throw new InvalidDataException(
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, pendingRow.Row)}' points to missing Id '{normalizedTargetId}'.");
+                    }
+
+                    relationship.Property.SetValue(pendingRow.Row, target);
+                }
+            }
+        }
+    }
+
+    private static Dictionary<string, Dictionary<string, object>> ValidateForSave<TModel>(
+        TModel model,
+        ModelMap modelMap)
+        where TModel : class
+    {
+        var indexes = BuildIndexes(model, modelMap);
+        foreach (var entityMap in modelMap.EntityMaps)
+        {
+            foreach (var row in entityMap.ShardProperty.GetList(model))
+            {
+                if (row == null)
+                {
+                    throw new InvalidOperationException($"Entity '{entityMap.EntityName}' contains a null row.");
+                }
+
+                ValidateRequiredScalars(entityMap, row);
+                foreach (var relationship in entityMap.RelationshipProperties)
+                {
+                    var target = relationship.Property.GetValue(row);
+                    if (target == null)
+                    {
+                        if (relationship.IsRequired)
+                        {
+                            throw new InvalidOperationException(
+                                $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' is empty.");
+                        }
+
+                        continue;
+                    }
+
+                    var targetEntity = modelMap.EntityMapsByName[relationship.TargetEntityName];
+                    var targetId = GetRequiredId(
+                        targetEntity,
+                        target,
+                        $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' references a target with empty Id.");
+                    if (!indexes[relationship.TargetEntityName].TryGetValue(targetId, out var canonical))
+                    {
+                        throw new InvalidOperationException(
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' points to missing Id '{targetId}'.");
+                    }
+
+                    if (!ReferenceEquals(canonical, target))
+                    {
+                        throw new InvalidOperationException(
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' references an object that is not the canonical row for Id '{targetId}'.");
+                    }
+                }
+            }
+        }
+
+        return indexes;
+    }
+
+    private static Dictionary<string, Dictionary<string, object>> BuildIndexes<TModel>(TModel model, ModelMap modelMap)
+        where TModel : class
+    {
+        var indexes = new Dictionary<string, Dictionary<string, object>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var entityMap in modelMap.EntityMaps)
+        {
+            var rowsById = new Dictionary<string, object>(StringComparer.Ordinal);
+            foreach (var row in entityMap.ShardProperty.GetList(model))
+            {
+                if (row == null)
+                {
+                    throw new InvalidOperationException($"Entity '{entityMap.EntityName}' contains a null row.");
+                }
+
+                var id = GetRequiredId(
+                    entityMap,
+                    row,
+                    $"Entity '{entityMap.EntityName}' contains a row with empty Id.");
+                if (!rowsById.TryAdd(id, row))
+                {
+                    throw new InvalidOperationException($"Entity '{entityMap.EntityName}' contains duplicate Id '{id}'.");
+                }
+            }
+
+            indexes[entityMap.EntityName] = rowsById;
+        }
+
+        return indexes;
+    }
+
+    private static void ValidateRequiredScalars(EntityMap entityMap, object row)
+    {
+        foreach (var scalar in entityMap.ScalarProperties.Where(item => item.IsRequired))
+        {
+            var value = scalar.Property.GetValue(row) as string;
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidOperationException(
+                    $"Entity '{entityMap.EntityName}' row '{GetId(entityMap, row)}' is missing required property '{scalar.Property.Name}'.");
+            }
+        }
+    }
+
+    private static byte[] SerializeModelToBytes(ModelMap modelMap)
+    {
+        var document = ModelXmlCodec.BuildDocument(BuildGenericModel(modelMap));
+        return Utf8NoBom.GetBytes(document.ToString(SaveOptions.None));
+    }
+
+    private static GenericModel BuildGenericModel(ModelMap modelMap)
+    {
+        var model = new GenericModel
+        {
+            Name = modelMap.RootElementName,
+        };
+
+        foreach (var entityMap in modelMap.EntityMaps
+                     .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.EntityName, StringComparer.Ordinal))
+        {
+            var entity = new GenericEntity
+            {
+                Name = entityMap.EntityName,
+            };
+            foreach (var scalar in entityMap.ScalarProperties)
+            {
+                entity.Properties.Add(new GenericProperty
+                {
+                    Name = scalar.XmlElementName,
+                    DataType = "string",
+                    IsNullable = !scalar.IsRequired,
+                });
+            }
+
+            foreach (var relationship in entityMap.RelationshipProperties)
+            {
+                entity.Relationships.Add(new GenericRelationship
+                {
+                    Entity = relationship.TargetEntityName,
+                    Role = string.Equals(relationship.Role, relationship.TargetEntityName, StringComparison.Ordinal)
+                        ? string.Empty
+                        : relationship.Role,
+                    IsNullable = !relationship.IsRequired,
+                });
+            }
+
+            model.Entities.Add(entity);
+        }
+
+        return model;
+    }
+
+    private static byte[] SerializeShardToBytes<TModel>(
+        TModel model,
+        ModelMap modelMap,
+        ShardProperty shardProperty,
+        IReadOnlyDictionary<string, Dictionary<string, object>> indexes)
+        where TModel : class
+    {
+        var root = new XElement(modelMap.RootElementName);
+        var listElement = new XElement(shardProperty.XmlArrayName);
+        var entityMap = shardProperty.EntityMap;
+        foreach (var row in shardProperty.GetList(model))
+        {
+            if (row == null)
+            {
+                throw new InvalidOperationException($"Entity '{entityMap.EntityName}' contains a null row.");
+            }
+
+            var rowElement = new XElement(shardProperty.XmlArrayItemName);
+            rowElement.Add(new XAttribute(GetXmlAttributeName(entityMap.IdProperty), GetRequiredId(
+                entityMap,
+                row,
+                $"Entity '{entityMap.EntityName}' contains a row with empty Id.")));
+
+            foreach (var relationship in entityMap.RelationshipProperties)
+            {
+                var target = relationship.Property.GetValue(row);
+                if (target == null)
+                {
+                    if (relationship.IsRequired)
+                    {
+                        throw new InvalidOperationException(
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' is empty.");
+                    }
+
+                    continue;
+                }
+
+                var targetEntity = modelMap.EntityMapsByName[relationship.TargetEntityName];
+                var targetId = GetRequiredId(
+                    targetEntity,
+                    target,
+                    $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' references a target with empty Id.");
+                if (!indexes[relationship.TargetEntityName].TryGetValue(targetId, out var canonical) ||
+                    !ReferenceEquals(canonical, target))
+                {
+                    throw new InvalidOperationException(
+                        $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, row)}' references an object that is not the canonical row for Id '{targetId}'.");
+                }
+
+                rowElement.Add(new XAttribute(relationship.Name, targetId));
+            }
+
+            foreach (var scalar in entityMap.ScalarProperties)
+            {
+                var value = scalar.Property.GetValue(row) as string ?? string.Empty;
+                if (!scalar.IsRequired && string.IsNullOrWhiteSpace(value))
+                {
+                    continue;
+                }
+
+                rowElement.Add(new XElement(scalar.XmlElementName, value));
+            }
+
+            listElement.Add(rowElement);
+        }
+
+        root.Add(listElement);
+        var document = new XDocument(new XDeclaration("1.0", "utf-8", null), root);
         using var stream = new MemoryStream();
         using (var writer = XmlWriter.Create(stream, new XmlWriterSettings
         {
@@ -273,50 +741,27 @@ public static class TypedWorkspaceXmlSerializer
             OmitXmlDeclaration = false,
         }))
         {
-            modelMap.Serializer.Serialize(writer, model);
+            document.Save(writer);
         }
 
         return stream.ToArray();
     }
 
-    private static void WriteBytesIfChanged(string path, byte[] contents)
+    private static string SaveModelDocument(string workspacePath, ModelMap modelMap)
     {
-        var directory = Path.GetDirectoryName(path);
-        if (!string.IsNullOrWhiteSpace(directory))
+        var workspaceRootPath = Path.GetFullPath(workspacePath);
+        Directory.CreateDirectory(workspaceRootPath);
+
+        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
+        if (!File.Exists(workspaceXmlPath))
         {
-            Directory.CreateDirectory(directory);
+            WriteWorkspaceDocument(workspaceXmlPath);
         }
 
-        if (File.Exists(path) && FileEquals(path, contents))
-        {
-            return;
-        }
+        var modelPath = ResolveModelFilePath(workspaceRootPath);
+        WriteBytesIfChanged(modelPath, SerializeModelToBytes(modelMap));
 
-        File.WriteAllBytes(path, contents);
-    }
-
-    private static void CopyFileIfChanged(string sourcePath, string destinationPath)
-    {
-        if (File.Exists(destinationPath) && FilesEqual(sourcePath, destinationPath))
-        {
-            return;
-        }
-
-        File.Copy(sourcePath, destinationPath, overwrite: true);
-    }
-
-    private static bool FilesEqual(string leftPath, string rightPath)
-    {
-        var leftInfo = new FileInfo(leftPath);
-        var rightInfo = new FileInfo(rightPath);
-        if (leftInfo.Length != rightInfo.Length)
-        {
-            return false;
-        }
-
-        using var left = File.OpenRead(leftPath);
-        using var right = File.OpenRead(rightPath);
-        return StreamsEqual(left, right);
+        return workspaceRootPath;
     }
 
     private static bool FileEquals(string path, ReadOnlySpan<byte> contents)
@@ -344,66 +789,6 @@ public static class TypedWorkspaceXmlSerializer
             }
 
             offset += read;
-        }
-    }
-
-    private static bool StreamsEqual(Stream left, Stream right)
-    {
-        Span<byte> leftBuffer = stackalloc byte[8192];
-        Span<byte> rightBuffer = stackalloc byte[8192];
-        while (true)
-        {
-            var leftRead = left.Read(leftBuffer);
-            var rightRead = right.Read(rightBuffer);
-            if (leftRead != rightRead)
-            {
-                return false;
-            }
-
-            if (leftRead == 0)
-            {
-                return true;
-            }
-
-            if (!leftBuffer[..leftRead].SequenceEqual(rightBuffer[..rightRead]))
-            {
-                return false;
-            }
-        }
-    }
-
-    private static void MergeShard<TModel>(TModel target, TModel source, ModelMap modelMap)
-        where TModel : class
-    {
-        foreach (var shardProperty in modelMap.ShardProperties)
-        {
-            var sourceRows = shardProperty.GetList(source);
-            if (sourceRows.Count == 0)
-            {
-                continue;
-            }
-
-            var targetRows = shardProperty.GetList(target);
-            foreach (var row in sourceRows)
-            {
-                targetRows.Add(row);
-            }
-        }
-    }
-
-    private static void MergeShardProperty<TModel>(TModel target, TModel source, ShardProperty shardProperty)
-        where TModel : class
-    {
-        var sourceRows = shardProperty.GetList(source);
-        if (sourceRows.Count == 0)
-        {
-            return;
-        }
-
-        var targetRows = shardProperty.GetList(target);
-        foreach (var row in sourceRows)
-        {
-            targetRows.Add(row);
         }
     }
 
@@ -542,44 +927,148 @@ public static class TypedWorkspaceXmlSerializer
             Utf8NoBom);
     }
 
-    private sealed record ModelMap(
-        Type ModelType,
-        string RootElementName,
-        IReadOnlyList<ShardProperty> ShardProperties,
-        IReadOnlyDictionary<string, ShardProperty> ShardPropertiesByFileName,
-        XmlSerializer Serializer);
+    private static string GetXmlAttributeName(PropertyInfo property)
+    {
+        var attribute = property.GetCustomAttribute<XmlAttributeAttribute>();
+        return string.IsNullOrWhiteSpace(attribute?.AttributeName)
+            ? property.Name
+            : attribute!.AttributeName;
+    }
+
+    private static string GetXmlElementName(PropertyInfo property)
+    {
+        var attribute = property.GetCustomAttribute<XmlElementAttribute>();
+        return string.IsNullOrWhiteSpace(attribute?.ElementName)
+            ? property.Name
+            : attribute!.ElementName;
+    }
+
+    private static string InferModelName(Type modelType)
+    {
+        return modelType.Name.EndsWith("Model", StringComparison.Ordinal) && modelType.Name.Length > "Model".Length
+            ? modelType.Name[..^"Model".Length]
+            : modelType.Name;
+    }
+
+    private static bool IsNullableProperty(PropertyInfo property)
+    {
+        if (Nullable.GetUnderlyingType(property.PropertyType) != null)
+        {
+            return true;
+        }
+
+        if (property.PropertyType.IsValueType)
+        {
+            return false;
+        }
+
+        var nullability = new NullabilityInfoContext().Create(property);
+        return nullability.WriteState == NullabilityState.Nullable ||
+               nullability.ReadState == NullabilityState.Nullable;
+    }
+
+    private static string GetId(EntityMap entityMap, object row)
+    {
+        return NormalizeIdentity(entityMap.IdProperty.GetValue(row) as string);
+    }
+
+    private static string GetRequiredId(EntityMap entityMap, object row, string errorMessage)
+    {
+        var id = GetId(entityMap, row);
+        if (string.IsNullOrEmpty(id))
+        {
+            throw new InvalidOperationException(errorMessage);
+        }
+
+        return id;
+    }
+
+    private static string NormalizeIdentity(string? value)
+    {
+        return value?.Trim() ?? string.Empty;
+    }
+
+    private sealed class ModelMap
+    {
+        public ModelMap(
+            string rootElementName,
+            IReadOnlyList<ShardProperty> shardProperties,
+            IReadOnlyDictionary<string, ShardProperty> shardPropertiesByListElementName,
+            IReadOnlyDictionary<string, EntityMap> entityMapsByName,
+            IReadOnlyList<EntityMap> entityMaps)
+        {
+            RootElementName = rootElementName;
+            ShardProperties = shardProperties;
+            ShardPropertiesByListElementName = shardPropertiesByListElementName;
+            EntityMapsByName = entityMapsByName;
+            EntityMaps = entityMaps;
+            LoadOrder = entityMaps;
+        }
+
+        public string RootElementName { get; }
+        public IReadOnlyList<ShardProperty> ShardProperties { get; }
+        public IReadOnlyDictionary<string, ShardProperty> ShardPropertiesByListElementName { get; }
+        public IReadOnlyDictionary<string, EntityMap> EntityMapsByName { get; }
+        public IReadOnlyList<EntityMap> EntityMaps { get; }
+        public IReadOnlyList<EntityMap> LoadOrder { get; set; }
+    }
 
     private sealed class ShardProperty
     {
-        private ShardProperty(PropertyInfo property, Type itemType, string fileName)
+        private ShardProperty(
+            PropertyInfo property,
+            Type itemType,
+            string entityName,
+            string xmlArrayName,
+            string xmlArrayItemName,
+            string fileName)
         {
             Property = property;
             ItemType = itemType;
+            EntityName = entityName;
+            XmlArrayName = xmlArrayName;
+            XmlArrayItemName = xmlArrayItemName;
             FileName = fileName;
         }
 
         public PropertyInfo Property { get; }
         public Type ItemType { get; }
+        public string EntityName { get; }
+        public string XmlArrayName { get; }
+        public string XmlArrayItemName { get; }
         public string FileName { get; }
+        public EntityMap EntityMap { get; set; } = null!;
 
         public static ShardProperty? TryCreate(Type modelType, PropertyInfo property)
         {
             var xmlArray = property.GetCustomAttribute<XmlArrayAttribute>();
             var xmlArrayItem = property.GetCustomAttribute<XmlArrayItemAttribute>();
-            if (xmlArray == null || xmlArrayItem == null)
-            {
-                return null;
-            }
-
             if (!property.PropertyType.IsGenericType ||
                 property.PropertyType.GetGenericTypeDefinition() != typeof(List<>))
             {
-                throw new InvalidOperationException(
-                    $"Model type '{modelType.FullName}' property '{property.Name}' must be List<T> when marked with [XmlArray].");
+                if (xmlArray != null || xmlArrayItem != null)
+                {
+                    throw new InvalidOperationException(
+                        $"Model type '{modelType.FullName}' property '{property.Name}' must be List<T> when marked with XML collection attributes.");
+                }
+
+                return null;
             }
 
             var itemType = property.PropertyType.GetGenericArguments()[0];
-            return new ShardProperty(property, itemType, itemType.Name + ".xml");
+            var entityName = string.IsNullOrWhiteSpace(xmlArrayItem?.ElementName)
+                ? itemType.Name
+                : xmlArrayItem!.ElementName;
+            var xmlArrayName = string.IsNullOrWhiteSpace(xmlArray?.ElementName)
+                ? property.Name
+                : xmlArray!.ElementName;
+            return new ShardProperty(
+                property,
+                itemType,
+                entityName,
+                xmlArrayName,
+                entityName,
+                entityName + ".xml");
         }
 
         public IList GetList(object owner)
@@ -600,4 +1089,29 @@ public static class TypedWorkspaceXmlSerializer
             return created;
         }
     }
+
+    private sealed record EntityMap(
+        ShardProperty ShardProperty,
+        Type ItemType,
+        string EntityName,
+        PropertyInfo IdProperty,
+        IReadOnlyList<ScalarProperty> ScalarProperties,
+        IReadOnlyList<RelationshipProperty> RelationshipProperties);
+
+    private sealed record ScalarProperty(
+        PropertyInfo Property,
+        string XmlElementName,
+        bool IsRequired);
+
+    private sealed record RelationshipProperty(
+        PropertyInfo Property,
+        string Role,
+        string Name,
+        string TargetEntityName,
+        bool IsRequired);
+
+    private sealed record PendingRow(
+        EntityMap EntityMap,
+        object Row,
+        IReadOnlyDictionary<RelationshipProperty, string> RelationshipValues);
 }

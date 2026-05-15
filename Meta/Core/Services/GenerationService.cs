@@ -167,20 +167,19 @@ public static class GenerationService
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
             .ThenBy(entity => entity.Name, StringComparer.Ordinal)
             .ToList();
-        var modelName = workspace.Model.Name ?? string.Empty;
-        var rootNameLiteral = ToCSharpStringLiteral(string.IsNullOrWhiteSpace(modelName) ? "MetadataModel" : modelName);
-
         builder.AppendLine("using System;");
         builder.AppendLine("using System.Collections.Generic;");
         builder.AppendLine("using System.IO;");
+        builder.AppendLine("using System.Linq;");
+        builder.AppendLine("using System.Reflection;");
+        builder.AppendLine("using System.Text;");
         builder.AppendLine("using System.Threading;");
         builder.AppendLine("using System.Threading.Tasks;");
-        builder.AppendLine("using System.Xml.Serialization;");
+        builder.AppendLine("using System.Xml;");
         builder.AppendLine("using Meta.Core.Serialization;");
         builder.AppendLine();
         builder.AppendLine($"namespace {namespaceName}");
         builder.AppendLine("{");
-        builder.AppendLine($"    [XmlRoot({rootNameLiteral})]");
         builder.AppendLine($"    public sealed partial class {modelTypeName}");
         builder.AppendLine("    {");
         builder.AppendLine($"        public static {modelTypeName} CreateEmpty() => new();");
@@ -188,10 +187,7 @@ public static class GenerationService
 
         foreach (var entity in entities)
         {
-            builder.AppendLine($"        [XmlArray({ToCSharpStringLiteral(entity.GetListName())})]");
-            builder.AppendLine($"        [XmlArrayItem({ToCSharpStringLiteral(entity.Name)})]");
             builder.AppendLine($"        public List<{entity.Name}> {entity.GetListName()} {{ get; set; }} = new();");
-            builder.AppendLine($"        public bool ShouldSerialize{entity.GetListName()}() => {entity.GetListName()}.Count > 0;");
             builder.AppendLine();
         }
 
@@ -199,9 +195,7 @@ public static class GenerationService
         builder.AppendLine("            string workspacePath,");
         builder.AppendLine("            bool searchUpward = true)");
         builder.AppendLine("        {");
-        builder.AppendLine($"            var model = TypedWorkspaceXmlSerializer.Load<{modelTypeName}>(workspacePath, searchUpward);");
-        builder.AppendLine($"            {modelTypeName}Factory.Bind(model);");
-        builder.AppendLine("            return model;");
+        builder.AppendLine($"            return {modelTypeName}XmlSerializer.Load(workspacePath, searchUpward);");
         builder.AppendLine("        }");
         builder.AppendLine();
         builder.AppendLine($"        public static Task<{modelTypeName}> LoadFromXmlWorkspaceAsync(");
@@ -215,8 +209,7 @@ public static class GenerationService
         builder.AppendLine();
         builder.AppendLine("        public void SaveToXmlWorkspace(string workspacePath)");
         builder.AppendLine("        {");
-        builder.AppendLine($"            {modelTypeName}Factory.Bind(this);");
-        builder.AppendLine("            TypedWorkspaceXmlSerializer.Save(this, workspacePath, ResolveBundledModelXmlPath());");
+        builder.AppendLine($"            {modelTypeName}XmlSerializer.Save(this, workspacePath);");
         builder.AppendLine("        }");
         builder.AppendLine();
         builder.AppendLine("        public Task SaveToXmlWorkspaceAsync(");
@@ -227,33 +220,149 @@ public static class GenerationService
         builder.AppendLine("            SaveToXmlWorkspace(workspacePath);");
         builder.AppendLine("            return Task.CompletedTask;");
         builder.AppendLine("        }");
-        builder.AppendLine();
-        builder.AppendLine("        private static string? ResolveBundledModelXmlPath()");
-        builder.AppendLine("        {");
-        builder.AppendLine($"            var assemblyDirectory = Path.GetDirectoryName(typeof({modelTypeName}).Assembly.Location);");
-        builder.AppendLine("            if (string.IsNullOrWhiteSpace(assemblyDirectory))");
-        builder.AppendLine("            {");
-        builder.AppendLine("                return null;");
-        builder.AppendLine("            }");
-        builder.AppendLine();
-        builder.AppendLine("            var directPath = Path.Combine(assemblyDirectory, \"model.xml\");");
-        builder.AppendLine("            if (File.Exists(directPath))");
-        builder.AppendLine("            {");
-        builder.AppendLine("                return directPath;");
-        builder.AppendLine("            }");
-        builder.AppendLine();
-        builder.AppendLine($"            var namespacedPath = Path.Combine(assemblyDirectory, {ToCSharpStringLiteral(namespaceName)}, \"model.xml\");");
-        builder.AppendLine("            return File.Exists(namespacedPath) ? namespacedPath : null;");
-        builder.AppendLine("        }");
         builder.AppendLine("    }");
         builder.AppendLine();
-        builder.AppendLine($"    internal static class {modelTypeName}Factory");
+        AppendCSharpToolingModelXmlSerializer(builder, workspace.Model, modelTypeName, entities);
+        builder.AppendLine("}");
+        return NormalizeNewlines(builder.ToString());
+    }
+
+    private static void AppendCSharpToolingModelXmlSerializer(
+        StringBuilder builder,
+        GenericModel model,
+        string modelTypeName,
+        IReadOnlyList<GenericEntity> entities)
+    {
+        var rootName = string.IsNullOrWhiteSpace(model.Name) ? "MetadataModel" : model.Name;
+        var relationships = entities
+            .SelectMany(entity => entity.Relationships.Select(relationship => (Entity: entity, Relationship: relationship)))
+            .OrderBy(item => item.Entity.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Relationship.Entity, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Entity.Name, StringComparer.Ordinal)
+            .ThenBy(item => item.Relationship.GetColumnName(), StringComparer.Ordinal)
+            .ToList();
+        var relationshipEntities = relationships
+            .Select(item => item.Entity)
+            .Distinct()
+            .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.Name, StringComparer.Ordinal)
+            .ToList();
+
+        builder.AppendLine($"    internal static class {modelTypeName}XmlSerializer");
         builder.AppendLine("    {");
-        builder.AppendLine($"        internal static void Bind({modelTypeName} model)");
+        builder.AppendLine("        private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);");
+        builder.AppendLine();
+        builder.AppendLine($"        internal static {modelTypeName} Load(string workspacePath, bool searchUpward)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);");
+        builder.AppendLine("            if (HasRuntimeExtendedShape())");
+        builder.AppendLine("            {");
+        builder.AppendLine($"                return TypedWorkspaceXmlSerializer.Load<{modelTypeName}>(workspacePath, searchUpward);");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            var workspaceRootPath = searchUpward");
+        builder.AppendLine("                ? TypedWorkspaceXmlSerializer.DiscoverWorkspaceRoot(workspacePath)");
+        builder.AppendLine("                : TypedWorkspaceXmlSerializer.ResolveWorkspaceRootFromPath(workspacePath);");
+        builder.AppendLine("            if (!Directory.Exists(workspaceRootPath))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new DirectoryNotFoundException($\"Workspace '{workspaceRootPath}' was not found.\");");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine($"            var model = new {modelTypeName}();");
+        foreach (var entity in relationshipEntities)
+        {
+            builder.AppendLine($"            var {ToCamelIdentifier(entity.Name)}Relationships = new List<{entity.Name}Relationships>();");
+        }
+
+        if (relationshipEntities.Count > 0)
+        {
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("            var instanceDirectoryPath = TypedWorkspaceXmlSerializer.ResolveInstanceDirectoryPath(workspaceRootPath);");
+        builder.AppendLine("            if (!Directory.Exists(instanceDirectoryPath))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                return model;");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, \"*.xml\")");
+        builder.AppendLine("                         .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)");
+        builder.AppendLine("                         .ThenBy(path => path, StringComparer.Ordinal))");
+        builder.AppendLine("            {");
+        builder.Append("                LoadShard(model, shardPath");
+        foreach (var entity in relationshipEntities)
+        {
+            builder.Append($", {ToCamelIdentifier(entity.Name)}Relationships");
+        }
+
+        builder.AppendLine(");");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"            var {ToCamelIdentifier(entity.GetListName())}ById = BuildById(model.{entity.GetListName()}, row => row.Id, {ToCSharpStringLiteral(entity.Name)});");
+        }
+
+        if (entities.Count > 0)
+        {
+            builder.AppendLine();
+        }
+
+        foreach (var entity in relationshipEntities)
+        {
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(item => item.GetColumnName(), StringComparer.Ordinal))
+            {
+                var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
+                var targetIndex = ToCamelIdentifier(targetEntity.GetListName()) + "ById";
+                var relationshipList = ToCamelIdentifier(entity.Name) + "Relationships";
+                var relationshipMember = relationship.GetColumnName();
+                var navigationName = relationship.GetNavigationName();
+                builder.AppendLine($"            foreach (var relationship in {relationshipList})");
+                builder.AppendLine("            {");
+                if (relationship.IsNullable)
+                {
+                    builder.AppendLine($"                relationship.Row.{navigationName} = string.IsNullOrWhiteSpace(relationship.{relationshipMember})");
+                    builder.AppendLine("                    ? null");
+                    builder.AppendLine("                    : RequireTarget(");
+                    builder.AppendLine($"                        {targetIndex},");
+                    builder.AppendLine($"                        relationship.{relationshipMember},");
+                    builder.AppendLine($"                        {ToCSharpStringLiteral(entity.Name)},");
+                    builder.AppendLine("                        relationship.Row.Id,");
+                    builder.AppendLine($"                        {ToCSharpStringLiteral(relationshipMember)});");
+                }
+                else
+                {
+                    builder.AppendLine($"                relationship.Row.{navigationName} = RequireTarget(");
+                    builder.AppendLine($"                    {targetIndex},");
+                    builder.AppendLine($"                    relationship.{relationshipMember},");
+                    builder.AppendLine($"                    {ToCSharpStringLiteral(entity.Name)},");
+                    builder.AppendLine("                    relationship.Row.Id,");
+                    builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipMember)});");
+                }
+                builder.AppendLine("            }");
+                builder.AppendLine();
+            }
+        }
+
+        builder.AppendLine("            return model;");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine($"        internal static void Save({modelTypeName} model, string workspacePath)");
         builder.AppendLine("        {");
         builder.AppendLine("            ArgumentNullException.ThrowIfNull(model);");
+        builder.AppendLine("            ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);");
+        builder.AppendLine("            if (HasRuntimeExtendedShape())");
+        builder.AppendLine("            {");
+        builder.AppendLine("                TypedWorkspaceXmlSerializer.Save(model, workspacePath);");
+        builder.AppendLine("                return;");
+        builder.AppendLine("            }");
         builder.AppendLine();
-
+        builder.AppendLine("            TypedWorkspaceXmlSerializer.SaveModel(model, workspacePath);");
+        builder.AppendLine();
         foreach (var entity in entities)
         {
             builder.AppendLine($"            model.{entity.GetListName()} ??= new List<{entity.Name}>();");
@@ -266,7 +375,389 @@ public static class GenerationService
 
         foreach (var entity in entities)
         {
-            builder.AppendLine($"            Normalize{entity.GetListName()}(model);");
+            builder.AppendLine($"            var {ToCamelIdentifier(entity.GetListName())}ById = BuildById(model.{entity.GetListName()}, row => row.Id, {ToCSharpStringLiteral(entity.Name)});");
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("            var workspaceRootPath = Path.GetFullPath(workspacePath);");
+        builder.AppendLine("            var instanceDirectoryPath = TypedWorkspaceXmlSerializer.ResolveInstanceDirectoryPath(workspaceRootPath);");
+        builder.AppendLine("            Directory.CreateDirectory(instanceDirectoryPath);");
+        builder.AppendLine("            var expectedShardPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);");
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"            expectedShardPaths.Add(Path.GetFullPath(Path.Combine(instanceDirectoryPath, {ToCSharpStringLiteral(entity.Name + ".xml")})));");
+        }
+
+        builder.AppendLine();
+        foreach (var entity in entities)
+        {
+            var listName = entity.GetListName();
+            var shardName = entity.Name + ".xml";
+            builder.AppendLine($"            var {ToCamelIdentifier(entity.Name)}ShardPath = Path.Combine(instanceDirectoryPath, {ToCSharpStringLiteral(shardName)});");
+            builder.AppendLine($"            if (model.{listName}.Count == 0)");
+            builder.AppendLine("            {");
+            builder.AppendLine($"                DeleteIfExists({ToCamelIdentifier(entity.Name)}ShardPath);");
+            builder.AppendLine("            }");
+            builder.AppendLine("            else");
+            builder.AppendLine("            {");
+            builder.Append($"                TypedWorkspaceXmlSerializer.WriteBytesIfChanged({ToCamelIdentifier(entity.Name)}ShardPath, Serialize{entity.Name}Shard(model");
+            foreach (var indexEntity in entities)
+            {
+                builder.Append($", {ToCamelIdentifier(indexEntity.GetListName())}ById");
+            }
+
+            builder.AppendLine("));");
+            builder.AppendLine("            }");
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("            foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, \"*.xml\")");
+        builder.AppendLine("                         .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)");
+        builder.AppendLine("                         .ThenBy(path => path, StringComparer.Ordinal))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                if (!expectedShardPaths.Contains(Path.GetFullPath(shardPath)))");
+        builder.AppendLine("                {");
+        builder.AppendLine("                    File.Delete(shardPath);");
+        builder.AppendLine("                }");
+        builder.AppendLine("            }");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+
+        builder.Append("        private static void LoadShard(" + modelTypeName + " model, string shardPath");
+        foreach (var entity in relationshipEntities)
+        {
+            builder.Append($", List<{entity.Name}Relationships> {ToCamelIdentifier(entity.Name)}Relationships");
+        }
+
+        builder.AppendLine(")");
+        builder.AppendLine("        {");
+        builder.AppendLine("            using var reader = XmlReader.Create(shardPath, new XmlReaderSettings");
+        builder.AppendLine("            {");
+        builder.AppendLine("                IgnoreComments = true,");
+        builder.AppendLine("                IgnoreWhitespace = true,");
+        builder.AppendLine("            });");
+        builder.AppendLine("            reader.MoveToContent();");
+        builder.AppendLine($"            if (reader.NodeType != XmlNodeType.Element || !string.Equals(reader.LocalName, {ToCSharpStringLiteral(rootName)}, StringComparison.Ordinal))");
+        builder.AppendLine("            {");
+        builder.AppendLine($"                throw new InvalidDataException($\"Instance XML '{{shardPath}}' root must be <{rootName}>.\");");
+        builder.AppendLine("            }");
+        builder.AppendLine("            if (reader.IsEmptyElement)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                reader.Read();");
+        builder.AppendLine("                return;");
+        builder.AppendLine("            }");
+        builder.AppendLine($"            reader.ReadStartElement({ToCSharpStringLiteral(rootName)});");
+        builder.AppendLine("            while (reader.NodeType == XmlNodeType.Element)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                switch (reader.LocalName)");
+        builder.AppendLine("                {");
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"                    case {ToCSharpStringLiteral(entity.GetListName())}:");
+            builder.Append($"                        Load{entity.GetListName()}(model, reader");
+            if (entity.Relationships.Count > 0)
+            {
+                builder.Append($", {ToCamelIdentifier(entity.Name)}Relationships");
+            }
+
+            builder.AppendLine(");");
+            builder.AppendLine("                        break;");
+        }
+
+        builder.AppendLine("                    default:");
+        builder.AppendLine("                        throw new InvalidDataException($\"Unknown XML element '{reader.LocalName}' in '{shardPath}'.\");");
+        builder.AppendLine("                }");
+        builder.AppendLine("                reader.MoveToContent();");
+        builder.AppendLine("            }");
+        builder.AppendLine("            reader.ReadEndElement();");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+
+        foreach (var entity in entities)
+        {
+            AppendCSharpLoadEntityList(builder, modelTypeName, entity);
+            AppendCSharpReadEntity(builder, entity);
+            AppendCSharpSerializeEntityShard(builder, rootName, modelTypeName, entities, entity);
+        }
+
+        foreach (var entity in relationshipEntities)
+        {
+            builder.AppendLine($"        private sealed class {entity.Name}Relationships");
+            builder.AppendLine("        {");
+            builder.AppendLine($"            public {entity.Name} Row {{ get; set; }} = null!;");
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(item => item.GetColumnName(), StringComparer.Ordinal))
+            {
+                builder.AppendLine($"            public string {relationship.GetColumnName()} {{ get; set; }} = string.Empty;");
+            }
+
+            builder.AppendLine("        }");
+            builder.AppendLine();
+        }
+
+        AppendCSharpSerializerHelpers(builder, modelTypeName, entities);
+        builder.AppendLine("    }");
+        builder.AppendLine();
+    }
+
+    private static void AppendCSharpLoadEntityList(StringBuilder builder, string modelTypeName, GenericEntity entity)
+    {
+        builder.Append($"        private static void Load{entity.GetListName()}({modelTypeName} model, XmlReader reader");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.Append($", List<{entity.Name}Relationships> {ToCamelIdentifier(entity.Name)}Relationships");
+        }
+
+        builder.AppendLine(")");
+        builder.AppendLine("        {");
+        builder.AppendLine($"            if (reader.IsEmptyElement)");
+        builder.AppendLine("            {");
+        builder.AppendLine($"                reader.ReadStartElement({ToCSharpStringLiteral(entity.GetListName())});");
+        builder.AppendLine("                return;");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine($"            reader.ReadStartElement({ToCSharpStringLiteral(entity.GetListName())});");
+        builder.AppendLine("            while (reader.NodeType == XmlNodeType.Element)");
+        builder.AppendLine("            {");
+        builder.AppendLine($"                if (!string.Equals(reader.LocalName, {ToCSharpStringLiteral(entity.Name)}, StringComparison.Ordinal))");
+        builder.AppendLine("                {");
+        builder.AppendLine($"                    throw new InvalidDataException($\"Unknown XML element '{{reader.LocalName}}' in '{entity.GetListName()}'.\");");
+        builder.AppendLine("                }");
+        builder.Append($"                model.{entity.GetListName()}.Add(Read{entity.Name}(reader");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.Append($", {ToCamelIdentifier(entity.Name)}Relationships");
+        }
+
+        builder.AppendLine("));");
+        builder.AppendLine("                reader.MoveToContent();");
+        builder.AppendLine("            }");
+        builder.AppendLine("            reader.ReadEndElement();");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+    }
+
+    private static void AppendCSharpReadEntity(StringBuilder builder, GenericEntity entity)
+    {
+        builder.Append($"        private static {entity.Name} Read{entity.Name}(XmlReader reader");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.Append($", List<{entity.Name}Relationships> {ToCamelIdentifier(entity.Name)}Relationships");
+        }
+
+        builder.AppendLine(")");
+        builder.AppendLine("        {");
+        builder.AppendLine($"            var row = new {entity.Name}();");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.AppendLine($"            var relationships = new {entity.Name}Relationships {{ Row = row }};");
+        }
+
+        builder.AppendLine("            if (reader.HasAttributes)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                while (reader.MoveToNextAttribute())");
+        builder.AppendLine("                {");
+        builder.AppendLine("                    if (IsNamespaceDeclaration(reader))");
+        builder.AppendLine("                    {");
+        builder.AppendLine("                        continue;");
+        builder.AppendLine("                    }");
+        builder.AppendLine();
+        builder.AppendLine("                    switch (reader.LocalName)");
+        builder.AppendLine("                    {");
+        builder.AppendLine("                        case \"Id\":");
+        builder.AppendLine("                            row.Id = reader.Value;");
+        builder.AppendLine("                            break;");
+        foreach (var relationship in entity.Relationships
+                     .OrderBy(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.GetColumnName(), StringComparer.Ordinal))
+        {
+            builder.AppendLine($"                        case {ToCSharpStringLiteral(relationship.GetColumnName())}:");
+            builder.AppendLine($"                            relationships.{relationship.GetColumnName()} = reader.Value;");
+            builder.AppendLine("                            break;");
+        }
+
+        builder.AppendLine("                        default:");
+        builder.AppendLine($"                            throw new InvalidDataException($\"Unknown XML attribute '{{reader.LocalName}}' on '{entity.Name}'.\");");
+        builder.AppendLine("                    }");
+        builder.AppendLine("                }");
+        builder.AppendLine();
+        builder.AppendLine("                reader.MoveToElement();");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            if (reader.IsEmptyElement)");
+        builder.AppendLine("            {");
+        builder.AppendLine($"                reader.ReadStartElement({ToCSharpStringLiteral(entity.Name)});");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.AppendLine($"                {ToCamelIdentifier(entity.Name)}Relationships.Add(relationships);");
+        }
+
+        builder.AppendLine("                return row;");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine($"            reader.ReadStartElement({ToCSharpStringLiteral(entity.Name)});");
+        builder.AppendLine("            while (reader.NodeType == XmlNodeType.Element)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                switch (reader.LocalName)");
+        builder.AppendLine("                {");
+        foreach (var property in entity.Properties
+                     .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                     .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(property => property.Name, StringComparer.Ordinal))
+        {
+            builder.AppendLine($"                    case {ToCSharpStringLiteral(property.Name)}:");
+            builder.AppendLine($"                        row.{property.Name} = reader.ReadElementContentAsString();");
+            builder.AppendLine("                        break;");
+        }
+
+        builder.AppendLine("                    default:");
+        builder.AppendLine($"                        throw new InvalidDataException($\"Unknown XML element '{{reader.LocalName}}' on '{entity.Name}'.\");");
+        builder.AppendLine("                }");
+        builder.AppendLine("            }");
+        builder.AppendLine("            reader.ReadEndElement();");
+        if (entity.Relationships.Count > 0)
+        {
+            builder.AppendLine($"            {ToCamelIdentifier(entity.Name)}Relationships.Add(relationships);");
+        }
+
+        builder.AppendLine("            return row;");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+    }
+
+    private static void AppendCSharpSerializeEntityShard(
+        StringBuilder builder,
+        string rootName,
+        string modelTypeName,
+        IReadOnlyList<GenericEntity> entities,
+        GenericEntity entity)
+    {
+        builder.Append($"        private static byte[] Serialize{entity.Name}Shard({modelTypeName} model");
+        foreach (var indexEntity in entities)
+        {
+            builder.Append($", Dictionary<string, {indexEntity.Name}> {ToCamelIdentifier(indexEntity.GetListName())}ById");
+        }
+
+        builder.AppendLine(")");
+        builder.AppendLine("        {");
+        builder.AppendLine("            var builder = new StringBuilder();");
+        builder.AppendLine("            builder.Append(\"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\"?>\\n\");");
+        builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("<" + rootName + ">\n")});");
+        builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("  <" + entity.GetListName() + ">\n")});");
+        builder.AppendLine($"            foreach (var row in model.{entity.GetListName()})");
+        builder.AppendLine("            {");
+        builder.AppendLine("                ArgumentNullException.ThrowIfNull(row);");
+        builder.AppendLine($"                builder.Append({ToCSharpStringLiteral("    <" + entity.Name + " Id=\"")});");
+        builder.AppendLine($"                AppendXmlAttribute(builder, RequireIdentity(row.Id, {ToCSharpStringLiteral($"Entity '{entity.Name}' contains a row with empty Id.")}));");
+        builder.AppendLine("                builder.Append('\"');");
+        foreach (var relationship in entity.Relationships
+                     .OrderBy(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.GetColumnName(), StringComparer.Ordinal))
+        {
+            var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
+            var targetIndexName = ToCamelIdentifier(targetEntity.GetListName()) + "ById";
+            var navigationName = relationship.GetNavigationName();
+            if (relationship.IsNullable)
+            {
+                builder.AppendLine($"                if (row.{navigationName} != null)");
+                builder.AppendLine("                {");
+                AppendCSharpRelationshipAttributeWrite(builder, entity, relationship, targetIndexName, navigationName, indent: "                    ");
+                builder.AppendLine("                }");
+            }
+            else
+            {
+                AppendCSharpRelationshipAttributeWrite(builder, entity, relationship, targetIndexName, navigationName, indent: "                ");
+            }
+        }
+
+        builder.AppendLine("                builder.Append(\">\\n\");");
+        foreach (var property in entity.Properties
+                     .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                     .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(property => property.Name, StringComparer.Ordinal))
+        {
+            if (property.IsNullable)
+            {
+                builder.AppendLine($"                if (!string.IsNullOrWhiteSpace(row.{property.Name}))");
+                builder.AppendLine("                {");
+                builder.AppendLine($"                    AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, row.{property.Name}!, \"      \");");
+                builder.AppendLine("                }");
+            }
+            else
+            {
+                builder.AppendLine($"                AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, RequireText(row.{property.Name}, $\"Entity '{entity.Name}' row '{{row.Id}}' is missing required property '{property.Name}'.\"), \"      \");");
+            }
+        }
+
+        builder.AppendLine($"                builder.Append({ToCSharpStringLiteral("    </" + entity.Name + ">\n")});");
+        builder.AppendLine("            }");
+        builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("  </" + entity.GetListName() + ">\n")});");
+        builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("</" + rootName + ">\n")});");
+        builder.AppendLine("            return Utf8NoBom.GetBytes(builder.ToString());");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+    }
+
+    private static void AppendCSharpRelationshipAttributeWrite(
+        StringBuilder builder,
+        GenericEntity entity,
+        GenericRelationship relationship,
+        string targetIndexName,
+        string navigationName,
+        string indent)
+    {
+        builder.AppendLine($"{indent}var {ToCamelIdentifier(relationship.GetColumnName())} = RequireIdentity(row.{navigationName}?.Id, $\"Relationship '{entity.Name}.{relationship.GetColumnName()}' on row '{entity.Name}:{{row.Id}}' is empty.\");");
+        builder.AppendLine($"{indent}if (!{targetIndexName}.TryGetValue({ToCamelIdentifier(relationship.GetColumnName())}, out var {ToCamelIdentifier(navigationName)}Canonical) || !ReferenceEquals({ToCamelIdentifier(navigationName)}Canonical, row.{navigationName}))");
+        builder.AppendLine($"{indent}{{");
+        builder.AppendLine($"{indent}    throw new InvalidOperationException($\"Relationship '{entity.Name}.{relationship.GetColumnName()}' on row '{entity.Name}:{{row.Id}}' references an object that is not the canonical row for Id '{{{ToCamelIdentifier(relationship.GetColumnName())}}}'.\");");
+        builder.AppendLine($"{indent}}}");
+        builder.AppendLine($"{indent}builder.Append(' ');");
+        builder.AppendLine($"{indent}builder.Append({ToCSharpStringLiteral(relationship.GetColumnName())});");
+        builder.AppendLine($"{indent}builder.Append(\"=\\\"\");");
+        builder.AppendLine($"{indent}AppendXmlAttribute(builder, {ToCamelIdentifier(relationship.GetColumnName())});");
+        builder.AppendLine($"{indent}builder.Append('\"');");
+    }
+
+    private static void AppendCSharpSerializerHelpers(StringBuilder builder, string modelTypeName, IReadOnlyList<GenericEntity> entities)
+    {
+        builder.AppendLine("        private static bool HasRuntimeExtendedShape()");
+        builder.AppendLine("        {");
+        builder.AppendLine("            var knownLists = new HashSet<string>(StringComparer.Ordinal)");
+        builder.AppendLine("            {");
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"                {ToCSharpStringLiteral(entity.GetListName())},");
+        }
+
+        builder.AppendLine("            };");
+        foreach (var entity in entities)
+        {
+            builder.AppendLine($"            if (HasUnexpectedProperties(typeof({entity.Name}), new HashSet<string>(StringComparer.Ordinal)");
+            builder.AppendLine("                {");
+            builder.AppendLine("                    \"Id\",");
+            foreach (var property in entity.Properties
+                         .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                         .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(property => property.Name, StringComparer.Ordinal))
+            {
+                builder.AppendLine($"                    {ToCSharpStringLiteral(property.Name)},");
+            }
+
+            foreach (var relationship in entity.Relationships
+                         .OrderBy(relationship => relationship.GetNavigationName(), StringComparer.OrdinalIgnoreCase)
+                         .ThenBy(relationship => relationship.GetNavigationName(), StringComparer.Ordinal))
+            {
+                builder.AppendLine($"                    {ToCSharpStringLiteral(relationship.GetNavigationName())},");
+            }
+
+            builder.AppendLine("                }))");
+            builder.AppendLine("            {");
+            builder.AppendLine("                return true;");
+            builder.AppendLine("            }");
         }
 
         if (entities.Count > 0)
@@ -274,113 +765,21 @@ public static class GenerationService
             builder.AppendLine();
         }
 
-        foreach (var entity in entities)
-        {
-            builder.AppendLine(
-                $"            var {ToCamelIdentifier(entity.GetListName())}ById = BuildById(model.{entity.GetListName()}, row => row.Id, {ToCSharpStringLiteral(entity.Name)});");
-        }
-
-        var relationships = entities
-            .SelectMany(entity => entity.Relationships.Select(relationship => (Entity: entity, Relationship: relationship)))
-            .OrderBy(item => item.Entity.Name, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Relationship.Entity, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(item => item.Entity.Name, StringComparer.Ordinal)
-            .ThenBy(item => item.Relationship.GetColumnName(), StringComparer.Ordinal)
-            .ToList();
-        if (relationships.Count > 0)
-        {
-            builder.AppendLine();
-        }
-
-        foreach (var pair in relationships)
-        {
-            var targetEntity = entities.First(target => string.Equals(target.Name, pair.Relationship.Entity, StringComparison.OrdinalIgnoreCase));
-            var relationshipIdName = pair.Relationship.GetColumnName();
-            var navigationName = pair.Relationship.GetNavigationName();
-            builder.AppendLine($"            foreach (var row in model.{pair.Entity.GetListName()})");
-            builder.AppendLine("            {");
-            if (pair.Relationship.IsNullable)
-            {
-                builder.AppendLine($"                row.{relationshipIdName} = ResolveOptionalRelationshipId(");
-                builder.AppendLine($"                    row.{relationshipIdName},");
-                builder.AppendLine($"                    row.{navigationName}?.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
-                builder.AppendLine("                    row.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
-                builder.AppendLine($"                row.{navigationName} = string.IsNullOrEmpty(row.{relationshipIdName})");
-                builder.AppendLine("                    ? null");
-                builder.AppendLine("                    : RequireTarget(");
-                builder.AppendLine($"                        {ToCamelIdentifier(targetEntity.GetListName())}ById,");
-                builder.AppendLine($"                        row.{relationshipIdName},");
-                builder.AppendLine($"                        {ToCSharpStringLiteral(pair.Entity.Name)},");
-                builder.AppendLine("                        row.Id,");
-                builder.AppendLine($"                        {ToCSharpStringLiteral(relationshipIdName)});");
-            }
-            else
-            {
-                builder.AppendLine($"                row.{relationshipIdName} = ResolveRelationshipId(");
-                builder.AppendLine($"                    row.{relationshipIdName},");
-                builder.AppendLine($"                    row.{navigationName}?.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
-                builder.AppendLine("                    row.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
-                builder.AppendLine($"                row.{navigationName} = RequireTarget(");
-                builder.AppendLine($"                    {ToCamelIdentifier(targetEntity.GetListName())}ById,");
-                builder.AppendLine($"                    row.{relationshipIdName},");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(pair.Entity.Name)},");
-                builder.AppendLine("                    row.Id,");
-                builder.AppendLine($"                    {ToCSharpStringLiteral(relationshipIdName)});");
-            }
-            builder.AppendLine("            }");
-            builder.AppendLine();
-        }
-
+        builder.AppendLine($"            return typeof({modelTypeName}).GetProperties(BindingFlags.Instance | BindingFlags.Public)");
+        builder.AppendLine("                .Any(property =>");
+        builder.AppendLine("                    property.PropertyType.IsGenericType &&");
+        builder.AppendLine("                    property.PropertyType.GetGenericTypeDefinition() == typeof(List<>) &&");
+        builder.AppendLine("                    !knownLists.Contains(property.Name));");
         builder.AppendLine("        }");
         builder.AppendLine();
-
-        foreach (var entity in entities)
-        {
-            builder.AppendLine($"        private static void Normalize{entity.GetListName()}({modelTypeName} model)");
-            builder.AppendLine("        {");
-            builder.AppendLine($"            foreach (var row in model.{entity.GetListName()})");
-            builder.AppendLine("            {");
-            builder.AppendLine("                ArgumentNullException.ThrowIfNull(row);");
-            builder.AppendLine($"                row.Id = RequireIdentity(row.Id, {ToCSharpStringLiteral($"Entity '{entity.Name}' contains a row with empty Id.")});");
-
-            foreach (var property in entity.Properties
-                         .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-                         .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(property => property.Name, StringComparer.Ordinal))
-            {
-                if (property.IsNullable)
-                {
-                    builder.AppendLine($"                row.{property.Name} ??= string.Empty;");
-                }
-                else
-                {
-                    builder.AppendLine(
-                        $"                row.{property.Name} = RequireText(row.{property.Name}, $\"Entity '{entity.Name}' row '{{row.Id}}' is missing required property '{property.Name}'.\");");
-                }
-            }
-
-            foreach (var relationship in entity.Relationships
-                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
-            {
-                builder.AppendLine($"                row.{relationship.GetColumnName()} ??= string.Empty;");
-            }
-
-            builder.AppendLine("            }");
-            builder.AppendLine("        }");
-            builder.AppendLine();
-        }
-
-        builder.AppendLine("        private static Dictionary<string, T> BuildById<T>(");
-        builder.AppendLine("            IEnumerable<T> rows,");
-        builder.AppendLine("            Func<T, string> getId,");
-        builder.AppendLine("            string entityName)");
+        builder.AppendLine("        private static bool HasUnexpectedProperties(Type type, HashSet<string> knownProperties)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public)");
+        builder.AppendLine("                .Where(property => property.CanRead && property.CanWrite && property.GetIndexParameters().Length == 0)");
+        builder.AppendLine("                .Any(property => !knownProperties.Contains(property.Name));");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)");
         builder.AppendLine("            where T : class");
         builder.AppendLine("        {");
         builder.AppendLine("            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);");
@@ -393,78 +792,27 @@ public static class GenerationService
         builder.AppendLine("                    throw new InvalidOperationException($\"Entity '{entityName}' contains duplicate Id '{id}'.\");");
         builder.AppendLine("                }");
         builder.AppendLine("            }");
-        builder.AppendLine();
         builder.AppendLine("            return rowsById;");
         builder.AppendLine("        }");
         builder.AppendLine();
-        builder.AppendLine("        private static T RequireTarget<T>(");
-        builder.AppendLine("            Dictionary<string, T> rowsById,");
-        builder.AppendLine("            string targetId,");
-        builder.AppendLine("            string sourceEntityName,");
-        builder.AppendLine("            string sourceId,");
-        builder.AppendLine("            string relationshipName)");
+        builder.AppendLine("        private static T RequireTarget<T>(Dictionary<string, T> rowsById, string targetId, string sourceEntityName, string sourceId, string relationshipName)");
         builder.AppendLine("            where T : class");
         builder.AppendLine("        {");
         builder.AppendLine("            var normalizedTargetId = RequireIdentity(targetId, $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\");");
         builder.AppendLine("            if (!rowsById.TryGetValue(normalizedTargetId, out var target))");
         builder.AppendLine("            {");
-        builder.AppendLine("                throw new InvalidOperationException($\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{normalizedTargetId}'.\");");
+        builder.AppendLine("                throw new InvalidDataException($\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{normalizedTargetId}'.\");");
         builder.AppendLine("            }");
-        builder.AppendLine();
         builder.AppendLine("            return target;");
-        builder.AppendLine("        }");
-        builder.AppendLine();
-        builder.AppendLine("        private static string ResolveRelationshipId(");
-        builder.AppendLine("            string relationshipId,");
-        builder.AppendLine("            string? navigationId,");
-        builder.AppendLine("            string sourceEntityName,");
-        builder.AppendLine("            string sourceId,");
-        builder.AppendLine("            string relationshipName)");
-        builder.AppendLine("        {");
-        builder.AppendLine("            var normalizedRelationshipId = NormalizeIdentity(relationshipId);");
-        builder.AppendLine("            var normalizedNavigationId = NormalizeIdentity(navigationId);");
-        builder.AppendLine("            if (!string.IsNullOrEmpty(normalizedRelationshipId) &&");
-        builder.AppendLine("                !string.IsNullOrEmpty(normalizedNavigationId) &&");
-        builder.AppendLine("                !string.Equals(normalizedRelationshipId, normalizedNavigationId, StringComparison.Ordinal))");
-        builder.AppendLine("            {");
-        builder.AppendLine("                throw new InvalidOperationException($\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' conflicts between '{normalizedRelationshipId}' and '{normalizedNavigationId}'.\");");
-        builder.AppendLine("            }");
-        builder.AppendLine();
-        builder.AppendLine("            var resolvedTargetId = string.IsNullOrEmpty(normalizedRelationshipId)");
-        builder.AppendLine("                ? normalizedNavigationId");
-        builder.AppendLine("                : normalizedRelationshipId;");
-        builder.AppendLine("            return RequireIdentity(resolvedTargetId, $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\");");
-        builder.AppendLine("        }");
-        builder.AppendLine();
-        builder.AppendLine("        private static string ResolveOptionalRelationshipId(");
-        builder.AppendLine("            string relationshipId,");
-        builder.AppendLine("            string? navigationId,");
-        builder.AppendLine("            string sourceEntityName,");
-        builder.AppendLine("            string sourceId,");
-        builder.AppendLine("            string relationshipName)");
-        builder.AppendLine("        {");
-        builder.AppendLine("            var normalizedRelationshipId = NormalizeIdentity(relationshipId);");
-        builder.AppendLine("            var normalizedNavigationId = NormalizeIdentity(navigationId);");
-        builder.AppendLine("            if (!string.IsNullOrEmpty(normalizedRelationshipId) &&");
-        builder.AppendLine("                !string.IsNullOrEmpty(normalizedNavigationId) &&");
-        builder.AppendLine("                !string.Equals(normalizedRelationshipId, normalizedNavigationId, StringComparison.Ordinal))");
-        builder.AppendLine("            {");
-        builder.AppendLine("                throw new InvalidOperationException($\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' conflicts between '{normalizedRelationshipId}' and '{normalizedNavigationId}'.\");");
-        builder.AppendLine("            }");
-        builder.AppendLine();
-        builder.AppendLine("            return string.IsNullOrEmpty(normalizedRelationshipId)");
-        builder.AppendLine("                ? normalizedNavigationId");
-        builder.AppendLine("                : normalizedRelationshipId;");
         builder.AppendLine("        }");
         builder.AppendLine();
         builder.AppendLine("        private static string RequireIdentity(string? value, string errorMessage)");
         builder.AppendLine("        {");
-        builder.AppendLine("            var normalizedValue = NormalizeIdentity(value);");
+        builder.AppendLine("            var normalizedValue = value?.Trim() ?? string.Empty;");
         builder.AppendLine("            if (string.IsNullOrEmpty(normalizedValue))");
         builder.AppendLine("            {");
         builder.AppendLine("                throw new InvalidOperationException(errorMessage);");
         builder.AppendLine("            }");
-        builder.AppendLine();
         builder.AppendLine("            return normalizedValue;");
         builder.AppendLine("        }");
         builder.AppendLine();
@@ -474,20 +822,67 @@ public static class GenerationService
         builder.AppendLine("            {");
         builder.AppendLine("                throw new InvalidOperationException(errorMessage);");
         builder.AppendLine("            }");
-        builder.AppendLine();
         builder.AppendLine("            return value;");
         builder.AppendLine("        }");
         builder.AppendLine();
-        builder.AppendLine("        private static string NormalizeIdentity(string? value)");
+        builder.AppendLine("        private static void AppendElement(StringBuilder builder, string name, string value, string indent)");
         builder.AppendLine("        {");
-        builder.AppendLine("            return string.IsNullOrWhiteSpace(value)");
-        builder.AppendLine("                ? string.Empty");
-        builder.AppendLine("                : value.Trim();");
+        builder.AppendLine("            builder.Append(indent);");
+        builder.AppendLine("            builder.Append('<');");
+        builder.AppendLine("            builder.Append(name);");
+        builder.AppendLine("            builder.Append('>');");
+        builder.AppendLine("            AppendXmlText(builder, value);");
+        builder.AppendLine("            builder.Append(\"</\");");
+        builder.AppendLine("            builder.Append(name);");
+        builder.AppendLine("            builder.Append(\">\\n\");");
         builder.AppendLine("        }");
-        builder.AppendLine("    }");
-        builder.AppendLine("}");
-        return NormalizeNewlines(builder.ToString());
+        builder.AppendLine();
+        builder.AppendLine("        private static void AppendXmlAttribute(StringBuilder builder, string value)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            foreach (var character in value)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                switch (character)");
+        builder.AppendLine("                {");
+        builder.AppendLine("                    case '&': builder.Append(\"&amp;\"); break;");
+        builder.AppendLine("                    case '<': builder.Append(\"&lt;\"); break;");
+        builder.AppendLine("                    case '>': builder.Append(\"&gt;\"); break;");
+        builder.AppendLine("                    case '\"': builder.Append(\"&quot;\"); break;");
+        builder.AppendLine("                    case '\\'': builder.Append(\"&apos;\"); break;");
+        builder.AppendLine("                    default: builder.Append(character); break;");
+        builder.AppendLine("                }");
+        builder.AppendLine("            }");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static void AppendXmlText(StringBuilder builder, string value)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            foreach (var character in value)");
+        builder.AppendLine("            {");
+        builder.AppendLine("                switch (character)");
+        builder.AppendLine("                {");
+        builder.AppendLine("                    case '&': builder.Append(\"&amp;\"); break;");
+        builder.AppendLine("                    case '<': builder.Append(\"&lt;\"); break;");
+        builder.AppendLine("                    case '>': builder.Append(\"&gt;\"); break;");
+        builder.AppendLine("                    default: builder.Append(character); break;");
+        builder.AppendLine("                }");
+        builder.AppendLine("            }");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static bool IsNamespaceDeclaration(XmlReader reader)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            return string.Equals(reader.Prefix, \"xmlns\", StringComparison.Ordinal) ||");
+        builder.AppendLine("                   string.Equals(reader.LocalName, \"xmlns\", StringComparison.Ordinal);");
+        builder.AppendLine("        }");
+        builder.AppendLine();
+        builder.AppendLine("        private static void DeleteIfExists(string path)");
+        builder.AppendLine("        {");
+        builder.AppendLine("            if (File.Exists(path))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                File.Delete(path);");
+        builder.AppendLine("            }");
+        builder.AppendLine("        }");
+        builder.AppendLine();
     }
+
     public static GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory)
     {
         if (workspace == null)
@@ -822,17 +1217,6 @@ public static class GenerationService
                     builder.AppendLine($"                    {property.Name} = {ToCSharpStringLiteral(value)},");
                 }
 
-                foreach (var relationship in entity.Relationships
-                             .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                             .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
-                             .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
-                {
-                    var relationshipValue = record.RelationshipIds.TryGetValue(relationship.GetColumnName(), out var relationshipId)
-                        ? relationshipId ?? string.Empty
-                        : string.Empty;
-                    builder.AppendLine($"                    {relationship.GetColumnName()} = {ToCSharpStringLiteral(relationshipValue)},");
-                }
-
                 builder.AppendLine("                },");
             }
 
@@ -854,36 +1238,43 @@ public static class GenerationService
         foreach (var entity in entities)
         {
             var rowsVar = ToCamelIdentifier(entity.GetListName());
-            foreach (var relationship in entity.Relationships
-                         .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
+            var records = workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var entityRecords)
+                ? entityRecords
+                    .OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase)
+                    .ThenBy(record => record.Id, StringComparer.Ordinal)
+                    .ToList()
+                : new List<GenericRecord>();
+            for (var recordIndex = 0; recordIndex < records.Count; recordIndex++)
             {
-                var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
-                var targetVar = ToCamelIdentifier(targetEntity.GetListName());
-                builder.AppendLine($"            foreach (var row in {rowsVar})");
-                builder.AppendLine("            {");
-                if (relationship.IsNullable)
+                var record = records[recordIndex];
+                foreach (var relationship in entity.Relationships
+                             .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
+                             .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
+                             .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
                 {
-                    builder.AppendLine($"                row.{relationship.GetNavigationName()} = string.IsNullOrWhiteSpace(row.{relationship.GetColumnName()})");
-                    builder.AppendLine("                    ? null");
-                    builder.AppendLine("                    : RequireTarget(");
-                    builder.AppendLine($"                        {targetVar}ById,");
-                    builder.AppendLine($"                        row.{relationship.GetColumnName()},");
-                    builder.AppendLine($"                        {ToCSharpStringLiteral(entity.Name)},");
-                    builder.AppendLine("                        row.Id,");
-                    builder.AppendLine($"                        {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                    var relationshipValue = record.RelationshipIds.TryGetValue(relationship.GetColumnName(), out var relationshipId)
+                        ? relationshipId ?? string.Empty
+                        : string.Empty;
+                    var targetEntity = entities.First(target => string.Equals(target.Name, relationship.Entity, StringComparison.OrdinalIgnoreCase));
+                    var targetVar = ToCamelIdentifier(targetEntity.GetListName());
+                    if (relationship.IsNullable && string.IsNullOrWhiteSpace(relationshipValue))
+                    {
+                        builder.AppendLine($"            {rowsVar}[{recordIndex.ToString(CultureInfo.InvariantCulture)}].{relationship.GetNavigationName()} = null;");
+                    }
+                    else
+                    {
+                        builder.AppendLine($"            {rowsVar}[{recordIndex.ToString(CultureInfo.InvariantCulture)}].{relationship.GetNavigationName()} = RequireTarget(");
+                        builder.AppendLine($"                {targetVar}ById,");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(relationshipValue)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(entity.Name)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(record.Id)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(relationship.GetColumnName())});");
+                    }
                 }
-                else
-                {
-                    builder.AppendLine($"                row.{relationship.GetNavigationName()} = RequireTarget(");
-                    builder.AppendLine($"                    {targetVar}ById,");
-                    builder.AppendLine($"                    row.{relationship.GetColumnName()},");
-                    builder.AppendLine($"                    {ToCSharpStringLiteral(entity.Name)},");
-                    builder.AppendLine("                    row.Id,");
-                    builder.AppendLine($"                    {ToCSharpStringLiteral(relationship.GetColumnName())});");
-                }
-                builder.AppendLine("            }");
+            }
+
+            if (records.Count > 0 && entity.Relationships.Count > 0)
+            {
                 builder.AppendLine();
             }
         }
@@ -934,43 +1325,25 @@ public static class GenerationService
     {
         var builder = new StringBuilder();
         AppendGeneratedCSharpHeader(builder, requiresTooling: requiresTooling, workspacePath: workspacePath);
-        builder.AppendLine("using System;");
-        builder.AppendLine("using System.Xml.Serialization;");
-        builder.AppendLine();
         builder.AppendLine($"namespace {namespaceName}");
         builder.AppendLine("{");
         builder.AppendLine($"    public sealed class {entity.Name}");
         builder.AppendLine("    {");
-        builder.AppendLine("        [XmlAttribute(\"Id\")]");
         builder.AppendLine("        public string Id { get; set; } = string.Empty;");
         builder.AppendLine();
-
-        foreach (var relationship in entity.Relationships
-                     .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
-        {
-            var relationshipName = relationship.GetColumnName();
-            builder.AppendLine($"        [XmlAttribute({ToCSharpStringLiteral(relationshipName)})]");
-            builder.AppendLine($"        public string {relationshipName} {{ get; set; }} = string.Empty;");
-            if (relationship.IsNullable)
-            {
-                builder.AppendLine($"        public bool ShouldSerialize{relationshipName}() => !string.IsNullOrWhiteSpace({relationshipName});");
-            }
-
-            builder.AppendLine();
-        }
 
         foreach (var property in entity.Properties
                      .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
                      .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(property => property.Name, StringComparer.Ordinal))
         {
-            builder.AppendLine($"        [XmlElement({ToCSharpStringLiteral(property.Name)})]");
-            builder.AppendLine($"        public string {property.Name} {{ get; set; }} = string.Empty;");
             if (property.IsNullable)
             {
-                builder.AppendLine($"        public bool ShouldSerialize{property.Name}() => !string.IsNullOrWhiteSpace({property.Name});");
+                builder.AppendLine($"        public string? {property.Name} {{ get; set; }}");
+            }
+            else
+            {
+                builder.AppendLine($"        public string {property.Name} {{ get; set; }} = string.Empty;");
             }
 
             builder.AppendLine();
@@ -982,7 +1355,6 @@ public static class GenerationService
                      .ThenBy(relationship => relationship.GetColumnName(), StringComparer.Ordinal))
         {
             var navigationName = relationship.GetNavigationName();
-            builder.AppendLine("        [XmlIgnore]");
             if (relationship.IsNullable)
             {
                 builder.AppendLine($"        public {relationship.Entity}? {navigationName} {{ get; set; }}");
@@ -991,6 +1363,7 @@ public static class GenerationService
             {
                 builder.AppendLine($"        public {relationship.Entity} {navigationName} {{ get; set; }} = null!;");
             }
+
             builder.AppendLine();
         }
 
