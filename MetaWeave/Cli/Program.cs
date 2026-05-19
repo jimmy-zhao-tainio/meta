@@ -1,5 +1,6 @@
 using Meta.Core.Domain;
 using Meta.Core.Presentation;
+using Meta.Core.Presentation.Cli;
 using Meta.Core.Services;
 using MetaWeave.Core;
 
@@ -8,6 +9,90 @@ internal static class Program
     private const int PersistRetryCount = 3;
     private static readonly TimeSpan PersistRetryDelay = TimeSpan.FromMilliseconds(50);
     private static readonly ConsolePresenter Presenter = new();
+    private static readonly CliAppDefinition Cli = new(
+        "meta-weave",
+        new[] { "meta-weave <command> [options]" },
+        new[]
+        {
+            new CliCommandDefinition(
+                "help",
+                "Show this help.",
+                new[] { "meta-weave help" }),
+            new CliCommandDefinition(
+                "init",
+                "Create a new MetaWeave workspace.",
+                new[] { "meta-weave init --new-workspace <path>" },
+                new[]
+                {
+                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the new MetaWeave workspace.")
+                },
+                new[] { "Creates a new workspace with the MetaWeave model and validates it." }),
+            new CliCommandDefinition(
+                "add-model",
+                "Add a referenced model workspace.",
+                new[] { "meta-weave add-model --workspace <path> --alias <alias> --model <modelName> --workspace-path <path>" },
+                new[]
+                {
+                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to update."),
+                    new CliOptionDefinition("--alias <alias>", "Required. Local model alias used by bindings."),
+                    new CliOptionDefinition("--model <modelName>", "Required. Referenced model name."),
+                    new CliOptionDefinition("--workspace-path <path>", "Required. Referenced model workspace path.")
+                }),
+            new CliCommandDefinition(
+                "add-binding",
+                "Add a property binding between two model references.",
+                new[] { "meta-weave add-binding --workspace <path> --name <bindingName> --source-model <alias> --source-entity <entity> --source-property <property> --target-model <alias> --target-entity <entity> --target-property <property>" },
+                new[]
+                {
+                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to update."),
+                    new CliOptionDefinition("--name <bindingName>", "Required. Binding identity."),
+                    new CliOptionDefinition("--source-model <alias>", "Required. Source model alias."),
+                    new CliOptionDefinition("--source-entity <entity>", "Required. Source entity name."),
+                    new CliOptionDefinition("--source-property <property>", "Required. Source property name."),
+                    new CliOptionDefinition("--target-model <alias>", "Required. Target model alias."),
+                    new CliOptionDefinition("--target-entity <entity>", "Required. Target entity name."),
+                    new CliOptionDefinition("--target-property <property>", "Required. Target property name.")
+                }),
+            new CliCommandDefinition(
+                "suggest",
+                "Suggest missing property bindings only when the source values resolve uniquely and completely in a target key.",
+                new[] { "meta-weave suggest --workspace <path>" },
+                new[]
+                {
+                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to inspect.")
+                },
+                new[]
+                {
+                    "Strong suggestions require exact property-name alignment plus complete and unique resolution.",
+                    "Weak suggestions cover role-style suffix matches and cases where one source property resolves to more than one eligible target."
+                }),
+            new CliCommandDefinition(
+                "check",
+                "Validate property bindings across referenced workspaces.",
+                new[] { "meta-weave check --workspace <path>" },
+                new[]
+                {
+                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to validate.")
+                },
+                new[] { "Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model." }),
+            new CliCommandDefinition(
+                "materialize",
+                "Materialize a new workspace from a valid weave.",
+                new[] { "meta-weave materialize --workspace <path> --new-workspace <path> --model <name>" },
+                new[]
+                {
+                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to materialize from."),
+                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the materialized workspace."),
+                    new CliOptionDefinition("--model <name>", "Required. Materialized model name.")
+                },
+                new[] { "Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships." })
+        },
+        Next: "meta-weave suggest --help",
+        Examples: new[]
+        {
+            "meta-weave suggest --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType",
+            "meta-weave check --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType"
+        });
 
     static async Task<int> Main(string[] args)
     {
@@ -492,75 +577,42 @@ internal static class Program
 
     private static void PrintHelp()
     {
-        Presenter.WriteUsage("meta-weave <command> [options]");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteCommandCatalog("Commands:", new[]
-        {
-            ("help", "Show this help."),
-            ("init", "Create a new MetaWeave workspace."),
-            ("add-model", "Add a referenced model workspace."),
-            ("add-binding", "Add a property binding between two model references."),
-            ("suggest", "Suggest missing property bindings only when the source values resolve uniquely and completely in a target key."),
-            ("check", "Validate property bindings across referenced workspaces."),
-            ("materialize", "Materialize a new workspace from a valid weave."),
-        });
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteExamples(new[]
-        {
-            "meta-weave suggest --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType",
-            "meta-weave check --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType"
-        });
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteNext("meta-weave suggest --help");
+        CliHelpRenderer.WriteAppHelp(Presenter, Cli);
     }
 
     private static void PrintInitHelp()
     {
-        Presenter.WriteInfo("Command: init");
-        Presenter.WriteUsage("meta-weave init --new-workspace <path>");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Creates a new workspace with the MetaWeave model and validates it.");
+        PrintCommandHelp("init");
     }
 
     private static void PrintSuggestHelp()
     {
-        Presenter.WriteInfo("Command: suggest");
-        Presenter.WriteUsage("meta-weave suggest --workspace <path>");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Strong suggestions require exact property-name alignment plus complete and unique resolution.");
-        Presenter.WriteInfo("  Weak suggestions cover role-style suffix matches and cases where one source property resolves to more than one eligible target.");
+        PrintCommandHelp("suggest");
     }
 
     private static void PrintCheckHelp()
     {
-        Presenter.WriteInfo("Command: check");
-        Presenter.WriteUsage("meta-weave check --workspace <path>");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model.");
+        PrintCommandHelp("check");
     }
 
     private static void PrintMaterializeHelp()
     {
-        Presenter.WriteInfo("Command: materialize");
-        Presenter.WriteUsage("meta-weave materialize --workspace <path> --new-workspace <path> --model <name>");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteInfo("Notes:");
-        Presenter.WriteInfo("  Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships.");
+        PrintCommandHelp("materialize");
     }
 
     private static void PrintAddModelHelp()
     {
-        Presenter.WriteInfo("Command: add-model");
-        Presenter.WriteUsage("meta-weave add-model --workspace <path> --alias <alias> --model <modelName> --workspace-path <path>");
+        PrintCommandHelp("add-model");
     }
 
     private static void PrintAddBindingHelp()
     {
-        Presenter.WriteInfo("Command: add-binding");
-        Presenter.WriteUsage("meta-weave add-binding --workspace <path> --name <bindingName> --source-model <alias> --source-entity <entity> --source-property <property> --target-model <alias> --target-entity <entity> --target-property <property>");
+        PrintCommandHelp("add-binding");
+    }
+
+    private static void PrintCommandHelp(string commandName)
+    {
+        CliHelpRenderer.WriteCommandHelp(Presenter, Cli, Cli.GetCommand(commandName));
     }
 
     private static (bool Ok, string WorkspacePath, string Alias, string ModelName, string ModelWorkspacePath, string ErrorMessage) ParseAddModelArgs(string[] args, int startIndex)
