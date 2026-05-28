@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="SampleScopedReferenceCatalog">
+  <EntityList>
+    <Entity name="Category">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="CategoryItem">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Category" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

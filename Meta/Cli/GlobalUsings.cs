@@ -1,0 +1,14 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Globalization;
+global using System.IO;
+global using System.Linq;
+global using System.Text;
+global using System.Text.RegularExpressions;
+global using System.Threading.Tasks;
+global using System.Xml;
+global using Meta.Adapters;
+global using Meta.Core.Domain;
+global using Meta.Core.Operations;
+global using Meta.Core.Services;
+global using Microsoft.Data.SqlClient;

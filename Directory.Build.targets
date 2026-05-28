@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup Condition="'$(OutputType)' == 'Exe' and $([System.String]::Copy('$(AssemblyName)').StartsWith('meta'))">
+    <Compile Include="$(MSBuildThisFileDirectory)Build\CliVersion.cs" Link="CliVersion.cs" />
+  </ItemGroup>
+</Project>

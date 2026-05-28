@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="SampleScopedSourceCatalog">
+  <EntityList>
+    <Entity name="Group">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Item">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Group" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

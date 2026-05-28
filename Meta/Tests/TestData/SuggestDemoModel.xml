@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="ProductModel">
+  <EntityList>
+    <Entity name="Product">
+      <PropertyList>
+        <Property name="ProductName" />
+        <Property name="ProductGroup" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Supplier">
+      <PropertyList>
+        <Property name="SupplierName" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Category">
+      <PropertyList>
+        <Property name="CategoryName" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Warehouse">
+      <PropertyList>
+        <Property name="WarehouseName" />
+      </PropertyList>
+    </Entity>
+    <Entity name="Order">
+      <PropertyList>
+        <Property name="OrderNumber" />
+        <Property name="ProductId" />
+        <Property name="SupplierId" />
+        <Property name="WarehouseId" />
+        <Property name="StatusText" />
+      </PropertyList>
+    </Entity>
+  </EntityList>
+</Model>
+

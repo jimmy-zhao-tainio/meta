@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EnterpriseBIPlatform>
+  <CubeList>
+    <Cube Id="1">
+      <CubeName>Sales Performance</CubeName>
+      <Purpose>Monthly revenue and margin tracking.</Purpose>
+      <RefreshMode>Scheduled</RefreshMode>
+    </Cube>
+    <Cube Id="2">
+      <CubeName>Finance Overview</CubeName>
+      <Purpose>Quarterly financial statements.</Purpose>
+      <RefreshMode>Manual</RefreshMode>
+    </Cube>
+  </CubeList>
+  <DimensionList>
+    <Dimension Id="1">
+      <DimensionName>Customer</DimensionName>
+      <IsConformed>True</IsConformed>
+      <HierarchyCount>2</HierarchyCount>
+    </Dimension>
+    <Dimension Id="2">
+      <DimensionName>Product</DimensionName>
+      <IsConformed>False</IsConformed>
+      <HierarchyCount>1</HierarchyCount>
+    </Dimension>
+  </DimensionList>
+  <FactList>
+    <Fact Id="1">
+      <FactName>SalesFact</FactName>
+      <Grain>Order Line</Grain>
+      <MeasureCount>12</MeasureCount>
+      <BusinessArea></BusinessArea>
+    </Fact>
+  </FactList>
+  <MeasureList>
+    <Measure Id="1" CubeId="1">
+      <MeasureName>number_of_things</MeasureName>
+      <MDX>count</MDX>
+    </Measure>
+  </MeasureList>
+  <SystemList>
+    <System Id="1" SystemTypeId="1">
+      <SystemName>Enterprise Analytics Platform</SystemName>
+      <Version>2.1</Version>
+      <DeploymentDate>2024-11-15</DeploymentDate>
+    </System>
+    <System Id="2" SystemTypeId="2">
+      <SystemName>Analytics Sandbox</SystemName>
+      <Version>1.4</Version>
+      <DeploymentDate>2023-06-01</DeploymentDate>
+    </System>
+  </SystemList>
+  <SystemCubeList>
+    <SystemCube Id="1" CubeId="1" SystemId="1">
+      <ProcessingMode>InMemory</ProcessingMode>
+    </SystemCube>
+    <SystemCube Id="2" CubeId="2" SystemId="2">
+      <ProcessingMode>DirectQuery</ProcessingMode>
+    </SystemCube>
+  </SystemCubeList>
+  <SystemDimensionList>
+    <SystemDimension Id="1" DimensionId="1" SystemId="1">
+      <ConformanceLevel>Enterprise</ConformanceLevel>
+    </SystemDimension>
+    <SystemDimension Id="2" DimensionId="2" SystemId="2">
+      <ConformanceLevel>Sandbox</ConformanceLevel>
+    </SystemDimension>
+  </SystemDimensionList>
+  <SystemFactList>
+    <SystemFact Id="1" FactId="1" SystemId="1">
+      <LoadPattern>Incremental</LoadPattern>
+    </SystemFact>
+  </SystemFactList>
+  <SystemTypeList>
+    <SystemType Id="1">
+      <TypeName>Internal</TypeName>
+      <Description>Managed within the corporate data center.</Description>
+    </SystemType>
+    <SystemType Id="2">
+      <TypeName>External</TypeName>
+      <Description>Hosted by a third-party vendor.</Description>
+    </SystemType>
+  </SystemTypeList>
+</EnterpriseBIPlatform>
+
