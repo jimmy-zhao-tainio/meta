@@ -1,0 +1,1720 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:workspace" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>MetaDocs model</DisplayName>
+      <DisplayPath>MetaDocs model</DisplayPath>
+      <Key>source:workspace-model:meta-docs:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta\MetaDocs\Workspace</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>010</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:model:metadocs" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>MetaDocs</DisplayName>
+      <DisplayPath>MetaDocs model.MetaDocs</DisplayPath>
+      <Key>source:workspace-model:meta-docs:model:metadocs</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaDocs</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaDocs.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationComponentTemplate</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationComponentTemplate</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationComponentTemplate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:componentkind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ComponentKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate.ComponentKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:componentkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>ComponentKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:templatetext" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>TemplateText</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate.TemplateText</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate:property:templatetext</Key>
+      <Kind>Property</Kind>
+      <NativeId>TemplateText</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationcomponenttemplate:relationship:documentationtheme-documentationtheme" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTheme</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationComponentTemplate.DocumentationTheme</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationcomponenttemplate:relationship:documentationtheme-documentationtheme</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationTheme:DocumentationTheme</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationcomponenttemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationTheme.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationEntityImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationEntityImportSpec</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationEntityImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:displaynameproperty" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DisplayNameProperty</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.DisplayNameProperty</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:displaynameproperty</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayNameProperty</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:entityname" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>EntityName</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.EntityName</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:entityname</Key>
+      <Kind>Property</Kind>
+      <NativeId>EntityName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:includeinstances" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>IncludeInstances</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.IncludeInstances</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:includeinstances</Key>
+      <Kind>Property</Kind>
+      <NativeId>IncludeInstances</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:reviewstatus" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ReviewStatus</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.ReviewStatus</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:reviewstatus</Key>
+      <Kind>Property</Kind>
+      <NativeId>ReviewStatus</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:property:summaryproperty" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SummaryProperty</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.SummaryProperty</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:property:summaryproperty</Key>
+      <Kind>Property</Kind>
+      <NativeId>SummaryProperty</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationentityimportspec:relationship:documentationinstanceimportspec-documentationinstanceimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationInstanceImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationEntityImportSpec.DocumentationInstanceImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationentityimportspec:relationship:documentationinstanceimportspec-documentationinstanceimportspec</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationInstanceImportSpec:DocumentationInstanceImportSpec</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationentityimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationInstanceImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationFact</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:sourcefingerprint" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SourceFingerprint</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.SourceFingerprint</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:sourcefingerprint</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceFingerprint</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:status" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Status</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.Status</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:status</Key>
+      <Kind>Property</Kind>
+      <NativeId>Status</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:subjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.SubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:subjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>SubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:value" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.Value</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:property:valuekind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ValueKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.ValueKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:property:valuekind</Key>
+      <Kind>Property</Kind>
+      <NativeId>ValueKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationimportbatch-documentationimportbatch" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationImportBatch</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.DocumentationImportBatch</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationimportbatch-documentationimportbatch</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationImportBatch:DocumentationImportBatch</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationImportBatch.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationsource-documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationsource-documentationsource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSource:DocumentationSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationsubject-documentationsubject" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSubject</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationFact.DocumentationSubject</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationfact:relationship:documentationsubject-documentationsubject</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSubject:DocumentationSubject</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSubject.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationImportBatch</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationImportBatch</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationImportBatch.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:property:importedat" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ImportedAt</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.ImportedAt</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:property:importedat</Key>
+      <Kind>Property</Kind>
+      <NativeId>ImportedAt</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:property:importerid" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ImporterId</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.ImporterId</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:property:importerid</Key>
+      <Kind>Property</Kind>
+      <NativeId>ImporterId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:property:importerversion" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ImporterVersion</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.ImporterVersion</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:property:importerversion</Key>
+      <Kind>Property</Kind>
+      <NativeId>ImporterVersion</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:property:sourcefingerprint" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SourceFingerprint</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.SourceFingerprint</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:property:sourcefingerprint</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceFingerprint</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:property:status" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Status</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.Status</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:property:status</Key>
+      <Kind>Property</Kind>
+      <NativeId>Status</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationimportbatch:relationship:documentationsource-documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationImportBatch.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationimportbatch:relationship:documentationsource-documentationsource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSource:DocumentationSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationimportbatch</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationInstanceImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationInstanceImportSpec</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationInstanceImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:includeinstances" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>IncludeInstances</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec.IncludeInstances</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:includeinstances</Key>
+      <Kind>Property</Kind>
+      <NativeId>IncludeInstances</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:safetystatus" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SafetyStatus</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec.SafetyStatus</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec:property:safetystatus</Key>
+      <Kind>Property</Kind>
+      <NativeId>SafetyStatus</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationinstanceimportspec:relationship:documentationsource-documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationInstanceImportSpec.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationinstanceimportspec:relationship:documentationsource-documentationsource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSource:DocumentationSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationinstanceimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationlayout" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationLayout</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationLayout</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationlayout</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationLayout</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationLayout.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationlayout:property:layoutkind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>LayoutKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationLayout.LayoutKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationlayout:property:layoutkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>LayoutKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationlayout</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationlayout:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationLayout.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationlayout:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationlayout</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationlayout:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationLayout.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationlayout:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationlayout</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationlayout:relationship:documentationtheme-documentationtheme" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTheme</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationLayout.DocumentationTheme</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationlayout:relationship:documentationtheme-documentationtheme</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationTheme:DocumentationTheme</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationlayout</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationTheme.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationNarrative</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationNarrative</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationNarrative.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:body" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Body</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.Body</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:body</Key>
+      <Kind>Property</Kind>
+      <NativeId>Body</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:bodyformat" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>BodyFormat</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.BodyFormat</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:bodyformat</Key>
+      <Kind>Property</Kind>
+      <NativeId>BodyFormat</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:lastreviewedimportbatchid" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>LastReviewedImportBatchId</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.LastReviewedImportBatchId</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:lastreviewedimportbatchid</Key>
+      <Kind>Property</Kind>
+      <NativeId>LastReviewedImportBatchId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:origin" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Origin</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.Origin</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:origin</Key>
+      <Kind>Property</Kind>
+      <NativeId>Origin</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:reviewstatus" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ReviewStatus</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.ReviewStatus</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:reviewstatus</Key>
+      <Kind>Property</Kind>
+      <NativeId>ReviewStatus</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:slot" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Slot</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.Slot</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:slot</Key>
+      <Kind>Property</Kind>
+      <NativeId>Slot</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:subjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.SubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:subjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>SubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:property:title" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Title</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.Title</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:property:title</Key>
+      <Kind>Property</Kind>
+      <NativeId>Title</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationnarrative:relationship:documentationsubject-documentationsubject" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSubject</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationNarrative.DocumentationSubject</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationnarrative:relationship:documentationsubject-documentationsubject</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSubject:DocumentationSubject</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationnarrative</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSubject.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationPropertyImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationPropertyImportSpec</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationPropertyImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:include" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Include</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec.Include</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:include</Key>
+      <Kind>Property</Kind>
+      <NativeId>Include</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:propertyname" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>PropertyName</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec.PropertyName</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:propertyname</Key>
+      <Kind>Property</Kind>
+      <NativeId>PropertyName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:reviewstatus" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ReviewStatus</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec.ReviewStatus</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec:property:reviewstatus</Key>
+      <Kind>Property</Kind>
+      <NativeId>ReviewStatus</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationpropertyimportspec:relationship:documentationentityimportspec-documentationentityimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationEntityImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationPropertyImportSpec.DocumentationEntityImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationpropertyimportspec:relationship:documentationentityimportspec-documentationentityimportspec</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationEntityImportSpec:DocumentationEntityImportSpec</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationpropertyimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationEntityImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationRelationship</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationRelationship</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationRelationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:property:fromsubjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>FromSubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.FromSubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:property:fromsubjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>FromSubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:property:tosubjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ToSubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.ToSubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:property:tosubjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>ToSubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:relationship:documentationimportbatch-documentationimportbatch" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationImportBatch</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.DocumentationImportBatch</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:relationship:documentationimportbatch-documentationimportbatch</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationImportBatch:DocumentationImportBatch</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationImportBatch.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationship:relationship:documentationsource-documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationship.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationship:relationship:documentationsource-documentationsource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSource:DocumentationSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationRelationshipImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationRelationshipImportSpec</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationRelationshipImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:include" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Include</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec.Include</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:include</Key>
+      <Kind>Property</Kind>
+      <NativeId>Include</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:relationshipselector" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>RelationshipSelector</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec.RelationshipSelector</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:relationshipselector</Key>
+      <Kind>Property</Kind>
+      <NativeId>RelationshipSelector</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:reviewstatus" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ReviewStatus</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec.ReviewStatus</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:property:reviewstatus</Key>
+      <Kind>Property</Kind>
+      <NativeId>ReviewStatus</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:relationship:documentationentityimportspec-documentationentityimportspec" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationEntityImportSpec</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationRelationshipImportSpec.DocumentationEntityImportSpec</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec:relationship:documentationentityimportspec-documentationentityimportspec</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationEntityImportSpec:DocumentationEntityImportSpec</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationrelationshipimportspec</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationEntityImportSpec.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationSource</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:displayname" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DisplayName</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.DisplayName</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:displayname</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:importedat" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ImportedAt</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.ImportedAt</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:importedat</Key>
+      <Kind>Property</Kind>
+      <NativeId>ImportedAt</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:importerid" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ImporterId</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.ImporterId</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:importerid</Key>
+      <Kind>Property</Kind>
+      <NativeId>ImporterId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:locator" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Locator</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.Locator</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:locator</Key>
+      <Kind>Property</Kind>
+      <NativeId>Locator</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:sourcefingerprint" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SourceFingerprint</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.SourceFingerprint</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:sourcefingerprint</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceFingerprint</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:property:status" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Status</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.Status</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:property:status</Key>
+      <Kind>Property</Kind>
+      <NativeId>Status</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsource:relationship:documentationworkspace-documentationworkspace" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationWorkspace</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSource.DocumentationWorkspace</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsource:relationship:documentationworkspace-documentationworkspace</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationWorkspace:DocumentationWorkspace</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to DocumentationWorkspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSubject</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationSubject</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationSubject.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:displayname" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DisplayName</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.DisplayName</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:displayname</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:displaypath" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DisplayPath</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.DisplayPath</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:displaypath</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayPath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:key" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Key</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.Key</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:key</Key>
+      <Kind>Property</Kind>
+      <NativeId>Key</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:nativeid" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>NativeId</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.NativeId</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:nativeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>NativeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:nativekind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>NativeKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.NativeKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:nativekind</Key>
+      <Kind>Property</Kind>
+      <NativeId>NativeKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:parentkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ParentKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.ParentKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:parentkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>ParentKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:status" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Status</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.Status</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:status</Key>
+      <Kind>Property</Kind>
+      <NativeId>Status</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:property:summary" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Summary</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.Summary</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:property:summary</Key>
+      <Kind>Property</Kind>
+      <NativeId>Summary</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubject:relationship:documentationsource-documentationsource" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSource</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubject.DocumentationSource</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubject:relationship:documentationsource-documentationsource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSource:DocumentationSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubject</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubjectalias" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSubjectAlias</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubjectAlias</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubjectalias</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationSubjectAlias</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationSubjectAlias.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubjectalias:property:aliaskey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>AliasKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubjectAlias.AliasKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubjectalias:property:aliaskey</Key>
+      <Kind>Property</Kind>
+      <NativeId>AliasKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubjectalias</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubjectalias:property:reason" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Reason</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubjectAlias.Reason</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubjectalias:property:reason</Key>
+      <Kind>Property</Kind>
+      <NativeId>Reason</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubjectalias</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubjectalias:property:subjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubjectAlias.SubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubjectalias:property:subjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>SubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubjectalias</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationsubjectalias:relationship:documentationsubject-documentationsubject" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationSubject</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationSubjectAlias.DocumentationSubject</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationsubjectalias:relationship:documentationsubject-documentationsubject</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationSubject:DocumentationSubject</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationsubjectalias</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationSubject.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTemplate</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationTemplate</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationTemplate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:property:html" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Html</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.Html</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:property:html</Key>
+      <Kind>Property</Kind>
+      <NativeId>Html</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:property:sourceurl" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SourceUrl</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.SourceUrl</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:property:sourceurl</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceUrl</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplate:relationship:documentationtheme-documentationtheme" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTheme</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplate.DocumentationTheme</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplate:relationship:documentationtheme-documentationtheme</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationTheme:DocumentationTheme</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplate</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationTheme.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplateregion" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTemplateRegion</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplateRegion</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplateregion</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationTemplateRegion</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationTemplateRegion.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplateregion:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplateRegion.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplateregion:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplateregion</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplateregion:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplateRegion.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplateregion:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplateregion</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplateregion:property:regionkind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>RegionKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplateRegion.RegionKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplateregion:property:regionkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>RegionKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplateregion</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtemplateregion:relationship:documentationtemplate-documentationtemplate" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTemplate</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTemplateRegion.DocumentationTemplate</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtemplateregion:relationship:documentationtemplate-documentationtemplate</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationTemplate:DocumentationTemplate</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtemplateregion</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationTemplate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtheme" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTheme</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTheme</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtheme</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationTheme</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationTheme.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtheme:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTheme.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtheme:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtheme</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtheme:property:renderoptions" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>RenderOptions</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTheme.RenderOptions</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtheme:property:renderoptions</Key>
+      <Kind>Property</Kind>
+      <NativeId>RenderOptions</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtheme</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationtheme:property:version" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Version</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationTheme.Version</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationtheme:property:version</Key>
+      <Kind>Property</Kind>
+      <NativeId>Version</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationtheme</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationThemeAsset</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationThemeAsset</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationThemeAsset.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:assetkind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>AssetKind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.AssetKind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:assetkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>AssetKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:content" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Content</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.Content</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:content</Key>
+      <Kind>Property</Kind>
+      <NativeId>Content</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:hash" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Hash</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.Hash</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:hash</Key>
+      <Kind>Property</Kind>
+      <NativeId>Hash</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:href" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Href</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.Href</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:href</Key>
+      <Kind>Property</Kind>
+      <NativeId>Href</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:mediatype" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>MediaType</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.MediaType</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:mediatype</Key>
+      <Kind>Property</Kind>
+      <NativeId>MediaType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationthemeasset:relationship:documentationtheme-documentationtheme" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationTheme</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationThemeAsset.DocumentationTheme</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationthemeasset:relationship:documentationtheme-documentationtheme</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationTheme:DocumentationTheme</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationthemeasset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationTheme.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationView</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationView</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationView.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationview</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationview</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationview</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview:property:summary" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Summary</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView.Summary</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview:property:summary</Key>
+      <Kind>Property</Kind>
+      <NativeId>Summary</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationview</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationview:property:title" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Title</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationView.Title</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationview:property:title</Key>
+      <Kind>Property</Kind>
+      <NativeId>Title</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationview</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationViewNode</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationViewNode</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationViewNode.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:property:ordinal" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:property:parentnodeid" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>ParentNodeId</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.ParentNodeId</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:property:parentnodeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>ParentNodeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:property:selection" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Selection</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.Selection</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:property:selection</Key>
+      <Kind>Property</Kind>
+      <NativeId>Selection</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:property:subjectkey" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>SubjectKey</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.SubjectKey</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:property:subjectkey</Key>
+      <Kind>Property</Kind>
+      <NativeId>SubjectKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:property:title" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Title</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.Title</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:property:title</Key>
+      <Kind>Property</Kind>
+      <NativeId>Title</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationviewnode:relationship:documentationview-documentationview" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationView</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationViewNode.DocumentationView</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationviewnode:relationship:documentationview-documentationview</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DocumentationView:DocumentationView</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationviewnode</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DocumentationView.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationworkspace" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>DocumentationWorkspace</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationWorkspace</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationworkspace</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DocumentationWorkspace</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:model:metadocs</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DocumentationWorkspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationworkspace:property:kind" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationWorkspace.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationworkspace:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationworkspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationworkspace:property:name" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationWorkspace.Name</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationworkspace:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationworkspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-docs:entity:documentationworkspace:property:summary" DocumentationSourceId="source:workspace-model:meta-docs">
+      <DisplayName>Summary</DisplayName>
+      <DisplayPath>MetaDocs model.DocumentationWorkspace.Summary</DisplayPath>
+      <Key>source:workspace-model:meta-docs:entity:documentationworkspace:property:summary</Key>
+      <Kind>Property</Kind>
+      <NativeId>Summary</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-docs:entity:documentationworkspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

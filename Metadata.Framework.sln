@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -9,6 +9,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Cli", "Meta\Cli\Meta.Cli.csproj", "{E68BD422-6320-4EB6-967B-31FBA22AB0B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Core.Tests", "Meta\Tests\Meta.Core.Tests.csproj", "{BB562B77-A571-414A-8B8E-B04F6D78E679}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaDocs", "MetaDocs", "{972BCC8D-E07D-4B15-9BB7-667D4B0D4E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaDocs.Tooling", "MetaDocs\Tooling\MetaDocs.Tooling.csproj", "{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaDocs.Core", "MetaDocs\Core\MetaDocs.Core.csproj", "{DD9E2B6D-5220-4D7E-995D-A4FCC7574315}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaDocs.Cli", "MetaDocs\Cli\MetaDocs.Cli.csproj", "{77220C0D-158F-43A8-8344-6EE6A9D52201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaDocs.Tests", "MetaDocs\Tests\MetaDocs.Tests.csproj", "{AE996616-D043-4F87-9666-3247A62DFD8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,8 +42,30 @@ Global
 		{BB562B77-A571-414A-8B8E-B04F6D78E679}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB562B77-A571-414A-8B8E-B04F6D78E679}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB562B77-A571-414A-8B8E-B04F6D78E679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD9E2B6D-5220-4D7E-995D-A4FCC7574315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD9E2B6D-5220-4D7E-995D-A4FCC7574315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD9E2B6D-5220-4D7E-995D-A4FCC7574315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD9E2B6D-5220-4D7E-995D-A4FCC7574315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77220C0D-158F-43A8-8344-6EE6A9D52201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77220C0D-158F-43A8-8344-6EE6A9D52201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77220C0D-158F-43A8-8344-6EE6A9D52201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77220C0D-158F-43A8-8344-6EE6A9D52201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE996616-D043-4F87-9666-3247A62DFD8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE996616-D043-4F87-9666-3247A62DFD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE996616-D043-4F87-9666-3247A62DFD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE996616-D043-4F87-9666-3247A62DFD8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5BD34B9-E1BB-4BD0-9EDA-400F7E1B5B9F} = {972BCC8D-E07D-4B15-9BB7-667D4B0D4E64}
+		{DD9E2B6D-5220-4D7E-995D-A4FCC7574315} = {972BCC8D-E07D-4B15-9BB7-667D4B0D4E64}
+		{77220C0D-158F-43A8-8344-6EE6A9D52201} = {972BCC8D-E07D-4B15-9BB7-667D4B0D4E64}
+		{AE996616-D043-4F87-9666-3247A62DFD8D} = {972BCC8D-E07D-4B15-9BB7-667D4B0D4E64}
 	EndGlobalSection
 EndGlobal

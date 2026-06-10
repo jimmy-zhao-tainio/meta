@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationRelationshipList>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:workspace:relationship:containsmodel:source-workspace-model-meta-data-warehouse-implementation-model-metadatawarehouseimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:workspace</FromSubjectKey>
+      <Kind>ContainsModel</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-accumulatingsnapshotfacttableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-accumulatingsnapshotfacttableimplementation-property-milestonedatecolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatecolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-accumulatingsnapshotfacttableimplementation-property-milestonedatedatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatedatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-aggregatefacttableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-aggregatefacttableimplementation-property-schemaname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:schemaname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-aggregatefacttableimplementation-property-sourcefactforeignkeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:sourcefactforeignkeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-aggregatefacttableimplementation-property-tablenamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:tablenamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-participantforeignkeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantforeignkeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-participantkeycolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantkeycolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-primarykeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:primarykeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-schemaname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:schemaname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-tablenamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:tablenamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-weightcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-bridgetableimplementation-property-weightdatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightdatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-attributecolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:attributecolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-businesskeycolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:businesskeycolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-primarykeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:primarykeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-schemaname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:schemaname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-surrogatekeycolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeycolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-surrogatekeydatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeydatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-dimensiontableimplementation-property-tablenamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:tablenamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-degeneratedimensioncolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:degeneratedimensioncolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-dimensionforeignkeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionforeignkeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-dimensionkeycolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionkeycolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-measurecolumnpattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:measurecolumnpattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-primarykeynamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:primarykeynamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-schemaname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:schemaname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-facttableimplementation-property-tablenamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:tablenamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-appliestobridgetables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestobridgetables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-appliestodimensiontables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestodimensiontables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-appliestofacttables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestofacttables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-columnnamepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:columnnamepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-filtersql" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:filtersql</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-isclustered" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isclustered</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-isunique" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isunique</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-namepattern" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:namepattern</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-indeximplementation-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>009</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-periodicsnapshotfacttableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-periodicsnapshotfacttableimplementation-property-perioddatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:perioddatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-periodicsnapshotfacttableimplementation-property-periodendcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodendcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-periodicsnapshotfacttableimplementation-property-periodstartcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodstartcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-appliestobridgetables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestobridgetables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-appliestodimensiontables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestodimensiontables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-appliestofacttables" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestofacttables</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-columnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:columnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-datatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:datatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-defaultexpressionsql" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:defaultexpressionsql</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-isnullable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:isnullable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-length" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:length</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>009</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-precision" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:precision</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-platformcolumnimplementation-property-scale" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>011</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:scale</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:relationship:containsentity:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>009</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-currentflagcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-currentflagdatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagdatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-effectivefromcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-effectivefromdatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromdatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-effectivetocolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetocolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-effectivetodatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetodatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-hashdiffcolumnname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffcolumnname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:relationship:containsproperty:source-workspace-model-meta-data-warehouse-implementation-entity-slowlychangingdimensiontableimplementation-property-hashdiffdatatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse-implementation:batch:20260610050949640" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffdatatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+  </DocumentationRelationshipList>
+</MetaDocs>

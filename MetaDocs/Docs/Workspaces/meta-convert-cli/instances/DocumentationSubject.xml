@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-convert:app" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert</DisplayName>
+      <DisplayPath>meta-convert</DisplayPath>
+      <Key>source:cli:meta-convert:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-convert</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>180</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-convert` performs explicit cross-model conversions between supported Meta-BI workspaces, carrying structure from one modeled surface into another.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert schema-to-raw-datavault</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>schema-to-raw-datavault</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaSchema workspace to MetaRawDataVault workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--source-workspace</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --source-workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaSchema workspace to convert.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Directory where the MetaRawDataVault workspace will be created.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--ignore-field-name</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --ignore-field-name</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ignore-field-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional source field name to ignore. May be repeated.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-suffix" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--ignore-field-suffix</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --ignore-field-suffix</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-suffix</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ignore-field-suffix</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional source field suffix to ignore. May be repeated.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--include-views</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --include-views</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--include-views</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Include source views.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:verbose" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--verbose</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --verbose</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:schema-to-raw-datavault:option:verbose</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--verbose</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:schema-to-raw-datavault</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Print conversion summary.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert raw-datavault-to-sql</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:raw-datavault-to-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>raw-datavault-to-sql</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaRawDataVault workspace to MetaSql workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:raw-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Source workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--implementation-workspace</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --implementation-workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--implementation-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:raw-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Implementation policy workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:database-name" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --database-name</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:raw-datavault-to-sql:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:raw-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target MetaSql database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:raw-datavault-to-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:raw-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output MetaSql workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert business-datavault-to-sql</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:business-datavault-to-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>business-datavault-to-sql</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaBusinessDataVault workspace to MetaSql workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:business-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Source workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--implementation-workspace</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --implementation-workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--implementation-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:business-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Implementation policy workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:database-name" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --database-name</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:business-datavault-to-sql:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:business-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target MetaSql database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:business-datavault-to-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:business-datavault-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output MetaSql workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-quality-to-sql" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert data-quality-to-sql</DisplayName>
+      <DisplayPath>meta-convert data-quality-to-sql</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-quality-to-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>data-quality-to-sql</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert promoted MetaDataQuality candidates to SQL DQ views.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-quality-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert data-quality-to-sql --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-quality-to-sql:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-quality-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. MetaDataQuality workspace to convert. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-quality-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert data-quality-to-sql --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-quality-to-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-quality-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output workspace or script folder path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert data-warehouse-to-sql</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-warehouse-to-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>data-warehouse-to-sql</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaDataWarehouse workspace to MetaSql workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-warehouse-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Source workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--implementation-workspace</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --implementation-workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--implementation-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-warehouse-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Implementation policy workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:database-name" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --database-name</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-warehouse-to-sql:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-warehouse-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target MetaSql database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:data-warehouse-to-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:data-warehouse-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output MetaSql workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert transform-script-to-sql</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:transform-script-to-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>transform-script-to-sql</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaTransformScript SQL modules to MetaSql workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:transform-script-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Source MetaTransformScript workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --database-name</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:transform-script-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target MetaSql database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:transform-script-to-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:transform-script-to-sql</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output MetaSql workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert sql-to-transform-script</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>sql-to-transform-script</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaSql SQL modules to MetaTransformScript workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Source MetaSql workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output MetaTransformScript workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--include-views</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --include-views</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--include-views</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert view modules. If no include switch is provided, all module kinds are selected.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-functions" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--include-functions</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --include-functions</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:include-functions</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--include-functions</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert function modules. If no include switch is provided, all module kinds are selected.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-stored-procedures" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--include-stored-procedures</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --include-stored-procedures</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:include-stored-procedures</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--include-stored-procedures</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert stored procedure modules. If no include switch is provided, all module kinds are selected.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:allow-empty" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--allow-empty</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --allow-empty</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:sql-to-transform-script:option:allow-empty</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--allow-empty</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:sql-to-transform-script</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create an empty MetaTransformScript workspace when selected module kinds have no convertible modules.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert analytics-to-tabular</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-tabular</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>analytics-to-tabular</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaAnalytics workspace to MetaTabular workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:analytics-to-tabular</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. MetaAnalytics workspace to convert. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-tabular:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:analytics-to-tabular</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output workspace or script folder path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>meta-convert analytics-to-multi-dimensional</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-multi-dimensional</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>analytics-to-multi-dimensional</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-convert:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Convert MetaAnalytics workspace to MetaMultiDimensional workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --workspace</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:analytics-to-multi-dimensional</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. MetaAnalytics workspace to convert. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:out" DocumentationSourceId="source:cli:meta-convert">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --out</DisplayPath>
+      <Key>source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--out</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-convert:app:command:analytics-to-multi-dimensional</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Output workspace or script folder path.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

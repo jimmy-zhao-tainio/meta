@@ -1,0 +1,2056 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:workspace" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MetaTabular model</DisplayName>
+      <DisplayPath>MetaTabular model</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaTabular\Workspaces\MetaTabular</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>290</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:model:metatabular" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MetaTabular</DisplayName>
+      <DisplayPath>MetaTabular model.MetaTabular</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:model:metatabular</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaTabular</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaTabular.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCalculationGroup</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationGroup</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularCalculationGroup</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularCalculationGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationGroup.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationGroup.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:precedence" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Precedence</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationGroup.Precedence</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:precedence</Key>
+      <Kind>Property</Kind>
+      <NativeId>Precedence</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationGroup.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationgroup:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCalculationItem</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularCalculationItem</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularCalculationItem.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:formatstringexpression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>FormatStringExpression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.FormatStringExpression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:formatstringexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatStringExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:relationship:tabularcalculationgroup-tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCalculationGroup</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCalculationItem.TabularCalculationGroup</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcalculationitem:relationship:tabularcalculationgroup-tabularcalculationgroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCalculationGroup:TabularCalculationGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCalculationGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datacategory" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DataCategory</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.DataCategory</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:datacategory</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataCategory</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:formatstring" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>FormatString</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.FormatString</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:formatstring</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatString</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:iskey" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsKey</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.IsKey</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:iskey</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:isnullable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:sourcename" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>SummarizeBy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.SummarizeBy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:property:summarizeby</Key>
+      <Kind>Property</Kind>
+      <NativeId>SummarizeBy</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumn.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumn:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumnPermission</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnPermission</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularColumnPermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularColumnPermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MetadataPermission</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnPermission.MetadataPermission</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumnpermission:property:metadatapermission</Key>
+      <Kind>Property</Kind>
+      <NativeId>MetadataPermission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnPermission.TabularColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSecurityRole</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnPermission.TabularSecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularsecurityrole-tabularsecurityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularSecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumnTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularColumnTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularColumnTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnTranslation.TabularColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularColumnTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularculture</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularCulture</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCulture.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularculture:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularculture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularCulture.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularculture:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularculture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularDataSource</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularDataSource</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularDataSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>ConnectionReference</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource.ConnectionReference</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource:property:connectionreference</Key>
+      <Kind>Property</Kind>
+      <NativeId>ConnectionReference</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:provider" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Provider</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource.Provider</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource:property:provider</Key>
+      <Kind>Property</Kind>
+      <NativeId>Provider</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularDataSource.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulardatasource:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularHierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchy.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchy:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchyLevel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyLevel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularHierarchyLevel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularHierarchyLevel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyLevel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyLevel.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyLevel.TabularColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyLevel.TabularHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularhierarchy-tabularhierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchyTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularHierarchyTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularHierarchyTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularHierarchyTranslation.TabularHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularhierarchy-tabularhierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularKpi</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularKpi</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularKpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusexpression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>StatusExpression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.StatusExpression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:statusexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>StatusExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusgraphic" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>StatusGraphic</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.StatusGraphic</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:statusgraphic</Key>
+      <Kind>Property</Kind>
+      <NativeId>StatusGraphic</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:targetexpression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TargetExpression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.TargetExpression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:targetexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>TargetExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:trendexpression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TrendExpression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.TrendExpression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:trendexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>TrendExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:trendgraphic" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TrendGraphic</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.TrendGraphic</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:property:trendgraphic</Key>
+      <Kind>Property</Kind>
+      <NativeId>TrendGraphic</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:relationship:basemeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>BaseMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.BaseMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:relationship:basemeasure-tabularmeasure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BaseMeasure:TabularMeasure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:relationship:targetmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TargetMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpi.TargetMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpi:relationship:targetmeasure-tabularmeasure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TargetMeasure:TabularMeasure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to TabularMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularKpiTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpiTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpitranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularKpiTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularKpiTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpiTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpitranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpiTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularkpi-tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularKpi</DisplayName>
+      <DisplayPath>MetaTabular model.TabularKpiTranslation.TabularKpi</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularkpi-tabularkpi</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularKpi:TabularKpi</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularKpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularMeasure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>FormatString</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.FormatString</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:formatstring</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatString</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasure.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasure:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularMeasureTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasureTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularMeasureTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularMeasureTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasureTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasureTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasureTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularMeasureTranslation.TabularMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularmeasure-tabularmeasure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularMeasure:TabularMeasure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularModel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:collation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Collation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.Collation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:collation</Key>
+      <Kind>Property</Kind>
+      <NativeId>Collation</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:compatibilitylevel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>CompatibilityLevel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.CompatibilityLevel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:compatibilitylevel</Key>
+      <Kind>Property</Kind>
+      <NativeId>CompatibilityLevel</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DefaultCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.DefaultCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultculture</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultCulture</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultdataview" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DefaultDataView</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.DefaultDataView</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultdataview</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultDataView</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularModel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularmodel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPartition</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPartition</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPartition.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:mode" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Mode</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.Mode</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:property:mode</Key>
+      <Kind>Property</Kind>
+      <NativeId>Mode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulardatasource-tabulardatasource" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularDataSource</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.TabularDataSource</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulardatasource-tabulardatasource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularDataSource:TabularDataSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to TabularDataSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPartition.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspective</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspective</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspective.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspective:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspective.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspective:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspective.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspective:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveCalculationGroup</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveCalculationGroup</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveCalculationGroup</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveCalculationGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularcalculationgroup-tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCalculationGroup</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveCalculationGroup.TabularCalculationGroup</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularcalculationgroup-tabularcalculationgroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCalculationGroup:TabularCalculationGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCalculationGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveCalculationGroup.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveColumn.TabularColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveColumn.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveHierarchy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveHierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularHierarchy</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveHierarchy.TabularHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularhierarchy-tabularhierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveHierarchy.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveKpi</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveKpi</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivekpi</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveKpi</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveKpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularkpi-tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularKpi</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveKpi.TabularKpi</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularkpi-tabularkpi</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularKpi:TabularKpi</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivekpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularKpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveKpi.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivekpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveMeasure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularMeasure</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveMeasure.TabularMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularmeasure-tabularmeasure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularMeasure:TabularMeasure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveMeasure.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetable</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveTable</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTable.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTable.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspectiveTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularPerspectiveTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularPerspectiveTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularPerspective</DisplayName>
+      <DisplayPath>MetaTabular model.TabularPerspectiveTranslation.TabularPerspective</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularperspective-tabularperspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularPerspective:TabularPerspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularPerspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularRelationship</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularRelationship</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularRelationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Cardinality</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.Cardinality</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:property:cardinality</Key>
+      <Kind>Property</Kind>
+      <NativeId>Cardinality</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>CrossFilterDirection</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.CrossFilterDirection</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:property:crossfilterdirection</Key>
+      <Kind>Property</Kind>
+      <NativeId>CrossFilterDirection</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsActive</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.IsActive</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:property:isactive</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsActive</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>FromColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.FromColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>FromColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromtable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>FromTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.FromTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromtable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>FromTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:tocolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>ToColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.ToColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:tocolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ToColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:totable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>ToTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRelationship.ToTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:totable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ToTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularRoleFilter</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleFilter</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolefilter</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularRoleFilter</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularRoleFilter.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleFilter.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolefilter:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSecurityRole</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleFilter.TabularSecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabularsecurityrole-tabularsecurityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularSecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleFilter.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularRoleMember</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleMember</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolemember</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularRoleMember</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularRoleMember.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:property:memberid" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MemberId</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleMember.MemberId</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolemember:property:memberid</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MemberName</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleMember.MemberName</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolemember:property:membername</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSecurityRole</DisplayName>
+      <DisplayPath>MetaTabular model.TabularRoleMember.TabularSecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularrolemember:relationship:tabularsecurityrole-tabularsecurityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularSecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSecurityRole</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsecurityrole</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularSecurityRole</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>028</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularSecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSecurityRole.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSecurityRole.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Permission</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSecurityRole.Permission</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:permission</Key>
+      <Kind>Property</Kind>
+      <NativeId>Permission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSecurityRole.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsecurityrole:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSortByColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSortByColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsortbycolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularSortByColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>029</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularSortByColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sortcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>SortColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSortByColumn.SortColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sortcolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SortColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsortbycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sourcecolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>SourceColumn</DisplayName>
+      <DisplayPath>MetaTabular model.TabularSortByColumn.SourceColumn</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sourcecolumn-tabularcolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceColumn:TabularColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabularsortbycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularTable</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>030</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:datacategory" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>DataCategory</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable.DataCategory</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable:property:datacategory</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataCategory</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable.Name</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularModel</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTable.TabularModel</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartable:relationship:tabularmodel-tabularmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularModel:TabularModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTablePermission</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTablePermission</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartablepermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularTablePermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>031</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularTablePermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>MetadataPermission</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTablePermission.MetadataPermission</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartablepermission:property:metadatapermission</Key>
+      <Kind>Property</Kind>
+      <NativeId>MetadataPermission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularSecurityRole</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTablePermission.TabularSecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabularsecurityrole-tabularsecurityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularSecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTablePermission.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTableTranslation</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTableTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartabletranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TabularTableTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>032</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TabularTableTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTableTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTableTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularCulture</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTableTranslation.TabularCulture</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabularculture-tabularculture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularCulture:TabularCulture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
+      <DisplayName>TabularTable</DisplayName>
+      <DisplayPath>MetaTabular model.TabularTableTranslation.TabularTable</DisplayPath>
+      <Key>source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabulartable-tabulartable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TabularTable:TabularTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TabularTable.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

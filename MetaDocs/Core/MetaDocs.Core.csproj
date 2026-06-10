@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\Tooling\MetaDocs.Tooling.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Workspace\model.xml">
+      <Link>Models\MetaDocs.model.xml</Link>
+      <LogicalName>MetaDocs.Core.Models.MetaDocs.model.xml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

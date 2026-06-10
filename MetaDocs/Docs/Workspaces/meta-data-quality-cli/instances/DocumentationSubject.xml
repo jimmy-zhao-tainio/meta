@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>meta-data-quality</DisplayName>
+      <DisplayPath>meta-data-quality</DisplayPath>
+      <Key>source:cli:meta-data-quality:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-data-quality</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>170</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-data-quality` derives reviewable MetaDataQuality candidates from the typed semantic graph of MetaTransformScript workspaces and promotes them into executable quality assets.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>meta-data-quality from-transform-workspace</DisplayName>
+      <DisplayPath>meta-data-quality from-transform-workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:from-transform-workspace</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>from-transform-workspace</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create generated DQ views from a full MetaTransformScript workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--transform-workspace</DisplayName>
+      <DisplayPath>meta-data-quality from-transform-workspace --transform-workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--transform-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaTransformScript workspace to analyze.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-data-quality from-transform-workspace --new-workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Directory where the generated MetaDataQuality workspace will be created.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--binding-workspace</DisplayName>
+      <DisplayPath>meta-data-quality from-transform-workspace --binding-workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--binding-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. MetaTransformBinding workspace used to scan only validated scripts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>meta-data-quality inspect</DisplayName>
+      <DisplayPath>meta-data-quality inspect</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:inspect</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>inspect</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Review the generated DQ pack and optional adjustments.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-data-quality inspect --workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:inspect:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaDataQuality workspace to inspect.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:show-cases" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--show-cases</DisplayName>
+      <DisplayPath>meta-data-quality inspect --show-cases</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:inspect:option:show-cases</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--show-cases</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Show candidate adjustment cases.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:top-cases" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--top-cases</DisplayName>
+      <DisplayPath>meta-data-quality inspect --top-cases</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:inspect:option:top-cases</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--top-cases</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Show up to n candidate cases. Implies --show-cases. Default: 20.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--show-candidate-ids</DisplayName>
+      <DisplayPath>meta-data-quality inspect --show-candidate-ids</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--show-candidate-ids</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Include candidate ids in adjustment output. Implies --show-cases.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>meta-data-quality promote</DisplayName>
+      <DisplayPath>meta-data-quality promote</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:promote</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>promote</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Promote generated DQ candidates for SQL output.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:workspace" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-data-quality promote --workspace</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:promote:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaDataQuality workspace to update.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:all" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--all</DisplayName>
+      <DisplayPath>meta-data-quality promote --all</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:promote:option:all</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--all</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
+      <Status>Current</Status>
+      <Summary>Promote every generated data-quality candidate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:candidate-id" DocumentationSourceId="source:cli:meta-data-quality">
+      <DisplayName>--candidate-id</DisplayName>
+      <DisplayPath>meta-data-quality promote --candidate-id</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:promote:option:candidate-id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--candidate-id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
+      <Status>Current</Status>
+      <Summary>Promote one generated candidate. May be provided more than once.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

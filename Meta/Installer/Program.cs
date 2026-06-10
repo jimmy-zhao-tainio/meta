@@ -31,6 +31,7 @@ try
     {
         new ToolSpec("meta.exe"),
         new ToolSpec("meta-weave.exe"),
+        new ToolSpec("meta-docs.exe"),
     };
 
     var missing = tools
@@ -88,7 +89,7 @@ static void PrintHelp(ConsolePresenter presenter)
     presenter.WriteUsage("install-meta.exe");
     presenter.WriteInfo(string.Empty);
     presenter.WriteInfo("Notes:");
-    presenter.WriteInfo("  Installs meta.exe and meta-weave.exe into %LOCALAPPDATA%\\meta\\bin.");
+    presenter.WriteInfo("  Installs meta.exe, meta-weave.exe, and meta-docs.exe into %LOCALAPPDATA%\\meta\\bin.");
     presenter.WriteInfo("  Adds that directory to the user PATH if it is missing.");
     presenter.WriteInfo("  Copies all files from payload\\meta\\bin beside install-meta.exe.");
     presenter.WriteNext("keep install-meta.exe and payload\\meta\\bin together");

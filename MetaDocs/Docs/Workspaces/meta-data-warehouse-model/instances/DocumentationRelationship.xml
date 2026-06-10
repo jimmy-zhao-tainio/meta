@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationRelationshipList>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:workspace:relationship:containsmodel:source-workspace-model-meta-data-warehouse-model-metadatawarehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:workspace</FromSubjectKey>
+      <Kind>ContainsModel</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotfact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotfact-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone-property-daterolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:daterolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotmilestone-relationship-accumulatingsnapshotfact-accumulatingsnapshotfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-accumulatingsnapshotfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-aggregatefact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-aggregatefact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-aggregatefact-relationship-aggregatedfact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-aggregatefact-relationship-sourcefact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant-property-isrequired" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:isrequired</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant-property-rolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:rolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant-relationship-bridgetable-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-bridgeparticipant-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgetable-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgetable-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-bridgetable-relationship-warehouse-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-bridgeweight" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeweight-property-datatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:datatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeweight-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-bridgeweight-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-bridgeweight-relationship-bridgetable-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-conformeddimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-conformeddimension-property-conformancename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:conformancename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-conformeddimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-conformeddimension-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-degeneratedimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-degeneratedimension-property-datatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:datatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-degeneratedimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-degeneratedimension-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-degeneratedimension-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-degeneratedimension-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>009</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimension-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimension-relationship-warehouse-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-property-datatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:datatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-property-isnullable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:isnullable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionattribute-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskey" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>011</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskey-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskey-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskey-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskeypart" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>012</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskeypart-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskeypart-relationship-dimensionattribute-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskeypart-relationship-dimensionbusinesskey-dimensionbusinesskey" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionbusinesskey" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchy" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>013</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchy-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchy-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchy-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchylevel" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>014</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchylevel-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchylevel-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchylevel-relationship-dimensionattribute-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchylevel-relationship-dimensionhierarchy-dimensionhierarchy" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionhierarchy" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>015</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-fact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-fact-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-fact-relationship-warehouse-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-factbridge" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>016</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factbridge-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factbridge-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factbridge-property-rolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:property:rolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factbridge-relationship-bridgetable-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-bridgetable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factbridge-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-factdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>017</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factdimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factdimension-property-isrequired" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:property:isrequired</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factdimension-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factdimension-property-rolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:property:rolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factdimension-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factdimension-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-factgrain" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>018</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factgrain-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factgrain-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factgrain-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-factlessfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>019</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factlessfact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factlessfact-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-factmeasure" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>020</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factmeasure-property-datatypeid" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:datatypeid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factmeasure-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factmeasure-property-isnullable" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:isnullable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factmeasure-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-factmeasure-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-factmeasure-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-junkdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>021</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-junkdimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-junkdimension-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-junkdimensioncomponent" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>022</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-junkdimensioncomponent-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-junkdimensioncomponent-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-junkdimensioncomponent-relationship-dimensionattribute-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-junkdimensioncomponent-relationship-junkdimension-junkdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-junkdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-minidimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>023</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-minidimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-minidimension-property-rolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:property:rolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-minidimension-relationship-profiledimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-minidimension-relationship-sourcedimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-outriggerdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>024</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-property-isrequired" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:isrequired</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:ordinal</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-property-rolename" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:rolename</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-relationship-childdimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-outriggerdimension-relationship-parentdimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-periodicsnapshotfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>025</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-periodicsnapshotfact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-periodicsnapshotfact-property-periodname" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:periodname</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-periodicsnapshotfact-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>026</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension-relationship-dimension-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-transactionfact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>027</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-transactionfact-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-transactionfact-relationship-fact-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-fact" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:fact</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-type1dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>028</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-type1dimensionattribute-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-type1dimensionattribute-relationship-dimensionattribute-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-type1dimensionattribute-relationship-slowlychangingdimension-slowlychangingdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-type2dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>029</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-type2dimensionattribute-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-type2dimensionattribute-relationship-dimensionattribute-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-dimensionattribute" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:containsrelationship:source-workspace-model-meta-data-warehouse-entity-type2dimensionattribute-relationship-slowlychangingdimension-slowlychangingdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension:relationship:referencesentity:source-workspace-model-meta-data-warehouse-entity-slowlychangingdimension" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse:relationship:containsentity:source-workspace-model-meta-data-warehouse-entity-warehouse" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>030</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:warehouse:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-warehouse-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse:property:description</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-data-warehouse:entity:warehouse:relationship:containsproperty:source-workspace-model-meta-data-warehouse-entity-warehouse-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-warehouse:batch:20260610050949443" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <FromSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-data-warehouse:entity:warehouse:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+  </DocumentationRelationshipList>
+</MetaDocs>

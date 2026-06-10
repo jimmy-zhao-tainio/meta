@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:workspace" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>MetaWeave</DisplayPath>
+      <Key>source:workspace-model:meta-weave:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta\MetaDocs\Docs\SourceWorkspaces\meta-weave-model-source</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>095</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:model:metaweave" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>MetaWeave.MetaWeave</DisplayPath>
+      <Key>source:workspace-model:meta-weave:model:metaweave</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaWeave</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaWeave.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>ModelReference</DisplayName>
+      <DisplayPath>MetaWeave.ModelReference</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:modelreference</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ModelReference</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:model:metaweave</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ModelReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>Alias</DisplayName>
+      <DisplayPath>MetaWeave.ModelReference.Alias</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:modelreference:property:alias</Key>
+      <Kind>Property</Kind>
+      <NativeId>Alias</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>ModelName</DisplayName>
+      <DisplayPath>MetaWeave.ModelReference.ModelName</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:modelreference:property:modelname</Key>
+      <Kind>Property</Kind>
+      <NativeId>ModelName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>WorkspacePath</DisplayName>
+      <DisplayPath>MetaWeave.ModelReference.WorkspacePath</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</Key>
+      <Kind>Property</Kind>
+      <NativeId>WorkspacePath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>PropertyBinding</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PropertyBinding</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:model:metaweave</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PropertyBinding.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.Name</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>SourceEntity</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.SourceEntity</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceEntity</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>SourceProperty</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.SourceProperty</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceProperty</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>TargetEntity</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.TargetEntity</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</Key>
+      <Kind>Property</Kind>
+      <NativeId>TargetEntity</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>TargetProperty</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.TargetProperty</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</Key>
+      <Kind>Property</Kind>
+      <NativeId>TargetProperty</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>SourceModel</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.SourceModel</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceModel:ModelReference</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to ModelReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave">
+      <DisplayName>TargetModel</DisplayName>
+      <DisplayPath>MetaWeave.PropertyBinding.TargetModel</DisplayPath>
+      <Key>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TargetModel:ModelReference</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to ModelReference.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

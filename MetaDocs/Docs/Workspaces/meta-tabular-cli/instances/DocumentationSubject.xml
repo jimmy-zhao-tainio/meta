@@ -1,0 +1,3040 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-tabular:app" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular</DisplayName>
+      <DisplayPath>meta-tabular</DisplayPath>
+      <Key>source:cli:meta-tabular:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-tabular</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>250</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-tabular` creates sanctioned MetaTabular workspaces for modeling tabular analytics artifacts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:new-workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular --new-workspace</DisplayName>
+      <DisplayPath>meta-tabular --new-workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:new-workspace</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create an empty MetaTabular workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:new-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-tabular --new-workspace --new-workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:new-workspace:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Directory where the empty MetaTabular workspace will be created.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular deploy</DisplayName>
+      <DisplayPath>meta-tabular deploy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>deploy</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create modeled objects on an Analysis Services tabular instance.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular deploy --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaTabular workspace to deploy. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy:option:server" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--server</DisplayName>
+      <DisplayPath>meta-tabular deploy --server</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy:option:server</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--server</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Analysis Services tabular server.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy:option:database-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-tabular deploy --database-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional target database name. Defaults to the modeled database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy:option:drop-existing" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--drop-existing</DisplayName>
+      <DisplayPath>meta-tabular deploy --drop-existing</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy:option:drop-existing</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--drop-existing</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Drop an existing target database before create/deploy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:deploy:option:no-process" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--no-process</DisplayName>
+      <DisplayPath>meta-tabular deploy --no-process</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:deploy:option:no-process</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--no-process</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Deploy metadata only and skip full processing.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular restore</DisplayName>
+      <DisplayPath>meta-tabular restore</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>restore</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Promote a processed tabular database through backup and restore.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:source-server" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--source-server</DisplayName>
+      <DisplayPath>meta-tabular restore --source-server</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:source-server</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-server</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Source Analysis Services server containing the processed database.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:source-database-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--source-database-name</DisplayName>
+      <DisplayPath>meta-tabular restore --source-database-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:source-database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Source processed database name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:target-server" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--target-server</DisplayName>
+      <DisplayPath>meta-tabular restore --target-server</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:target-server</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-server</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target Analysis Services server.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:target-database-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--target-database-name</DisplayName>
+      <DisplayPath>meta-tabular restore --target-database-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:target-database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target database name to restore.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:backup-file" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--backup-file</DisplayName>
+      <DisplayPath>meta-tabular restore --backup-file</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:backup-file</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--backup-file</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Backup file path accessible to the Analysis Services service accounts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:drop-existing" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--drop-existing</DisplayName>
+      <DisplayPath>meta-tabular restore --drop-existing</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:drop-existing</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--drop-existing</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Drop an existing target database before restore.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:restore:option:overwrite-backup-file" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--overwrite-backup-file</DisplayName>
+      <DisplayPath>meta-tabular restore --overwrite-backup-file</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:restore:option:overwrite-backup-file</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--overwrite-backup-file</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:restore</ParentKey>
+      <Status>Current</Status>
+      <Summary>Overwrite an existing backup file.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:drop" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular drop</DisplayName>
+      <DisplayPath>meta-tabular drop</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:drop</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>drop</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Drop a tabular database from an Analysis Services tabular instance.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:drop:option:server" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--server</DisplayName>
+      <DisplayPath>meta-tabular drop --server</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:drop:option:server</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--server</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:drop</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Analysis Services tabular server.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:drop:option:database-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--database-name</DisplayName>
+      <DisplayPath>meta-tabular drop --database-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:drop:option:database-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--database-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:drop</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Database name to drop.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-calculation-group</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-calculation-group</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularCalculationGroup row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCalculationGroup row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:precedence" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--precedence</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --precedence</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:precedence</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--precedence</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Precedence.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-group --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-calculation-item</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-calculation-item</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularCalculationItem row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCalculationItem row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Expression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:format-string-expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--format-string-expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --format-string-expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:format-string-expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--format-string-expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. FormatStringExpression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:ordinal" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --ordinal</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:ordinal</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ordinal</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:tabular-calculation-group" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-calculation-group</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-calculation-item --tabular-calculation-group</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:tabular-calculation-group</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-calculation-group</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCalculationGroup id for TabularCalculationGroupId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-column</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularColumn row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:data-category" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--data-category</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --data-category</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:data-category</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--data-category</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DataCategory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:data-type-id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--data-type-id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --data-type-id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:data-type-id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--data-type-id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. DataTypeId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Expression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:format-string" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--format-string</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --format-string</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:format-string</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--format-string</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. FormatString.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-hidden" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-hidden</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --is-hidden</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:is-hidden</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-hidden</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsHidden.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-key" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-key</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --is-key</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:is-key</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-key</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-nullable" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-nullable</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --is-nullable</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:is-nullable</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-nullable</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsNullable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:ordinal" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --ordinal</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:ordinal</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ordinal</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:source-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--source-name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --source-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:source-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. SourceName.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:summarize-by" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--summarize-by</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --summarize-by</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:summarize-by</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--summarize-by</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. SummarizeBy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-column-permission</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-column-permission</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularColumnPermission row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumnPermission row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:metadata-permission" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--metadata-permission</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission --metadata-permission</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:metadata-permission</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--metadata-permission</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetadataPermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission --tabular-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for TabularColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-security-role" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-security-role</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-permission --tabular-security-role</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-security-role</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-security-role</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSecurityRole id for TabularSecurityRoleId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-column-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-column-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularColumnTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumnTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:caption" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--caption</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --caption</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:caption</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--caption</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Caption.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --tabular-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for TabularColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-column-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-culture</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-culture</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularCulture row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-culture --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-culture:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-culture</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-culture --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-culture:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-culture</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-culture --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-culture:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-culture</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-culture --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-culture:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-culture</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-data-source</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-data-source</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularDataSource row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularDataSource row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:connection-reference" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--connection-reference</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --connection-reference</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:connection-reference</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--connection-reference</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. ConnectionReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:provider" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--provider</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --provider</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:provider</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--provider</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Provider.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-data-source --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-data-source:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-data-source</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-hierarchy</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-hierarchy</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularHierarchy row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchy row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:display-folder" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--display-folder</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --display-folder</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:display-folder</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--display-folder</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DisplayFolder.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:is-hidden" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-hidden</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --is-hidden</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:is-hidden</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-hidden</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsHidden.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-hierarchy-level</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-hierarchy-level</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularHierarchyLevel row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchyLevel row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:ordinal" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --ordinal</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:ordinal</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ordinal</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --tabular-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for TabularColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-hierarchy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-hierarchy</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-level --tabular-hierarchy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-hierarchy</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-hierarchy</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchy id for TabularHierarchyId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-hierarchy-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-hierarchy-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularHierarchyTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchyTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:caption" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--caption</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --caption</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:caption</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--caption</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Caption.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-hierarchy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-hierarchy</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-hierarchy-translation --tabular-hierarchy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-hierarchy</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-hierarchy</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchy id for TabularHierarchyId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-kpi</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-kpi</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularKpi row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularKpi row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--status-expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --status-expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--status-expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. StatusExpression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-graphic" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--status-graphic</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --status-graphic</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-graphic</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--status-graphic</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. StatusGraphic.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--target-expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --target-expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. TargetExpression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--trend-expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --trend-expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--trend-expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. TrendExpression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-graphic" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--trend-graphic</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --trend-graphic</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-graphic</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--trend-graphic</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. TrendGraphic.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:base-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--base-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --base-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:base-measure</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--base-measure</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularMeasure id for BaseMeasureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--target-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi --target-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-measure</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-measure</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. TabularMeasure id for TargetMeasureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-kpi-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-kpi-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularKpiTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularKpiTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-kpi" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-kpi</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-kpi-translation --tabular-kpi</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-kpi</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-kpi</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularKpi id for TabularKpiId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-measure</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularMeasure row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularMeasure row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:display-folder" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--display-folder</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --display-folder</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:display-folder</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--display-folder</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DisplayFolder.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Expression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:format-string" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--format-string</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --format-string</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:format-string</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--format-string</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. FormatString.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:is-hidden" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-hidden</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --is-hidden</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:is-hidden</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-hidden</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsHidden.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-measure-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-measure-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularMeasureTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularMeasureTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:caption" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--caption</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --caption</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:caption</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--caption</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Caption.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-measure-translation --tabular-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-measure</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-measure</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularMeasure id for TabularMeasureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-model</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularModel row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:collation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--collation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --collation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:collation</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--collation</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Collation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:compatibility-level" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--compatibility-level</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --compatibility-level</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:compatibility-level</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--compatibility-level</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. CompatibilityLevel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:default-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--default-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --default-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:default-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--default-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DefaultCulture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:default-data-view" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--default-data-view</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --default-data-view</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:default-data-view</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--default-data-view</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DefaultDataView.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-model:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-model --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-model:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-model</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-partition</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-partition</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPartition row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPartition row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Expression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:mode" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--mode</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --mode</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:mode</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--mode</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Mode.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:ordinal" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --ordinal</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:ordinal</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ordinal</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-data-source" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-data-source</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --tabular-data-source</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-data-source</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-data-source</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. TabularDataSource id for TabularDataSourceId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-partition --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-partition</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspective row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-calculation-group</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-calculation-group</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-calculation-group</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveCalculationGroup row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-calculation-group --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-calculation-group --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveCalculationGroup row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-calculation-group" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-calculation-group</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-calculation-group --tabular-calculation-group</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-calculation-group</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-calculation-group</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCalculationGroup id for TabularCalculationGroupId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-calculation-group --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-column</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-column</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveColumn row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-column --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-column --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveColumn row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-column --tabular-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for TabularColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-column --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-hierarchy</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-hierarchy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-hierarchy</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveHierarchy row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-hierarchy --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-hierarchy --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveHierarchy row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-hierarchy" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-hierarchy</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-hierarchy --tabular-hierarchy</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-hierarchy</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-hierarchy</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularHierarchy id for TabularHierarchyId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-hierarchy --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-kpi</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-kpi</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-kpi</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveKpi row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-kpi --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-kpi --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveKpi row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-kpi" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-kpi</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-kpi --tabular-kpi</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-kpi</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-kpi</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularKpi id for TabularKpiId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-kpi --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-measure</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveMeasure row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-measure --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-measure --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveMeasure row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-measure" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-measure</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-measure --tabular-measure</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-measure</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-measure</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularMeasure id for TabularMeasureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-measure --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-table</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-table</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveTable row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-table --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-table --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveTable row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-table --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-table --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-perspective-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-perspective-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>028</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularPerspectiveTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspectiveTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:caption" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--caption</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --caption</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:caption</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--caption</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Caption.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-perspective" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-perspective</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-perspective-translation --tabular-perspective</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-perspective</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-perspective</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularPerspective id for TabularPerspectiveId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-relationship</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-relationship</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>029</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularRelationship row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularRelationship row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cardinality" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--cardinality</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --cardinality</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:cardinality</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--cardinality</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Cardinality.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cross-filter-direction" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--cross-filter-direction</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --cross-filter-direction</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:cross-filter-direction</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--cross-filter-direction</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. CrossFilterDirection.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-active" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-active</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --is-active</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-active</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-active</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsActive.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-required" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-required</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --is-required</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-required</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-required</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsRequired.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--from-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --from-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--from-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for FromColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--from-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --from-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--from-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for FromTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--to-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --to-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--to-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for ToColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--to-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-relationship --to-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--to-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-relationship</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for ToTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-role-filter</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-role-filter</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>030</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularRoleFilter row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularRoleFilter row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:expression" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--expression</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter --expression</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:expression</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--expression</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Expression.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-security-role" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-security-role</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter --tabular-security-role</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-security-role</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-security-role</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSecurityRole id for TabularSecurityRoleId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-filter --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-role-member</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-role-member</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>031</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularRoleMember row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-member</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-member</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularRoleMember row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--member-id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member --member-id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--member-id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-member</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. MemberId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--member-name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member --member-name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--member-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-member</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MemberName.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:tabular-security-role" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-security-role</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-role-member --tabular-security-role</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-role-member:option:tabular-security-role</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-security-role</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-role-member</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSecurityRole id for TabularSecurityRoleId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-security-role</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-security-role</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>032</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularSecurityRole row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSecurityRole row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:permission" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--permission</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --permission</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:permission</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--permission</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Permission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-security-role --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-security-role:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-security-role</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-sort-by-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-sort-by-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-sort-by-column</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>033</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularSortByColumn row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-sort-by-column --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-sort-by-column --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSortByColumn row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:sort-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--sort-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-sort-by-column --sort-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:sort-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--sort-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for SortColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:source-column" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--source-column</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-sort-by-column --source-column</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:source-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-column</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularColumn id for SourceColumnId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-table</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>034</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularTable row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:data-category" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--data-category</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --data-category</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:data-category</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--data-category</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. DataCategory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:is-hidden" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--is-hidden</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --is-hidden</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:is-hidden</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--is-hidden</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. IsHidden.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:name" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --name</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table:option:tabular-model" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-model</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table --tabular-model</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table:option:tabular-model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-model</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularModel id for TabularModelId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-table-permission</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-table-permission</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>035</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularTablePermission row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTablePermission row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:metadata-permission" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--metadata-permission</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission --metadata-permission</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:metadata-permission</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--metadata-permission</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetadataPermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-security-role" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-security-role</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission --tabular-security-role</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-security-role</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-security-role</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularSecurityRole id for TabularSecurityRoleId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-permission --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>meta-tabular add-tabular-table-translation</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>add-tabular-table-translation</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>036</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add a TabularTableTranslation row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:workspace" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --workspace</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:id" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --id</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:id</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--id</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTableTranslation row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:caption" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--caption</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --caption</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:caption</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--caption</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Caption.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:description" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --description</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:description</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--description</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-culture" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-culture</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --tabular-culture</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-culture</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-culture</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularCulture id for TabularCultureId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-table" DocumentationSourceId="source:cli:meta-tabular">
+      <DisplayName>--tabular-table</DisplayName>
+      <DisplayPath>meta-tabular add-tabular-table-translation --tabular-table</DisplayPath>
+      <Key>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--tabular-table</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. TabularTable id for TabularTableId.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

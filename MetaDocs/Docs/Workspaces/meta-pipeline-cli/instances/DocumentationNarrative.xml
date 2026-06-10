@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationNarrativeList>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app">
+      <Body>`meta-pipeline` creates sanctioned MetaPipeline workspaces that describe transform steps and pipeline structure as explicit metadata.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Ordinal>010</Ordinal>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute">
+      <Body>Execute a modeled pipeline's serial task chain.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:workspace">
+      <Body>Required. MetaPipeline workspace that contains the modeled serial task chain.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:pipeline:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:pipeline">
+      <Body>Required. Pipeline name to execute.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:pipeline</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:transform-workspace">
+      <Body>Required. MetaTransformScript workspace used by transform tasks.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:binding-workspace">
+      <Body>Required. MetaTransformBinding workspace used by transform tasks.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:binding-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:data-type-conversion-workspace">
+      <Body>Optional conversion policy workspace; omitted uses the built-in defaults.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:data-type-conversion-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute:option:pipeline-db-connection-env">
+      <Body>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker">
+      <Body>Execute a modeled pipeline under an orchestration worker protocol.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:workspace">
+      <Body>Required. MetaPipeline workspace that contains the modeled serial task chain.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline">
+      <Body>Required. Pipeline name to execute as a worker.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:pipeline</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:transform-workspace">
+      <Body>Required. MetaTransformScript workspace used by transform tasks.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:binding-workspace">
+      <Body>Required. MetaTransformBinding workspace used by transform tasks.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:binding-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe">
+      <Body>Required. Named pipe used for orchestration worker control messages.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe-connect-timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe-connect-timeout-seconds">
+      <Body>Optional timeout while connecting to the orchestration control pipe. 0 or omitted means no timeout.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe-connect-timeout-seconds</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:data-type-conversion-workspace">
+      <Body>Optional conversion policy workspace; omitted uses the built-in defaults.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:data-type-conversion-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline-db-connection-env">
+      <Body>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-worker:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step">
+      <Body>Execute one modeled transform-backed pipeline step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:workspace">
+      <Body>Required. MetaPipeline workspace that contains the modeled step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:pipeline:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:pipeline">
+      <Body>Required. Pipeline name containing the step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:pipeline</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:step-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:step-name">
+      <Body>Required. Pipeline task name or id to execute.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:step-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:transform-workspace">
+      <Body>Required. MetaTransformScript workspace used by the step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:binding-workspace">
+      <Body>Required. MetaTransformBinding workspace used by the step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:binding-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:data-type-conversion-workspace">
+      <Body>Optional conversion policy workspace; omitted uses the built-in defaults.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:data-type-conversion-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-step:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-step:option:pipeline-db-connection-env">
+      <Body>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-step:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver">
+      <Body>Execute the direct SQL Server runtime slice.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:transform-workspace">
+      <Body>Required. MetaTransformScript workspace containing the script.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding-workspace">
+      <Body>Required. MetaTransformBinding workspace containing script binding rows.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:script:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:script">
+      <Body>Required. TransformScript.Name or TransformScript.Id to execute.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:script</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding">
+      <Body>Optional binding id when the selected script has multiple bindings.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:execution-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:execution-connection-env">
+      <Body>Required. Shell-visible environment variable for the execution SQL Server connection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:execution-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-connection-env">
+      <Body>Required for SELECT-kind scripts. Shell-visible environment variable for the target SQL Server connection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target">
+      <Body>Target table identifier when a SELECT binding has multiple targets.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:batch-size:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:batch-size">
+      <Body>Bounded in-memory row buffer size. Default: 1000.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:batch-size</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:timeout-seconds">
+      <Body>SQL command and bulk-copy timeout seconds. 0 or omitted means no command timeout.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:timeout-seconds</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-data-type-system:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-data-type-system">
+      <Body>Runtime target type family for InsertRows. Default: SqlServer.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-data-type-system</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:data-type-conversion-workspace">
+      <Body>Optional conversion policy workspace; omitted uses the built-in defaults.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:data-type-conversion-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:execute-sqlserver:option:pipeline-db-connection-env">
+      <Body>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:execute-sqlserver:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:create-pipeline-db:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:create-pipeline-db">
+      <Body>Create or update the MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:create-pipeline-db</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-connection-env">
+      <Body>Required. Shell-visible environment variable with a SQL Server connection string that can create the database.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-name">
+      <Body>Operational database name. Default: MetaPipeline.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:prune-pipeline-db">
+      <Body>Prune old MetaPipeline operational diagnostic logs.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:prune-pipeline-db</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:pipeline-db-connection-env">
+      <Body>Required. Shell-visible environment variable for the initialized MetaPipeline operational DB.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:pipeline-db-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:retention-days:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:retention-days">
+      <Body>Required. Delete eligible diagnostic rows older than this retention window.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:retention-days</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:dry-run:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:dry-run">
+      <Body>Report eligible rows without deleting them.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:dry-run</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-pipeline:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-pipeline">
+      <Body>Add one Pipeline instance to a MetaPipeline workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-pipeline</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-pipeline:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-pipeline:option:workspace">
+      <Body>Required. Existing MetaPipeline workspace to update.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-pipeline:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-pipeline:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-pipeline:option:name">
+      <Body>Required. Pipeline name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-pipeline:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-pipeline:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-pipeline:option:description">
+      <Body>Optional pipeline description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-pipeline:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step">
+      <Body>Add one transform-backed step to a pipeline.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:workspace">
+      <Body>Required. Existing MetaPipeline workspace to update.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:pipeline:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:pipeline">
+      <Body>Required. Pipeline that receives the new serial step.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:pipeline</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:script:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:script">
+      <Body>Required. TransformScript.Name or TransformScript.Id to model.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:script</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:transform-workspace">
+      <Body>Required. MetaTransformScript workspace used for script selection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:binding-workspace">
+      <Body>Required. MetaTransformBinding workspace used for binding selection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:binding-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:execution-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:execution-connection-env">
+      <Body>Required. Shell-visible environment variable named by the modeled execution connection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:execution-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:step-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:step-name">
+      <Body>Optional step name; omitted derives a deterministic name from the script name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:step-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:binding:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:binding">
+      <Body>Optional binding id when the selected script has multiple bindings.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:binding</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:target-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:target-connection-env">
+      <Body>Required for SELECT-kind scripts. Shell-visible environment variable named by the modeled target connection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:target-connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:target:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:target">
+      <Body>Target table identifier when a SELECT binding has multiple targets.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:target</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:target-write:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:target-write">
+      <Body>SELECT-kind target write model. The only supported value is insert-rows.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:target-write</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:batch-size:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:batch-size">
+      <Body>Bounded in-memory row buffer size for InsertRows. Default: 1000.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:batch-size</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:timeout-seconds">
+      <Body>SQL command and bulk-copy timeout seconds for the transform execution. 0 or omitted means no timeout.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:timeout-seconds</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:add-step:option:target-data-type-system:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:add-step:option:target-data-type-system">
+      <Body>InsertRows target type family. Default: SqlServer.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:add-step:option:target-data-type-system</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:inspect:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:inspect">
+      <Body>Show a compact MetaPipeline workspace summary.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:inspect</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:command:inspect:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-pipeline:app:command:inspect:option:workspace">
+      <Body>Required. MetaPipeline workspace to inspect.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-pipeline:batch:20260608145059964</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-pipeline:app:command:inspect:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+  </DocumentationNarrativeList>
+</MetaDocs>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Meta\Adapters\Meta.Adapters.csproj" />
+    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Workspace\model.xml" Link="MetaDocs\model.xml" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

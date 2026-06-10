@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:workspace" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>MetaDataWarehouseImplementation model</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataWarehouse\Workspaces\MetaDataWarehouseImplementation</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>220</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>MetaDataWarehouseImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.MetaDataWarehouseImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaDataWarehouseImplementation</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaDataWarehouseImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AccumulatingSnapshotFactTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AccumulatingSnapshotFactTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AccumulatingSnapshotFactTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AccumulatingSnapshotFactTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>MilestoneDateColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AccumulatingSnapshotFactTableImplementation.MilestoneDateColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatecolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>MilestoneDateColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatedatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>MilestoneDateDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AccumulatingSnapshotFactTableImplementation.MilestoneDateDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatedatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>MilestoneDateDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AggregateFactTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AggregateFactTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AggregateFactTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AggregateFactTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SchemaName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AggregateFactTableImplementation.SchemaName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:schemaname</Key>
+      <Kind>Property</Kind>
+      <NativeId>SchemaName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:sourcefactforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SourceFactForeignKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AggregateFactTableImplementation.SourceFactForeignKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:sourcefactforeignkeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceFactForeignKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>TableNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.AggregateFactTableImplementation.TableNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:tablenamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>TableNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>BridgeTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BridgeTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BridgeTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>ParticipantForeignKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.ParticipantForeignKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantforeignkeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>ParticipantForeignKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantkeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>ParticipantKeyColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.ParticipantKeyColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantkeycolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>ParticipantKeyColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PrimaryKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.PrimaryKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:primarykeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>PrimaryKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SchemaName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.SchemaName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:schemaname</Key>
+      <Kind>Property</Kind>
+      <NativeId>SchemaName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>TableNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.TableNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:tablenamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>TableNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>WeightColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.WeightColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>WeightColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>WeightDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.BridgeTableImplementation.WeightDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightdatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>WeightDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DimensionTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:attributecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AttributeColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.AttributeColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:attributecolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>AttributeColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:businesskeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>BusinessKeyColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.BusinessKeyColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:businesskeycolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>BusinessKeyColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PrimaryKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.PrimaryKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:primarykeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>PrimaryKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SchemaName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.SchemaName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:schemaname</Key>
+      <Kind>Property</Kind>
+      <NativeId>SchemaName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeycolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SurrogateKeyColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.SurrogateKeyColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeycolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>SurrogateKeyColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeydatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SurrogateKeyDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.SurrogateKeyDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeydatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>SurrogateKeyDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>TableNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.DimensionTableImplementation.TableNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:tablenamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>TableNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>FactTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:degeneratedimensioncolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DegenerateDimensionColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.DegenerateDimensionColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:degeneratedimensioncolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>DegenerateDimensionColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DimensionForeignKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.DimensionForeignKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionforeignkeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>DimensionForeignKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionkeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DimensionKeyColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.DimensionKeyColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionkeycolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>DimensionKeyColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:measurecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>MeasureColumnPattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.MeasureColumnPattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:measurecolumnpattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>MeasureColumnPattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PrimaryKeyNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.PrimaryKeyNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:primarykeynamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>PrimaryKeyNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SchemaName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.SchemaName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:schemaname</Key>
+      <Kind>Property</Kind>
+      <NativeId>SchemaName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>TableNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.FactTableImplementation.TableNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:tablenamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>TableNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>IndexImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>IndexImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity IndexImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestobridgetables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToBridgeTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.AppliesToBridgeTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestobridgetables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToBridgeTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestodimensiontables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToDimensionTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.AppliesToDimensionTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestodimensiontables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToDimensionTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestofacttables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToFactTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.AppliesToFactTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestofacttables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToFactTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:columnnamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>ColumnNamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.ColumnNamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:columnnamepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>ColumnNamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:filtersql" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>FilterSql</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.FilterSql</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:filtersql</Key>
+      <Kind>Property</Kind>
+      <NativeId>FilterSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isclustered" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>IsClustered</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.IsClustered</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isclustered</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsClustered</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isunique" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>IsUnique</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.IsUnique</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isunique</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsUnique</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:namepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>NamePattern</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.NamePattern</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:namepattern</Key>
+      <Kind>Property</Kind>
+      <NativeId>NamePattern</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.IndexImplementation.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PeriodicSnapshotFactTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PeriodicSnapshotFactTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PeriodicSnapshotFactTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PeriodicSnapshotFactTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:perioddatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PeriodDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PeriodicSnapshotFactTableImplementation.PeriodDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:perioddatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>PeriodDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodendcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PeriodEndColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PeriodicSnapshotFactTableImplementation.PeriodEndColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodendcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>PeriodEndColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodstartcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PeriodStartColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PeriodicSnapshotFactTableImplementation.PeriodStartColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodstartcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>PeriodStartColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>PlatformColumnImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PlatformColumnImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PlatformColumnImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestobridgetables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToBridgeTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.AppliesToBridgeTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestobridgetables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToBridgeTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestodimensiontables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToDimensionTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.AppliesToDimensionTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestodimensiontables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToDimensionTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestofacttables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>AppliesToFactTables</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.AppliesToFactTables</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestofacttables</Key>
+      <Kind>Property</Kind>
+      <NativeId>AppliesToFactTables</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:columnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>ColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.ColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:columnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>ColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:defaultexpressionsql" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>DefaultExpressionSql</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.DefaultExpressionSql</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:defaultexpressionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultExpressionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:length" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>Length</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.Length</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:length</Key>
+      <Kind>Property</Kind>
+      <NativeId>Length</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:precision" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>Precision</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.Precision</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:precision</Key>
+      <Kind>Property</Kind>
+      <NativeId>Precision</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:scale" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>Scale</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.PlatformColumnImplementation.Scale</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:scale</Key>
+      <Kind>Property</Kind>
+      <NativeId>Scale</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>SlowlyChangingDimensionTableImplementation</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>SlowlyChangingDimensionTableImplementation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity SlowlyChangingDimensionTableImplementation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>CurrentFlagColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.CurrentFlagColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>CurrentFlagColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>CurrentFlagDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.CurrentFlagDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagdatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>CurrentFlagDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>EffectiveFromColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.EffectiveFromColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>EffectiveFromColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>EffectiveFromDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.EffectiveFromDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromdatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>EffectiveFromDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetocolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>EffectiveToColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.EffectiveToColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetocolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>EffectiveToColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetodatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>EffectiveToDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.EffectiveToDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetodatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>EffectiveToDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>HashDiffColumnName</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.HashDiffColumnName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffcolumnname</Key>
+      <Kind>Property</Kind>
+      <NativeId>HashDiffColumnName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
+      <DisplayName>HashDiffDataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouseImplementation model.SlowlyChangingDimensionTableImplementation.HashDiffDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffdatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>HashDiffDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

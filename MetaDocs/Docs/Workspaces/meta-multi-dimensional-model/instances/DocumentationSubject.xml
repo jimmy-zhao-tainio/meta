@@ -1,0 +1,2704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:workspace" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MetaMultiDimensional model</DisplayName>
+      <DisplayPath>MetaMultiDimensional model</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaMultiDimensional\Workspaces\MetaMultiDimensional</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>230</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:model:metamultidimensional" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MetaMultiDimensional</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MetaMultiDimensional</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaMultiDimensional</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaMultiDimensional.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ActionTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.ActionTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ActionTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ActionTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.ActionTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.ActionTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:cubeaction-cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeAction</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.ActionTranslation.CubeAction</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:cubeaction-cubeaction</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>CubeAction:CubeAction</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to CubeAction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.ActionTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AttributeRelationship</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeRelationship</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AttributeRelationship</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AttributeRelationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeRelationship.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>RelationshipType</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeRelationship.RelationshipType</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:relationshiptype</Key>
+      <Kind>Property</Kind>
+      <NativeId>RelationshipType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:childattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ChildAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeRelationship.ChildAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:childattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ChildAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:parentattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ParentAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeRelationship.ParentAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:parentattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ParentAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AttributeTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AttributeTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AttributeTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.AttributeTranslation.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CellPermission</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CellPermission</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cellpermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>CellPermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity CellPermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CellPermission.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CellPermission.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CellPermission.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CellPermission.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Cube</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:defaultmeasurename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DefaultMeasureName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.DefaultMeasureName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:property:defaultmeasurename</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultMeasureName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ProcessingMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.ProcessingMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:property:processingmode</Key>
+      <Kind>Property</Kind>
+      <NativeId>ProcessingMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StorageMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.StorageMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:property:storagemode</Key>
+      <Kind>Property</Kind>
+      <NativeId>StorageMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Cube.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cube:relationship:multidimensionaldatabase-multidimensionaldatabase</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeAction</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction</Key>
+      <Kind>Entity</Kind>
+      <NativeId>CubeAction</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity CubeAction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:actiontype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ActionType</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.ActionType</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:actiontype</Key>
+      <Kind>Property</Kind>
+      <NativeId>ActionType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:target" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Target</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Target</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:target</Key>
+      <Kind>Property</Kind>
+      <NativeId>Target</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:targetkind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>TargetKind</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.TargetKind</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:targetkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>TargetKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeAction.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubeaction:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeDimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>CubeDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity CubeDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeDimension.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>CubeTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity CubeTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeTranslation.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.CubeTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:culture</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Culture</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Culture.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:culture:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:languageid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>LanguageId</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Culture.LanguageId</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:culture:property:languageid</Key>
+      <Kind>Property</Kind>
+      <NativeId>LanguageId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Culture.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:culture:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Culture.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:culture:relationship:multidimensionaldatabase-multidimensionaldatabase</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Dimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:dimensiontype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionType</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.DimensionType</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:dimensiontype</Key>
+      <Kind>Property</Kind>
+      <NativeId>DimensionType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processinggroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ProcessingGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.ProcessingGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:processinggroup</Key>
+      <Kind>Property</Kind>
+      <NativeId>ProcessingGroup</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ProcessingMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.ProcessingMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:processingmode</Key>
+      <Kind>Property</Kind>
+      <NativeId>ProcessingMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StorageMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.StorageMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:property:storagemode</Key>
+      <Kind>Property</Kind>
+      <NativeId>StorageMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Dimension.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimension:relationship:multidimensionaldatabase-multidimensionaldatabase</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyenabled" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AttributeHierarchyEnabled</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.AttributeHierarchyEnabled</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyenabled</Key>
+      <Kind>Property</Kind>
+      <NativeId>AttributeHierarchyEnabled</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyvisible" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AttributeHierarchyVisible</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.AttributeHierarchyVisible</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyvisible</Key>
+      <Kind>Property</Kind>
+      <NativeId>AttributeHierarchyVisible</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>IsKey</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.IsKey</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:iskey</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:usage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Usage</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.Usage</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:usage</Key>
+      <Kind>Property</Kind>
+      <NativeId>Usage</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionAttribute.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionHierarchy</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionHierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchy.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:hierarchytype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>HierarchyType</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchy.HierarchyType</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:hierarchytype</Key>
+      <Kind>Property</Kind>
+      <NativeId>HierarchyType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchy.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchy.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionHierarchyLevel</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchyLevel</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionHierarchyLevel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionHierarchyLevel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchyLevel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchyLevel.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchyLevel.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionHierarchy</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionHierarchyLevel.DimensionHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionHierarchy:DimensionHierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionPermission</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionPermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionPermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:allowedsetexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AllowedSetExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.AllowedSetExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:allowedsetexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>AllowedSetExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:defaultmemberexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DefaultMemberExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.DefaultMemberExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:defaultmemberexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultMemberExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:deniedsetexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DeniedSetExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.DeniedSetExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:deniedsetexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>DeniedSetExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:visualtotals" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>VisualTotals</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.VisualTotals</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:visualtotals</Key>
+      <Kind>Property</Kind>
+      <NativeId>VisualTotals</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionPermission.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionTranslation.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DimensionUsage</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionUsage</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionUsage.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:isrequired" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:rolename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:usagekind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>UsageKind</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.UsageKind</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:usagekind</Key>
+      <Kind>Property</Kind>
+      <NativeId>UsageKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:cubedimension-cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeDimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.CubeDimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:cubedimension-cubedimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>CubeDimension:CubeDimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to CubeDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:granularityattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>GranularityAttribute</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.GranularityAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:granularityattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>GranularityAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:intermediatemeasuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>IntermediateMeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.IntermediateMeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:intermediatemeasuregroup-measuregroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>IntermediateMeasureGroup:MeasureGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.DimensionUsage.MeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:measuregroup-measuregroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MeasureGroup:MeasureGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Kpi</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Kpi</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Kpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:goalexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>GoalExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.GoalExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:goalexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>GoalExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StatusExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.StatusExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>StatusExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusgraphic" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StatusGraphic</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.StatusGraphic</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusgraphic</Key>
+      <Kind>Property</Kind>
+      <NativeId>StatusGraphic</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>TrendExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.TrendExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>TrendExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendgraphic" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>TrendGraphic</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.TrendGraphic</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendgraphic</Key>
+      <Kind>Property</Kind>
+      <NativeId>TrendGraphic</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:valueexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ValueExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.ValueExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:property:valueexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>ValueExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:associatedmeasure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AssociatedMeasure</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.AssociatedMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:associatedmeasure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AssociatedMeasure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Kpi.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>KpiTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.KpiTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>KpiTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity KpiTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.KpiTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.KpiTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.KpiTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:kpi-kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Kpi</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.KpiTranslation.Kpi</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:kpi-kpi</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Kpi:Kpi</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Kpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MdxCalculation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MdxCalculation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MdxCalculation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:calculationkind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CalculationKind</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.CalculationKind</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:calculationkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>CalculationKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:solveorder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SolveOrder</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.SolveOrder</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:solveorder</Key>
+      <Kind>Property</Kind>
+      <NativeId>SolveOrder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MdxCalculation.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Measure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:aggregatefunction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.AggregateFunction</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:aggregatefunction</Key>
+      <Kind>Property</Kind>
+      <NativeId>AggregateFunction</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>FormatString</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.FormatString</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:formatstring</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatString</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Measure.MeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measure:relationship:measuregroup-measuregroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MeasureGroup:MeasureGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MeasureGroup</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ProcessingMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.ProcessingMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:processingmode</Key>
+      <Kind>Property</Kind>
+      <NativeId>ProcessingMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StorageMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.StorageMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:storagemode</Key>
+      <Kind>Property</Kind>
+      <NativeId>StorageMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureGroup.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuregroup:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MeasureTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MeasureTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MeasureTranslation.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:measure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Measure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:collation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Collation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDatabase.Collation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:collation</Key>
+      <Kind>Property</Kind>
+      <NativeId>Collation</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:defaultlanguage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DefaultLanguage</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDatabase.DefaultLanguage</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:defaultlanguage</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultLanguage</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDatabase.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDatabase.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDataSource</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MultiDimensionalDataSource</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MultiDimensionalDataSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ConnectionReference</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.ConnectionReference</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:connectionreference</Key>
+      <Kind>Property</Kind>
+      <NativeId>ConnectionReference</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:provider" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Provider</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.Provider</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:provider</Key>
+      <Kind>Property</Kind>
+      <NativeId>Provider</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceKind</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.SourceKind</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:sourcekind</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.MultiDimensionalDataSource.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:relationship:multidimensionaldatabase-multidimensionaldatabase</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>NamedSet</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset</Key>
+      <Kind>Entity</Kind>
+      <NativeId>NamedSet</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity NamedSet.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSet.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedset:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>NamedSetTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSetTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>NamedSetTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity NamedSetTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSetTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSetTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSetTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:namedset-namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>NamedSet</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.NamedSetTranslation.NamedSet</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:namedset-namedset</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>NamedSet:NamedSet</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to NamedSet.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Partition</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Partition</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Partition.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>ProcessingMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.ProcessingMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:processingmode</Key>
+      <Kind>Property</Kind>
+      <NativeId>ProcessingMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:sliceexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SliceExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.SliceExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:sliceexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>SliceExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:sourceexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SourceExpression</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.SourceExpression</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:sourceexpression</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceExpression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>StorageMode</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.StorageMode</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:property:storagemode</Key>
+      <Kind>Property</Kind>
+      <NativeId>StorageMode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.MeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:relationship:measuregroup-measuregroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MeasureGroup:MeasureGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:relationship:multidimensionaldatasource-multidimensionaldatasource" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDataSource</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Partition.MultiDimensionalDataSource</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:partition:relationship:multidimensionaldatasource-multidimensionaldatasource</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDataSource:MultiDimensionalDataSource</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to MultiDimensionalDataSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspective</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Perspective</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>028</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:defaultmeasurename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>DefaultMeasureName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Perspective.DefaultMeasureName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspective:property:defaultmeasurename</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultMeasureName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Perspective.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspective:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Perspective.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspective:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Cube</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.Perspective.Cube</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspective:relationship:cube-cube</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Cube:Cube</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Cube.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveAction</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveAction</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveAction</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>029</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveAction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:cubeaction-cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeAction</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveAction.CubeAction</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:cubeaction-cubeaction</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>CubeAction:CubeAction</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to CubeAction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveAction.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveCalculation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveCalculation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveCalculation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>030</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveCalculation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:mdxcalculation-mdxcalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MdxCalculation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveCalculation.MdxCalculation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:mdxcalculation-mdxcalculation</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MdxCalculation:MdxCalculation</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MdxCalculation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveCalculation.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveDimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveDimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>031</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:cubedimension-cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>CubeDimension</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveDimension.CubeDimension</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:cubedimension-cubedimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>CubeDimension:CubeDimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to CubeDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveDimension.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveKpi</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveKpi</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveKpi</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>032</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveKpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:kpi-kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Kpi</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveKpi.Kpi</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:kpi-kpi</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Kpi:Kpi</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Kpi.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveKpi.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveMeasure</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveMeasure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>033</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasure.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:measure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Measure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasure.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveMeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveMeasureGroup</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>034</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveMeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MeasureGroup</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasureGroup.MeasureGroup</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:measuregroup-measuregroup</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MeasureGroup:MeasureGroup</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MeasureGroup.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveMeasureGroup.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveNamedSet</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveNamedSet</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveNamedSet</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>035</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveNamedSet.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:namedset-namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>NamedSet</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveNamedSet.NamedSet</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:namedset-namedset</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>NamedSet:NamedSet</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to NamedSet.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveNamedSet.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>PerspectiveTranslation</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>036</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.PerspectiveTranslation.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>RoleMember</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.RoleMember</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:rolemember</Key>
+      <Kind>Entity</Kind>
+      <NativeId>RoleMember</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>037</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity RoleMember.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MemberName</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.RoleMember.MemberName</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membername</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membersid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MemberSid</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.RoleMember.MemberSid</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membersid</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberSid</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.RoleMember.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:rolemember:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:securityrole</Key>
+      <Kind>Entity</Kind>
+      <NativeId>SecurityRole</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>038</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.SecurityRole.Description</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:securityrole:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.SecurityRole.Name</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:securityrole:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>Permission</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.SecurityRole.Permission</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:securityrole:property:permission</Key>
+      <Kind>Property</Kind>
+      <NativeId>Permission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
+      <DisplayName>MultiDimensionalDatabase</DisplayName>
+      <DisplayPath>MetaMultiDimensional model.SecurityRole.MultiDimensionalDatabase</DisplayPath>
+      <Key>source:workspace-model:meta-multi-dimensional:entity:securityrole:relationship:multidimensionaldatabase-multidimensionaldatabase</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

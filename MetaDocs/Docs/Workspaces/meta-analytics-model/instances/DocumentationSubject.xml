@@ -1,0 +1,1876 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:workspace" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MetaAnalytics model</DisplayName>
+      <DisplayPath>MetaAnalytics model</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaAnalytics\Workspaces\MetaAnalytics</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>110</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:model:metaanalytics" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MetaAnalytics</DisplayName>
+      <DisplayPath>MetaAnalytics model.MetaAnalytics</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:model:metaanalytics</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaAnalytics</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaAnalytics.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AggregationBehavior</DisplayName>
+      <DisplayPath>MetaAnalytics model.AggregationBehavior</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AggregationBehavior</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AggregationBehavior.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.AggregationBehavior.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Function</DisplayName>
+      <DisplayPath>MetaAnalytics model.AggregationBehavior.Function</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function</Key>
+      <Kind>Property</Kind>
+      <NativeId>Function</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaAnalytics model.AggregationBehavior.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Measure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AnalyticsModel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DefaultCulture</DisplayName>
+      <DisplayPath>MetaAnalytics model.AnalyticsModel.DefaultCulture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultCulture</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.AnalyticsModel.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.AnalyticsModel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Attribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Attribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DataCategory</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.DataCategory</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:datacategory</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataCategory</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ExpressionLanguage</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.ExpressionLanguage</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage</Key>
+      <Kind>Property</Kind>
+      <NativeId>ExpressionLanguage</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>FormatString</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.FormatString</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:formatstring</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatString</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsKey</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.IsKey</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:iskey</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsKey</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SourceName</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.SourceName</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:sourcename</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SummarizeBy</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.SummarizeBy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:property:summarizeby</Key>
+      <Kind>Property</Kind>
+      <NativeId>SummarizeBy</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.Attribute.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attribute:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AttributePermission</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributePermission</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributepermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AttributePermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AttributePermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributePermission.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributepermission:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MetadataPermission</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributePermission.MetadataPermission</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission</Key>
+      <Kind>Property</Kind>
+      <NativeId>MetadataPermission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Attribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributePermission.Attribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Attribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributePermission.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AttributeRelationship</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeRelationship</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributerelationship</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AttributeRelationship</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AttributeRelationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeRelationship.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>RelationshipType</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeRelationship.RelationshipType</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype</Key>
+      <Kind>Property</Kind>
+      <NativeId>RelationshipType</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ChildAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeRelationship.ChildAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ChildAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ParentAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeRelationship.ParentAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ParentAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AttributeTranslation</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AttributeTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AttributeTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Attribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeTranslation.Attribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Attribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.AttributeTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:culture</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Culture</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Culture.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:culture:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Culture.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:culture:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.Culture.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DataSource</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DataSource</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DataSource.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ConnectionReference</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.ConnectionReference</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:property:connectionreference</Key>
+      <Kind>Property</Kind>
+      <NativeId>ConnectionReference</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:provider" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Provider</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.Provider</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:property:provider</Key>
+      <Kind>Property</Kind>
+      <NativeId>Provider</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SourceKind</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.SourceKind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:property:sourcekind</Key>
+      <Kind>Property</Kind>
+      <NativeId>SourceKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.DataSource.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Hierarchy</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Hierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Hierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.Hierarchy.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>HierarchyLevel</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyLevel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>HierarchyLevel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity HierarchyLevel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyLevel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyLevel.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Attribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyLevel.Attribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Attribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Hierarchy</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyLevel.Hierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Hierarchy:Hierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Hierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>HierarchyTranslation</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>HierarchyTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity HierarchyTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Hierarchy</DisplayName>
+      <DisplayPath>MetaAnalytics model.HierarchyTranslation.Hierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Hierarchy:Hierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Hierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Measure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>FormatString</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.FormatString</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:formatstring</Key>
+      <Kind>Property</Kind>
+      <NativeId>FormatString</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SourceAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.SourceAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.Measure.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measure:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MeasureTranslation</DisplayName>
+      <DisplayPath>MetaAnalytics model.MeasureTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measuretranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MeasureTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MeasureTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaAnalytics model.MeasureTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.MeasureTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.MeasureTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaAnalytics model.MeasureTranslation.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Measure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspective</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Perspective</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Perspective.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspective:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Perspective.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspective:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.Perspective.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>PerspectiveAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Attribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveAttribute.Attribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Attribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveAttribute.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>PerspectiveHierarchy</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveHierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Hierarchy</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveHierarchy.Hierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Hierarchy:Hierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Hierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveHierarchy.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>PerspectiveMeasure</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveMeasure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Measure</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveMeasure.Measure</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Measure:Measure</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Measure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveMeasure.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>PerspectiveTable</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTable</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetable</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveTable</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTable.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTable.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>PerspectiveTranslation</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PerspectiveTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PerspectiveTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Perspective</DisplayName>
+      <DisplayPath>MetaAnalytics model.PerspectiveTranslation.Perspective</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Perspective:Perspective</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Perspective.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Relationship</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Relationship</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Relationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Cardinality</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.Cardinality</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:cardinality</Key>
+      <Kind>Property</Kind>
+      <NativeId>Cardinality</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>CrossFilterDirection</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.CrossFilterDirection</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection</Key>
+      <Kind>Property</Kind>
+      <NativeId>CrossFilterDirection</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsActive</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.IsActive</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:isactive</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsActive</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>RelationshipKind</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.RelationshipKind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>RelationshipKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:rolename" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>FromAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.FromAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>FromAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>FromTable</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.FromTable</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>FromTable:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>GranularityAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.GranularityAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>GranularityAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IntermediateTable</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.IntermediateTable</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>IntermediateTable:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ToAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.ToAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ToAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ToTable</DisplayName>
+      <DisplayPath>MetaAnalytics model.Relationship.ToTable</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ToTable:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>RoleFilter</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter</Key>
+      <Kind>Entity</Kind>
+      <NativeId>RoleFilter</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity RoleFilter.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Expression</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter.Expression</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:expression</Key>
+      <Kind>Property</Kind>
+      <NativeId>Expression</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>ExpressionLanguage</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter.ExpressionLanguage</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage</Key>
+      <Kind>Property</Kind>
+      <NativeId>ExpressionLanguage</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleFilter.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>RoleMember</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleMember</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolemember</Key>
+      <Kind>Entity</Kind>
+      <NativeId>RoleMember</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity RoleMember.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MemberKind</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleMember.MemberKind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolemember:property:memberkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MemberName</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleMember.MemberName</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolemember:property:membername</Key>
+      <Kind>Property</Kind>
+      <NativeId>MemberName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaAnalytics model.RoleMember.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaAnalytics model.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:securityrole</Key>
+      <Kind>Entity</Kind>
+      <NativeId>SecurityRole</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.SecurityRole.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.SecurityRole.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Permission</DisplayName>
+      <DisplayPath>MetaAnalytics model.SecurityRole.Permission</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:permission</Key>
+      <Kind>Property</Kind>
+      <NativeId>Permission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.SecurityRole.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SortByAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.SortByAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>SortByAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity SortByAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.SortByAttribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SortAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.SortByAttribute.SortAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SortAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SourceAttribute</DisplayName>
+      <DisplayPath>MetaAnalytics model.SortByAttribute.SourceAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceAttribute:Attribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Table</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DataCategory</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.DataCategory</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:datacategory</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataCategory</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>DisplayFolder</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.DisplayFolder</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:displayfolder</Key>
+      <Kind>Property</Kind>
+      <NativeId>DisplayFolder</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>IsHidden</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.IsHidden</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:ishidden</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsHidden</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Kind</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.Kind</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:kind</Key>
+      <Kind>Property</Kind>
+      <NativeId>Kind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.Name</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>AnalyticsModel</DisplayName>
+      <DisplayPath>MetaAnalytics model.Table.AnalyticsModel</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AnalyticsModel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>TablePermission</DisplayName>
+      <DisplayPath>MetaAnalytics model.TablePermission</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tablepermission</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TablePermission</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TablePermission.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.TablePermission.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tablepermission:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>MetadataPermission</DisplayName>
+      <DisplayPath>MetaAnalytics model.TablePermission.MetadataPermission</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission</Key>
+      <Kind>Property</Kind>
+      <NativeId>MetadataPermission</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>SecurityRole</DisplayName>
+      <DisplayPath>MetaAnalytics model.TablePermission.SecurityRole</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SecurityRole:SecurityRole</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SecurityRole.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.TablePermission.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>TableTranslation</DisplayName>
+      <DisplayPath>MetaAnalytics model.TableTranslation</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tabletranslation</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TableTranslation</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TableTranslation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Caption</DisplayName>
+      <DisplayPath>MetaAnalytics model.TableTranslation.Caption</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:property:caption</Key>
+      <Kind>Property</Kind>
+      <NativeId>Caption</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaAnalytics model.TableTranslation.Description</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Culture</DisplayName>
+      <DisplayPath>MetaAnalytics model.TableTranslation.Culture</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Culture:Culture</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Culture.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaAnalytics model.TableTranslation.Table</DisplayPath>
+      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

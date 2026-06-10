@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>meta-transform-binding</DisplayName>
+      <DisplayPath>meta-transform-binding</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-transform-binding</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>160</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-transform-binding` binds MetaTransformScript workspaces to explicit source and target schema contracts, producing rowset, column, and validation evidence.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>meta-transform-binding bind</DisplayName>
+      <DisplayPath>meta-transform-binding bind</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>bind</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Bind all transform scripts and validate against source/target schema contracts into a new workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:transform-workspace" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--transform-workspace</DisplayName>
+      <DisplayPath>meta-transform-binding bind --transform-workspace</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:transform-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--transform-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaTransformScript workspace to bind.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:source-schema" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--source-schema</DisplayName>
+      <DisplayPath>meta-transform-binding bind --source-schema</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:source-schema</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-schema</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Repeatable source MetaSchema workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:target-schema" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--target-schema</DisplayName>
+      <DisplayPath>meta-transform-binding bind --target-schema</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:target-schema</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-schema</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Target MetaSchema workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:execute-system" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--execute-system</DisplayName>
+      <DisplayPath>meta-transform-binding bind --execute-system</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:execute-system</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--execute-system</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Execution context for one/two-part source identifiers.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-transform-binding bind --new-workspace</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Directory where the binding workspace will be created.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:execute-system-default-schema-name" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--execute-system-default-schema-name</DisplayName>
+      <DisplayPath>meta-transform-binding bind --execute-system-default-schema-name</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:execute-system-default-schema-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--execute-system-default-schema-name</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required when any one-part source identifier exists.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--ignore-target-columns</DisplayName>
+      <DisplayPath>meta-transform-binding bind --ignore-target-columns</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ignore-target-columns</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional comma-separated target columns to exclude from target conformance checks.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--ignore-target-columns-if-present</DisplayName>
+      <DisplayPath>meta-transform-binding bind --ignore-target-columns-if-present</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--ignore-target-columns-if-present</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional comma-separated target columns to exclude only on target tables where they exist.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:data-type-conversion-workspace" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--data-type-conversion-workspace</DisplayName>
+      <DisplayPath>meta-transform-binding bind --data-type-conversion-workspace</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:data-type-conversion-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--data-type-conversion-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional sanctioned conversion policy workspace. Omitted uses built-in defaults.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:allow-partial" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--allow-partial</DisplayName>
+      <DisplayPath>meta-transform-binding bind --allow-partial</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:allow-partial</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--allow-partial</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional. Save only objects that bind and validate successfully; skipped objects are failures.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:partial-report" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>--partial-report</DisplayName>
+      <DisplayPath>meta-transform-binding bind --partial-report</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:option:partial-report</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--partial-report</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional TSV report for objects skipped due to binding or validation failure. Requires --allow-partial.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:example:001" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>Example 1</DisplayName>
+      <DisplayPath>meta-transform-binding bind example 1</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:example:001</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SourceSchemaWS --target-schema .\TargetSchemaWS --execute-system SalesDb --new-workspace .\BindingWS</NativeId>
+      <NativeKind>CliExample</NativeKind>
+      <Ordinal>1000</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:example:002" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>Example 2</DisplayName>
+      <DisplayPath>meta-transform-binding bind example 2</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:example:002</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SalesSchemaWS --source-schema .\ReferenceSchemaWS --target-schema .\WarehouseSchemaWS --execute-system WarehouseDb --execute-system-default-schema-name dbo --new-workspace .\BindingWS --ignore-target-columns LoadUtc,RunId --ignore-target-columns-if-present UpdateAudit_ID</NativeId>
+      <NativeKind>CliExample</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:example:003" DocumentationSourceId="source:cli:meta-transform-binding">
+      <DisplayName>Example 3</DisplayName>
+      <DisplayPath>meta-transform-binding bind example 3</DisplayPath>
+      <Key>source:cli:meta-transform-binding:app:command:bind:example:003</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SourceSchemaWS --target-schema .\TargetSchemaWS --execute-system SalesDb --execute-system-default-schema-name dbo --new-workspace .\BindingWS --allow-partial --partial-report .\binding-partial.tsv</NativeId>
+      <NativeKind>CliExample</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:cli:meta-transform-binding:app:command:bind</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

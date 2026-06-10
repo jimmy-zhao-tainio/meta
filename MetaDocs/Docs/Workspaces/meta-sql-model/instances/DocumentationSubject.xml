@@ -1,0 +1,868 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:workspace" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>MetaSql model</DisplayName>
+      <DisplayPath>MetaSql model</DisplayPath>
+      <Key>source:workspace-model:meta-sql:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSql\Workspace</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>270</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:model:metasql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>MetaSql</DisplayName>
+      <DisplayPath>MetaSql model.MetaSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:model:metasql</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaSql</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaSql.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:database" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Database</DisplayName>
+      <DisplayPath>MetaSql model.Database</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:database</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Database</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Database.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:database:property:collation" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Collation</DisplayName>
+      <DisplayPath>MetaSql model.Database.Collation</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:database:property:collation</Key>
+      <Kind>Property</Kind>
+      <NativeId>Collation</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:database</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:database:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.Database.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:database:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:database</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>ForeignKey</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKey</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkey</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ForeignKey</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ForeignKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKey.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkey:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>SourceTable</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKey.SourceTable</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceTable:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TargetTable</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKey.TargetTable</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TargetTable:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>ForeignKeyColumn</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKeyColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkeycolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ForeignKeyColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ForeignKeyColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKeyColumn.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkeycolumn:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>ForeignKey</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKeyColumn.ForeignKey</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ForeignKey:ForeignKey</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to ForeignKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>SourceColumn</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKeyColumn.SourceColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceColumn:TableColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TargetColumn</DisplayName>
+      <DisplayPath>MetaSql model.ForeignKeyColumn.TargetColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TargetColumn:TableColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Function</DisplayName>
+      <DisplayPath>MetaSql model.Function</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Function</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Function.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DefinitionSql</DisplayName>
+      <DisplayPath>MetaSql model.Function.DefinitionSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function:property:definitionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefinitionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:function</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DeployOrdinal</DisplayName>
+      <DisplayPath>MetaSql model.Function.DeployOrdinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function:property:deployordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>DeployOrdinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:function</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:functionkind" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>FunctionKind</DisplayName>
+      <DisplayPath>MetaSql model.Function.FunctionKind</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function:property:functionkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>FunctionKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:function</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.Function.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:function</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Schema</DisplayName>
+      <DisplayPath>MetaSql model.Function.Schema</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:function:relationship:schema-schema</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Schema:Schema</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:function</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Schema.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Index</DisplayName>
+      <DisplayPath>MetaSql model.Index</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Index</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Index.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:filtersql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>FilterSql</DisplayName>
+      <DisplayPath>MetaSql model.Index.FilterSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index:property:filtersql</Key>
+      <Kind>Property</Kind>
+      <NativeId>FilterSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:index</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:isclustered" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsClustered</DisplayName>
+      <DisplayPath>MetaSql model.Index.IsClustered</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index:property:isclustered</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsClustered</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:index</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:isunique" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsUnique</DisplayName>
+      <DisplayPath>MetaSql model.Index.IsUnique</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index:property:isunique</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsUnique</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:index</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.Index.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:index</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaSql model.Index.Table</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:index:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:index</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IndexColumn</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>IndexColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity IndexColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:isdescending" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsDescending</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn.IsDescending</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn:property:isdescending</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsDescending</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:indexcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:isincluded" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsIncluded</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn.IsIncluded</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn:property:isincluded</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsIncluded</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:indexcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:indexcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Index</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn.Index</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Index:Index</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:indexcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Index.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TableColumn</DisplayName>
+      <DisplayPath>MetaSql model.IndexColumn.TableColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TableColumn:TableColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:indexcolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>PrimaryKey</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKey</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykey</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PrimaryKey</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PrimaryKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:property:isclustered" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsClustered</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKey.IsClustered</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykey:property:isclustered</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsClustered</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykey</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKey.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykey:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKey.Table</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykey:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>PrimaryKeyColumn</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKeyColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykeycolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PrimaryKeyColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PrimaryKeyColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:property:isdescending" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsDescending</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKeyColumn.IsDescending</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykeycolumn:property:isdescending</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsDescending</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKeyColumn.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykeycolumn:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>PrimaryKey</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKeyColumn.PrimaryKey</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>PrimaryKey:PrimaryKey</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to PrimaryKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TableColumn</DisplayName>
+      <DisplayPath>MetaSql model.PrimaryKeyColumn.TableColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TableColumn:TableColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:primarykeycolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Schema</DisplayName>
+      <DisplayPath>MetaSql model.Schema</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:schema</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Schema</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Schema.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.Schema.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:schema:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:schema</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema:relationship:database-database" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Database</DisplayName>
+      <DisplayPath>MetaSql model.Schema.Database</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:schema:relationship:database-database</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Database:Database</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:schema</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Database.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>StoredProcedure</DisplayName>
+      <DisplayPath>MetaSql model.StoredProcedure</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:storedprocedure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>StoredProcedure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity StoredProcedure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DefinitionSql</DisplayName>
+      <DisplayPath>MetaSql model.StoredProcedure.DefinitionSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:storedprocedure:property:definitionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefinitionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:storedprocedure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DeployOrdinal</DisplayName>
+      <DisplayPath>MetaSql model.StoredProcedure.DeployOrdinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:storedprocedure:property:deployordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>DeployOrdinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:storedprocedure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.StoredProcedure.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:storedprocedure:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:storedprocedure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Schema</DisplayName>
+      <DisplayPath>MetaSql model.StoredProcedure.Schema</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Schema:Schema</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:storedprocedure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Schema.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaSql model.Table</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:table</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Table</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.Table.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:table:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Schema</DisplayName>
+      <DisplayPath>MetaSql model.Table.Schema</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:table:relationship:schema-schema</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Schema:Schema</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:table</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Schema.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TableColumn</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TableColumn</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:defaultexpressionsql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DefaultExpressionSql</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.DefaultExpressionSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:defaultexpressionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefaultExpressionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:expressionsql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>ExpressionSql</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.ExpressionSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:expressionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>ExpressionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:identityincrement" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IdentityIncrement</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.IdentityIncrement</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:identityincrement</Key>
+      <Kind>Property</Kind>
+      <NativeId>IdentityIncrement</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:identityseed" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IdentitySeed</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.IdentitySeed</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:identityseed</Key>
+      <Kind>Property</Kind>
+      <NativeId>IdentitySeed</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:isidentity" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsIdentity</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.IsIdentity</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:isidentity</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsIdentity</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:isnullable" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:metadatatypeid" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>MetaDataTypeId</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.MetaDataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:metadatatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>MetaDataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Table</DisplayName>
+      <DisplayPath>MetaSql model.TableColumn.Table</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Table:Table</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumn</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TableColumnDataTypeDetail</DisplayName>
+      <DisplayPath>MetaSql model.TableColumnDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TableColumnDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TableColumnDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.TableColumnDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaSql model.TableColumnDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>TableColumn</DisplayName>
+      <DisplayPath>MetaSql model.TableColumnDataTypeDetail.TableColumn</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>TableColumn:TableColumn</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to TableColumn.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>View</DisplayName>
+      <DisplayPath>MetaSql model.View</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:view</Key>
+      <Kind>Entity</Kind>
+      <NativeId>View</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:model:metasql</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity View.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DefinitionSql</DisplayName>
+      <DisplayPath>MetaSql model.View.DefinitionSql</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:view:property:definitionsql</Key>
+      <Kind>Property</Kind>
+      <NativeId>DefinitionSql</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:view</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>DeployOrdinal</DisplayName>
+      <DisplayPath>MetaSql model.View.DeployOrdinal</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:view:property:deployordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>DeployOrdinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:view</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:name" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaSql model.View.Name</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:view:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:view</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql">
+      <DisplayName>Schema</DisplayName>
+      <DisplayPath>MetaSql model.View.Schema</DisplayPath>
+      <Key>source:workspace-model:meta-sql:entity:view:relationship:schema-schema</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Schema:Schema</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-sql:entity:view</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Schema.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

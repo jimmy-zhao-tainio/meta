@@ -1,0 +1,1732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:workspace" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>MetaBusinessDataVault model</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataVault\Workspaces\MetaBusinessDataVault</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>190</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>MetaBusinessDataVault</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.MetaBusinessDataVault</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaBusinessDataVault</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaBusinessDataVault.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessBridge</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridge</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridge</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessBridge</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessBridge.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridge.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridge:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridge.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridge:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridge.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridge:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessBridgeHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgehub</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessBridgeHub</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessBridgeHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeHub.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgehub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeHub.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgehub</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessBridge</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeHub.BusinessBridge</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businessbridge-businessbridge</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessBridge:BusinessBridge</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgehub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessBridge.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeHub.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgehub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessBridgeLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgelink</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessBridgeLink</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessBridgeLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeLink.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgelink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeLink.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgelink</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessBridge</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeLink.BusinessBridge</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businessbridge-businessbridge</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessBridge:BusinessBridge</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgelink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessBridge.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessBridgeLink.BusinessLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businesslink-businesslink</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLink:BusinessLink</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessbridgelink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHierarchicalLink</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHierarchicalLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLink.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLink.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:childhub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>ChildHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLink.ChildHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:childhub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ChildHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:parenthub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>ParentHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLink.ParentHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:parenthub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ParentHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHierarchicalLinkSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHierarchicalLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatellite.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatellite.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatellite.BusinessHierarchicalLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHierarchicalLink:BusinessHierarchicalLink</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHierarchicalLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHierarchicalLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHierarchicalLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:relationship:businesshierarchicallinksatellite-businesshierarchicallinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttribute.BusinessHierarchicalLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:relationship:businesshierarchicallinksatellite-businesshierarchicallinksatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHierarchicalLinkSatellite:BusinessHierarchicalLinkSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHierarchicalLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:relationship:businesshierarchicallinksatelliteattribute-businesshierarchicallinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHierarchicalLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.BusinessHierarchicalLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:relationship:businesshierarchicallinksatelliteattribute-businesshierarchicallinksatelliteattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHierarchicalLinkSatelliteAttribute:BusinessHierarchicalLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHierarchicalLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshub</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHub</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHub.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshub:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshub</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHub.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshub:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPart</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHubKeyPart</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHubKeyPart.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPart.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPart.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPart.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPart.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubKeyPartDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPartDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHubKeyPartDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHubKeyPartDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPartDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPartDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:relationship:businesshubkeypart-businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubKeyPartDataTypeDetail.BusinessHubKeyPart</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:relationship:businesshubkeypart-businesshubkeypart</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHubKeyPart:BusinessHubKeyPart</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHubKeyPart.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHubSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHubSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatellite.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatellite.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatellite.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHubSatelliteAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHubSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:relationship:businesshubsatellite-businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttribute.BusinessHubSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:relationship:businesshubsatellite-businesshubsatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHubSatellite:BusinessHubSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHubSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttributeDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessHubSatelliteAttributeDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessHubSatelliteAttributeDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:relationship:businesshubsatelliteattribute-businesshubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessHubSatelliteAttributeDataTypeDetail.BusinessHubSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:relationship:businesshubsatelliteattribute-businesshubsatelliteattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHubSatelliteAttribute:BusinessHubSatelliteAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHubSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslink</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessLink</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLink.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslink:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLink.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslink:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinkhub</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessLinkHub</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessLinkHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkHub.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinkhub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkHub.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinkhub</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkHub.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinkhub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkHub.BusinessLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesslink-businesslink</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLink:BusinessLink</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinkhub</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessLinkSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatellite.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatellite.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatellite.BusinessLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLink:BusinessLink</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:relationship:businesslinksatellite-businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttribute.BusinessLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:relationship:businesslinksatellite-businesslinksatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLinkSatellite:BusinessLinkSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttributeDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessLinkSatelliteAttributeDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessLinkSatelliteAttributeDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:relationship:businesslinksatelliteattribute-businesslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessLinkSatelliteAttributeDataTypeDetail.BusinessLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:relationship:businesslinksatelliteattribute-businesslinksatelliteattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLinkSatelliteAttribute:BusinessLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTime</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTime</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintime</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessPointInTime</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessPointInTime.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTime.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintime</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTime.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintime</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTime.BusinessHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintime:relationship:businesshub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintime</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTimeHubSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeHubSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessPointInTimeHubSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessPointInTimeHubSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeHubSatellite.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesshubsatellite-businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessHubSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeHubSatellite.BusinessHubSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesshubsatellite-businesshubsatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessHubSatellite:BusinessHubSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHubSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTime</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeHubSatellite.BusinessPointInTime</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesspointintime-businesspointintime</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessPointInTime.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTimeLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessPointInTimeLinkSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessPointInTimeLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeLinkSatellite.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesslinksatellite-businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeLinkSatellite.BusinessLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesslinksatellite-businesslinksatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessLinkSatellite:BusinessLinkSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTime</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeLinkSatellite.BusinessPointInTime</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesspointintime-businesspointintime</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessPointInTime.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTimeStamp</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStamp</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessPointInTimeStamp</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessPointInTimeStamp.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStamp.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStamp.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStamp.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTime</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStamp.BusinessPointInTime</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:relationship:businesspointintime-businesspointintime</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessPointInTime.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTimeStampDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStampDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessPointInTimeStampDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessPointInTimeStampDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStampDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStampDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:relationship:businesspointintimestamp-businesspointintimestamp" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessPointInTimeStamp</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessPointInTimeStampDataTypeDetail.BusinessPointInTimeStamp</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:relationship:businesspointintimestamp-businesspointintimestamp</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessPointInTimeStamp:BusinessPointInTimeStamp</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessPointInTimeStamp.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReference</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReference</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreference</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReference</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReference.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreference:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreference</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReference.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreference:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreference</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPart</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReferenceKeyPart</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReferenceKeyPart.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPart.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPart.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPart.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReference</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPart.BusinessReference</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessReference:BusinessReference</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceKeyPartDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPartDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReferenceKeyPartDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReferenceKeyPartDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPartDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPartDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:relationship:businessreferencekeypart-businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceKeyPartDataTypeDetail.BusinessReferenceKeyPart</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:relationship:businessreferencekeypart-businessreferencekeypart</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessReferenceKeyPart:BusinessReferenceKeyPart</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessReferenceKeyPart.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReferenceSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReferenceSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatellite.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatellite.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReference</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatellite.BusinessReference</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessReference:BusinessReference</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessReference.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReferenceSatelliteAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>028</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReferenceSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:relationship:businessreferencesatellite-businessreferencesatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttribute.BusinessReferenceSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:relationship:businessreferencesatellite-businessreferencesatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessReferenceSatellite:BusinessReferenceSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessReferenceSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttributeDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessReferenceSatelliteAttributeDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>029</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessReferenceSatelliteAttributeDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:relationship:businessreferencesatelliteattribute-businessreferencesatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessReferenceSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessReferenceSatelliteAttributeDataTypeDetail.BusinessReferenceSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:relationship:businessreferencesatelliteattribute-businessreferencesatelliteattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessReferenceSatelliteAttribute:BusinessReferenceSatelliteAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessReferenceSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslink</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessSameAsLink</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>030</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessSameAsLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLink.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLink.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:equivalenthub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>EquivalentHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLink.EquivalentHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:equivalenthub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>EquivalentHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:primaryhub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>PrimaryHub</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLink.PrimaryHub</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:primaryhub-businesshub</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>PrimaryHub:BusinessHub</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslink</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessHub.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessSameAsLinkSatellite</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>031</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessSameAsLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatellite.Description</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatellite.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLink</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatellite.BusinessSameAsLink</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessSameAsLink:BusinessSameAsLink</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessSameAsLink.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessSameAsLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>032</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessSameAsLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:relationship:businesssameaslinksatellite-businesssameaslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLinkSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttribute.BusinessSameAsLinkSatellite</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:relationship:businesssameaslinksatellite-businesssameaslinksatellite</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessSameAsLinkSatellite:BusinessSameAsLinkSatellite</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessSameAsLinkSatellite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLinkSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttributeDataTypeDetail</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BusinessSameAsLinkSatelliteAttributeDataTypeDetail</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>033</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BusinessSameAsLinkSatelliteAttributeDataTypeDetail.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:value</Key>
+      <Kind>Property</Kind>
+      <NativeId>Value</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:relationship:businesssameaslinksatelliteattribute-businesssameaslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault">
+      <DisplayName>BusinessSameAsLinkSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault model.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.BusinessSameAsLinkSatelliteAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:relationship:businesssameaslinksatelliteattribute-businesssameaslinksatelliteattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BusinessSameAsLinkSatelliteAttribute:BusinessSameAsLinkSatelliteAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BusinessSameAsLinkSatelliteAttribute.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

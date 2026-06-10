@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationRelationshipList>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:workspace:relationship:containsmodel:source-workspace-model-meta-sql-deploy-manifest-model-metasqldeploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:workspace</FromSubjectKey>
+      <Kind>ContainsModel</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addforeignkey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addforeignkey-property-sourceforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:property:sourceforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addforeignkey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addfunction" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addfunction-property-sourcefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:property:sourcefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addfunction-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addindex" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addindex-property-sourceindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex:property:sourceindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addindex-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addprimarykey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addprimarykey-property-sourceprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:property:sourceprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addprimarykey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addschema" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addschema-property-sourceschemaid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema:property:sourceschemaid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addschema-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addstoredprocedure" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addstoredprocedure-property-sourcestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:property:sourcestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addstoredprocedure-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addtable" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>007</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addtable-property-sourcetableid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable:property:sourcetableid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addtable-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addtablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>008</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addtablecolumn-property-sourcetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:property:sourcetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addtablecolumn-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-addview" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>009</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-addview-property-sourceviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview:property:sourceviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-addview-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-altertablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>010</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-altertablecolumn-property-livetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-altertablecolumn-property-sourcetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:sourcetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-altertablecolumn-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockforeignkeydifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>011</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockforeignkeydifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockforeignkeydifference-property-liveforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockforeignkeydifference-property-sourceforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:sourceforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockforeignkeydifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockfunctiondifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>012</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockfunctiondifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockfunctiondifference-property-livefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockfunctiondifference-property-sourcefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:sourcefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockfunctiondifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockindexdifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>013</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockindexdifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockindexdifference-property-liveindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockindexdifference-property-sourceindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:sourceindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockindexdifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockprimarykeydifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>014</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockprimarykeydifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockprimarykeydifference-property-liveprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockprimarykeydifference-property-sourceprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:sourceprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockprimarykeydifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockstoredproceduredifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>015</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockstoredproceduredifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockstoredproceduredifference-property-livestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockstoredproceduredifference-property-sourcestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:sourcestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockstoredproceduredifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blocktablecolumndifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>016</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktablecolumndifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktablecolumndifference-property-livetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktablecolumndifference-property-sourcetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:sourcetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blocktablecolumndifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blocktabledifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>017</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktabledifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktabledifference-property-livetableid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blocktabledifference-property-sourcetableid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:sourcetableid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blocktabledifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-blockviewdifference" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>018</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockviewdifference-property-differencesummary" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockviewdifference-property-liveviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-blockviewdifference-property-sourceviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:sourceviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-blockviewdifference-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>019</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-createdutc" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-expectedlivedatabasepresence" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-liveinstancefingerprint" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>003</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>004</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-sourceinstancefingerprint" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>005</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest-property-targetdescription" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>006</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:targetdescription</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropforeignkey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>020</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropforeignkey-property-liveforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:property:liveforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropforeignkey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropfunction" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>021</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropfunction-property-livefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:property:livefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropfunction-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropindex" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>022</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropindex-property-liveindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:property:liveindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropindex-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropprimarykey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>023</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropprimarykey-property-liveprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:property:liveprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropprimarykey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropstoredprocedure" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>024</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropstoredprocedure-property-livestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:property:livestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropstoredprocedure-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-droptable" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>025</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-droptable-property-livetableid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable:property:livetableid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-droptable-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-droptablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>026</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-droptablecolumn-property-livetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:property:livetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-droptablecolumn-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-dropview" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>027</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-dropview-property-liveviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview:property:liveviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-dropview-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replaceforeignkey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>028</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceforeignkey-property-liveforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceforeignkey-property-sourceforeignkeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:sourceforeignkeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replaceforeignkey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replacefunction" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>029</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replacefunction-property-livefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replacefunction-property-sourcefunctionid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:sourcefunctionid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replacefunction-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replaceindex" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>030</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceindex-property-liveindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceindex-property-sourceindexid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:sourceindexid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replaceindex-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replaceprimarykey" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>031</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceprimarykey-property-liveprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceprimarykey-property-sourceprimarykeyid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:sourceprimarykeyid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replaceprimarykey-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replacestoredprocedure" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>032</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replacestoredprocedure-property-livestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replacestoredprocedure-property-sourcestoredprocedureid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:sourcestoredprocedureid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replacestoredprocedure-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-replaceview" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>033</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceview-property-liveviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-replaceview-property-sourceviewid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:sourceviewid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-replaceview-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:relationship:containsentity:source-workspace-model-meta-sql-deploy-manifest-entity-truncatetablecolumndata" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</FromSubjectKey>
+      <Kind>ContainsEntity</Kind>
+      <Ordinal>034</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-truncatetablecolumndata-property-livetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:containsproperty:source-workspace-model-meta-sql-deploy-manifest-entity-truncatetablecolumndata-property-sourcetablecolumnid" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</FromSubjectKey>
+      <Kind>ContainsProperty</Kind>
+      <Ordinal>002</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:sourcetablecolumnid</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:containsrelationship:source-workspace-model-meta-sql-deploy-manifest-entity-truncatetablecolumndata-relationship-deploymanifest-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</FromSubjectKey>
+      <Kind>ContainsRelationship</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+    <DocumentationRelationship Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest:relationship:referencesentity:source-workspace-model-meta-sql-deploy-manifest-entity-deploymanifest" DocumentationImportBatchId="source:workspace-model:meta-sql-deploy-manifest:batch:20260610050951077" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+      <FromSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest</FromSubjectKey>
+      <Kind>ReferencesEntity</Kind>
+      <Ordinal>001</Ordinal>
+      <ToSubjectKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ToSubjectKey>
+    </DocumentationRelationship>
+  </DocumentationRelationshipList>
+</MetaDocs>

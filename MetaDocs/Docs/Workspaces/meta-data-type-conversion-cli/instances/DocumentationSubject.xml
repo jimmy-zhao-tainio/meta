@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>meta-data-type-conversion</DisplayName>
+      <DisplayPath>meta-data-type-conversion</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-data-type-conversion</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>130</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-data-type-conversion` authors and validates sanctioned conversion graphs between data types, including resolution from a source type through modeled conversion rules.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>meta-data-type-conversion --new-workspace</DisplayName>
+      <DisplayPath>meta-data-type-conversion --new-workspace</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:new-workspace</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create a new MetaDataTypeConversion workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-data-type-conversion --new-workspace --new-workspace</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:new-workspace:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--new-workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Directory where the sanctioned workspace will be created.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:check" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>meta-data-type-conversion check</DisplayName>
+      <DisplayPath>meta-data-type-conversion check</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:check</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>check</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Validate sanctioned type mappings.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-data-type-conversion check --workspace</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:check:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app:command:check</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaDataTypeConversion workspace to validate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>meta-data-type-conversion resolve</DisplayName>
+      <DisplayPath>meta-data-type-conversion resolve</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:resolve</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>resolve</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Resolve one source data type id through the sanctioned mappings.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-data-type-conversion resolve --workspace</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:resolve:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--workspace</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. MetaDataTypeConversion workspace to query.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>--source-data-type</DisplayName>
+      <DisplayPath>meta-data-type-conversion resolve --source-data-type</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--source-data-type</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
+      <Status>Current</Status>
+      <Summary>Required. Source data type id to resolve.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system" DocumentationSourceId="source:cli:meta-data-type-conversion">
+      <DisplayName>--target-data-type-system</DisplayName>
+      <DisplayPath>meta-data-type-conversion resolve --target-data-type-system</DisplayPath>
+      <Key>source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>--target-data-type-system</NativeId>
+      <NativeKind>CliOptionDefinition</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional target system when the source type has mappings to several target systems.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

@@ -1,0 +1,1696 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:workspace" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>MetaDataWarehouse model</DisplayName>
+      <DisplayPath>MetaDataWarehouse model</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:workspace</Key>
+      <Kind>Workspace</Kind>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataWarehouse\Workspaces\MetaDataWarehouse</NativeId>
+      <NativeKind>Workspace</NativeKind>
+      <Ordinal>210</Ordinal>
+      <Status>New</Status>
+      <Summary>Metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>MetaDataWarehouse</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MetaDataWarehouse</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</Key>
+      <Kind>Model</Kind>
+      <NativeId>MetaDataWarehouse</NativeId>
+      <NativeKind>GenericModel</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:workspace</ParentKey>
+      <Status>New</Status>
+      <Summary>Model MetaDataWarehouse.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>AccumulatingSnapshotFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AccumulatingSnapshotFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AccumulatingSnapshotFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotFact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotFact.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>AccumulatingSnapshotMilestone</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AccumulatingSnapshotMilestone</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AccumulatingSnapshotMilestone.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:daterolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DateRoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone.DateRoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:daterolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>DateRoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>AccumulatingSnapshotFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AccumulatingSnapshotMilestone.AccumulatingSnapshotFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AccumulatingSnapshotFact:AccumulatingSnapshotFact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to AccumulatingSnapshotFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>AggregateFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AggregateFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:aggregatefact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>AggregateFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity AggregateFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AggregateFact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:aggregatefact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>AggregatedFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AggregateFact.AggregatedFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>AggregatedFact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>SourceFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.AggregateFact.SourceFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceFact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeParticipant</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BridgeParticipant</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BridgeParticipant.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeTable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant.BridgeTable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BridgeTable:BridgeTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BridgeTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeParticipant.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeTable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeTable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgetable</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BridgeTable</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BridgeTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeTable.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgetable:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeTable.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgetable:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Warehouse</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeTable.Warehouse</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Warehouse:Warehouse</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Warehouse.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeWeight</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeWeight</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeweight</Key>
+      <Kind>Entity</Kind>
+      <NativeId>BridgeWeight</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity BridgeWeight.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeWeight.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeWeight.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeWeight.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeTable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.BridgeWeight.BridgeTable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BridgeTable:BridgeTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BridgeTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>ConformedDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.ConformedDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:conformeddimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ConformedDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ConformedDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:conformancename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>ConformanceName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.ConformedDimension.ConformanceName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:conformancename</Key>
+      <Kind>Property</Kind>
+      <NativeId>ConformanceName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.ConformedDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.ConformedDimension.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DegenerateDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DegenerateDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DegenerateDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DegenerateDimension.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Dimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Dimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Dimension.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimension:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Warehouse</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Dimension.Warehouse</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Warehouse:Warehouse</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Warehouse.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionAttribute.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionBusinessKey</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKey</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionBusinessKey</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionBusinessKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKey.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKey.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKey.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionBusinessKeyPart</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKeyPart</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionBusinessKeyPart</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionBusinessKeyPart.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKeyPart.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKeyPart.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionBusinessKey</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionBusinessKeyPart.DimensionBusinessKey</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionBusinessKey:DimensionBusinessKey</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionBusinessKey.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionHierarchy</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionHierarchy</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchy.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchy.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchy.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionHierarchyLevel</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchyLevel</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</Key>
+      <Kind>Entity</Kind>
+      <NativeId>DimensionHierarchyLevel</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>014</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity DimensionHierarchyLevel.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchyLevel.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchyLevel.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchyLevel.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionHierarchy</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.DimensionHierarchyLevel.DimensionHierarchy</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionHierarchy:DimensionHierarchy</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionHierarchy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:fact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Fact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>015</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Fact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:fact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Fact.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:fact:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Warehouse</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Fact.Warehouse</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Warehouse:Warehouse</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Warehouse.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>FactBridge</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactBridge</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactBridge.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>BridgeTable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge.BridgeTable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>BridgeTable:BridgeTable</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to BridgeTable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactBridge.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>FactDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactDimension.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>FactGrain</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactGrain</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factgrain</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactGrain</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactGrain.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactGrain.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factgrain:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactGrain.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factgrain:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactGrain.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>FactlessFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactlessFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factlessfact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactlessFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactlessFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactlessFact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factlessfact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactlessFact.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>FactMeasure</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure</Key>
+      <Kind>Entity</Kind>
+      <NativeId>FactMeasure</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity FactMeasure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.DataTypeId</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:datatypeid</Key>
+      <Kind>Property</Kind>
+      <NativeId>DataTypeId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>IsNullable</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.IsNullable</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:isnullable</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsNullable</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.FactMeasure.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>JunkDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>JunkDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity JunkDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimension.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>JunkDimensionComponent</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimensionComponent</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</Key>
+      <Kind>Entity</Kind>
+      <NativeId>JunkDimensionComponent</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity JunkDimensionComponent.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimensionComponent.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimensionComponent.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimensionComponent.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>JunkDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.JunkDimensionComponent.JunkDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>JunkDimension:JunkDimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to JunkDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>MiniDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MiniDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:minidimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>MiniDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity MiniDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MiniDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:minidimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MiniDimension.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:minidimension:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>ProfileDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MiniDimension.ProfileDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ProfileDimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>SourceDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.MiniDimension.SourceDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SourceDimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>OutriggerDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>OutriggerDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity OutriggerDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.IsRequired</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:isrequired</Key>
+      <Kind>Property</Kind>
+      <NativeId>IsRequired</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.Ordinal</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:ordinal</Key>
+      <Kind>Property</Kind>
+      <NativeId>Ordinal</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>RoleName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.RoleName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:rolename</Key>
+      <Kind>Property</Kind>
+      <NativeId>RoleName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>ChildDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.ChildDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ChildDimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>ParentDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.OutriggerDimension.ParentDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>ParentDimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>PeriodicSnapshotFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.PeriodicSnapshotFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>PeriodicSnapshotFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity PeriodicSnapshotFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.PeriodicSnapshotFact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:periodname" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>PeriodName</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.PeriodicSnapshotFact.PeriodName</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:periodname</Key>
+      <Kind>Property</Kind>
+      <NativeId>PeriodName</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.PeriodicSnapshotFact.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>SlowlyChangingDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.SlowlyChangingDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</Key>
+      <Kind>Entity</Kind>
+      <NativeId>SlowlyChangingDimension</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity SlowlyChangingDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.SlowlyChangingDimension.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.SlowlyChangingDimension.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Dimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.SlowlyChangingDimension.Dimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Dimension:Dimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Dimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>TransactionFact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.TransactionFact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:transactionfact</Key>
+      <Kind>Entity</Kind>
+      <NativeId>TransactionFact</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>027</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity TransactionFact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.TransactionFact.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:transactionfact:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Fact</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.TransactionFact.Fact</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>Fact:Fact</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to Fact.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Type1DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type1DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Type1DimensionAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>028</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Type1DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type1DimensionAttribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type1DimensionAttribute.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>SlowlyChangingDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type1DimensionAttribute.SlowlyChangingDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SlowlyChangingDimension:SlowlyChangingDimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SlowlyChangingDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Type2DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type2DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Type2DimensionAttribute</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>029</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Type2DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type2DimensionAttribute.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>DimensionAttribute</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type2DimensionAttribute.DimensionAttribute</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to DimensionAttribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>SlowlyChangingDimension</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Type2DimensionAttribute.SlowlyChangingDimension</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>SlowlyChangingDimension:SlowlyChangingDimension</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <Ordinal>1002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to SlowlyChangingDimension.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Warehouse</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Warehouse</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:warehouse</Key>
+      <Kind>Entity</Kind>
+      <NativeId>Warehouse</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <Ordinal>030</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity Warehouse.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Warehouse.Description</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:warehouse:property:description</Key>
+      <Kind>Property</Kind>
+      <NativeId>Description</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaDataWarehouse model.Warehouse.Name</DisplayPath>
+      <Key>source:workspace-model:meta-data-warehouse:entity:warehouse:property:name</Key>
+      <Kind>Property</Kind>
+      <NativeId>Name</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

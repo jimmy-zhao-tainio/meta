@@ -1,0 +1,2787 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationNarrativeList>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app">
+      <Body>`meta-tabular` creates sanctioned MetaTabular workspaces for modeling tabular analytics artifacts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Ordinal>010</Ordinal>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:new-workspace">
+      <Body>Create an empty MetaTabular workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:new-workspace:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:new-workspace:option:new-workspace">
+      <Body>Required. Directory where the empty MetaTabular workspace will be created.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:new-workspace:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy">
+      <Body>Create modeled objects on an Analysis Services tabular instance.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy:option:workspace">
+      <Body>MetaTabular workspace to deploy. Defaults to the current directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:option:server:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy:option:server">
+      <Body>Required. Analysis Services tabular server.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy:option:server</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:option:database-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy:option:database-name">
+      <Body>Optional target database name. Defaults to the modeled database name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy:option:database-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:option:drop-existing:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy:option:drop-existing">
+      <Body>Drop an existing target database before create/deploy.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy:option:drop-existing</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:deploy:option:no-process:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:deploy:option:no-process">
+      <Body>Deploy metadata only and skip full processing.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:deploy:option:no-process</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore">
+      <Body>Promote a processed tabular database through backup and restore.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:source-server:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:source-server">
+      <Body>Required. Source Analysis Services server containing the processed database.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:source-server</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:source-database-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:source-database-name">
+      <Body>Required. Source processed database name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:source-database-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:target-server:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:target-server">
+      <Body>Required. Target Analysis Services server.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:target-server</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:target-database-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:target-database-name">
+      <Body>Required. Target database name to restore.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:target-database-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:backup-file:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:backup-file">
+      <Body>Required. Backup file path accessible to the Analysis Services service accounts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:backup-file</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:drop-existing:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:drop-existing">
+      <Body>Drop an existing target database before restore.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:drop-existing</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:restore:option:overwrite-backup-file:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:restore:option:overwrite-backup-file">
+      <Body>Overwrite an existing backup file.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:restore:option:overwrite-backup-file</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:drop:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:drop">
+      <Body>Drop a tabular database from an Analysis Services tabular instance.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:drop</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:drop:option:server:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:drop:option:server">
+      <Body>Required. Analysis Services tabular server.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:drop:option:server</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:drop:option:database-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:drop:option:database-name">
+      <Body>Required. Database name to drop.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:drop:option:database-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group">
+      <Body>Add a TabularCalculationGroup row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:id">
+      <Body>Required. TabularCalculationGroup row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:precedence:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:precedence">
+      <Body>Required. Precedence.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:precedence</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-group:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item">
+      <Body>Add a TabularCalculationItem row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:id">
+      <Body>Required. TabularCalculationItem row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:expression">
+      <Body>Required. Expression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:format-string-expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:format-string-expression">
+      <Body>Optional. FormatStringExpression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:format-string-expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:ordinal">
+      <Body>Optional. Ordinal.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:ordinal</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:tabular-calculation-group:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:tabular-calculation-group">
+      <Body>Required. TabularCalculationGroup id for TabularCalculationGroupId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-calculation-item:option:tabular-calculation-group</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column">
+      <Body>Add a TabularColumn row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:id">
+      <Body>Required. TabularColumn row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:data-category:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:data-category">
+      <Body>Optional. DataCategory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:data-category</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:data-type-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:data-type-id">
+      <Body>Required. DataTypeId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:data-type-id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:expression">
+      <Body>Optional. Expression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:format-string:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:format-string">
+      <Body>Optional. FormatString.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:format-string</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:is-hidden">
+      <Body>Optional. IsHidden.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:is-hidden</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-key:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:is-key">
+      <Body>Optional. IsKey.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:is-key</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:is-nullable:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:is-nullable">
+      <Body>Optional. IsNullable.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:is-nullable</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:ordinal">
+      <Body>Optional. Ordinal.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:ordinal</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:source-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:source-name">
+      <Body>Optional. SourceName.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:source-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:summarize-by:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:summarize-by">
+      <Body>Optional. SummarizeBy.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:summarize-by</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission">
+      <Body>Add a TabularColumnPermission row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:id">
+      <Body>Required. TabularColumnPermission row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:metadata-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:metadata-permission">
+      <Body>Required. MetadataPermission.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:metadata-permission</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-column">
+      <Body>Required. TabularColumn id for TabularColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-security-role">
+      <Body>Required. TabularSecurityRole id for TabularSecurityRoleId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-permission:option:tabular-security-role</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation">
+      <Body>Add a TabularColumnTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:id">
+      <Body>Required. TabularColumnTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:caption">
+      <Body>Optional. Caption.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:caption</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-column">
+      <Body>Required. TabularColumn id for TabularColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-column-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-culture">
+      <Body>Add a TabularCulture row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-culture:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-culture:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-culture:option:id">
+      <Body>Required. TabularCulture row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-culture:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-culture:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-culture:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-culture:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-culture:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-culture:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source">
+      <Body>Add a TabularDataSource row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:id">
+      <Body>Required. TabularDataSource row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:connection-reference:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:connection-reference">
+      <Body>Optional. ConnectionReference.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:connection-reference</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:provider:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:provider">
+      <Body>Optional. Provider.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:provider</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-data-source:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-data-source:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-data-source:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy">
+      <Body>Add a TabularHierarchy row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:id">
+      <Body>Required. TabularHierarchy row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:display-folder:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:display-folder">
+      <Body>Optional. DisplayFolder.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:display-folder</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:is-hidden">
+      <Body>Optional. IsHidden.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:is-hidden</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level">
+      <Body>Add a TabularHierarchyLevel row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:id">
+      <Body>Required. TabularHierarchyLevel row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:ordinal">
+      <Body>Optional. Ordinal.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:ordinal</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-column">
+      <Body>Required. TabularColumn id for TabularColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-hierarchy">
+      <Body>Required. TabularHierarchy id for TabularHierarchyId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-level:option:tabular-hierarchy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation">
+      <Body>Add a TabularHierarchyTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:id">
+      <Body>Required. TabularHierarchyTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:caption">
+      <Body>Optional. Caption.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:caption</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-hierarchy">
+      <Body>Required. TabularHierarchy id for TabularHierarchyId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-hierarchy-translation:option:tabular-hierarchy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi">
+      <Body>Add a TabularKpi row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:id">
+      <Body>Required. TabularKpi row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-expression">
+      <Body>Optional. StatusExpression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-graphic:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-graphic">
+      <Body>Optional. StatusGraphic.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:status-graphic</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-expression">
+      <Body>Optional. TargetExpression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-expression">
+      <Body>Optional. TrendExpression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-graphic:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-graphic">
+      <Body>Optional. TrendGraphic.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:trend-graphic</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:base-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:base-measure">
+      <Body>Required. TabularMeasure id for BaseMeasureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:base-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-measure">
+      <Body>Optional. TabularMeasure id for TargetMeasureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi:option:target-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation">
+      <Body>Add a TabularKpiTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:id">
+      <Body>Required. TabularKpiTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-kpi:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-kpi">
+      <Body>Required. TabularKpi id for TabularKpiId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-kpi-translation:option:tabular-kpi</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure">
+      <Body>Add a TabularMeasure row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:id">
+      <Body>Required. TabularMeasure row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:display-folder:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:display-folder">
+      <Body>Optional. DisplayFolder.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:display-folder</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:expression">
+      <Body>Optional. Expression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:format-string:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:format-string">
+      <Body>Optional. FormatString.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:format-string</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:is-hidden">
+      <Body>Optional. IsHidden.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:is-hidden</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation">
+      <Body>Add a TabularMeasureTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:id">
+      <Body>Required. TabularMeasureTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:caption">
+      <Body>Optional. Caption.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:caption</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-measure">
+      <Body>Required. TabularMeasure id for TabularMeasureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-measure-translation:option:tabular-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model">
+      <Body>Add a TabularModel row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:id">
+      <Body>Required. TabularModel row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:collation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:collation">
+      <Body>Optional. Collation.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:collation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:compatibility-level:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:compatibility-level">
+      <Body>Optional. CompatibilityLevel.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:compatibility-level</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:default-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:default-culture">
+      <Body>Optional. DefaultCulture.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:default-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:default-data-view:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:default-data-view">
+      <Body>Optional. DefaultDataView.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:default-data-view</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-model:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-model:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-model:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition">
+      <Body>Add a TabularPartition row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:id">
+      <Body>Required. TabularPartition row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:expression">
+      <Body>Optional. Expression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:mode:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:mode">
+      <Body>Optional. Mode.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:mode</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:ordinal">
+      <Body>Optional. Ordinal.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:ordinal</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-data-source:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-data-source">
+      <Body>Optional. TabularDataSource id for TabularDataSourceId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-data-source</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-partition:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective">
+      <Body>Add a TabularPerspective row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective:option:id">
+      <Body>Required. TabularPerspective row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group">
+      <Body>Add a TabularPerspectiveCalculationGroup row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:id">
+      <Body>Required. TabularPerspectiveCalculationGroup row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-calculation-group:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-calculation-group">
+      <Body>Required. TabularCalculationGroup id for TabularCalculationGroupId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-calculation-group</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-calculation-group:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-column">
+      <Body>Add a TabularPerspectiveColumn row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:id">
+      <Body>Required. TabularPerspectiveColumn row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-column">
+      <Body>Required. TabularColumn id for TabularColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-column:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy">
+      <Body>Add a TabularPerspectiveHierarchy row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:id">
+      <Body>Required. TabularPerspectiveHierarchy row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-hierarchy">
+      <Body>Required. TabularHierarchy id for TabularHierarchyId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-hierarchy</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-hierarchy:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi">
+      <Body>Add a TabularPerspectiveKpi row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:id">
+      <Body>Required. TabularPerspectiveKpi row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-kpi:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-kpi">
+      <Body>Required. TabularKpi id for TabularKpiId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-kpi</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-kpi:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-measure">
+      <Body>Add a TabularPerspectiveMeasure row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:id">
+      <Body>Required. TabularPerspectiveMeasure row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-measure">
+      <Body>Required. TabularMeasure id for TabularMeasureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-measure</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-measure:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-table">
+      <Body>Add a TabularPerspectiveTable row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:id">
+      <Body>Required. TabularPerspectiveTable row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-table:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation">
+      <Body>Add a TabularPerspectiveTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:id">
+      <Body>Required. TabularPerspectiveTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:caption">
+      <Body>Optional. Caption.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:caption</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-perspective">
+      <Body>Required. TabularPerspective id for TabularPerspectiveId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-perspective-translation:option:tabular-perspective</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship">
+      <Body>Add a TabularRelationship row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:id">
+      <Body>Required. TabularRelationship row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cardinality:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cardinality">
+      <Body>Required. Cardinality.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:cardinality</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cross-filter-direction:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:cross-filter-direction">
+      <Body>Optional. CrossFilterDirection.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:cross-filter-direction</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-active:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-active">
+      <Body>Optional. IsActive.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-active</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-required:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-required">
+      <Body>Optional. IsRequired.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:is-required</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-column">
+      <Body>Required. TabularColumn id for FromColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-table">
+      <Body>Required. TabularTable id for FromTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:from-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-column">
+      <Body>Required. TabularColumn id for ToColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-table">
+      <Body>Required. TabularTable id for ToTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-relationship:option:to-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter">
+      <Body>Add a TabularRoleFilter row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:id">
+      <Body>Required. TabularRoleFilter row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:expression">
+      <Body>Required. Expression.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:expression</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-security-role">
+      <Body>Required. TabularSecurityRole id for TabularSecurityRoleId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-security-role</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-filter:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member">
+      <Body>Add a TabularRoleMember row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member:option:id">
+      <Body>Required. TabularRoleMember row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-id">
+      <Body>Optional. MemberId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-name">
+      <Body>Required. MemberName.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member:option:member-name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-role-member:option:tabular-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-role-member:option:tabular-security-role">
+      <Body>Required. TabularSecurityRole id for TabularSecurityRoleId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-role-member:option:tabular-security-role</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role">
+      <Body>Add a TabularSecurityRole row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:id">
+      <Body>Required. TabularSecurityRole row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:permission">
+      <Body>Required. Permission.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:permission</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-security-role:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-security-role:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-security-role:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-sort-by-column">
+      <Body>Add a TabularSortByColumn row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:id">
+      <Body>Required. TabularSortByColumn row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:sort-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:sort-column">
+      <Body>Required. TabularColumn id for SortColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:sort-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:source-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:source-column">
+      <Body>Required. TabularColumn id for SourceColumnId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-sort-by-column:option:source-column</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table">
+      <Body>Add a TabularTable row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:id">
+      <Body>Required. TabularTable row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:data-category:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:data-category">
+      <Body>Optional. DataCategory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:data-category</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:is-hidden">
+      <Body>Optional. IsHidden.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:is-hidden</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:name">
+      <Body>Required. Name.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:name</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table:option:tabular-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table:option:tabular-model">
+      <Body>Required. TabularModel id for TabularModelId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table:option:tabular-model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission">
+      <Body>Add a TabularTablePermission row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:id">
+      <Body>Required. TabularTablePermission row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:metadata-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:metadata-permission">
+      <Body>Required. MetadataPermission.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:metadata-permission</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-security-role">
+      <Body>Required. TabularSecurityRole id for TabularSecurityRoleId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-security-role</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-permission:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation">
+      <Body>Add a TabularTableTranslation row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:workspace">
+      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:id">
+      <Body>Required. TabularTableTranslation row id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:caption">
+      <Body>Optional. Caption.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:caption</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:description">
+      <Body>Optional. Description.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-culture">
+      <Body>Required. TabularCulture id for TabularCultureId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-culture</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-table">
+      <Body>Required. TabularTable id for TabularTableId.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-tabular:batch:20260608145102200</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-tabular:app:command:add-tabular-table-translation:option:tabular-table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+  </DocumentationNarrativeList>
+</MetaDocs>

@@ -116,6 +116,10 @@ Write-Host 'Publishing meta-weave.exe payload...'
 dotnet publish (Join-Path $repoRoot 'MetaWeave\Cli\MetaWeave.Cli.csproj') -c Release -r win-x64 --self-contained $publishSelfContained -p:UseAppHost=true -p:PublishSingleFile=$payloadPublishSingleFile -p:IncludeNativeLibrariesForSelfExtract=$includeNativeLibrariesForSelfExtract -p:PublishReadyToRun=$publishReadyToRun -p:UpdateMetaWeavePublishDir=false -o $payloadDir
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+Write-Host 'Publishing meta-docs.exe payload...'
+dotnet publish (Join-Path $repoRoot 'MetaDocs\Cli\MetaDocs.Cli.csproj') -c Release -r win-x64 --self-contained $publishSelfContained -p:UseAppHost=true -p:PublishSingleFile=$payloadPublishSingleFile -p:IncludeNativeLibrariesForSelfExtract=$includeNativeLibrariesForSelfExtract -p:PublishReadyToRun=$publishReadyToRun -p:UpdateMetaDocsPublishDir=false -o $payloadDir
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
 Write-Host 'Removing debug symbol files (*.pdb) from release payload...'
 Get-ChildItem -LiteralPath $outDir -Recurse -Filter '*.pdb' -File | Remove-Item -Force
 

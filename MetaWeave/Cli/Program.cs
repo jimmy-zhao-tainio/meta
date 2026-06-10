@@ -94,6 +94,8 @@ internal static class Program
             "meta-weave check --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType"
         });
 
+    internal static CliAppDefinition CreateAppDefinition() => Cli;
+
     static async Task<int> Main(string[] args)
     {
         if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, Cli.Name, args, out var versionExitCode))

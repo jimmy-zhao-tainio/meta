@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-schema:app" DocumentationSourceId="source:cli:meta-schema">
+      <DisplayName>meta-schema</DisplayName>
+      <DisplayPath>meta-schema</DisplayPath>
+      <Key>source:cli:meta-schema:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>meta-schema</NativeId>
+      <NativeKind>CliAppDefinition</NativeKind>
+      <Ordinal>110</Ordinal>
+      <Status>Current</Status>
+      <Summary>`meta-schema` extracts live SQL Server schema structure into sanctioned MetaSchema workspaces, making database objects available as explicit metadata.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract" DocumentationSourceId="source:cli:meta-schema">
+      <DisplayName>meta-schema extract</DisplayName>
+      <DisplayPath>meta-schema extract</DisplayPath>
+      <Key>source:cli:meta-schema:app:command:extract</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>extract</NativeId>
+      <NativeKind>CliCommandDefinition</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-schema:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Materialize sanctioned MetaSchema workspaces from external sources.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

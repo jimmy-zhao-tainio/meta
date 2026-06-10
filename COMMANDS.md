@@ -266,6 +266,24 @@ Import and generate:
 
 <!-- GENERATED-COMMAND-QUICKREF:END -->
 
+## Companion CLI Tools
+
+`meta-docs` models documentation as metadata and renders one merged metametabi-style docs page.
+
+| Command | Summary | Example |
+|---|---|---|
+| `meta-docs author-page (--workspace <path> \| --new-workspace <path>) --id <id> --title <text> --summary <text> --body <text> [--kind <name>] [--path <text>] [--parent <id>] [--ordinal <n>] [--slot <name>] [--source-id <id>] [--source-name <text>]` | Author or refresh one durable `DocumentationSubject` plus authored narrative and view node. | `meta-docs author-page --new-workspace .\MetaDocsWS --id docs:home --title "meta + meta-bi" --summary "Model-first docs." --body "Authored overview." --ordinal 10` |
+| `meta-docs import-cli --assembly <path> --type <name> [--method <name>] (--workspace <path> \| --new-workspace <path>) [--group <name>] [--ordinal <n>] [--source-id <id>]` | Import or refresh one external `CliAppDefinition` into a MetaDocs workspace while preserving authored commentary. | `meta-docs import-cli --assembly .\MetaTransformBinding.CliDefinition.dll --type MetaTransform.Binding.CliDefinition.MetaTransformBindingCliDefinitions --new-workspace .\MetaDocsWS --group meta-bi --ordinal 80` |
+| `meta-docs import-command-prose --workspace <path> --source-root <path> [--source-id <id>]` | Import command-oriented markdown into `ImportedMarkdown` narratives attached to existing CLI subjects. | `meta-docs import-command-prose --workspace .\MetaDocsWS --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme` |
+| `meta-docs import-workspace-model --source-workspace <path> (--workspace <path> \| --new-workspace <path>) [--source-id <id>] [--display-name <name>] [--ordinal <n>]` | Import generic model documentation for a Meta workspace. | `meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\MetaDocsWS --source-id source:workspace-model:source` |
+| `meta-docs include-instance-entity --workspace <path> --entity <name> [--source-id <id>] [--display-name-property <name>] [--summary-property <name>] [--ordinal <n>]` | Author an opt-in policy row for an entity whose instances may be documented. | `meta-docs include-instance-entity --workspace .\MetaDocsWS --entity Measure --display-name-property Name` |
+| `meta-docs include-instance-property --workspace <path> --entity <name> --property <name> [--source-id <id>] [--ordinal <n>]` | Author an opt-in policy row for one instance property fact. | `meta-docs include-instance-property --workspace .\MetaDocsWS --entity Measure --property Name` |
+| `meta-docs include-instance-relationship --workspace <path> --entity <name> --relationship <name> [--source-id <id>] [--ordinal <n>]` | Author an opt-in policy row for one instance relationship. | `meta-docs include-instance-relationship --workspace .\MetaDocsWS --entity Measure --relationship SourceSystem` |
+| `meta-docs import-workspace-instances --source-workspace <path> --workspace <path> [--source-id <id>] [--model-source-id <id>] [--display-name <name>] [--ordinal <n>]` | Import only the workspace instances allowed by modeled policy. | `meta-docs import-workspace-instances --source-workspace .\SourceWS --workspace .\MetaDocsWS --model-source-id source:workspace-model:source` |
+| `meta-docs merge --include <workspace> [--include <workspace> ...] --new-workspace <path>` | Merge multiple MetaDocs workspaces into a suite workspace. | `meta-docs merge --include .\MetaDocsWS --include .\OtherDocsWS --new-workspace .\SuiteDocsWS` |
+| `meta-docs validate --workspace <path> [--warnings-as-errors]` | Validate MetaDocs lifecycle references, modeled theme/template rows, and instance policy drift. | `meta-docs validate --workspace .\MetaDocsWS` |
+| `meta-docs render-site --workspace <path> --out <dir>` | Render generic documentation subjects/facts/narratives/relationships to one merged `index.html`. | `meta-docs render-site --workspace .\MetaDocsWS --out .\docs-site` |
+
 ## Diff/merge example
 
 ```powershell

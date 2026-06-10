@@ -4,8 +4,9 @@
 
 This repo ships three CLI tools:
 
-`meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.  
-`meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
+- `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.
+- `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
+- `meta-docs` (MetaDocs CLI): modeled CLI documentation import and merged metametabi-style docs rendering.
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -300,6 +301,7 @@ On Windows, these builds refresh the published framework-dependent CLIs at:
 
 - `Meta\Cli\bin\publish\win-x64\meta.exe`
 - `MetaWeave\Cli\bin\publish\win-x64\meta-weave.exe`
+- `MetaDocs\Cli\bin\publish\win-x64\meta-docs.exe`
 
 Run directly:
 
@@ -327,7 +329,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File Meta\Installer\package-offli
 
 The default package is framework-dependent and shared-DLL based, so it requires the .NET 8 runtime on the target machine. Use `-SelfContained` only when you need a larger package that carries the runtime.
 
-Then install the foundation CLIs (`meta`, `meta-weave`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
+Then install the foundation CLIs (`meta`, `meta-weave`, `meta-docs`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
 
 ```cmd
 Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe
@@ -766,6 +768,60 @@ For model-contract drift between workspaces, use the aligned diff/merge path (`i
 meta instance diff <LeftWs> <RightWs>
 meta instance merge <TargetWs> <DiffWorkspace>
 ```
+
+## MetaDocs
+
+MetaDocs is the foundation documentation overlay model for generated facts plus authored explanation/commentary.
+
+It lives in `meta` because it is not BI-specific. Product repos can expose command surfaces as `CliAppDefinition` factories, and any Meta workspace can contribute model or opt-in instance facts. `meta-docs` imports those facts into a modeled docs workspace while human or agent-written commentary stays in metadata.
+
+### meta-docs
+
+Purpose:
+- model CLI usage help, workspace model facts, optional instance facts, and authored commentary as MetaDocs workspace data
+- render a merged metametabi-style documentation page from a suite workspace
+
+Behavior summary:
+- durable documentation lives in MetaDocs workspaces
+- rendered HTML is disposable output
+- refresh generated facts from CLI and workspace sources before validating and rendering
+- keep each source in its own docs workspace, then merge source workspaces into a suite
+
+Examples:
+
+```cmd
+meta-docs import-cli --assembly .\MetaTransformBinding.CliDefinition.dll --type MetaTransform.Binding.CliDefinition.MetaTransformBindingCliDefinitions --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
+meta-docs import-command-prose --workspace .\Docs\BindingCli --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme
+meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\Docs\SourceModel --source-id source:workspace-model:source
+meta-docs merge --include .\Docs\BindingCli --include .\Docs\SourceModel --new-workspace .\Docs\SuiteWorkspace
+meta-docs validate --workspace .\Docs\SuiteWorkspace
+meta-docs render-site --workspace .\Docs\SuiteWorkspace --out .\Docs\Site
+```
+
+The renderer writes one merged metametabi-style docs artifact for the generic documentation subjects in the workspace:
+
+```cmd
+meta-docs author-page --new-workspace .\Docs\Authored --id docs:home --title "meta + meta-bi" --summary "Model-first docs." --body "Authored overview." --ordinal 10
+meta-docs import-cli --assembly .\MetaTransform\Binding\CliDefinition\bin\Debug\net8.0\MetaTransformBinding.CliDefinition.dll --type MetaTransform.Binding.CliDefinition.MetaTransformBindingCliDefinitions --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
+meta-docs import-command-prose --workspace .\Docs\BindingCli --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme
+meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\Docs\SourceModel --source-id source:workspace-model:source
+meta-docs author-page --new-workspace .\Docs\SourceInstances --id docs:selected-instances --title "Selected instances" --summary "Opt-in instance docs." --body "Only selected instance facts are imported." --ordinal 100
+meta-docs include-instance-entity --workspace .\Docs\SourceInstances --entity Measure --display-name-property Name
+meta-docs include-instance-property --workspace .\Docs\SourceInstances --entity Measure --property Name
+meta-docs import-workspace-instances --source-workspace .\SourceWS --workspace .\Docs\SourceInstances --model-source-id source:workspace-model:source
+meta-docs merge --include .\Docs\Authored --include .\Docs\BindingCli --include .\Docs\SourceModel --include .\Docs\SourceInstances --new-workspace .\Docs\SuiteWorkspace
+meta-docs validate --workspace .\Docs\SuiteWorkspace
+meta-docs render-site --workspace .\Docs\SuiteWorkspace --out .\Docs\Site
+```
+
+Output:
+
+- per-source MetaDocs workspaces with generated facts, authored narratives, modeled policy, theme, and template data
+- imported markdown command prose stored as durable `ImportedMarkdown` `DocumentationNarrative` rows
+- `.\Docs\SuiteWorkspace`: merged documentation suite workspace
+- `.\Docs\Site\index.html`: one merged documentation page using the metametabi docs template
+
+The first meta + meta-bi docs suite source currently lives under `MetaDocs\Docs`. It keeps authored pages and generated source workspaces separate, then merges them into `MetaDocs\Docs\SuiteWorkspace` and renders disposable HTML to `MetaDocs\Docs\Site\index.html`.
 
 ## MetaWeave
 
