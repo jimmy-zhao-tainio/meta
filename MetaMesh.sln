@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaCli", "MetaCli", "{86CB4C22-5071-4AE8-BFFA-B2A04D4F2208}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCli.Core", "MetaCli\Core\MetaCli.Core.csproj", "{D3C1D3B3-D217-41C3-99C2-8B1A5D223771}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaMesh", "MetaMesh", "{82AA1CF3-5228-4AFE-8BD6-1582BBD8B268}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaMesh.Tooling", "MetaMesh\Tooling\MetaMesh.Tooling.csproj", "{98881E5D-C443-4793-B13A-9143A109EB7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaMesh.Core", "MetaMesh\Core\MetaMesh.Core.csproj", "{221CA535-AF7B-4EA4-B0BA-827E08C20CA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaMesh.Cli", "MetaMesh\Cli\MetaMesh.Cli.csproj", "{82341A0A-87A0-4C88-B3FB-CCE27154D103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaMesh.Tests", "MetaMesh\Tests\MetaMesh.Tests.csproj", "{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3C1D3B3-D217-41C3-99C2-8B1A5D223771}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C1D3B3-D217-41C3-99C2-8B1A5D223771}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C1D3B3-D217-41C3-99C2-8B1A5D223771}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C1D3B3-D217-41C3-99C2-8B1A5D223771}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98881E5D-C443-4793-B13A-9143A109EB7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98881E5D-C443-4793-B13A-9143A109EB7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98881E5D-C443-4793-B13A-9143A109EB7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98881E5D-C443-4793-B13A-9143A109EB7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221CA535-AF7B-4EA4-B0BA-827E08C20CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221CA535-AF7B-4EA4-B0BA-827E08C20CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221CA535-AF7B-4EA4-B0BA-827E08C20CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221CA535-AF7B-4EA4-B0BA-827E08C20CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82341A0A-87A0-4C88-B3FB-CCE27154D103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82341A0A-87A0-4C88-B3FB-CCE27154D103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82341A0A-87A0-4C88-B3FB-CCE27154D103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82341A0A-87A0-4C88-B3FB-CCE27154D103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D3C1D3B3-D217-41C3-99C2-8B1A5D223771} = {86CB4C22-5071-4AE8-BFFA-B2A04D4F2208}
+		{98881E5D-C443-4793-B13A-9143A109EB7B} = {82AA1CF3-5228-4AFE-8BD6-1582BBD8B268}
+		{221CA535-AF7B-4EA4-B0BA-827E08C20CA6} = {82AA1CF3-5228-4AFE-8BD6-1582BBD8B268}
+		{82341A0A-87A0-4C88-B3FB-CCE27154D103} = {82AA1CF3-5228-4AFE-8BD6-1582BBD8B268}
+		{B39514BE-C9A3-4993-A6B5-FBDD237FD4B1} = {82AA1CF3-5228-4AFE-8BD6-1582BBD8B268}
+	EndGlobalSection
+EndGlobal

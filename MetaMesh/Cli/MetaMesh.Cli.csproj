@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>meta-mesh</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
+    <ProjectReference Include="..\Core\MetaMesh.Core.csproj" />
+    <ProjectReference Include="..\Tooling\MetaMesh.Tooling.csproj" />
+  </ItemGroup>
+
+</Project>
