@@ -2,11 +2,12 @@
 
 `meta` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
 
-This repo ships three CLI tools:
+This repo contains these CLI projects:
 
 - `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.
 - `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
 - `meta-docs` (MetaDocs CLI): modeled CLI documentation import and merged metametabi-style docs rendering.
+- `meta-mesh` (MetaMesh CLI): modeled workspace maps with workspace handles, mounts, and declared links.
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -767,6 +768,24 @@ For model-contract drift between workspaces, use the aligned diff/merge path (`i
 ```powershell
 meta instance diff <LeftWs> <RightWs>
 meta instance merge <TargetWs> <DiffWorkspace>
+```
+
+## MetaMesh
+
+MetaMesh is a modeled workspace map. It records workspace handles, optional mounts to physical workspace paths, and declared links between handles in a normal Meta workspace.
+
+`scan` discovers directories that contain `workspace.xml` and `model.xml`. Links are `WorkspaceLink` rows in the mesh, not lineage inferred from target workspace content.
+
+Representative command shapes:
+
+```cmd
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- init --new-workspace .\out\Empty.MetaMesh --name Empty
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- scan ..\meta-bi --new-workspace .\out\Scanned.MetaMesh --name Current
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- show --mesh .\out\Scanned.MetaMesh
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- check --mesh .\out\Scanned.MetaMesh
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- mount --mesh <mesh-workspace> --handle <handle> --path <workspace-path>
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- link --mesh <mesh-workspace> --from <handle> --to <handle> --kind <kind>
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- impact --mesh <mesh-workspace> --workspace <handle>
 ```
 
 ## MetaDocs
