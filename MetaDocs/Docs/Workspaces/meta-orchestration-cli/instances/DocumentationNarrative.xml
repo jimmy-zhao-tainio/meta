@@ -2,7 +2,7 @@
 <MetaDocs>
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app">
-      <Body>`meta-orchestration` creates MetaOrchestration workspaces from modeled pipeline and binding metadata, turning execution structure into inspectable orchestration data.</Body>
+      <Body>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
@@ -364,7 +364,7 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:refresh-run-plan:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:refresh-run-plan">
-      <Body>Refresh lock-aware run-plan rows in an orchestration workspace.</Body>
+      <Body>Refresh the model-inferred, lock-aware run-plan rows in an orchestration workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
@@ -386,7 +386,7 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:inspect-run-plan:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:inspect-run-plan">
-      <Body>Inspect the planned task dependency graph.</Body>
+      <Body>Inspect the model-inferred task dependency graph.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>

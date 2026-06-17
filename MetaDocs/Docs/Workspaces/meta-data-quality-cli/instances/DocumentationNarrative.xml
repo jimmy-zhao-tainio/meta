@@ -2,7 +2,7 @@
 <MetaDocs>
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app">
-      <Body>`meta-data-quality` derives reviewable MetaDataQuality candidates from the typed semantic graph of MetaTransformScript workspaces and promotes them into executable quality assets.</Body>
+      <Body>`meta-data-quality` derives reviewable MetaDataQuality candidates directly from typed MetaTransformScript structure and optional binding evidence. The checks are model-derived, not hand-authored one-off test SQL.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
@@ -12,7 +12,7 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace">
-      <Body>Create generated DQ views from a full MetaTransformScript workspace.</Body>
+      <Body>Derive reviewable DQ candidates from modeled MetaTransformScript structure.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260608145055331</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>

@@ -10,7 +10,7 @@
       <NativeKind>CliAppDefinition</NativeKind>
       <Ordinal>240</Ordinal>
       <Status>Current</Status>
-      <Summary>`meta-orchestration` creates MetaOrchestration workspaces from modeled pipeline and binding metadata, turning execution structure into inspectable orchestration data.</Summary>
+      <Summary>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration inspect</DisplayName>
@@ -406,7 +406,7 @@
       <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Refresh lock-aware run-plan rows in an orchestration workspace.</Summary>
+      <Summary>Refresh the model-inferred, lock-aware run-plan rows in an orchestration workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--workspace</DisplayName>
@@ -430,7 +430,7 @@
       <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Inspect the planned task dependency graph.</Summary>
+      <Summary>Inspect the model-inferred task dependency graph.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--workspace</DisplayName>

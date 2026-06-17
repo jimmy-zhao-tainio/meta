@@ -8455,7 +8455,7 @@
       <NativeKind>CliAppDefinition</NativeKind>
       <Ordinal>170</Ordinal>
       <Status>Current</Status>
-      <Summary>`meta-data-quality` derives reviewable MetaDataQuality candidates from the typed semantic graph of MetaTransformScript workspaces and promotes them into executable quality assets.</Summary>
+      <Summary>`meta-data-quality` derives reviewable MetaDataQuality candidates directly from typed MetaTransformScript structure and optional binding evidence. The checks are model-derived, not hand-authored one-off test SQL.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
       <DisplayName>meta-data-quality from-transform-workspace</DisplayName>
@@ -8467,7 +8467,7 @@
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Create generated DQ views from a full MetaTransformScript workspace.</Summary>
+      <Summary>Derive reviewable DQ candidates from modeled MetaTransformScript structure.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
       <DisplayName>--transform-workspace</DisplayName>
@@ -25592,212 +25592,6 @@
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="docs:home" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>meta + meta-bi</DisplayName>
-      <DisplayPath>meta + meta-bi</DisplayPath>
-      <Key>docs:home</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:home</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>010</Ordinal>
-      <Status>Current</Status>
-      <Summary>Model-first documentation for meta and meta-bi.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:what-is-meta" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>What is Meta?</DisplayName>
-      <DisplayPath>What is Meta?</DisplayPath>
-      <Key>docs:what-is-meta</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:what-is-meta</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>020</Ordinal>
-      <Status>Current</Status>
-      <Summary>Meta is the foundation for modeled workspaces, models, entities, properties, relationships, and instances.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:what-is-meta-bi" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>What is Meta-BI?</DisplayName>
-      <DisplayPath>What is Meta-BI?</DisplayPath>
-      <Key>docs:what-is-meta-bi</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:what-is-meta-bi</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>030</Ordinal>
-      <Status>Current</Status>
-      <Summary>Meta-BI applies Meta concepts to BI schema, SQL, transform, binding, and data-quality tooling.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:getting-started" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>Getting started</DisplayName>
-      <DisplayPath>Getting started</DisplayPath>
-      <Key>docs:getting-started</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:getting-started</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>040</Ordinal>
-      <Status>Current</Status>
-      <Summary>Import source facts, add authored narrative, merge a suite, validate it, then render HTML.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:documentation-lifecycle" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>Documentation lifecycle</DisplayName>
-      <DisplayPath>Documentation lifecycle</DisplayPath>
-      <Key>docs:documentation-lifecycle</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:documentation-lifecycle</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>050</Ordinal>
-      <Status>Current</Status>
-      <Summary>Generated facts are refreshed; authored prose is preserved; rendered HTML is disposable.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:cli-reference" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>CLI reference</DisplayName>
-      <DisplayPath>CLI reference</DisplayPath>
-      <Key>docs:cli-reference</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:cli-reference</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>060</Ordinal>
-      <Status>Current</Status>
-      <Summary>Use the CLI reference to find sanctioned command syntax, options, examples, and operational guidance.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:model-reference" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>Model reference</DisplayName>
-      <DisplayPath>Model reference</DisplayPath>
-      <Key>docs:model-reference</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:model-reference</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>070</Ordinal>
-      <Status>Current</Status>
-      <Summary>Model reference pages describe entities, properties, and relationships generated from workspace models.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:workspace-model-docs" DocumentationSourceId="source:authored:metametabi-docs">
-      <DisplayName>Generic workspace and model docs</DisplayName>
-      <DisplayPath>Generic workspace and model docs</DisplayPath>
-      <Key>docs:workspace-model-docs</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:workspace-model-docs</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>080</Ordinal>
-      <Status>Current</Status>
-      <Summary>Generic workspace imports document model structure without product-specific render logic.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="docs:safe-instance-docs" DocumentationSourceId="source:authored:safe-instance-docs">
-      <DisplayName>Selected safe instance docs</DisplayName>
-      <DisplayPath>Docs.SafeInstanceDocs</DisplayPath>
-      <Key>docs:safe-instance-docs</Key>
-      <Kind>Guide</Kind>
-      <NativeId>docs:safe-instance-docs</NativeId>
-      <NativeKind>AuthoredPage</NativeKind>
-      <Ordinal>300</Ordinal>
-      <Status>Current</Status>
-      <Summary>A small opt-in instance documentation slice from the authored docs workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instances" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>Authored docs page instances instances</DisplayName>
-      <DisplayPath>Authored docs page instances.Instances</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instances</Key>
-      <Kind>WorkspaceInstances</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta\MetaDocs\Docs\Workspaces\metametabi-authored</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Ordinal>310</Ordinal>
-      <Status>Changed</Status>
-      <Summary>Selected workspace instances.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-cli-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>CLI reference</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.CLI reference</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-cli-reference</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:cli-reference</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Use the CLI reference to find sanctioned command syntax, options, examples, and operational guidance.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-documentation-lifecycle" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>Documentation lifecycle</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.Documentation lifecycle</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-documentation-lifecycle</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:documentation-lifecycle</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Generated facts are refreshed; authored prose is preserved; rendered HTML is disposable.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-getting-started" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>Getting started</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.Getting started</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-getting-started</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:getting-started</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>003</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Import source facts, add authored narrative, merge a suite, validate it, then render HTML.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-home" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>meta + meta-bi</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.meta + meta-bi</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-home</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:home</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>004</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Model-first documentation for meta and meta-bi.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-model-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>Model reference</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.Model reference</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-model-reference</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:model-reference</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Model reference pages describe entities, properties, and relationships generated from workspace models.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-what-is-meta" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>What is Meta?</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.What is Meta?</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-what-is-meta</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:what-is-meta</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>006</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Meta is the foundation for modeled workspaces, models, entities, properties, relationships, and instances.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-what-is-meta-bi" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>What is Meta-BI?</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.What is Meta-BI?</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-what-is-meta-bi</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:what-is-meta-bi</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>007</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Meta-BI applies Meta concepts to BI schema, SQL, transform, binding, and data-quality tooling.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-workspace-model-docs" DocumentationSourceId="source:workspace-instances:metametabi-authored">
-      <DisplayName>Generic workspace and model docs</DisplayName>
-      <DisplayPath>Authored docs page instances.DocumentationSubject.Generic workspace and model docs</DisplayPath>
-      <Key>source:workspace-instances:metametabi-authored:instance:documentationsubject:docs-workspace-model-docs</Key>
-      <Kind>Instance</Kind>
-      <NativeId>docs:workspace-model-docs</NativeId>
-      <NativeKind>DocumentationSubject</NativeKind>
-      <Ordinal>008</Ordinal>
-      <ParentKey>source:workspace-instances:metametabi-authored:instances</ParentKey>
-      <Status>Changed</Status>
-      <Summary>Generic workspace imports document model structure without product-specific render logic.</Summary>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-multi-dimensional:app" DocumentationSourceId="source:cli:meta-multi-dimensional">
       <DisplayName>meta-multi-dimensional</DisplayName>
       <DisplayPath>meta-multi-dimensional</DisplayPath>
@@ -32333,7 +32127,7 @@
       <NativeKind>CliAppDefinition</NativeKind>
       <Ordinal>240</Ordinal>
       <Status>Current</Status>
-      <Summary>`meta-orchestration` creates MetaOrchestration workspaces from modeled pipeline and binding metadata, turning execution structure into inspectable orchestration data.</Summary>
+      <Summary>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration inspect</DisplayName>
@@ -32729,7 +32523,7 @@
       <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Refresh lock-aware run-plan rows in an orchestration workspace.</Summary>
+      <Summary>Refresh the model-inferred, lock-aware run-plan rows in an orchestration workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--workspace</DisplayName>
@@ -32753,7 +32547,7 @@
       <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Inspect the planned task dependency graph.</Summary>
+      <Summary>Inspect the model-inferred task dependency graph.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--workspace</DisplayName>
