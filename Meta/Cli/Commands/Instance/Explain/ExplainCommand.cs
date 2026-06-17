@@ -6,7 +6,7 @@
         {
             return PrintUsageError("Usage: view <entity|instance> ...");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         return mode switch
         {
@@ -15,7 +15,7 @@
             _ => UnknownViewCommand(mode),
         };
     }
-    
+
     int UnknownViewCommand(string mode)
     {
         return PrintCommandUnknownError($"view {mode}");

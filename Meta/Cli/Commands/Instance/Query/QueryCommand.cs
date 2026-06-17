@@ -6,14 +6,14 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: query <Entity> [--equals <Field> <Value>]... [--contains <Field> <Value>]... [--top <n>] [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[1];
         var options = ParseQueryCommandOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -21,7 +21,7 @@ internal sealed partial class CliRuntime
             var rows = QueryRows(workspace, entityName, options.Filters);
             var renderedFilter = BuildFilterSummary(options.Filters);
             PrintQueryResult(workspace, entityName, renderedFilter, rows, options.Top);
-    
+
             return 0;
         }
         catch (InvalidOperationException exception)

@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: insert <Entity> [<Id>|--auto-id] --set Field=Value [--set Field=Value ...] [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[1];
         string? explicitId = null;
         var optionsStartIndex = 2;
@@ -32,7 +32,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError("Error: insert requires either positional <Id> or --auto-id.");
         }
-    
+
         if (ContainsIdSetAssignment(parseResult.SetValues))
         {
             return PrintArgumentError("Error: do not use --set Id. Use positional <Id> or --auto-id.");
@@ -42,7 +42,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError("Error: insert requires at least one --set Field=Value.");
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
@@ -51,7 +51,7 @@ internal sealed partial class CliRuntime
             var resolvedId = parseResult.AutoId
                 ? GenerateNextAutoId(workspace, entityName)
                 : explicitId!;
-    
+
             var rowPatch = BuildRowPatchForCreate(workspace, entity, parseResult.SetValues, resolvedId);
             var operation = new WorkspaceOp
             {
@@ -59,7 +59,7 @@ internal sealed partial class CliRuntime
                 EntityName = entityName,
                 RowPatches = { rowPatch },
             };
-    
+
             BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,

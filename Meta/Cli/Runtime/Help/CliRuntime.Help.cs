@@ -13,19 +13,19 @@ internal sealed partial class CliRuntime
         {
             return string.Empty;
         }
-    
+
         var trimmed = usage.Trim();
         const string Prefix = "Usage:";
         if (trimmed.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase))
         {
             trimmed = trimmed[Prefix.Length..].Trim();
         }
-    
+
         if (!trimmed.StartsWith("meta ", StringComparison.OrdinalIgnoreCase))
         {
             trimmed = "meta " + trimmed;
         }
-    
+
         return trimmed;
     }
 
@@ -36,13 +36,13 @@ internal sealed partial class CliRuntime
         {
             return "meta help";
         }
-    
+
         var tokens = normalizedUsage.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (tokens.Length <= 1 || !string.Equals(tokens[0], "meta", StringComparison.OrdinalIgnoreCase))
         {
             return "meta help";
         }
-    
+
         var topic = new List<string>();
         for (var i = 1; i < tokens.Length; i++)
         {
@@ -54,20 +54,20 @@ internal sealed partial class CliRuntime
             {
                 break;
             }
-    
+
             topic.Add(token);
         }
-    
+
         if (topic.Count == 0)
         {
             return "meta help";
         }
-    
+
         if (topic.Count == 1 && string.Equals(topic[0], "help", StringComparison.OrdinalIgnoreCase))
         {
             return "meta help";
         }
-    
+
         return $"meta {string.Join(" ", topic)} help";
     }
 
@@ -91,20 +91,20 @@ internal sealed partial class CliRuntime
         {
             return false;
         }
-    
+
         if (IsHelpToken(commandArgs[0]))
         {
             exitCode = PrintHelpForTopic(commandArgs.Skip(1).ToArray());
             return true;
         }
-    
+
         var helpIndex = Array.FindIndex(commandArgs, IsHelpToken);
         if (helpIndex > 0)
         {
             exitCode = PrintHelpForTopic(commandArgs.Take(helpIndex).ToArray());
             return true;
         }
-    
+
         return false;
     }
 
@@ -115,7 +115,7 @@ internal sealed partial class CliRuntime
             PrintUsage();
             return 0;
         }
-    
+
         var normalizedTokens = topicTokens
             .Where(token => !string.IsNullOrWhiteSpace(token))
             .Select(token => token.Trim())
@@ -125,7 +125,7 @@ internal sealed partial class CliRuntime
             PrintUsage();
             return 0;
         }
-    
+
         var key = string.Join(" ", normalizedTokens).ToLowerInvariant();
         if (string.Equals(key, "help", StringComparison.OrdinalIgnoreCase))
         {
@@ -138,19 +138,19 @@ internal sealed partial class CliRuntime
             RenderHelpDocument(WithRuntimeHeader(topicDocument));
             return 0;
         }
-    
+
         var suggestionCandidates = HelpTopics.GetCommandSuggestions();
         var suggestions = SuggestValues(normalizedTokens[0], suggestionCandidates);
-    
+
         var hints = new List<string>();
         if (suggestions.Count > 0)
         {
             hints.Add("Did you mean: " + string.Join(", ", suggestions.Take(3)));
         }
-    
+
         hints.Add("Usage: meta help [<command> ...]");
         hints.Add("Next: meta help");
-    
+
         return PrintFormattedError(
             "E_USAGE",
             $"unknown help topic '{string.Join(" ", normalizedTokens)}'.",
@@ -282,9 +282,9 @@ internal sealed partial class CliRuntime
         {
             hints.Add("Did you mean: " + string.Join(", ", suggestions.Take(3)));
         }
-    
+
         hints.Add("Next: meta help");
-    
+
         return PrintFormattedError(
             "E_COMMAND_UNKNOWN",
             $"Unknown command '{command}'.",

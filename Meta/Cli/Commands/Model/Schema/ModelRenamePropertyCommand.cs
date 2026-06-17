@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model rename-property <Entity> <Old> <New> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var oldPropertyName = commandArgs[3];
         var newPropertyName = commandArgs[4];
@@ -16,7 +16,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var operation = new WorkspaceOp
         {
             Type = WorkspaceOpTypes.RenameProperty,
@@ -24,7 +24,7 @@ internal sealed partial class CliRuntime
             PropertyName = oldPropertyName,
             NewPropertyName = newPropertyName,
         };
-    
+
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
                 operation,

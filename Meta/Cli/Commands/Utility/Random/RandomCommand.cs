@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: random create [options]");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         return mode switch
         {
@@ -14,7 +14,7 @@ internal sealed partial class CliRuntime
             _ => UnknownRandomCommand(mode),
         };
     }
-    
+
     int UnknownRandomCommand(string mode)
     {
         return PrintCommandUnknownError($"random {mode}");

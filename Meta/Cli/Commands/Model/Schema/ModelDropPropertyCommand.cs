@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model drop-property <Entity> <Property> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var propertyName = commandArgs[3];
         var options = ParseMutatingCommonOptions(commandArgs, startIndex: 4);
@@ -15,14 +15,14 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var operation = new WorkspaceOp
         {
             Type = WorkspaceOpTypes.DeleteProperty,
             EntityName = entityName,
             PropertyName = propertyName,
         };
-    
+
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
                 operation,

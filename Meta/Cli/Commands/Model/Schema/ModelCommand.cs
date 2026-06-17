@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model <subcommand> [arguments] [--workspace <path>]");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         return mode switch
         {
@@ -27,7 +27,7 @@ internal sealed partial class CliRuntime
             _ => UnknownModelCommand(mode),
         };
     }
-    
+
     int UnknownModelCommand(string mode)
     {
         return PrintCommandUnknownError($"model {mode}");

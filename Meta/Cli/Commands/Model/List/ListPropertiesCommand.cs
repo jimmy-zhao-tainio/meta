@@ -6,14 +6,14 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: list properties <Entity> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
         var entity = workspace.Model.FindEntity(entityName);
@@ -21,7 +21,7 @@ internal sealed partial class CliRuntime
         {
             return PrintDataError("E_ENTITY_NOT_FOUND", $"Entity '{entityName}' does not exist.");
         }
-    
+
         var properties = entity.Properties
             .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
             .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
@@ -50,7 +50,7 @@ internal sealed partial class CliRuntime
                     property.Required ? "yes" : "no",
                 })
                 .ToList());
-    
+
         return 0;
     }
 }

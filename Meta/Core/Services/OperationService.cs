@@ -67,23 +67,6 @@ public sealed class OperationService : IOperationService
         history.UndoStack.Push(entry);
     }
 
-    public void ApplyWithoutHistory(Workspace workspace, WorkspaceOp operation)
-    {
-        WorkspaceOperationApplier.Apply(workspace, operation);
-    }
-
-    public IReadOnlyCollection<WorkspaceOp> GetUndoOperations(Workspace workspace)
-    {
-        var history = GetHistory(workspace);
-        var list = new List<WorkspaceOp>();
-        foreach (var entry in history.UndoStack)
-        {
-            list.Add(entry.Operation);
-        }
-
-        return list;
-    }
-
     private OperationHistory GetHistory(Workspace workspace)
     {
         if (workspace == null)

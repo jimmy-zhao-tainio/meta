@@ -6,18 +6,18 @@ internal sealed partial class CliRuntime
         {
             return string.IsNullOrEmpty(right) ? 0 : right.Length;
         }
-    
+
         if (string.IsNullOrEmpty(right))
         {
             return left.Length;
         }
-    
+
         var costs = new int[right.Length + 1];
         for (var j = 0; j <= right.Length; j++)
         {
             costs[j] = j;
         }
-    
+
         for (var i = 1; i <= left.Length; i++)
         {
             var previousDiagonal = costs[0];
@@ -32,7 +32,7 @@ internal sealed partial class CliRuntime
                 previousDiagonal = temp;
             }
         }
-    
+
         return costs[right.Length];
     }
 
@@ -43,13 +43,13 @@ internal sealed partial class CliRuntime
         {
             return Array.Empty<string>();
         }
-    
+
         var uniqueCandidates = candidates
             .Where(candidate => !string.IsNullOrWhiteSpace(candidate))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(candidate => candidate, StringComparer.OrdinalIgnoreCase)
             .ToList();
-    
+
         var scored = new List<(string Candidate, int Rank, int Distance, double Similarity)>();
         foreach (var candidate in uniqueCandidates)
         {
@@ -58,13 +58,13 @@ internal sealed partial class CliRuntime
                 scored.Add((candidate, 0, 0, 1.0));
                 continue;
             }
-    
+
             if (string.Equals(candidate, normalizedInput, StringComparison.OrdinalIgnoreCase))
             {
                 scored.Add((candidate, 1, 0, 1.0));
                 continue;
             }
-    
+
             if (candidate.StartsWith(normalizedInput, StringComparison.OrdinalIgnoreCase))
             {
                 var distance = Math.Abs(candidate.Length - normalizedInput.Length);
@@ -72,7 +72,7 @@ internal sealed partial class CliRuntime
                 scored.Add((candidate, 2, distance, similarity));
                 continue;
             }
-    
+
             var distanceEdit = LevenshteinDistance(normalizedInput, candidate);
             var maxLength = Math.Max(normalizedInput.Length, candidate.Length);
             var similarityEdit = maxLength == 0 ? 1.0 : 1.0 - (distanceEdit / (double)maxLength);
@@ -82,13 +82,13 @@ internal sealed partial class CliRuntime
                 <= 8 => distanceEdit <= 2,
                 _ => similarityEdit >= 0.8,
             };
-    
+
             if (accepted)
             {
                 scored.Add((candidate, 3, distanceEdit, similarityEdit));
             }
         }
-    
+
         return scored
             .OrderBy(item => item.Rank)
             .ThenBy(item => item.Distance)
@@ -105,7 +105,7 @@ internal sealed partial class CliRuntime
         {
             return null;
         }
-    
+
         var command = args[0].Trim().ToLowerInvariant();
         return command switch
         {

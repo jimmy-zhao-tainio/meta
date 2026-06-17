@@ -7,13 +7,13 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model add-property <Entity> <Property> [--required true|false] [--default-value <Value>] [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var propertyName = commandArgs[3];
         var required = true;
         string? defaultValue = null;
         var workspacePath = DefaultWorkspacePath();
-    
+
         for (var i = 4; i < commandArgs.Length; i++)
         {
             var arg = commandArgs[i];
@@ -23,12 +23,12 @@ internal sealed partial class CliRuntime
                 {
                     return PrintArgumentError("Error: --required requires true or false.");
                 }
-    
+
                 if (!bool.TryParse(commandArgs[++i], out required))
                 {
                     return PrintArgumentError("Error: --required must be true or false.");
                 }
-    
+
                 continue;
             }
 
@@ -42,21 +42,21 @@ internal sealed partial class CliRuntime
                 defaultValue = commandArgs[++i];
                 continue;
             }
-    
+
             if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
             {
                 if (i + 1 >= commandArgs.Length)
                 {
                     return PrintArgumentError("Error: --workspace requires a path.");
                 }
-    
+
                 workspacePath = commandArgs[++i];
                 continue;
             }
-    
+
             return PrintArgumentError($"Error: unknown option '{arg}'.");
         }
-    
+
         var operation = new WorkspaceOp
         {
             Type = WorkspaceOpTypes.AddProperty,
@@ -69,7 +69,7 @@ internal sealed partial class CliRuntime
             },
             PropertyDefaultValue = defaultValue,
         };
-    
+
         var requiredText = required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>
         {

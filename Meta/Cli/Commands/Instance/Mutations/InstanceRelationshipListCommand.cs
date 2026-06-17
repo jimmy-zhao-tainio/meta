@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: instance relationship list <FromEntity> <FromId> [--workspace <path>]");
         }
-    
+
         var fromEntityName = commandArgs[3];
         var fromId = commandArgs[4];
         var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 5);
@@ -14,7 +14,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -41,7 +41,7 @@ internal sealed partial class CliRuntime
                 presenter.WriteInfo("  (none)");
                 return 0;
             }
-    
+
             presenter.WriteInfo("Relationships");
             presenter.WriteInfo($"  FromInstance: {BuildEntityInstanceAddress(fromEntityName, row.Id)}");
             presenter.WriteTable(

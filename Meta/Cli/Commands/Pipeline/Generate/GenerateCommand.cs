@@ -6,14 +6,14 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: generate <sql|csharp|ssdt> --out <dir> [--workspace <path>]");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         var options = ParseGenerateOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         if (string.IsNullOrWhiteSpace(options.OutputDirectory))
         {
             return PrintArgumentError("Error: generate requires --out <dir>.");
@@ -23,7 +23,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError("Error: --tooling is only supported for 'generate csharp'.");
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -44,7 +44,7 @@ internal sealed partial class CliRuntime
                         "generated sql",
                         ("Out", Path.GetFullPath(options.OutputDirectory)),
                         ("Files", manifest.FileHashes.Count.ToString(CultureInfo.InvariantCulture)));
-    
+
                     return 0;
                 case "csharp":
                     manifest = GenerationService.GenerateCSharp(workspace, options.OutputDirectory, includeTooling: options.IncludeTooling);
@@ -53,7 +53,7 @@ internal sealed partial class CliRuntime
                         ("Out", Path.GetFullPath(options.OutputDirectory)),
                         ("Tooling", options.IncludeTooling ? "yes" : "no"),
                         ("Files", manifest.FileHashes.Count.ToString(CultureInfo.InvariantCulture)));
-    
+
                     return 0;
                 case "ssdt":
                     manifest = GenerationService.GenerateSsdt(workspace, options.OutputDirectory);
@@ -61,7 +61,7 @@ internal sealed partial class CliRuntime
                         "generated ssdt",
                         ("Out", Path.GetFullPath(options.OutputDirectory)),
                         ("Files", manifest.FileHashes.Count.ToString(CultureInfo.InvariantCulture)));
-    
+
                     return 0;
                 default:
                     return PrintArgumentError($"Error: unknown generate mode '{mode}'.");

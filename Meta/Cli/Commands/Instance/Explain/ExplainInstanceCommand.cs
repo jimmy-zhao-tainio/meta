@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: view instance <Entity> <Id> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var id = commandArgs[3];
         var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 4);
@@ -14,7 +14,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
         RequireEntity(workspace, entityName);

@@ -26,7 +26,7 @@ internal sealed partial class CliRuntime
         var normalizedWhere = where
             .Where(item => !string.IsNullOrWhiteSpace(item.Key) && !string.IsNullOrWhiteSpace(item.Value))
             .ToList();
-    
+
         var normalizedHumanDetails = NormalizeHumanErrorDetails(normalizedHints);
         var errorDocument = BuildErrorDocument(normalizedMessage, normalizedHumanDetails);
         RenderErrorDocument(
@@ -45,14 +45,14 @@ internal sealed partial class CliRuntime
         {
             return "unknown error";
         }
-    
+
         const string Prefix = "Error:";
         var trimmed = message.Trim();
         if (trimmed.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase))
         {
             return trimmed[Prefix.Length..].Trim();
         }
-    
+
         return trimmed;
     }
 
@@ -70,19 +70,19 @@ internal sealed partial class CliRuntime
         {
             mergedHints.Add("Did you mean: " + string.Join(", ", suggestions.Take(3)));
         }
-    
+
         if (hints is { Count: > 0 })
         {
             mergedHints.AddRange(hints.Where(item => !string.IsNullOrWhiteSpace(item)));
         }
-    
+
         var normalizedHints = mergedHints
             .Where(item => !string.IsNullOrWhiteSpace(item))
             .ToList();
         var wherePairs = ParseWherePairs(where);
-    
+
         PrintHumanFailure(normalizedMessage, normalizedHints);
-    
+
         return exitCode;
     }
 
@@ -233,7 +233,7 @@ internal sealed partial class CliRuntime
             !item.StartsWith("Usage:", StringComparison.OrdinalIgnoreCase) &&
             !item.StartsWith("Next:", StringComparison.OrdinalIgnoreCase))
             .ToList();
-    
+
         if (string.IsNullOrWhiteSpace(next) && !string.IsNullOrWhiteSpace(usage))
         {
             var usageSyntax = NormalizeUsageSyntax(usage);
@@ -248,20 +248,20 @@ internal sealed partial class CliRuntime
         {
             next = $"Next: {BuildNextHelpHintForCurrentArgs()}";
         }
-    
+
         var result = new List<string>();
         if (!string.IsNullOrWhiteSpace(usage))
         {
             result.Add(usage);
         }
-    
+
         result.AddRange(detailLines);
-    
+
         if (!string.IsNullOrWhiteSpace(next))
         {
             result.Add(next);
         }
-    
+
         return result
             .Distinct(StringComparer.Ordinal)
             .ToList();
@@ -288,14 +288,14 @@ internal sealed partial class CliRuntime
             .ThenBy(issue => issue.Message, StringComparer.OrdinalIgnoreCase)
             .ThenBy(issue => issue.Location, StringComparer.OrdinalIgnoreCase)
             .ToList();
-    
+
         var blockers = orderedIssues
             .Select(FormatHumanValidationIssue)
             .Where(line => !string.IsNullOrWhiteSpace(line))
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .Take(20)
             .ToList();
-    
+
         var details = new List<string>();
         if (string.Equals(commandName, "delete", StringComparison.OrdinalIgnoreCase) && blockers.Count > 0)
         {
@@ -306,19 +306,19 @@ internal sealed partial class CliRuntime
             var blockerCount = orderedIssues.Count;
             details.Add($"Blocked by validation issues ({blockerCount}).");
         }
-    
+
         if (blockers.Count == 0)
         {
             details.Add("No blocker details available.");
             return details;
         }
-    
+
         details.AddRange(blockers);
         if (orderedIssues.Count > blockers.Count)
         {
             details.Add($"... {orderedIssues.Count - blockers.Count} more validation blocker(s).");
         }
-    
+
         return details;
     }
 
@@ -328,7 +328,7 @@ internal sealed partial class CliRuntime
         {
             return string.Empty;
         }
-    
+
         if (string.Equals(issue.Code, "instance.relationship.orphan", StringComparison.OrdinalIgnoreCase))
         {
             var locationMatch = Regex.Match(
@@ -339,7 +339,7 @@ internal sealed partial class CliRuntime
             {
                 return $"{BuildEntityInstanceAddress(locationMatch.Groups[1].Value, locationMatch.Groups[2].Value)} references {BuildEntityInstanceAddress(locationMatch.Groups[3].Value, locationMatch.Groups[4].Value)}";
             }
-    
+
             var messageMatch = Regex.Match(
                 issue.Message ?? string.Empty,
                 "^Entity '([^']+)' record '([^']+)' points to missing '([^']+)' id '([^']+)'\\.?$",
@@ -349,7 +349,7 @@ internal sealed partial class CliRuntime
                 return $"{BuildEntityInstanceAddress(messageMatch.Groups[1].Value, messageMatch.Groups[2].Value)} references {BuildEntityInstanceAddress(messageMatch.Groups[3].Value, messageMatch.Groups[4].Value)}";
             }
         }
-    
+
         if (string.Equals(issue.Code, "instance.relationship.missing", StringComparison.OrdinalIgnoreCase))
         {
             var locationMatch = Regex.Match(
@@ -361,7 +361,7 @@ internal sealed partial class CliRuntime
                 return $"{BuildEntityInstanceAddress(locationMatch.Groups[1].Value, locationMatch.Groups[2].Value)} is missing required relationship {locationMatch.Groups[3].Value}";
             }
         }
-    
+
         if (string.Equals(issue.Code, "instance.required.missing", StringComparison.OrdinalIgnoreCase))
         {
             var locationMatch = Regex.Match(
@@ -373,7 +373,7 @@ internal sealed partial class CliRuntime
                 return $"{BuildEntityInstanceAddress(locationMatch.Groups[1].Value, locationMatch.Groups[2].Value)} is missing required value {locationMatch.Groups[3].Value}";
             }
         }
-    
+
         return NormalizeErrorMessage(issue.Message ?? string.Empty);
     }
 
@@ -397,11 +397,11 @@ internal sealed partial class CliRuntime
                 {
                     return $"Cannot delete {BuildEntityInstanceAddress(deleteOp.EntityName, targetId[0])}";
                 }
-    
+
                 return $"Cannot delete {deleteOp.EntityName}";
             }
         }
-    
+
         if (string.Equals(commandName, "model drop-entity", StringComparison.OrdinalIgnoreCase))
         {
             var targetEntity = operations
@@ -412,12 +412,12 @@ internal sealed partial class CliRuntime
                 return $"Cannot drop entity {targetEntity}";
             }
         }
-    
+
         if (diagnostics.ErrorCount == 0 && diagnostics.WarningCount > 0 && globalStrict)
         {
             return $"Cannot complete {commandName} in strict mode";
         }
-    
+
         return $"Cannot complete {commandName}";
     }
 
@@ -445,7 +445,7 @@ internal sealed partial class CliRuntime
         var normalized = NormalizeErrorMessage(message);
         normalized = RewriteArgumentMessage(normalized);
         var detailHints = new List<string>();
-    
+
         if (Regex.IsMatch(normalized, "illegal characters in path", RegexOptions.IgnoreCase))
         {
             var illegalCharMatch = Regex.Match(normalized, "character\\s+'([^']+)'", RegexOptions.IgnoreCase);
@@ -454,7 +454,7 @@ internal sealed partial class CliRuntime
                 detailHints.Add($"path contains illegal character '{illegalCharMatch.Groups[1].Value}' for Windows filenames.");
             }
         }
-    
+
         if (normalized.Contains("generate requires --out", StringComparison.OrdinalIgnoreCase))
         {
             var mode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "sql";
@@ -462,7 +462,7 @@ internal sealed partial class CliRuntime
             {
                 mode = "sql";
             }
-    
+
             detailHints.Add($"example: meta generate {mode} --out .\\out\\{mode}");
         }
         else if (normalized.Contains("--equals", StringComparison.OrdinalIgnoreCase) ||
@@ -491,17 +491,17 @@ internal sealed partial class CliRuntime
         {
             hints.Add(detailHints[0]);
         }
-    
+
         var normalizedUsage = NormalizeUsageSyntax(usage);
         hints.Add(string.IsNullOrWhiteSpace(normalizedUsage)
             ? "Usage: meta <command> [options]"
             : $"Usage: {normalizedUsage}");
-    
+
         if (!string.IsNullOrWhiteSpace(next))
         {
             hints.Add($"Next: {next}");
         }
-    
+
         return PrintFormattedError(
             "E_ARGUMENT",
             normalized,
@@ -606,7 +606,7 @@ internal sealed partial class CliRuntime
         IReadOnlyList<string> suggestions = Array.Empty<string>();
         var finalCode = code;
         var resolvedWorkspacePath = ResolveWorkspacePathForHints();
-    
+
         if ((string.Equals(finalCode, "E_FILE_NOT_FOUND", StringComparison.OrdinalIgnoreCase) ||
              string.Equals(finalCode, "E_DIRECTORY_NOT_FOUND", StringComparison.OrdinalIgnoreCase) ||
              string.Equals(finalCode, "E_WORKSPACE_INVALID", StringComparison.OrdinalIgnoreCase) ||
@@ -619,7 +619,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add("Next: meta init .");
         }
-    
+
         if (string.Equals(finalCode, "E_FORMAT", StringComparison.OrdinalIgnoreCase) &&
             normalized.Contains("unsupported --from", StringComparison.OrdinalIgnoreCase))
         {
@@ -628,7 +628,7 @@ internal sealed partial class CliRuntime
             var allowed = new[] { "tsv", "csv" };
             suggestions = SuggestValues(provided, allowed);
             normalized = "Unsupported value for --from.";
-    
+
             string? filePath = null;
             for (var i = 0; i < args.Length - 1; i++)
             {
@@ -638,7 +638,7 @@ internal sealed partial class CliRuntime
                     break;
                 }
             }
-    
+
             if (!string.IsNullOrWhiteSpace(filePath))
             {
                 var extension = Path.GetExtension(filePath)?.TrimStart('.').ToLowerInvariant();
@@ -648,14 +648,14 @@ internal sealed partial class CliRuntime
                     hints.Add($"Next: meta bulk-insert <Entity> --from {extension} --file <path> --key Id");
                 }
             }
-    
+
             if (hints.Count == 0)
             {
                 hints.Add("Allowed values: tsv, csv.");
                 hints.Add("Next: meta bulk-insert <Entity> --from tsv --file <path> --key Id");
             }
         }
-    
+
         if (string.Equals(finalCode, "E_FILE_NOT_FOUND", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(finalCode, "E_DIRECTORY_NOT_FOUND", StringComparison.OrdinalIgnoreCase))
         {
@@ -663,7 +663,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add("Next: verify the path with: Get-ChildItem <path>");
         }
-    
+
         if (string.Equals(finalCode, "E_IO", StringComparison.OrdinalIgnoreCase) &&
             Regex.IsMatch(normalized, "illegal characters in path", RegexOptions.IgnoreCase))
         {
@@ -678,7 +678,7 @@ internal sealed partial class CliRuntime
             {
                 hints.Add("Path contains illegal filename characters.");
             }
-    
+
             hints.Add("Next: use a valid Windows path and retry.");
         }
         else if (string.Equals(finalCode, "E_IO", StringComparison.OrdinalIgnoreCase))
@@ -697,7 +697,7 @@ internal sealed partial class CliRuntime
                 }
             }
         }
-    
+
         var xmlStartMatch = Regex.Match(normalized, "line\\s+(\\d+)\\s+position\\s+(\\d+)", RegexOptions.IgnoreCase);
         var xmlEndMatch = Regex.Match(normalized, "Line\\s+(\\d+),\\s+position\\s+(\\d+)", RegexOptions.IgnoreCase);
         if (string.Equals(finalCode, "E_WORKSPACE_XML_INVALID", StringComparison.OrdinalIgnoreCase) || xmlEndMatch.Success)
@@ -719,13 +719,13 @@ internal sealed partial class CliRuntime
                     ("startPos", xmlStartMatch.Success ? xmlStartMatch.Groups[2].Value : xmlEndMatch.Groups[2].Value),
                     ("endPos", xmlEndMatch.Groups[2].Value));
             }
-    
+
             hints.Clear();
             if (xmlEndMatch.Success)
             {
                 hints.Add($"Location: line {xmlEndMatch.Groups[1].Value}, position {xmlEndMatch.Groups[2].Value}.");
             }
-    
+
             var resolvedFileForHints = ResolveWorkspaceFileForHint(resolvedWorkspacePath, file);
             if (!string.IsNullOrWhiteSpace(resolvedFileForHints) && File.Exists(resolvedFileForHints))
             {
@@ -737,13 +737,13 @@ internal sealed partial class CliRuntime
                     hints.Add($"Next: resolve git merge markers in {file}.");
                 }
             }
-    
+
             if (!hints.Any(line => line.StartsWith("Next:", StringComparison.OrdinalIgnoreCase)))
             {
                 hints.Add("Next: meta check");
             }
         }
-    
+
         if (string.Equals(finalCode, "E_SQL", StringComparison.OrdinalIgnoreCase) &&
             normalized.Contains("Cannot open database", StringComparison.OrdinalIgnoreCase))
         {
@@ -751,7 +751,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add("Next: verify server/database name and permissions in SSMS.");
         }
-    
+
         var entityMissingMatch = Regex.Match(
             normalized,
             "^Entity '([^']+)' (?:does not exist(?: in model)?|was not found)\\.?$",
@@ -866,7 +866,7 @@ internal sealed partial class CliRuntime
                 }
             }
         }
-    
+
         var alreadyExistsMatch = Regex.Match(
             normalized,
             "^(?:Entity|Property) '([^']+)' already exists\\.?$",
@@ -876,7 +876,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add("Next: meta list entities");
         }
-    
+
         var duplicateIdMatch = Regex.Match(
             normalized,
             "^Cannot create '([^']+)' with Id '([^']+)' because it already exists\\.?$",
@@ -890,7 +890,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add($"Next: meta instance update {entityName} {QuoteInstanceId(id)} --set <Field>=<Value>");
         }
-    
+
         var entityNotEmptyMatch = Regex.Match(
             normalized,
             "^Entity '([^']+)' has rows and cannot be removed\\.?$",
@@ -913,7 +913,7 @@ internal sealed partial class CliRuntime
             hints.Add($"{entityName} has {rowCount.ToString(CultureInfo.InvariantCulture)} instances.");
             hints.Add($"Next: meta view instance {entityName} {QuoteInstanceId(firstRowId)}");
         }
-    
+
         var entityInboundMatch = Regex.Match(
             normalized,
             "^Entity '([^']+)' has inbound relationships and cannot be removed\\.?$",
@@ -934,7 +934,7 @@ internal sealed partial class CliRuntime
             hints.Add($"Inbound relationships: {inboundCount.ToString(CultureInfo.InvariantCulture)}.");
             hints.Add($"Next: meta graph inbound {entityName}");
         }
-    
+
         var relationshipInUseMatch = Regex.Match(
             normalized,
             "^Relationship '([^']+)->([^']+)' is in use and cannot be removed\\.?$",
@@ -962,7 +962,7 @@ internal sealed partial class CliRuntime
                 .FirstOrDefault() ?? "1";
             hints.Add($"Next: meta instance relationship set {fromEntity} {QuoteInstanceId(sampleRowId)} --to <RelationshipSelector> <ToId>");
         }
-    
+
         var relationshipNotFoundMatch = Regex.Match(
             normalized,
             "^Relationship '([^']+)->([^']+)' does not exist\\.?$",
@@ -977,7 +977,7 @@ internal sealed partial class CliRuntime
             hints.Clear();
             hints.Add($"Next: meta list relationships {fromEntity}");
         }
-    
+
         var rowNotFoundMatch = Regex.Match(
             normalized,
             "^Instance with Id '([^']+)' does not exist in entity '([^']+)'\\.?$",
@@ -999,7 +999,7 @@ internal sealed partial class CliRuntime
                 entityName = rowNotFoundMatch.Groups[1].Value;
                 id = rowNotFoundMatch.Groups[2].Value;
             }
-    
+
             var rows = GetEntityRows(workspace, entityName);
             normalized = $"Instance '{BuildEntityInstanceAddress(entityName, id)}' was not found.";
             where = BuildWhere(
@@ -1012,7 +1012,7 @@ internal sealed partial class CliRuntime
                 id,
                 rows.Select(row => row.Id).Where(value => !string.IsNullOrWhiteSpace(value)).Take(20));
         }
-    
+
         return PrintFormattedError(
             finalCode,
             normalized,
@@ -1028,7 +1028,7 @@ internal sealed partial class CliRuntime
         {
             return false;
         }
-    
+
         if (Regex.IsMatch(
                 message,
                 "^Could not find model\\.xml in '.*'\\.?$",
@@ -1036,7 +1036,7 @@ internal sealed partial class CliRuntime
         {
             return true;
         }
-    
+
         if (Regex.IsMatch(
                 message,
                 "^Could not find workspace metadata (starting from|under) '.*'\\.?$",
@@ -1044,7 +1044,7 @@ internal sealed partial class CliRuntime
         {
             return true;
         }
-    
+
         var mentionsWorkspaceConfig = message.Contains("workspace.xml", StringComparison.OrdinalIgnoreCase);
         return mentionsWorkspaceConfig &&
                message.Contains("not found", StringComparison.OrdinalIgnoreCase);
@@ -1058,7 +1058,7 @@ internal sealed partial class CliRuntime
         {
             return PrintDataError("E_WORKSPACE_XML_INVALID", normalized);
         }
-    
+
         var next = BuildNextHelpHintForCurrentArgs();
         var hints = string.IsNullOrWhiteSpace(next)
             ? Array.Empty<string>()

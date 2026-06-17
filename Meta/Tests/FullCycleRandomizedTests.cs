@@ -79,11 +79,11 @@ public sealed class FullCycleRandomizedTests
 
             var sqlManifestA = GenerationService.GenerateSql(loaded, sqlOutA);
             var sqlManifestB = GenerationService.GenerateSql(loaded, sqlOutB);
-            Assert.True(GenerationService.AreEquivalent(sqlManifestA, sqlManifestB, out var sqlMessage), sqlMessage);
+            AssertEquivalent(sqlManifestA, sqlManifestB);
 
             var csharpManifestA = GenerationService.GenerateCSharp(loaded, csOutA);
             var csharpManifestB = GenerationService.GenerateCSharp(loaded, csOutB);
-            Assert.True(GenerationService.AreEquivalent(csharpManifestA, csharpManifestB, out var csharpMessage), csharpMessage);
+            AssertEquivalent(csharpManifestA, csharpManifestB);
 
             var ssdtManifest = GenerationService.GenerateSsdt(loaded, ssdtOut);
             Assert.Equal(4, ssdtManifest.FileHashes.Count);
@@ -269,6 +269,18 @@ public sealed class FullCycleRandomizedTests
             .Take(8)
             .Select(issue => $"{issue.Severity}:{issue.Code}:{issue.Location}:{issue.Message}");
         return string.Join(" | ", preview);
+    }
+
+    private static void AssertEquivalent(GenerationManifest left, GenerationManifest right)
+    {
+        Assert.Equal(left.FileHashes.Count, right.FileHashes.Count);
+        foreach (var file in left.FileHashes.OrderBy(item => item.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            Assert.True(right.FileHashes.TryGetValue(file.Key, out var otherHash), $"Missing file in right manifest: {file.Key}.");
+            Assert.Equal(file.Value, otherHash);
+        }
+
+        Assert.Equal(left.CombinedHash, right.CombinedHash);
     }
 
     private static int ReadInt(string name, int fallback)

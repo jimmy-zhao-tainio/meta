@@ -7,12 +7,12 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         var dataSizes = CalculateWorkspaceDataSizes(workspace);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
         PrintWorkspaceSummary(workspace);
-    
+
         return 0;
     }
 }

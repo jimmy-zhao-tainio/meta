@@ -23,31 +23,9 @@ public sealed class ValidationService : IValidationService
         return diagnostics;
     }
 
-    public WorkspaceDiagnostics ValidateIncremental(Workspace workspace, IReadOnlyCollection<string> touchedEntities)
-    {
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
-
-        if (touchedEntities == null || touchedEntities.Count == 0)
-        {
-            return Validate(workspace);
-        }
-
-        var filter = new HashSet<string>(touchedEntities.Where(entity => !string.IsNullOrWhiteSpace(entity)),
-            StringComparer.OrdinalIgnoreCase);
-
-        var diagnostics = new WorkspaceDiagnostics();
-        ValidateModel(workspace.Model, diagnostics, filter);
-        ValidateInstance(workspace.Model, workspace.Instance, diagnostics, filter);
-        return diagnostics;
-    }
-
     private static void ValidateModel(
         GenericModel model,
-        WorkspaceDiagnostics diagnostics,
-        HashSet<string>? filter = null)
+        WorkspaceDiagnostics diagnostics)
     {
         if (model == null)
         {
@@ -97,11 +75,6 @@ public sealed class ValidationService : IValidationService
                 });
             }
 
-            if (filter != null && !filter.Contains(entity.Name))
-            {
-                continue;
-            }
-
             if (!IsValidName(entity.Name))
             {
                 diagnostics.Issues.Add(new DiagnosticIssue
@@ -118,8 +91,8 @@ public sealed class ValidationService : IValidationService
             ValidatePendingRelationshipPromotion(entity, model, diagnostics);
         }
 
-        ValidateRelationships(model, diagnostics, filter);
-        ValidateCycles(model, diagnostics, filter);
+        ValidateRelationships(model, diagnostics);
+        ValidateCycles(model, diagnostics);
     }
 
     private static void ValidateEntityProperties(GenericEntity entity, WorkspaceDiagnostics diagnostics)
@@ -255,17 +228,11 @@ public sealed class ValidationService : IValidationService
 
     private static void ValidateRelationships(
         GenericModel model,
-        WorkspaceDiagnostics diagnostics,
-        HashSet<string>? filter = null)
+        WorkspaceDiagnostics diagnostics)
     {
         var entityNames = new HashSet<string>(model.Entities.Select(entity => entity.Name), StringComparer.OrdinalIgnoreCase);
         foreach (var entity in model.Entities)
         {
-            if (filter != null && !filter.Contains(entity.Name))
-            {
-                continue;
-            }
-
             var relationNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (var relationship in entity.Relationships)
             {
@@ -306,7 +273,7 @@ public sealed class ValidationService : IValidationService
         }
     }
 
-    private static void ValidateCycles(GenericModel model, WorkspaceDiagnostics diagnostics, HashSet<string>? filter)
+    private static void ValidateCycles(GenericModel model, WorkspaceDiagnostics diagnostics)
     {
         var graph = model.Entities.ToDictionary(
             entity => entity.Name,
@@ -318,11 +285,6 @@ public sealed class ValidationService : IValidationService
 
         foreach (var entity in graph.Keys)
         {
-            if (filter != null && !filter.Contains(entity))
-            {
-                continue;
-            }
-
             if (DetectCycle(entity, graph, visited, stack))
             {
                 diagnostics.Issues.Add(new DiagnosticIssue
@@ -377,8 +339,7 @@ public sealed class ValidationService : IValidationService
     private static void ValidateInstance(
         GenericModel model,
         GenericInstance instance,
-        WorkspaceDiagnostics diagnostics,
-        HashSet<string>? filter = null)
+        WorkspaceDiagnostics diagnostics)
     {
         if (instance == null)
         {
@@ -398,11 +359,6 @@ public sealed class ValidationService : IValidationService
         foreach (var entityRecords in instance.RecordsByEntity)
         {
             var entityName = entityRecords.Key;
-            if (filter != null && !filter.Contains(entityName))
-            {
-                continue;
-            }
-
             if (!modelByEntity.TryGetValue(entityName, out var modelEntity))
             {
                 diagnostics.Issues.Add(new DiagnosticIssue
@@ -514,11 +470,6 @@ public sealed class ValidationService : IValidationService
         foreach (var entityRecords in instance.RecordsByEntity)
         {
             var entityName = entityRecords.Key;
-            if (filter != null && !filter.Contains(entityName))
-            {
-                continue;
-            }
-
             if (!modelByEntity.TryGetValue(entityName, out var modelEntity))
             {
                 continue;

@@ -22,7 +22,7 @@ public sealed class GenerationServiceTests
             var manifestA = GenerationService.GenerateSql(workspace, outputA);
             var manifestB = GenerationService.GenerateSql(workspace, outputB);
 
-            Assert.True(GenerationService.AreEquivalent(manifestA, manifestB, out var message), message);
+            AssertEquivalent(manifestA, manifestB);
             Assert.True(File.Exists(Path.Combine(outputA, "schema.sql")));
             Assert.True(File.Exists(Path.Combine(outputA, "data.sql")));
             var schemaText = await File.ReadAllTextAsync(Path.Combine(outputA, "schema.sql"));
@@ -74,7 +74,7 @@ public sealed class GenerationServiceTests
             var manifestB = GenerationService.GenerateCSharp(workspace, outputB);
             var headerWorkspacePath = ResolveHeaderWorkspacePath(workspace);
 
-            Assert.True(GenerationService.AreEquivalent(manifestA, manifestB, out var message), message);
+            AssertEquivalent(manifestA, manifestB);
             Assert.True(File.Exists(Path.Combine(outputA, workspace.Model.Name + ".cs")));
             Assert.True(File.Exists(Path.Combine(outputA, "Cube.cs")));
             var modelText = await File.ReadAllTextAsync(Path.Combine(outputA, workspace.Model.Name + ".cs"));
@@ -345,6 +345,18 @@ public sealed class GenerationServiceTests
         {
             Directory.Delete(path, recursive: true);
         }
+    }
+
+    private static void AssertEquivalent(GenerationManifest left, GenerationManifest right)
+    {
+        Assert.Equal(left.FileHashes.Count, right.FileHashes.Count);
+        foreach (var file in left.FileHashes.OrderBy(item => item.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            Assert.True(right.FileHashes.TryGetValue(file.Key, out var otherHash), $"Missing file in right manifest: {file.Key}.");
+            Assert.Equal(file.Value, otherHash);
+        }
+
+        Assert.Equal(left.CombinedHash, right.CombinedHash);
     }
 
     private static string ResolveHeaderWorkspacePath(Workspace workspace)

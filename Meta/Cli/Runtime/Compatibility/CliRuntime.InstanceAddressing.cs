@@ -12,7 +12,7 @@ internal sealed partial class CliRuntime
         {
             return "\"" + value.Replace("\"", "\\\"", StringComparison.Ordinal) + "\"";
         }
-    
+
         return value;
     }
 
@@ -24,7 +24,7 @@ internal sealed partial class CliRuntime
             relationshipId = directValue;
             return true;
         }
-    
+
         foreach (var pair in record.RelationshipIds)
         {
             if (string.Equals(pair.Key, relationshipEntity, StringComparison.OrdinalIgnoreCase) &&
@@ -34,7 +34,7 @@ internal sealed partial class CliRuntime
                 return true;
             }
         }
-    
+
         relationshipId = string.Empty;
         return false;
     }

@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model add-relationship <FromEntity> <ToEntity> [--role <RoleName>] [--default-id <ToId>] [--workspace <path>]");
         }
-    
+
         var fromEntity = commandArgs[2];
         var toEntity = commandArgs[3];
         var options = ParseModelAddRelationshipOptions(commandArgs, startIndex: 4);
@@ -15,7 +15,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var operation = new WorkspaceOp
         {
             Type = WorkspaceOpTypes.AddRelationship,
@@ -36,7 +36,7 @@ internal sealed partial class CliRuntime
         {
             successDetails.Add(("DefaultId", options.DefaultId));
         }
-    
+
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
                 operation,

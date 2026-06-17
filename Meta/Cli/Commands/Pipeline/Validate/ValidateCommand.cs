@@ -7,12 +7,12 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-    
+
         var diagnostics = services.ValidationService.Validate(workspace);
-    
+
         workspace.Diagnostics = diagnostics;
 
         if (diagnostics.ErrorCount == 0 && diagnostics.WarningCount == 0)
@@ -31,12 +31,12 @@ internal sealed partial class CliRuntime
                 presenter.WriteInfo($"  [{issue.Severity}] {NormalizeErrorMessage(issue.Message)}");
             }
         }
-    
+
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
             return 2;
         }
-    
+
         return 0;
     }
 }

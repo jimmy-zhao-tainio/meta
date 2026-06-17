@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]");
         }
-    
+
         var fromEntityName = commandArgs[3];
         var fromId = commandArgs[4];
         var options = ParseInstanceRelationshipSetOptions(commandArgs, startIndex: 5);
@@ -15,7 +15,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         if (string.IsNullOrWhiteSpace(options.RelationshipSelector) || string.IsNullOrWhiteSpace(options.ToId))
         {
             return PrintArgumentError("Error: instance relationship set requires --to <RelationshipSelector> <ToId>.");
@@ -55,7 +55,7 @@ internal sealed partial class CliRuntime
                     "E_ROW_NOT_FOUND",
                     $"Instance with Id '{toId}' does not exist in entity '{toTargetEntityName}'.");
             }
-    
+
             var operation = new WorkspaceOp
             {
                 Type = WorkspaceOpTypes.BulkUpsertRows,
@@ -65,7 +65,7 @@ internal sealed partial class CliRuntime
                     BuildRelationshipUsageRewritePatch(fromRow, toRelationshipName, toId),
                 },
             };
-    
+
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
                     new[] { operation },

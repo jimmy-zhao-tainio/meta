@@ -7,20 +7,20 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model drop-entity <Entity> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var options = ParseMutatingCommonOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
             RequireEntity(workspace, entityName);
-    
+
             var rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
             if (rows.Count > 0)
             {
@@ -40,7 +40,7 @@ internal sealed partial class CliRuntime
                         $"Next: meta view instance {entityName} {QuoteInstanceId(firstRow.Id)}",
                     });
             }
-    
+
             var inboundRelationships = workspace.Model.Entities
                 .SelectMany(fromEntity => fromEntity.Relationships
                     .Where(relationship => string.Equals(relationship.Entity, entityName, StringComparison.OrdinalIgnoreCase))
@@ -79,7 +79,7 @@ internal sealed partial class CliRuntime
                         })
                         .ToList());
             }
-    
+
             var operation = new WorkspaceOp
             {
                 Type = WorkspaceOpTypes.DeleteEntity,

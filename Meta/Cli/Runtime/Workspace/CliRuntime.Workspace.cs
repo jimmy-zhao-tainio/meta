@@ -11,7 +11,7 @@ internal sealed partial class CliRuntime
         {
             return true;
         }
-    
+
         for (var i = 0; i < args.Length; i++)
         {
             if (string.Equals(args[i], "--workspace", StringComparison.OrdinalIgnoreCase))
@@ -19,7 +19,7 @@ internal sealed partial class CliRuntime
                 return true;
             }
         }
-    
+
         return false;
     }
 
@@ -40,10 +40,10 @@ internal sealed partial class CliRuntime
             {
                 return directory;
             }
-    
+
             return Environment.CurrentDirectory;
         }
-    
+
         return Path.GetFullPath(outputPath);
     }
 
@@ -63,12 +63,12 @@ internal sealed partial class CliRuntime
                     "Next: choose a new folder path, for example: --new-workspace .\\ImportedWorkspace2",
                 });
         }
-    
+
         if (!Directory.Exists(fullPath))
         {
             return 0;
         }
-    
+
         var entryCount = Directory.EnumerateFileSystemEntries(fullPath).Count();
         if (entryCount > 0)
         {
@@ -92,7 +92,7 @@ internal sealed partial class CliRuntime
                     "Next: choose a new folder path, for example: --new-workspace .\\ImportedWorkspace2",
                 });
         }
-    
+
         return 0;
     }
 
@@ -102,7 +102,7 @@ internal sealed partial class CliRuntime
         {
             return globalWorkspacePath;
         }
-    
+
         for (var i = 0; i < args.Length - 1; i++)
         {
             if (string.Equals(args[i], "--workspace", StringComparison.OrdinalIgnoreCase))
@@ -110,7 +110,7 @@ internal sealed partial class CliRuntime
                 return args[i + 1];
             }
         }
-    
+
         return DefaultWorkspacePath();
     }
 
@@ -124,7 +124,7 @@ internal sealed partial class CliRuntime
             {
                 return relative;
             }
-    
+
             return Path.GetFullPath(Path.Combine(context.WorkspaceRootPath, relative));
         }
         catch
@@ -155,12 +155,12 @@ internal sealed partial class CliRuntime
         {
             return Array.Empty<GenericRecord>();
         }
-    
+
         if (workspace.Instance.RecordsByEntity.TryGetValue(entityName, out var directRows))
         {
             return directRows;
         }
-    
+
         var candidate = workspace.Instance.RecordsByEntity
             .FirstOrDefault(pair => string.Equals(pair.Key, entityName, StringComparison.OrdinalIgnoreCase));
         return candidate.Value == null ? Array.Empty<GenericRecord>() : candidate.Value;

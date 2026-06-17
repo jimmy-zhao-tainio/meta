@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -15,7 +15,7 @@ internal sealed partial class CliRuntime
             var stats = GraphStatsService.Compute(workspace.Model, options.TopN, options.CycleSampleLimit);
 
             PrintGraphStats(workspace, stats, options.TopN);
-    
+
             return 0;
         }
         catch (InvalidOperationException exception)

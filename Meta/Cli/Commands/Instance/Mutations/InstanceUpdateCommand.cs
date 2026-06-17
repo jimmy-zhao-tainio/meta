@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var id = commandArgs[3];
         var options = ParseMutatingEntityOptions(commandArgs, startIndex: 4);
@@ -14,17 +14,17 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         if (ContainsIdSetAssignment(options.SetValues))
         {
             return PrintArgumentError("Error: do not use --set Id. Instance id must be positional <Id>.");
         }
-    
+
         if (options.SetValues.Count == 0)
         {
             return PrintArgumentError("Error: instance update requires at least one --set Field=Value.");
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -41,7 +41,7 @@ internal sealed partial class CliRuntime
                 EntityName = entityName,
                 RowPatches = patches,
             };
-    
+
             BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,

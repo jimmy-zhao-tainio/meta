@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: graph <stats|inbound> ...");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         return mode switch
         {
@@ -15,7 +15,7 @@ internal sealed partial class CliRuntime
             _ => UnknownGraphCommand(mode),
         };
     }
-    
+
     int UnknownGraphCommand(string mode)
     {
         return PrintCommandUnknownError($"graph {mode}");

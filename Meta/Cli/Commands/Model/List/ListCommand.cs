@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: list <entities|properties|relationships> ...");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         return mode switch
         {

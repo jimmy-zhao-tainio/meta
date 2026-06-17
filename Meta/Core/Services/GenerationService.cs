@@ -980,7 +980,7 @@ public static class GenerationService
         return BuildManifest(outputRoot);
     }
 
-    public static GenerationManifest BuildManifest(string rootDirectory)
+    private static GenerationManifest BuildManifest(string rootDirectory)
     {
         if (string.IsNullOrWhiteSpace(rootDirectory))
         {
@@ -1010,39 +1010,6 @@ public static class GenerationService
 
         manifest.CombinedHash = ComputeCombinedHash(manifest.FileHashes);
         return manifest;
-    }
-
-    public static bool AreEquivalent(GenerationManifest left, GenerationManifest right, out string message)
-    {
-        if (left.FileHashes.Count != right.FileHashes.Count)
-        {
-            message = $"File count mismatch: left={left.FileHashes.Count}, right={right.FileHashes.Count}.";
-            return false;
-        }
-
-        foreach (var file in left.FileHashes.OrderBy(item => item.Key, StringComparer.OrdinalIgnoreCase))
-        {
-            if (!right.FileHashes.TryGetValue(file.Key, out var otherHash))
-            {
-                message = $"Missing file in right manifest: {file.Key}.";
-                return false;
-            }
-
-            if (!string.Equals(file.Value, otherHash, StringComparison.OrdinalIgnoreCase))
-            {
-                message = $"Content hash mismatch for '{file.Key}'.";
-                return false;
-            }
-        }
-
-        if (!string.Equals(left.CombinedHash, right.CombinedHash, StringComparison.OrdinalIgnoreCase))
-        {
-            message = "Combined hash mismatch.";
-            return false;
-        }
-
-        message = "Equivalent.";
-        return true;
     }
 
     private static string PrepareOutputDirectory(string outputDirectory)

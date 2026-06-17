@@ -7,11 +7,11 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
         var rowsByEntity = workspace.Instance.RecordsByEntity;
-    
+
         var entities = workspace.Model.Entities
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
             .Select(entity => new
@@ -35,7 +35,7 @@ internal sealed partial class CliRuntime
                     entity.Relationships.ToString(CultureInfo.InvariantCulture),
                 })
                 .ToList());
-    
+
         return 0;
     }
 }

@@ -8,7 +8,7 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: import <sql|csv> ...");
         }
-    
+
         var mode = commandArgs[1].Trim().ToLowerInvariant();
         try
         {
@@ -49,7 +49,7 @@ internal sealed partial class CliRuntime
                     presenter.WriteOk(
                         "imported sql",
                         ("Workspace", Path.GetFullPath(workspacePath)));
-    
+
                     return 0;
                 case "csv":
                     if (commandArgs.Length < 3)

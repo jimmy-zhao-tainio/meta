@@ -6,7 +6,7 @@
         {
             return PrintUsageError("Usage: instance relationship <set|list> ...");
         }
-    
+
         var mode = commandArgs[2].Trim().ToLowerInvariant();
         return mode switch
         {

@@ -68,7 +68,6 @@ Behavior:
 
 ```csharp
 WorkspaceDiagnostics Validate(Workspace workspace);
-WorkspaceDiagnostics ValidateIncremental(Workspace workspace, IReadOnlyCollection<string> touchedEntities);
 ```
 
 Behavior:
@@ -99,8 +98,6 @@ bool CanUndo(Workspace workspace);
 bool CanRedo(Workspace workspace);
 void Undo(Workspace workspace);
 void Redo(Workspace workspace);
-void ApplyWithoutHistory(Workspace workspace, WorkspaceOp operation);
-IReadOnlyCollection<WorkspaceOp> GetUndoOperations(Workspace workspace);
 ```
 
 Behavior:
@@ -203,8 +200,6 @@ Behavior:
 ```csharp
 Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
 Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
-Task ExportSqlAsync(Workspace workspace, string schemaOutputPath, string dataOutputPath, CancellationToken cancellationToken = default);
-Task ExportCSharpAsync(Workspace workspace, string outputPath, CancellationToken cancellationToken = default);
 ```
 
 Behavior:
@@ -235,8 +230,6 @@ Use this for read-only structural suggestion analysis in tooling flows. Strong s
 GenerationManifest GenerateSql(Workspace workspace, string outputDirectory);
 GenerationManifest GenerateCSharp(Workspace workspace, string outputDirectory, bool includeTooling = false);
 GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory);
-GenerationManifest BuildManifest(string rootDirectory);
-bool AreEquivalent(GenerationManifest left, GenerationManifest right, out string message);
 ```
 
 `GenerateCSharp(... includeTooling: true)` emits optional `<ModelName>.Tooling.cs` helper surface.

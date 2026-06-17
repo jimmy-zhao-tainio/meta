@@ -6,14 +6,14 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: view entity <Entity> [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[2];
         var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
         PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
         var entity = RequireEntity(workspace, entityName);
@@ -49,7 +49,7 @@ internal sealed partial class CliRuntime
                     property.isRequired ? "required" : "optional",
                 })
                 .ToList());
-    
+
         var relationships = entity.Relationships
             .OrderBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
             .Select(item => item.Entity)
@@ -66,7 +66,7 @@ internal sealed partial class CliRuntime
                 new[] { "Target" },
                 relationships.Select(relationship => (IReadOnlyList<string>)new[] { relationship }).ToList());
         }
-    
+
         return 0;
     }
 }

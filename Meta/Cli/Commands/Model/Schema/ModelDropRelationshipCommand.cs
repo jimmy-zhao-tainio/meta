@@ -7,7 +7,7 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: model drop-relationship <FromEntity> <ToEntity> [--workspace <path>]");
         }
-    
+
         var fromEntityName = commandArgs[2];
         var toEntityName = commandArgs[3];
         var options = ParseMutatingCommonOptions(commandArgs, startIndex: 4);
@@ -15,7 +15,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
@@ -38,7 +38,7 @@ internal sealed partial class CliRuntime
 
             var relationshipName = relationship.GetColumnName();
             var targetEntityName = relationship.Entity;
-    
+
             var operation = new WorkspaceOp
             {
                 Type = WorkspaceOpTypes.DeleteRelationship,

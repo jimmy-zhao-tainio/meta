@@ -37,7 +37,6 @@ public interface IWorkspaceMergeService
 public interface IValidationService
 {
     WorkspaceDiagnostics Validate(Workspace workspace);
-    WorkspaceDiagnostics ValidateIncremental(Workspace workspace, IReadOnlyCollection<string> touchedEntities);
 }
 
 public interface IImportService
@@ -53,8 +52,6 @@ public interface IExportService
 {
     Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
     Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
-    Task ExportSqlAsync(Workspace workspace, string schemaOutputPath, string dataOutputPath, CancellationToken cancellationToken = default);
-    Task ExportCSharpAsync(Workspace workspace, string outputPath, CancellationToken cancellationToken = default);
 }
 
 public interface IOperationService
@@ -64,8 +61,6 @@ public interface IOperationService
     bool CanRedo(Workspace workspace);
     void Undo(Workspace workspace);
     void Redo(Workspace workspace);
-    void ApplyWithoutHistory(Workspace workspace, WorkspaceOp operation);
-    IReadOnlyCollection<WorkspaceOp> GetUndoOperations(Workspace workspace);
 }
 
 public interface IModelRefactorService

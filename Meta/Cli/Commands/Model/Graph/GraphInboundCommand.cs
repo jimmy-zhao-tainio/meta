@@ -6,20 +6,20 @@ internal sealed partial class CliRuntime
         {
             return PrintUsageError("Usage: graph inbound <Entity> [--workspace <path>] [--top <n>]");
         }
-    
+
         var targetEntityName = commandArgs[2];
         var options = ParseGraphInboundOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
             RequireEntity(workspace, targetEntityName);
-    
+
             var inboundAll = workspace.Model.Entities
                 .SelectMany(fromEntity => fromEntity.Relationships
                     .Where(relationship => string.Equals(relationship.Entity, targetEntityName, StringComparison.OrdinalIgnoreCase))
@@ -47,7 +47,7 @@ internal sealed partial class CliRuntime
             {
                 presenter.WriteInfo($"InstancesTruncated: {(inboundAll.Count - inbound.Count).ToString(CultureInfo.InvariantCulture)}");
             }
-    
+
             return 0;
         }
         catch (InvalidOperationException exception)

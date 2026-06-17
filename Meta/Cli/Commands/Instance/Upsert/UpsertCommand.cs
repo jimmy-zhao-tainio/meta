@@ -7,14 +7,14 @@ internal sealed partial class CliRuntime
             return PrintUsageError(
                 "Usage: bulk-insert <Entity> [--from tsv|csv] [--file <path>|--stdin] [--key Field[,Field2...]] [--auto-id] [--workspace <path>]");
         }
-    
+
         var entityName = commandArgs[1];
         var parseResult = ParseUpsertOptions(commandArgs, startIndex: 2);
         if (!parseResult.Ok)
         {
             return PrintArgumentError(parseResult.ErrorMessage);
         }
-    
+
         if (!string.IsNullOrWhiteSpace(parseResult.Format) &&
             !string.Equals(parseResult.Format, "tsv", StringComparison.OrdinalIgnoreCase) &&
             !string.Equals(parseResult.Format, "csv", StringComparison.OrdinalIgnoreCase))
@@ -22,7 +22,7 @@ internal sealed partial class CliRuntime
             return PrintDataError("E_FORMAT",
                 $"unsupported --from '{parseResult.Format}'. Supported values are tsv or csv.");
         }
-    
+
         var hasFile = !string.IsNullOrWhiteSpace(parseResult.FilePath);
         if ((hasFile && parseResult.UseStdin) || (!hasFile && !parseResult.UseStdin))
         {
@@ -33,7 +33,7 @@ internal sealed partial class CliRuntime
         {
             return PrintArgumentError("Error: --auto-id cannot be combined with --key.");
         }
-    
+
         string input;
         if (parseResult.UseStdin)
         {
@@ -45,21 +45,21 @@ internal sealed partial class CliRuntime
             {
                 return PrintDataError("E_FILE_NOT_FOUND", $"input file '{parseResult.FilePath}' was not found.");
             }
-    
+
             input = await File.ReadAllTextAsync(parseResult.FilePath).ConfigureAwait(false);
         }
-    
+
         try
         {
             var workspace = await LoadWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-    
+
             var entity = workspace.Model.FindEntity(entityName);
             if (entity == null)
             {
                 return PrintDataError("E_ENTITY_NOT_FOUND", $"entity '{entityName}' does not exist.");
             }
-    
+
             var rows = ParseBulkInputRows(input, parseResult.Format);
             var operation = BuildUpsertOperationFromRows(
                 workspace,
