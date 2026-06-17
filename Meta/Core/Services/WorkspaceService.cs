@@ -26,6 +26,17 @@ public sealed class WorkspaceService : IWorkspaceService
     private const int LoadRetryCount = 3;
     private static readonly TimeSpan LoadRetryDelay = TimeSpan.FromMilliseconds(50);
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
+    private readonly IValidationService _validationService;
+
+    public WorkspaceService()
+        : this(new ValidationService())
+    {
+    }
+
+    public WorkspaceService(IValidationService validationService)
+    {
+        _validationService = validationService ?? throw new ArgumentNullException(nameof(validationService));
+    }
 
     public Task<Workspace> LoadAsync(
         string workspaceRootPath,
@@ -116,7 +127,7 @@ public sealed class WorkspaceService : IWorkspaceService
             throw new InvalidOperationException("Workspace instance must be initialized.");
         }
 
-        var diagnostics = new ValidationService().Validate(workspace);
+        var diagnostics = _validationService.Validate(workspace);
         workspace.Diagnostics = diagnostics;
         if (diagnostics.HasErrors)
         {
@@ -146,10 +157,10 @@ public sealed class WorkspaceService : IWorkspaceService
             }
         }
 
-        var modelPath = ResolvePathFromWorkspaceRoot(workspaceRoot, MetaWorkspaceGenerated.GetModelFile(workspaceConfig));
-        var instanceDirectoryPath = ResolvePathFromWorkspaceRoot(workspaceRoot, MetaWorkspaceGenerated.GetInstanceDir(workspaceConfig));
-        EnsurePathUnderWorkspaceRoot(modelPath, workspaceRoot, "ModelFilePath");
-        EnsurePathUnderWorkspaceRoot(instanceDirectoryPath, workspaceRoot, "InstanceDirPath");
+        var modelPath = WorkspacePathResolver.ResolvePathFromWorkspaceRoot(workspaceRoot, MetaWorkspaceGenerated.GetModelFile(workspaceConfig));
+        var instanceDirectoryPath = WorkspacePathResolver.ResolvePathFromWorkspaceRoot(workspaceRoot, MetaWorkspaceGenerated.GetInstanceDir(workspaceConfig));
+        WorkspacePathResolver.EnsurePathUnderWorkspaceRoot(modelPath, workspaceRoot, "ModelFilePath");
+        WorkspacePathResolver.EnsurePathUnderWorkspaceRoot(instanceDirectoryPath, workspaceRoot, "InstanceDirPath");
 
         var workspaceConfigBackupPath = workspaceConfigPath + ".__backup." + Guid.NewGuid().ToString("N");
         var hadExistingWorkspaceConfig = File.Exists(workspaceConfigPath);
@@ -158,7 +169,12 @@ public sealed class WorkspaceService : IWorkspaceService
         try
         {
             WriteWorkspaceConfigToFile(workspaceConfig, workspaceConfigPath);
-            SaveByStagingConfiguredPaths(workspaceRoot, modelPath, instanceDirectoryPath, workspace);
+            WorkspaceStagingWriter.SaveByStagingConfiguredPaths(
+                workspaceRoot,
+                modelPath,
+                instanceDirectoryPath,
+                writeModel: path => WriteXmlToFile(BuildModelDocument(workspace.Model), path, indented: true),
+                writeInstances: path => WriteInstanceShards(workspace, path));
 
             DeleteIfExists(workspaceConfigBackupPath);
         }
@@ -319,7 +335,7 @@ public sealed class WorkspaceService : IWorkspaceService
 
     private static string ResolveModelPath(string workspaceRootPath, MetaWorkspaceGenerated workspaceConfig)
     {
-        var workspaceModelPath = ResolvePathFromWorkspaceRoot(
+        var workspaceModelPath = WorkspacePathResolver.ResolvePathFromWorkspaceRoot(
             workspaceRootPath,
             MetaWorkspaceGenerated.GetModelFile(workspaceConfig));
         var candidatePaths = new[]
@@ -336,7 +352,7 @@ public sealed class WorkspaceService : IWorkspaceService
         MetaWorkspaceGenerated workspaceConfig,
         GenericModel model)
     {
-        var shardDirectoryPath = ResolvePathFromWorkspaceRoot(
+        var shardDirectoryPath = WorkspacePathResolver.ResolvePathFromWorkspaceRoot(
             workspaceRootPath,
             MetaWorkspaceGenerated.GetInstanceDir(workspaceConfig));
         var hasShardDirectory = Directory.Exists(shardDirectoryPath);
@@ -624,170 +640,6 @@ public sealed class WorkspaceService : IWorkspaceService
         return !string.IsNullOrWhiteSpace(value?.Trim());
     }
 
-    private static void EnsurePathUnderWorkspaceRoot(string path, string workspaceRootPath, string workspaceConfigFieldName)
-    {
-        if (!IsPathWithinRoot(path, workspaceRootPath))
-        {
-            throw new InvalidDataException(
-                $"Workspace config '{workspaceConfigFieldName}' must resolve under the workspace root. Resolved path '{path}' is outside '{workspaceRootPath}'.");
-        }
-    }
-
-    private static void SaveByStagingConfiguredPaths(
-        string workspaceRoot,
-        string modelPath,
-        string instanceDirectoryPath,
-        Workspace workspace)
-    {
-        var stagingRootPath = Path.Combine(
-            workspaceRoot,
-            ".__workspace-staging." + Guid.NewGuid().ToString("N"));
-        var backupRootPath = Path.Combine(
-            workspaceRoot,
-            ".__workspace-backup." + Guid.NewGuid().ToString("N"));
-        var stagedModelPath = MapPathToStagingRoot(workspaceRoot, stagingRootPath, modelPath);
-        var stagedInstanceDirectoryPath = MapPathToStagingRoot(workspaceRoot, stagingRootPath, instanceDirectoryPath);
-        var backupModelPath = MapPathToStagingRoot(workspaceRoot, backupRootPath, modelPath);
-        var backupInstanceDirectoryPath = MapPathToStagingRoot(workspaceRoot, backupRootPath, instanceDirectoryPath);
-
-        Directory.CreateDirectory(stagingRootPath);
-        try
-        {
-            WriteXmlToFile(BuildModelDocument(workspace.Model), stagedModelPath, indented: true);
-            WriteInstanceShards(workspace, stagedInstanceDirectoryPath);
-            ReplaceFileFromStaging(modelPath, stagedModelPath, backupModelPath);
-            ReplaceDirectoryFromStaging(instanceDirectoryPath, stagedInstanceDirectoryPath, backupInstanceDirectoryPath);
-        }
-        catch
-        {
-            RestoreFileFromBackup(modelPath, backupModelPath);
-            RestoreDirectoryFromBackup(instanceDirectoryPath, backupInstanceDirectoryPath);
-            throw;
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(stagingRootPath);
-            DeleteDirectoryIfExists(backupRootPath);
-        }
-    }
-
-    private static string MapPathToStagingRoot(
-        string rootPath,
-        string stagingRootPath,
-        string resolvedFinalPath)
-    {
-        var relative = Path.GetRelativePath(rootPath, resolvedFinalPath);
-        return Path.GetFullPath(Path.Combine(stagingRootPath, relative));
-    }
-
-    private static void ReplaceFileFromStaging(string finalPath, string stagedPath, string backupPath)
-    {
-        DeleteDirectoryIfExists(finalPath);
-        DeleteIfExists(backupPath);
-
-        if (File.Exists(finalPath))
-        {
-            var backupDirectory = Path.GetDirectoryName(backupPath);
-            if (!string.IsNullOrWhiteSpace(backupDirectory))
-            {
-                Directory.CreateDirectory(backupDirectory);
-            }
-
-            File.Move(finalPath, backupPath);
-        }
-
-        if (!File.Exists(stagedPath))
-        {
-            DeleteIfExists(finalPath);
-            return;
-        }
-
-        var finalDirectory = Path.GetDirectoryName(finalPath);
-        if (!string.IsNullOrWhiteSpace(finalDirectory))
-        {
-            Directory.CreateDirectory(finalDirectory);
-        }
-
-        File.Move(stagedPath, finalPath);
-    }
-
-    private static void ReplaceDirectoryFromStaging(string finalPath, string stagedPath, string backupPath)
-    {
-        DeleteIfExists(finalPath);
-        DeleteDirectoryIfExists(backupPath);
-
-        if (Directory.Exists(finalPath))
-        {
-            var backupDirectory = Path.GetDirectoryName(backupPath);
-            if (!string.IsNullOrWhiteSpace(backupDirectory))
-            {
-                Directory.CreateDirectory(backupDirectory);
-            }
-
-            Directory.Move(finalPath, backupPath);
-        }
-        else if (File.Exists(finalPath))
-        {
-            File.Delete(finalPath);
-        }
-
-        if (!Directory.Exists(stagedPath))
-        {
-            DeleteDirectoryIfExists(finalPath);
-            return;
-        }
-
-        var finalDirectory = Path.GetDirectoryName(finalPath);
-        if (!string.IsNullOrWhiteSpace(finalDirectory))
-        {
-            Directory.CreateDirectory(finalDirectory);
-        }
-
-        Directory.Move(stagedPath, finalPath);
-    }
-
-    private static void RestoreFileFromBackup(string finalPath, string backupPath)
-    {
-        if (File.Exists(finalPath))
-        {
-            File.Delete(finalPath);
-        }
-
-        if (!File.Exists(backupPath))
-        {
-            return;
-        }
-
-        var finalDirectory = Path.GetDirectoryName(finalPath);
-        if (!string.IsNullOrWhiteSpace(finalDirectory))
-        {
-            Directory.CreateDirectory(finalDirectory);
-        }
-
-        File.Move(backupPath, finalPath);
-    }
-
-    private static void RestoreDirectoryFromBackup(string finalPath, string backupPath)
-    {
-        if (Directory.Exists(finalPath))
-        {
-            Directory.Delete(finalPath, recursive: true);
-        }
-
-        if (!Directory.Exists(backupPath))
-        {
-            return;
-        }
-
-        var finalDirectory = Path.GetDirectoryName(finalPath);
-        if (!string.IsNullOrWhiteSpace(finalDirectory))
-        {
-            Directory.CreateDirectory(finalDirectory);
-        }
-
-        Directory.Move(backupPath, finalPath);
-    }
-
     private static void BackupWorkspaceConfigIfPresent(string workspaceConfigPath, string backupPath)
     {
         if (File.Exists(workspaceConfigPath))
@@ -835,38 +687,6 @@ public sealed class WorkspaceService : IWorkspaceService
         {
             Directory.Delete(path, recursive: true);
         }
-    }
-
-    private static string ResolvePathFromWorkspaceRoot(string workspaceRootPath, string path)
-    {
-        var normalized = path.Replace('/', Path.DirectorySeparatorChar);
-        if (Path.IsPathRooted(normalized))
-        {
-            throw new InvalidDataException(
-                $"Workspace config path '{path}' must be relative to the workspace root.");
-        }
-
-        var resolvedPath = Path.GetFullPath(Path.Combine(workspaceRootPath, normalized));
-        var workspaceRoot = Path.GetFullPath(workspaceRootPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-        if (!IsPathWithinRoot(resolvedPath, workspaceRoot))
-        {
-            throw new InvalidDataException(
-                $"Workspace config path '{path}' resolves outside workspace root '{workspaceRoot}'.");
-        }
-
-        return resolvedPath;
-    }
-
-    private static bool IsPathWithinRoot(string path, string root)
-    {
-        var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-        if (string.Equals(path, root, comparison))
-        {
-            return true;
-        }
-
-        var rootWithSeparator = root + Path.DirectorySeparatorChar;
-        return path.StartsWith(rootWithSeparator, comparison);
     }
 
     private static string FirstExistingPath(IEnumerable<string> candidatePaths)

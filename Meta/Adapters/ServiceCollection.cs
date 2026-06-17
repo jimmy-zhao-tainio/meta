@@ -17,8 +17,8 @@ public sealed class ServiceCollection
 
     public ServiceCollection()
     {
-        WorkspaceService = new WorkspaceService();
         ValidationService = new ValidationService();
+        WorkspaceService = new WorkspaceService(ValidationService);
         OperationService = new OperationService();
         ModelRefactorService = new ModelRefactorService();
         InstanceRefactorService = new InstanceRefactorService();
