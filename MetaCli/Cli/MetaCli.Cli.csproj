@@ -1,13 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AssemblyName>meta-cli</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\Tooling\MetaCli.Tooling.csproj" />
   </ItemGroup>
 

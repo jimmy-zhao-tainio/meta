@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Meta.Core.Domain;
 using Meta.Core.Services;
-using MetaCli.Core;
 using MetaMesh.Core;
 
 namespace MetaMesh.Tests;
@@ -79,44 +78,6 @@ public sealed class MetaMeshCliTests
         {
             DeleteDirectoryIfExists(root);
         }
-    }
-
-    [Fact]
-    public void MetaCliDescriptor_CanRepresentHostCallableOperations()
-    {
-        var app = new Meta.Core.Presentation.Cli.CliAppDefinition(
-            "sample-cli",
-            new[] { "sample-cli <command>" },
-            new[]
-            {
-                new Meta.Core.Presentation.Cli.CliCommandDefinition(
-                    "describe",
-                    "Describe the CLI.",
-                    new[] { "sample-cli describe" }),
-                new Meta.Core.Presentation.Cli.CliCommandDefinition(
-                    "update",
-                    "Update a workspace.",
-                    new[] { "sample-cli update --workspace <path>" },
-                    new[]
-                    {
-                        new Meta.Core.Presentation.Cli.CliOptionDefinition("--workspace <path>", "Required. Workspace to update.")
-                    })
-            });
-
-        var descriptor = MetaCliDescriptorFactory.FromCliAppDefinition(
-            app,
-            "1.2.3",
-            new[] { "MetaMesh" },
-            new[] { "describe" });
-
-        Assert.Equal("sample-cli", descriptor.Name);
-        Assert.Equal("1.2.3", descriptor.Version);
-        Assert.Equal("MetaMesh", Assert.Single(descriptor.SupportedModels));
-        Assert.True(descriptor.Operations.Single(operation => operation.Name == "describe").CanHandleHostRequest);
-        var update = descriptor.Operations.Single(operation => operation.Name == "update");
-        Assert.False(update.CanHandleHostRequest);
-        Assert.Equal("--workspace", Assert.Single(update.Inputs).Name);
-        Assert.True(Assert.Single(update.Inputs).Required);
     }
 
     private static void CreateWorkspace(string path, string modelName, string entityName)

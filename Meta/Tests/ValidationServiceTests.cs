@@ -95,6 +95,36 @@ public sealed class ValidationServiceTests
     }
 
     [Fact]
+    public void Validate_OptionalSelfRelationship_DoesNotCreateModelCycle()
+    {
+        var workspace = new Workspace
+        {
+            Model = new GenericModel
+            {
+                Name = "MetadataModel",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "MetadataModel",
+            },
+        };
+
+        var command = new GenericEntity { Name = "Command" };
+        command.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Command",
+            Role = "ParentCommand",
+            IsNullable = true,
+        });
+        workspace.Model.Entities.Add(command);
+
+        var diagnostics = new ValidationService().Validate(workspace);
+
+        Assert.DoesNotContain(diagnostics.Issues, issue => issue.Code == "relationship.cycle");
+        Assert.False(diagnostics.HasErrors);
+    }
+
+    [Fact]
     public void Validate_RequiredStringProperty_AllowsExplicitEmptyValue()
     {
         var workspace = BuildWorkspace(

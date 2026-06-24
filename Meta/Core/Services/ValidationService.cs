@@ -277,7 +277,10 @@ public sealed class ValidationService : IValidationService
     {
         var graph = model.Entities.ToDictionary(
             entity => entity.Name,
-            entity => entity.Relationships.Select(relationship => relationship.Entity).ToList(),
+            entity => entity.Relationships
+                .Where(relationship => !relationship.IsNullable)
+                .Select(relationship => relationship.Entity)
+                .ToList(),
             StringComparer.OrdinalIgnoreCase);
 
         var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);

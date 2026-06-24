@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="xunit.assert" Version="2.9.2" />
     <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.assert" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
 
@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
-    <ProjectReference Include="..\Core\MetaMesh.Core.csproj" />
-    <ProjectReference Include="..\Tooling\MetaMesh.Tooling.csproj" />
+    <ProjectReference Include="..\Cli\MetaCli.Cli.csproj" />
+    <ProjectReference Include="..\Core\MetaCli.Core.csproj" />
+    <ProjectReference Include="..\Tooling\MetaCli.Tooling.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,111 +1,14 @@
-using System.Reflection;
 using Meta.Core.Presentation;
-using Meta.Core.Presentation.Cli;
-using MetaCli.Core;
 using MetaMesh.Core;
 
 internal static class Program
 {
     private static readonly ConsolePresenter Presenter = new();
     private static readonly MetaMeshWorkspaceService Service = new();
-    private static readonly CliAppDefinition Cli = new(
-        "meta-mesh",
-        new[]
-        {
-            "meta-mesh <command> [options]"
-        },
-        new[]
-        {
-            new CliCommandDefinition(
-                "init",
-                "Create an empty MetaMesh workspace.",
-                new[] { "meta-mesh init --new-workspace <path> [--name <name>]" },
-                new[]
-                {
-                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the MetaMesh workspace."),
-                    new CliOptionDefinition("--name <name>", "Optional mesh display name.")
-                }),
-            new CliCommandDefinition(
-                "scan",
-                "Scan a root folder and create a MetaMesh workspace from discovered meta workspaces.",
-                new[] { "meta-mesh scan <root> --new-workspace <path> [--name <name>]" },
-                new[]
-                {
-                    new CliOptionDefinition("<root>", "Required. Folder to scan for meta workspaces."),
-                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the generated MetaMesh workspace."),
-                    new CliOptionDefinition("--name <name>", "Optional mesh display name.")
-                }),
-            new CliCommandDefinition(
-                "suggest",
-                "Suggest logical workspace handles and mesh improvements without applying changes.",
-                new[] { "meta-mesh suggest <root-or-mesh>" },
-                new[]
-                {
-                    new CliOptionDefinition("<root-or-mesh>", "Required. Root folder to scan or existing MetaMesh workspace.")
-                }),
-            new CliCommandDefinition(
-                "show",
-                "Show workspace handles, mounts, links, and suggestions in a MetaMesh workspace.",
-                new[] { "meta-mesh show --mesh <mesh-workspace>" },
-                new[]
-                {
-                    new CliOptionDefinition("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect.")
-                }),
-            new CliCommandDefinition(
-                "check",
-                "Validate a MetaMesh workspace map.",
-                new[] { "meta-mesh check --mesh <mesh-workspace>" },
-                new[]
-                {
-                    new CliOptionDefinition("--mesh <mesh-workspace>", "Required. MetaMesh workspace to validate.")
-                }),
-            new CliCommandDefinition(
-                "impact",
-                "Walk modeled workspace links from one handle.",
-                new[] { "meta-mesh impact --mesh <mesh-workspace> --workspace <handle>" },
-                new[]
-                {
-                    new CliOptionDefinition("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect."),
-                    new CliOptionDefinition("--workspace <handle>", "Required. Logical workspace handle to start from.")
-                }),
-            new CliCommandDefinition(
-                "mount",
-                "Mount or update a workspace path under a stable handle.",
-                new[] { "meta-mesh mount --mesh <mesh-workspace> --handle <handle> --path <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
-                    new CliOptionDefinition("--handle <handle>", "Required. Logical workspace handle."),
-                    new CliOptionDefinition("--path <path>", "Required. Physical workspace path to mount.")
-                }),
-            new CliCommandDefinition(
-                "link",
-                "Add or update a modeled link between two workspace handles.",
-                new[] { "meta-mesh link --mesh <mesh-workspace> --from <handle> --to <handle> --kind <kind>" },
-                new[]
-                {
-                    new CliOptionDefinition("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
-                    new CliOptionDefinition("--from <handle>", "Required. Source workspace handle."),
-                    new CliOptionDefinition("--to <handle>", "Required. Target workspace handle."),
-                    new CliOptionDefinition("--kind <kind>", "Required. Link kind such as depends-on or derives.")
-                }),
-            new CliCommandDefinition(
-                "describe",
-                "Describe this CLI in the MetaCli contract shape.",
-                new[] { "meta-mesh describe" },
-                Notes: new[] { "This is a machine-readable-contract-shaped console projection; it is not the source of MetaMesh truth." }),
-            new CliCommandDefinition(
-                "help",
-                "Show this help.",
-                new[] { "meta-mesh help" })
-        },
-        Next: "meta-mesh scan <root> --new-workspace <mesh-workspace>");
-
-    internal static CliAppDefinition CreateAppDefinition() => Cli;
 
     private static async Task<int> Main(string[] args)
     {
-        if (CliVersion.TryWriteVersion(Presenter, Cli.Name, args, out var versionExitCode))
+        if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, "meta-mesh", args, out var versionExitCode))
         {
             return versionExitCode;
         }
@@ -311,35 +214,56 @@ internal static class Program
 
     private static int RunDescribe(string[] args)
     {
-        var descriptor = MetaCliDescriptorFactory.FromCliAppDefinition(
-            Cli,
-            ResolveVersion(),
-            new[] { "MetaMesh" },
+        var hostCallable = new HashSet<string>(
             new[] { "describe", "show", "check", "impact" },
-            ResolveEffects);
+            StringComparer.OrdinalIgnoreCase);
+        var commandNames = new[] { "check", "describe", "impact", "init", "link", "mount", "scan", "show", "suggest" };
+        var operations = commandNames
+            .Select(command => new
+            {
+                Name = command,
+                Inputs = DescribeInputs(command),
+                Effects = ResolveEffects(command),
+                HostCallable = hostCallable.Contains(command)
+            })
+            .ToArray();
 
-        Presenter.WriteKeyValueBlock("MetaCli", new[]
+        Presenter.WriteKeyValueBlock("MetaMesh CLI", new[]
         {
-            ("Name", descriptor.Name),
-            ("Version", descriptor.Version),
-            ("SupportedModels", string.Join(", ", descriptor.SupportedModels)),
-            ("Operations", descriptor.Operations.Count.ToString()),
+            ("Name", "meta-mesh"),
+            ("Supported model", "MetaMesh"),
+            ("Operations", operations.Length.ToString()),
         });
 
-        Presenter.WriteTable(
-            new[] { "Operation", "Host", "Effects", "Inputs" },
-            descriptor.Operations.Select(operation => (IReadOnlyList<string>)new[]
-            {
-                operation.Name,
-                operation.CanHandleHostRequest ? "yes" : "no",
-                string.Join(",", operation.Effects),
-                string.Join(",", operation.Inputs.Select(input => input.Name))
-            }).ToArray());
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteInfo("Operations:");
+        foreach (var operation in operations)
+        {
+            Presenter.WriteInfo($"  {operation.Name}");
+            Presenter.WriteInfo($"    host: {(operation.HostCallable ? "yes" : "no")}");
+            Presenter.WriteInfo($"    effects: {string.Join(", ", operation.Effects)}");
+            Presenter.WriteInfo($"    inputs: {string.Join(", ", operation.Inputs)}");
+        }
+
         return 0;
     }
 
-    private static IReadOnlyList<string> ResolveEffects(CliCommandDefinition command) =>
-        command.Name switch
+    private static IReadOnlyList<string> DescribeInputs(string command) =>
+        command switch
+        {
+            "init" => new[] { "--new-workspace", "--name" },
+            "scan" => new[] { "<root>", "--new-workspace", "--name" },
+            "suggest" => new[] { "<root-or-mesh>" },
+            "show" or "check" => new[] { "--mesh" },
+            "impact" => new[] { "--mesh", "--workspace" },
+            "mount" => new[] { "--mesh", "--handle", "--path" },
+            "link" => new[] { "--mesh", "--from", "--to", "--kind" },
+            "describe" => Array.Empty<string>(),
+            _ => Array.Empty<string>(),
+        };
+
+    private static IReadOnlyList<string> ResolveEffects(string command) =>
+        command switch
         {
             "init" => new[] { "derives workspace" },
             "scan" => new[] { "derives workspace" },
@@ -517,11 +441,106 @@ internal static class Program
         string.Equals(value, "--help", StringComparison.OrdinalIgnoreCase) ||
         string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
 
-    private static void PrintHelp() => CliHelpRenderer.WriteAppHelp(Presenter, Cli);
+    private static void PrintHelp()
+    {
+        Presenter.WriteUsage("meta-mesh <command> [options]");
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteCommandCatalog("Commands:", new[]
+        {
+            ("init", "Create an empty MetaMesh workspace."),
+            ("scan", "Scan a root folder and create a MetaMesh workspace from discovered meta workspaces."),
+            ("suggest", "Suggest logical workspace handles and mesh improvements without applying changes."),
+            ("show", "Show workspace handles, mounts, links, and suggestions in a MetaMesh workspace."),
+            ("check", "Validate a MetaMesh workspace map."),
+            ("impact", "Walk modeled workspace links from one handle."),
+            ("mount", "Mount or update a workspace path under a stable handle."),
+            ("link", "Add or update a modeled link between two workspace handles."),
+            ("describe", "Describe this CLI for host/tool inspection."),
+            ("help", "Show this help."),
+        });
+        Presenter.WriteInfo(string.Empty);
+        Presenter.WriteNext("meta-mesh scan <root> --new-workspace <mesh-workspace>");
+    }
 
-    private static void PrintCommandHelp(string commandName) => CliHelpRenderer.WriteCommandHelp(Presenter, Cli, Cli.GetCommand(commandName));
+    private static void PrintCommandHelp(string commandName)
+    {
+        switch (commandName)
+        {
+            case "init":
+                Presenter.WriteUsage("meta-mesh init --new-workspace <path> [--name <name>]");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--new-workspace <path>", "Required. Empty target directory for the MetaMesh workspace."),
+                    ("--name <name>", "Optional mesh display name."),
+                });
+                break;
+            case "scan":
+                Presenter.WriteUsage("meta-mesh scan <root> --new-workspace <path> [--name <name>]");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("<root>", "Required. Folder to scan for meta workspaces."),
+                    ("--new-workspace <path>", "Required. Empty target directory for the generated MetaMesh workspace."),
+                    ("--name <name>", "Optional mesh display name."),
+                });
+                break;
+            case "suggest":
+                Presenter.WriteUsage("meta-mesh suggest <root-or-mesh>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("<root-or-mesh>", "Required. Root folder to scan or existing MetaMesh workspace."),
+                });
+                break;
+            case "show":
+                Presenter.WriteUsage("meta-mesh show --mesh <mesh-workspace>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect."),
+                });
+                break;
+            case "check":
+                Presenter.WriteUsage("meta-mesh check --mesh <mesh-workspace>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to validate."),
+                });
+                break;
+            case "impact":
+                Presenter.WriteUsage("meta-mesh impact --mesh <mesh-workspace> --workspace <handle>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect."),
+                    ("--workspace <handle>", "Required. Logical workspace handle to start from."),
+                });
+                break;
+            case "mount":
+                Presenter.WriteUsage("meta-mesh mount --mesh <mesh-workspace> --handle <handle> --path <path>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
+                    ("--handle <handle>", "Required. Logical workspace handle."),
+                    ("--path <path>", "Required. Physical workspace path to mount."),
+                });
+                break;
+            case "link":
+                Presenter.WriteUsage("meta-mesh link --mesh <mesh-workspace> --from <handle> --to <handle> --kind <kind>");
+                Presenter.WriteOptionCatalog(new[]
+                {
+                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
+                    ("--from <handle>", "Required. Source workspace handle."),
+                    ("--to <handle>", "Required. Target workspace handle."),
+                    ("--kind <kind>", "Required. Link kind such as depends-on or derives."),
+                });
+                break;
+            case "describe":
+                Presenter.WriteUsage("meta-mesh describe");
+                break;
+            default:
+                PrintHelp();
+                break;
+        }
+    }
 
-    private static string HelpCommand(string commandName) => Cli.GetCommand(commandName).HelpCommand(Cli.Name);
+    private static string HelpCommand(string commandName) => $"meta-mesh {commandName} --help";
 
     private static int Fail(string message, string next, int exitCode = 1, IEnumerable<string>? details = null)
     {
@@ -534,14 +553,6 @@ internal static class Program
         renderedDetails.Add($"Next: {next}");
         Presenter.WriteFailure(message, renderedDetails);
         return exitCode;
-    }
-
-    private static string ResolveVersion()
-    {
-        var assembly = typeof(Program).Assembly;
-        return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-               ?? assembly.GetName().Version?.ToString()
-               ?? "unknown";
     }
 
     private sealed record ParseResult(
