@@ -15,8 +15,6 @@ namespace MetaCli
     {
         public string Id { get; set; } = string.Empty;
 
-        public string? IsPrimary { get; set; }
-
         public string Token { get; set; } = string.Empty;
 
         public Option Option { get; set; } = null!;

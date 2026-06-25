@@ -11,13 +11,13 @@
 
 namespace MetaCli
 {
-    public sealed class DuplicateOptionBehavior
+    public sealed class ApplicationParameter
     {
         public string Id { get; set; } = string.Empty;
 
-        public string? Description { get; set; }
+        public Application Application { get; set; } = null!;
 
-        public string Name { get; set; } = string.Empty;
+        public Parameter Parameter { get; set; } = null!;
 
     }
 }

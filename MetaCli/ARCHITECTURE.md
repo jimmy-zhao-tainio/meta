@@ -20,6 +20,8 @@ The current implemented slice is model, authoring, and a first runtime core:
 - `MetaCli` model exists.
 - generated C# tooling exists.
 - `meta-cli` can create and mutate MetaCli workspaces.
+- `meta-cli from-syntax` can compile a compact command-surface syntax into a
+  normal MetaCli workspace.
 - external demo proof exists at `Samples/Demos/MetaCliAuthoringDemo/demo-meta-cli.ps1`.
 - `MetaCli.Core` contains a first model-backed runtime parser/dispatcher.
 
@@ -28,6 +30,12 @@ The immediate focus is the runtime and real CLI adoption of it.
 ## Accepted Model Direction
 
 MetaCli is model-first.
+
+The current model slice is the CLI invocation grammar: applications, command
+routes, runnable commands, options, positionals, value shapes, parameter groups,
+and shared application/command parameter scopes. It does not model parser
+policy rows, process output contracts, output streams, or exit-code catalogs.
+Those may become separate models later if they earn their own layer.
 
 Each CLI surface gets its own authored MetaCli workspace. There is no
 suite-level MetaCli workspace in the current architecture. Discovery, docs, or
@@ -58,35 +66,63 @@ name the user types.
 
 Authoring policy:
 
-- Use `meta-cli` to author workspaces.
+- Use `meta-cli` to author workspaces. For large command surfaces, prefer a
+  `.syntax` file compiled by `meta-cli from-syntax`.
 - Do not hand-edit workspace XML except for deliberate forensic repair.
 - Script initial creation and substantial migrations.
 - Manual `meta-cli` edits are fine for tiny changes.
 - Review and commit the resulting workspace diff; do not treat a bootstrap
   script as the long-term source of truth.
-- Do not regenerate a CLI workspace from C# help/prose or a parallel definition
-  file.
+- Do not regenerate a CLI workspace from C# help/prose. MetaCli syntax is an
+  authoring surface that lowers into the model, not an independent runtime
+  truth.
 
-Bootstrap script policy:
+Syntax regeneration policy:
 
-- Start from `MetaCli/Templates/bootstrap-cli-workspace.ps1`.
-- Copy it next to the CLI project, set the CLI name, and add command authoring
-  calls in the marked section.
-- The script should assume `meta-cli.exe` is on `PATH` and stay easy to read as
-  a sequence of ordinary authoring commands.
-- Keep the script if it remains useful during migration; otherwise the
-  persisted `.MetaCli` workspace is the durable artifact.
+- Keep a checked-in `<cli>.syntax` file next to the CLI project.
+- Regenerate with `meta-cli from-syntax <cli>.syntax --workspace <cli>.MetaCli`.
+- Do not wrap this in a bootstrap script unless the script adds real workflow
+  value beyond spelling the command.
+- Commit both the syntax file and the resulting `.MetaCli` workspace.
+
+MetaCli syntax has built-in conventions for ordinary CLI plumbing:
+
+- value arities: `none`, `one`
+- value shapes: `flag`, `text`, `path`, `token`, `bool`
+- bool values: `true`, `false`
+
+Syntax files should declare these only when they intentionally diverge from the
+default convention.
+
+Command roles stay on `command` declarations. Do not introduce standalone
+pseudo-command declarations for special invocation roles:
+
+- no-argument default: `command help default`
+
+This keeps the command noun visible while still lowering to an
+`ApplicationDefaultCommand` model row. Operations such as `new-workspace` are
+normal commands with command tokens and positionals, for example:
+
+```text
+command new-workspace
+  positional Path path required
+```
+
+Do not model operations as switches such as `--new-workspace`, and do not
+reintroduce a root-command role.
 
 ID naming convention:
 
-- Application: `app-<executable-name>`
-- Command: `cmd-<route>`
-- Executable command: `exec-<route>`
-- Parameter: `param-<route>-<name>`
-- Option: `option-<route>-<name>`
-- Option token: `token-<route>-<name>`
-- Positional argument: `pos-<route>-<name>`
-- Parameter group: `group-<route>-<name>`
+- Application ids remain `app-<executable-name>`.
+- Command and executable command ids remain route-derived.
+- Compiler-generated parameter, option, token, positional, and group ids include
+  explicit route/name boundary words such as `command` and `parameter`. This
+  prevents route/name collisions like `add-option --token-id` versus
+  `add-option-token --id` without leaking that ceremony into syntax.
+
+If a mechanical id becomes ambiguous at the route/name boundary, use a clearer
+semantic id instead. For example, avoid letting `add-option --token-id` collide
+with `add-option-token --id`.
 
 ## Core Invariants
 
@@ -95,25 +131,28 @@ ID naming convention:
   discriminator strings.
 - Do not add `Ordinal`, `Position`, `Order`, or leading-zero sort hacks.
 - Ordered CLI collections use relationships such as `PreviousToken`,
-  `PreviousArgument`, `PreviousValue`, and `PreviousMember`.
+  `PreviousArgument`, and `PreviousMember`.
 - Command route structure is modeled by `Command.ParentCommand`.
 - Runnable commands are modeled by `ExecutableCommand`.
 - Non-runnable grouping commands are plain `Command` rows without
   `ExecutableCommand` rows.
-- Root/default invocation is modeled by `ApplicationDefaultCommand`.
+- No-argument default invocation is modeled by `ApplicationDefaultCommand`.
 - `Parameter` is the shared contract identity for options and positionals.
+- Application-wide parameters are scoped by `ApplicationParameter`.
+- Command-specific parameters are scoped by `ExecutableCommandParameter`.
 - `Option` and `PositionalArgument` are invocation forms over `Parameter`.
 - `ParameterGroup` groups parameters, not only options, so surfaces such as
   `<Id> | --auto-id` do not require parser exceptions.
 - `ValueShape` is required for parseable parameters.
-- `ValueArity` and `AllowedValue` are enough until concrete parser behavior
-  proves otherwise.
-- Do not add `ValueCodec` without a concrete parser behavior that cannot be
+- `ValueArity` and unordered `AllowedValue` sets are enough for this argument
+  grammar slice.
+- Do not add `ValueCodec` without concrete value semantics that cannot be
   modeled by arity, allowed values, or command-specific handling.
-- `ExitCode` belongs to `Application`, with optional `ExecutableCommand`
-  refinement.
-- Output contracts are modeled with `Output`, `OutputFormat`, and
-  `OutputStream`.
+- Do not add parser-policy or parser-behavior entities until there is modeled
+  syntax truth that cannot be represented by commands, parameters, tokens,
+  arity, allowed values, or command-specific handling.
+- Do not model output contracts or exit-code catalogs in this slice. They are
+  not CLI argument grammar.
 
 ## Authoring Rule
 
@@ -129,14 +168,18 @@ generated C#, SQL, and other sanctioned surfaces without semantic drift.
 This means public command shapes create complete semantic aggregates when the
 model requires multiple rows:
 
-- `add-option` creates `Parameter`, `Option`, and the primary `OptionToken`.
+- `add-application-option` creates `Parameter`, `ApplicationParameter`,
+  `Option`, and the first `OptionToken`.
+- `add-option` creates `Parameter`, `ExecutableCommandParameter`, `Option`,
+  and the first `OptionToken`.
 - `add-option-token` only adds alias tokens to an already valid option.
-- `add-positional` creates `Parameter` and `PositionalArgument`.
+- `add-positional` creates `Parameter`, `ExecutableCommandParameter`, and
+  `PositionalArgument`.
 - `add-parameter-group` creates `ParameterGroup` and its first
   `ParameterGroupMember`.
 - `add-parameter-group-member` only adds additional members.
-- `set-default-command` creates the tokenless default `Command`, its
-  `ExecutableCommand`, and the `ApplicationDefaultCommand`.
+- `set-default-command` attaches an existing `ExecutableCommand` as the
+  no-argument default.
 
 If a public mutation cannot preserve the modeled RI/isomorphism contract, the
 command shape is wrong.
@@ -155,8 +198,9 @@ modeled RI/isomorphism contract.
 
 Workspace:
 
-- `meta-cli --new-workspace <path>`
+- `meta-cli new-workspace <path>`
 - `meta-cli show [--workspace <path>]`
+- `meta-cli from-syntax <path> [--workspace <path>]`
 
 Authoring:
 
@@ -167,18 +211,12 @@ Authoring:
 - `add-value-arity`
 - `add-value-shape`
 - `add-allowed-value`
+- `add-application-option`
 - `add-option`
 - `add-option-token`
 - `add-positional`
 - `add-parameter-group`
 - `add-parameter-group-member`
-- `add-duplicate-option-behavior`
-- `add-unknown-token-behavior`
-- `add-parser-policy`
-- `add-output-format`
-- `add-output-stream`
-- `add-output`
-- `add-exit-code`
 
 All normal commands accept optional `--workspace <path>` and default to the
 current working directory when omitted.
@@ -205,22 +243,18 @@ Internal provider integrity logic currently covers:
 - duplicate row ids
 - command parent references and parent cycles
 - default command shape
-- tokenless command restrictions
+- command token completeness
 - value arity cardinality text, including no leading-zero numeric padding
 - value-shape references
+- parameter application/executable scopes
 - parameter value-shape completeness
-- option primary-token completeness
+- option token-chain head completeness
 - option-token chain integrity
 - positional-argument chain integrity
-- allowed-value chain integrity
+- allowed-value uniqueness within value shape
 - parameter-group member chain integrity
 - required group member completeness
-- parser-policy cardinality and references
 - boolean text fields
-- behavior/output format/output stream name uniqueness
-- output executable/format/stream references
-- output name uniqueness within one executable command
-- exit-code application/command scoping and uniqueness
 
 ## Rejected Paths
 
@@ -235,28 +269,73 @@ These are intentionally rejected unless reopened explicitly:
 - modeling command categories with a vague `Kind` property
 - ordering command parts through scalar ordinals or padded text
 - persisting staged-invalid workspaces through public authoring commands
+- adding parser-policy or parser-behavior rows without concrete modeled syntax
+  truth
+- reintroducing output or exit-code contracts into this argument-grammar model
 
 Pre-existing `CliAppDefinition` infrastructure remains legacy surface area in
 other CLIs and MetaDocs import paths. It is not the MetaCli architecture.
 
 ## Runtime Direction
 
-The runtime/parser consumes MetaCli model instances directly.
+The runtime/parser consumes MetaCli workspaces through generated MetaCli
+tooling.
+
+The public runtime shape is a runner. Consumers provide the command-surface
+workspace and command handlers, then call `Run(...)`. The domain model type
+must be generated tooling that implements the shared workspace model contract:
+
+```csharp
+var runtime = new MetaCliRuntime<MyModel>("my-cli.MetaCli")
+    .Bind("exec-show", (invocation, model) => Show(invocation, model))
+    .Bind("exec-help", invocation => Help(invocation));
+
+runtime.Run(args);
+```
+
+`Run(...)` returns nothing. It owns command-surface loading, argv parsing,
+domain workspace path resolution, domain workspace loading, handler dispatch,
+failure writing, and process exit-code assignment.
+
+Workspace-backed handlers receive the modeled invocation plus the loaded domain
+model instance. No-workspace handlers receive only the invocation. The default
+domain workspace path is the current working directory; if a modeled parameter
+named `workspace` is present and supplied, that value is used instead.
 
 The first implemented shape is:
 
 - use generated MetaCli tooling classes as the parser contract model
-- bind command handlers through an explicit registry keyed by
-  `ExecutableCommand.Id`
-- pass handlers `MetaCliInvocation`, not raw `string[] args`
+- expose `Run(...)` as the only public execution API: argv in, handler effects
+  or written failure out
+- return `MetaCliInvocation` with application, command, executable command,
+  route, raw arguments, and bound parameters to handlers
+- keep structured parse error codes as internal runtime machinery; consumers do
+  not receive parse result objects
+- preserve binding occurrence details so consumers can inspect the option token
+  or positional argument that supplied a parameter value, and whether a value
+  came from a modeled default
 - keep parsing, binding, provider integrity proof, and presentation separable
-- keep CLI output in CLI/presenter code, not service code
+- keep normal CLI output in CLI/presenter/handler code
+- keep runtime failure output in the runtime because the user cannot act on a
+  handler when parsing, command-surface loading, domain workspace loading, or
+  handler lookup has failed
 
-The first runtime slice supports command-tree dispatch, default commands,
-options, primary/alias option tokens, `--option=value` when enabled by
-`ParserPolicy`, positionals, required parameters, parameter groups,
-allowed values, and zero/one value arity. It does not migrate any public CLI
-onto the runtime yet.
+The first runtime slice supports command-tree dispatch, no-argument default
+commands, application parameters, command parameters,
+options, option-token chains, `--option=value`, the `--` parsing stop token,
+positionals, required parameters, parameter groups, allowed values, and zero/one
+value arity. It loads the command-surface workspace and, for workspace-backed
+handlers, loads the domain model through `TModel.LoadFromXmlWorkspace(...)`.
+It does not migrate any public CLI onto the runtime yet.
+
+Runtime tests cover common parse failures: missing/ambiguous application,
+unknown command, non-runnable command group, missing default command, unknown
+option, duplicate option, missing option value, option after positional,
+unexpected positional argument, parameter group miss/conflict, disallowed value,
+command-surface load failure, missing handler failure, domain workspace load
+failure, no-workspace handler dispatch, workspace-backed handler dispatch, and
+current-directory workspace defaulting. `applicationId` is the current explicit
+selection path when a command-surface workspace contains several applications.
 
 Integrity evidence belongs to the modeled operation, load/bind/generate
 pipeline, or round-trip proof, not to a standalone public `check` command.
@@ -287,16 +366,16 @@ Reasonable options:
   - Pros: can provide strong constants and coverage scaffolding.
   - Cons: too early, risks creating CLI-specific generation in the wrong layer.
 
-Chosen first implementation: explicit runtime registry keyed by
-`ExecutableCommand.Id`.
+Chosen first dispatch implementation: explicit runtime registry keyed by
+`ExecutableCommand.Id`, executed by `Run(...)`.
 
 If a modeled runnable command is invoked without a registered implementation,
-the runtime returns a failure result:
+`Run(...)` writes a runtime failure and sets a non-zero exit code:
 
-`Command '<route>' has no registered implementation (executable command: <id>).`
+`Command '<route>' is modeled but has no implementation.`
 
-This is intentionally runtime wiring, not model data. Do not add implementation
-delegates or handler metadata to the model.
+Handler wiring is intentionally runtime wiring, not model data. Do not add
+implementation delegates or handler metadata to the model.
 
 ## Invocation Object Options
 
@@ -323,7 +402,9 @@ Reasonable options:
 
 Chosen first implementation: `MetaCliInvocation` with command/application rows,
 raw argument text, bound modeled parameters, and accessors such as
-`Required(...)`, `Optional(...)`, `Flag(...)`, and `Values(...)`.
+`Binding(...)`, `Required(...)`, `Optional(...)`, `Flag(...)`, and `Values(...)`.
+Each binding keeps both the simple value list and modeled occurrences. This
+lets a consumer stay simple or inspect source tokens/positionals when needed.
 
 Move to per-command typed request objects only after parser/runtime behavior
 proves stable.

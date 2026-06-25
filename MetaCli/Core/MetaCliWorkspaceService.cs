@@ -40,6 +40,8 @@ public sealed class MetaCliWorkspaceService
             model.CommandList.Count,
             model.ExecutableCommandList.Count,
             model.ParameterList.Count,
+            model.ApplicationParameterList.Count,
+            model.ExecutableCommandParameterList.Count,
             model.OptionList.Count,
             model.OptionTokenList.Count,
             model.PositionalArgumentList.Count,
@@ -48,14 +50,38 @@ public sealed class MetaCliWorkspaceService
             model.ValueArityList.Count,
             model.ValueShapeList.Count,
             model.AllowedValueList.Count,
-            model.DuplicateOptionBehaviorList.Count,
-            model.UnknownTokenBehaviorList.Count,
-            model.ParserPolicyList.Count,
-            model.OutputFormatList.Count,
-            model.OutputStreamList.Count,
-            model.OutputList.Count,
-            model.ExitCodeList.Count,
             issues);
+    }
+
+    public MetaCliFromSyntaxResult CreateFromSyntaxFile(string syntaxPath, string? workspacePath)
+    {
+        if (string.IsNullOrWhiteSpace(syntaxPath))
+        {
+            throw new ArgumentException("Syntax path is required.", nameof(syntaxPath));
+        }
+
+        var sourcePath = Path.GetFullPath(syntaxPath);
+        var model = new MetaCliSyntaxCompiler().CompileFile(sourcePath);
+        var issues = Validate(model, includeCompleteness: true);
+        if (issues.Any(static issue => issue.Severity == MetaCliIssueSeverity.Error))
+        {
+            throw new InvalidOperationException(RenderValidationFailure(issues));
+        }
+
+        var fullWorkspacePath = ResolveWorkspacePath(workspacePath);
+        model.SaveToXmlWorkspace(fullWorkspacePath);
+        return new MetaCliFromSyntaxResult(
+            sourcePath,
+            fullWorkspacePath,
+            model.ApplicationList.Count,
+            model.CommandList.Count,
+            model.ExecutableCommandList.Count,
+            model.ParameterList.Count,
+            model.ApplicationParameterList.Count,
+            model.ExecutableCommandParameterList.Count,
+            model.OptionList.Count,
+            model.PositionalArgumentList.Count,
+            model.ParameterGroupList.Count);
     }
 
     public Application AddApplication(
@@ -133,10 +159,7 @@ public sealed class MetaCliWorkspaceService
     public ApplicationDefaultCommand SetDefaultCommand(
         string? workspacePath,
         string applicationId,
-        string commandId,
-        string executableCommandId,
-        string name,
-        string? description) =>
+        string executableCommandId) =>
         Mutate(workspacePath, model =>
         {
             var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
@@ -145,28 +168,18 @@ public sealed class MetaCliWorkspaceService
                 throw new InvalidOperationException($"Application '{application.Id}' already has a default command.");
             }
 
-            RequireNewId(model.CommandList, static item => item.Id, commandId, "Command");
-            RequireNewId(model.ExecutableCommandList, static item => item.Id, executableCommandId, "ExecutableCommand");
-            var command = new Command
+            var executableCommand = RequireById(model.ExecutableCommandList, static item => item.Id, executableCommandId, "ExecutableCommand");
+            if (!ReferenceEquals(executableCommand.Command.Application, application))
             {
-                Id = RequiredText(commandId, "command-id"),
-                Application = application,
-                Name = RequiredText(name, "name"),
-                Description = EmptyToNull(description),
-            };
-            var executableCommand = new ExecutableCommand
-            {
-                Id = RequiredText(executableCommandId, "executable-command-id"),
-                Command = command,
-            };
+                throw new InvalidOperationException($"Executable command '{executableCommand.Id}' does not belong to application '{application.Id}'.");
+            }
+
             var defaultCommand = new ApplicationDefaultCommand
             {
                 Id = application.Id + ":default-command",
                 Application = application,
                 ExecutableCommand = executableCommand,
             };
-            model.CommandList.Add(command);
-            model.ExecutableCommandList.Add(executableCommand);
             model.ApplicationDefaultCommandList.Add(defaultCommand);
             return defaultCommand;
         });
@@ -223,26 +236,16 @@ public sealed class MetaCliWorkspaceService
         string id,
         string valueShapeId,
         string value,
-        string? previousValueId,
         string? description) =>
         Mutate(workspacePath, model =>
         {
             RequireNewId(model.AllowedValueList, static item => item.Id, id, "AllowedValue");
             var shape = RequireById(model.ValueShapeList, static item => item.Id, valueShapeId, "ValueShape");
-            var previous = string.IsNullOrWhiteSpace(previousValueId)
-                ? null
-                : RequireById(model.AllowedValueList, static item => item.Id, previousValueId, "AllowedValue");
-            if (previous is not null && !ReferenceEquals(previous.ValueShape, shape))
-            {
-                throw new InvalidOperationException($"Previous value '{previous.Id}' does not belong to value shape '{shape.Id}'.");
-            }
-
             var allowedValue = new AllowedValue
             {
                 Id = RequiredText(id, "id"),
                 ValueShape = shape,
                 Value = RequiredText(value, "value"),
-                PreviousValue = previous,
                 Description = EmptyToNull(description),
             };
             model.AllowedValueList.Add(allowedValue);
@@ -272,7 +275,6 @@ public sealed class MetaCliWorkspaceService
             var parameter = new Parameter
             {
                 Id = RequiredText(parameterId, "parameter-id"),
-                ExecutableCommand = executable,
                 ValueShape = shape,
                 Name = RequiredText(name, "name"),
                 IsRequired = BoolText(required),
@@ -290,9 +292,67 @@ public sealed class MetaCliWorkspaceService
                 Id = RequiredText(tokenId, "token-id"),
                 Option = option,
                 Token = RequiredText(tokenValue, "token"),
-                IsPrimary = "true",
             };
             model.ParameterList.Add(parameter);
+            model.ExecutableCommandParameterList.Add(new ExecutableCommandParameter
+            {
+                Id = executable.Id + ":parameter:" + parameter.Id,
+                ExecutableCommand = executable,
+                Parameter = parameter,
+            });
+            model.OptionList.Add(option);
+            model.OptionTokenList.Add(token);
+            return option;
+        });
+
+    public Option AddApplicationOption(
+        string? workspacePath,
+        string parameterId,
+        string optionId,
+        string applicationId,
+        string name,
+        string valueShapeId,
+        string tokenId,
+        string tokenValue,
+        bool? required,
+        bool? repeatable,
+        string? defaultValue,
+        string? description) =>
+        Mutate(workspacePath, model =>
+        {
+            RequireNewId(model.ParameterList, static item => item.Id, parameterId, "Parameter");
+            RequireNewId(model.OptionList, static item => item.Id, optionId, "Option");
+            RequireNewId(model.OptionTokenList, static item => item.Id, tokenId, "OptionToken");
+            var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
+            var shape = RequireById(model.ValueShapeList, static item => item.Id, valueShapeId, "ValueShape");
+            var parameter = new Parameter
+            {
+                Id = RequiredText(parameterId, "parameter-id"),
+                ValueShape = shape,
+                Name = RequiredText(name, "name"),
+                IsRequired = BoolText(required),
+                IsRepeatable = BoolText(repeatable),
+                DefaultValue = EmptyToNull(defaultValue),
+                Description = EmptyToNull(description),
+            };
+            var option = new Option
+            {
+                Id = RequiredText(optionId, "option-id"),
+                Parameter = parameter,
+            };
+            var token = new OptionToken
+            {
+                Id = RequiredText(tokenId, "token-id"),
+                Option = option,
+                Token = RequiredText(tokenValue, "token"),
+            };
+            model.ParameterList.Add(parameter);
+            model.ApplicationParameterList.Add(new ApplicationParameter
+            {
+                Id = application.Id + ":parameter:" + parameter.Id,
+                Application = application,
+                Parameter = parameter,
+            });
             model.OptionList.Add(option);
             model.OptionTokenList.Add(token);
             return option;
@@ -346,7 +406,7 @@ public sealed class MetaCliWorkspaceService
             var previous = string.IsNullOrWhiteSpace(previousArgumentId)
                 ? null
                 : RequireById(model.PositionalArgumentList, static item => item.Id, previousArgumentId, "PositionalArgument");
-            if (previous is not null && !ReferenceEquals(previous.Parameter.ExecutableCommand, executable))
+            if (previous is not null && !ParameterBelongsToExecutable(model, previous.Parameter, executable))
             {
                 throw new InvalidOperationException($"Previous argument '{previous.Id}' does not belong to executable command '{executable.Id}'.");
             }
@@ -354,7 +414,6 @@ public sealed class MetaCliWorkspaceService
             var parameter = new Parameter
             {
                 Id = RequiredText(parameterId, "parameter-id"),
-                ExecutableCommand = executable,
                 ValueShape = shape,
                 Name = RequiredText(name, "name"),
                 IsRequired = BoolText(required),
@@ -369,6 +428,12 @@ public sealed class MetaCliWorkspaceService
                 PreviousArgument = previous,
             };
             model.ParameterList.Add(parameter);
+            model.ExecutableCommandParameterList.Add(new ExecutableCommandParameter
+            {
+                Id = executable.Id + ":parameter:" + parameter.Id,
+                ExecutableCommand = executable,
+                Parameter = parameter,
+            });
             model.PositionalArgumentList.Add(positional);
             return positional;
         });
@@ -389,7 +454,7 @@ public sealed class MetaCliWorkspaceService
             RequireNewId(model.ParameterGroupMemberList, static item => item.Id, memberId, "ParameterGroupMember");
             var executable = RequireById(model.ExecutableCommandList, static item => item.Id, executableCommandId, "ExecutableCommand");
             var parameter = RequireById(model.ParameterList, static item => item.Id, parameterId, "Parameter");
-            if (!ReferenceEquals(parameter.ExecutableCommand, executable))
+            if (!ParameterBelongsToExecutable(model, parameter, executable))
             {
                 throw new InvalidOperationException($"Parameter '{parameter.Id}' does not belong to executable command '{executable.Id}'.");
             }
@@ -425,7 +490,7 @@ public sealed class MetaCliWorkspaceService
             RequireNewId(model.ParameterGroupMemberList, static item => item.Id, id, "ParameterGroupMember");
             var group = RequireById(model.ParameterGroupList, static item => item.Id, parameterGroupId, "ParameterGroup");
             var parameter = RequireById(model.ParameterList, static item => item.Id, parameterId, "Parameter");
-            if (!ReferenceEquals(parameter.ExecutableCommand, group.ExecutableCommand))
+            if (!ParameterBelongsToExecutable(model, parameter, group.ExecutableCommand))
             {
                 throw new InvalidOperationException($"Parameter '{parameter.Id}' does not belong to executable command '{group.ExecutableCommand.Id}'.");
             }
@@ -445,183 +510,6 @@ public sealed class MetaCliWorkspaceService
             };
             model.ParameterGroupMemberList.Add(member);
             return member;
-        });
-
-    public DuplicateOptionBehavior AddDuplicateOptionBehavior(
-        string? workspacePath,
-        string id,
-        string name,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.DuplicateOptionBehaviorList, static item => item.Id, id, "DuplicateOptionBehavior");
-            var behavior = new DuplicateOptionBehavior
-            {
-                Id = RequiredText(id, "id"),
-                Name = RequiredText(name, "name"),
-                Description = EmptyToNull(description),
-            };
-            model.DuplicateOptionBehaviorList.Add(behavior);
-            return behavior;
-        });
-
-    public UnknownTokenBehavior AddUnknownTokenBehavior(
-        string? workspacePath,
-        string id,
-        string name,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.UnknownTokenBehaviorList, static item => item.Id, id, "UnknownTokenBehavior");
-            var behavior = new UnknownTokenBehavior
-            {
-                Id = RequiredText(id, "id"),
-                Name = RequiredText(name, "name"),
-                Description = EmptyToNull(description),
-            };
-            model.UnknownTokenBehaviorList.Add(behavior);
-            return behavior;
-        });
-
-    public ParserPolicy AddParserPolicy(
-        string? workspacePath,
-        string id,
-        string applicationId,
-        string name,
-        string? stopParsingToken,
-        bool? allowsEqualsValueSyntax,
-        bool? allowsOptionsAfterPositionals,
-        bool? allowsShortOptionClusters,
-        string? duplicateOptionBehaviorId,
-        string? unknownTokenBehaviorId,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.ParserPolicyList, static item => item.Id, id, "ParserPolicy");
-            var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
-            var duplicateOptionBehavior = string.IsNullOrWhiteSpace(duplicateOptionBehaviorId)
-                ? null
-                : RequireById(model.DuplicateOptionBehaviorList, static item => item.Id, duplicateOptionBehaviorId, "DuplicateOptionBehavior");
-            var unknownTokenBehavior = string.IsNullOrWhiteSpace(unknownTokenBehaviorId)
-                ? null
-                : RequireById(model.UnknownTokenBehaviorList, static item => item.Id, unknownTokenBehaviorId, "UnknownTokenBehavior");
-            var policy = new ParserPolicy
-            {
-                Id = RequiredText(id, "id"),
-                Application = application,
-                Name = RequiredText(name, "name"),
-                StopParsingToken = EmptyToNull(stopParsingToken),
-                AllowsEqualsValueSyntax = BoolText(allowsEqualsValueSyntax),
-                AllowsOptionsAfterPositionals = BoolText(allowsOptionsAfterPositionals),
-                AllowsShortOptionClusters = BoolText(allowsShortOptionClusters),
-                DuplicateOptionBehavior = duplicateOptionBehavior,
-                UnknownTokenBehavior = unknownTokenBehavior,
-                Description = EmptyToNull(description),
-            };
-            model.ParserPolicyList.Add(policy);
-            return policy;
-        });
-
-    public OutputFormat AddOutputFormat(
-        string? workspacePath,
-        string id,
-        string name,
-        string? contentType,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.OutputFormatList, static item => item.Id, id, "OutputFormat");
-            var format = new OutputFormat
-            {
-                Id = RequiredText(id, "id"),
-                Name = RequiredText(name, "name"),
-                ContentType = EmptyToNull(contentType),
-                Description = EmptyToNull(description),
-            };
-            model.OutputFormatList.Add(format);
-            return format;
-        });
-
-    public OutputStream AddOutputStream(
-        string? workspacePath,
-        string id,
-        string name,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.OutputStreamList, static item => item.Id, id, "OutputStream");
-            var stream = new OutputStream
-            {
-                Id = RequiredText(id, "id"),
-                Name = RequiredText(name, "name"),
-                Description = EmptyToNull(description),
-            };
-            model.OutputStreamList.Add(stream);
-            return stream;
-        });
-
-    public Output AddOutput(
-        string? workspacePath,
-        string id,
-        string executableCommandId,
-        string name,
-        string? outputFormatId,
-        string? outputStreamId,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.OutputList, static item => item.Id, id, "Output");
-            var executableCommand = RequireById(model.ExecutableCommandList, static item => item.Id, executableCommandId, "ExecutableCommand");
-            var outputFormat = string.IsNullOrWhiteSpace(outputFormatId)
-                ? null
-                : RequireById(model.OutputFormatList, static item => item.Id, outputFormatId, "OutputFormat");
-            var outputStream = string.IsNullOrWhiteSpace(outputStreamId)
-                ? null
-                : RequireById(model.OutputStreamList, static item => item.Id, outputStreamId, "OutputStream");
-            var output = new Output
-            {
-                Id = RequiredText(id, "id"),
-                ExecutableCommand = executableCommand,
-                Name = RequiredText(name, "name"),
-                OutputFormat = outputFormat,
-                OutputStream = outputStream,
-                Description = EmptyToNull(description),
-            };
-            model.OutputList.Add(output);
-            return output;
-        });
-
-    public ExitCode AddExitCode(
-        string? workspacePath,
-        string id,
-        string applicationId,
-        string code,
-        string name,
-        string? executableCommandId,
-        string? description) =>
-        Mutate(workspacePath, model =>
-        {
-            RequireNewId(model.ExitCodeList, static item => item.Id, id, "ExitCode");
-            var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
-            var executableCommand = string.IsNullOrWhiteSpace(executableCommandId)
-                ? null
-                : RequireById(model.ExecutableCommandList, static item => item.Id, executableCommandId, "ExecutableCommand");
-            if (executableCommand is not null && !ReferenceEquals(executableCommand.Command.Application, application))
-            {
-                throw new InvalidOperationException($"Executable command '{executableCommand.Id}' does not belong to application '{application.Id}'.");
-            }
-
-            var exitCode = new ExitCode
-            {
-                Id = RequiredText(id, "id"),
-                Application = application,
-                ExecutableCommand = executableCommand,
-                Code = RequiredText(code, "code"),
-                Name = RequiredText(name, "name"),
-                Description = EmptyToNull(description),
-            };
-            model.ExitCodeList.Add(exitCode);
-            return exitCode;
         });
 
     public static bool ParseBool(string? value, bool defaultValue = false) =>
@@ -684,9 +572,10 @@ public sealed class MetaCliWorkspaceService
             application.Description ?? string.Empty,
             commands.Length,
             commands.Count(static command => command.IsExecutable),
-            model.ParameterList.Count(parameter => ReferenceEquals(parameter.ExecutableCommand.Command.Application, application)),
-            model.OptionList.Count(option => ReferenceEquals(option.Parameter.ExecutableCommand.Command.Application, application)),
-            model.PositionalArgumentList.Count(argument => ReferenceEquals(argument.Parameter.ExecutableCommand.Command.Application, application)),
+            model.ApplicationParameterList.Count(parameter => ReferenceEquals(parameter.Application, application)),
+            EffectiveParametersForApplication(model, application).Count,
+            model.OptionList.Count(option => ParameterBelongsToApplication(model, option.Parameter, application)),
+            model.PositionalArgumentList.Count(argument => ParameterBelongsToApplication(model, argument.Parameter, application)),
             model.ParameterGroupList.Count(group => ReferenceEquals(group.ExecutableCommand.Command.Application, application)),
             commands);
     }
@@ -699,14 +588,13 @@ public sealed class MetaCliWorkspaceService
         var executableCommand = model.ExecutableCommandList.FirstOrDefault(item => ReferenceEquals(item.Command, command));
         var parameters = executableCommand is null
             ? Array.Empty<Parameter>()
-            : model.ParameterList.Where(parameter => ReferenceEquals(parameter.ExecutableCommand, executableCommand)).ToArray();
+            : EffectiveParametersForExecutable(model, executableCommand).ToArray();
         var optionCount = model.OptionList.Count(option => parameters.Contains(option.Parameter, ReferenceComparer<Parameter>.Instance));
         var positionalCount = model.PositionalArgumentList.Count(argument => parameters.Contains(argument.Parameter, ReferenceComparer<Parameter>.Instance));
         var isDefault = executableCommand is not null &&
             model.ApplicationDefaultCommandList.Any(item =>
                 ReferenceEquals(item.Application, application) &&
                 ReferenceEquals(item.ExecutableCommand, executableCommand));
-
         return new MetaCliCommandSummary(
             command.Id,
             command.Name,
@@ -736,13 +624,6 @@ public sealed class MetaCliWorkspaceService
         ValidatePositionals(model, issues, includeCompleteness);
         ValidateParameterGroups(model, issues, includeCompleteness);
         ValidateAllowedValues(model, issues, includeCompleteness);
-        ValidateDuplicateOptionBehaviors(model, issues);
-        ValidateUnknownTokenBehaviors(model, issues);
-        ValidateParserPolicies(model, issues);
-        ValidateOutputFormats(model, issues);
-        ValidateOutputStreams(model, issues);
-        ValidateOutputs(model, issues);
-        ValidateExitCodes(model, issues);
         return issues;
     }
 
@@ -756,18 +637,13 @@ public sealed class MetaCliWorkspaceService
         ValidateEntityIds(model.ValueShapeList, static item => item.Id, "ValueShape", issues);
         ValidateEntityIds(model.AllowedValueList, static item => item.Id, "AllowedValue", issues);
         ValidateEntityIds(model.ParameterList, static item => item.Id, "Parameter", issues);
+        ValidateEntityIds(model.ApplicationParameterList, static item => item.Id, "ApplicationParameter", issues);
+        ValidateEntityIds(model.ExecutableCommandParameterList, static item => item.Id, "ExecutableCommandParameter", issues);
         ValidateEntityIds(model.OptionList, static item => item.Id, "Option", issues);
         ValidateEntityIds(model.OptionTokenList, static item => item.Id, "OptionToken", issues);
         ValidateEntityIds(model.PositionalArgumentList, static item => item.Id, "PositionalArgument", issues);
         ValidateEntityIds(model.ParameterGroupList, static item => item.Id, "ParameterGroup", issues);
         ValidateEntityIds(model.ParameterGroupMemberList, static item => item.Id, "ParameterGroupMember", issues);
-        ValidateEntityIds(model.ParserPolicyList, static item => item.Id, "ParserPolicy", issues);
-        ValidateEntityIds(model.DuplicateOptionBehaviorList, static item => item.Id, "DuplicateOptionBehavior", issues);
-        ValidateEntityIds(model.UnknownTokenBehaviorList, static item => item.Id, "UnknownTokenBehavior", issues);
-        ValidateEntityIds(model.OutputList, static item => item.Id, "Output", issues);
-        ValidateEntityIds(model.OutputFormatList, static item => item.Id, "OutputFormat", issues);
-        ValidateEntityIds(model.OutputStreamList, static item => item.Id, "OutputStream", issues);
-        ValidateEntityIds(model.ExitCodeList, static item => item.Id, "ExitCode", issues);
     }
 
     private static void ValidateApplications(
@@ -837,10 +713,9 @@ public sealed class MetaCliWorkspaceService
             }
 
             if (includeCompleteness &&
-                string.IsNullOrWhiteSpace(command.Token) &&
-                !IsDefaultCommandTarget(model, command))
+                string.IsNullOrWhiteSpace(command.Token))
             {
-                AddError(issues, "MCLI015", $"Tokenless command '{command.Name}' is only valid as the application default command target.", $"Command:{command.Id}");
+                AddError(issues, "MCLI015", $"Command '{command.Name}' must declare a token.", $"Command:{command.Id}");
             }
         }
     }
@@ -885,11 +760,6 @@ public sealed class MetaCliWorkspaceService
                 if (!ReferenceEquals(command.Application, application))
                 {
                     AddError(issues, "MCLI032", $"Application '{application.Name}' default command belongs to another application.", $"ApplicationDefaultCommand:{defaultCommand.Id}");
-                }
-
-                if (command.ParentCommand is not null || !string.IsNullOrWhiteSpace(command.Token))
-                {
-                    AddError(issues, "MCLI033", $"Application '{application.Name}' default command must be a tokenless root command.", $"Command:{command.Id}");
                 }
             }
         }
@@ -963,10 +833,25 @@ public sealed class MetaCliWorkspaceService
         List<MetaCliIssue> issues,
         bool includeCompleteness)
     {
+        foreach (var application in model.ApplicationList)
+        {
+            foreach (var duplicate in model.ApplicationParameterList
+                         .Where(item => ReferenceEquals(item.Application, application))
+                         .Select(static item => item.Parameter)
+                         .Where(static parameter => !string.IsNullOrWhiteSpace(parameter.Name))
+                         .GroupBy(static parameter => parameter.Name, StringComparer.OrdinalIgnoreCase)
+                         .Where(static group => group.Count() > 1)
+                         .Select(static group => group.Key)
+                         .OrderBy(static item => item, StringComparer.OrdinalIgnoreCase))
+            {
+                AddError(issues, "MCLI049", $"Application parameter '{duplicate}' is duplicated in application '{application.Name}'.", $"Application:{application.Id}");
+            }
+        }
+
         foreach (var executableCommand in model.ExecutableCommandList)
         {
             foreach (var duplicate in model.ParameterList
-                         .Where(parameter => ReferenceEquals(parameter.ExecutableCommand, executableCommand))
+                         .Where(parameter => EffectiveParametersForExecutable(model, executableCommand).Contains(parameter, ReferenceComparer<Parameter>.Instance))
                          .Where(static parameter => !string.IsNullOrWhiteSpace(parameter.Name))
                          .GroupBy(static parameter => parameter.Name, StringComparer.OrdinalIgnoreCase)
                          .Where(static group => group.Count() > 1)
@@ -979,9 +864,16 @@ public sealed class MetaCliWorkspaceService
 
         foreach (var parameter in model.ParameterList)
         {
-            if (parameter.ExecutableCommand is null)
+            var applicationScopeCount = model.ApplicationParameterList.Count(item => ReferenceEquals(item.Parameter, parameter));
+            var commandScopeCount = model.ExecutableCommandParameterList.Count(item => ReferenceEquals(item.Parameter, parameter));
+            if (applicationScopeCount + commandScopeCount == 0)
             {
-                AddError(issues, "MCLI051", $"Parameter '{parameter.Name}' is not attached to an executable command.", $"Parameter:{parameter.Id}");
+                AddError(issues, "MCLI051", $"Parameter '{parameter.Name}' has no scope.", $"Parameter:{parameter.Id}");
+            }
+
+            if (applicationScopeCount + commandScopeCount > 1)
+            {
+                AddError(issues, "MCLI057", $"Parameter '{parameter.Name}' has more than one scope.", $"Parameter:{parameter.Id}");
             }
 
             if (parameter.ValueShape is null)
@@ -1016,6 +908,32 @@ public sealed class MetaCliWorkspaceService
                 AddError(issues, "MCLI056", $"Parameter '{parameter.Name}' has multiple positional argument rows.", $"Parameter:{parameter.Id}");
             }
         }
+
+        foreach (var scoped in model.ApplicationParameterList)
+        {
+            if (!ContainsReference(model.ApplicationList, scoped.Application))
+            {
+                AddError(issues, "MCLI058", $"Application parameter '{scoped.Id}' is not attached to an application.", $"ApplicationParameter:{scoped.Id}");
+            }
+
+            if (!ContainsReference(model.ParameterList, scoped.Parameter))
+            {
+                AddError(issues, "MCLI058", $"Application parameter '{scoped.Id}' references a parameter outside the workspace.", $"ApplicationParameter:{scoped.Id}");
+            }
+        }
+
+        foreach (var scoped in model.ExecutableCommandParameterList)
+        {
+            if (!ContainsReference(model.ExecutableCommandList, scoped.ExecutableCommand))
+            {
+                AddError(issues, "MCLI059", $"Executable command parameter '{scoped.Id}' is not attached to an executable command.", $"ExecutableCommandParameter:{scoped.Id}");
+            }
+
+            if (!ContainsReference(model.ParameterList, scoped.Parameter))
+            {
+                AddError(issues, "MCLI059", $"Executable command parameter '{scoped.Id}' references a parameter outside the workspace.", $"ExecutableCommandParameter:{scoped.Id}");
+            }
+        }
     }
 
     private static void ValidateOptions(
@@ -1033,10 +951,10 @@ public sealed class MetaCliWorkspaceService
                 AddError(issues, "MCLI060", $"Option parameter '{option.Parameter?.Name ?? option.Id}' has no option token.", $"Option:{option.Id}");
             }
 
-            var primaryCount = tokens.Count(token => ParseBool(token.IsPrimary));
-            if (includeCompleteness && primaryCount != 1)
+            var headCount = tokens.Count(static token => token.PreviousToken is null);
+            if (includeCompleteness && headCount != 1)
             {
-                AddError(issues, "MCLI061", $"Option parameter '{option.Parameter?.Name ?? option.Id}' must have exactly one primary token.", $"Option:{option.Id}");
+                AddError(issues, "MCLI061", $"Option parameter '{option.Parameter?.Name ?? option.Id}' must have exactly one token-chain head.", $"Option:{option.Id}");
             }
 
             foreach (var token in tokens)
@@ -1066,7 +984,7 @@ public sealed class MetaCliWorkspaceService
         foreach (var executableCommand in model.ExecutableCommandList)
         {
             var commandOptions = model.OptionList
-                .Where(option => ReferenceEquals(option.Parameter.ExecutableCommand, executableCommand))
+                .Where(option => EffectiveParametersForExecutable(model, executableCommand).Contains(option.Parameter, ReferenceComparer<Parameter>.Instance))
                 .ToArray();
             foreach (var duplicate in model.OptionTokenList
                          .Where(token => commandOptions.Contains(token.Option, ReferenceComparer<Option>.Instance))
@@ -1088,12 +1006,12 @@ public sealed class MetaCliWorkspaceService
         foreach (var executableCommand in model.ExecutableCommandList)
         {
             var arguments = model.PositionalArgumentList
-                .Where(argument => ReferenceEquals(argument.Parameter.ExecutableCommand, executableCommand))
+                .Where(argument => ParameterBelongsToExecutable(model, argument.Parameter, executableCommand))
                 .ToArray();
             foreach (var argument in arguments)
             {
                 if (argument.PreviousArgument is not null &&
-                    !ReferenceEquals(argument.PreviousArgument.Parameter.ExecutableCommand, executableCommand))
+                    !ParameterBelongsToExecutable(model, argument.PreviousArgument.Parameter, executableCommand))
                 {
                     AddError(issues, "MCLI070", $"Positional argument '{argument.Parameter.Name}' points to a previous argument from another command.", $"PositionalArgument:{argument.Id}");
                 }
@@ -1149,7 +1067,7 @@ public sealed class MetaCliWorkspaceService
                 .ToArray();
             foreach (var member in members)
             {
-                if (!ReferenceEquals(member.Parameter.ExecutableCommand, group.ExecutableCommand))
+                if (!ParameterBelongsToExecutable(model, member.Parameter, group.ExecutableCommand))
                 {
                     AddError(issues, "MCLI080", $"Parameter group '{group.Name}' includes a parameter from another command.", $"ParameterGroupMember:{member.Id}");
                 }
@@ -1217,207 +1135,6 @@ public sealed class MetaCliWorkspaceService
                 AddError(issues, "MCLI089", $"Allowed value '{duplicate}' is duplicated within value shape '{shape.Name}'.", $"ValueShape:{shape.Id}");
             }
 
-            foreach (var value in values)
-            {
-                if (value.PreviousValue is not null && !ReferenceEquals(value.PreviousValue.ValueShape, shape))
-                {
-                    AddError(issues, "MCLI090", $"Allowed value '{value.Value}' points to a previous value from another shape.", $"AllowedValue:{value.Id}");
-                }
-            }
-
-            ValidatePreviousChain(
-                values,
-                static value => value.PreviousValue,
-                value => $"AllowedValue:{value.Id}",
-                value => value.Value,
-                "MCLI091",
-                "allowed value",
-                includeCompleteness,
-                issues);
-        }
-    }
-
-    private static void ValidateDuplicateOptionBehaviors(
-        MetaCliModel model,
-        List<MetaCliIssue> issues) =>
-        ValidateUniqueName(
-            model.DuplicateOptionBehaviorList,
-            static behavior => behavior.Name,
-            "DuplicateOptionBehavior",
-            "MCLI100",
-            issues);
-
-    private static void ValidateUnknownTokenBehaviors(
-        MetaCliModel model,
-        List<MetaCliIssue> issues) =>
-        ValidateUniqueName(
-            model.UnknownTokenBehaviorList,
-            static behavior => behavior.Name,
-            "UnknownTokenBehavior",
-            "MCLI110",
-            issues);
-
-    private static void ValidateParserPolicies(
-        MetaCliModel model,
-        List<MetaCliIssue> issues)
-    {
-        foreach (var application in model.ApplicationList)
-        {
-            var policies = model.ParserPolicyList
-                .Where(policy => ReferenceEquals(policy.Application, application))
-                .ToArray();
-            if (policies.Length > 1)
-            {
-                AddError(issues, "MCLI120", $"Application '{application.Name}' has multiple parser policies.", $"Application:{application.Id}");
-            }
-        }
-
-        foreach (var policy in model.ParserPolicyList)
-        {
-            if (!ContainsReference(model.ApplicationList, policy.Application))
-            {
-                AddError(issues, "MCLI121", $"Parser policy '{policy.Name}' is not attached to an application.", $"ParserPolicy:{policy.Id}");
-            }
-
-            if (policy.DuplicateOptionBehavior is not null &&
-                !ContainsReference(model.DuplicateOptionBehaviorList, policy.DuplicateOptionBehavior))
-            {
-                AddError(issues, "MCLI122", $"Parser policy '{policy.Name}' references a duplicate-option behavior outside the workspace.", $"ParserPolicy:{policy.Id}");
-            }
-
-            if (policy.UnknownTokenBehavior is not null &&
-                !ContainsReference(model.UnknownTokenBehaviorList, policy.UnknownTokenBehavior))
-            {
-                AddError(issues, "MCLI123", $"Parser policy '{policy.Name}' references an unknown-token behavior outside the workspace.", $"ParserPolicy:{policy.Id}");
-            }
-
-            ValidateOptionalBooleanText(policy.AllowsEqualsValueSyntax, "MCLI124", $"ParserPolicy:{policy.Id}", nameof(ParserPolicy.AllowsEqualsValueSyntax), issues);
-            ValidateOptionalBooleanText(policy.AllowsOptionsAfterPositionals, "MCLI124", $"ParserPolicy:{policy.Id}", nameof(ParserPolicy.AllowsOptionsAfterPositionals), issues);
-            ValidateOptionalBooleanText(policy.AllowsShortOptionClusters, "MCLI124", $"ParserPolicy:{policy.Id}", nameof(ParserPolicy.AllowsShortOptionClusters), issues);
-        }
-    }
-
-    private static void ValidateOutputFormats(
-        MetaCliModel model,
-        List<MetaCliIssue> issues)
-    {
-        ValidateUniqueName(
-            model.OutputFormatList,
-            static format => format.Name,
-            "OutputFormat",
-            "MCLI130",
-            issues);
-
-        foreach (var format in model.OutputFormatList)
-        {
-            if (format.ContentType is not null && string.IsNullOrWhiteSpace(format.ContentType))
-            {
-                AddError(issues, "MCLI131", $"Output format '{format.Name}' has an empty content type.", $"OutputFormat:{format.Id}");
-            }
-        }
-    }
-
-    private static void ValidateOutputStreams(
-        MetaCliModel model,
-        List<MetaCliIssue> issues) =>
-        ValidateUniqueName(
-            model.OutputStreamList,
-            static stream => stream.Name,
-            "OutputStream",
-            "MCLI140",
-            issues);
-
-    private static void ValidateOutputs(
-        MetaCliModel model,
-        List<MetaCliIssue> issues)
-    {
-        foreach (var executableCommand in model.ExecutableCommandList)
-        {
-            foreach (var duplicate in model.OutputList
-                         .Where(output => ReferenceEquals(output.ExecutableCommand, executableCommand))
-                         .Where(static output => !string.IsNullOrWhiteSpace(output.Name))
-                         .GroupBy(static output => output.Name, StringComparer.OrdinalIgnoreCase)
-                         .Where(static group => group.Count() > 1)
-                         .Select(static group => group.Key)
-                         .OrderBy(static item => item, StringComparer.OrdinalIgnoreCase))
-            {
-                AddError(issues, "MCLI150", $"Output name '{duplicate}' is duplicated on executable command '{executableCommand.Id}'.", $"ExecutableCommand:{executableCommand.Id}");
-            }
-        }
-
-        foreach (var output in model.OutputList)
-        {
-            if (!ContainsReference(model.ExecutableCommandList, output.ExecutableCommand))
-            {
-                AddError(issues, "MCLI151", $"Output '{output.Name}' is not attached to an executable command.", $"Output:{output.Id}");
-            }
-
-            if (output.OutputFormat is not null && !ContainsReference(model.OutputFormatList, output.OutputFormat))
-            {
-                AddError(issues, "MCLI152", $"Output '{output.Name}' references an output format outside the workspace.", $"Output:{output.Id}");
-            }
-
-            if (output.OutputStream is not null && !ContainsReference(model.OutputStreamList, output.OutputStream))
-            {
-                AddError(issues, "MCLI153", $"Output '{output.Name}' references an output stream outside the workspace.", $"Output:{output.Id}");
-            }
-        }
-    }
-
-    private static void ValidateExitCodes(
-        MetaCliModel model,
-        List<MetaCliIssue> issues)
-    {
-        foreach (var exitCode in model.ExitCodeList)
-        {
-            if (!ContainsReference(model.ApplicationList, exitCode.Application))
-            {
-                AddError(issues, "MCLI160", $"Exit code '{exitCode.Code}' is not attached to an application.", $"ExitCode:{exitCode.Id}");
-            }
-
-            if (exitCode.ExecutableCommand is null)
-            {
-                continue;
-            }
-
-            if (!ContainsReference(model.ExecutableCommandList, exitCode.ExecutableCommand))
-            {
-                AddError(issues, "MCLI161", $"Exit code '{exitCode.Code}' references an executable command outside the workspace.", $"ExitCode:{exitCode.Id}");
-                continue;
-            }
-
-            if (!ReferenceEquals(exitCode.ExecutableCommand.Command.Application, exitCode.Application))
-            {
-                AddError(issues, "MCLI162", $"Exit code '{exitCode.Code}' executable command belongs to another application.", $"ExitCode:{exitCode.Id}");
-            }
-        }
-
-        foreach (var application in model.ApplicationList)
-        {
-            foreach (var duplicate in model.ExitCodeList
-                         .Where(exitCode => ReferenceEquals(exitCode.Application, application) && exitCode.ExecutableCommand is null)
-                         .Where(static exitCode => !string.IsNullOrWhiteSpace(exitCode.Code))
-                         .GroupBy(static exitCode => exitCode.Code, StringComparer.Ordinal)
-                         .Where(static group => group.Count() > 1)
-                         .Select(static group => group.Key)
-                         .OrderBy(static item => item, StringComparer.Ordinal))
-            {
-                AddError(issues, "MCLI163", $"Application exit code '{duplicate}' is duplicated in application '{application.Name}'.", $"Application:{application.Id}");
-            }
-        }
-
-        foreach (var executableCommand in model.ExecutableCommandList)
-        {
-            foreach (var duplicate in model.ExitCodeList
-                         .Where(exitCode => ReferenceEquals(exitCode.ExecutableCommand, executableCommand))
-                         .Where(static exitCode => !string.IsNullOrWhiteSpace(exitCode.Code))
-                         .GroupBy(static exitCode => exitCode.Code, StringComparer.Ordinal)
-                         .Where(static group => group.Count() > 1)
-                         .Select(static group => group.Key)
-                         .OrderBy(static item => item, StringComparer.Ordinal))
-            {
-                AddError(issues, "MCLI164", $"Executable-command exit code '{duplicate}' is duplicated on '{executableCommand.Id}'.", $"ExecutableCommand:{executableCommand.Id}");
-            }
         }
     }
 
@@ -1518,9 +1235,61 @@ public sealed class MetaCliWorkspaceService
         return true;
     }
 
-    private static bool IsDefaultCommandTarget(MetaCliModel model, Command command) =>
-        model.ApplicationDefaultCommandList.Any(defaultCommand =>
-            ReferenceEquals(defaultCommand.ExecutableCommand?.Command, command));
+    private static IReadOnlyList<Parameter> EffectiveParametersForApplication(
+        MetaCliModel model,
+        Application application)
+    {
+        var parameters = new List<Parameter>();
+        parameters.AddRange(model.ApplicationParameterList
+            .Where(item => ReferenceEquals(item.Application, application))
+            .Select(static item => item.Parameter));
+        parameters.AddRange(model.ExecutableCommandList
+            .Where(item => ReferenceEquals(item.Command.Application, application))
+            .SelectMany(item => CommandParametersForExecutable(model, item)));
+        return parameters
+            .Distinct(ReferenceComparer<Parameter>.Instance)
+            .ToArray();
+    }
+
+    private static IReadOnlyList<Parameter> EffectiveParametersForExecutable(
+        MetaCliModel model,
+        ExecutableCommand executableCommand)
+    {
+        var parameters = new List<Parameter>();
+        parameters.AddRange(model.ApplicationParameterList
+            .Where(item => ReferenceEquals(item.Application, executableCommand.Command.Application))
+            .Select(static item => item.Parameter));
+        parameters.AddRange(CommandParametersForExecutable(model, executableCommand));
+        return parameters
+            .Distinct(ReferenceComparer<Parameter>.Instance)
+            .ToArray();
+    }
+
+    private static IEnumerable<Parameter> CommandParametersForExecutable(
+        MetaCliModel model,
+        ExecutableCommand executableCommand) =>
+        model.ExecutableCommandParameterList
+            .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+            .Select(static item => item.Parameter);
+
+    private static bool ParameterBelongsToApplication(
+        MetaCliModel model,
+        Parameter parameter,
+        Application application) =>
+        model.ApplicationParameterList.Any(item =>
+            ReferenceEquals(item.Application, application) &&
+            ReferenceEquals(item.Parameter, parameter)) ||
+        model.ExecutableCommandParameterList.Any(item =>
+            ReferenceEquals(item.Parameter, parameter) &&
+            ReferenceEquals(item.ExecutableCommand.Command.Application, application));
+
+    private static bool ParameterBelongsToExecutable(
+        MetaCliModel model,
+        Parameter parameter,
+        ExecutableCommand executableCommand) =>
+        model.ExecutableCommandParameterList.Any(item =>
+            ReferenceEquals(item.ExecutableCommand, executableCommand) &&
+            ReferenceEquals(item.Parameter, parameter));
 
     private static bool HasCommandParentCycle(Command command)
     {

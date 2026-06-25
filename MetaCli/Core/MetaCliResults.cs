@@ -11,6 +11,7 @@ public sealed record MetaCliApplicationSummary(
     string Description,
     int CommandCount,
     int ExecutableCommandCount,
+    int ApplicationParameterCount,
     int ParameterCount,
     int OptionCount,
     int PositionalArgumentCount,
@@ -33,6 +34,8 @@ public sealed record MetaCliIntegrityResult(
     int CommandCount,
     int ExecutableCommandCount,
     int ParameterCount,
+    int ApplicationParameterCount,
+    int ExecutableCommandParameterCount,
     int OptionCount,
     int OptionTokenCount,
     int PositionalArgumentCount,
@@ -41,13 +44,6 @@ public sealed record MetaCliIntegrityResult(
     int ValueArityCount,
     int ValueShapeCount,
     int AllowedValueCount,
-    int DuplicateOptionBehaviorCount,
-    int UnknownTokenBehaviorCount,
-    int ParserPolicyCount,
-    int OutputFormatCount,
-    int OutputStreamCount,
-    int OutputCount,
-    int ExitCodeCount,
     IReadOnlyList<MetaCliIssue> Issues)
 {
     public bool HasErrors => Issues.Any(static issue => issue.Severity == MetaCliIssueSeverity.Error);
@@ -60,6 +56,19 @@ public sealed record MetaCliIssue(
     string Code,
     string Message,
     string Location);
+
+public sealed record MetaCliFromSyntaxResult(
+    string SourcePath,
+    string WorkspacePath,
+    int ApplicationCount,
+    int CommandCount,
+    int ExecutableCommandCount,
+    int ParameterCount,
+    int ApplicationParameterCount,
+    int ExecutableCommandParameterCount,
+    int OptionCount,
+    int PositionalArgumentCount,
+    int ParameterGroupCount);
 
 public enum MetaCliIssueSeverity
 {

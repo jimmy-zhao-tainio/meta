@@ -19,8 +19,6 @@ namespace MetaCli
 
         public string Value { get; set; } = string.Empty;
 
-        public AllowedValue? PreviousValue { get; set; }
-
         public ValueShape ValueShape { get; set; } = null!;
 
     }

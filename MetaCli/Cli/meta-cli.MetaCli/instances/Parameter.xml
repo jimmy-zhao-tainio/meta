@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterList>
+    <Parameter Id="param-application-option-workspace" ValueShapeId="shape-path">
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-command-new-workspace-positional-path" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>Path</Name>
+    </Parameter>
+    <Parameter Id="param-command-from-syntax-positional-source" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>Source</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-executable-name" ValueShapeId="shape-text">
+      <Name>executable-name</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-version" ValueShapeId="shape-text">
+      <Name>version</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-application" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-parent-command" ValueShapeId="shape-text">
+      <Name>parent-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-executable-command-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-executable-command-option-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>command</Name>
+    </Parameter>
+    <Parameter Id="param-set-default-command-option-application" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-set-default-command-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-min-value-count" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>min-value-count</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-max-value-count" ValueShapeId="shape-text">
+      <Name>max-value-count</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-value-arity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-arity</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-value-label" ValueShapeId="shape-text">
+      <Name>value-label</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-allows-option-like-value" ValueShapeId="shape-bool">
+      <Name>allows-option-like-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-allowed-value-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-allowed-value-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-allowed-value-option-value" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value</Name>
+    </Parameter>
+    <Parameter Id="param-add-allowed-value-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-application" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-token-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>token-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-token-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>token-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-option" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-previous-token" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>previous-token</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-positional-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>positional-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-previous-argument" ValueShapeId="shape-text">
+      <Name>previous-argument</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-member-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>member-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-parameter" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-allows-multiple" ValueShapeId="shape-bool">
+      <Name>allows-multiple</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-parameter-group" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-group</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-parameter" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-previous-member" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>previous-member</Name>
+    </Parameter>
+  </ParameterList>
+</MetaCli>

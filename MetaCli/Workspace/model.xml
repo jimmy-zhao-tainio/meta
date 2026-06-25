@@ -57,7 +57,6 @@
       </PropertyList>
       <RelationshipList>
         <Relationship entity="ValueShape" />
-        <Relationship entity="AllowedValue" role="PreviousValue" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="Parameter">
@@ -69,8 +68,19 @@
         <Property name="DefaultValue" isRequired="false" />
       </PropertyList>
       <RelationshipList>
-        <Relationship entity="ExecutableCommand" />
         <Relationship entity="ValueShape" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ApplicationParameter">
+      <RelationshipList>
+        <Relationship entity="Application" />
+        <Relationship entity="Parameter" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ExecutableCommandParameter">
+      <RelationshipList>
+        <Relationship entity="ExecutableCommand" />
+        <Relationship entity="Parameter" />
       </RelationshipList>
     </Entity>
     <Entity name="Option">
@@ -81,7 +91,6 @@
     <Entity name="OptionToken">
       <PropertyList>
         <Property name="Token" />
-        <Property name="IsPrimary" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Option" />
@@ -110,68 +119,6 @@
       <RelationshipList>
         <Relationship entity="Parameter" />
         <Relationship entity="PositionalArgument" role="PreviousArgument" isRequired="false" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="ParserPolicy">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="StopParsingToken" isRequired="false" />
-        <Property name="AllowsEqualsValueSyntax" isRequired="false" />
-        <Property name="AllowsOptionsAfterPositionals" isRequired="false" />
-        <Property name="AllowsShortOptionClusters" isRequired="false" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Application" />
-        <Relationship entity="DuplicateOptionBehavior" isRequired="false" />
-        <Relationship entity="UnknownTokenBehavior" isRequired="false" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="DuplicateOptionBehavior">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-    </Entity>
-    <Entity name="UnknownTokenBehavior">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-    </Entity>
-    <Entity name="Output">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="ExecutableCommand" />
-        <Relationship entity="OutputFormat" isRequired="false" />
-        <Relationship entity="OutputStream" isRequired="false" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="OutputFormat">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="ContentType" isRequired="false" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-    </Entity>
-    <Entity name="OutputStream">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-    </Entity>
-    <Entity name="ExitCode">
-      <PropertyList>
-        <Property name="Code" />
-        <Property name="Name" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Application" />
-        <Relationship entity="ExecutableCommand" isRequired="false" />
       </RelationshipList>
     </Entity>
   </EntityList>

@@ -22,7 +22,7 @@ using Meta.Core.Serialization;
 
 namespace MetaMesh
 {
-    public sealed partial class MetaMeshModel
+    public sealed partial class MetaMeshModel : IMetaWorkspaceModel<MetaMeshModel>
     {
         public static MetaMeshModel CreateEmpty() => new();
 

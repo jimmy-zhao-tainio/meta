@@ -23,37 +23,113 @@ public sealed class MetaCliModelTests
         Assert.Contains("Application", entityNames);
         Assert.Contains("Command", entityNames);
         Assert.Contains("ExecutableCommand", entityNames);
-        Assert.Contains("Parameter", entityNames);
-        Assert.Contains("ParameterGroup", entityNames);
-        Assert.Contains("OptionToken", entityNames);
         Assert.Contains("ApplicationDefaultCommand", entityNames);
+        Assert.Contains("ApplicationParameter", entityNames);
+        Assert.Contains("ExecutableCommandParameter", entityNames);
+        Assert.Contains("Parameter", entityNames);
+        Assert.Contains("Option", entityNames);
+        Assert.Contains("OptionToken", entityNames);
+        Assert.Contains("PositionalArgument", entityNames);
+        Assert.Contains("ParameterGroup", entityNames);
+        Assert.Contains("ParameterGroupMember", entityNames);
         Assert.DoesNotContain("CommandSegment", entityNames);
+        Assert.DoesNotContain("CommandKind", entityNames);
+        Assert.DoesNotContain("CommandGroup", entityNames);
+        Assert.DoesNotContain("ApplicationRootCommand", entityNames);
         Assert.DoesNotContain("ValueCodec", entityNames);
+        Assert.DoesNotContain("ParserPolicy", entityNames);
+        Assert.DoesNotContain("DuplicateOptionBehavior", entityNames);
+        Assert.DoesNotContain("UnknownTokenBehavior", entityNames);
+        Assert.DoesNotContain("Output", entityNames);
+        Assert.DoesNotContain("ExitCode", entityNames);
         Assert.DoesNotContain(entityNames, name => name.StartsWith("Cli", StringComparison.Ordinal));
         Assert.DoesNotContain(propertyNames, name => string.Equals(name, "Ordinal", StringComparison.OrdinalIgnoreCase));
         Assert.DoesNotContain(propertyNames, name => string.Equals(name, "Order", StringComparison.OrdinalIgnoreCase));
+        Assert.DoesNotContain(propertyNames, name => string.Equals(name, "Kind", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
-    public void Cli_HelpShowsAuthoringSurfaceAndDoesNotExposeInit()
+    public void Cli_HelpShowsCurrentAuthoringSurfaceAndDoesNotExposeDeletedConcepts()
     {
         var result = RunCli("help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("meta-cli --new-workspace <path>", result.Output);
-        Assert.Contains("add-application", result.Output);
-        Assert.Contains("add-executable-command", result.Output);
+        Assert.Contains("meta-cli new-workspace <path>", result.Output);
+        Assert.Contains("new-workspace", result.Output);
+        Assert.Contains("from-syntax", result.Output);
+        Assert.Contains("add-application-option", result.Output);
         Assert.Contains("add-option-token", result.Output);
         Assert.Contains("add-parameter-group-member", result.Output);
-        Assert.Contains("add-duplicate-option-behavior", result.Output);
-        Assert.Contains("add-unknown-token-behavior", result.Output);
-        Assert.Contains("add-parser-policy", result.Output);
-        Assert.Contains("add-output-format", result.Output);
-        Assert.Contains("add-output-stream", result.Output);
-        Assert.Contains("add-output", result.Output);
-        Assert.Contains("add-exit-code", result.Output);
+        Assert.DoesNotContain("add-root-command", result.Output);
+        Assert.DoesNotContain("add-duplicate-option-behavior", result.Output);
+        Assert.DoesNotContain("add-unknown-token-behavior", result.Output);
+        Assert.DoesNotContain("add-parser-policy", result.Output);
+        Assert.DoesNotContain("add-output", result.Output, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("add-exit", result.Output, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("init", result.Output, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("check", result.Output, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Cli_FromSyntaxCreatesProviderValidWorkspace()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "meta-cli-syntax-", Guid.NewGuid().ToString("N"));
+        var syntaxPath = Path.Combine(root, "demo.syntax");
+        var workspace = Path.Combine(root, "Demo.MetaCli");
+        Directory.CreateDirectory(root);
+        File.WriteAllText(syntaxPath, """
+application demo
+
+option --workspace path
+
+command help default
+
+command new-workspace
+  positional Path path required
+
+command model add-entity
+  positional Id text
+  option --auto-id flag alias -a
+  parameter-group IdChoice required members Id auto-id
+""");
+
+        try
+        {
+            var result = RunCli($"from-syntax \"{syntaxPath}\" --workspace \"{workspace}\"");
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Authored MetaCli workspace from syntax", result.Output);
+            Assert.Contains("commands: 4 (3 runnable)", result.Output);
+            AssertWorkspacePreservesProviderIntegrity(workspace);
+
+            var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            Assert.Single(model.ApplicationParameterList);
+            var addEntity = model.CommandList.Single(command => command.Name == "add-entity");
+            Assert.Equal("model add-entity", MetaCliWorkspaceService.BuildRoute(addEntity));
+            Assert.Single(model.ParameterGroupList);
+            Assert.Contains(model.OptionTokenList, token => token.Token == "-a" && token.PreviousToken?.Token == "--auto-id");
+
+            var exitCode = -1;
+            var error = new StringWriter();
+            MetaCliInvocation? invocation = null;
+            var runtime = new MetaCliRuntime<MetaCliModel>(
+                    workspace,
+                    error: error,
+                    setExitCode: code => exitCode = code)
+                .Bind("exec-model-add-entity", (MetaCliInvocation command, MetaCliModel _) => invocation = command);
+
+            runtime.Run("model", "add-entity", "--workspace", workspace, "--auto-id");
+
+            Assert.Equal(0, exitCode);
+            Assert.Equal(string.Empty, error.ToString());
+            Assert.NotNull(invocation);
+            Assert.Equal("model add-entity", invocation.CommandRoute);
+            Assert.True(invocation.Flag("auto-id"));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
     }
 
     [Fact]
@@ -68,19 +144,14 @@ public sealed class MetaCliModelTests
             ["ValueArity"] = "add-value-arity",
             ["ValueShape"] = "add-value-shape",
             ["AllowedValue"] = "add-allowed-value",
-            ["Parameter"] = "created indirectly by add-option and add-positional",
-            ["Option"] = "add-option",
+            ["Parameter"] = "created by add-application-option, add-option, and add-positional",
+            ["ApplicationParameter"] = "add-application-option",
+            ["ExecutableCommandParameter"] = "add-option and add-positional",
+            ["Option"] = "add-application-option and add-option",
             ["OptionToken"] = "add-option-token",
             ["ParameterGroup"] = "add-parameter-group",
             ["ParameterGroupMember"] = "add-parameter-group-member",
             ["PositionalArgument"] = "add-positional",
-            ["ParserPolicy"] = "add-parser-policy",
-            ["DuplicateOptionBehavior"] = "add-duplicate-option-behavior",
-            ["UnknownTokenBehavior"] = "add-unknown-token-behavior",
-            ["Output"] = "add-output",
-            ["OutputFormat"] = "add-output-format",
-            ["OutputStream"] = "add-output-stream",
-            ["ExitCode"] = "add-exit-code",
         };
         var modelPath = Path.Combine(FindRepositoryRoot(), "MetaCli", "Workspace", "model.xml");
         var entityNames = XDocument.Load(modelPath)
@@ -100,11 +171,10 @@ public sealed class MetaCliModelTests
         var workspace = Path.Combine(root, "Demo.MetaCli");
         try
         {
-            AssertCommandSucceeds($"--new-workspace \"{workspace}\"");
+            AssertCommandSucceeds($"new-workspace \"{workspace}\"");
             AssertWorkspacePreservesProviderIntegrity(workspace);
 
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application --id app-demo --name demo --executable-name demo", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("set-default-command --application app-demo --command-id cmd-root --executable-command-id exec-root --name root", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-none --name None --min-value-count 0 --max-value-count 0", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-one --name One --min-value-count 1 --max-value-count 1", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-flag --name Flag --value-arity arity-none", workspace);
@@ -112,13 +182,22 @@ public sealed class MetaCliModelTests
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-text --name Text --value-arity arity-one --value-label \"<value>\"", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-visibility --name Visibility --value-arity arity-one --value-label \"<visibility>\"", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-allowed-value --id visibility-public --value-shape shape-visibility --value public", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-allowed-value --id visibility-internal --value-shape shape-visibility --value internal --previous-value visibility-public", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-allowed-value --id visibility-internal --value-shape shape-visibility --value internal", workspace);
+
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application-option --parameter-id param-workspace --option-id option-workspace --application app-demo --name workspace --value-shape shape-path --token-id token-workspace --token --workspace", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option-token --id token-workspace-short --option option-workspace --token -w --previous-token token-workspace", workspace);
+
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-new-workspace --application app-demo --name new-workspace --token new-workspace", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-new-workspace --command cmd-new-workspace", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-new-workspace --positional-id pos-new-workspace --executable-command exec-new-workspace --name Path --value-shape shape-path --required true", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-help --application app-demo --name help --token help", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-help --command cmd-help", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("set-default-command --application app-demo --executable-command exec-help", workspace);
 
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-model --application app-demo --name model --token model", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-add-property --application app-demo --name add-property --token add-property --parent-command cmd-model", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-add-property --command cmd-add-property", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option --parameter-id param-workspace --option-id option-workspace --executable-command exec-add-property --name workspace --value-shape shape-path --token-id token-workspace --token --workspace --required true", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option-token --id token-workspace-short --option option-workspace --token -w --previous-token token-workspace", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option --parameter-id param-visibility --option-id option-visibility --executable-command exec-add-property --name visibility --value-shape shape-visibility --token-id token-visibility --token --visibility", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-entity --positional-id pos-entity --executable-command exec-add-property --name Entity --value-shape shape-text --required true", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-property --positional-id pos-property --executable-command exec-add-property --name Property --value-shape shape-text --previous-argument pos-entity --required true", workspace);
 
@@ -129,14 +208,6 @@ public sealed class MetaCliModelTests
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option-token --id token-auto-id-short --option option-auto-id --token -a --previous-token token-auto-id", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-parameter-group --id group-id-choice --executable-command exec-add-entity --name IdChoice --member-id group-id-choice-id --parameter param-id --required true", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-parameter-group-member --id group-id-choice-auto --parameter-group group-id-choice --parameter param-auto-id --previous-member group-id-choice-id", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-duplicate-option-behavior --id duplicate-error --name Error", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-unknown-token-behavior --id unknown-error --name Error", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-parser-policy --id parser-default --application app-demo --name Default --stop-parsing-token -- --allows-equals-value-syntax true --allows-options-after-positionals false --allows-short-option-clusters false --duplicate-option-behavior duplicate-error --unknown-token-behavior unknown-error", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-output-format --id output-format-text --name Text --content-type text/plain", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-output-stream --id output-stream-stdout --name Stdout", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-output --id output-add-property-summary --executable-command exec-add-property --name Summary --output-format output-format-text --output-stream output-stream-stdout", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-exit-code --id exit-add-property-ok --application app-demo --executable-command exec-add-property --code 0 --name Ok", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-exit-code --id exit-usage --application app-demo --code 2 --name UsageError", workspace);
 
             var show = RunCli("show", workspace);
 
@@ -144,6 +215,8 @@ public sealed class MetaCliModelTests
             Assert.Contains("MetaCli workspace", show.Output);
             Assert.Contains("application: demo (app-demo)", show.Output);
             Assert.Contains("command surface:", show.Output);
+            Assert.Contains("new-workspace [runnable]", show.Output);
+            Assert.Contains("help [default, runnable]", show.Output);
             Assert.Contains("model add-property [runnable]", show.Output);
             Assert.DoesNotContain("Application:", show.Output);
             Assert.DoesNotContain("ExecutableCommand:", show.Output);
@@ -152,7 +225,9 @@ public sealed class MetaCliModelTests
             var addProperty = model.CommandList.Single(command => command.Id == "cmd-add-property");
             Assert.Equal("model add-property", MetaCliWorkspaceService.BuildRoute(addProperty));
             Assert.Equal("exec-add-property", model.ExecutableCommandList.Single(command => ReferenceEquals(command.Command, addProperty)).Id);
-            Assert.Contains(model.OptionTokenList, token => token.Id == "token-workspace" && token.Option.Id == "option-workspace" && token.IsPrimary == "true");
+            Assert.Contains(model.ApplicationParameterList, scoped => scoped.Parameter.Id == "param-workspace");
+            Assert.Contains(model.ExecutableCommandParameterList, scoped => scoped.Parameter.Id == "param-visibility" && scoped.ExecutableCommand.Id == "exec-add-property");
+            Assert.Contains(model.OptionTokenList, token => token.Id == "token-workspace" && token.Option.Id == "option-workspace" && token.PreviousToken is null);
             Assert.Contains(model.OptionTokenList, token => token.Id == "token-workspace-short" && token.Option.Id == "option-workspace" && token.PreviousToken?.Id == "token-workspace");
             Assert.Same(
                 model.PositionalArgumentList.Single(argument => argument.Id == "pos-entity"),
@@ -160,19 +235,7 @@ public sealed class MetaCliModelTests
             Assert.Same(
                 model.ParameterGroupMemberList.Single(member => member.Id == "group-id-choice-id"),
                 model.ParameterGroupMemberList.Single(member => member.Id == "group-id-choice-auto").PreviousMember);
-            Assert.Equal("duplicate-error", Assert.Single(model.DuplicateOptionBehaviorList).Id);
-            Assert.Equal("unknown-error", Assert.Single(model.UnknownTokenBehaviorList).Id);
-            var parserPolicy = Assert.Single(model.ParserPolicyList);
-            Assert.Same(model.ApplicationList.Single(application => application.Id == "app-demo"), parserPolicy.Application);
-            Assert.Equal("--", parserPolicy.StopParsingToken);
-            Assert.Same(model.DuplicateOptionBehaviorList[0], parserPolicy.DuplicateOptionBehavior);
-            Assert.Same(model.UnknownTokenBehaviorList[0], parserPolicy.UnknownTokenBehavior);
-            var output = Assert.Single(model.OutputList);
-            Assert.Same(model.ExecutableCommandList.Single(command => command.Id == "exec-add-property"), output.ExecutableCommand);
-            Assert.Same(model.OutputFormatList.Single(), output.OutputFormat);
-            Assert.Same(model.OutputStreamList.Single(), output.OutputStream);
-            Assert.Contains(model.ExitCodeList, exitCode => exitCode.Id == "exit-add-property-ok" && ReferenceEquals(exitCode.ExecutableCommand, output.ExecutableCommand));
-            Assert.Contains(model.ExitCodeList, exitCode => exitCode.Id == "exit-usage" && exitCode.ExecutableCommand is null);
+            Assert.DoesNotContain(model.GetType().GetProperties(), property => property.Name.Contains("ParserPolicy", StringComparison.Ordinal));
         }
         finally
         {
@@ -181,7 +244,7 @@ public sealed class MetaCliModelTests
     }
 
     [Fact]
-    public void Cli_AddOptionRequiresPrimaryTokenAggregateAndDoesNotPersistPartialRows()
+    public void Cli_AddOptionRequiresFirstTokenAggregateAndDoesNotPersistPartialRows()
     {
         var root = Path.Combine(Path.GetTempPath(), "meta-cli-cli-", Guid.NewGuid().ToString("N"));
         var workspace = Path.Combine(root, "Partial.MetaCli");
@@ -213,7 +276,7 @@ public sealed class MetaCliModelTests
         var workspace = Path.Combine(root, "Duplicate.MetaCli");
         try
         {
-            AssertCommandSucceeds($"--new-workspace \"{workspace}\"");
+            AssertCommandSucceeds($"new-workspace \"{workspace}\"");
             AssertCommandSucceeds("add-application --id app-demo --name demo", workspace);
 
             var duplicate = RunCli("add-application --id app-demo --name demo2", workspace);
@@ -245,20 +308,17 @@ public sealed class MetaCliModelTests
         model.ValueArityList.Add(arity);
         var shape = new ValueShape { Id = "shape", Name = "Text", ValueArity = arity };
         model.ValueShapeList.Add(shape);
-        var optionParameter = new Parameter { Id = "param-option", ExecutableCommand = executable, ValueShape = shape, Name = "workspace" };
-        model.ParameterList.Add(optionParameter);
+        var optionParameter = AddParameter(model, executable, "param-option", "workspace", shape);
         var option = new Option { Id = "option", Parameter = optionParameter };
         model.OptionList.Add(option);
-        var token1 = new OptionToken { Id = "token-1", Option = option, Token = "--workspace", IsPrimary = "true" };
+        var token1 = new OptionToken { Id = "token-1", Option = option, Token = "--workspace" };
         var token2 = new OptionToken { Id = "token-2", Option = option, Token = "-w", PreviousToken = token1 };
         var token3 = new OptionToken { Id = "token-3", Option = option, Token = "--workspace-alias", PreviousToken = token1 };
         model.OptionTokenList.Add(token1);
         model.OptionTokenList.Add(token2);
         model.OptionTokenList.Add(token3);
-        var positionalParameter1 = new Parameter { Id = "param-entity", ExecutableCommand = executable, ValueShape = shape, Name = "Entity" };
-        var positionalParameter2 = new Parameter { Id = "param-property", ExecutableCommand = executable, ValueShape = shape, Name = "Property", IsRequired = "true" };
-        model.ParameterList.Add(positionalParameter1);
-        model.ParameterList.Add(positionalParameter2);
+        var positionalParameter1 = AddParameter(model, executable, "param-entity", "Entity", shape);
+        var positionalParameter2 = AddParameter(model, executable, "param-property", "Property", shape, required: true);
         var positional1 = new PositionalArgument { Id = "pos-entity", Parameter = positionalParameter1 };
         var positional2 = new PositionalArgument { Id = "pos-property", Parameter = positionalParameter2, PreviousArgument = positional1 };
         model.PositionalArgumentList.Add(positional1);
@@ -266,122 +326,52 @@ public sealed class MetaCliModelTests
         var duplicateOption = new Option { Id = "option-duplicate", Parameter = optionParameter };
         model.OptionList.Add(duplicateOption);
         model.ParameterGroupList.Add(new ParameterGroup { Id = "group-empty", ExecutableCommand = executable, Name = "Empty", IsRequired = "true" });
+        model.ParameterList.Add(new Parameter { Id = "param-unscoped", ValueShape = shape, Name = "orphan" });
 
         var integrity = service.ValidateIntegrity(model);
 
         Assert.True(integrity.HasErrors);
         Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI040");
+        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI051");
         Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI055");
         Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI064" && issue.Message.Contains("forks", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI072");
         Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI085");
     }
 
-    [Fact]
-    public void Validation_CatchesParserPolicyOutputAndExitCodeSafeguards()
-    {
-        var service = new MetaCliWorkspaceService();
-        var model = service.CreateEmpty();
-        var app = new Application { Id = "app", Name = "demo" };
-        var otherApp = new Application { Id = "other-app", Name = "other" };
-        model.ApplicationList.Add(app);
-        model.ApplicationList.Add(otherApp);
-        var command = new Command { Id = "cmd", Application = app, Name = "run", Token = "run" };
-        var otherCommand = new Command { Id = "other-cmd", Application = otherApp, Name = "run", Token = "run" };
-        model.CommandList.Add(command);
-        model.CommandList.Add(otherCommand);
-        var executable = new ExecutableCommand { Id = "exec", Command = command };
-        var otherExecutable = new ExecutableCommand { Id = "other-exec", Command = otherCommand };
-        model.ExecutableCommandList.Add(executable);
-        model.ExecutableCommandList.Add(otherExecutable);
-
-        var duplicateBehavior = new DuplicateOptionBehavior { Id = "duplicate-error", Name = "Error" };
-        var duplicateBehavior2 = new DuplicateOptionBehavior { Id = "duplicate-error-2", Name = "Error" };
-        model.DuplicateOptionBehaviorList.Add(duplicateBehavior);
-        model.DuplicateOptionBehaviorList.Add(duplicateBehavior2);
-        var unknownBehavior = new UnknownTokenBehavior { Id = "unknown-error", Name = "Error" };
-        var unknownBehavior2 = new UnknownTokenBehavior { Id = "unknown-error-2", Name = "Error" };
-        model.UnknownTokenBehaviorList.Add(unknownBehavior);
-        model.UnknownTokenBehaviorList.Add(unknownBehavior2);
-
-        model.ParserPolicyList.Add(new ParserPolicy
-        {
-            Id = "parser-1",
-            Application = app,
-            Name = "Default",
-            AllowsEqualsValueSyntax = "maybe",
-            DuplicateOptionBehavior = duplicateBehavior,
-            UnknownTokenBehavior = unknownBehavior,
-        });
-        model.ParserPolicyList.Add(new ParserPolicy { Id = "parser-2", Application = app, Name = "Other" });
-        model.ParserPolicyList.Add(new ParserPolicy
-        {
-            Id = "parser-3",
-            Application = new Application { Id = "ghost-app", Name = "ghost" },
-            Name = "Ghost",
-            DuplicateOptionBehavior = new DuplicateOptionBehavior { Id = "ghost-duplicate", Name = "Ghost" },
-            UnknownTokenBehavior = new UnknownTokenBehavior { Id = "ghost-unknown", Name = "Ghost" },
-        });
-
-        var format = new OutputFormat { Id = "format-text", Name = "Text", ContentType = " " };
-        var format2 = new OutputFormat { Id = "format-text-2", Name = "Text" };
-        model.OutputFormatList.Add(format);
-        model.OutputFormatList.Add(format2);
-        var stream = new OutputStream { Id = "stream-stdout", Name = "Stdout" };
-        var stream2 = new OutputStream { Id = "stream-stdout-2", Name = "Stdout" };
-        model.OutputStreamList.Add(stream);
-        model.OutputStreamList.Add(stream2);
-        model.OutputList.Add(new Output { Id = "output-1", ExecutableCommand = executable, Name = "Summary", OutputFormat = format, OutputStream = stream });
-        model.OutputList.Add(new Output { Id = "output-2", ExecutableCommand = executable, Name = "Summary" });
-        model.OutputList.Add(new Output
-        {
-            Id = "output-3",
-            ExecutableCommand = new ExecutableCommand { Id = "ghost-exec", Command = command },
-            Name = "Ghost",
-            OutputFormat = new OutputFormat { Id = "ghost-format", Name = "Ghost" },
-            OutputStream = new OutputStream { Id = "ghost-stream", Name = "Ghost" },
-        });
-
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-usage", Application = app, Code = "2", Name = "Usage" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-usage-2", Application = app, Code = "2", Name = "UsageAgain" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-ok", Application = app, ExecutableCommand = executable, Code = "0", Name = "Ok" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-ok-2", Application = app, ExecutableCommand = executable, Code = "0", Name = "OkAgain" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-wrong-app", Application = app, ExecutableCommand = otherExecutable, Code = "3", Name = "WrongApp" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-ghost-exec", Application = app, ExecutableCommand = new ExecutableCommand { Id = "ghost-exec", Command = command }, Code = "5", Name = "GhostExec" });
-        model.ExitCodeList.Add(new ExitCode { Id = "exit-ghost-app", Application = new Application { Id = "ghost-app", Name = "ghost" }, Code = "4", Name = "GhostApp" });
-
-        var integrity = service.ValidateIntegrity(model);
-
-        Assert.True(integrity.HasErrors);
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI100");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI110");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI120");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI121");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI122");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI123");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI124");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI130");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI131");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI140");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI150");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI151");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI152");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI153");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI160");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI161");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI162");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI163");
-        Assert.Contains(integrity.Issues, issue => issue.Code == "MCLI164");
-    }
-
     private static void CreateMinimalExecutableCommand(string workspace)
     {
-        AssertCommandSucceeds($"--new-workspace \"{workspace}\"");
+        AssertCommandSucceeds($"new-workspace \"{workspace}\"");
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application --id app-demo --name demo", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-one --name One --min-value-count 1 --max-value-count 1", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-path --name Path --value-arity arity-one --value-label \"<path>\" --allows-option-like-value true", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-show --application app-demo --name show --token show", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-show --command cmd-show", workspace);
+    }
+
+    private static Parameter AddParameter(
+        MetaCliModel model,
+        ExecutableCommand executable,
+        string id,
+        string name,
+        ValueShape shape,
+        bool required = false)
+    {
+        var parameter = new Parameter
+        {
+            Id = id,
+            ValueShape = shape,
+            Name = name,
+            IsRequired = required ? "true" : null,
+        };
+        model.ParameterList.Add(parameter);
+        model.ExecutableCommandParameterList.Add(new ExecutableCommandParameter
+        {
+            Id = executable.Id + ":parameter:" + parameter.Id,
+            ExecutableCommand = executable,
+            Parameter = parameter,
+        });
+        return parameter;
     }
 
     private static void AssertCommandSucceeds(string arguments, string? workingDirectory = null)

@@ -22,7 +22,7 @@ using Meta.Core.Serialization;
 
 namespace MetaDocs
 {
-    public sealed partial class MetaDocsModel
+    public sealed partial class MetaDocsModel : IMetaWorkspaceModel<MetaDocsModel>
     {
         public static MetaDocsModel CreateEmpty() => new();
 

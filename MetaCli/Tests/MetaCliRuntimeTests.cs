@@ -5,140 +5,339 @@ namespace MetaCli.Tests;
 public sealed class MetaCliRuntimeTests
 {
     [Fact]
-    public void Runtime_DispatchesModeledCommandAndBindsArguments()
+    public void Runtime_LoadsCommandSurfaceAndDomainWorkspaceForWorkspaceHandler()
     {
-        var model = CreateRuntimeModel();
-        MetaCliInvocation? captured = null;
-        var runtime = new MetaCliRuntimeBuilder(model)
-            .Bind("exec-add-property", invocation =>
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var error = new StringWriter();
+        var exitCode = -1;
+        MetaCliModel? handlerModel = null;
+        MetaCliInvocation? invocation = null;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-property", (MetaCliInvocation command, MetaCliModel domainModel) =>
             {
-                captured = invocation;
-                return 0;
-            })
-            .Build();
+                invocation = command;
+                handlerModel = domainModel;
+            });
 
-        var result = runtime.Run("model", "add-property", "--workspace=Demo.Meta", "Customer", "Name");
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
 
-        Assert.True(result.Succeeded, result.Message);
-        Assert.Same(captured, result.Invocation);
-        Assert.NotNull(captured);
-        Assert.Equal("model add-property", captured.CommandRoute);
-        Assert.Equal("Demo.Meta", captured.Required("workspace"));
-        Assert.Equal("Customer", captured.Required("Entity"));
-        Assert.Equal("Name", captured.Required("Property"));
-        Assert.True(captured.IsPresent("param-workspace"));
+        Assert.Equal(0, exitCode);
+        Assert.Equal(string.Empty, error.ToString());
+        Assert.NotNull(handlerModel);
+        Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
+        Assert.NotNull(invocation);
+        Assert.Equal("model add-property", invocation.CommandRoute);
+        Assert.Equal("Customer", invocation.Required("Entity"));
+        Assert.Equal("Name", invocation.Required("Property"));
     }
 
     [Fact]
-    public void Runtime_DispatchesDefaultCommand()
+    public void Runtime_DefaultsDomainWorkspaceToCurrentDirectory()
     {
-        var model = CreateRuntimeModel();
-        MetaCliInvocation? captured = null;
-        var runtime = new MetaCliRuntimeBuilder(model)
-            .Bind("exec-root", invocation =>
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        temp.SaveDomainModel(".");
+        var exitCode = -1;
+        MetaCliModel? handlerModel = null;
+        var previousCurrentDirectory = Directory.GetCurrentDirectory();
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-property", (MetaCliInvocation _, MetaCliModel domainModel) => handlerModel = domainModel);
+
+        try
+        {
+            Directory.SetCurrentDirectory(temp.Path);
+            runtime.Run("model", "add-property", "Customer", "Name");
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(previousCurrentDirectory);
+        }
+
+        Assert.Equal(0, exitCode);
+        Assert.NotNull(handlerModel);
+        Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
+    }
+
+    [Fact]
+    public void Runtime_CanDispatchCommandWithoutDomainWorkspace()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var exitCode = -1;
+        MetaCliInvocation? invocation = null;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .Bind("exec-help", command => invocation = command);
+
+        runtime.Run();
+
+        Assert.Equal(0, exitCode);
+        Assert.NotNull(invocation);
+        Assert.Equal("help", invocation.CommandRoute);
+    }
+
+    [Fact]
+    public void Runtime_ParsesAuthoredMetaCliWorkspace()
+    {
+        using var temp = TempDirectory.Create();
+        var workspace = Path.Combine(FindRepositoryRoot(), "MetaCli", "Cli", "meta-cli.MetaCli");
+        var domainWorkspace = temp.SaveDomainModel("Demo.MetaCli");
+        var error = new StringWriter();
+        var exitCode = -1;
+        MetaCliModel? handlerModel = null;
+        MetaCliInvocation? invocation = null;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                workspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-option", (MetaCliInvocation command, MetaCliModel domainModel) =>
             {
-                captured = invocation;
-                return 0;
-            })
-            .Build();
+                invocation = command;
+                handlerModel = domainModel;
+            });
 
-        var result = runtime.Run("--new-workspace", "Demo.MetaCli");
+        runtime.Run(
+            "add-option",
+            "--workspace",
+            domainWorkspace,
+            "--parameter-id",
+            "param-workspace",
+            "--option-id",
+            "option-workspace",
+            "--executable-command",
+            "exec-show",
+            "--name",
+            "workspace",
+            "--value-shape",
+            "shape-path",
+            "--token-id",
+            "token-workspace",
+            "--token",
+            "--workspace",
+            "--required",
+            "true");
 
-        Assert.True(result.Succeeded, result.Message);
-        Assert.NotNull(captured);
-        Assert.Equal("root", captured.CommandRoute);
-        Assert.Equal("Demo.MetaCli", captured.Required("new-workspace"));
+        Assert.Equal(0, exitCode);
+        Assert.Equal(string.Empty, error.ToString());
+        Assert.NotNull(handlerModel);
+        Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
+        Assert.NotNull(invocation);
+        Assert.Equal("add-option", invocation.CommandRoute);
+        Assert.Equal("exec-add-option", invocation.ExecutableCommand.Id);
+        Assert.Equal(domainWorkspace, invocation.Required("workspace"));
+        Assert.Equal("--workspace", invocation.Required("token"));
+        Assert.Equal("true", invocation.Required("required"));
     }
 
     [Fact]
-    public void Runtime_FailsWhenRunnableCommandHasNoImplementation()
+    public void Runtime_WritesParseFailureAndExitCode()
     {
-        var model = CreateRuntimeModel();
-        var runtime = new MetaCliRuntimeBuilder(model).Build();
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var error = new StringWriter();
+        var exitCode = -1;
 
-        var result = runtime.Run("model", "add-property", "--workspace", "Demo.Meta", "Customer", "Name");
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+            commandWorkspace,
+            error: error,
+            setExitCode: code => exitCode = code);
 
-        Assert.Equal(3, result.ExitCode);
-        Assert.Contains("Command 'model add-property' has no registered implementation", result.Message);
-        Assert.Contains("exec-add-property", result.Message);
-        Assert.NotNull(result.Invocation);
+        runtime.Run("banana");
+
+        Assert.Equal(2, exitCode);
+        Assert.Contains("Command 'banana' is not modeled", error.ToString());
     }
 
     [Fact]
-    public void Runtime_RejectsUnknownOption()
+    public void Runtime_WritesMissingHandlerFailureAndExitCode()
     {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var error = new StringWriter();
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+            commandWorkspace,
+            error: error,
+            setExitCode: code => exitCode = code);
+
+        runtime.Run("model", "add-property", "Customer", "Name");
+
+        Assert.Equal(4, exitCode);
+        Assert.Contains("Command 'model add-property' is modeled but has no implementation.", error.ToString());
+    }
+
+    [Fact]
+    public void Runtime_WritesWorkspaceLoadFailureAndExitCode()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var error = new StringWriter();
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-property", static (_, _) => { });
+
+        runtime.Run("model", "add-property", "--workspace", Path.Combine(temp.Path, "Missing.MetaCli"), "Customer", "Name");
+
+        Assert.Equal(4, exitCode);
+        Assert.Contains("Command 'model add-property' failed.", error.ToString());
+        Assert.Contains("Workspace", error.ToString());
+    }
+
+    [Fact]
+    public void Runtime_WritesCommandSurfaceLoadFailureAndExitCode()
+    {
+        using var temp = TempDirectory.Create();
+        var error = new StringWriter();
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+            Path.Combine(temp.Path, "Missing.MetaCli"),
+            error: error,
+            setExitCode: code => exitCode = code);
+
+        runtime.Run("help");
+
+        Assert.Equal(4, exitCode);
+        Assert.Contains("Cannot load command surface workspace", error.ToString());
+    }
+
+    [Fact]
+    public void Runtime_WritesCommonCommandAndArgumentFailures()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+
+        AssertRunFails(commandWorkspace, 2, "Command 'model' is not runnable.", "model");
+        AssertRunFails(commandWorkspace, 2, "Option '--workspace' was provided more than once.", "model", "add-property", "--workspace", "Demo.Meta", "--workspace", "Other.Meta", "Customer", "Name");
+        AssertRunFails(commandWorkspace, 2, "Option '--workspace' requires a value.", "model", "add-property", "--workspace");
+        AssertRunFails(commandWorkspace, 2, "Option '--workspace' cannot appear after positional arguments.", "model", "add-property", "Customer", "--workspace", "Demo.Meta", "Name");
+        AssertRunFails(commandWorkspace, 2, "Unexpected argument 'Two.MetaCli'.", "new-workspace", "One.MetaCli", "Two.MetaCli");
+    }
+
+    [Fact]
+    public void Runtime_WritesMissingDefaultCommandFailure()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel(includeDefaultCommand: false));
+
+        AssertRunFails(commandWorkspace, 2, "No command was provided.");
+    }
+
+    [Fact]
+    public void Runtime_SelectsApplicationWhenModelContainsSeveral()
+    {
+        using var temp = TempDirectory.Create();
         var model = CreateRuntimeModel();
-        var runtime = new MetaCliRuntimeBuilder(model)
-            .Bind("exec-add-property", static _ => 0)
-            .Build();
+        model.ApplicationList.Add(new Application { Id = "app-other", Name = "other", ExecutableName = "other" });
+        var commandWorkspace = temp.SaveCommandSurface(model);
 
-        var result = runtime.Run("model", "add-property", "--banana", "Demo.Meta", "Customer", "Name");
+        AssertRunFails(commandWorkspace, 2, "The MetaCli model has more than one application; select one before running.", "help");
 
-        Assert.Equal(2, result.ExitCode);
-        Assert.Contains("Option '--banana' is not recognized.", result.Message);
+        var selectedExitCode = -1;
+        MetaCliInvocation? selectedInvocation = null;
+        var selected = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                applicationId: "app-demo",
+                error: new StringWriter(),
+                setExitCode: code => selectedExitCode = code)
+            .Bind("exec-help", command => selectedInvocation = command);
+
+        selected.Run("help");
+
+        Assert.Equal(0, selectedExitCode);
+        Assert.NotNull(selectedInvocation);
+        Assert.Equal("app-demo", selectedInvocation.Application.Id);
+        Assert.Equal("help", selectedInvocation.CommandRoute);
+
+        AssertRunFailsForApplication(commandWorkspace, 2, "Application 'missing-app' does not exist.", applicationId: "missing-app", arguments: new[] { "help" });
     }
 
     [Fact]
     public void Runtime_EnforcesRequiredParameterGroup()
     {
-        var model = CreateRuntimeModel();
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var exitCode = -1;
         var callCount = 0;
-        var runtime = new MetaCliRuntimeBuilder(model)
-            .Bind("exec-add-entity", _ =>
-            {
-                callCount++;
-                return 0;
-            })
-            .Build();
 
-        var missing = runtime.Run("model", "add-entity");
-        var provided = runtime.Run("model", "add-entity", "--auto-id");
-        var multiple = runtime.Run("model", "add-entity", "Customer", "--auto-id");
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-entity", (MetaCliInvocation _, MetaCliModel _) => callCount++);
 
-        Assert.Equal(2, missing.ExitCode);
-        Assert.Contains("Parameter group 'IdChoice' requires one of: Id, auto-id.", missing.Message);
-        Assert.True(provided.Succeeded, provided.Message);
-        Assert.Equal(2, multiple.ExitCode);
-        Assert.Contains("Parameter group 'IdChoice' accepts only one member.", multiple.Message);
+        runtime.Run("model", "add-entity", "--workspace", domainWorkspace, "--auto-id");
+
+        Assert.Equal(0, exitCode);
         Assert.Equal(1, callCount);
+        AssertRunFails(commandWorkspace, 2, "Parameter group 'IdChoice' requires one of: Id, auto-id.", "model", "add-entity");
+        AssertRunFails(commandWorkspace, 2, "Parameter group 'IdChoice' accepts only one member.", "model", "add-entity", "--auto-id", "Customer");
     }
 
     [Fact]
     public void Runtime_EnforcesAllowedValues()
     {
-        var model = CreateRuntimeModel();
-        var runtime = new MetaCliRuntimeBuilder(model)
-            .Bind("exec-add-property", static _ => 0)
-            .Build();
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
 
-        var result = runtime.Run("model", "add-property", "--workspace", "Demo.Meta", "--visibility", "private", "Customer", "Name");
-
-        Assert.Equal(2, result.ExitCode);
-        Assert.Contains("Parameter 'visibility' does not allow value 'private'.", result.Message);
+        AssertRunFails(commandWorkspace, 2, "Parameter 'visibility' does not allow value 'private'.", "model", "add-property", "--workspace", "Demo.Meta", "--visibility", "private", "Customer", "Name");
     }
 
-    private static MetaCliModel CreateRuntimeModel()
+    private static void AssertRunFails(
+        string commandWorkspace,
+        int expectedExitCode,
+        string expectedMessage,
+        params string[] arguments)
+    {
+        AssertRunFailsForApplication(commandWorkspace, expectedExitCode, expectedMessage, applicationId: null, arguments);
+    }
+
+    private static void AssertRunFailsForApplication(
+        string commandWorkspace,
+        int expectedExitCode,
+        string expectedMessage,
+        string? applicationId,
+        IReadOnlyList<string> arguments)
+    {
+        var error = new StringWriter();
+        var exitCode = -1;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+            commandWorkspace,
+            applicationId: applicationId,
+            error: error,
+            setExitCode: code => exitCode = code);
+
+        runtime.Run(arguments);
+
+        Assert.Equal(expectedExitCode, exitCode);
+        Assert.Contains(expectedMessage, error.ToString());
+    }
+
+    private static MetaCliModel CreateRuntimeModel(bool includeDefaultCommand = true)
     {
         var model = MetaCliModel.CreateEmpty();
         var app = new Application { Id = "app-demo", Name = "demo", ExecutableName = "demo" };
         model.ApplicationList.Add(app);
-
-        var duplicateBehavior = new DuplicateOptionBehavior { Id = "duplicate-error", Name = "Error" };
-        var unknownBehavior = new UnknownTokenBehavior { Id = "unknown-error", Name = "Error" };
-        model.DuplicateOptionBehaviorList.Add(duplicateBehavior);
-        model.UnknownTokenBehaviorList.Add(unknownBehavior);
-        model.ParserPolicyList.Add(new ParserPolicy
-        {
-            Id = "parser-default",
-            Application = app,
-            Name = "Default",
-            StopParsingToken = "--",
-            AllowsEqualsValueSyntax = "true",
-            AllowsOptionsAfterPositionals = "true",
-            AllowsShortOptionClusters = "false",
-            DuplicateOptionBehavior = duplicateBehavior,
-            UnknownTokenBehavior = unknownBehavior,
-        });
 
         var none = new ValueArity { Id = "arity-none", Name = "None", MinValueCount = "0", MaxValueCount = "0" };
         var one = new ValueArity { Id = "arity-one", Name = "One", MinValueCount = "1", MaxValueCount = "1" };
@@ -152,21 +351,28 @@ public sealed class MetaCliRuntimeTests
         model.ValueShapeList.Add(text);
         model.ValueShapeList.Add(path);
         model.ValueShapeList.Add(visibility);
-        var publicValue = new AllowedValue { Id = "visibility-public", ValueShape = visibility, Value = "public" };
-        var internalValue = new AllowedValue { Id = "visibility-internal", ValueShape = visibility, Value = "internal", PreviousValue = publicValue };
-        model.AllowedValueList.Add(publicValue);
-        model.AllowedValueList.Add(internalValue);
+        model.AllowedValueList.Add(new AllowedValue { Id = "visibility-public", ValueShape = visibility, Value = "public" });
+        model.AllowedValueList.Add(new AllowedValue { Id = "visibility-internal", ValueShape = visibility, Value = "internal" });
 
-        var rootCommand = AddCommand(model, app, "cmd-root", "root", null, null);
-        var rootExecutable = AddExecutable(model, "exec-root", rootCommand);
-        model.ApplicationDefaultCommandList.Add(new ApplicationDefaultCommand { Id = "app-demo:default", Application = app, ExecutableCommand = rootExecutable });
-        AddOption(model, rootExecutable, "param-new-workspace", "option-new-workspace", "token-new-workspace", "new-workspace", path, "--new-workspace");
+        AddApplicationOption(model, app, "param-workspace", "option-workspace", "token-workspace", "workspace", path, "--workspace");
+        AddOptionAlias(model, "option-workspace", "token-workspace-short", "-w", "token-workspace");
+
+        var helpCommand = AddCommand(model, app, "cmd-help", "help", "help", null);
+        var helpExecutable = AddExecutable(model, "exec-help", helpCommand);
+        if (includeDefaultCommand)
+        {
+            model.ApplicationDefaultCommandList.Add(new ApplicationDefaultCommand { Id = "app-demo:default", Application = app, ExecutableCommand = helpExecutable });
+        }
+
+        var newWorkspaceCommand = AddCommand(model, app, "cmd-new-workspace", "new-workspace", "new-workspace", null);
+        var newWorkspaceExecutable = AddExecutable(model, "exec-new-workspace", newWorkspaceCommand);
+        var newWorkspacePath = AddParameter(model, newWorkspaceExecutable, "param-new-workspace", "Path", path, required: true);
+        model.PositionalArgumentList.Add(new PositionalArgument { Id = "pos-new-workspace", Parameter = newWorkspacePath });
 
         var modelCommand = AddCommand(model, app, "cmd-model", "model", "model", null);
         var addPropertyCommand = AddCommand(model, app, "cmd-add-property", "add-property", "add-property", modelCommand);
         var addPropertyExecutable = AddExecutable(model, "exec-add-property", addPropertyCommand);
-        AddOption(model, addPropertyExecutable, "param-workspace", "option-workspace", "token-workspace", "workspace", path, "--workspace", required: true);
-        AddOption(model, addPropertyExecutable, "param-visibility", "option-visibility", "token-visibility", "visibility", visibility, "--visibility");
+        AddOption(model, addPropertyExecutable, "param-visibility", "option-visibility", "token-visibility", "visibility", visibility, "--visibility", defaultValue: "public");
         var entityParameter = AddParameter(model, addPropertyExecutable, "param-entity", "Entity", text, required: true);
         var propertyParameter = AddParameter(model, addPropertyExecutable, "param-property", "Property", text, required: true);
         var entityArgument = new PositionalArgument { Id = "pos-entity", Parameter = entityParameter };
@@ -214,6 +420,27 @@ public sealed class MetaCliRuntimeTests
         return executable;
     }
 
+    private static Parameter AddApplicationOption(
+        MetaCliModel model,
+        Application application,
+        string parameterId,
+        string optionId,
+        string tokenId,
+        string name,
+        ValueShape valueShape,
+        string token)
+    {
+        var parameter = AddParameterRow(model, parameterId, name, valueShape, required: false);
+        model.ApplicationParameterList.Add(new ApplicationParameter
+        {
+            Id = application.Id + ":parameter:" + parameter.Id,
+            Application = application,
+            Parameter = parameter,
+        });
+        AddOptionRow(model, parameter, optionId, tokenId, token);
+        return parameter;
+    }
+
     private static Parameter AddOption(
         MetaCliModel model,
         ExecutableCommand executableCommand,
@@ -223,12 +450,11 @@ public sealed class MetaCliRuntimeTests
         string name,
         ValueShape valueShape,
         string token,
-        bool required = false)
+        bool required = false,
+        string? defaultValue = null)
     {
-        var parameter = AddParameter(model, executableCommand, parameterId, name, valueShape, required);
-        var option = new Option { Id = optionId, Parameter = parameter };
-        model.OptionList.Add(option);
-        model.OptionTokenList.Add(new OptionToken { Id = tokenId, Option = option, Token = token, IsPrimary = "true" });
+        var parameter = AddParameter(model, executableCommand, parameterId, name, valueShape, required, defaultValue);
+        AddOptionRow(model, parameter, optionId, tokenId, token);
         return parameter;
     }
 
@@ -238,17 +464,128 @@ public sealed class MetaCliRuntimeTests
         string id,
         string name,
         ValueShape valueShape,
-        bool required = false)
+        bool required = false,
+        string? defaultValue = null)
+    {
+        var parameter = AddParameterRow(model, id, name, valueShape, required, defaultValue);
+        model.ExecutableCommandParameterList.Add(new ExecutableCommandParameter
+        {
+            Id = executableCommand.Id + ":parameter:" + parameter.Id,
+            ExecutableCommand = executableCommand,
+            Parameter = parameter,
+        });
+        return parameter;
+    }
+
+    private static Parameter AddParameterRow(
+        MetaCliModel model,
+        string id,
+        string name,
+        ValueShape valueShape,
+        bool required,
+        string? defaultValue = null)
     {
         var parameter = new Parameter
         {
             Id = id,
-            ExecutableCommand = executableCommand,
             ValueShape = valueShape,
             Name = name,
             IsRequired = required ? "true" : null,
+            DefaultValue = defaultValue,
         };
         model.ParameterList.Add(parameter);
         return parameter;
+    }
+
+    private static void AddOptionRow(
+        MetaCliModel model,
+        Parameter parameter,
+        string optionId,
+        string tokenId,
+        string token)
+    {
+        var option = new Option { Id = optionId, Parameter = parameter };
+        model.OptionList.Add(option);
+        model.OptionTokenList.Add(new OptionToken { Id = tokenId, Option = option, Token = token });
+    }
+
+    private static void AddOptionAlias(
+        MetaCliModel model,
+        string optionId,
+        string tokenId,
+        string token,
+        string previousTokenId)
+    {
+        var option = model.OptionList.Single(item => item.Id == optionId);
+        var previousToken = model.OptionTokenList.Single(item => item.Id == previousTokenId);
+        model.OptionTokenList.Add(new OptionToken
+        {
+            Id = tokenId,
+            Option = option,
+            Token = token,
+            PreviousToken = previousToken,
+        });
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = AppContext.BaseDirectory;
+        while (!string.IsNullOrWhiteSpace(directory))
+        {
+            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            {
+                return directory;
+            }
+
+            directory = Directory.GetParent(directory)?.FullName;
+        }
+
+        throw new InvalidOperationException("Could not locate repository root from test base directory.");
+    }
+
+    private sealed class TempDirectory : IDisposable
+    {
+        private TempDirectory(string path)
+        {
+            Path = path;
+        }
+
+        public string Path { get; }
+
+        public static TempDirectory Create()
+        {
+            var path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "MetaCli.Tests", Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(path);
+            return new TempDirectory(path);
+        }
+
+        public string SaveCommandSurface(MetaCliModel model)
+        {
+            var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
+            model.SaveToXmlWorkspace(workspace);
+            return workspace;
+        }
+
+        public string SaveDomainModel(string relativePath)
+        {
+            var workspace = System.IO.Path.GetFullPath(System.IO.Path.Combine(Path, relativePath));
+            var model = MetaCliModel.CreateEmpty();
+            model.ApplicationList.Add(new Application
+            {
+                Id = "app-domain",
+                Name = "domain",
+                ExecutableName = "domain",
+            });
+            model.SaveToXmlWorkspace(workspace);
+            return workspace;
+        }
+
+        public void Dispose()
+        {
+            if (Directory.Exists(Path))
+            {
+                Directory.Delete(Path, recursive: true);
+            }
+        }
     }
 }

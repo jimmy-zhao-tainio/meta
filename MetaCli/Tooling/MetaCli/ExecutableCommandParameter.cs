@@ -11,19 +11,13 @@
 
 namespace MetaCli
 {
-    public sealed class ExitCode
+    public sealed class ExecutableCommandParameter
     {
         public string Id { get; set; } = string.Empty;
 
-        public string Code { get; set; } = string.Empty;
+        public ExecutableCommand ExecutableCommand { get; set; } = null!;
 
-        public string? Description { get; set; }
-
-        public string Name { get; set; } = string.Empty;
-
-        public Application Application { get; set; } = null!;
-
-        public ExecutableCommand? ExecutableCommand { get; set; }
+        public Parameter Parameter { get; set; } = null!;
 
     }
 }

@@ -25,8 +25,6 @@ namespace MetaCli
 
         public string Name { get; set; } = string.Empty;
 
-        public ExecutableCommand ExecutableCommand { get; set; } = null!;
-
         public ValueShape ValueShape { get; set; } = null!;
 
     }

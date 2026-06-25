@@ -22,7 +22,7 @@ using Meta.Core.Serialization;
 
 namespace MetaCli
 {
-    public sealed partial class MetaCliModel
+    public sealed partial class MetaCliModel : IMetaWorkspaceModel<MetaCliModel>
     {
         public static MetaCliModel CreateEmpty() => new();
 
@@ -32,23 +32,17 @@ namespace MetaCli
 
         public List<ApplicationDefaultCommand> ApplicationDefaultCommandList { get; set; } = new();
 
-        public List<Command> CommandList { get; set; } = new();
+        public List<ApplicationParameter> ApplicationParameterList { get; set; } = new();
 
-        public List<DuplicateOptionBehavior> DuplicateOptionBehaviorList { get; set; } = new();
+        public List<Command> CommandList { get; set; } = new();
 
         public List<ExecutableCommand> ExecutableCommandList { get; set; } = new();
 
-        public List<ExitCode> ExitCodeList { get; set; } = new();
+        public List<ExecutableCommandParameter> ExecutableCommandParameterList { get; set; } = new();
 
         public List<Option> OptionList { get; set; } = new();
 
         public List<OptionToken> OptionTokenList { get; set; } = new();
-
-        public List<Output> OutputList { get; set; } = new();
-
-        public List<OutputFormat> OutputFormatList { get; set; } = new();
-
-        public List<OutputStream> OutputStreamList { get; set; } = new();
 
         public List<Parameter> ParameterList { get; set; } = new();
 
@@ -56,11 +50,7 @@ namespace MetaCli
 
         public List<ParameterGroupMember> ParameterGroupMemberList { get; set; } = new();
 
-        public List<ParserPolicy> ParserPolicyList { get; set; } = new();
-
         public List<PositionalArgument> PositionalArgumentList { get; set; } = new();
-
-        public List<UnknownTokenBehavior> UnknownTokenBehaviorList { get; set; } = new();
 
         public List<ValueArity> ValueArityList { get; set; } = new();
 
@@ -203,6 +193,17 @@ namespace MetaCli
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(applicationDefaultCommandShardPath, SerializeApplicationDefaultCommandShard(model, saveIndexes));
             }
 
+            model.ApplicationParameterList ??= new List<ApplicationParameter>();
+            var applicationParameterShardPath = Path.Combine(instanceDirectoryPath, "ApplicationParameter.xml");
+            if (model.ApplicationParameterList.Count == 0)
+            {
+                DeleteIfExists(applicationParameterShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(applicationParameterShardPath, SerializeApplicationParameterShard(model, saveIndexes));
+            }
+
             model.CommandList ??= new List<Command>();
             var commandShardPath = Path.Combine(instanceDirectoryPath, "Command.xml");
             if (model.CommandList.Count == 0)
@@ -212,17 +213,6 @@ namespace MetaCli
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(commandShardPath, SerializeCommandShard(model, saveIndexes));
-            }
-
-            model.DuplicateOptionBehaviorList ??= new List<DuplicateOptionBehavior>();
-            var duplicateOptionBehaviorShardPath = Path.Combine(instanceDirectoryPath, "DuplicateOptionBehavior.xml");
-            if (model.DuplicateOptionBehaviorList.Count == 0)
-            {
-                DeleteIfExists(duplicateOptionBehaviorShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(duplicateOptionBehaviorShardPath, SerializeDuplicateOptionBehaviorShard(model, saveIndexes));
             }
 
             model.ExecutableCommandList ??= new List<ExecutableCommand>();
@@ -236,15 +226,15 @@ namespace MetaCli
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(executableCommandShardPath, SerializeExecutableCommandShard(model, saveIndexes));
             }
 
-            model.ExitCodeList ??= new List<ExitCode>();
-            var exitCodeShardPath = Path.Combine(instanceDirectoryPath, "ExitCode.xml");
-            if (model.ExitCodeList.Count == 0)
+            model.ExecutableCommandParameterList ??= new List<ExecutableCommandParameter>();
+            var executableCommandParameterShardPath = Path.Combine(instanceDirectoryPath, "ExecutableCommandParameter.xml");
+            if (model.ExecutableCommandParameterList.Count == 0)
             {
-                DeleteIfExists(exitCodeShardPath);
+                DeleteIfExists(executableCommandParameterShardPath);
             }
             else
             {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(exitCodeShardPath, SerializeExitCodeShard(model, saveIndexes));
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(executableCommandParameterShardPath, SerializeExecutableCommandParameterShard(model, saveIndexes));
             }
 
             model.OptionList ??= new List<Option>();
@@ -267,39 +257,6 @@ namespace MetaCli
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(optionTokenShardPath, SerializeOptionTokenShard(model, saveIndexes));
-            }
-
-            model.OutputList ??= new List<Output>();
-            var outputShardPath = Path.Combine(instanceDirectoryPath, "Output.xml");
-            if (model.OutputList.Count == 0)
-            {
-                DeleteIfExists(outputShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(outputShardPath, SerializeOutputShard(model, saveIndexes));
-            }
-
-            model.OutputFormatList ??= new List<OutputFormat>();
-            var outputFormatShardPath = Path.Combine(instanceDirectoryPath, "OutputFormat.xml");
-            if (model.OutputFormatList.Count == 0)
-            {
-                DeleteIfExists(outputFormatShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(outputFormatShardPath, SerializeOutputFormatShard(model, saveIndexes));
-            }
-
-            model.OutputStreamList ??= new List<OutputStream>();
-            var outputStreamShardPath = Path.Combine(instanceDirectoryPath, "OutputStream.xml");
-            if (model.OutputStreamList.Count == 0)
-            {
-                DeleteIfExists(outputStreamShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(outputStreamShardPath, SerializeOutputStreamShard(model, saveIndexes));
             }
 
             model.ParameterList ??= new List<Parameter>();
@@ -335,17 +292,6 @@ namespace MetaCli
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(parameterGroupMemberShardPath, SerializeParameterGroupMemberShard(model, saveIndexes));
             }
 
-            model.ParserPolicyList ??= new List<ParserPolicy>();
-            var parserPolicyShardPath = Path.Combine(instanceDirectoryPath, "ParserPolicy.xml");
-            if (model.ParserPolicyList.Count == 0)
-            {
-                DeleteIfExists(parserPolicyShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(parserPolicyShardPath, SerializeParserPolicyShard(model, saveIndexes));
-            }
-
             model.PositionalArgumentList ??= new List<PositionalArgument>();
             var positionalArgumentShardPath = Path.Combine(instanceDirectoryPath, "PositionalArgument.xml");
             if (model.PositionalArgumentList.Count == 0)
@@ -355,17 +301,6 @@ namespace MetaCli
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(positionalArgumentShardPath, SerializePositionalArgumentShard(model, saveIndexes));
-            }
-
-            model.UnknownTokenBehaviorList ??= new List<UnknownTokenBehavior>();
-            var unknownTokenBehaviorShardPath = Path.Combine(instanceDirectoryPath, "UnknownTokenBehavior.xml");
-            if (model.UnknownTokenBehaviorList.Count == 0)
-            {
-                DeleteIfExists(unknownTokenBehaviorShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(unknownTokenBehaviorShardPath, SerializeUnknownTokenBehaviorShard(model, saveIndexes));
             }
 
             model.ValueArityList ??= new List<ValueArity>();
@@ -423,32 +358,23 @@ namespace MetaCli
                     case "ApplicationDefaultCommandList":
                         LoadApplicationDefaultCommandList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "ApplicationParameterList":
+                        LoadApplicationParameterList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "CommandList":
                         LoadCommandList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "DuplicateOptionBehaviorList":
-                        LoadDuplicateOptionBehaviorList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "ExecutableCommandList":
                         LoadExecutableCommandList(model, reader, loadState, relationshipBuffers);
                         break;
-                    case "ExitCodeList":
-                        LoadExitCodeList(model, reader, loadState, relationshipBuffers);
+                    case "ExecutableCommandParameterList":
+                        LoadExecutableCommandParameterList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "OptionList":
                         LoadOptionList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "OptionTokenList":
                         LoadOptionTokenList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "OutputList":
-                        LoadOutputList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "OutputFormatList":
-                        LoadOutputFormatList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "OutputStreamList":
-                        LoadOutputStreamList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "ParameterList":
                         LoadParameterList(model, reader, loadState, relationshipBuffers);
@@ -459,14 +385,8 @@ namespace MetaCli
                     case "ParameterGroupMemberList":
                         LoadParameterGroupMemberList(model, reader, loadState, relationshipBuffers);
                         break;
-                    case "ParserPolicyList":
-                        LoadParserPolicyList(model, reader, loadState, relationshipBuffers);
-                        break;
                     case "PositionalArgumentList":
                         LoadPositionalArgumentList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "UnknownTokenBehaviorList":
-                        LoadUnknownTokenBehaviorList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "ValueArityList":
                         LoadValueArityList(model, reader, loadState, relationshipBuffers);
@@ -522,9 +442,6 @@ namespace MetaCli
                     {
                         case "Id":
                             row.Id = reader.Value;
-                            break;
-                        case "PreviousValueId":
-                            relationships.PreviousValueId = reader.Value;
                             break;
                         case "ValueShapeId":
                             relationships.ValueShapeId = reader.Value;
@@ -582,19 +499,6 @@ namespace MetaCli
                 builder.Append("    <AllowedValue Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
-                if (row.PreviousValue != null)
-                {
-                    var previousValueId = RequireIdentity(row.PreviousValue?.Id, $"Relationship 'AllowedValue.PreviousValueId' on row 'AllowedValue:{row.Id}' is empty.");
-                    if (!saveIndexes.AllowedValueListById.TryGetValue(previousValueId, out var previousValueCanonical) || !ReferenceEquals(previousValueCanonical, row.PreviousValue))
-                    {
-                        throw new InvalidOperationException($"Relationship 'AllowedValue.PreviousValueId' on row 'AllowedValue:{row.Id}' references an object that is not the canonical row for Id '{previousValueId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("PreviousValueId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, previousValueId);
-                    builder.Append('"');
-                }
                 var valueShapeId = RequireIdentity(row.ValueShape?.Id, $"Relationship 'AllowedValue.ValueShapeId' on row 'AllowedValue:{row.Id}' is empty.");
                 if (!saveIndexes.ValueShapeListById.TryGetValue(valueShapeId, out var valueShapeCanonical) || !ReferenceEquals(valueShapeCanonical, row.ValueShape))
                 {
@@ -858,6 +762,128 @@ namespace MetaCli
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
+        private static void LoadApplicationParameterList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("ApplicationParameterList");
+                return;
+            }
+
+            reader.ReadStartElement("ApplicationParameterList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "ApplicationParameter", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ApplicationParameterList'.");
+                }
+                var row = ReadApplicationParameter(reader, relationshipBuffers);
+                loadState.AddApplicationParameterId(row.Id);
+                model.ApplicationParameterList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static ApplicationParameter ReadApplicationParameter(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new ApplicationParameter();
+            var relationships = new ApplicationParameterRelationships { Row = row };
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        case "ApplicationId":
+                            relationships.ApplicationId = reader.Value;
+                            break;
+                        case "ParameterId":
+                            relationships.ParameterId = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ApplicationParameter'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("ApplicationParameter");
+                (relationshipBuffers.ApplicationParameterRelationships ??= new List<ApplicationParameterRelationships>()).Add(relationships);
+                return row;
+            }
+
+            reader.ReadStartElement("ApplicationParameter");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ApplicationParameter'.");
+                }
+            }
+            reader.ReadEndElement();
+            (relationshipBuffers.ApplicationParameterRelationships ??= new List<ApplicationParameterRelationships>()).Add(relationships);
+            return row;
+        }
+
+        private static byte[] SerializeApplicationParameterShard(MetaCliModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaCli>\n");
+            builder.Append("  <ApplicationParameterList>\n");
+            foreach (var row in model.ApplicationParameterList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'ApplicationParameter' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'ApplicationParameter' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <ApplicationParameter Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var applicationId = RequireIdentity(row.Application?.Id, $"Relationship 'ApplicationParameter.ApplicationId' on row 'ApplicationParameter:{row.Id}' is empty.");
+                if (!saveIndexes.ApplicationListById.TryGetValue(applicationId, out var applicationCanonical) || !ReferenceEquals(applicationCanonical, row.Application))
+                {
+                    throw new InvalidOperationException($"Relationship 'ApplicationParameter.ApplicationId' on row 'ApplicationParameter:{row.Id}' references an object that is not the canonical row for Id '{applicationId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("ApplicationId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, applicationId);
+                builder.Append('"');
+                var parameterId = RequireIdentity(row.Parameter?.Id, $"Relationship 'ApplicationParameter.ParameterId' on row 'ApplicationParameter:{row.Id}' is empty.");
+                if (!saveIndexes.ParameterListById.TryGetValue(parameterId, out var parameterCanonical) || !ReferenceEquals(parameterCanonical, row.Parameter))
+                {
+                    throw new InvalidOperationException($"Relationship 'ApplicationParameter.ParameterId' on row 'ApplicationParameter:{row.Id}' references an object that is not the canonical row for Id '{parameterId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("ParameterId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, parameterId);
+                builder.Append('"');
+                builder.Append(">\n");
+                builder.Append("    </ApplicationParameter>\n");
+            }
+            builder.Append("  </ApplicationParameterList>\n");
+            builder.Append("</MetaCli>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
         private static void LoadCommandList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
@@ -1001,110 +1027,6 @@ namespace MetaCli
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadDuplicateOptionBehaviorList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("DuplicateOptionBehaviorList");
-                return;
-            }
-
-            reader.ReadStartElement("DuplicateOptionBehaviorList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "DuplicateOptionBehavior", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DuplicateOptionBehaviorList'.");
-                }
-                var row = ReadDuplicateOptionBehavior(reader, relationshipBuffers);
-                loadState.AddDuplicateOptionBehaviorId(row.Id);
-                model.DuplicateOptionBehaviorList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static DuplicateOptionBehavior ReadDuplicateOptionBehavior(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new DuplicateOptionBehavior();
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DuplicateOptionBehavior'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("DuplicateOptionBehavior");
-                return row;
-            }
-
-            reader.ReadStartElement("DuplicateOptionBehavior");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DuplicateOptionBehavior'.");
-                }
-            }
-            reader.ReadEndElement();
-            return row;
-        }
-
-        private static byte[] SerializeDuplicateOptionBehaviorShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <DuplicateOptionBehaviorList>\n");
-            foreach (var row in model.DuplicateOptionBehaviorList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'DuplicateOptionBehavior' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'DuplicateOptionBehavior' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <DuplicateOptionBehavior Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DuplicateOptionBehavior' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </DuplicateOptionBehavior>\n");
-            }
-            builder.Append("  </DuplicateOptionBehaviorList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
         private static void LoadExecutableCommandList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
@@ -1214,33 +1136,33 @@ namespace MetaCli
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadExitCodeList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        private static void LoadExecutableCommandParameterList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("ExitCodeList");
+                reader.ReadStartElement("ExecutableCommandParameterList");
                 return;
             }
 
-            reader.ReadStartElement("ExitCodeList");
+            reader.ReadStartElement("ExecutableCommandParameterList");
             while (reader.NodeType == XmlNodeType.Element)
             {
-                if (!string.Equals(reader.LocalName, "ExitCode", StringComparison.Ordinal))
+                if (!string.Equals(reader.LocalName, "ExecutableCommandParameter", StringComparison.Ordinal))
                 {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ExitCodeList'.");
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ExecutableCommandParameterList'.");
                 }
-                var row = ReadExitCode(reader, relationshipBuffers);
-                loadState.AddExitCodeId(row.Id);
-                model.ExitCodeList.Add(row);
+                var row = ReadExecutableCommandParameter(reader, relationshipBuffers);
+                loadState.AddExecutableCommandParameterId(row.Id);
+                model.ExecutableCommandParameterList.Add(row);
                 reader.MoveToContent();
             }
             reader.ReadEndElement();
         }
 
-        private static ExitCode ReadExitCode(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        private static ExecutableCommandParameter ReadExecutableCommandParameter(XmlReader reader, RelationshipBuffers relationshipBuffers)
         {
-            var row = new ExitCode();
-            var relationships = new ExitCodeRelationships { Row = row };
+            var row = new ExecutableCommandParameter();
+            var relationships = new ExecutableCommandParameterRelationships { Row = row };
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -1255,14 +1177,14 @@ namespace MetaCli
                         case "Id":
                             row.Id = reader.Value;
                             break;
-                        case "ApplicationId":
-                            relationships.ApplicationId = reader.Value;
-                            break;
                         case "ExecutableCommandId":
                             relationships.ExecutableCommandId = reader.Value;
                             break;
+                        case "ParameterId":
+                            relationships.ParameterId = reader.Value;
+                            break;
                         default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ExitCode'.");
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ExecutableCommandParameter'.");
                     }
                 }
 
@@ -1271,85 +1193,67 @@ namespace MetaCli
 
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("ExitCode");
-                (relationshipBuffers.ExitCodeRelationships ??= new List<ExitCodeRelationships>()).Add(relationships);
+                reader.ReadStartElement("ExecutableCommandParameter");
+                (relationshipBuffers.ExecutableCommandParameterRelationships ??= new List<ExecutableCommandParameterRelationships>()).Add(relationships);
                 return row;
             }
 
-            reader.ReadStartElement("ExitCode");
+            reader.ReadStartElement("ExecutableCommandParameter");
             while (reader.NodeType == XmlNodeType.Element)
             {
                 switch (reader.LocalName)
                 {
-                    case "Code":
-                        row.Code = reader.ReadElementContentAsString();
-                        break;
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
                     default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ExitCode'.");
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ExecutableCommandParameter'.");
                 }
             }
             reader.ReadEndElement();
-            (relationshipBuffers.ExitCodeRelationships ??= new List<ExitCodeRelationships>()).Add(relationships);
+            (relationshipBuffers.ExecutableCommandParameterRelationships ??= new List<ExecutableCommandParameterRelationships>()).Add(relationships);
             return row;
         }
 
-        private static byte[] SerializeExitCodeShard(MetaCliModel model, SaveIndexes saveIndexes)
+        private static byte[] SerializeExecutableCommandParameterShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
             var rowIds = new HashSet<string>(StringComparer.Ordinal);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
-            builder.Append("  <ExitCodeList>\n");
-            foreach (var row in model.ExitCodeList)
+            builder.Append("  <ExecutableCommandParameterList>\n");
+            foreach (var row in model.ExecutableCommandParameterList)
             {
                 ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'ExitCode' contains a row with empty Id.");
+                var rowId = RequireIdentity(row.Id, "Entity 'ExecutableCommandParameter' contains a row with empty Id.");
                 if (!rowIds.Add(rowId))
                 {
-                    throw new InvalidOperationException($"Entity 'ExitCode' contains duplicate Id '{rowId}'.");
+                    throw new InvalidOperationException($"Entity 'ExecutableCommandParameter' contains duplicate Id '{rowId}'.");
                 }
-                builder.Append("    <ExitCode Id=\"");
+                builder.Append("    <ExecutableCommandParameter Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
-                var applicationId = RequireIdentity(row.Application?.Id, $"Relationship 'ExitCode.ApplicationId' on row 'ExitCode:{row.Id}' is empty.");
-                if (!saveIndexes.ApplicationListById.TryGetValue(applicationId, out var applicationCanonical) || !ReferenceEquals(applicationCanonical, row.Application))
+                var executableCommandId = RequireIdentity(row.ExecutableCommand?.Id, $"Relationship 'ExecutableCommandParameter.ExecutableCommandId' on row 'ExecutableCommandParameter:{row.Id}' is empty.");
+                if (!saveIndexes.ExecutableCommandListById.TryGetValue(executableCommandId, out var executableCommandCanonical) || !ReferenceEquals(executableCommandCanonical, row.ExecutableCommand))
                 {
-                    throw new InvalidOperationException($"Relationship 'ExitCode.ApplicationId' on row 'ExitCode:{row.Id}' references an object that is not the canonical row for Id '{applicationId}'.");
+                    throw new InvalidOperationException($"Relationship 'ExecutableCommandParameter.ExecutableCommandId' on row 'ExecutableCommandParameter:{row.Id}' references an object that is not the canonical row for Id '{executableCommandId}'.");
                 }
                 builder.Append(' ');
-                builder.Append("ApplicationId");
+                builder.Append("ExecutableCommandId");
                 builder.Append("=\"");
-                AppendXmlAttribute(builder, applicationId);
+                AppendXmlAttribute(builder, executableCommandId);
                 builder.Append('"');
-                if (row.ExecutableCommand != null)
+                var parameterId = RequireIdentity(row.Parameter?.Id, $"Relationship 'ExecutableCommandParameter.ParameterId' on row 'ExecutableCommandParameter:{row.Id}' is empty.");
+                if (!saveIndexes.ParameterListById.TryGetValue(parameterId, out var parameterCanonical) || !ReferenceEquals(parameterCanonical, row.Parameter))
                 {
-                    var executableCommandId = RequireIdentity(row.ExecutableCommand?.Id, $"Relationship 'ExitCode.ExecutableCommandId' on row 'ExitCode:{row.Id}' is empty.");
-                    if (!saveIndexes.ExecutableCommandListById.TryGetValue(executableCommandId, out var executableCommandCanonical) || !ReferenceEquals(executableCommandCanonical, row.ExecutableCommand))
-                    {
-                        throw new InvalidOperationException($"Relationship 'ExitCode.ExecutableCommandId' on row 'ExitCode:{row.Id}' references an object that is not the canonical row for Id '{executableCommandId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("ExecutableCommandId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, executableCommandId);
-                    builder.Append('"');
+                    throw new InvalidOperationException($"Relationship 'ExecutableCommandParameter.ParameterId' on row 'ExecutableCommandParameter:{row.Id}' references an object that is not the canonical row for Id '{parameterId}'.");
                 }
+                builder.Append(' ');
+                builder.Append("ParameterId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, parameterId);
+                builder.Append('"');
                 builder.Append(">\n");
-                AppendElement(builder, "Code", RequireText(row.Code, $"Entity 'ExitCode' row '{row.Id}' is missing required property 'Code'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'ExitCode' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </ExitCode>\n");
+                builder.Append("    </ExecutableCommandParameter>\n");
             }
-            builder.Append("  </ExitCodeList>\n");
+            builder.Append("  </ExecutableCommandParameterList>\n");
             builder.Append("</MetaCli>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -1530,9 +1434,6 @@ namespace MetaCli
             {
                 switch (reader.LocalName)
                 {
-                    case "IsPrimary":
-                        row.IsPrimary = reader.ReadElementContentAsString();
-                        break;
                     case "Token":
                         row.Token = reader.ReadElementContentAsString();
                         break;
@@ -1587,381 +1488,10 @@ namespace MetaCli
                     builder.Append('"');
                 }
                 builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.IsPrimary))
-                {
-                    AppendElement(builder, "IsPrimary", row.IsPrimary!, "      ");
-                }
                 AppendElement(builder, "Token", RequireText(row.Token, $"Entity 'OptionToken' row '{row.Id}' is missing required property 'Token'."), "      ");
                 builder.Append("    </OptionToken>\n");
             }
             builder.Append("  </OptionTokenList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadOutputList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OutputList");
-                return;
-            }
-
-            reader.ReadStartElement("OutputList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "Output", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OutputList'.");
-                }
-                var row = ReadOutput(reader, relationshipBuffers);
-                loadState.AddOutputId(row.Id);
-                model.OutputList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static Output ReadOutput(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new Output();
-            var relationships = new OutputRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "ExecutableCommandId":
-                            relationships.ExecutableCommandId = reader.Value;
-                            break;
-                        case "OutputFormatId":
-                            relationships.OutputFormatId = reader.Value;
-                            break;
-                        case "OutputStreamId":
-                            relationships.OutputStreamId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'Output'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("Output");
-                (relationshipBuffers.OutputRelationships ??= new List<OutputRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("Output");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'Output'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.OutputRelationships ??= new List<OutputRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeOutputShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <OutputList>\n");
-            foreach (var row in model.OutputList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'Output' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'Output' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <Output Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var executableCommandId = RequireIdentity(row.ExecutableCommand?.Id, $"Relationship 'Output.ExecutableCommandId' on row 'Output:{row.Id}' is empty.");
-                if (!saveIndexes.ExecutableCommandListById.TryGetValue(executableCommandId, out var executableCommandCanonical) || !ReferenceEquals(executableCommandCanonical, row.ExecutableCommand))
-                {
-                    throw new InvalidOperationException($"Relationship 'Output.ExecutableCommandId' on row 'Output:{row.Id}' references an object that is not the canonical row for Id '{executableCommandId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ExecutableCommandId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, executableCommandId);
-                builder.Append('"');
-                if (row.OutputFormat != null)
-                {
-                    var outputFormatId = RequireIdentity(row.OutputFormat?.Id, $"Relationship 'Output.OutputFormatId' on row 'Output:{row.Id}' is empty.");
-                    if (!saveIndexes.OutputFormatListById.TryGetValue(outputFormatId, out var outputFormatCanonical) || !ReferenceEquals(outputFormatCanonical, row.OutputFormat))
-                    {
-                        throw new InvalidOperationException($"Relationship 'Output.OutputFormatId' on row 'Output:{row.Id}' references an object that is not the canonical row for Id '{outputFormatId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("OutputFormatId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, outputFormatId);
-                    builder.Append('"');
-                }
-                if (row.OutputStream != null)
-                {
-                    var outputStreamId = RequireIdentity(row.OutputStream?.Id, $"Relationship 'Output.OutputStreamId' on row 'Output:{row.Id}' is empty.");
-                    if (!saveIndexes.OutputStreamListById.TryGetValue(outputStreamId, out var outputStreamCanonical) || !ReferenceEquals(outputStreamCanonical, row.OutputStream))
-                    {
-                        throw new InvalidOperationException($"Relationship 'Output.OutputStreamId' on row 'Output:{row.Id}' references an object that is not the canonical row for Id '{outputStreamId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("OutputStreamId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, outputStreamId);
-                    builder.Append('"');
-                }
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'Output' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </Output>\n");
-            }
-            builder.Append("  </OutputList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadOutputFormatList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OutputFormatList");
-                return;
-            }
-
-            reader.ReadStartElement("OutputFormatList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "OutputFormat", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OutputFormatList'.");
-                }
-                var row = ReadOutputFormat(reader, relationshipBuffers);
-                loadState.AddOutputFormatId(row.Id);
-                model.OutputFormatList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static OutputFormat ReadOutputFormat(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new OutputFormat();
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'OutputFormat'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OutputFormat");
-                return row;
-            }
-
-            reader.ReadStartElement("OutputFormat");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "ContentType":
-                        row.ContentType = reader.ReadElementContentAsString();
-                        break;
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'OutputFormat'.");
-                }
-            }
-            reader.ReadEndElement();
-            return row;
-        }
-
-        private static byte[] SerializeOutputFormatShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <OutputFormatList>\n");
-            foreach (var row in model.OutputFormatList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'OutputFormat' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'OutputFormat' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <OutputFormat Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.ContentType))
-                {
-                    AppendElement(builder, "ContentType", row.ContentType!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'OutputFormat' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </OutputFormat>\n");
-            }
-            builder.Append("  </OutputFormatList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadOutputStreamList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OutputStreamList");
-                return;
-            }
-
-            reader.ReadStartElement("OutputStreamList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "OutputStream", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OutputStreamList'.");
-                }
-                var row = ReadOutputStream(reader, relationshipBuffers);
-                loadState.AddOutputStreamId(row.Id);
-                model.OutputStreamList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static OutputStream ReadOutputStream(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new OutputStream();
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'OutputStream'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OutputStream");
-                return row;
-            }
-
-            reader.ReadStartElement("OutputStream");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'OutputStream'.");
-                }
-            }
-            reader.ReadEndElement();
-            return row;
-        }
-
-        private static byte[] SerializeOutputStreamShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <OutputStreamList>\n");
-            foreach (var row in model.OutputStreamList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'OutputStream' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'OutputStream' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <OutputStream Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'OutputStream' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </OutputStream>\n");
-            }
-            builder.Append("  </OutputStreamList>\n");
             builder.Append("</MetaCli>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -2006,9 +1536,6 @@ namespace MetaCli
                     {
                         case "Id":
                             row.Id = reader.Value;
-                            break;
-                        case "ExecutableCommandId":
-                            relationships.ExecutableCommandId = reader.Value;
                             break;
                         case "ValueShapeId":
                             relationships.ValueShapeId = reader.Value;
@@ -2074,16 +1601,6 @@ namespace MetaCli
                 }
                 builder.Append("    <Parameter Id=\"");
                 AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var executableCommandId = RequireIdentity(row.ExecutableCommand?.Id, $"Relationship 'Parameter.ExecutableCommandId' on row 'Parameter:{row.Id}' is empty.");
-                if (!saveIndexes.ExecutableCommandListById.TryGetValue(executableCommandId, out var executableCommandCanonical) || !ReferenceEquals(executableCommandCanonical, row.ExecutableCommand))
-                {
-                    throw new InvalidOperationException($"Relationship 'Parameter.ExecutableCommandId' on row 'Parameter:{row.Id}' references an object that is not the canonical row for Id '{executableCommandId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ExecutableCommandId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, executableCommandId);
                 builder.Append('"');
                 var valueShapeId = RequireIdentity(row.ValueShape?.Id, $"Relationship 'Parameter.ValueShapeId' on row 'Parameter:{row.Id}' is empty.");
                 if (!saveIndexes.ValueShapeListById.TryGetValue(valueShapeId, out var valueShapeCanonical) || !ReferenceEquals(valueShapeCanonical, row.ValueShape))
@@ -2392,186 +1909,6 @@ namespace MetaCli
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadParserPolicyList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("ParserPolicyList");
-                return;
-            }
-
-            reader.ReadStartElement("ParserPolicyList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "ParserPolicy", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ParserPolicyList'.");
-                }
-                var row = ReadParserPolicy(reader, relationshipBuffers);
-                loadState.AddParserPolicyId(row.Id);
-                model.ParserPolicyList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static ParserPolicy ReadParserPolicy(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new ParserPolicy();
-            var relationships = new ParserPolicyRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "ApplicationId":
-                            relationships.ApplicationId = reader.Value;
-                            break;
-                        case "DuplicateOptionBehaviorId":
-                            relationships.DuplicateOptionBehaviorId = reader.Value;
-                            break;
-                        case "UnknownTokenBehaviorId":
-                            relationships.UnknownTokenBehaviorId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ParserPolicy'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("ParserPolicy");
-                (relationshipBuffers.ParserPolicyRelationships ??= new List<ParserPolicyRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("ParserPolicy");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "AllowsEqualsValueSyntax":
-                        row.AllowsEqualsValueSyntax = reader.ReadElementContentAsString();
-                        break;
-                    case "AllowsOptionsAfterPositionals":
-                        row.AllowsOptionsAfterPositionals = reader.ReadElementContentAsString();
-                        break;
-                    case "AllowsShortOptionClusters":
-                        row.AllowsShortOptionClusters = reader.ReadElementContentAsString();
-                        break;
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "StopParsingToken":
-                        row.StopParsingToken = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ParserPolicy'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.ParserPolicyRelationships ??= new List<ParserPolicyRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeParserPolicyShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <ParserPolicyList>\n");
-            foreach (var row in model.ParserPolicyList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'ParserPolicy' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'ParserPolicy' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <ParserPolicy Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var applicationId = RequireIdentity(row.Application?.Id, $"Relationship 'ParserPolicy.ApplicationId' on row 'ParserPolicy:{row.Id}' is empty.");
-                if (!saveIndexes.ApplicationListById.TryGetValue(applicationId, out var applicationCanonical) || !ReferenceEquals(applicationCanonical, row.Application))
-                {
-                    throw new InvalidOperationException($"Relationship 'ParserPolicy.ApplicationId' on row 'ParserPolicy:{row.Id}' references an object that is not the canonical row for Id '{applicationId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ApplicationId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, applicationId);
-                builder.Append('"');
-                if (row.DuplicateOptionBehavior != null)
-                {
-                    var duplicateOptionBehaviorId = RequireIdentity(row.DuplicateOptionBehavior?.Id, $"Relationship 'ParserPolicy.DuplicateOptionBehaviorId' on row 'ParserPolicy:{row.Id}' is empty.");
-                    if (!saveIndexes.DuplicateOptionBehaviorListById.TryGetValue(duplicateOptionBehaviorId, out var duplicateOptionBehaviorCanonical) || !ReferenceEquals(duplicateOptionBehaviorCanonical, row.DuplicateOptionBehavior))
-                    {
-                        throw new InvalidOperationException($"Relationship 'ParserPolicy.DuplicateOptionBehaviorId' on row 'ParserPolicy:{row.Id}' references an object that is not the canonical row for Id '{duplicateOptionBehaviorId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("DuplicateOptionBehaviorId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, duplicateOptionBehaviorId);
-                    builder.Append('"');
-                }
-                if (row.UnknownTokenBehavior != null)
-                {
-                    var unknownTokenBehaviorId = RequireIdentity(row.UnknownTokenBehavior?.Id, $"Relationship 'ParserPolicy.UnknownTokenBehaviorId' on row 'ParserPolicy:{row.Id}' is empty.");
-                    if (!saveIndexes.UnknownTokenBehaviorListById.TryGetValue(unknownTokenBehaviorId, out var unknownTokenBehaviorCanonical) || !ReferenceEquals(unknownTokenBehaviorCanonical, row.UnknownTokenBehavior))
-                    {
-                        throw new InvalidOperationException($"Relationship 'ParserPolicy.UnknownTokenBehaviorId' on row 'ParserPolicy:{row.Id}' references an object that is not the canonical row for Id '{unknownTokenBehaviorId}'.");
-                    }
-                    builder.Append(' ');
-                    builder.Append("UnknownTokenBehaviorId");
-                    builder.Append("=\"");
-                    AppendXmlAttribute(builder, unknownTokenBehaviorId);
-                    builder.Append('"');
-                }
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.AllowsEqualsValueSyntax))
-                {
-                    AppendElement(builder, "AllowsEqualsValueSyntax", row.AllowsEqualsValueSyntax!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.AllowsOptionsAfterPositionals))
-                {
-                    AppendElement(builder, "AllowsOptionsAfterPositionals", row.AllowsOptionsAfterPositionals!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.AllowsShortOptionClusters))
-                {
-                    AppendElement(builder, "AllowsShortOptionClusters", row.AllowsShortOptionClusters!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'ParserPolicy' row '{row.Id}' is missing required property 'Name'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.StopParsingToken))
-                {
-                    AppendElement(builder, "StopParsingToken", row.StopParsingToken!, "      ");
-                }
-                builder.Append("    </ParserPolicy>\n");
-            }
-            builder.Append("  </ParserPolicyList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
         private static void LoadPositionalArgumentList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
@@ -2693,110 +2030,6 @@ namespace MetaCli
                 builder.Append("    </PositionalArgument>\n");
             }
             builder.Append("  </PositionalArgumentList>\n");
-            builder.Append("</MetaCli>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadUnknownTokenBehaviorList(MetaCliModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("UnknownTokenBehaviorList");
-                return;
-            }
-
-            reader.ReadStartElement("UnknownTokenBehaviorList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "UnknownTokenBehavior", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'UnknownTokenBehaviorList'.");
-                }
-                var row = ReadUnknownTokenBehavior(reader, relationshipBuffers);
-                loadState.AddUnknownTokenBehaviorId(row.Id);
-                model.UnknownTokenBehaviorList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static UnknownTokenBehavior ReadUnknownTokenBehavior(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new UnknownTokenBehavior();
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'UnknownTokenBehavior'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("UnknownTokenBehavior");
-                return row;
-            }
-
-            reader.ReadStartElement("UnknownTokenBehavior");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'UnknownTokenBehavior'.");
-                }
-            }
-            reader.ReadEndElement();
-            return row;
-        }
-
-        private static byte[] SerializeUnknownTokenBehaviorShard(MetaCliModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaCli>\n");
-            builder.Append("  <UnknownTokenBehaviorList>\n");
-            foreach (var row in model.UnknownTokenBehaviorList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'UnknownTokenBehavior' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'UnknownTokenBehavior' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <UnknownTokenBehavior Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'UnknownTokenBehavior' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </UnknownTokenBehavior>\n");
-            }
-            builder.Append("  </UnknownTokenBehaviorList>\n");
             builder.Append("</MetaCli>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -3053,7 +2286,6 @@ namespace MetaCli
         private sealed class AllowedValueRelationships
         {
             public AllowedValue Row { get; set; } = null!;
-            public string PreviousValueId { get; set; } = string.Empty;
             public string ValueShapeId { get; set; } = string.Empty;
         }
 
@@ -3062,6 +2294,13 @@ namespace MetaCli
             public ApplicationDefaultCommand Row { get; set; } = null!;
             public string ApplicationId { get; set; } = string.Empty;
             public string ExecutableCommandId { get; set; } = string.Empty;
+        }
+
+        private sealed class ApplicationParameterRelationships
+        {
+            public ApplicationParameter Row { get; set; } = null!;
+            public string ApplicationId { get; set; } = string.Empty;
+            public string ParameterId { get; set; } = string.Empty;
         }
 
         private sealed class CommandRelationships
@@ -3077,11 +2316,11 @@ namespace MetaCli
             public string CommandId { get; set; } = string.Empty;
         }
 
-        private sealed class ExitCodeRelationships
+        private sealed class ExecutableCommandParameterRelationships
         {
-            public ExitCode Row { get; set; } = null!;
-            public string ApplicationId { get; set; } = string.Empty;
+            public ExecutableCommandParameter Row { get; set; } = null!;
             public string ExecutableCommandId { get; set; } = string.Empty;
+            public string ParameterId { get; set; } = string.Empty;
         }
 
         private sealed class OptionRelationships
@@ -3097,18 +2336,9 @@ namespace MetaCli
             public string PreviousTokenId { get; set; } = string.Empty;
         }
 
-        private sealed class OutputRelationships
-        {
-            public Output Row { get; set; } = null!;
-            public string ExecutableCommandId { get; set; } = string.Empty;
-            public string OutputFormatId { get; set; } = string.Empty;
-            public string OutputStreamId { get; set; } = string.Empty;
-        }
-
         private sealed class ParameterRelationships
         {
             public Parameter Row { get; set; } = null!;
-            public string ExecutableCommandId { get; set; } = string.Empty;
             public string ValueShapeId { get; set; } = string.Empty;
         }
 
@@ -3124,14 +2354,6 @@ namespace MetaCli
             public string ParameterGroupId { get; set; } = string.Empty;
             public string ParameterId { get; set; } = string.Empty;
             public string PreviousMemberId { get; set; } = string.Empty;
-        }
-
-        private sealed class ParserPolicyRelationships
-        {
-            public ParserPolicy Row { get; set; } = null!;
-            public string ApplicationId { get; set; } = string.Empty;
-            public string DuplicateOptionBehaviorId { get; set; } = string.Empty;
-            public string UnknownTokenBehaviorId { get; set; } = string.Empty;
         }
 
         private sealed class PositionalArgumentRelationships
@@ -3151,34 +2373,21 @@ namespace MetaCli
         {
             public List<AllowedValueRelationships>? AllowedValueRelationships { get; set; }
             public List<ApplicationDefaultCommandRelationships>? ApplicationDefaultCommandRelationships { get; set; }
+            public List<ApplicationParameterRelationships>? ApplicationParameterRelationships { get; set; }
             public List<CommandRelationships>? CommandRelationships { get; set; }
             public List<ExecutableCommandRelationships>? ExecutableCommandRelationships { get; set; }
-            public List<ExitCodeRelationships>? ExitCodeRelationships { get; set; }
+            public List<ExecutableCommandParameterRelationships>? ExecutableCommandParameterRelationships { get; set; }
             public List<OptionRelationships>? OptionRelationships { get; set; }
             public List<OptionTokenRelationships>? OptionTokenRelationships { get; set; }
-            public List<OutputRelationships>? OutputRelationships { get; set; }
             public List<ParameterRelationships>? ParameterRelationships { get; set; }
             public List<ParameterGroupRelationships>? ParameterGroupRelationships { get; set; }
             public List<ParameterGroupMemberRelationships>? ParameterGroupMemberRelationships { get; set; }
-            public List<ParserPolicyRelationships>? ParserPolicyRelationships { get; set; }
             public List<PositionalArgumentRelationships>? PositionalArgumentRelationships { get; set; }
             public List<ValueShapeRelationships>? ValueShapeRelationships { get; set; }
         }
 
         private static void ResolveRelationshipGroup1(LoadIndexes loadIndexes, RelationshipBuffers relationshipBuffers)
         {
-            foreach (var relationship in relationshipBuffers.AllowedValueRelationships ?? Enumerable.Empty<AllowedValueRelationships>())
-            {
-                relationship.Row.PreviousValue = string.IsNullOrWhiteSpace(relationship.PreviousValueId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.AllowedValueListById,
-                        relationship.PreviousValueId,
-                        "AllowedValue",
-                        relationship.Row.Id,
-                        "PreviousValueId");
-            }
-
             foreach (var relationship in relationshipBuffers.AllowedValueRelationships ?? Enumerable.Empty<AllowedValueRelationships>())
             {
                 relationship.Row.ValueShape = RequireTarget(
@@ -3207,6 +2416,26 @@ namespace MetaCli
                     "ApplicationDefaultCommand",
                     relationship.Row.Id,
                     "ExecutableCommandId");
+            }
+
+            foreach (var relationship in relationshipBuffers.ApplicationParameterRelationships ?? Enumerable.Empty<ApplicationParameterRelationships>())
+            {
+                relationship.Row.Application = RequireTarget(
+                    loadIndexes.ApplicationListById,
+                    relationship.ApplicationId,
+                    "ApplicationParameter",
+                    relationship.Row.Id,
+                    "ApplicationId");
+            }
+
+            foreach (var relationship in relationshipBuffers.ApplicationParameterRelationships ?? Enumerable.Empty<ApplicationParameterRelationships>())
+            {
+                relationship.Row.Parameter = RequireTarget(
+                    loadIndexes.ParameterListById,
+                    relationship.ParameterId,
+                    "ApplicationParameter",
+                    relationship.Row.Id,
+                    "ParameterId");
             }
 
             foreach (var relationship in relationshipBuffers.CommandRelationships ?? Enumerable.Empty<CommandRelationships>())
@@ -3241,26 +2470,24 @@ namespace MetaCli
                     "CommandId");
             }
 
-            foreach (var relationship in relationshipBuffers.ExitCodeRelationships ?? Enumerable.Empty<ExitCodeRelationships>())
+            foreach (var relationship in relationshipBuffers.ExecutableCommandParameterRelationships ?? Enumerable.Empty<ExecutableCommandParameterRelationships>())
             {
-                relationship.Row.Application = RequireTarget(
-                    loadIndexes.ApplicationListById,
-                    relationship.ApplicationId,
-                    "ExitCode",
+                relationship.Row.ExecutableCommand = RequireTarget(
+                    loadIndexes.ExecutableCommandListById,
+                    relationship.ExecutableCommandId,
+                    "ExecutableCommandParameter",
                     relationship.Row.Id,
-                    "ApplicationId");
+                    "ExecutableCommandId");
             }
 
-            foreach (var relationship in relationshipBuffers.ExitCodeRelationships ?? Enumerable.Empty<ExitCodeRelationships>())
+            foreach (var relationship in relationshipBuffers.ExecutableCommandParameterRelationships ?? Enumerable.Empty<ExecutableCommandParameterRelationships>())
             {
-                relationship.Row.ExecutableCommand = string.IsNullOrWhiteSpace(relationship.ExecutableCommandId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.ExecutableCommandListById,
-                        relationship.ExecutableCommandId,
-                        "ExitCode",
-                        relationship.Row.Id,
-                        "ExecutableCommandId");
+                relationship.Row.Parameter = RequireTarget(
+                    loadIndexes.ParameterListById,
+                    relationship.ParameterId,
+                    "ExecutableCommandParameter",
+                    relationship.Row.Id,
+                    "ParameterId");
             }
 
             foreach (var relationship in relationshipBuffers.OptionRelationships ?? Enumerable.Empty<OptionRelationships>())
@@ -3293,50 +2520,6 @@ namespace MetaCli
                         "OptionToken",
                         relationship.Row.Id,
                         "PreviousTokenId");
-            }
-
-            foreach (var relationship in relationshipBuffers.OutputRelationships ?? Enumerable.Empty<OutputRelationships>())
-            {
-                relationship.Row.ExecutableCommand = RequireTarget(
-                    loadIndexes.ExecutableCommandListById,
-                    relationship.ExecutableCommandId,
-                    "Output",
-                    relationship.Row.Id,
-                    "ExecutableCommandId");
-            }
-
-            foreach (var relationship in relationshipBuffers.OutputRelationships ?? Enumerable.Empty<OutputRelationships>())
-            {
-                relationship.Row.OutputFormat = string.IsNullOrWhiteSpace(relationship.OutputFormatId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.OutputFormatListById,
-                        relationship.OutputFormatId,
-                        "Output",
-                        relationship.Row.Id,
-                        "OutputFormatId");
-            }
-
-            foreach (var relationship in relationshipBuffers.OutputRelationships ?? Enumerable.Empty<OutputRelationships>())
-            {
-                relationship.Row.OutputStream = string.IsNullOrWhiteSpace(relationship.OutputStreamId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.OutputStreamListById,
-                        relationship.OutputStreamId,
-                        "Output",
-                        relationship.Row.Id,
-                        "OutputStreamId");
-            }
-
-            foreach (var relationship in relationshipBuffers.ParameterRelationships ?? Enumerable.Empty<ParameterRelationships>())
-            {
-                relationship.Row.ExecutableCommand = RequireTarget(
-                    loadIndexes.ExecutableCommandListById,
-                    relationship.ExecutableCommandId,
-                    "Parameter",
-                    relationship.Row.Id,
-                    "ExecutableCommandId");
             }
 
             foreach (var relationship in relationshipBuffers.ParameterRelationships ?? Enumerable.Empty<ParameterRelationships>())
@@ -3391,40 +2574,6 @@ namespace MetaCli
                         "PreviousMemberId");
             }
 
-            foreach (var relationship in relationshipBuffers.ParserPolicyRelationships ?? Enumerable.Empty<ParserPolicyRelationships>())
-            {
-                relationship.Row.Application = RequireTarget(
-                    loadIndexes.ApplicationListById,
-                    relationship.ApplicationId,
-                    "ParserPolicy",
-                    relationship.Row.Id,
-                    "ApplicationId");
-            }
-
-            foreach (var relationship in relationshipBuffers.ParserPolicyRelationships ?? Enumerable.Empty<ParserPolicyRelationships>())
-            {
-                relationship.Row.DuplicateOptionBehavior = string.IsNullOrWhiteSpace(relationship.DuplicateOptionBehaviorId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.DuplicateOptionBehaviorListById,
-                        relationship.DuplicateOptionBehaviorId,
-                        "ParserPolicy",
-                        relationship.Row.Id,
-                        "DuplicateOptionBehaviorId");
-            }
-
-            foreach (var relationship in relationshipBuffers.ParserPolicyRelationships ?? Enumerable.Empty<ParserPolicyRelationships>())
-            {
-                relationship.Row.UnknownTokenBehavior = string.IsNullOrWhiteSpace(relationship.UnknownTokenBehaviorId)
-                    ? null
-                    : RequireTarget(
-                        loadIndexes.UnknownTokenBehaviorListById,
-                        relationship.UnknownTokenBehaviorId,
-                        "ParserPolicy",
-                        relationship.Row.Id,
-                        "UnknownTokenBehaviorId");
-            }
-
             foreach (var relationship in relationshipBuffers.PositionalArgumentRelationships ?? Enumerable.Empty<PositionalArgumentRelationships>())
             {
                 relationship.Row.Parameter = RequireTarget(
@@ -3464,21 +2613,16 @@ namespace MetaCli
             "AllowedValue.xml",
             "Application.xml",
             "ApplicationDefaultCommand.xml",
+            "ApplicationParameter.xml",
             "Command.xml",
-            "DuplicateOptionBehavior.xml",
             "ExecutableCommand.xml",
-            "ExitCode.xml",
+            "ExecutableCommandParameter.xml",
             "Option.xml",
             "OptionToken.xml",
-            "Output.xml",
-            "OutputFormat.xml",
-            "OutputStream.xml",
             "Parameter.xml",
             "ParameterGroup.xml",
             "ParameterGroupMember.xml",
-            "ParserPolicy.xml",
             "PositionalArgument.xml",
-            "UnknownTokenBehavior.xml",
             "ValueArity.xml",
             "ValueShape.xml",
         };
@@ -3532,6 +2676,18 @@ namespace MetaCli
                 }
             }
 
+            private HashSet<string>? applicationParameterIds;
+
+            public void AddApplicationParameterId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'ApplicationParameter' contains a row with empty Id.");
+                applicationParameterIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!applicationParameterIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'ApplicationParameter' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? commandIds;
 
             public void AddCommandId(string? id)
@@ -3541,18 +2697,6 @@ namespace MetaCli
                 if (!commandIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Command' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? duplicateOptionBehaviorIds;
-
-            public void AddDuplicateOptionBehaviorId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'DuplicateOptionBehavior' contains a row with empty Id.");
-                duplicateOptionBehaviorIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!duplicateOptionBehaviorIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'DuplicateOptionBehavior' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3568,15 +2712,15 @@ namespace MetaCli
                 }
             }
 
-            private HashSet<string>? exitCodeIds;
+            private HashSet<string>? executableCommandParameterIds;
 
-            public void AddExitCodeId(string? id)
+            public void AddExecutableCommandParameterId(string? id)
             {
-                var normalizedId = RequireIdentity(id, "Entity 'ExitCode' contains a row with empty Id.");
-                exitCodeIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!exitCodeIds.Add(normalizedId))
+                var normalizedId = RequireIdentity(id, "Entity 'ExecutableCommandParameter' contains a row with empty Id.");
+                executableCommandParameterIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!executableCommandParameterIds.Add(normalizedId))
                 {
-                    throw new InvalidDataException($"Entity 'ExitCode' contains duplicate Id '{normalizedId}'.");
+                    throw new InvalidDataException($"Entity 'ExecutableCommandParameter' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3601,42 +2745,6 @@ namespace MetaCli
                 if (!optionTokenIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'OptionToken' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? outputIds;
-
-            public void AddOutputId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'Output' contains a row with empty Id.");
-                outputIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!outputIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'Output' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? outputFormatIds;
-
-            public void AddOutputFormatId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'OutputFormat' contains a row with empty Id.");
-                outputFormatIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!outputFormatIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'OutputFormat' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? outputStreamIds;
-
-            public void AddOutputStreamId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'OutputStream' contains a row with empty Id.");
-                outputStreamIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!outputStreamIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'OutputStream' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3676,18 +2784,6 @@ namespace MetaCli
                 }
             }
 
-            private HashSet<string>? parserPolicyIds;
-
-            public void AddParserPolicyId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'ParserPolicy' contains a row with empty Id.");
-                parserPolicyIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!parserPolicyIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'ParserPolicy' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
             private HashSet<string>? positionalArgumentIds;
 
             public void AddPositionalArgumentId(string? id)
@@ -3697,18 +2793,6 @@ namespace MetaCli
                 if (!positionalArgumentIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'PositionalArgument' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? unknownTokenBehaviorIds;
-
-            public void AddUnknownTokenBehaviorId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'UnknownTokenBehavior' contains a row with empty Id.");
-                unknownTokenBehaviorIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!unknownTokenBehaviorIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'UnknownTokenBehavior' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3759,21 +2843,21 @@ namespace MetaCli
 
             public Dictionary<string, ApplicationDefaultCommand> ApplicationDefaultCommandListById => applicationDefaultCommandListById ??= BuildById(model.ApplicationDefaultCommandList, row => row.Id, "ApplicationDefaultCommand");
 
+            private Dictionary<string, ApplicationParameter>? applicationParameterListById;
+
+            public Dictionary<string, ApplicationParameter> ApplicationParameterListById => applicationParameterListById ??= BuildById(model.ApplicationParameterList, row => row.Id, "ApplicationParameter");
+
             private Dictionary<string, Command>? commandListById;
 
             public Dictionary<string, Command> CommandListById => commandListById ??= BuildById(model.CommandList, row => row.Id, "Command");
-
-            private Dictionary<string, DuplicateOptionBehavior>? duplicateOptionBehaviorListById;
-
-            public Dictionary<string, DuplicateOptionBehavior> DuplicateOptionBehaviorListById => duplicateOptionBehaviorListById ??= BuildById(model.DuplicateOptionBehaviorList, row => row.Id, "DuplicateOptionBehavior");
 
             private Dictionary<string, ExecutableCommand>? executableCommandListById;
 
             public Dictionary<string, ExecutableCommand> ExecutableCommandListById => executableCommandListById ??= BuildById(model.ExecutableCommandList, row => row.Id, "ExecutableCommand");
 
-            private Dictionary<string, ExitCode>? exitCodeListById;
+            private Dictionary<string, ExecutableCommandParameter>? executableCommandParameterListById;
 
-            public Dictionary<string, ExitCode> ExitCodeListById => exitCodeListById ??= BuildById(model.ExitCodeList, row => row.Id, "ExitCode");
+            public Dictionary<string, ExecutableCommandParameter> ExecutableCommandParameterListById => executableCommandParameterListById ??= BuildById(model.ExecutableCommandParameterList, row => row.Id, "ExecutableCommandParameter");
 
             private Dictionary<string, Option>? optionListById;
 
@@ -3782,18 +2866,6 @@ namespace MetaCli
             private Dictionary<string, OptionToken>? optionTokenListById;
 
             public Dictionary<string, OptionToken> OptionTokenListById => optionTokenListById ??= BuildById(model.OptionTokenList, row => row.Id, "OptionToken");
-
-            private Dictionary<string, Output>? outputListById;
-
-            public Dictionary<string, Output> OutputListById => outputListById ??= BuildById(model.OutputList, row => row.Id, "Output");
-
-            private Dictionary<string, OutputFormat>? outputFormatListById;
-
-            public Dictionary<string, OutputFormat> OutputFormatListById => outputFormatListById ??= BuildById(model.OutputFormatList, row => row.Id, "OutputFormat");
-
-            private Dictionary<string, OutputStream>? outputStreamListById;
-
-            public Dictionary<string, OutputStream> OutputStreamListById => outputStreamListById ??= BuildById(model.OutputStreamList, row => row.Id, "OutputStream");
 
             private Dictionary<string, Parameter>? parameterListById;
 
@@ -3807,17 +2879,9 @@ namespace MetaCli
 
             public Dictionary<string, ParameterGroupMember> ParameterGroupMemberListById => parameterGroupMemberListById ??= BuildById(model.ParameterGroupMemberList, row => row.Id, "ParameterGroupMember");
 
-            private Dictionary<string, ParserPolicy>? parserPolicyListById;
-
-            public Dictionary<string, ParserPolicy> ParserPolicyListById => parserPolicyListById ??= BuildById(model.ParserPolicyList, row => row.Id, "ParserPolicy");
-
             private Dictionary<string, PositionalArgument>? positionalArgumentListById;
 
             public Dictionary<string, PositionalArgument> PositionalArgumentListById => positionalArgumentListById ??= BuildById(model.PositionalArgumentList, row => row.Id, "PositionalArgument");
-
-            private Dictionary<string, UnknownTokenBehavior>? unknownTokenBehaviorListById;
-
-            public Dictionary<string, UnknownTokenBehavior> UnknownTokenBehaviorListById => unknownTokenBehaviorListById ??= BuildById(model.UnknownTokenBehaviorList, row => row.Id, "UnknownTokenBehavior");
 
             private Dictionary<string, ValueArity>? valueArityListById;
 
@@ -3850,21 +2914,21 @@ namespace MetaCli
 
             public Dictionary<string, ApplicationDefaultCommand> ApplicationDefaultCommandListById => applicationDefaultCommandListById ??= BuildById(model.ApplicationDefaultCommandList, row => row.Id, "ApplicationDefaultCommand");
 
+            private Dictionary<string, ApplicationParameter>? applicationParameterListById;
+
+            public Dictionary<string, ApplicationParameter> ApplicationParameterListById => applicationParameterListById ??= BuildById(model.ApplicationParameterList, row => row.Id, "ApplicationParameter");
+
             private Dictionary<string, Command>? commandListById;
 
             public Dictionary<string, Command> CommandListById => commandListById ??= BuildById(model.CommandList, row => row.Id, "Command");
-
-            private Dictionary<string, DuplicateOptionBehavior>? duplicateOptionBehaviorListById;
-
-            public Dictionary<string, DuplicateOptionBehavior> DuplicateOptionBehaviorListById => duplicateOptionBehaviorListById ??= BuildById(model.DuplicateOptionBehaviorList, row => row.Id, "DuplicateOptionBehavior");
 
             private Dictionary<string, ExecutableCommand>? executableCommandListById;
 
             public Dictionary<string, ExecutableCommand> ExecutableCommandListById => executableCommandListById ??= BuildById(model.ExecutableCommandList, row => row.Id, "ExecutableCommand");
 
-            private Dictionary<string, ExitCode>? exitCodeListById;
+            private Dictionary<string, ExecutableCommandParameter>? executableCommandParameterListById;
 
-            public Dictionary<string, ExitCode> ExitCodeListById => exitCodeListById ??= BuildById(model.ExitCodeList, row => row.Id, "ExitCode");
+            public Dictionary<string, ExecutableCommandParameter> ExecutableCommandParameterListById => executableCommandParameterListById ??= BuildById(model.ExecutableCommandParameterList, row => row.Id, "ExecutableCommandParameter");
 
             private Dictionary<string, Option>? optionListById;
 
@@ -3873,18 +2937,6 @@ namespace MetaCli
             private Dictionary<string, OptionToken>? optionTokenListById;
 
             public Dictionary<string, OptionToken> OptionTokenListById => optionTokenListById ??= BuildById(model.OptionTokenList, row => row.Id, "OptionToken");
-
-            private Dictionary<string, Output>? outputListById;
-
-            public Dictionary<string, Output> OutputListById => outputListById ??= BuildById(model.OutputList, row => row.Id, "Output");
-
-            private Dictionary<string, OutputFormat>? outputFormatListById;
-
-            public Dictionary<string, OutputFormat> OutputFormatListById => outputFormatListById ??= BuildById(model.OutputFormatList, row => row.Id, "OutputFormat");
-
-            private Dictionary<string, OutputStream>? outputStreamListById;
-
-            public Dictionary<string, OutputStream> OutputStreamListById => outputStreamListById ??= BuildById(model.OutputStreamList, row => row.Id, "OutputStream");
 
             private Dictionary<string, Parameter>? parameterListById;
 
@@ -3898,17 +2950,9 @@ namespace MetaCli
 
             public Dictionary<string, ParameterGroupMember> ParameterGroupMemberListById => parameterGroupMemberListById ??= BuildById(model.ParameterGroupMemberList, row => row.Id, "ParameterGroupMember");
 
-            private Dictionary<string, ParserPolicy>? parserPolicyListById;
-
-            public Dictionary<string, ParserPolicy> ParserPolicyListById => parserPolicyListById ??= BuildById(model.ParserPolicyList, row => row.Id, "ParserPolicy");
-
             private Dictionary<string, PositionalArgument>? positionalArgumentListById;
 
             public Dictionary<string, PositionalArgument> PositionalArgumentListById => positionalArgumentListById ??= BuildById(model.PositionalArgumentList, row => row.Id, "PositionalArgument");
-
-            private Dictionary<string, UnknownTokenBehavior>? unknownTokenBehaviorListById;
-
-            public Dictionary<string, UnknownTokenBehavior> UnknownTokenBehaviorListById => unknownTokenBehaviorListById ??= BuildById(model.UnknownTokenBehaviorList, row => row.Id, "UnknownTokenBehavior");
 
             private Dictionary<string, ValueArity>? valueArityListById;
 
@@ -3943,7 +2987,6 @@ namespace MetaCli
                 "Id",
                 "Description",
                 "Value",
-                "PreviousValue",
                 "ValueShape"))
             {
                 return true;
@@ -3967,6 +3010,14 @@ namespace MetaCli
                 return true;
             }
 
+            if (HasUnexpectedProperties(typeof(ApplicationParameter),
+                "Id",
+                "Application",
+                "Parameter"))
+            {
+                return true;
+            }
+
             if (HasUnexpectedProperties(typeof(Command),
                 "Id",
                 "Description",
@@ -3978,14 +3029,6 @@ namespace MetaCli
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(DuplicateOptionBehavior),
-                "Id",
-                "Description",
-                "Name"))
-            {
-                return true;
-            }
-
             if (HasUnexpectedProperties(typeof(ExecutableCommand),
                 "Id",
                 "Command"))
@@ -3993,13 +3036,10 @@ namespace MetaCli
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(ExitCode),
+            if (HasUnexpectedProperties(typeof(ExecutableCommandParameter),
                 "Id",
-                "Code",
-                "Description",
-                "Name",
-                "Application",
-                "ExecutableCommand"))
+                "ExecutableCommand",
+                "Parameter"))
             {
                 return true;
             }
@@ -4013,38 +3053,9 @@ namespace MetaCli
 
             if (HasUnexpectedProperties(typeof(OptionToken),
                 "Id",
-                "IsPrimary",
                 "Token",
                 "Option",
                 "PreviousToken"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(Output),
-                "Id",
-                "Description",
-                "Name",
-                "ExecutableCommand",
-                "OutputFormat",
-                "OutputStream"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(OutputFormat),
-                "Id",
-                "ContentType",
-                "Description",
-                "Name"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(OutputStream),
-                "Id",
-                "Description",
-                "Name"))
             {
                 return true;
             }
@@ -4056,7 +3067,6 @@ namespace MetaCli
                 "IsRepeatable",
                 "IsRequired",
                 "Name",
-                "ExecutableCommand",
                 "ValueShape"))
             {
                 return true;
@@ -4082,33 +3092,10 @@ namespace MetaCli
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(ParserPolicy),
-                "Id",
-                "AllowsEqualsValueSyntax",
-                "AllowsOptionsAfterPositionals",
-                "AllowsShortOptionClusters",
-                "Description",
-                "Name",
-                "StopParsingToken",
-                "Application",
-                "DuplicateOptionBehavior",
-                "UnknownTokenBehavior"))
-            {
-                return true;
-            }
-
             if (HasUnexpectedProperties(typeof(PositionalArgument),
                 "Id",
                 "Parameter",
                 "PreviousArgument"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(UnknownTokenBehavior),
-                "Id",
-                "Description",
-                "Name"))
             {
                 return true;
             }
@@ -4144,21 +3131,16 @@ namespace MetaCli
                 "AllowedValueList",
                 "ApplicationList",
                 "ApplicationDefaultCommandList",
+                "ApplicationParameterList",
                 "CommandList",
-                "DuplicateOptionBehaviorList",
                 "ExecutableCommandList",
-                "ExitCodeList",
+                "ExecutableCommandParameterList",
                 "OptionList",
                 "OptionTokenList",
-                "OutputList",
-                "OutputFormatList",
-                "OutputStreamList",
                 "ParameterList",
                 "ParameterGroupList",
                 "ParameterGroupMemberList",
-                "ParserPolicyList",
                 "PositionalArgumentList",
-                "UnknownTokenBehaviorList",
                 "ValueArityList",
                 "ValueShapeList",
             };

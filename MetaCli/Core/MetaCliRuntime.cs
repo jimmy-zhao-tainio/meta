@@ -1,85 +1,131 @@
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using Meta.Core.Serialization;
 
 namespace MetaCli.Core;
 
-public delegate int MetaCliCommandHandler(MetaCliInvocation invocation);
+public delegate void MetaCliCommandHandler(MetaCliInvocation invocation);
 
-public sealed class MetaCliRuntimeBuilder
+public delegate void MetaCliModelCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model)
+    where TModel : IMetaWorkspaceModel<TModel>;
+
+public sealed class MetaCliRuntime<TModel>
+    where TModel : IMetaWorkspaceModel<TModel>
 {
-    private readonly MetaCliModel model;
-    private readonly Dictionary<string, MetaCliCommandHandler> handlers = new(StringComparer.Ordinal);
-    private string? applicationId;
-
-    public MetaCliRuntimeBuilder(MetaCliModel model)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        this.model = model;
-    }
-
-    public MetaCliRuntimeBuilder ForApplication(string id)
-    {
-        if (string.IsNullOrWhiteSpace(id))
-        {
-            throw new ArgumentException("Application id is required.", nameof(id));
-        }
-
-        applicationId = id.Trim();
-        return this;
-    }
-
-    public MetaCliRuntimeBuilder Bind(string executableCommandId, MetaCliCommandHandler handler)
-    {
-        if (string.IsNullOrWhiteSpace(executableCommandId))
-        {
-            throw new ArgumentException("Executable command id is required.", nameof(executableCommandId));
-        }
-
-        ArgumentNullException.ThrowIfNull(handler);
-        handlers[executableCommandId.Trim()] = handler;
-        return this;
-    }
-
-    public MetaCliRuntime Build() => new(model, applicationId, handlers);
-}
-
-public sealed class MetaCliRuntime
-{
-    private readonly MetaCliModel model;
+    private readonly string commandWorkspacePath;
     private readonly string? applicationId;
-    private readonly IReadOnlyDictionary<string, MetaCliCommandHandler> handlers;
+    private readonly string workspaceParameter;
+    private readonly TextWriter error;
+    private readonly Action<int> setExitCode;
+    private readonly Dictionary<string, HandlerBinding> handlers = new(StringComparer.Ordinal);
+    private MetaCliModel model = MetaCliModel.CreateEmpty();
 
     public MetaCliRuntime(
-        MetaCliModel model,
-        string? applicationId,
-        IReadOnlyDictionary<string, MetaCliCommandHandler> handlers)
+        string commandWorkspacePath,
+        string? applicationId = null,
+        string workspaceParameter = "workspace",
+        TextWriter? error = null,
+        Action<int>? setExitCode = null)
     {
-        ArgumentNullException.ThrowIfNull(model);
-        ArgumentNullException.ThrowIfNull(handlers);
-        this.model = model;
+        ArgumentException.ThrowIfNullOrWhiteSpace(commandWorkspacePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspaceParameter);
+
+        this.commandWorkspacePath = commandWorkspacePath;
         this.applicationId = string.IsNullOrWhiteSpace(applicationId) ? null : applicationId.Trim();
-        this.handlers = new Dictionary<string, MetaCliCommandHandler>(handlers, StringComparer.Ordinal);
+        this.workspaceParameter = workspaceParameter.Trim();
+        this.error = error ?? Console.Error;
+        this.setExitCode = setExitCode ?? (code => Environment.ExitCode = code);
     }
 
-    public MetaCliRuntimeResult Run(params string[] arguments)
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithoutWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliModelCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public void Run(params string[] arguments) =>
+        Run((IReadOnlyList<string>)arguments);
+
+    public void Run(IReadOnlyList<string> arguments)
     {
         ArgumentNullException.ThrowIfNull(arguments);
 
-        if (!TryResolveApplication(out var application, out var applicationError))
+        try
         {
-            return MetaCliRuntimeResult.Failure(2, applicationError);
+            model = MetaCliModel.LoadFromXmlWorkspace(commandWorkspacePath, searchUpward: false);
+        }
+        catch (Exception exception)
+        {
+            Fail(4, $"Cannot load command surface workspace '{Path.GetFullPath(commandWorkspacePath)}'. {exception.Message}");
+            return;
         }
 
-        var policy = ResolveParserPolicy(application);
-        var commandMatch = MatchExecutableCommand(application, arguments);
+        var parse = Parse(arguments);
+        if (!parse.Succeeded)
+        {
+            Fail(2, parse.Message ?? "Command line could not be parsed.");
+            return;
+        }
+
+        var invocation = parse.RequireInvocation();
+        if (!handlers.TryGetValue(invocation.ExecutableCommand.Id, out var handler))
+        {
+            Fail(4, $"Command '{invocation.CommandRoute}' is modeled but has no implementation.");
+            return;
+        }
+
+        try
+        {
+            if (handler.WorkspaceHandler is not null)
+            {
+                var workspacePath = ResolveWorkspacePath(invocation);
+                var domainModel = TModel.LoadFromXmlWorkspace(workspacePath, searchUpward: false);
+                handler.WorkspaceHandler(invocation, domainModel);
+            }
+            else
+            {
+                handler.Handler!(invocation);
+            }
+        }
+        catch (Exception exception)
+        {
+            Fail(4, $"Command '{invocation.CommandRoute}' failed. {exception.Message}");
+            return;
+        }
+
+        setExitCode(0);
+    }
+
+    private MetaCliParseResult Parse(IReadOnlyList<string> arguments)
+    {
+        if (!TryResolveApplication(out var application, out var applicationErrorCode, out var applicationError))
+        {
+            return MetaCliParseResult.Failure(applicationErrorCode, applicationError);
+        }
+
+        var rules = ParserRuntimeRules.Default;
+        var commandMatch = MatchExecutableCommand(application, rules, arguments);
         if (!commandMatch.Succeeded)
         {
-            return MetaCliRuntimeResult.Failure(2, commandMatch.Error);
+            return MetaCliParseResult.Failure(commandMatch.ErrorCode, commandMatch.Error);
         }
 
-        var bindResult = BindParameters(application, commandMatch.ExecutableCommand, policy, arguments, commandMatch.ConsumedTokenCount);
+        var bindResult = BindParameters(application, commandMatch.ExecutableCommand, rules, arguments, commandMatch.ConsumedTokenCount);
         if (!bindResult.Succeeded)
         {
-            return MetaCliRuntimeResult.Failure(2, bindResult.Error);
+            return MetaCliParseResult.Failure(bindResult.ErrorCode, bindResult.Error);
         }
 
         var invocation = new MetaCliInvocation(
@@ -89,21 +135,39 @@ public sealed class MetaCliRuntime
             arguments,
             bindResult.Bindings);
 
-        if (!handlers.TryGetValue(commandMatch.ExecutableCommand.Id, out var handler))
-        {
-            return MetaCliRuntimeResult.Failure(
-                3,
-                $"Command '{invocation.CommandRoute}' has no registered implementation (executable command: {commandMatch.ExecutableCommand.Id}).",
-                invocation);
-        }
-
-        var exitCode = handler(invocation);
-        return MetaCliRuntimeResult.Success(exitCode, invocation);
+        return MetaCliParseResult.Success(invocation);
     }
 
-    private bool TryResolveApplication(out Application application, out string error)
+    private string ResolveWorkspacePath(MetaCliInvocation invocation)
+    {
+        try
+        {
+            var value = invocation.Optional(workspaceParameter);
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return Path.GetFullPath(value);
+            }
+        }
+        catch (KeyNotFoundException)
+        {
+        }
+
+        return Directory.GetCurrentDirectory();
+    }
+
+    private void Fail(int exitCode, string message)
+    {
+        error.WriteLine(message);
+        setExitCode(exitCode);
+    }
+
+    private bool TryResolveApplication(
+        out Application application,
+        out MetaCliParseErrorCode errorCode,
+        out string error)
     {
         application = null!;
+        errorCode = MetaCliParseErrorCode.None;
         error = string.Empty;
 
         if (applicationId is not null)
@@ -111,6 +175,7 @@ public sealed class MetaCliRuntime
             application = model.ApplicationList.FirstOrDefault(item => string.Equals(item.Id, applicationId, StringComparison.Ordinal))!;
             if (application is null)
             {
+                errorCode = MetaCliParseErrorCode.ApplicationNotFound;
                 error = $"Application '{applicationId}' does not exist.";
                 return false;
             }
@@ -126,35 +191,21 @@ public sealed class MetaCliRuntime
 
         if (model.ApplicationList.Count == 0)
         {
+            errorCode = MetaCliParseErrorCode.ApplicationMissing;
             error = "The MetaCli model has no application.";
             return false;
         }
 
+        errorCode = MetaCliParseErrorCode.ApplicationAmbiguous;
         error = "The MetaCli model has more than one application; select one before running.";
         return false;
     }
 
-    private ParserPolicyRuntime ResolveParserPolicy(Application application)
+    private CommandMatch MatchExecutableCommand(
+        Application application,
+        ParserRuntimeRules rules,
+        IReadOnlyList<string> arguments)
     {
-        var policy = model.ParserPolicyList.SingleOrDefault(item => ReferenceEquals(item.Application, application));
-        if (policy is null)
-        {
-            return ParserPolicyRuntime.Default;
-        }
-
-        return new ParserPolicyRuntime(
-            EmptyToNull(policy.StopParsingToken),
-            ParseBool(policy.AllowsEqualsValueSyntax),
-            ParseBool(policy.AllowsOptionsAfterPositionals),
-            ParseBool(policy.AllowsShortOptionClusters));
-    }
-
-    private CommandMatch MatchExecutableCommand(Application application, IReadOnlyList<string> arguments)
-    {
-        var rootCommands = model.CommandList
-            .Where(command => ReferenceEquals(command.Application, application) && command.ParentCommand is null && !string.IsNullOrWhiteSpace(command.Token))
-            .ToArray();
-
         Command? current = null;
         ExecutableCommand? executable = null;
         var consumed = 0;
@@ -174,7 +225,7 @@ public sealed class MetaCliRuntime
 
             if (candidates.Length > 1)
             {
-                return CommandMatch.Failure($"Command token '{token}' is ambiguous.");
+                return CommandMatch.Failure(MetaCliParseErrorCode.CommandAmbiguous, $"Command token '{token}' is ambiguous.");
             }
 
             current = candidates[0];
@@ -189,29 +240,26 @@ public sealed class MetaCliRuntime
 
         if (consumed == 0)
         {
-            var defaultCommand = model.ApplicationDefaultCommandList
-                .SingleOrDefault(item => ReferenceEquals(item.Application, application));
-            if (defaultCommand is not null)
-            {
-                return CommandMatch.Success(defaultCommand.ExecutableCommand, 0);
-            }
-
             if (arguments.Count == 0)
             {
-                return CommandMatch.Failure("No command was provided.");
+                var defaultCommand = model.ApplicationDefaultCommandList
+                    .SingleOrDefault(item => ReferenceEquals(item.Application, application));
+                return defaultCommand is null
+                    ? CommandMatch.Failure(MetaCliParseErrorCode.CommandMissing, "No command was provided.")
+                    : CommandMatch.Success(defaultCommand.ExecutableCommand, 0);
             }
 
             var first = arguments[0];
-            if (rootCommands.Length == 0)
+            if (LooksLikeOption(first))
             {
-                return CommandMatch.Failure($"Command '{first}' is not modeled for application '{application.Name}'.");
+                return CommandMatch.Failure(MetaCliParseErrorCode.UnknownOption, $"Option '{first}' is not recognized.");
             }
 
-            return CommandMatch.Failure($"Command '{first}' is not modeled for application '{application.Name}'.");
+            return CommandMatch.Failure(MetaCliParseErrorCode.CommandNotFound, $"Command '{first}' is not modeled for application '{application.Name}'.");
         }
 
         var route = current is null ? string.Empty : DisplayRoute(current);
-        return CommandMatch.Failure($"Command '{route}' is not runnable.");
+        return CommandMatch.Failure(MetaCliParseErrorCode.CommandNotRunnable, $"Command '{route}' is not runnable.");
     }
 
     private ExecutableCommand? FindExecutableCommand(Command command) =>
@@ -220,27 +268,26 @@ public sealed class MetaCliRuntime
     private ParameterBindResult BindParameters(
         Application application,
         ExecutableCommand executableCommand,
-        ParserPolicyRuntime policy,
+        ParserRuntimeRules rules,
         IReadOnlyList<string> arguments,
         int startIndex)
     {
-        var parameters = model.ParameterList
-            .Where(parameter => ReferenceEquals(parameter.ExecutableCommand, executableCommand))
-            .ToArray();
+        var parameters = EffectiveParametersForExecutable(application, executableCommand);
         var states = parameters.ToDictionary(
             parameter => parameter,
-            parameter => new BoundParameterBuilder(parameter));
+            parameter => new BoundParameterBuilder(parameter),
+            ReferenceComparer<Parameter>.Instance);
 
         var optionByToken = BuildOptionTokenMap(executableCommand);
         if (!optionByToken.Succeeded)
         {
-            return ParameterBindResult.Failure(optionByToken.Error);
+            return ParameterBindResult.Failure(optionByToken.ErrorCode, optionByToken.Error);
         }
 
         var orderedPositionals = OrderPositionals(executableCommand);
         if (!orderedPositionals.Succeeded)
         {
-            return ParameterBindResult.Failure(orderedPositionals.Error);
+            return ParameterBindResult.Failure(orderedPositionals.ErrorCode, orderedPositionals.Error);
         }
 
         var positionalIndex = 0;
@@ -249,28 +296,28 @@ public sealed class MetaCliRuntime
         for (var index = startIndex; index < arguments.Count; index++)
         {
             var token = arguments[index];
-            if (!positionalMode && policy.StopParsingToken is not null && string.Equals(token, policy.StopParsingToken, StringComparison.Ordinal))
+            if (!positionalMode && rules.StopParsingToken is not null && string.Equals(token, rules.StopParsingToken, StringComparison.Ordinal))
             {
                 positionalMode = true;
                 continue;
             }
 
-            if (!positionalMode && TrySplitEqualsOption(token, policy, optionByToken.Values, out var optionToken, out var inlineValue, out var inlineError))
+            if (!positionalMode && TrySplitEqualsOption(token, rules, optionByToken.Values, out var optionToken, out var inlineValue, out var inlineError))
             {
                 if (inlineError is not null)
                 {
-                    return ParameterBindResult.Failure(inlineError);
+                    return ParameterBindResult.Failure(MetaCliParseErrorCode.InlineValueSyntaxNotAllowed, inlineError);
                 }
 
-                if (!policy.AllowsOptionsAfterPositionals && seenPositional)
+                if (!rules.AllowsOptionsAfterPositionals && seenPositional)
                 {
-                    return ParameterBindResult.Failure($"Option '{optionToken.Token}' cannot appear after positional arguments.");
+                    return ParameterBindResult.Failure(MetaCliParseErrorCode.OptionAfterPositional, $"Option '{optionToken.Token}' cannot appear after positional arguments.");
                 }
 
                 var optionBind = BindOptionValue(states, optionToken, inlineValue, arguments, ref index);
                 if (!optionBind.Succeeded)
                 {
-                    return ParameterBindResult.Failure(optionBind.Error);
+                    return ParameterBindResult.Failure(optionBind.ErrorCode, optionBind.Error);
                 }
 
                 continue;
@@ -278,15 +325,15 @@ public sealed class MetaCliRuntime
 
             if (!positionalMode && optionByToken.Values.TryGetValue(token, out var exactOptionToken))
             {
-                if (!policy.AllowsOptionsAfterPositionals && seenPositional)
+                if (!rules.AllowsOptionsAfterPositionals && seenPositional)
                 {
-                    return ParameterBindResult.Failure($"Option '{exactOptionToken.Token}' cannot appear after positional arguments.");
+                    return ParameterBindResult.Failure(MetaCliParseErrorCode.OptionAfterPositional, $"Option '{exactOptionToken.Token}' cannot appear after positional arguments.");
                 }
 
                 var optionBind = BindOptionValue(states, exactOptionToken, null, arguments, ref index);
                 if (!optionBind.Succeeded)
                 {
-                    return ParameterBindResult.Failure(optionBind.Error);
+                    return ParameterBindResult.Failure(optionBind.ErrorCode, optionBind.Error);
                 }
 
                 continue;
@@ -294,13 +341,13 @@ public sealed class MetaCliRuntime
 
             if (!positionalMode && LooksLikeOption(token) && !NextPositionalAllowsOptionLikeValue(orderedPositionals.Values, positionalIndex))
             {
-                return ParameterBindResult.Failure($"Option '{token}' is not recognized.");
+                return ParameterBindResult.Failure(MetaCliParseErrorCode.UnknownOption, $"Option '{token}' is not recognized.");
             }
 
             var positionalBind = BindPositionalValue(states, orderedPositionals.Values, ref positionalIndex, token);
             if (!positionalBind.Succeeded)
             {
-                return ParameterBindResult.Failure(positionalBind.Error);
+                return ParameterBindResult.Failure(positionalBind.ErrorCode, positionalBind.Error);
             }
 
             seenPositional = true;
@@ -309,7 +356,7 @@ public sealed class MetaCliRuntime
         var completion = CompleteBindings(executableCommand, states);
         if (!completion.Succeeded)
         {
-            return ParameterBindResult.Failure(completion.Error);
+            return ParameterBindResult.Failure(completion.ErrorCode, completion.Error);
         }
 
         return ParameterBindResult.Success(states.Values.Select(static state => state.ToBinding()).ToArray());
@@ -318,11 +365,12 @@ public sealed class MetaCliRuntime
     private ValueResult<Dictionary<string, OptionToken>> BuildOptionTokenMap(ExecutableCommand executableCommand)
     {
         var tokens = new Dictionary<string, OptionToken>(StringComparer.Ordinal);
-        foreach (var token in model.OptionTokenList.Where(token => ReferenceEquals(token.Option.Parameter.ExecutableCommand, executableCommand)))
+        var parameters = EffectiveParametersForExecutable(executableCommand.Command.Application, executableCommand);
+        foreach (var token in model.OptionTokenList.Where(token => parameters.Contains(token.Option.Parameter, ReferenceComparer<Parameter>.Instance)))
         {
             if (!tokens.TryAdd(token.Token, token))
             {
-                return ValueResult<Dictionary<string, OptionToken>>.Failure($"Option token '{token.Token}' is modeled more than once for command '{DisplayRoute(executableCommand.Command)}'.");
+                return ValueResult<Dictionary<string, OptionToken>>.Failure(MetaCliParseErrorCode.InvalidModel, $"Option token '{token.Token}' is modeled more than once for command '{DisplayRoute(executableCommand.Command)}'.");
             }
         }
 
@@ -331,8 +379,9 @@ public sealed class MetaCliRuntime
 
     private ValueResult<IReadOnlyList<PositionalArgument>> OrderPositionals(ExecutableCommand executableCommand)
     {
+        var parameters = CommandParametersForExecutable(executableCommand).ToArray();
         var positionals = model.PositionalArgumentList
-            .Where(argument => ReferenceEquals(argument.Parameter.ExecutableCommand, executableCommand))
+            .Where(argument => parameters.Contains(argument.Parameter, ReferenceComparer<Parameter>.Instance))
             .ToArray();
         if (positionals.Length == 0)
         {
@@ -342,7 +391,7 @@ public sealed class MetaCliRuntime
         var head = positionals.Where(static argument => argument.PreviousArgument is null).Take(2).ToArray();
         if (head.Length != 1)
         {
-            return ValueResult<IReadOnlyList<PositionalArgument>>.Failure($"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' are not a single chain.");
+            return ValueResult<IReadOnlyList<PositionalArgument>>.Failure(MetaCliParseErrorCode.InvalidModel, $"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' are not a single chain.");
         }
 
         var ordered = new List<PositionalArgument>();
@@ -357,20 +406,20 @@ public sealed class MetaCliRuntime
                 .ToArray();
             if (next.Length > 1)
             {
-                return ValueResult<IReadOnlyList<PositionalArgument>>.Failure($"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' fork after '{current.Parameter.Name}'.");
+                return ValueResult<IReadOnlyList<PositionalArgument>>.Failure(MetaCliParseErrorCode.InvalidModel, $"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' fork after '{current.Parameter.Name}'.");
             }
 
             if (next.Length == 0)
             {
                 return ordered.Count == positionals.Length
                     ? ValueResult<IReadOnlyList<PositionalArgument>>.Success(ordered)
-                    : ValueResult<IReadOnlyList<PositionalArgument>>.Failure($"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' are disconnected.");
+                    : ValueResult<IReadOnlyList<PositionalArgument>>.Failure(MetaCliParseErrorCode.InvalidModel, $"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' are disconnected.");
             }
 
             current = next[0];
         }
 
-        return ValueResult<IReadOnlyList<PositionalArgument>>.Failure($"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' contain a cycle.");
+        return ValueResult<IReadOnlyList<PositionalArgument>>.Failure(MetaCliParseErrorCode.InvalidModel, $"Positional arguments for command '{DisplayRoute(executableCommand.Command)}' contain a cycle.");
     }
 
     private OperationResult BindOptionValue(
@@ -385,12 +434,12 @@ public sealed class MetaCliRuntime
         var arity = ReadArity(parameter.ValueShape);
         if (!arity.Succeeded)
         {
-            return OperationResult.Failure(arity.Error);
+            return OperationResult.Failure(arity.ErrorCode, arity.Error);
         }
 
         if (!ParseBool(parameter.IsRepeatable) && state.IsPresent)
         {
-            return OperationResult.Failure($"Option '{optionToken.Token}' was provided more than once.");
+            return OperationResult.Failure(MetaCliParseErrorCode.DuplicateOption, $"Option '{optionToken.Token}' was provided more than once.");
         }
 
         state.IsPresent = true;
@@ -398,15 +447,16 @@ public sealed class MetaCliRuntime
         {
             if (inlineValue is not null)
             {
-                return OperationResult.Failure($"Option '{optionToken.Token}' does not accept a value.");
+                return OperationResult.Failure(MetaCliParseErrorCode.OptionDoesNotAcceptValue, $"Option '{optionToken.Token}' does not accept a value.");
             }
 
+            state.AddOptionOccurrence(optionToken);
             return OperationResult.Success();
         }
 
         if (inlineValue is not null)
         {
-            state.Values.Add(inlineValue);
+            state.AddOptionValue(optionToken, inlineValue);
             return OperationResult.Success();
         }
 
@@ -415,16 +465,16 @@ public sealed class MetaCliRuntime
             var nextIndex = index + 1;
             if (nextIndex >= arguments.Count)
             {
-                return OperationResult.Failure($"Option '{optionToken.Token}' requires a value.");
+                return OperationResult.Failure(MetaCliParseErrorCode.OptionRequiresValue, $"Option '{optionToken.Token}' requires a value.");
             }
 
             var value = arguments[nextIndex];
             if (LooksLikeOption(value) && !ParseBool(parameter.ValueShape.AllowsOptionLikeValue))
             {
-                return OperationResult.Failure($"Option '{optionToken.Token}' requires a value before '{value}'.");
+                return OperationResult.Failure(MetaCliParseErrorCode.OptionRequiresValue, $"Option '{optionToken.Token}' requires a value before '{value}'.");
             }
 
-            state.Values.Add(value);
+            state.AddOptionValue(optionToken, value);
             index = nextIndex;
         }
 
@@ -439,7 +489,7 @@ public sealed class MetaCliRuntime
     {
         if (positionalIndex >= positionals.Count)
         {
-            return OperationResult.Failure($"Unexpected argument '{value}'.");
+            return OperationResult.Failure(MetaCliParseErrorCode.UnexpectedArgument, $"Unexpected argument '{value}'.");
         }
 
         var positional = positionals[positionalIndex];
@@ -448,16 +498,16 @@ public sealed class MetaCliRuntime
         var arity = ReadArity(parameter.ValueShape);
         if (!arity.Succeeded)
         {
-            return OperationResult.Failure(arity.Error);
+            return OperationResult.Failure(arity.ErrorCode, arity.Error);
         }
 
         if (arity.Values.MaxValueCount == 0)
         {
-            return OperationResult.Failure($"Positional argument '{parameter.Name}' does not accept a value.");
+            return OperationResult.Failure(MetaCliParseErrorCode.InvalidModel, $"Positional argument '{parameter.Name}' does not accept a value.");
         }
 
         state.IsPresent = true;
-        state.Values.Add(value);
+        state.AddPositionalValue(positional, value);
 
         if (!ParseBool(parameter.IsRepeatable))
         {
@@ -475,28 +525,28 @@ public sealed class MetaCliRuntime
         {
             if (!state.IsPresent && !string.IsNullOrWhiteSpace(state.Parameter.DefaultValue))
             {
-                state.Values.Add(state.Parameter.DefaultValue!);
+                state.AddDefaultValue(state.Parameter.DefaultValue!);
             }
 
             if (ParseBool(state.Parameter.IsRequired) && state.Values.Count == 0 && !state.IsPresent)
             {
-                return OperationResult.Failure($"Required parameter '{state.Parameter.Name}' was not provided.");
+                return OperationResult.Failure(MetaCliParseErrorCode.RequiredParameterMissing, $"Required parameter '{state.Parameter.Name}' was not provided.");
             }
 
             var arity = ReadArity(state.Parameter.ValueShape);
             if (!arity.Succeeded)
             {
-                return OperationResult.Failure(arity.Error);
+                return OperationResult.Failure(arity.ErrorCode, arity.Error);
             }
 
             if (state.IsPresent && state.Values.Count < arity.Values.MinValueCount)
             {
-                return OperationResult.Failure($"Parameter '{state.Parameter.Name}' expects at least {arity.Values.MinValueCount.ToString(CultureInfo.InvariantCulture)} value(s).");
+                return OperationResult.Failure(MetaCliParseErrorCode.ParameterArityMismatch, $"Parameter '{state.Parameter.Name}' expects at least {arity.Values.MinValueCount.ToString(CultureInfo.InvariantCulture)} value(s).");
             }
 
             if (arity.Values.MaxValueCount is not null && state.Values.Count > arity.Values.MaxValueCount.Value)
             {
-                return OperationResult.Failure($"Parameter '{state.Parameter.Name}' expects at most {arity.Values.MaxValueCount.Value.ToString(CultureInfo.InvariantCulture)} value(s).");
+                return OperationResult.Failure(MetaCliParseErrorCode.ParameterArityMismatch, $"Parameter '{state.Parameter.Name}' expects at most {arity.Values.MaxValueCount.Value.ToString(CultureInfo.InvariantCulture)} value(s).");
             }
 
             var allowedValues = model.AllowedValueList
@@ -509,7 +559,7 @@ public sealed class MetaCliRuntime
                 {
                     if (!allowedValues.Contains(value))
                     {
-                        return OperationResult.Failure($"Parameter '{state.Parameter.Name}' does not allow value '{value}'.");
+                        return OperationResult.Failure(MetaCliParseErrorCode.ValueNotAllowed, $"Parameter '{state.Parameter.Name}' does not allow value '{value}'.");
                     }
                 }
             }
@@ -523,12 +573,12 @@ public sealed class MetaCliRuntime
             var presentMembers = members.Count(member => states.TryGetValue(member.Parameter, out var state) && state.IsPresent);
             if (ParseBool(group.IsRequired) && presentMembers == 0)
             {
-                return OperationResult.Failure($"Parameter group '{group.Name}' requires one of: {string.Join(", ", members.Select(static member => member.Parameter.Name))}.");
+                return OperationResult.Failure(MetaCliParseErrorCode.ParameterGroupRequired, $"Parameter group '{group.Name}' requires one of: {string.Join(", ", members.Select(static member => member.Parameter.Name))}.");
             }
 
             if (!ParseBool(group.AllowsMultiple) && presentMembers > 1)
             {
-                return OperationResult.Failure($"Parameter group '{group.Name}' accepts only one member.");
+                return OperationResult.Failure(MetaCliParseErrorCode.ParameterGroupConflict, $"Parameter group '{group.Name}' accepts only one member.");
             }
         }
 
@@ -537,7 +587,7 @@ public sealed class MetaCliRuntime
 
     private static bool TrySplitEqualsOption(
         string token,
-        ParserPolicyRuntime policy,
+        ParserRuntimeRules rules,
         IReadOnlyDictionary<string, OptionToken> options,
         out OptionToken optionToken,
         out string? inlineValue,
@@ -559,7 +609,7 @@ public sealed class MetaCliRuntime
             return false;
         }
 
-        if (!policy.AllowsEqualsValueSyntax)
+        if (!rules.AllowsEqualsValueSyntax)
         {
             error = $"Option '{optionName}' does not accept inline value syntax.";
             return true;
@@ -579,7 +629,7 @@ public sealed class MetaCliRuntime
     {
         if (!int.TryParse(valueShape.ValueArity.MinValueCount, NumberStyles.None, CultureInfo.InvariantCulture, out var min) || min < 0)
         {
-            return ValueResult<ValueArityRuntime>.Failure($"Value shape '{valueShape.Name}' has invalid minimum value count.");
+            return ValueResult<ValueArityRuntime>.Failure(MetaCliParseErrorCode.InvalidModel, $"Value shape '{valueShape.Name}' has invalid minimum value count.");
         }
 
         int? max = null;
@@ -587,7 +637,7 @@ public sealed class MetaCliRuntime
         {
             if (!int.TryParse(valueShape.ValueArity.MaxValueCount, NumberStyles.None, CultureInfo.InvariantCulture, out var parsedMax) || parsedMax < 0)
             {
-                return ValueResult<ValueArityRuntime>.Failure($"Value shape '{valueShape.Name}' has invalid maximum value count.");
+                return ValueResult<ValueArityRuntime>.Failure(MetaCliParseErrorCode.InvalidModel, $"Value shape '{valueShape.Name}' has invalid maximum value count.");
             }
 
             max = parsedMax;
@@ -595,7 +645,7 @@ public sealed class MetaCliRuntime
 
         if (max is not null && max.Value < min)
         {
-            return ValueResult<ValueArityRuntime>.Failure($"Value shape '{valueShape.Name}' has maximum value count below minimum value count.");
+            return ValueResult<ValueArityRuntime>.Failure(MetaCliParseErrorCode.InvalidModel, $"Value shape '{valueShape.Name}' has maximum value count below minimum value count.");
         }
 
         return ValueResult<ValueArityRuntime>.Success(new ValueArityRuntime(min, max));
@@ -613,16 +663,42 @@ public sealed class MetaCliRuntime
     private static bool ParseBool(string? value) =>
         bool.TryParse(value, out var parsed) && parsed;
 
-    private static string? EmptyToNull(string? value) =>
-        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    private IReadOnlyList<Parameter> EffectiveParametersForExecutable(
+        Application application,
+        ExecutableCommand executableCommand)
+    {
+        var parameters = new List<Parameter>();
+        parameters.AddRange(model.ApplicationParameterList
+            .Where(item => ReferenceEquals(item.Application, application))
+            .Select(static item => item.Parameter));
+        parameters.AddRange(CommandParametersForExecutable(executableCommand));
+        return parameters
+            .Distinct(ReferenceComparer<Parameter>.Instance)
+            .ToArray();
+    }
 
-    private sealed record ParserPolicyRuntime(
+    private IEnumerable<Parameter> CommandParametersForExecutable(ExecutableCommand executableCommand) =>
+        model.ExecutableCommandParameterList
+            .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+            .Select(static item => item.Parameter);
+
+    private sealed record HandlerBinding(
+        MetaCliCommandHandler? Handler,
+        MetaCliModelCommandHandler<TModel>? WorkspaceHandler)
+    {
+        public static HandlerBinding WithoutWorkspace(MetaCliCommandHandler handler) =>
+            new(handler, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliModelCommandHandler<TModel> handler) =>
+            new(null, handler);
+    }
+
+    private sealed record ParserRuntimeRules(
         string? StopParsingToken,
         bool AllowsEqualsValueSyntax,
-        bool AllowsOptionsAfterPositionals,
-        bool AllowsShortOptionClusters)
+        bool AllowsOptionsAfterPositionals)
     {
-        public static ParserPolicyRuntime Default { get; } = new(null, false, false, false);
+        public static ParserRuntimeRules Default { get; } = new("--", true, false);
     }
 
     private sealed record ValueArityRuntime(int MinValueCount, int? MaxValueCount);
@@ -640,46 +716,90 @@ public sealed class MetaCliRuntime
 
         public List<string> Values { get; } = new();
 
+        public List<MetaCliParameterOccurrence> Occurrences { get; } = new();
+
+        public void AddOptionOccurrence(OptionToken optionToken)
+        {
+            Occurrences.Add(new MetaCliParameterOccurrence(null, optionToken, null, false));
+        }
+
+        public void AddOptionValue(OptionToken optionToken, string value)
+        {
+            Values.Add(value);
+            Occurrences.Add(new MetaCliParameterOccurrence(value, optionToken, null, false));
+        }
+
+        public void AddPositionalValue(PositionalArgument positionalArgument, string value)
+        {
+            Values.Add(value);
+            Occurrences.Add(new MetaCliParameterOccurrence(value, null, positionalArgument, false));
+        }
+
+        public void AddDefaultValue(string value)
+        {
+            Values.Add(value);
+            Occurrences.Add(new MetaCliParameterOccurrence(value, null, null, true));
+        }
+
         public MetaCliParameterBinding ToBinding() =>
-            new(Parameter, IsPresent, Values.ToArray());
+            new(Parameter, IsPresent, Values.ToArray(), Occurrences.ToArray());
     }
 
     private readonly record struct CommandMatch(
         bool Succeeded,
         ExecutableCommand ExecutableCommand,
         int ConsumedTokenCount,
+        MetaCliParseErrorCode ErrorCode,
         string Error)
     {
         public static CommandMatch Success(ExecutableCommand executableCommand, int consumedTokenCount) =>
-            new(true, executableCommand, consumedTokenCount, string.Empty);
+            new(true, executableCommand, consumedTokenCount, MetaCliParseErrorCode.None, string.Empty);
 
-        public static CommandMatch Failure(string error) =>
-            new(false, null!, 0, error);
+        public static CommandMatch Failure(MetaCliParseErrorCode errorCode, string error) =>
+            new(false, null!, 0, errorCode, error);
     }
 
     private readonly record struct ParameterBindResult(
         bool Succeeded,
         IReadOnlyList<MetaCliParameterBinding> Bindings,
+        MetaCliParseErrorCode ErrorCode,
         string Error)
     {
         public static ParameterBindResult Success(IReadOnlyList<MetaCliParameterBinding> bindings) =>
-            new(true, bindings, string.Empty);
+            new(true, bindings, MetaCliParseErrorCode.None, string.Empty);
 
-        public static ParameterBindResult Failure(string error) =>
-            new(false, Array.Empty<MetaCliParameterBinding>(), error);
+        public static ParameterBindResult Failure(MetaCliParseErrorCode errorCode, string error) =>
+            new(false, Array.Empty<MetaCliParameterBinding>(), errorCode, error);
     }
 
-    private readonly record struct OperationResult(bool Succeeded, string Error)
+    private readonly record struct OperationResult(
+        bool Succeeded,
+        MetaCliParseErrorCode ErrorCode,
+        string Error)
     {
-        public static OperationResult Success() => new(true, string.Empty);
+        public static OperationResult Success() => new(true, MetaCliParseErrorCode.None, string.Empty);
 
-        public static OperationResult Failure(string error) => new(false, error);
+        public static OperationResult Failure(MetaCliParseErrorCode errorCode, string error) => new(false, errorCode, error);
     }
 
-    private readonly record struct ValueResult<T>(bool Succeeded, T Values, string Error)
+    private readonly record struct ValueResult<T>(
+        bool Succeeded,
+        T Values,
+        MetaCliParseErrorCode ErrorCode,
+        string Error)
     {
-        public static ValueResult<T> Success(T values) => new(true, values, string.Empty);
+        public static ValueResult<T> Success(T values) => new(true, values, MetaCliParseErrorCode.None, string.Empty);
 
-        public static ValueResult<T> Failure(string error) => new(false, default!, error);
+        public static ValueResult<T> Failure(MetaCliParseErrorCode errorCode, string error) => new(false, default!, errorCode, error);
+    }
+
+    private sealed class ReferenceComparer<T> : IEqualityComparer<T>
+        where T : class?
+    {
+        public static readonly ReferenceComparer<T> Instance = new();
+
+        public bool Equals(T? x, T? y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(T obj) => RuntimeHelpers.GetHashCode(obj);
     }
 }

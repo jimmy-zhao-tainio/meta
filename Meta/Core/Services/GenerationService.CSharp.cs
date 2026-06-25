@@ -86,7 +86,7 @@ public static partial class GenerationService
         builder.AppendLine();
         builder.AppendLine($"namespace {namespaceName}");
         builder.AppendLine("{");
-        builder.AppendLine($"    public sealed partial class {modelTypeName}");
+        builder.AppendLine($"    public sealed partial class {modelTypeName} : IMetaWorkspaceModel<{modelTypeName}>");
         builder.AppendLine("    {");
         builder.AppendLine($"        public static {modelTypeName} CreateEmpty() => new();");
         builder.AppendLine();

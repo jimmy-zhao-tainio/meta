@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace MetaCli.Core;
 
 public sealed class MetaCliInvocation
@@ -35,6 +37,8 @@ public sealed class MetaCliInvocation
     public IReadOnlyList<string> RawArguments { get; }
 
     public IReadOnlyList<MetaCliParameterBinding> Parameters => bindings;
+
+    public MetaCliParameterBinding Binding(string parameter) => Resolve(parameter);
 
     public bool IsPresent(string parameter) => Resolve(parameter).IsPresent;
 
@@ -95,21 +99,60 @@ public sealed class MetaCliInvocation
 public sealed record MetaCliParameterBinding(
     Parameter Parameter,
     bool IsPresent,
-    IReadOnlyList<string> Values);
+    IReadOnlyList<string> Values,
+    IReadOnlyList<MetaCliParameterOccurrence> Occurrences);
 
-public sealed record MetaCliRuntimeResult(
-    int ExitCode,
+public sealed record MetaCliParameterOccurrence(
+    string? Value,
+    OptionToken? OptionToken,
+    PositionalArgument? PositionalArgument,
+    bool IsDefaultValue);
+
+internal enum MetaCliParseErrorCode
+{
+    None,
+    ApplicationMissing,
+    ApplicationNotFound,
+    ApplicationAmbiguous,
+    CommandMissing,
+    CommandNotFound,
+    CommandAmbiguous,
+    CommandNotRunnable,
+    UnknownOption,
+    DuplicateOption,
+    OptionDoesNotAcceptValue,
+    OptionRequiresValue,
+    OptionAfterPositional,
+    InlineValueSyntaxNotAllowed,
+    UnexpectedArgument,
+    RequiredParameterMissing,
+    ParameterArityMismatch,
+    ValueNotAllowed,
+    ParameterGroupRequired,
+    ParameterGroupConflict,
+    InvalidModel,
+}
+
+internal sealed record MetaCliParseResult(
+    bool Succeeded,
+    MetaCliParseErrorCode ErrorCode,
     string? Message,
     MetaCliInvocation? Invocation)
 {
-    public bool Succeeded => ExitCode == 0;
+    public static MetaCliParseResult Success(MetaCliInvocation invocation) =>
+        new(true, MetaCliParseErrorCode.None, null, invocation);
 
-    public static MetaCliRuntimeResult Success(int exitCode, MetaCliInvocation invocation) =>
-        new(exitCode, null, invocation);
+    public static MetaCliParseResult Failure(MetaCliParseErrorCode errorCode, string message) =>
+        new(false, errorCode, message, null);
 
-    public static MetaCliRuntimeResult Failure(
-        int exitCode,
-        string message,
-        MetaCliInvocation? invocation = null) =>
-        new(exitCode, message, invocation);
+    public bool TryGetInvocation([NotNullWhen(true)] out MetaCliInvocation? invocation)
+    {
+        invocation = Invocation;
+        return Succeeded && invocation is not null;
+    }
+
+    public MetaCliInvocation RequireInvocation() =>
+        TryGetInvocation(out var invocation)
+            ? invocation
+            : throw new InvalidOperationException(Message ?? "Command line could not be parsed.");
 }

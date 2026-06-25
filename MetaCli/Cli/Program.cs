@@ -17,14 +17,11 @@ internal static class Program
 
         try
         {
-            if (string.Equals(args[0], "--new-workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                return RunCreate(args);
-            }
-
             return args[0].ToLowerInvariant() switch
             {
+                "new-workspace" => RunWithHelp(args, "new-workspace", RunCreate),
                 "show" => RunWithHelp(args, "show", RunShow),
+                "from-syntax" => RunWithHelp(args, "from-syntax", RunFromSyntax),
                 "add-application" => RunWithHelp(args, "add-application", RunAddApplication),
                 "add-command" => RunWithHelp(args, "add-command", RunAddCommand),
                 "add-executable-command" => RunWithHelp(args, "add-executable-command", RunAddExecutableCommand),
@@ -32,18 +29,12 @@ internal static class Program
                 "add-value-arity" => RunWithHelp(args, "add-value-arity", RunAddValueArity),
                 "add-value-shape" => RunWithHelp(args, "add-value-shape", RunAddValueShape),
                 "add-allowed-value" => RunWithHelp(args, "add-allowed-value", RunAddAllowedValue),
+                "add-application-option" => RunWithHelp(args, "add-application-option", RunAddApplicationOption),
                 "add-option" => RunWithHelp(args, "add-option", RunAddOption),
                 "add-option-token" => RunWithHelp(args, "add-option-token", RunAddOptionToken),
                 "add-positional" => RunWithHelp(args, "add-positional", RunAddPositional),
                 "add-parameter-group" => RunWithHelp(args, "add-parameter-group", RunAddParameterGroup),
                 "add-parameter-group-member" => RunWithHelp(args, "add-parameter-group-member", RunAddParameterGroupMember),
-                "add-duplicate-option-behavior" => RunWithHelp(args, "add-duplicate-option-behavior", RunAddDuplicateOptionBehavior),
-                "add-unknown-token-behavior" => RunWithHelp(args, "add-unknown-token-behavior", RunAddUnknownTokenBehavior),
-                "add-parser-policy" => RunWithHelp(args, "add-parser-policy", RunAddParserPolicy),
-                "add-output-format" => RunWithHelp(args, "add-output-format", RunAddOutputFormat),
-                "add-output-stream" => RunWithHelp(args, "add-output-stream", RunAddOutputStream),
-                "add-output" => RunWithHelp(args, "add-output", RunAddOutput),
-                "add-exit-code" => RunWithHelp(args, "add-exit-code", RunAddExitCode),
                 "help" => ReturnHelp(),
                 _ => Fail($"unknown command '{args[0]}'.", "meta-cli help"),
             };
@@ -60,13 +51,18 @@ internal static class Program
 
     private static int RunCreate(string[] args)
     {
-        var parse = ParseOptions(args, 0, new[] { "--new-workspace" });
-        if (!parse.Ok)
+        if (args.Length < 2)
         {
-            return Fail(parse.ErrorMessage, "meta-cli --new-workspace <path>");
+            return Fail("missing workspace path.", HelpCommand("new-workspace"));
         }
 
-        var workspacePath = RequireOption(parse, "--new-workspace", "meta-cli --new-workspace <path>");
+        var parse = ParseOptions(args, 2, Array.Empty<string>());
+        if (!parse.Ok)
+        {
+            return Fail(parse.ErrorMessage, HelpCommand("new-workspace"));
+        }
+
+        var workspacePath = args[1];
         var fullPath = Path.GetFullPath(workspacePath);
         if (Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
         {
@@ -128,7 +124,9 @@ internal static class Program
             Presenter.WriteInfo("    command surface:");
             foreach (var command in application.Commands)
             {
-                var route = string.IsNullOrWhiteSpace(command.Route) ? "(default)" : command.Route;
+                var route = string.IsNullOrWhiteSpace(command.Route)
+                    ? "(default)"
+                    : command.Route;
                 Presenter.WriteInfo($"      {route} {CommandTags(command)}");
                 if (!string.IsNullOrWhiteSpace(command.Description))
                 {
@@ -142,6 +140,28 @@ internal static class Program
             }
         }
 
+        return 0;
+    }
+
+    private static int RunFromSyntax(string[] args)
+    {
+        if (args.Length < 2)
+        {
+            return Fail("missing syntax path.", HelpCommand("from-syntax"));
+        }
+
+        var parse = ParseOptions(args, 2, WorkspaceOnly());
+        if (!parse.Ok)
+        {
+            return Fail(parse.ErrorMessage, HelpCommand("from-syntax"));
+        }
+
+        var result = Service.CreateFromSyntaxFile(args[1], GetWorkspace(parse));
+        Presenter.WriteInfo($"Authored MetaCli workspace from syntax: {result.WorkspacePath}");
+        Presenter.WriteInfo($"  source: {result.SourcePath}");
+        Presenter.WriteInfo($"  applications: {Count(result.ApplicationCount)}");
+        Presenter.WriteInfo($"  commands: {Count(result.CommandCount)} ({Count(result.ExecutableCommandCount)} runnable)");
+        Presenter.WriteInfo($"  parameters: {Count(result.ParameterCount)} ({Plural(result.OptionCount, "option")}, {Plural(result.PositionalArgumentCount, "positional")}, {Plural(result.ParameterGroupCount, "group")})");
         return 0;
     }
 
@@ -202,7 +222,7 @@ internal static class Program
 
     private static int RunSetDefaultCommand(string[] args)
     {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--application", "--command-id", "--executable-command-id", "--name", "--description"));
+        var parse = ParseOptions(args, 1, WorkspaceOptions("--application", "--executable-command"));
         if (!parse.Ok)
         {
             return Fail(parse.ErrorMessage, HelpCommand("set-default-command"));
@@ -211,10 +231,7 @@ internal static class Program
         var row = Service.SetDefaultCommand(
             GetWorkspace(parse),
             RequireOption(parse, "--application", HelpCommand("set-default-command")),
-            RequireOption(parse, "--command-id", HelpCommand("set-default-command")),
-            RequireOption(parse, "--executable-command-id", HelpCommand("set-default-command")),
-            RequireOption(parse, "--name", HelpCommand("set-default-command")),
-            GetOption(parse, "--description"));
+            RequireOption(parse, "--executable-command", HelpCommand("set-default-command")));
         WriteDone($"Set default command for {row.Application.Id}: {row.ExecutableCommand.Command.Name}.");
         return 0;
     }
@@ -260,7 +277,7 @@ internal static class Program
 
     private static int RunAddAllowedValue(string[] args)
     {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--value-shape", "--value", "--previous-value", "--description"));
+        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--value-shape", "--value", "--description"));
         if (!parse.Ok)
         {
             return Fail(parse.ErrorMessage, HelpCommand("add-allowed-value"));
@@ -271,7 +288,6 @@ internal static class Program
             RequireOption(parse, "--id", HelpCommand("add-allowed-value")),
             RequireOption(parse, "--value-shape", HelpCommand("add-allowed-value")),
             RequireOption(parse, "--value", HelpCommand("add-allowed-value")),
-            GetOption(parse, "--previous-value"),
             GetOption(parse, "--description"));
         WriteDone($"Added allowed value {row.Value} for {row.ValueShape.Name}.");
         return 0;
@@ -299,6 +315,31 @@ internal static class Program
             GetOption(parse, "--default-value"),
             GetOption(parse, "--description"));
         WriteDone($"Added option {row.Parameter.Name} ({GetOption(parse, "--token")}).");
+        return 0;
+    }
+
+    private static int RunAddApplicationOption(string[] args)
+    {
+        var parse = ParseOptions(args, 1, WorkspaceOptions("--parameter-id", "--option-id", "--application", "--name", "--value-shape", "--token-id", "--token", "--required", "--repeatable", "--default-value", "--description"));
+        if (!parse.Ok)
+        {
+            return Fail(parse.ErrorMessage, HelpCommand("add-application-option"));
+        }
+
+        var row = Service.AddApplicationOption(
+            GetWorkspace(parse),
+            RequireOption(parse, "--parameter-id", HelpCommand("add-application-option")),
+            RequireOption(parse, "--option-id", HelpCommand("add-application-option")),
+            RequireOption(parse, "--application", HelpCommand("add-application-option")),
+            RequireOption(parse, "--name", HelpCommand("add-application-option")),
+            RequireOption(parse, "--value-shape", HelpCommand("add-application-option")),
+            RequireOption(parse, "--token-id", HelpCommand("add-application-option")),
+            RequireOption(parse, "--token", HelpCommand("add-application-option")),
+            GetBoolOption(parse, "--required"),
+            GetBoolOption(parse, "--repeatable"),
+            GetOption(parse, "--default-value"),
+            GetOption(parse, "--description"));
+        WriteDone($"Added application option {row.Parameter.Name} ({GetOption(parse, "--token")}).");
         return 0;
     }
 
@@ -384,149 +425,6 @@ internal static class Program
         return 0;
     }
 
-    private static int RunAddDuplicateOptionBehavior(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--name", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-duplicate-option-behavior"));
-        }
-
-        var row = Service.AddDuplicateOptionBehavior(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-duplicate-option-behavior")),
-            RequireOption(parse, "--name", HelpCommand("add-duplicate-option-behavior")),
-            GetOption(parse, "--description"));
-        WriteDone($"Added duplicate-option behavior {row.Name}.");
-        return 0;
-    }
-
-    private static int RunAddUnknownTokenBehavior(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--name", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-unknown-token-behavior"));
-        }
-
-        var row = Service.AddUnknownTokenBehavior(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-unknown-token-behavior")),
-            RequireOption(parse, "--name", HelpCommand("add-unknown-token-behavior")),
-            GetOption(parse, "--description"));
-        WriteDone($"Added unknown-token behavior {row.Name}.");
-        return 0;
-    }
-
-    private static int RunAddParserPolicy(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions(
-            "--id",
-            "--application",
-            "--name",
-            "--stop-parsing-token",
-            "--allows-equals-value-syntax",
-            "--allows-options-after-positionals",
-            "--allows-short-option-clusters",
-            "--duplicate-option-behavior",
-            "--unknown-token-behavior",
-            "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-parser-policy"));
-        }
-
-        var row = Service.AddParserPolicy(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-parser-policy")),
-            RequireOption(parse, "--application", HelpCommand("add-parser-policy")),
-            RequireOption(parse, "--name", HelpCommand("add-parser-policy")),
-            GetOption(parse, "--stop-parsing-token"),
-            GetBoolOption(parse, "--allows-equals-value-syntax"),
-            GetBoolOption(parse, "--allows-options-after-positionals"),
-            GetBoolOption(parse, "--allows-short-option-clusters"),
-            GetOption(parse, "--duplicate-option-behavior"),
-            GetOption(parse, "--unknown-token-behavior"),
-            GetOption(parse, "--description"));
-        WriteDone($"Added parser policy {row.Name} for {row.Application.Id}.");
-        return 0;
-    }
-
-    private static int RunAddOutputFormat(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--name", "--content-type", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-output-format"));
-        }
-
-        var row = Service.AddOutputFormat(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-output-format")),
-            RequireOption(parse, "--name", HelpCommand("add-output-format")),
-            GetOption(parse, "--content-type"),
-            GetOption(parse, "--description"));
-        WriteDone($"Added output format {row.Name}.");
-        return 0;
-    }
-
-    private static int RunAddOutputStream(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--name", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-output-stream"));
-        }
-
-        var row = Service.AddOutputStream(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-output-stream")),
-            RequireOption(parse, "--name", HelpCommand("add-output-stream")),
-            GetOption(parse, "--description"));
-        WriteDone($"Added output stream {row.Name}.");
-        return 0;
-    }
-
-    private static int RunAddOutput(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--executable-command", "--name", "--output-format", "--output-stream", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-output"));
-        }
-
-        var row = Service.AddOutput(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-output")),
-            RequireOption(parse, "--executable-command", HelpCommand("add-output")),
-            RequireOption(parse, "--name", HelpCommand("add-output")),
-            GetOption(parse, "--output-format"),
-            GetOption(parse, "--output-stream"),
-            GetOption(parse, "--description"));
-        WriteDone($"Added output {row.Name} for {MetaCliWorkspaceService.BuildRoute(row.ExecutableCommand.Command)}.");
-        return 0;
-    }
-
-    private static int RunAddExitCode(string[] args)
-    {
-        var parse = ParseOptions(args, 1, WorkspaceOptions("--id", "--application", "--code", "--name", "--executable-command", "--description"));
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("add-exit-code"));
-        }
-
-        var row = Service.AddExitCode(
-            GetWorkspace(parse),
-            RequireOption(parse, "--id", HelpCommand("add-exit-code")),
-            RequireOption(parse, "--application", HelpCommand("add-exit-code")),
-            RequireOption(parse, "--code", HelpCommand("add-exit-code")),
-            RequireOption(parse, "--name", HelpCommand("add-exit-code")),
-            GetOption(parse, "--executable-command"),
-            GetOption(parse, "--description"));
-        WriteDone($"Added exit code {row.Code}: {row.Name}.");
-        return 0;
-    }
-
     private static int RunWithHelp(string[] args, string commandName, Func<string[], int> run)
     {
         if (args.Length > 1 && IsHelpToken(args[1]))
@@ -546,12 +444,14 @@ internal static class Program
 
     private static void PrintHelp()
     {
-        Presenter.WriteUsage("meta-cli --new-workspace <path>");
+        Presenter.WriteUsage("meta-cli new-workspace <path>");
         Presenter.WriteUsage("meta-cli <command> [--workspace <path>] [options]");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteCommandCatalog("Commands:", new[]
         {
+            ("new-workspace", "Create an empty MetaCli workspace."),
             ("show", "Show the authored command surface."),
+            ("from-syntax", "Author a workspace from MetaCli syntax."),
             ("add-application", "Add a CLI application."),
             ("add-command", "Add a command path segment."),
             ("add-executable-command", "Mark a command as runnable."),
@@ -559,30 +459,33 @@ internal static class Program
             ("add-value-arity", "Define how many values a parameter accepts."),
             ("add-value-shape", "Define a parameter value shape."),
             ("add-allowed-value", "Add one allowed value for a value shape."),
-            ("add-option", "Add an option with its primary token."),
+            ("add-application-option", "Add an option available to all commands."),
+            ("add-option", "Add a command option with its first token."),
             ("add-option-token", "Add an additional token for an option."),
             ("add-positional", "Add a positional argument."),
             ("add-parameter-group", "Start a parameter choice group."),
             ("add-parameter-group-member", "Add another parameter to a group."),
-            ("add-duplicate-option-behavior", "Define how duplicate options are handled."),
-            ("add-unknown-token-behavior", "Define how unknown tokens are handled."),
-            ("add-parser-policy", "Attach parser behavior to an application."),
-            ("add-output-format", "Define an output format."),
-            ("add-output-stream", "Define an output stream."),
-            ("add-output", "Describe output from a runnable command."),
-            ("add-exit-code", "Describe an exit code."),
             ("help", "Show help."),
         });
         Presenter.WriteInfo(string.Empty);
-        Presenter.WriteNext("meta-cli --new-workspace <path>");
+        Presenter.WriteNext("meta-cli new-workspace <path>");
     }
 
     private static void PrintCommandHelp(string commandName)
     {
         switch (commandName)
         {
+            case "new-workspace":
+                WriteUsageAndOptions("meta-cli new-workspace <path>",
+                    ("<path>", "Required. Empty MetaCli workspace directory to create."));
+                break;
             case "show":
                 WriteUsageAndOptions("meta-cli show [--workspace <path>]", WorkspaceHelp());
+                break;
+            case "from-syntax":
+                WriteUsageAndOptions("meta-cli from-syntax <path> [--workspace <path>]",
+                    ("<path>", "Required. MetaCli syntax file."),
+                    WorkspaceHelp());
                 break;
             case "add-application":
                 WriteUsageAndOptions("meta-cli add-application [--workspace <path>] --id <id> --name <name> [--executable-name <name>] [--version <value>] [--description <text>]",
@@ -610,13 +513,10 @@ internal static class Program
                     ("--command <id>", "Required. Command id."));
                 break;
             case "set-default-command":
-                WriteUsageAndOptions("meta-cli set-default-command [--workspace <path>] --application <id> --command-id <id> --executable-command-id <id> --name <name> [--description <text>]",
+                WriteUsageAndOptions("meta-cli set-default-command [--workspace <path>] --application <id> --executable-command <id>",
                     WorkspaceHelp(),
                     ("--application <id>", "Required. Application id."),
-                    ("--command-id <id>", "Required. Tokenless default Command id to create."),
-                    ("--executable-command-id <id>", "Required. ExecutableCommand id to create."),
-                    ("--name <name>", "Required. Default command name."),
-                    ("--description <text>", "Optional description."));
+                    ("--executable-command <id>", "Required. Existing ExecutableCommand id."));
                 break;
             case "add-value-arity":
                 WriteUsageAndOptions("meta-cli add-value-arity [--workspace <path>] --id <id> --name <name> --min-value-count <count> [--max-value-count <count>] [--description <text>]",
@@ -638,12 +538,11 @@ internal static class Program
                     ("--description <text>", "Optional description."));
                 break;
             case "add-allowed-value":
-                WriteUsageAndOptions("meta-cli add-allowed-value [--workspace <path>] --id <id> --value-shape <id> --value <value> [--previous-value <id>] [--description <text>]",
+                WriteUsageAndOptions("meta-cli add-allowed-value [--workspace <path>] --id <id> --value-shape <id> --value <value> [--description <text>]",
                     WorkspaceHelp(),
                     ("--id <id>", "Required. AllowedValue id."),
                     ("--value-shape <id>", "Required. ValueShape id."),
                     ("--value <value>", "Required. Allowed value."),
-                    ("--previous-value <id>", "Optional previous AllowedValue id."),
                     ("--description <text>", "Optional description."));
                 break;
             case "add-option":
@@ -654,8 +553,23 @@ internal static class Program
                     ("--executable-command <id>", "Required. ExecutableCommand id."),
                     ("--name <name>", "Required. Parameter name."),
                     ("--value-shape <id>", "Required. ValueShape id."),
-                    ("--token-id <id>", "Required. Primary OptionToken id to create."),
-                    ("--token <token>", "Required. Primary option token text."),
+                    ("--token-id <id>", "Required. First OptionToken id to create."),
+                    ("--token <token>", "Required. First option token text."),
+                    ("--required true|false", "Optional boolean."),
+                    ("--repeatable true|false", "Optional boolean."),
+                    ("--default-value <value>", "Optional default value."),
+                    ("--description <text>", "Optional description."));
+                break;
+            case "add-application-option":
+                WriteUsageAndOptions("meta-cli add-application-option [--workspace <path>] --parameter-id <id> --option-id <id> --application <id> --name <name> --value-shape <id> --token-id <id> --token <token> [--required true|false] [--repeatable true|false] [--default-value <value>] [--description <text>]",
+                    WorkspaceHelp(),
+                    ("--parameter-id <id>", "Required. Parameter id to create."),
+                    ("--option-id <id>", "Required. Option id to create."),
+                    ("--application <id>", "Required. Application id."),
+                    ("--name <name>", "Required. Parameter name."),
+                    ("--value-shape <id>", "Required. ValueShape id."),
+                    ("--token-id <id>", "Required. First OptionToken id to create."),
+                    ("--token <token>", "Required. First option token text."),
                     ("--required true|false", "Optional boolean."),
                     ("--repeatable true|false", "Optional boolean."),
                     ("--default-value <value>", "Optional default value."),
@@ -702,69 +616,6 @@ internal static class Program
                     ("--parameter-group <id>", "Required. ParameterGroup id."),
                     ("--parameter <id>", "Required. Parameter id."),
                     ("--previous-member <id>", "Required. Previous ParameterGroupMember id in the group member chain."));
-                break;
-            case "add-duplicate-option-behavior":
-                WriteUsageAndOptions("meta-cli add-duplicate-option-behavior [--workspace <path>] --id <id> --name <name> [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. DuplicateOptionBehavior id."),
-                    ("--name <name>", "Required. Behavior name."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-unknown-token-behavior":
-                WriteUsageAndOptions("meta-cli add-unknown-token-behavior [--workspace <path>] --id <id> --name <name> [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. UnknownTokenBehavior id."),
-                    ("--name <name>", "Required. Behavior name."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-parser-policy":
-                WriteUsageAndOptions("meta-cli add-parser-policy [--workspace <path>] --id <id> --application <id> --name <name> [--stop-parsing-token <token>] [--allows-equals-value-syntax true|false] [--allows-options-after-positionals true|false] [--allows-short-option-clusters true|false] [--duplicate-option-behavior <id>] [--unknown-token-behavior <id>] [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. ParserPolicy id."),
-                    ("--application <id>", "Required. Application id."),
-                    ("--name <name>", "Required. Parser policy name."),
-                    ("--stop-parsing-token <token>", "Optional token that stops option parsing."),
-                    ("--allows-equals-value-syntax true|false", "Optional boolean. Defaults to false when unset."),
-                    ("--allows-options-after-positionals true|false", "Optional boolean. Defaults to false when unset."),
-                    ("--allows-short-option-clusters true|false", "Optional boolean. Defaults to false when unset."),
-                    ("--duplicate-option-behavior <id>", "Optional DuplicateOptionBehavior id."),
-                    ("--unknown-token-behavior <id>", "Optional UnknownTokenBehavior id."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-output-format":
-                WriteUsageAndOptions("meta-cli add-output-format [--workspace <path>] --id <id> --name <name> [--content-type <value>] [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. OutputFormat id."),
-                    ("--name <name>", "Required. Output format name."),
-                    ("--content-type <value>", "Optional content type."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-output-stream":
-                WriteUsageAndOptions("meta-cli add-output-stream [--workspace <path>] --id <id> --name <name> [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. OutputStream id."),
-                    ("--name <name>", "Required. Output stream name."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-output":
-                WriteUsageAndOptions("meta-cli add-output [--workspace <path>] --id <id> --executable-command <id> --name <name> [--output-format <id>] [--output-stream <id>] [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. Output id."),
-                    ("--executable-command <id>", "Required. ExecutableCommand id."),
-                    ("--name <name>", "Required. Output name."),
-                    ("--output-format <id>", "Optional OutputFormat id."),
-                    ("--output-stream <id>", "Optional OutputStream id."),
-                    ("--description <text>", "Optional description."));
-                break;
-            case "add-exit-code":
-                WriteUsageAndOptions("meta-cli add-exit-code [--workspace <path>] --id <id> --application <id> --code <code> --name <name> [--executable-command <id>] [--description <text>]",
-                    WorkspaceHelp(),
-                    ("--id <id>", "Required. ExitCode id."),
-                    ("--application <id>", "Required. Application id."),
-                    ("--code <code>", "Required. Exit code value."),
-                    ("--name <name>", "Required. Exit code name."),
-                    ("--executable-command <id>", "Optional ExecutableCommand id for command-specific exit codes."),
-                    ("--description <text>", "Optional description."));
                 break;
             default:
                 PrintHelp();
@@ -849,11 +700,6 @@ internal static class Program
         if (args.Length == 0)
         {
             return "meta-cli help";
-        }
-
-        if (string.Equals(args[0], "--new-workspace", StringComparison.OrdinalIgnoreCase))
-        {
-            return "meta-cli --new-workspace <path>";
         }
 
         if (args[0].StartsWith("-", StringComparison.Ordinal))
