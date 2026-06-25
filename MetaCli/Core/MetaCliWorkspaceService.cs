@@ -1,11 +1,95 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace MetaCli.Core;
 
 public sealed class MetaCliWorkspaceService
 {
     public MetaCliModel CreateEmpty() => MetaCliModel.CreateEmpty();
+
+    public MetaCliNewWorkspaceResult CreateWorkspace(
+        string workspacePath,
+        string? applicationName,
+        bool standardCliShapes,
+        bool defaultHelp)
+    {
+        var fullWorkspacePath = ResolveWorkspacePath(workspacePath);
+        if (Directory.Exists(fullWorkspacePath) && Directory.EnumerateFileSystemEntries(fullWorkspacePath).Any())
+        {
+            throw new InvalidOperationException($"Target directory must be empty: {fullWorkspacePath}");
+        }
+
+        var model = CreateEmpty();
+        Application? application = null;
+        if (!string.IsNullOrWhiteSpace(applicationName))
+        {
+            var normalizedName = RequiredText(applicationName, "application");
+            application = new Application
+            {
+                Id = BuildApplicationId(normalizedName),
+                Name = normalizedName,
+                ExecutableName = normalizedName,
+            };
+            model.ApplicationList.Add(application);
+        }
+
+        if (standardCliShapes)
+        {
+            AddStandardCliShapes(model);
+        }
+
+        if (defaultHelp)
+        {
+            if (application is null)
+            {
+                throw new InvalidOperationException("--default-help requires --application <name>.");
+            }
+
+            var helpCommand = new Command
+            {
+                Id = "cmd-help",
+                Application = application,
+                Name = "help",
+                Token = "help",
+            };
+            var helpExecutable = new ExecutableCommand
+            {
+                Id = "exec-help",
+                Command = helpCommand,
+            };
+            model.CommandList.Add(helpCommand);
+            model.ExecutableCommandList.Add(helpExecutable);
+            model.ApplicationDefaultCommandList.Add(new ApplicationDefaultCommand
+            {
+                Id = application.Id + ":default-command",
+                Application = application,
+                ExecutableCommand = helpExecutable,
+            });
+        }
+
+        var issues = Validate(model, includeCompleteness: true);
+        if (issues.Any(static issue => issue.Severity == MetaCliIssueSeverity.Error))
+        {
+            throw new InvalidOperationException(RenderValidationFailure(issues));
+        }
+
+        model.SaveToXmlWorkspace(fullWorkspacePath);
+        return new MetaCliNewWorkspaceResult(
+            fullWorkspacePath,
+            model.ApplicationList.Count,
+            model.ValueArityList.Count,
+            model.ValueShapeList.Count,
+            model.AllowedValueList.Count,
+            model.CommandList.Count,
+            model.ExecutableCommandList.Count,
+            model.ParameterList.Count,
+            model.ApplicationParameterList.Count,
+            model.ExecutableCommandParameterList.Count,
+            model.OptionList.Count,
+            model.PositionalArgumentList.Count,
+            model.ParameterGroupList.Count);
+    }
 
     public MetaCliModel Load(string? workspacePath) =>
         MetaCliModel.LoadFromXmlWorkspace(ResolveWorkspacePath(workspacePath), searchUpward: false);
@@ -51,37 +135,6 @@ public sealed class MetaCliWorkspaceService
             model.ValueShapeList.Count,
             model.AllowedValueList.Count,
             issues);
-    }
-
-    public MetaCliFromSyntaxResult CreateFromSyntaxFile(string syntaxPath, string? workspacePath)
-    {
-        if (string.IsNullOrWhiteSpace(syntaxPath))
-        {
-            throw new ArgumentException("Syntax path is required.", nameof(syntaxPath));
-        }
-
-        var sourcePath = Path.GetFullPath(syntaxPath);
-        var model = new MetaCliSyntaxCompiler().CompileFile(sourcePath);
-        var issues = Validate(model, includeCompleteness: true);
-        if (issues.Any(static issue => issue.Severity == MetaCliIssueSeverity.Error))
-        {
-            throw new InvalidOperationException(RenderValidationFailure(issues));
-        }
-
-        var fullWorkspacePath = ResolveWorkspacePath(workspacePath);
-        model.SaveToXmlWorkspace(fullWorkspacePath);
-        return new MetaCliFromSyntaxResult(
-            sourcePath,
-            fullWorkspacePath,
-            model.ApplicationList.Count,
-            model.CommandList.Count,
-            model.ExecutableCommandList.Count,
-            model.ParameterList.Count,
-            model.ApplicationParameterList.Count,
-            model.ExecutableCommandParameterList.Count,
-            model.OptionList.Count,
-            model.PositionalArgumentList.Count,
-            model.ParameterGroupList.Count);
     }
 
     public Application AddApplication(
@@ -535,6 +588,110 @@ public sealed class MetaCliWorkspaceService
         }
 
         return string.Join(" ", tokens);
+    }
+
+    private static void AddStandardCliShapes(MetaCliModel model)
+    {
+        var none = new ValueArity
+        {
+            Id = "arity-none",
+            Name = "None",
+            MinValueCount = "0",
+            MaxValueCount = "0",
+        };
+        var one = new ValueArity
+        {
+            Id = "arity-one",
+            Name = "One",
+            MinValueCount = "1",
+            MaxValueCount = "1",
+        };
+        model.ValueArityList.Add(none);
+        model.ValueArityList.Add(one);
+
+        var flag = new ValueShape
+        {
+            Id = "shape-flag",
+            Name = "Flag",
+            ValueArity = none,
+        };
+        var text = new ValueShape
+        {
+            Id = "shape-text",
+            Name = "Text",
+            ValueArity = one,
+            ValueLabel = "<value>",
+        };
+        var path = new ValueShape
+        {
+            Id = "shape-path",
+            Name = "Path",
+            ValueArity = one,
+            ValueLabel = "<path>",
+            AllowsOptionLikeValue = "true",
+        };
+        var token = new ValueShape
+        {
+            Id = "shape-token",
+            Name = "Token",
+            ValueArity = one,
+            ValueLabel = "<token>",
+            AllowsOptionLikeValue = "true",
+        };
+        var boolean = new ValueShape
+        {
+            Id = "shape-bool",
+            Name = "Boolean",
+            ValueArity = one,
+            ValueLabel = "true|false",
+        };
+        model.ValueShapeList.Add(flag);
+        model.ValueShapeList.Add(text);
+        model.ValueShapeList.Add(path);
+        model.ValueShapeList.Add(token);
+        model.ValueShapeList.Add(boolean);
+
+        model.AllowedValueList.Add(new AllowedValue
+        {
+            Id = "allowed-boolean-true",
+            ValueShape = boolean,
+            Value = "true",
+        });
+        model.AllowedValueList.Add(new AllowedValue
+        {
+            Id = "allowed-boolean-false",
+            ValueShape = boolean,
+            Value = "false",
+        });
+    }
+
+    private static string BuildApplicationId(string applicationName)
+    {
+        var builder = new StringBuilder();
+        var previousWasDash = false;
+        foreach (var character in applicationName.Trim().ToLowerInvariant())
+        {
+            if (char.IsLetterOrDigit(character))
+            {
+                builder.Append(character);
+                previousWasDash = false;
+                continue;
+            }
+
+            if (!previousWasDash && builder.Length > 0)
+            {
+                builder.Append('-');
+                previousWasDash = true;
+            }
+        }
+
+        var normalized = builder.ToString().Trim('-');
+        if (string.IsNullOrWhiteSpace(normalized))
+        {
+            throw new InvalidOperationException("application must contain at least one letter or digit.");
+        }
+
+        return "app-" + normalized;
     }
 
     private T Mutate<T>(string? workspacePath, Func<MetaCliModel, T> mutate)

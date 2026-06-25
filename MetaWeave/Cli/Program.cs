@@ -1,630 +1,413 @@
 using Meta.Core.Domain;
 using Meta.Core.Presentation;
-using Meta.Core.Presentation.Cli;
 using Meta.Core.Services;
+using MetaCli;
+using MetaCli.Core;
 using MetaWeave.Core;
+using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 
 internal static class Program
 {
-    private const int PersistRetryCount = 3;
-    private static readonly TimeSpan PersistRetryDelay = TimeSpan.FromMilliseconds(50);
+    private const string ApplicationId = "app-meta-weave";
+    private const string CommandWorkspaceDirectoryName = "meta-weave.MetaCli";
     private static readonly ConsolePresenter Presenter = new();
-    private static readonly CliAppDefinition Cli = new(
-        "meta-weave",
-        new[] { "meta-weave <command> [options]" },
-        new[]
-        {
-            new CliCommandDefinition(
-                "help",
-                "Show this help.",
-                new[] { "meta-weave help" }),
-            new CliCommandDefinition(
-                "init",
-                "Create a new MetaWeave workspace.",
-                new[] { "meta-weave init --new-workspace <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the new MetaWeave workspace.")
-                },
-                new[] { "Creates a new workspace with the MetaWeave model and validates it." }),
-            new CliCommandDefinition(
-                "add-model",
-                "Add a referenced model workspace.",
-                new[] { "meta-weave add-model --workspace <path> --alias <alias> --model <modelName> --workspace-path <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to update."),
-                    new CliOptionDefinition("--alias <alias>", "Required. Local model alias used by bindings."),
-                    new CliOptionDefinition("--model <modelName>", "Required. Referenced model name."),
-                    new CliOptionDefinition("--workspace-path <path>", "Required. Referenced model workspace path.")
-                }),
-            new CliCommandDefinition(
-                "add-binding",
-                "Add a property binding between two model references.",
-                new[] { "meta-weave add-binding --workspace <path> --name <bindingName> --source-model <alias> --source-entity <entity> --source-property <property> --target-model <alias> --target-entity <entity> --target-property <property>" },
-                new[]
-                {
-                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to update."),
-                    new CliOptionDefinition("--name <bindingName>", "Required. Binding identity."),
-                    new CliOptionDefinition("--source-model <alias>", "Required. Source model alias."),
-                    new CliOptionDefinition("--source-entity <entity>", "Required. Source entity name."),
-                    new CliOptionDefinition("--source-property <property>", "Required. Source property name."),
-                    new CliOptionDefinition("--target-model <alias>", "Required. Target model alias."),
-                    new CliOptionDefinition("--target-entity <entity>", "Required. Target entity name."),
-                    new CliOptionDefinition("--target-property <property>", "Required. Target property name.")
-                }),
-            new CliCommandDefinition(
-                "suggest",
-                "Suggest missing property bindings only when the source values resolve uniquely and completely in a target key.",
-                new[] { "meta-weave suggest --workspace <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to inspect.")
-                },
-                new[]
-                {
-                    "Strong suggestions require exact property-name alignment plus complete and unique resolution.",
-                    "Weak suggestions cover role-style suffix matches and cases where one source property resolves to more than one eligible target."
-                }),
-            new CliCommandDefinition(
-                "check",
-                "Validate property bindings across referenced workspaces.",
-                new[] { "meta-weave check --workspace <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to validate.")
-                },
-                new[] { "Loads referenced workspaces and validates that every bound source property resolves exactly once in the target model." }),
-            new CliCommandDefinition(
-                "materialize",
-                "Materialize a new workspace from a valid weave.",
-                new[] { "meta-weave materialize --workspace <path> --new-workspace <path> --model <name>" },
-                new[]
-                {
-                    new CliOptionDefinition("--workspace <path>", "Required. MetaWeave workspace to materialize from."),
-                    new CliOptionDefinition("--new-workspace <path>", "Required. Empty target directory for the materialized workspace."),
-                    new CliOptionDefinition("--model <name>", "Required. Materialized model name.")
-                },
-                new[] { "Checks the weave, calls core workspace merge on the referenced workspaces, and materializes weave bindings as in-workspace relationships." })
-        },
-        Next: "meta-weave suggest --help",
-        Examples: new[]
-        {
-            "meta-weave suggest --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType",
-            "meta-weave check --workspace MetaWeave\\Workspaces\\Weave-Mapping-ReferenceType"
-        });
 
-    internal static CliAppDefinition CreateAppDefinition() => Cli;
-
-    static async Task<int> Main(string[] args)
+    static int Main(string[] args)
     {
-        if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, Cli.Name, args, out var versionExitCode))
+        if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, "meta-weave", args, out var versionExitCode))
         {
             return versionExitCode;
         }
 
-        if (args.Length == 0 || IsHelpToken(args[0]))
+        if (TryHandleHelp(args))
+        {
+            return 0;
+        }
+
+        Environment.ExitCode = 0;
+        var runtime = new MetaCliRuntime<MetaWeaveModel>(CommandWorkspacePath, ApplicationId)
+            .Bind("exec-help", _ => PrintHelp())
+            .Bind("exec-new-workspace", RunNewWorkspace)
+            .Bind("exec-add-model", RunAddModel)
+            .Bind("exec-add-binding", RunAddBinding)
+            .Bind("exec-suggest", RunSuggest)
+            .Bind("exec-check", RunCheck)
+            .Bind("exec-materialize", RunMaterialize);
+
+        runtime.Run(args);
+        return Environment.ExitCode;
+    }
+
+    private static string CommandWorkspacePath =>
+        Path.Combine(AppContext.BaseDirectory, CommandWorkspaceDirectoryName);
+
+    private static bool TryHandleHelp(IReadOnlyList<string> args)
+    {
+        if (args.Count == 0)
         {
             PrintHelp();
-            return 0;
+            return true;
         }
 
-        if (string.Equals(args[0], "init", StringComparison.OrdinalIgnoreCase))
+        if (IsHelpToken(args[0]))
         {
-            return await RunInitAsync(args).ConfigureAwait(false);
-        }
-
-        if (string.Equals(args[0], "check", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunCheckAsync(args).ConfigureAwait(false);
-        }
-
-        if (string.Equals(args[0], "materialize", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunMaterializeAsync(args).ConfigureAwait(false);
-        }
-
-        if (string.Equals(args[0], "add-model", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunAddModelAsync(args).ConfigureAwait(false);
-        }
-
-        if (string.Equals(args[0], "add-binding", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunAddBindingAsync(args).ConfigureAwait(false);
-        }
-
-        if (string.Equals(args[0], "suggest", StringComparison.OrdinalIgnoreCase))
-        {
-            return await RunSuggestAsync(args).ConfigureAwait(false);
-        }
-
-        Presenter.WriteFailure(
-            "Cannot run meta-weave.",
-            new[]
+            if (args.Count > 1)
             {
-                $"Unknown command '{args[0]}'.",
-                "Next: meta-weave help"
-            });
-        return 1;
-    }
-
-    private static async Task<int> RunInitAsync(string[] args)
-    {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintInitHelp();
-            return 0;
-        }
-
-        var parseResult = ParseNewWorkspaceOnly(args, startIndex: 1);
-        if (!parseResult.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot initialize MetaWeave workspace.",
-                new[] { parseResult.ErrorMessage, "Next: meta-weave init --help" });
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
-        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
-        {
-            Presenter.WriteFailure(
-                "Cannot initialize MetaWeave workspace.",
-                new[]
-                {
-                    $"Target directory '{workspacePath}' must be empty.",
-                    "Next: choose a new folder or empty the target directory and retry."
-                });
-            return 4;
-        }
-
-        Directory.CreateDirectory(workspacePath);
-
-        var workspace = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(workspacePath);
-        var validation = new ValidationService().Validate(workspace);
-        if (validation.HasErrors)
-        {
-            Presenter.WriteFailure(
-                "Cannot initialize MetaWeave workspace.",
-                validation.Issues.Where(item => item.Severity == IssueSeverity.Error)
-                    .Select(item => $"- {item.Code}: {item.Message}")
-                    .Concat(new[] { "Next: fix the sanctioned model and retry init." }));
-            return 4;
-        }
-
-        await new WorkspaceService().SaveAsync(workspace).ConfigureAwait(false);
-        await WaitForWorkspaceReadyAsync(workspacePath).ConfigureAwait(false);
-
-        Presenter.WriteOk("weave init", ("Workspace", workspacePath), ("Model", workspace.Model.Name));
-        return 0;
-    }
-
-    private static async Task<int> RunSuggestAsync(string[] args)
-    {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintSuggestHelp();
-            return 0;
-        }
-
-        var parseResult = ParseWorkspaceOnly(args, startIndex: 1);
-        if (!parseResult.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot suggest weave bindings.",
-                new[] { parseResult.ErrorMessage, "Next: meta-weave suggest --help" });
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parseResult.WorkspacePath);
-        try
-        {
-            var workspace = await new WorkspaceService().LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-            var result = await new MetaWeaveSuggestService().SuggestAsync(workspace).ConfigureAwait(false);
-
-            Line("Binding suggestions");
-            if (result.Suggestions.Count == 0)
-            {
-                Line("  (none)");
+                PrintCommandHelp(args.Skip(1).ToArray());
             }
             else
             {
-                for (var index = 0; index < result.Suggestions.Count; index++)
-                {
-                    var suggestion = result.Suggestions[index];
-                    var roleSuffix = string.IsNullOrWhiteSpace(suggestion.InferredRole)
-                        ? string.Empty
-                        : $" (role: {suggestion.InferredRole})";
-                    Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}{roleSuffix}");
-                }
+                PrintHelp();
             }
 
-            if (result.WeakSuggestions.Count > 0)
-            {
-                Line(string.Empty);
-                Line("Weak binding suggestions");
-                var weakIndex = 1;
-                foreach (var weakSuggestion in result.WeakSuggestions)
-                {
-                    foreach (var candidate in weakSuggestion.Candidates)
-                    {
-                        var roleSuffix = string.IsNullOrWhiteSpace(candidate.InferredRole)
-                            ? string.Empty
-                            : $" (role: {candidate.InferredRole})";
-                        Line($"  {weakIndex}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}{roleSuffix}");
-                        weakIndex++;
-                    }
-                }
-            }
+            return true;
+        }
 
-            return 0;
-        }
-        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
+        if (args.Count > 1 && IsHelpToken(args[1]))
         {
-            Presenter.WriteFailure(
-                "Cannot suggest weave bindings.",
-                new[] { ex.Message, "Next: fix the weave workspace or referenced workspaces and retry." });
-            return 4;
+            PrintCommandHelp(new[] { args[0] });
+            return true;
         }
+
+        return false;
     }
 
-    private static async Task<int> RunCheckAsync(string[] args)
+    private static void RunNewWorkspace(MetaCliInvocation invocation)
     {
-        if (args.Length == 1 || IsHelpToken(args[1]))
+        var workspacePath = Path.GetFullPath(invocation.Required("path"));
+        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
         {
-            PrintCheckHelp();
-            return 0;
+            throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
         }
 
-        var parseResult = ParseWorkspaceOnly(args, startIndex: 1);
-        if (!parseResult.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot check weave bindings.",
-                new[] { parseResult.ErrorMessage, "Next: meta-weave check --help" });
-            return 1;
-        }
+        Directory.CreateDirectory(workspacePath);
+        MetaWeaveModel.CreateEmpty().SaveToXmlWorkspace(workspacePath);
 
-        var workspacePath = Path.GetFullPath(parseResult.WorkspacePath);
-        try
-        {
-            var workspace = await new WorkspaceService().LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-            var result = await new MetaWeaveService().CheckAsync(workspace).ConfigureAwait(false);
-            if (result.HasErrors)
-            {
-                Presenter.WriteFailure(
-                    "Cannot check weave bindings.",
-                    result.Bindings.SelectMany(binding => binding.Errors.Select(error => $"- {binding.BindingName}: {error}"))
-                        .Concat(new[] { "Next: fix the reported bindings and retry meta-weave check." }));
-                return 2;
-            }
-
-            Presenter.WriteOk(
-                "weave check",
-                ("Workspace", workspacePath),
-                ("Bindings", result.BindingCount.ToString()),
-                ("ResolvedRows", result.ResolvedRowCount.ToString()),
-                ("Errors", result.ErrorCount.ToString()));
-            return 0;
-        }
-        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
-        {
-            Presenter.WriteFailure(
-                "Cannot check weave bindings.",
-                new[] { ex.Message, "Next: fix the weave workspace or referenced workspaces and retry." });
-            return 4;
-        }
+        Presenter.WriteOk(
+            "weave workspace created",
+            ("Workspace", workspacePath),
+            ("Model", "MetaWeave"));
     }
 
-    private static async Task<int> RunMaterializeAsync(string[] args)
+    private static void RunAddModel(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
     {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintMaterializeHelp();
-            return 0;
-        }
+        var workspacePath = ResolveWorkspacePath(invocation);
+        new MetaWeaveAuthoringService().AddModelReferenceAsync(
+            weaveModel,
+            workspacePath,
+            invocation.Required("alias"),
+            invocation.Required("model"),
+            invocation.Required("workspace-path")).GetAwaiter().GetResult();
+        weaveModel.SaveToXmlWorkspace(workspacePath);
 
-        var parseResult = ParseWorkspaceAndNewWorkspaceAndModel(args, startIndex: 1);
-        if (!parseResult.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot materialize weave workspace.",
-                new[] { parseResult.ErrorMessage, "Next: meta-weave materialize --help" });
-            return 1;
-        }
-
-        var weaveWorkspacePath = Path.GetFullPath(parseResult.WorkspacePath);
-        var materializedWorkspacePath = Path.GetFullPath(parseResult.NewWorkspacePath);
-        if (Directory.Exists(materializedWorkspacePath) && Directory.EnumerateFileSystemEntries(materializedWorkspacePath).Any())
-        {
-            Presenter.WriteFailure(
-                "Cannot materialize weave workspace.",
-                new[]
-                {
-                    $"Target directory '{materializedWorkspacePath}' must be empty.",
-                    "Next: choose a new folder or empty the target directory and retry."
-                });
-            return 4;
-        }
-
-        try
-        {
-            var workspaceService = new WorkspaceService();
-            var weaveWorkspace = await workspaceService.LoadAsync(weaveWorkspacePath, searchUpward: false).ConfigureAwait(false);
-            var materializedWorkspace = await new MetaWeaveService(workspaceService, new WorkspaceMergeService())
-                .MaterializeAsync(weaveWorkspace, materializedWorkspacePath, parseResult.ModelName)
-                .ConfigureAwait(false);
-
-            Directory.CreateDirectory(materializedWorkspacePath);
-            await workspaceService.SaveAsync(materializedWorkspace).ConfigureAwait(false);
-            await WaitForWorkspaceReadyAsync(materializedWorkspacePath).ConfigureAwait(false);
-
-            Presenter.WriteOk(
-                "weave materialize",
-                ("Weave", weaveWorkspacePath),
-                ("Workspace", materializedWorkspacePath),
-                ("Model", materializedWorkspace.Model.Name),
-                ("Entities", materializedWorkspace.Model.Entities.Count.ToString()),
-                ("BindingsMaterialized", weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding").Count.ToString()));
-            return 0;
-        }
-        catch (Exception ex) when (ex is InvalidOperationException or IOException or UnauthorizedAccessException)
-        {
-            Presenter.WriteFailure(
-                "Cannot materialize weave workspace.",
-                new[] { ex.Message, "Next: run meta-weave check and resolve all reported issues before materialize." });
-            return 4;
-        }
-    }
-    private static async Task<int> RunAddModelAsync(string[] args)
-    {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintAddModelHelp();
-            return 0;
-        }
-
-        (bool Ok, string WorkspacePath, string Alias, string ModelName, string ModelWorkspacePath, string ErrorMessage) parse;
-        try
-        {
-            parse = ParseAddModelArgs(args, 1);
-        }
-        catch (InvalidOperationException ex)
-        {
-            Presenter.WriteFailure(
-                "Cannot add model reference.",
-                new[] { ex.Message, "Next: meta-weave add-model --help" });
-            return 1;
-        }
-        if (!parse.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot add model reference.",
-                new[] { parse.ErrorMessage, "Next: meta-weave add-model --help" });
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parse.WorkspacePath);
-        var workspaceService = new WorkspaceService();
-        var workspace = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-        try
-        {
-            var resolvedWorkspacePath = Path.GetFullPath(parse.ModelWorkspacePath);
-            await new MetaWeaveAuthoringService().AddModelReferenceAsync(workspace, parse.Alias, parse.ModelName, resolvedWorkspacePath).ConfigureAwait(false);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            Presenter.WriteFailure(
-                "Cannot add model reference.",
-                new[] { ex.Message, "Next: meta-weave add-model --help" });
-            return 4;
-        }
-
-        var validation = new ValidationService().Validate(workspace);
-        if (validation.HasErrors)
-        {
-            Presenter.WriteFailure(
-                "Cannot add model reference.",
-                validation.Issues.Where(item => item.Severity == IssueSeverity.Error)
-                    .Select(item => $"- {item.Code}: {item.Message}")
-                    .Concat(new[] { "Next: fix the weave workspace and retry add-model." }));
-            return 4;
-        }
-
-        await workspaceService.SaveAsync(workspace).ConfigureAwait(false);
-        await WaitForPersistedModelReferenceAsync(workspacePath, parse.Alias).ConfigureAwait(false);
         Presenter.WriteOk(
             "weave model reference added",
             ("Workspace", workspacePath),
-            ("Alias", parse.Alias),
-            ("Model", parse.ModelName),
-            ("WorkspacePath", parse.ModelWorkspacePath));
-        return 0;
+            ("Alias", invocation.Required("alias")),
+            ("Model", invocation.Required("model")),
+            ("WorkspacePath", invocation.Required("workspace-path")));
     }
 
-    private static async Task<int> RunAddBindingAsync(string[] args)
+    private static void RunAddBinding(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
     {
-        if (args.Length == 1 || IsHelpToken(args[1]))
-        {
-            PrintAddBindingHelp();
-            return 0;
-        }
+        var workspacePath = ResolveWorkspacePath(invocation);
+        new MetaWeaveAuthoringService().AddPropertyBindingAsync(
+            weaveModel,
+            workspacePath,
+            invocation.Required("name"),
+            invocation.Required("source-model"),
+            invocation.Required("source-entity"),
+            invocation.Required("source-property"),
+            invocation.Required("target-model"),
+            invocation.Required("target-entity"),
+            invocation.Required("target-property")).GetAwaiter().GetResult();
+        weaveModel.SaveToXmlWorkspace(workspacePath);
 
-        (bool Ok, string WorkspacePath, string Name, string SourceModelAlias, string SourceEntity, string SourceProperty, string TargetModelAlias, string TargetEntity, string TargetProperty, string ErrorMessage) parse;
-        try
-        {
-            parse = ParseAddBindingArgs(args, 1);
-        }
-        catch (InvalidOperationException ex)
-        {
-            Presenter.WriteFailure(
-                "Cannot add property binding.",
-                new[] { ex.Message, "Next: meta-weave add-binding --help" });
-            return 1;
-        }
-        if (!parse.Ok)
-        {
-            Presenter.WriteFailure(
-                "Cannot add property binding.",
-                new[] { parse.ErrorMessage, "Next: meta-weave add-binding --help" });
-            return 1;
-        }
-
-        var workspacePath = Path.GetFullPath(parse.WorkspacePath);
-        var workspaceService = new WorkspaceService();
-        var workspace = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-        try
-        {
-            await new MetaWeaveAuthoringService().AddPropertyBindingAsync(
-                workspace,
-                parse.Name,
-                parse.SourceModelAlias,
-                parse.SourceEntity,
-                parse.SourceProperty,
-                parse.TargetModelAlias,
-                parse.TargetEntity,
-                parse.TargetProperty).ConfigureAwait(false);
-        }
-        catch (Exception ex) when (ex is ArgumentException or InvalidOperationException)
-        {
-            Presenter.WriteFailure(
-                "Cannot add property binding.",
-                new[] { ex.Message, "Next: meta-weave add-binding --help" });
-            return 4;
-        }
-
-        var validation = new ValidationService().Validate(workspace);
-        if (validation.HasErrors)
-        {
-            Presenter.WriteFailure(
-                "Cannot add property binding.",
-                validation.Issues.Where(item => item.Severity == IssueSeverity.Error)
-                    .Select(item => $"- {item.Code}: {item.Message}")
-                    .Concat(new[] { "Next: fix the weave workspace and retry add-binding." }));
-            return 4;
-        }
-
-        await workspaceService.SaveAsync(workspace).ConfigureAwait(false);
-        await WaitForPersistedBindingAsync(workspacePath, parse.Name).ConfigureAwait(false);
         Presenter.WriteOk(
             "weave property binding added",
             ("Workspace", workspacePath),
-            ("Binding", parse.Name));
-        return 0;
+            ("Binding", invocation.Required("name")));
     }
 
-    private static (bool Ok, string WorkspacePath, string ErrorMessage) ParseWorkspaceOnly(string[] args, int startIndex)
+    private static void RunSuggest(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
     {
-        var workspacePath = string.Empty;
-        for (var i = startIndex; i < args.Length; i++)
+        var workspacePath = ResolveWorkspacePath(invocation);
+        var result = new MetaWeaveSuggestService().SuggestAsync(weaveModel, workspacePath).GetAwaiter().GetResult();
+
+        Line("Binding suggestions");
+        if (result.Suggestions.Count == 0)
         {
-            var arg = args[i];
-            if (!string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
+            Line("  (none)");
+        }
+        else
+        {
+            for (var index = 0; index < result.Suggestions.Count; index++)
             {
-                return (false, workspacePath, $"unknown option '{arg}'.");
+                var suggestion = result.Suggestions[index];
+                var roleSuffix = string.IsNullOrWhiteSpace(suggestion.InferredRole)
+                    ? string.Empty
+                    : $" (role: {suggestion.InferredRole})";
+                Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}{roleSuffix}");
             }
-
-            if (i + 1 >= args.Length)
-            {
-                return (false, workspacePath, "missing value for --workspace.");
-            }
-
-            if (!string.IsNullOrWhiteSpace(workspacePath))
-            {
-                return (false, workspacePath, "--workspace can only be provided once.");
-            }
-
-            workspacePath = args[++i];
         }
 
-        if (string.IsNullOrWhiteSpace(workspacePath))
+        if (result.WeakSuggestions.Count > 0)
         {
-            return (false, string.Empty, "missing required option --workspace <path>.");
+            Line(string.Empty);
+            Line("Weak binding suggestions");
+            var weakIndex = 1;
+            foreach (var weakSuggestion in result.WeakSuggestions)
+            {
+                foreach (var candidate in weakSuggestion.Candidates)
+                {
+                    var roleSuffix = string.IsNullOrWhiteSpace(candidate.InferredRole)
+                        ? string.Empty
+                        : $" (role: {candidate.InferredRole})";
+                    Line($"  {weakIndex}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}{roleSuffix}");
+                    weakIndex++;
+                }
+            }
         }
-
-        return (true, workspacePath, string.Empty);
     }
 
-    private static (bool Ok, string NewWorkspacePath, string ErrorMessage) ParseNewWorkspaceOnly(string[] args, int startIndex)
+    private static void RunCheck(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
     {
-        var newWorkspacePath = string.Empty;
-        for (var i = startIndex; i < args.Length; i++)
+        var workspacePath = ResolveWorkspacePath(invocation);
+        var result = new MetaWeaveService().CheckAsync(weaveModel, workspacePath).GetAwaiter().GetResult();
+        if (result.HasErrors)
         {
-            var arg = args[i];
-            if (!string.Equals(arg, "--new-workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                return (false, newWorkspacePath, $"unknown option '{arg}'.");
-            }
-
-            if (i + 1 >= args.Length)
-            {
-                return (false, newWorkspacePath, "missing value for --new-workspace.");
-            }
-
-            if (!string.IsNullOrWhiteSpace(newWorkspacePath))
-            {
-                return (false, newWorkspacePath, "--new-workspace can only be provided once.");
-            }
-
-            newWorkspacePath = args[++i];
+            throw new InvalidOperationException(string.Join(
+                Environment.NewLine,
+                result.Bindings.SelectMany(binding => binding.Errors.Select(error => $"{binding.BindingName}: {error}"))));
         }
 
-        if (string.IsNullOrWhiteSpace(newWorkspacePath))
-        {
-            return (false, string.Empty, "missing required option --new-workspace <path>.");
-        }
-
-        return (true, newWorkspacePath, string.Empty);
+        Presenter.WriteOk(
+            "weave check",
+            ("Workspace", workspacePath),
+            ("Bindings", result.BindingCount.ToString()),
+            ("ResolvedRows", result.ResolvedRowCount.ToString()),
+            ("Errors", result.ErrorCount.ToString()));
     }
 
-    private static (bool Ok, string WorkspacePath, string NewWorkspacePath, string ModelName, string ErrorMessage) ParseWorkspaceAndNewWorkspaceAndModel(string[] args, int startIndex)
+    private static void RunMaterialize(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
     {
-        var workspacePath = string.Empty;
-        var newWorkspacePath = string.Empty;
-        var modelName = string.Empty;
-
-        for (var i = startIndex; i < args.Length; i++)
+        var weaveWorkspacePath = ResolveWorkspacePath(invocation);
+        var materializedWorkspacePath = Path.GetFullPath(invocation.Required("new-workspace"));
+        if (Directory.Exists(materializedWorkspacePath) && Directory.EnumerateFileSystemEntries(materializedWorkspacePath).Any())
         {
-            var arg = args[i];
-            if (i + 1 >= args.Length)
-            {
-                return (false, workspacePath, newWorkspacePath, modelName, $"missing value for {arg}.");
-            }
-
-            switch (arg.ToLowerInvariant())
-            {
-                case "--workspace":
-                    workspacePath = EnsureUnsetThenAssign(workspacePath, args[++i], "--workspace");
-                    break;
-                case "--new-workspace":
-                    newWorkspacePath = EnsureUnsetThenAssign(newWorkspacePath, args[++i], "--new-workspace");
-                    break;
-                case "--model":
-                    modelName = EnsureUnsetThenAssign(modelName, args[++i], "--model");
-                    break;
-                default:
-                    return (false, workspacePath, newWorkspacePath, modelName, $"unknown option '{arg}'.");
-            }
+            throw new InvalidOperationException($"Target directory '{materializedWorkspacePath}' must be empty.");
         }
 
-        if (string.IsNullOrWhiteSpace(workspacePath))
-        {
-            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --workspace <path>.");
-        }
+        var workspaceService = new WorkspaceService();
+        var materializedWorkspace = new MetaWeaveService(workspaceService, new WorkspaceMergeService())
+            .MaterializeAsync(
+                weaveModel,
+                weaveWorkspacePath,
+                materializedWorkspacePath,
+                invocation.Required("model"))
+            .GetAwaiter()
+            .GetResult();
 
-        if (string.IsNullOrWhiteSpace(newWorkspacePath))
-        {
-            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --new-workspace <path>.");
-        }
+        Directory.CreateDirectory(materializedWorkspacePath);
+        workspaceService.SaveAsync(materializedWorkspace).GetAwaiter().GetResult();
 
-        if (string.IsNullOrWhiteSpace(modelName))
-        {
-            return (false, workspacePath, newWorkspacePath, modelName, "missing required option --model <name>.");
-        }
-
-        return (true, workspacePath, newWorkspacePath, modelName, string.Empty);
+        Presenter.WriteOk(
+            "weave materialize",
+            ("Weave", weaveWorkspacePath),
+            ("Workspace", materializedWorkspacePath),
+            ("Model", materializedWorkspace.Model.Name),
+            ("Entities", materializedWorkspace.Model.Entities.Count.ToString()),
+            ("BindingsMaterialized", weaveModel.PropertyBindingList.Count.ToString()));
     }
+
+    private static string ResolveWorkspacePath(MetaCliInvocation invocation)
+    {
+        var workspace = invocation.Optional("workspace");
+        return Path.GetFullPath(string.IsNullOrWhiteSpace(workspace)
+            ? Directory.GetCurrentDirectory()
+            : workspace);
+    }
+
+    private static void PrintHelp()
+    {
+        var model = LoadCommandSurface();
+        var application = FindApplication(model);
+        Console.WriteLine("Usage:");
+        Console.WriteLine("  meta-weave <command> [--workspace <path>] [options]");
+        Console.WriteLine();
+        Console.WriteLine("Commands:");
+        foreach (var command in model.CommandList
+                     .Where(command => ReferenceEquals(command.Application, application))
+                     .Where(command => command.ParentCommand is null)
+                     .Where(command => !string.Equals(command.Token, "help", StringComparison.Ordinal))
+                     .OrderBy(command => command.Token, StringComparer.Ordinal))
+        {
+            var description = string.IsNullOrWhiteSpace(command.Description) ? string.Empty : "  " + command.Description;
+            Console.WriteLine($"  {command.Token,-18}{description}");
+        }
+
+        Console.WriteLine($"  {"help",-18}Show help.");
+        Console.WriteLine();
+        Console.WriteLine("Next: meta-weave help <command>");
+    }
+
+    private static void PrintCommandHelp(IReadOnlyList<string> route)
+    {
+        var model = LoadCommandSurface();
+        var application = FindApplication(model);
+        var command = FindCommand(model, application, route);
+        if (command is null)
+        {
+            Console.Error.WriteLine($"Command '{string.Join(" ", route)}' is not modeled.");
+            return;
+        }
+
+        var executableCommand = model.ExecutableCommandList.SingleOrDefault(item => ReferenceEquals(item.Command, command));
+        if (executableCommand is null)
+        {
+            Console.Error.WriteLine($"Command '{BuildRoute(command)}' is not runnable.");
+            return;
+        }
+
+        var parameters = EffectiveParameters(model, application, executableCommand).ToList();
+        var positionals = OrderPositionals(model, executableCommand).ToList();
+        Console.WriteLine("Usage:");
+        Console.Write($"  meta-weave {BuildRoute(command)}");
+        foreach (var positional in positionals)
+        {
+            Console.Write($" <{positional.Parameter.Name}>");
+        }
+
+        var options = parameters
+            .Select(parameter => (Parameter: parameter, Token: model.OptionTokenList.FirstOrDefault(token => ReferenceEquals(token.Option.Parameter, parameter))))
+            .Where(item => item.Token is not null)
+            .ToList();
+        foreach (var option in options)
+        {
+            var token = option.Token!;
+            var valueLabel = ValueLabel(option.Parameter);
+            var required = IsTrue(option.Parameter.IsRequired);
+            Console.Write(required ? $" {token.Token}{valueLabel}" : $" [{token.Token}{valueLabel}]");
+        }
+
+        Console.WriteLine();
+        if (!string.IsNullOrWhiteSpace(command.Description))
+        {
+            Console.WriteLine();
+            Console.WriteLine(command.Description);
+        }
+
+        if (options.Count > 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            foreach (var parameter in parameters)
+            {
+                var optionToken = model.OptionTokenList.FirstOrDefault(token => ReferenceEquals(token.Option.Parameter, parameter));
+                if (optionToken is null)
+                {
+                    continue;
+                }
+
+                var label = optionToken.Token + ValueLabel(parameter);
+                var description = string.IsNullOrWhiteSpace(parameter.Description) ? string.Empty : "  " + parameter.Description;
+                Console.WriteLine($"  {label,-28}{description}");
+            }
+        }
+    }
+
+    private static MetaCliModel LoadCommandSurface() =>
+        MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath, searchUpward: false);
+
+    private static Application FindApplication(MetaCliModel model) =>
+        model.ApplicationList.Single(application => string.Equals(application.Id, ApplicationId, StringComparison.Ordinal));
+
+    private static Command? FindCommand(MetaCliModel model, Application application, IReadOnlyList<string> route)
+    {
+        Command? current = null;
+        foreach (var token in route)
+        {
+            current = model.CommandList.SingleOrDefault(command =>
+                ReferenceEquals(command.Application, application) &&
+                ReferenceEquals(command.ParentCommand, current) &&
+                string.Equals(command.Token, token, StringComparison.OrdinalIgnoreCase));
+            if (current is null)
+            {
+                return null;
+            }
+        }
+
+        return current;
+    }
+
+    private static IEnumerable<Parameter> EffectiveParameters(
+        MetaCliModel model,
+        Application application,
+        ExecutableCommand executableCommand)
+    {
+        foreach (var parameter in model.ApplicationParameterList
+                     .Where(item => ReferenceEquals(item.Application, application))
+                     .Select(item => item.Parameter))
+        {
+            yield return parameter;
+        }
+
+        foreach (var parameter in model.ExecutableCommandParameterList
+                     .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+                     .Select(item => item.Parameter))
+        {
+            yield return parameter;
+        }
+    }
+
+    private static IEnumerable<PositionalArgument> OrderPositionals(MetaCliModel model, ExecutableCommand executableCommand)
+    {
+        var commandParameters = model.ExecutableCommandParameterList
+            .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+            .Select(item => item.Parameter)
+            .ToHashSet();
+        var positionals = model.PositionalArgumentList
+            .Where(argument => commandParameters.Contains(argument.Parameter))
+            .ToList();
+        var current = positionals.SingleOrDefault(argument => argument.PreviousArgument is null);
+        while (current is not null)
+        {
+            yield return current;
+            var previous = current;
+            current = positionals.SingleOrDefault(argument => ReferenceEquals(argument.PreviousArgument, previous));
+        }
+    }
+
+    private static string BuildRoute(Command command)
+    {
+        var parts = new Stack<string>();
+        for (var current = command; current is not null; current = current.ParentCommand!)
+        {
+            if (!string.IsNullOrWhiteSpace(current.Token))
+            {
+                parts.Push(current.Token);
+            }
+        }
+
+        return string.Join(" ", parts);
+    }
+
+    private static string ValueLabel(Parameter parameter)
+    {
+        var arity = parameter.ValueShape.ValueArity;
+        if (string.Equals(arity.MaxValueCount, "0", StringComparison.Ordinal))
+        {
+            return string.Empty;
+        }
+
+        var label = string.IsNullOrWhiteSpace(parameter.ValueShape.ValueLabel)
+            ? "<value>"
+            : parameter.ValueShape.ValueLabel;
+        return " " + label;
+    }
+
+    private static bool IsTrue(string? value) =>
+        bool.TryParse(value, out var parsed) && parsed;
 
     private static bool IsHelpToken(string value)
     {
@@ -633,282 +416,8 @@ internal static class Program
                string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
     }
 
-    private static void PrintHelp()
-    {
-        CliHelpRenderer.WriteAppHelp(Presenter, Cli);
-    }
-
-    private static void PrintInitHelp()
-    {
-        PrintCommandHelp("init");
-    }
-
-    private static void PrintSuggestHelp()
-    {
-        PrintCommandHelp("suggest");
-    }
-
-    private static void PrintCheckHelp()
-    {
-        PrintCommandHelp("check");
-    }
-
-    private static void PrintMaterializeHelp()
-    {
-        PrintCommandHelp("materialize");
-    }
-
-    private static void PrintAddModelHelp()
-    {
-        PrintCommandHelp("add-model");
-    }
-
-    private static void PrintAddBindingHelp()
-    {
-        PrintCommandHelp("add-binding");
-    }
-
-    private static void PrintCommandHelp(string commandName)
-    {
-        CliHelpRenderer.WriteCommandHelp(Presenter, Cli, Cli.GetCommand(commandName));
-    }
-
-    private static (bool Ok, string WorkspacePath, string Alias, string ModelName, string ModelWorkspacePath, string ErrorMessage) ParseAddModelArgs(string[] args, int startIndex)
-    {
-        var workspacePath = string.Empty;
-        var alias = string.Empty;
-        var modelName = string.Empty;
-        var modelWorkspacePath = string.Empty;
-
-        for (var i = startIndex; i < args.Length; i++)
-        {
-            var arg = args[i];
-            if (i + 1 >= args.Length)
-            {
-                return (false, workspacePath, alias, modelName, modelWorkspacePath, $"missing value for {arg}.");
-            }
-
-            switch (arg.ToLowerInvariant())
-            {
-                case "--workspace":
-                    workspacePath = EnsureUnsetThenAssign(workspacePath, args[++i], "--workspace");
-                    break;
-                case "--alias":
-                    alias = EnsureUnsetThenAssign(alias, args[++i], "--alias");
-                    break;
-                case "--model":
-                    modelName = EnsureUnsetThenAssign(modelName, args[++i], "--model");
-                    break;
-                case "--workspace-path":
-                    modelWorkspacePath = EnsureUnsetThenAssign(modelWorkspacePath, args[++i], "--workspace-path");
-                    break;
-                default:
-                    return (false, workspacePath, alias, modelName, modelWorkspacePath, $"unknown option '{arg}'.");
-            }
-        }
-
-        if (string.IsNullOrWhiteSpace(workspacePath))
-        {
-            return (false, workspacePath, alias, modelName, modelWorkspacePath, "missing required option --workspace <path>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(alias))
-        {
-            return (false, workspacePath, alias, modelName, modelWorkspacePath, "missing required option --alias <alias>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(modelName))
-        {
-            return (false, workspacePath, alias, modelName, modelWorkspacePath, "missing required option --model <modelName>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(modelWorkspacePath))
-        {
-            return (false, workspacePath, alias, modelName, modelWorkspacePath, "missing required option --workspace-path <path>.");
-        }
-
-        return (true, workspacePath, alias, modelName, modelWorkspacePath, string.Empty);
-    }
-
-    private static (bool Ok, string WorkspacePath, string Name, string SourceModelAlias, string SourceEntity, string SourceProperty, string TargetModelAlias, string TargetEntity, string TargetProperty, string ErrorMessage) ParseAddBindingArgs(string[] args, int startIndex)
-    {
-        var workspacePath = string.Empty;
-        var name = string.Empty;
-        var sourceModelAlias = string.Empty;
-        var sourceEntity = string.Empty;
-        var sourceProperty = string.Empty;
-        var targetModelAlias = string.Empty;
-        var targetEntity = string.Empty;
-        var targetProperty = string.Empty;
-
-        for (var i = startIndex; i < args.Length; i++)
-        {
-            var arg = args[i];
-            if (i + 1 >= args.Length)
-            {
-                return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, $"missing value for {arg}.");
-            }
-
-            switch (arg.ToLowerInvariant())
-            {
-                case "--workspace":
-                    workspacePath = EnsureUnsetThenAssign(workspacePath, args[++i], "--workspace");
-                    break;
-                case "--name":
-                    name = EnsureUnsetThenAssign(name, args[++i], "--name");
-                    break;
-                case "--source-model":
-                    sourceModelAlias = EnsureUnsetThenAssign(sourceModelAlias, args[++i], "--source-model");
-                    break;
-                case "--source-entity":
-                    sourceEntity = EnsureUnsetThenAssign(sourceEntity, args[++i], "--source-entity");
-                    break;
-                case "--source-property":
-                    sourceProperty = EnsureUnsetThenAssign(sourceProperty, args[++i], "--source-property");
-                    break;
-                case "--target-model":
-                    targetModelAlias = EnsureUnsetThenAssign(targetModelAlias, args[++i], "--target-model");
-                    break;
-                case "--target-entity":
-                    targetEntity = EnsureUnsetThenAssign(targetEntity, args[++i], "--target-entity");
-                    break;
-                case "--target-property":
-                    targetProperty = EnsureUnsetThenAssign(targetProperty, args[++i], "--target-property");
-                    break;
-                default:
-                    return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, $"unknown option '{arg}'.");
-            }
-        }
-
-        if (string.IsNullOrWhiteSpace(workspacePath))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --workspace <path>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --name <bindingName>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(sourceModelAlias))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --source-model <alias>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(sourceEntity))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --source-entity <entity>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(sourceProperty))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --source-property <property>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(targetModelAlias))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --target-model <alias>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(targetEntity))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --target-entity <entity>.");
-        }
-
-        if (string.IsNullOrWhiteSpace(targetProperty))
-        {
-            return (false, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, "missing required option --target-property <property>.");
-        }
-
-        return (true, workspacePath, name, sourceModelAlias, sourceEntity, sourceProperty, targetModelAlias, targetEntity, targetProperty, string.Empty);
-    }
-
-    private static int CountWeakSuggestions(IReadOnlyList<WeaveWeakBindingSuggestion> suggestions)
-    {
-        return suggestions.Sum(item => item.Candidates.Count);
-    }
-
-    private static string EnsureUnsetThenAssign(string currentValue, string nextValue, string optionName)
-    {
-        if (!string.IsNullOrWhiteSpace(currentValue))
-        {
-            throw new InvalidOperationException($"{optionName} can only be provided once.");
-        }
-
-        return nextValue;
-    }
-
-    private static async Task WaitForWorkspaceReadyAsync(string workspacePath)
-    {
-        await WaitForWorkspaceStateAsync(
-            workspacePath,
-            workspace => !string.IsNullOrWhiteSpace(workspace.Model?.Name),
-            "workspace initialization").ConfigureAwait(false);
-    }
-
-    private static async Task WaitForPersistedModelReferenceAsync(string workspacePath, string alias)
-    {
-        await WaitForWorkspaceStateAsync(
-            workspacePath,
-            workspace => workspace.Instance.GetOrCreateEntityRecords("ModelReference")
-                .Any(record =>
-                    record.Values.TryGetValue("Alias", out var value) &&
-                    string.Equals(value, alias, StringComparison.Ordinal)),
-            $"model reference '{alias}'").ConfigureAwait(false);
-    }
-
-    private static async Task WaitForPersistedBindingAsync(string workspacePath, string bindingName)
-    {
-        await WaitForWorkspaceStateAsync(
-            workspacePath,
-            workspace => workspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
-                .Any(record =>
-                    record.Values.TryGetValue("Name", out var value) &&
-                    string.Equals(value, bindingName, StringComparison.Ordinal)),
-            $"property binding '{bindingName}'").ConfigureAwait(false);
-    }
-
-    private static async Task WaitForWorkspaceStateAsync(string workspacePath, Func<Workspace, bool> predicate, string description)
-    {
-        var workspaceService = new WorkspaceService();
-        var lockPath = Path.Combine(workspacePath, ".meta.lock");
-        for (var attempt = 0; attempt < PersistRetryCount; attempt++)
-        {
-            try
-            {
-                if (File.Exists(lockPath))
-                {
-                    throw new IOException($"Workspace lock '{lockPath}' is still present.");
-                }
-
-                var loaded = await workspaceService.LoadAsync(workspacePath, searchUpward: false).ConfigureAwait(false);
-                if (predicate(loaded))
-                {
-                    return;
-                }
-            }
-            catch (Exception) when (attempt < PersistRetryCount - 1)
-            {
-                // Retry below.
-            }
-
-            if (attempt < PersistRetryCount - 1)
-            {
-                await Task.Delay(PersistRetryDelay).ConfigureAwait(false);
-            }
-        }
-
-        throw new InvalidOperationException($"Workspace save did not persist expected {description}.");
-    }
-
-
     private static void Line(string message)
     {
         Presenter.WriteInfo(message);
     }
 }
-
-
-
-
-

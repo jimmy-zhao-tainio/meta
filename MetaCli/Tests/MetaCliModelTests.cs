@@ -56,7 +56,9 @@ public sealed class MetaCliModelTests
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("meta-cli new-workspace <path>", result.Output);
         Assert.Contains("new-workspace", result.Output);
-        Assert.Contains("from-syntax", result.Output);
+        Assert.Contains("--standard-cli-shapes", result.Output);
+        Assert.Contains("--default-help", result.Output);
+        Assert.DoesNotContain("from-syntax", result.Output);
         Assert.Contains("add-application-option", result.Output);
         Assert.Contains("add-option-token", result.Output);
         Assert.Contains("add-parameter-group-member", result.Output);
@@ -71,43 +73,35 @@ public sealed class MetaCliModelTests
     }
 
     [Fact]
-    public void Cli_FromSyntaxCreatesProviderValidWorkspace()
+    public void Cli_NewWorkspaceCanSeedStandardCliDefaults()
     {
-        var root = Path.Combine(Path.GetTempPath(), "meta-cli-syntax-", Guid.NewGuid().ToString("N"));
-        var syntaxPath = Path.Combine(root, "demo.syntax");
+        var root = Path.Combine(Path.GetTempPath(), "meta-cli-seed-", Guid.NewGuid().ToString("N"));
         var workspace = Path.Combine(root, "Demo.MetaCli");
-        Directory.CreateDirectory(root);
-        File.WriteAllText(syntaxPath, """
-application demo
-
-option --workspace path
-
-command help default
-
-command new-workspace
-  positional Path path required
-
-command model add-entity
-  positional Id text
-  option --auto-id flag alias -a
-  parameter-group IdChoice required members Id auto-id
-""");
 
         try
         {
-            var result = RunCli($"from-syntax \"{syntaxPath}\" --workspace \"{workspace}\"");
+            var result = RunCli($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes --default-help");
 
             Assert.Equal(0, result.ExitCode);
-            Assert.Contains("Authored MetaCli workspace from syntax", result.Output);
-            Assert.Contains("commands: 4 (3 runnable)", result.Output);
+            Assert.Contains("Created MetaCli workspace", result.Output);
+            Assert.Contains("applications: 1", result.Output);
+            Assert.Contains("value shapes: 5", result.Output);
+            Assert.Contains("commands: 1 (1 runnable)", result.Output);
             AssertWorkspacePreservesProviderIntegrity(workspace);
 
             var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
-            Assert.Single(model.ApplicationParameterList);
-            var addEntity = model.CommandList.Single(command => command.Name == "add-entity");
-            Assert.Equal("model add-entity", MetaCliWorkspaceService.BuildRoute(addEntity));
-            Assert.Single(model.ParameterGroupList);
-            Assert.Contains(model.OptionTokenList, token => token.Token == "-a" && token.PreviousToken?.Token == "--auto-id");
+            Assert.Contains(model.ApplicationList, application => application.Id == "app-demo" && application.ExecutableName == "demo");
+            Assert.Contains(model.ValueArityList, arity => arity.Id == "arity-none" && arity.MinValueCount == "0" && arity.MaxValueCount == "0");
+            Assert.Contains(model.ValueArityList, arity => arity.Id == "arity-one" && arity.MinValueCount == "1" && arity.MaxValueCount == "1");
+            Assert.Contains(model.ValueShapeList, shape => shape.Id == "shape-flag" && shape.ValueArity.Id == "arity-none");
+            Assert.Contains(model.ValueShapeList, shape => shape.Id == "shape-path" && shape.AllowsOptionLikeValue == "true");
+            Assert.Contains(model.ValueShapeList, shape => shape.Id == "shape-text");
+            Assert.Contains(model.ValueShapeList, shape => shape.Id == "shape-token" && shape.AllowsOptionLikeValue == "true");
+            Assert.Contains(model.ValueShapeList, shape => shape.Id == "shape-bool");
+            Assert.Contains(model.AllowedValueList, value => value.Value == "true" && value.ValueShape.Id == "shape-bool");
+            Assert.Contains(model.AllowedValueList, value => value.Value == "false" && value.ValueShape.Id == "shape-bool");
+            Assert.Contains(model.CommandList, command => command.Id == "cmd-help" && command.Token == "help");
+            Assert.Contains(model.ApplicationDefaultCommandList, row => row.Application.Id == "app-demo" && row.ExecutableCommand.Id == "exec-help");
 
             var exitCode = -1;
             var error = new StringWriter();
@@ -116,15 +110,14 @@ command model add-entity
                     workspace,
                     error: error,
                     setExitCode: code => exitCode = code)
-                .Bind("exec-model-add-entity", (MetaCliInvocation command, MetaCliModel _) => invocation = command);
+                .Bind("exec-help", command => invocation = command);
 
-            runtime.Run("model", "add-entity", "--workspace", workspace, "--auto-id");
+            runtime.Run();
 
             Assert.Equal(0, exitCode);
             Assert.Equal(string.Empty, error.ToString());
             Assert.NotNull(invocation);
-            Assert.Equal("model add-entity", invocation.CommandRoute);
-            Assert.True(invocation.Flag("auto-id"));
+            Assert.Equal("help", invocation.CommandRoute);
         }
         finally
         {
@@ -171,15 +164,9 @@ command model add-entity
         var workspace = Path.Combine(root, "Demo.MetaCli");
         try
         {
-            AssertCommandSucceeds($"new-workspace \"{workspace}\"");
+            AssertCommandSucceeds($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes --default-help");
             AssertWorkspacePreservesProviderIntegrity(workspace);
 
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application --id app-demo --name demo --executable-name demo", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-none --name None --min-value-count 0 --max-value-count 0", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-one --name One --min-value-count 1 --max-value-count 1", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-flag --name Flag --value-arity arity-none", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-path --name Path --value-arity arity-one --value-label \"<path>\" --allows-option-like-value true", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-text --name Text --value-arity arity-one --value-label \"<value>\"", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-visibility --name Visibility --value-arity arity-one --value-label \"<visibility>\"", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-allowed-value --id visibility-public --value-shape shape-visibility --value public", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-allowed-value --id visibility-internal --value-shape shape-visibility --value internal", workspace);
@@ -190,9 +177,6 @@ command model add-entity
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-new-workspace --application app-demo --name new-workspace --token new-workspace", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-new-workspace --command cmd-new-workspace", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-new-workspace --positional-id pos-new-workspace --executable-command exec-new-workspace --name Path --value-shape shape-path --required true", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-help --application app-demo --name help --token help", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-help --command cmd-help", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("set-default-command --application app-demo --executable-command exec-help", workspace);
 
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-model --application app-demo --name model --token model", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-add-property --application app-demo --name add-property --token add-property --parent-command cmd-model", workspace);
@@ -341,10 +325,7 @@ command model add-entity
 
     private static void CreateMinimalExecutableCommand(string workspace)
     {
-        AssertCommandSucceeds($"new-workspace \"{workspace}\"");
-        AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application --id app-demo --name demo", workspace);
-        AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-arity --id arity-one --name One --min-value-count 1 --max-value-count 1", workspace);
-        AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-path --name Path --value-arity arity-one --value-label \"<path>\" --allows-option-like-value true", workspace);
+        AssertCommandSucceeds($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes");
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-show --application app-demo --name show --token show", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-show --command cmd-show", workspace);
     }

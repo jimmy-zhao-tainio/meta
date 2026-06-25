@@ -105,13 +105,7 @@ New-Item -ItemType Directory -Path $outRoot | Out-Null
 $script:TranscriptPath = Join-Path $outRoot "demo-meta-cli-output.txt"
 New-Item -ItemType File -Path $script:TranscriptPath | Out-Null
 
-Invoke-MetaCli @("new-workspace", $workspaceRelativePath) @(0)
-Invoke-MetaCli @("add-application", "--workspace", $workspaceRelativePath, "--id", "app-demo", "--name", "demo", "--executable-name", "demo") @(0)
-Invoke-MetaCli @("add-value-arity", "--workspace", $workspaceRelativePath, "--id", "arity-none", "--name", "None", "--min-value-count", "0", "--max-value-count", "0") @(0)
-Invoke-MetaCli @("add-value-arity", "--workspace", $workspaceRelativePath, "--id", "arity-one", "--name", "One", "--min-value-count", "1", "--max-value-count", "1") @(0)
-Invoke-MetaCli @("add-value-shape", "--workspace", $workspaceRelativePath, "--id", "shape-flag", "--name", "Flag", "--value-arity", "arity-none") @(0)
-Invoke-MetaCli @("add-value-shape", "--workspace", $workspaceRelativePath, "--id", "shape-path", "--name", "Path", "--value-arity", "arity-one", "--value-label", "<path>", "--allows-option-like-value", "true") @(0)
-Invoke-MetaCli @("add-value-shape", "--workspace", $workspaceRelativePath, "--id", "shape-text", "--name", "Text", "--value-arity", "arity-one", "--value-label", "<value>") @(0)
+Invoke-MetaCli @("new-workspace", $workspaceRelativePath, "--application", "demo", "--standard-cli-shapes", "--default-help") @(0)
 Invoke-MetaCli @("add-value-shape", "--workspace", $workspaceRelativePath, "--id", "shape-visibility", "--name", "Visibility", "--value-arity", "arity-one", "--value-label", "<visibility>") @(0)
 Invoke-MetaCli @("add-allowed-value", "--workspace", $workspaceRelativePath, "--id", "visibility-public", "--value-shape", "shape-visibility", "--value", "public") @(0)
 Invoke-MetaCli @("add-allowed-value", "--workspace", $workspaceRelativePath, "--id", "visibility-internal", "--value-shape", "shape-visibility", "--value", "internal") @(0)
@@ -121,9 +115,6 @@ Invoke-MetaCli @("add-option-token", "--workspace", $workspaceRelativePath, "--i
 Invoke-MetaCli @("add-command", "--workspace", $workspaceRelativePath, "--id", "cmd-new-workspace", "--application", "app-demo", "--name", "new-workspace", "--token", "new-workspace") @(0)
 Invoke-MetaCli @("add-executable-command", "--workspace", $workspaceRelativePath, "--id", "exec-new-workspace", "--command", "cmd-new-workspace") @(0)
 Invoke-MetaCli @("add-positional", "--workspace", $workspaceRelativePath, "--parameter-id", "param-new-workspace", "--positional-id", "pos-new-workspace", "--executable-command", "exec-new-workspace", "--name", "Path", "--value-shape", "shape-path", "--required", "true") @(0)
-Invoke-MetaCli @("add-command", "--workspace", $workspaceRelativePath, "--id", "cmd-help", "--application", "app-demo", "--name", "help", "--token", "help") @(0)
-Invoke-MetaCli @("add-executable-command", "--workspace", $workspaceRelativePath, "--id", "exec-help", "--command", "cmd-help") @(0)
-Invoke-MetaCli @("set-default-command", "--workspace", $workspaceRelativePath, "--application", "app-demo", "--executable-command", "exec-help") @(0)
 Invoke-MetaCli @("add-command", "--workspace", $workspaceRelativePath, "--id", "cmd-model", "--application", "app-demo", "--name", "model", "--token", "model") @(0)
 Invoke-MetaCli @("add-command", "--workspace", $workspaceRelativePath, "--id", "cmd-add-property", "--application", "app-demo", "--name", "add-property", "--token", "add-property", "--parent-command", "cmd-model") @(0)
 Invoke-MetaCli @("add-executable-command", "--workspace", $workspaceRelativePath, "--id", "exec-add-property", "--command", "cmd-add-property") @(0)

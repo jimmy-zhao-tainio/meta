@@ -20,8 +20,8 @@ The current implemented slice is model, authoring, and a first runtime core:
 - `MetaCli` model exists.
 - generated C# tooling exists.
 - `meta-cli` can create and mutate MetaCli workspaces.
-- `meta-cli from-syntax` can compile a compact command-surface syntax into a
-  normal MetaCli workspace.
+- `meta-cli new-workspace` can seed ordinary CLI value shapes and a default
+  help command directly as normal model rows.
 - external demo proof exists at `Samples/Demos/MetaCliAuthoringDemo/demo-meta-cli.ps1`.
 - `MetaCli.Core` contains a first model-backed runtime parser/dispatcher.
 
@@ -66,47 +66,22 @@ name the user types.
 
 Authoring policy:
 
-- Use `meta-cli` to author workspaces. For large command surfaces, prefer a
-  `.syntax` file compiled by `meta-cli from-syntax`.
+- Use `meta-cli` to author workspaces. Script substantial initial creation and
+  migrations with direct `meta-cli` invocations.
 - Do not hand-edit workspace XML except for deliberate forensic repair.
-- Script initial creation and substantial migrations.
 - Manual `meta-cli` edits are fine for tiny changes.
 - Review and commit the resulting workspace diff; do not treat a bootstrap
   script as the long-term source of truth.
-- Do not regenerate a CLI workspace from C# help/prose. MetaCli syntax is an
-  authoring surface that lowers into the model, not an independent runtime
-  truth.
+- Do not regenerate a CLI workspace from C# help/prose.
+- Do not add a second command-surface language unless the model itself proves
+  insufficient. The checked-in `.MetaCli` workspace is the authored artifact.
 
-Syntax regeneration policy:
-
-- Keep a checked-in `<cli>.syntax` file next to the CLI project.
-- Regenerate with `meta-cli from-syntax <cli>.syntax --workspace <cli>.MetaCli`.
-- Do not wrap this in a bootstrap script unless the script adds real workflow
-  value beyond spelling the command.
-- Commit both the syntax file and the resulting `.MetaCli` workspace.
-
-MetaCli syntax has built-in conventions for ordinary CLI plumbing:
+`meta-cli new-workspace` can seed ordinary CLI plumbing:
 
 - value arities: `none`, `one`
 - value shapes: `flag`, `text`, `path`, `token`, `bool`
 - bool values: `true`, `false`
-
-Syntax files should declare these only when they intentionally diverge from the
-default convention.
-
-Command roles stay on `command` declarations. Do not introduce standalone
-pseudo-command declarations for special invocation roles:
-
-- no-argument default: `command help default`
-
-This keeps the command noun visible while still lowering to an
-`ApplicationDefaultCommand` model row. Operations such as `new-workspace` are
-normal commands with command tokens and positionals, for example:
-
-```text
-command new-workspace
-  positional Path path required
-```
+- optional application and default help command
 
 Do not model operations as switches such as `--new-workspace`, and do not
 reintroduce a root-command role.
@@ -115,10 +90,10 @@ ID naming convention:
 
 - Application ids remain `app-<executable-name>`.
 - Command and executable command ids remain route-derived.
-- Compiler-generated parameter, option, token, positional, and group ids include
-  explicit route/name boundary words such as `command` and `parameter`. This
-  prevents route/name collisions like `add-option --token-id` versus
-  `add-option-token --id` without leaking that ceremony into syntax.
+- Parameter, option, token, positional, and group ids should include explicit
+  route/name boundary words such as `command` and `parameter`. This prevents
+  route/name collisions like `add-option --token-id` versus `add-option-token
+  --id`.
 
 If a mechanical id becomes ambiguous at the route/name boundary, use a clearer
 semantic id instead. For example, avoid letting `add-option --token-id` collide
@@ -198,9 +173,8 @@ modeled RI/isomorphism contract.
 
 Workspace:
 
-- `meta-cli new-workspace <path>`
+- `meta-cli new-workspace <path> [--application <name>] [--standard-cli-shapes] [--default-help]`
 - `meta-cli show [--workspace <path>]`
-- `meta-cli from-syntax <path> [--workspace <path>]`
 
 Authoring:
 
@@ -272,6 +246,8 @@ These are intentionally rejected unless reopened explicitly:
 - adding parser-policy or parser-behavior rows without concrete modeled syntax
   truth
 - reintroducing output or exit-code contracts into this argument-grammar model
+- reintroducing `from-syntax` or a parallel command-surface language before the
+  modeled workspace authoring surface itself proves insufficient
 
 Pre-existing `CliAppDefinition` infrastructure remains legacy surface area in
 other CLIs and MetaDocs import paths. It is not the MetaCli architecture.

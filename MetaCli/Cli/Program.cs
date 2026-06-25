@@ -21,7 +21,6 @@ internal static class Program
             {
                 "new-workspace" => RunWithHelp(args, "new-workspace", RunCreate),
                 "show" => RunWithHelp(args, "show", RunShow),
-                "from-syntax" => RunWithHelp(args, "from-syntax", RunFromSyntax),
                 "add-application" => RunWithHelp(args, "add-application", RunAddApplication),
                 "add-command" => RunWithHelp(args, "add-command", RunAddCommand),
                 "add-executable-command" => RunWithHelp(args, "add-executable-command", RunAddExecutableCommand),
@@ -56,25 +55,37 @@ internal static class Program
             return Fail("missing workspace path.", HelpCommand("new-workspace"));
         }
 
-        var parse = ParseOptions(args, 2, Array.Empty<string>());
+        var parse = ParseOptions(
+            args,
+            2,
+            new[] { "--application" },
+            new[] { "--standard-cli-shapes", "--default-help" });
         if (!parse.Ok)
         {
             return Fail(parse.ErrorMessage, HelpCommand("new-workspace"));
         }
 
-        var workspacePath = args[1];
-        var fullPath = Path.GetFullPath(workspacePath);
-        if (Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
+        var result = Service.CreateWorkspace(
+            args[1],
+            GetOption(parse, "--application"),
+            HasFlag(parse, "--standard-cli-shapes"),
+            HasFlag(parse, "--default-help"));
+        Presenter.WriteInfo($"Created MetaCli workspace: {result.WorkspacePath}");
+        if (result.ApplicationCount > 0)
         {
-            return Fail(
-                "target directory must be empty.",
-                "choose a new folder or empty the target directory and retry.",
-                exitCode: 4,
-                details: new[] { $"Target: {fullPath}" });
+            Presenter.WriteInfo($"  applications: {Count(result.ApplicationCount)}");
         }
 
-        Service.CreateEmpty().SaveToXmlWorkspace(fullPath);
-        Presenter.WriteInfo($"Created MetaCli workspace: {fullPath}");
+        if (result.ValueShapeCount > 0)
+        {
+            Presenter.WriteInfo($"  value shapes: {Count(result.ValueShapeCount)}");
+        }
+
+        if (result.CommandCount > 0)
+        {
+            Presenter.WriteInfo($"  commands: {Count(result.CommandCount)} ({Count(result.ExecutableCommandCount)} runnable)");
+        }
+
         return 0;
     }
 
@@ -140,28 +151,6 @@ internal static class Program
             }
         }
 
-        return 0;
-    }
-
-    private static int RunFromSyntax(string[] args)
-    {
-        if (args.Length < 2)
-        {
-            return Fail("missing syntax path.", HelpCommand("from-syntax"));
-        }
-
-        var parse = ParseOptions(args, 2, WorkspaceOnly());
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("from-syntax"));
-        }
-
-        var result = Service.CreateFromSyntaxFile(args[1], GetWorkspace(parse));
-        Presenter.WriteInfo($"Authored MetaCli workspace from syntax: {result.WorkspacePath}");
-        Presenter.WriteInfo($"  source: {result.SourcePath}");
-        Presenter.WriteInfo($"  applications: {Count(result.ApplicationCount)}");
-        Presenter.WriteInfo($"  commands: {Count(result.CommandCount)} ({Count(result.ExecutableCommandCount)} runnable)");
-        Presenter.WriteInfo($"  parameters: {Count(result.ParameterCount)} ({Plural(result.OptionCount, "option")}, {Plural(result.PositionalArgumentCount, "positional")}, {Plural(result.ParameterGroupCount, "group")})");
         return 0;
     }
 
@@ -444,14 +433,13 @@ internal static class Program
 
     private static void PrintHelp()
     {
-        Presenter.WriteUsage("meta-cli new-workspace <path>");
+        Presenter.WriteUsage("meta-cli new-workspace <path> [--application <name>] [--standard-cli-shapes] [--default-help]");
         Presenter.WriteUsage("meta-cli <command> [--workspace <path>] [options]");
         Presenter.WriteInfo(string.Empty);
         Presenter.WriteCommandCatalog("Commands:", new[]
         {
-            ("new-workspace", "Create an empty MetaCli workspace."),
+            ("new-workspace", "Create a MetaCli workspace."),
             ("show", "Show the authored command surface."),
-            ("from-syntax", "Author a workspace from MetaCli syntax."),
             ("add-application", "Add a CLI application."),
             ("add-command", "Add a command path segment."),
             ("add-executable-command", "Mark a command as runnable."),
@@ -468,7 +456,7 @@ internal static class Program
             ("help", "Show help."),
         });
         Presenter.WriteInfo(string.Empty);
-        Presenter.WriteNext("meta-cli new-workspace <path>");
+        Presenter.WriteNext("meta-cli new-workspace <path> --application <name> --standard-cli-shapes --default-help");
     }
 
     private static void PrintCommandHelp(string commandName)
@@ -476,16 +464,14 @@ internal static class Program
         switch (commandName)
         {
             case "new-workspace":
-                WriteUsageAndOptions("meta-cli new-workspace <path>",
-                    ("<path>", "Required. Empty MetaCli workspace directory to create."));
+                WriteUsageAndOptions("meta-cli new-workspace <path> [--application <name>] [--standard-cli-shapes] [--default-help]",
+                    ("<path>", "Required. Empty MetaCli workspace directory to create."),
+                    ("--application <name>", "Optional. Seed one application with this name and executable name."),
+                    ("--standard-cli-shapes", "Optional. Seed ordinary CLI arities, value shapes, and boolean values."),
+                    ("--default-help", "Optional. Seed help as the application default command. Requires --application."));
                 break;
             case "show":
                 WriteUsageAndOptions("meta-cli show [--workspace <path>]", WorkspaceHelp());
-                break;
-            case "from-syntax":
-                WriteUsageAndOptions("meta-cli from-syntax <path> [--workspace <path>]",
-                    ("<path>", "Required. MetaCli syntax file."),
-                    WorkspaceHelp());
                 break;
             case "add-application":
                 WriteUsageAndOptions("meta-cli add-application [--workspace <path>] --id <id> --name <name> [--executable-name <name>] [--version <value>] [--description <text>]",
@@ -626,14 +612,33 @@ internal static class Program
     private static ParseResult ParseOptions(
         string[] args,
         int startIndex,
-        IReadOnlyCollection<string> valueOptions)
+        IReadOnlyCollection<string> valueOptions) =>
+        ParseOptions(args, startIndex, valueOptions, Array.Empty<string>());
+
+    private static ParseResult ParseOptions(
+        string[] args,
+        int startIndex,
+        IReadOnlyCollection<string> valueOptions,
+        IReadOnlyCollection<string> flagOptions)
     {
         var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var flags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var valueOptionSet = valueOptions.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var flagOptionSet = flagOptions.ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         for (var index = startIndex; index < args.Length; index++)
         {
             var arg = args[index];
+            if (flagOptionSet.Contains(arg))
+            {
+                if (!flags.Add(arg))
+                {
+                    return ParseResult.Fail($"{arg} can only be provided once.");
+                }
+
+                continue;
+            }
+
             if (!valueOptionSet.Contains(arg))
             {
                 return ParseResult.Fail($"unknown option '{arg}'.");
@@ -652,7 +657,7 @@ internal static class Program
             values[arg] = args[++index];
         }
 
-        return new ParseResult(true, values, string.Empty);
+        return new ParseResult(true, values, flags, string.Empty);
     }
 
     private static IReadOnlyCollection<string> WorkspaceOnly() => WorkspaceOptions();
@@ -665,6 +670,9 @@ internal static class Program
 
     private static string? GetOption(ParseResult parse, string name) =>
         parse.Values.TryGetValue(name, out var value) ? value : null;
+
+    private static bool HasFlag(ParseResult parse, string name) =>
+        parse.Flags.Contains(name);
 
     private static bool? GetBoolOption(ParseResult parse, string name)
     {
@@ -795,9 +803,10 @@ internal static class Program
     private sealed record ParseResult(
         bool Ok,
         IReadOnlyDictionary<string, string> Values,
+        IReadOnlySet<string> Flags,
         string ErrorMessage)
     {
         public static ParseResult Fail(string message) =>
-            new(false, new Dictionary<string, string>(), message);
+            new(false, new Dictionary<string, string>(), new HashSet<string>(), message);
     }
 }

@@ -12,12 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Models\MetaWeave.model.xml">
-      <LogicalName>MetaWeave.Core.Models.MetaWeave.model.xml</LogicalName>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Tooling\MetaWeave.Tooling.csproj" />
   </ItemGroup>
 
   <ItemGroup>

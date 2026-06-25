@@ -57,10 +57,12 @@ public sealed record MetaCliIssue(
     string Message,
     string Location);
 
-public sealed record MetaCliFromSyntaxResult(
-    string SourcePath,
+public sealed record MetaCliNewWorkspaceResult(
     string WorkspacePath,
     int ApplicationCount,
+    int ValueArityCount,
+    int ValueShapeCount,
+    int AllowedValueCount,
     int CommandCount,
     int ExecutableCommandCount,
     int ParameterCount,

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <CommandList>
+    <Command Id="cmd-help" ApplicationId="app-meta-weave">
+      <Name>help</Name>
+      <Token>help</Token>
+    </Command>
+    <Command Id="cmd-new-workspace" ApplicationId="app-meta-weave">
+      <Description>Create a MetaWeave workspace.</Description>
+      <Name>new-workspace</Name>
+      <Token>new-workspace</Token>
+    </Command>
+    <Command Id="cmd-add-model" ApplicationId="app-meta-weave">
+      <Description>Add a referenced model workspace.</Description>
+      <Name>add-model</Name>
+      <Token>add-model</Token>
+    </Command>
+    <Command Id="cmd-add-binding" ApplicationId="app-meta-weave">
+      <Description>Add a property binding between two model references.</Description>
+      <Name>add-binding</Name>
+      <Token>add-binding</Token>
+    </Command>
+    <Command Id="cmd-suggest" ApplicationId="app-meta-weave">
+      <Description>Suggest missing property bindings.</Description>
+      <Name>suggest</Name>
+      <Token>suggest</Token>
+    </Command>
+    <Command Id="cmd-check" ApplicationId="app-meta-weave">
+      <Description>Validate property bindings across referenced workspaces.</Description>
+      <Name>check</Name>
+      <Token>check</Token>
+    </Command>
+    <Command Id="cmd-materialize" ApplicationId="app-meta-weave">
+      <Description>Materialize a new workspace from a valid weave.</Description>
+      <Name>materialize</Name>
+      <Token>materialize</Token>
+    </Command>
+  </CommandList>
+</MetaCli>

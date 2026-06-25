@@ -1,6 +1,9 @@
 using System.Globalization;
 using Meta.Core.Domain;
 using Meta.Core.Services;
+using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
+using WeaveModelReference = global::MetaWeave.ModelReference;
+using WeavePropertyBinding = global::MetaWeave.PropertyBinding;
 
 namespace MetaWeave.Core;
 
@@ -35,7 +38,10 @@ public sealed record WeaveSuggestResult(
 
 public interface IMetaWeaveSuggestService
 {
-    Task<WeaveSuggestResult> SuggestAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
+    Task<WeaveSuggestResult> SuggestAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken = default);
 }
 
 public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
@@ -52,13 +58,17 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
     }
 
-    public async Task<WeaveSuggestResult> SuggestAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default)
+    public async Task<WeaveSuggestResult> SuggestAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        ArgumentNullException.ThrowIfNull(weaveWorkspace);
+        ArgumentNullException.ThrowIfNull(weaveModel);
+        ArgumentException.ThrowIfNullOrWhiteSpace(weaveWorkspaceRootPath);
 
-        var loadedModels = await LoadModelReferencesAsync(weaveWorkspace, cancellationToken).ConfigureAwait(false);
-        var propertyBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
+        var loadedModels = await LoadModelReferencesAsync(weaveModel, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
+        var propertyBindings = weaveModel.PropertyBindingList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
         var boundSourceKeys = propertyBindings
@@ -184,16 +194,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                             SourceModelName: sourceModel.ModelName,
                             SourceEntity: sourceEntity.Name,
                             SourceProperty: sourceProperty.Name,
-                            Candidates: strongTargets
-                                .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.InferredRole, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
-                                .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
-                                .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
-                                .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
-                                .ToList()));
+                            Candidates: OrderSuggestions(strongTargets)));
                     }
                     else if (weakTargets.Count > 0)
                     {
@@ -202,16 +203,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                             SourceModelName: sourceModel.ModelName,
                             SourceEntity: sourceEntity.Name,
                             SourceProperty: sourceProperty.Name,
-                            Candidates: weakTargets
-                                .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.InferredRole, StringComparer.OrdinalIgnoreCase)
-                                .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
-                                .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
-                                .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
-                                .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
-                                .ToList()));
+                            Candidates: OrderSuggestions(weakTargets)));
                     }
                 }
             }
@@ -242,18 +234,21 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                 .ToList());
     }
 
-    private async Task<List<LoadedModelReference>> LoadModelReferencesAsync(Workspace weaveWorkspace, CancellationToken cancellationToken)
+    private async Task<List<LoadedModelReference>> LoadModelReferencesAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken)
     {
-        var modelReferences = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference")
+        var modelReferences = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
         var loaded = new List<LoadedModelReference>(modelReferences.Count);
         foreach (var modelReference in modelReferences)
         {
-            var path = RequireValue(modelReference, "WorkspacePath");
-            var resolvedPath = ResolveWorkspacePath(weaveWorkspace.WorkspaceRootPath, path);
+            var path = RequireValue(modelReference.WorkspacePath, $"ModelReference '{modelReference.Id}' WorkspacePath");
+            var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
             var workspace = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
-            var modelName = RequireValue(modelReference, "ModelName");
+            var modelName = RequireValue(modelReference.ModelName, $"ModelReference '{modelReference.Id}' ModelName");
             if (!string.Equals(workspace.Model.Name, modelName, StringComparison.Ordinal))
             {
                 throw new InvalidOperationException(
@@ -262,13 +257,25 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
 
             loaded.Add(new LoadedModelReference(
                 Reference: modelReference,
-                Alias: RequireValue(modelReference, "Alias"),
+                Alias: RequireValue(modelReference.Alias, $"ModelReference '{modelReference.Id}' Alias"),
                 ModelName: modelName,
                 Workspace: workspace));
         }
 
         return loaded;
     }
+
+    private static IReadOnlyList<WeaveBindingSuggestion> OrderSuggestions(IEnumerable<WeaveBindingSuggestion> suggestions) =>
+        suggestions
+            .OrderBy(item => item.TargetModelAlias, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.TargetEntity, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.TargetProperty, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.InferredRole, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(item => item.TargetModelAlias, StringComparer.Ordinal)
+            .ThenBy(item => item.TargetEntity, StringComparer.Ordinal)
+            .ThenBy(item => item.TargetProperty, StringComparer.Ordinal)
+            .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
+            .ToList();
 
     private static IEnumerable<TargetCandidate> EnumerateTargetCandidates(Workspace workspace, string sourcePropertyName)
     {
@@ -466,12 +473,12 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
             UnmatchedDistinctCount: unmatchedDistinct);
     }
 
-    private static string MakeBoundSourceKey(GenericRecord binding)
+    private static string MakeBoundSourceKey(WeavePropertyBinding binding)
     {
         return MakeBoundSourceKey(
-            RequireRelationshipId(binding, "SourceModelId"),
-            RequireValue(binding, "SourceEntity"),
-            RequireValue(binding, "SourceProperty"));
+            RequireModelReferenceId(binding.SourceModel, binding, "source"),
+            RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity"),
+            RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty"));
     }
 
     private static string MakeBoundSourceKey(string sourceModelId, string sourceEntity, string sourceProperty)
@@ -479,20 +486,30 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         return sourceModelId + "|" + sourceEntity + "|" + sourceProperty;
     }
 
-    private static string MakeEquivalentBindingKey(GenericRecord binding)
+    private static string MakeEquivalentBindingKey(WeavePropertyBinding binding)
     {
         return MakeEquivalentBindingKey(
-            RequireRelationshipId(binding, "SourceModelId"),
-            RequireValue(binding, "SourceEntity"),
-            RequireValue(binding, "SourceProperty"),
-            RequireRelationshipId(binding, "TargetModelId"),
-            RequireValue(binding, "TargetEntity"),
-            RequireValue(binding, "TargetProperty"));
+            RequireModelReferenceId(binding.SourceModel, binding, "source"),
+            RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity"),
+            RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty"),
+            RequireModelReferenceId(binding.TargetModel, binding, "target"),
+            RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity"),
+            RequireValue(binding.TargetProperty, $"PropertyBinding '{binding.Id}' TargetProperty"));
     }
 
     private static string MakeEquivalentBindingKey(string sourceModelId, string sourceEntity, string sourceProperty, string targetModelId, string targetEntity, string targetProperty)
     {
         return sourceModelId + "|" + sourceEntity + "|" + sourceProperty + "|" + targetModelId + "|" + targetEntity + "|" + targetProperty;
+    }
+
+    private static string RequireModelReferenceId(WeaveModelReference? modelReference, WeavePropertyBinding binding, string role)
+    {
+        if (modelReference is null || string.IsNullOrWhiteSpace(modelReference.Id))
+        {
+            throw new InvalidOperationException($"PropertyBinding '{binding.Id}' references missing {role} model.");
+        }
+
+        return modelReference.Id;
     }
 
     private static string ResolveWorkspacePath(string weaveWorkspaceRootPath, string configuredPath)
@@ -505,21 +522,11 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         return Path.GetFullPath(Path.Combine(weaveWorkspaceRootPath, configuredPath));
     }
 
-    private static string RequireValue(GenericRecord record, string propertyName)
+    private static string RequireValue(string value, string name)
     {
-        if (!record.Values.TryGetValue(propertyName, out var value) || string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            throw new InvalidOperationException($"Record '{record.Id}' is missing required property '{propertyName}'.");
-        }
-
-        return value;
-    }
-
-    private static string RequireRelationshipId(GenericRecord record, string relationshipName)
-    {
-        if (!record.RelationshipIds.TryGetValue(relationshipName, out var value) || string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException($"Record '{record.Id}' is missing required relationship '{relationshipName}'.");
+            throw new InvalidOperationException($"{name} is required.");
         }
 
         return value;
@@ -573,7 +580,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
     }
 
     private sealed record LoadedModelReference(
-        GenericRecord Reference,
+        WeaveModelReference Reference,
         string Alias,
         string ModelName,
         Workspace Workspace);

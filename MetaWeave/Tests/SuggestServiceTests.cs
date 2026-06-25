@@ -3,6 +3,7 @@ using Meta.Core.Domain;
 using Meta.Core.Services;
 using MetaWeave.Core;
 using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
+using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 
 namespace MetaWeave.Tests;
 
@@ -11,9 +12,10 @@ public sealed class SuggestServiceTests
     [Fact]
     public async Task SuggestAsync_OmitsBindingsThatAlreadyExist()
     {
-        var workspace = await new WorkspaceService().LoadAsync(GetFixtureWorkspacePath("Weave-Mapping-ReferenceType"), searchUpward: false);
+        var workspacePath = GetFixtureWorkspacePath("Weave-Mapping-ReferenceType");
+        var workspace = MetaWeaveModel.LoadFromXmlWorkspace(workspacePath, searchUpward: false);
 
-        var result = await new MetaWeaveSuggestService().SuggestAsync(workspace);
+        var result = await new MetaWeaveSuggestService().SuggestAsync(workspace, workspacePath);
 
         Assert.Empty(result.Suggestions);
         Assert.Empty(result.WeakSuggestions);
@@ -33,12 +35,13 @@ public sealed class SuggestServiceTests
                 ("ReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
 
             var workspaceService = new WorkspaceService();
-            var weaveWorkspace = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(Path.Combine(root, "Weave"));
+            var weaveWorkspacePath = Path.Combine(root, "Weave");
+            var weaveWorkspace = MetaWeaveModel.CreateEmpty();
             var authoringService = new MetaWeaveAuthoringService(workspaceService);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "Source", "SampleReferenceBindingCatalog", sourcePath);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "Reference", "SampleReferenceCatalog", referencePath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Reference", "SampleReferenceCatalog", referencePath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace);
+            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Single(result.Suggestions);
             Assert.Empty(result.WeakSuggestions);
@@ -69,12 +72,13 @@ public sealed class SuggestServiceTests
                 ("TargetReferenceTypeId", new[] { "type:int", "type:decimal", "type:int" }));
 
             var workspaceService = new WorkspaceService();
-            var weaveWorkspace = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(Path.Combine(root, "Weave"));
+            var weaveWorkspacePath = Path.Combine(root, "Weave");
+            var weaveWorkspace = MetaWeaveModel.CreateEmpty();
             var authoringService = new MetaWeaveAuthoringService(workspaceService);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "Source", "SampleReferenceBindingCatalog", sourcePath);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "Reference", "SampleReferenceCatalog", referencePath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Reference", "SampleReferenceCatalog", referencePath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace);
+            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Empty(result.Suggestions);
             Assert.Equal(2, result.WeakSuggestionCount);
@@ -112,13 +116,14 @@ public sealed class SuggestServiceTests
                 ("ReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
 
             var workspaceService = new WorkspaceService();
-            var weaveWorkspace = MetaWeaveWorkspaces.CreateEmptyMetaWeaveWorkspace(Path.Combine(root, "Weave"));
+            var weaveWorkspacePath = Path.Combine(root, "Weave");
+            var weaveWorkspace = MetaWeaveModel.CreateEmpty();
             var authoringService = new MetaWeaveAuthoringService(workspaceService);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "Source", "SampleReferenceBindingCatalog", sourcePath);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "ReferenceA", "SampleReferenceCatalog", referenceAPath);
-            await authoringService.AddModelReferenceAsync(weaveWorkspace, "ReferenceB", "SampleReferenceCatalog", referenceBPath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "ReferenceA", "SampleReferenceCatalog", referenceAPath);
+            await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "ReferenceB", "SampleReferenceCatalog", referenceBPath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace);
+            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Empty(result.Suggestions);
             var weak = Assert.Single(result.WeakSuggestions);

@@ -4,14 +4,14 @@
     <ValueShape Id="shape-flag" ValueArityId="arity-none">
       <Name>Flag</Name>
     </ValueShape>
+    <ValueShape Id="shape-text" ValueArityId="arity-one">
+      <Name>Text</Name>
+      <ValueLabel>&lt;value&gt;</ValueLabel>
+    </ValueShape>
     <ValueShape Id="shape-path" ValueArityId="arity-one">
       <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
       <Name>Path</Name>
       <ValueLabel>&lt;path&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-text" ValueArityId="arity-one">
-      <Name>Text</Name>
-      <ValueLabel>&lt;value&gt;</ValueLabel>
     </ValueShape>
     <ValueShape Id="shape-token" ValueArityId="arity-one">
       <AllowsOptionLikeValue>true</AllowsOptionLikeValue>

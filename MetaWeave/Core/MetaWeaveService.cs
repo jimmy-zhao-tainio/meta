@@ -2,6 +2,9 @@ using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Services;
 using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
+using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
+using WeaveModelReference = global::MetaWeave.ModelReference;
+using WeavePropertyBinding = global::MetaWeave.PropertyBinding;
 
 namespace MetaWeave.Core;
 
@@ -24,8 +27,17 @@ public sealed record WeaveCheckResult(
 
 public interface IMetaWeaveService
 {
-    Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
-    Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default);
+    Task<WeaveCheckResult> CheckAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken = default);
+
+    Task<Workspace> MaterializeAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        string materializedWorkspaceRootPath,
+        string mergedModelName,
+        CancellationToken cancellationToken = default);
 }
 
 public sealed class MetaWeaveService : IMetaWeaveService
@@ -44,58 +56,37 @@ public sealed class MetaWeaveService : IMetaWeaveService
         _workspaceMergeService = workspaceMergeService ?? throw new ArgumentNullException(nameof(workspaceMergeService));
     }
 
-    public async Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default)
+    public async Task<WeaveCheckResult> CheckAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        ArgumentNullException.ThrowIfNull(weaveWorkspace);
+        ArgumentNullException.ThrowIfNull(weaveModel);
+        ArgumentException.ThrowIfNullOrWhiteSpace(weaveWorkspaceRootPath);
 
-        var modelRefs = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference")
+        var modelRefs = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
-        var propertyBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
+        var propertyBindings = weaveModel.PropertyBindingList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
 
-        var loadedModels = new Dictionary<string, Workspace>(StringComparer.Ordinal);
-        var modelRefById = modelRefs.ToDictionary(record => record.Id, StringComparer.Ordinal);
-
-        foreach (var modelRef in modelRefs)
-        {
-            var path = RequireValue(modelRef, "WorkspacePath");
-            var resolvedPath = ResolveWorkspacePath(weaveWorkspace.WorkspaceRootPath, path);
-            var loaded = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
-            var expectedModelName = RequireValue(modelRef, "ModelName");
-            if (!string.Equals(loaded.Model.Name, expectedModelName, StringComparison.Ordinal))
-            {
-                throw new InvalidOperationException(
-                    $"ModelReference '{modelRef.Id}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{loaded.Model.Name}'.");
-            }
-
-            loadedModels[modelRef.Id] = loaded;
-        }
+        var loadedModels = await LoadReferencedWorkspacesAsync(modelRefs, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
+        var modelRefById = modelRefs.ToDictionary(record => RequireValue(record.Id, "ModelReference Id"), StringComparer.Ordinal);
 
         var results = new List<WeaveBindingResult>();
         foreach (var binding in propertyBindings)
         {
-            var sourceModelRefId = RequireRelationshipId(binding, "SourceModelId");
-            var targetModelRefId = RequireRelationshipId(binding, "TargetModelId");
-            if (!modelRefById.ContainsKey(sourceModelRefId))
-            {
-                throw new InvalidOperationException($"PropertyBinding '{binding.Id}' references missing source model '{sourceModelRefId}'.");
-            }
-
-            if (!modelRefById.ContainsKey(targetModelRefId))
-            {
-                throw new InvalidOperationException($"PropertyBinding '{binding.Id}' references missing target model '{targetModelRefId}'.");
-            }
-
-            var sourceWorkspace = loadedModels[sourceModelRefId];
-            var targetWorkspace = loadedModels[targetModelRefId];
-            var sourceEntityName = RequireValue(binding, "SourceEntity");
-            var sourcePropertyName = RequireValue(binding, "SourceProperty");
-            var targetEntityName = RequireValue(binding, "TargetEntity");
-            var targetPropertyName = RequireValue(binding, "TargetProperty");
-            var bindingName = RequireValue(binding, "Name");
+            var sourceModelRef = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
+            var targetModelRef = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
+            var sourceWorkspace = loadedModels[sourceModelRef.Id];
+            var targetWorkspace = loadedModels[targetModelRef.Id];
+            var sourceEntityName = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
+            var sourcePropertyName = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
+            var targetEntityName = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
+            var targetPropertyName = RequireValue(binding.TargetProperty, $"PropertyBinding '{binding.Id}' TargetProperty");
+            var bindingName = RequireValue(binding.Name, $"PropertyBinding '{binding.Id}' Name");
 
             var sourceEntity = sourceWorkspace.Model.FindEntity(sourceEntityName)
                 ?? throw new InvalidOperationException($"PropertyBinding '{binding.Id}' source entity '{sourceEntityName}' was not found in model '{sourceWorkspace.Model.Name}'.");
@@ -148,33 +139,33 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return new WeaveCheckResult(results);
     }
 
-    public async Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default)
+    public async Task<Workspace> MaterializeAsync(
+        MetaWeaveModel weaveModel,
+        string weaveWorkspaceRootPath,
+        string materializedWorkspaceRootPath,
+        string mergedModelName,
+        CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        ArgumentNullException.ThrowIfNull(weaveWorkspace);
+        ArgumentNullException.ThrowIfNull(weaveModel);
+        ArgumentException.ThrowIfNullOrWhiteSpace(weaveWorkspaceRootPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(materializedWorkspaceRootPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(mergedModelName);
 
-        var check = await CheckAsync(weaveWorkspace, cancellationToken).ConfigureAwait(false);
+        var check = await CheckAsync(weaveModel, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
         if (check.HasErrors)
         {
             throw new InvalidOperationException("Weave check failed. Run 'meta-weave check' and fix the reported errors before materialize.");
         }
 
-        var modelRefs = weaveWorkspace.Instance.GetOrCreateEntityRecords("ModelReference")
+        var modelRefs = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
-        var propertyBindings = weaveWorkspace.Instance.GetOrCreateEntityRecords("PropertyBinding")
+        var propertyBindings = weaveModel.PropertyBindingList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
 
-        var referencedWorkspaces = new Dictionary<string, Workspace>(StringComparer.Ordinal);
-        foreach (var modelRef in modelRefs)
-        {
-            var resolvedPath = ResolveWorkspacePath(weaveWorkspace.WorkspaceRootPath, RequireValue(modelRef, "WorkspacePath"));
-            referencedWorkspaces[modelRef.Id] = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
-        }
-
+        var referencedWorkspaces = await LoadReferencedWorkspacesAsync(modelRefs, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
         var mergedWorkspace = CreateWorkspaceShell(materializedWorkspaceRootPath, mergedModelName);
         _workspaceMergeService.MergeInto(
             mergedWorkspace,
@@ -183,21 +174,19 @@ public sealed class MetaWeaveService : IMetaWeaveService
 
         var beforeBindings = WorkspaceSnapshotCloner.Capture(mergedWorkspace);
 
-        var modelRefById = modelRefs.ToDictionary(record => record.Id, StringComparer.Ordinal);
+        var modelRefById = modelRefs.ToDictionary(record => RequireValue(record.Id, "ModelReference Id"), StringComparer.Ordinal);
         var refactorService = new ModelRefactorService();
         try
         {
             foreach (var binding in propertyBindings)
             {
-                var sourceModelRef = modelRefById[RequireRelationshipId(binding, "SourceModelId")];
-                var targetModelRef = modelRefById[RequireRelationshipId(binding, "TargetModelId")];
-                _ = sourceModelRef;
-                _ = targetModelRef;
+                _ = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
+                _ = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
 
-                var sourceEntity = RequireValue(binding, "SourceEntity");
-                var sourceProperty = RequireValue(binding, "SourceProperty");
-                var targetEntity = RequireValue(binding, "TargetEntity");
-                var targetProperty = RequireValue(binding, "TargetProperty");
+                var sourceEntity = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
+                var sourceProperty = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
+                var targetEntity = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
+                var targetProperty = RequireValue(binding.TargetProperty, $"PropertyBinding '{binding.Id}' TargetProperty");
                 var role = DeriveMaterializedRole(sourceProperty, targetEntity);
 
                 refactorService.RefactorPropertyToRelationship(
@@ -229,6 +218,51 @@ public sealed class MetaWeaveService : IMetaWeaveService
 
         mergedWorkspace.IsDirty = true;
         return mergedWorkspace;
+    }
+
+    private async Task<Dictionary<string, Workspace>> LoadReferencedWorkspacesAsync(
+        IReadOnlyCollection<WeaveModelReference> modelRefs,
+        string weaveWorkspaceRootPath,
+        CancellationToken cancellationToken)
+    {
+        var loadedModels = new Dictionary<string, Workspace>(StringComparer.Ordinal);
+        foreach (var modelRef in modelRefs)
+        {
+            var id = RequireValue(modelRef.Id, "ModelReference Id");
+            var path = RequireValue(modelRef.WorkspacePath, $"ModelReference '{id}' WorkspacePath");
+            var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
+            var loaded = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+            var expectedModelName = RequireValue(modelRef.ModelName, $"ModelReference '{id}' ModelName");
+            if (!string.Equals(loaded.Model.Name, expectedModelName, StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException(
+                    $"ModelReference '{id}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{loaded.Model.Name}'.");
+            }
+
+            loadedModels[id] = loaded;
+        }
+
+        return loadedModels;
+    }
+
+    private static WeaveModelReference RequireModelReference(
+        WeaveModelReference? modelReference,
+        WeavePropertyBinding binding,
+        string role,
+        IReadOnlyDictionary<string, WeaveModelReference> modelRefById)
+    {
+        if (modelReference is null || string.IsNullOrWhiteSpace(modelReference.Id))
+        {
+            throw new InvalidOperationException($"PropertyBinding '{binding.Id}' references missing {role} model.");
+        }
+
+        if (!modelRefById.TryGetValue(modelReference.Id, out var canonicalModelReference) ||
+            !ReferenceEquals(canonicalModelReference, modelReference))
+        {
+            throw new InvalidOperationException($"PropertyBinding '{binding.Id}' references missing {role} model '{modelReference.Id}'.");
+        }
+
+        return canonicalModelReference;
     }
 
     private static Dictionary<string, List<GenericRecord>> BuildTargetIndex(
@@ -272,21 +306,11 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return Path.GetFullPath(Path.Combine(weaveWorkspaceRootPath, configuredPath));
     }
 
-    private static string RequireValue(GenericRecord record, string propertyName)
+    private static string RequireValue(string value, string name)
     {
-        if (!record.Values.TryGetValue(propertyName, out var value) || string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            throw new InvalidOperationException($"Record '{record.Id}' is missing required property '{propertyName}'.");
-        }
-
-        return value;
-    }
-
-    private static string RequireRelationshipId(GenericRecord record, string relationshipName)
-    {
-        if (!record.RelationshipIds.TryGetValue(relationshipName, out var value) || string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException($"Record '{record.Id}' is missing required relationship '{relationshipName}'.");
+            throw new InvalidOperationException($"{name} is required.");
         }
 
         return value;

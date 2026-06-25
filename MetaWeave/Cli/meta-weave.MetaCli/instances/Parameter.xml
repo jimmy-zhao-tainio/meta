@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterList>
+    <Parameter Id="param-new-workspace-path" ValueShapeId="shape-path">
+      <Description>Empty target directory for the new MetaWeave workspace.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>path</Name>
+    </Parameter>
+    <Parameter Id="param-add-model-workspace" ValueShapeId="shape-path">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-model-alias" ValueShapeId="shape-text">
+      <Description>Local model alias used by bindings.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>alias</Name>
+    </Parameter>
+    <Parameter Id="param-add-model-model" ValueShapeId="shape-text">
+      <Description>Referenced model name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>model</Name>
+    </Parameter>
+    <Parameter Id="param-add-model-workspace-path" ValueShapeId="shape-path">
+      <Description>Referenced model workspace path.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>workspace-path</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-workspace" ValueShapeId="shape-path">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-name" ValueShapeId="shape-text">
+      <Description>Binding name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-source-model" ValueShapeId="shape-text">
+      <Description>Source model alias.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-model</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-source-entity" ValueShapeId="shape-text">
+      <Description>Source entity name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-entity</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-source-property" ValueShapeId="shape-text">
+      <Description>Source property name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-property</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-model" ValueShapeId="shape-text">
+      <Description>Target model alias.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-model</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-entity" ValueShapeId="shape-text">
+      <Description>Target entity name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-entity</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-property" ValueShapeId="shape-text">
+      <Description>Target property name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-property</Name>
+    </Parameter>
+    <Parameter Id="param-suggest-workspace" ValueShapeId="shape-path">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-check-workspace" ValueShapeId="shape-path">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-workspace" ValueShapeId="shape-path">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-new-workspace" ValueShapeId="shape-path">
+      <Description>Empty target directory for the materialized workspace.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>new-workspace</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-model" ValueShapeId="shape-text">
+      <Description>Materialized model name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>model</Name>
+    </Parameter>
+  </ParameterList>
+</MetaCli>

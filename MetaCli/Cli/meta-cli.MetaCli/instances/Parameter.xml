@@ -8,9 +8,14 @@
       <IsRequired>true</IsRequired>
       <Name>Path</Name>
     </Parameter>
-    <Parameter Id="param-command-from-syntax-positional-source" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>Source</Name>
+    <Parameter Id="param-command-new-workspace-option-application" ValueShapeId="shape-text">
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-command-new-workspace-option-standard-cli-shapes" ValueShapeId="shape-flag">
+      <Name>standard-cli-shapes</Name>
+    </Parameter>
+    <Parameter Id="param-command-new-workspace-option-default-help" ValueShapeId="shape-flag">
+      <Name>default-help</Name>
     </Parameter>
     <Parameter Id="param-add-application-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
