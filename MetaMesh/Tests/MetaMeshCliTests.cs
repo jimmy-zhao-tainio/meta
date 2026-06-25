@@ -19,8 +19,21 @@ public sealed class MetaMeshCliTests
         Assert.Contains("impact", result.Output);
         Assert.Contains("mount", result.Output);
         Assert.Contains("link", result.Output);
-        Assert.Contains("describe", result.Output);
+        Assert.Contains("new-workspace", result.Output);
+        Assert.DoesNotContain("describe", result.Output);
+        Assert.DoesNotContain("init", result.Output);
         Assert.DoesNotContain("doctor", result.Output, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Impact_Help_UsesWorkspaceForMeshPathAndHandleForStart()
+    {
+        var result = RunCli("impact --help");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("--workspace <path>", result.Output);
+        Assert.Contains("--handle <value>", result.Output);
+        Assert.DoesNotContain("--mesh", result.Output);
     }
 
     [Fact]
@@ -36,7 +49,7 @@ public sealed class MetaMeshCliTests
             CreateWorkspace(sourcePath, "MetaSchema", "System");
             CreateWorkspace(warehousePath, "MetaDataWarehouse", "Warehouse");
 
-            var scan = RunCli($"scan \"{root}\" --new-workspace \"{meshPath}\" --name BIStackDemo");
+            var scan = RunCli($"scan --new-workspace \"{meshPath}\" --name BIStackDemo \"{root}\"");
 
             Assert.Equal(0, scan.ExitCode);
             Assert.Contains("source", scan.Output, StringComparison.OrdinalIgnoreCase);
@@ -51,28 +64,49 @@ public sealed class MetaMeshCliTests
             Assert.Contains(model.WorkspaceInstanceList, item => item.Handle == "warehouse" && item.ModelName == "MetaDataWarehouse");
             Assert.Contains(model.WorkspaceMountList, item => item.PhysicalPath == Path.Combine("source", "AdventureWorks2022", "Schema"));
 
-            var check = RunCli($"check --mesh \"{meshPath}\"");
+            var check = RunCli($"check --workspace \"{meshPath}\"");
 
             Assert.Equal(0, check.ExitCode);
             Assert.Contains("Ok", check.Output);
 
-            var link = RunCli($"link --mesh \"{meshPath}\" --from source --to warehouse --kind derives");
+            var link = RunCli($"link --workspace \"{meshPath}\" --from source --to warehouse --kind derives");
 
             Assert.Equal(0, link.ExitCode);
             Assert.Contains("source", link.Output);
             Assert.Contains("warehouse", link.Output);
 
-            var impact = RunCli($"impact --mesh \"{meshPath}\" --workspace source");
+            var impact = RunCli($"impact --workspace \"{meshPath}\" --handle source");
 
             Assert.Equal(0, impact.ExitCode);
             Assert.Contains("Affected handles", impact.Output);
             Assert.Contains("warehouse", impact.Output);
 
-            var show = RunCli($"show --mesh \"{meshPath}\"");
+            var show = RunCli($"show --workspace \"{meshPath}\"");
 
             Assert.Equal(0, show.ExitCode);
             Assert.Contains("BIStackDemo", show.Output);
             Assert.Contains("derives", show.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Show_DefaultsWorkspaceToCurrentDirectory()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-cwd", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Mesh");
+        try
+        {
+            var create = RunCli($"new-workspace --name CurrentDirectoryMesh \"{meshPath}\"");
+            Assert.Equal(0, create.ExitCode);
+
+            var show = RunCli("show", workingDirectory: meshPath);
+
+            Assert.Equal(0, show.ExitCode);
+            Assert.Contains("CurrentDirectoryMesh", show.Output);
         }
         finally
         {
@@ -118,7 +152,7 @@ public sealed class MetaMeshCliTests
         new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
     }
 
-    private static (int ExitCode, string Output) RunCli(string arguments)
+    private static (int ExitCode, string Output) RunCli(string arguments, string? workingDirectory = null)
     {
         var repoRoot = FindRepositoryRoot();
         var cliPath = Path.Combine(repoRoot, "MetaMesh", "Cli", "bin", "Debug", "net8.0", "meta-mesh.exe");
@@ -131,7 +165,7 @@ public sealed class MetaMeshCliTests
         {
             FileName = cliPath,
             Arguments = arguments,
-            WorkingDirectory = repoRoot,
+            WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,

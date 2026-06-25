@@ -46,16 +46,18 @@ public sealed class MetaMeshWorkspaceService
         return BuildScanResult(BuildScanModel(Path.GetFullPath(rootPath), meshName));
     }
 
-    public MetaMeshShowResult Show(string meshWorkspacePath)
+    public MetaMeshShowResult Show(MetaMesh.MetaMeshModel model)
     {
-        var model = Load(meshWorkspacePath);
+        ArgumentNullException.ThrowIfNull(model);
         return BuildShowResult(model);
     }
 
-    public MetaMeshCheckResult Check(string meshWorkspacePath)
+    public MetaMeshCheckResult Check(MetaMesh.MetaMeshModel model, string meshWorkspacePath)
     {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+
         var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
-        var model = Load(fullMeshWorkspacePath);
         var issues = new List<MetaMeshIssue>();
 
         if (model.MeshList.Count == 0)
@@ -111,11 +113,11 @@ public sealed class MetaMeshWorkspaceService
         return new MetaMeshCheckResult(issues);
     }
 
-    public MetaMeshImpactResult Impact(string meshWorkspacePath, string workspaceHandle)
+    public MetaMeshImpactResult Impact(MetaMesh.MetaMeshModel model, string workspaceHandle)
     {
+        ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(workspaceHandle);
 
-        var model = Load(meshWorkspacePath);
         var start = ResolveWorkspaceByHandle(model, workspaceHandle);
         var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { start.Handle };
         var queue = new Queue<MetaMesh.WorkspaceInstance>();
@@ -153,12 +155,12 @@ public sealed class MetaMeshWorkspaceService
                 .ToArray());
     }
 
-    public MetaMeshWorkspaceSummary Mount(string meshWorkspacePath, string handle, string physicalPath)
+    public MetaMeshWorkspaceSummary Mount(MetaMesh.MetaMeshModel model, string handle, string physicalPath)
     {
+        ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(handle);
         ArgumentException.ThrowIfNullOrWhiteSpace(physicalPath);
 
-        var model = Load(meshWorkspacePath);
         var mesh = EnsureMesh(model);
         var normalizedHandle = NormalizeHandle(handle);
         var fullPath = Path.GetFullPath(physicalPath);
@@ -198,18 +200,17 @@ public sealed class MetaMeshWorkspaceService
 
         mount.PhysicalPath = fullPath;
         mount.PathKind = "Absolute";
-        model.SaveToXmlWorkspace(Path.GetFullPath(meshWorkspacePath));
 
         return ToWorkspaceSummary(model, workspace);
     }
 
-    public MetaMeshLinkSummary Link(string meshWorkspacePath, string fromHandle, string toHandle, string kind)
+    public MetaMeshLinkSummary Link(MetaMesh.MetaMeshModel model, string fromHandle, string toHandle, string kind)
     {
+        ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(fromHandle);
         ArgumentException.ThrowIfNullOrWhiteSpace(toHandle);
         ArgumentException.ThrowIfNullOrWhiteSpace(kind);
 
-        var model = Load(meshWorkspacePath);
         var mesh = EnsureMesh(model);
         var from = ResolveWorkspaceByHandle(model, fromHandle);
         var to = ResolveWorkspaceByHandle(model, toHandle);
@@ -229,15 +230,8 @@ public sealed class MetaMeshWorkspaceService
         }
 
         existing.Kind = normalizedKind;
-        model.SaveToXmlWorkspace(Path.GetFullPath(meshWorkspacePath));
 
         return new MetaMeshLinkSummary(from.Handle, to.Handle, existing.Kind, existing.Description ?? string.Empty);
-    }
-
-    private static MetaMesh.MetaMeshModel Load(string meshWorkspacePath)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
-        return MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(Path.GetFullPath(meshWorkspacePath), searchUpward: false);
     }
 
     private static MetaMesh.MetaMeshModel BuildScanModel(string fullRoot, string meshName)

@@ -1,169 +1,171 @@
 using Meta.Core.Presentation;
+using MetaCli;
+using MetaCli.Core;
 using MetaMesh.Core;
+using MetaMeshModel = global::MetaMesh.MetaMeshModel;
 
 internal static class Program
 {
+    private const string ApplicationId = "app-meta-mesh";
+    private const string CommandWorkspaceDirectoryName = "meta-mesh.MetaCli";
     private static readonly ConsolePresenter Presenter = new();
     private static readonly MetaMeshWorkspaceService Service = new();
 
-    private static async Task<int> Main(string[] args)
+    private static int Main(string[] args)
     {
         if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, "meta-mesh", args, out var versionExitCode))
         {
             return versionExitCode;
         }
 
-        if (args.Length == 0 || IsHelpToken(args[0]))
+        if (TryHandleHelp(args))
         {
-            PrintHelp();
             return 0;
         }
 
-        try
+        Environment.ExitCode = 0;
+        var runtime = new MetaCliRuntime<MetaMeshModel>(CommandWorkspacePath, ApplicationId)
+            .Bind("exec-help", _ => PrintHelp())
+            .Bind("exec-new-workspace", RunNewWorkspace)
+            .Bind("exec-scan", RunScan)
+            .Bind("exec-suggest", RunSuggest)
+            .Bind("exec-show", RunShow)
+            .Bind("exec-check", RunCheck)
+            .Bind("exec-impact", RunImpact)
+            .Bind("exec-mount", RunMount)
+            .Bind("exec-link", RunLink);
+
+        runtime.Run(args);
+        return Environment.ExitCode;
+    }
+
+    private static string CommandWorkspacePath =>
+        Path.Combine(AppContext.BaseDirectory, CommandWorkspaceDirectoryName);
+
+    private static bool TryHandleHelp(IReadOnlyList<string> args)
+    {
+        if (args.Count == 0)
         {
-            return args[0].ToLowerInvariant() switch
+            PrintHelp();
+            return true;
+        }
+
+        if (IsHelpToken(args[0]))
+        {
+            if (args.Count > 1)
             {
-                "init" => RunWithHelp(args, "init", RunInit),
-                "scan" => RunWithHelp(args, "scan", RunScan),
-                "suggest" => RunWithHelp(args, "suggest", RunSuggest),
-                "show" => RunWithHelp(args, "show", RunShow),
-                "check" => RunWithHelp(args, "check", RunCheck),
-                "impact" => RunWithHelp(args, "impact", RunImpact),
-                "mount" => RunWithHelp(args, "mount", RunMount),
-                "link" => RunWithHelp(args, "link", RunLink),
-                "describe" => RunWithHelp(args, "describe", RunDescribe),
-                "help" => ReturnHelp(),
-                _ => Fail($"unknown command '{args[0]}'.", "meta-mesh help")
-            };
+                PrintCommandHelp(args.Skip(1).ToArray());
+            }
+            else
+            {
+                PrintHelp();
+            }
+
+            return true;
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or InvalidOperationException or ArgumentException)
+
+        if (args.Count > 1 && IsHelpToken(args[1]))
         {
-            return Fail("Cannot run meta-mesh.", "check the paths and handles, then retry.", 4, new[] { $"  {ex.Message}" });
+            PrintCommandHelp(new[] { args[0] });
+            return true;
         }
-        finally
-        {
-            await Task.CompletedTask.ConfigureAwait(false);
-        }
+
+        return false;
     }
 
-    private static int RunInit(string[] args)
+    private static void RunNewWorkspace(MetaCliInvocation invocation)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: false, "--new-workspace", "--name");
-        if (!parse.Ok)
+        var workspacePath = Path.GetFullPath(invocation.Required("path"));
+        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
         {
-            return Fail(parse.ErrorMessage, HelpCommand("init"));
+            throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
         }
 
-        var workspacePath = RequireOption(parse, "--new-workspace", HelpCommand("init"));
-        var name = GetOption(parse, "--name", "Mesh");
-        var fullPath = Path.GetFullPath(workspacePath);
-        if (Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
-        {
-            return Fail("target directory must be empty.", "choose a new folder or empty the target directory and retry.", 4, new[] { $"  Target: {fullPath}" });
-        }
-
-        Service.CreateEmpty(name).SaveToXmlWorkspace(fullPath);
-        Presenter.WriteOk();
-        return 0;
+        Service.CreateEmpty(invocation.Optional("name") ?? "Mesh").SaveToXmlWorkspace(workspacePath);
+        Presenter.WriteOk(
+            "mesh workspace created",
+            ("Workspace", workspacePath),
+            ("Model", "MetaMesh"));
     }
 
-    private static int RunScan(string[] args)
+    private static void RunScan(MetaCliInvocation invocation)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: true, "--new-workspace", "--name");
-        if (!parse.Ok)
+        var root = invocation.Required("root");
+        var workspacePath = Path.GetFullPath(invocation.Required("new-workspace"));
+        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
         {
-            return Fail(parse.ErrorMessage, HelpCommand("scan"));
+            throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
         }
 
-        var root = RequireSinglePositional(parse, "<root>", HelpCommand("scan"));
-        var workspacePath = RequireOption(parse, "--new-workspace", HelpCommand("scan"));
-        var name = GetOption(parse, "--name", "Mesh");
-        var fullTarget = Path.GetFullPath(workspacePath);
-        if (Directory.Exists(fullTarget) && Directory.EnumerateFileSystemEntries(fullTarget).Any())
-        {
-            return Fail("target directory must be empty.", "choose a new folder or empty the target directory and retry.", 4, new[] { $"  Target: {fullTarget}" });
-        }
-
-        var result = Service.ScanToWorkspace(root, fullTarget, name);
-        Presenter.WriteOk();
-        WriteWorkspaceTable(result.Workspaces);
+        var result = Service.ScanToWorkspace(root, workspacePath, invocation.Optional("name") ?? "Mesh");
+        Presenter.WriteOk("mesh scan", ("Workspace", workspacePath), ("Root", Path.GetFullPath(root)));
+        WriteWorkspaces(result.Workspaces);
         WriteSuggestions(result.Suggestions);
-        return 0;
     }
 
-    private static int RunSuggest(string[] args)
+    private static void RunSuggest(MetaCliInvocation invocation)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: true);
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("suggest"));
-        }
-
-        var path = RequireSinglePositional(parse, "<root-or-mesh>", HelpCommand("suggest"));
-        IReadOnlyList<MetaMeshSuggestionSummary> suggestions;
-        if (LooksLikeMetaMeshWorkspace(path))
-        {
-            suggestions = Service.Show(path).Suggestions;
-        }
-        else
-        {
-            suggestions = Service.SuggestFromRoot(path).Suggestions;
-        }
-
-        WriteSuggestions(suggestions);
-        return 0;
+        var result = Service.SuggestFromRoot(invocation.Required("root"));
+        WriteSuggestions(result.Suggestions);
     }
 
-    private static int RunShow(string[] args)
+    private static void RunShow(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var meshPath = ParseMeshOnly(args, "show");
-        var result = Service.Show(meshPath);
+        var result = Service.Show(model);
         Presenter.WriteKeyValueBlock("MetaMesh", new[]
         {
             ("Name", result.MeshName),
             ("Root", result.RootPath),
             ("Workspaces", result.Workspaces.Count.ToString()),
             ("Links", result.Links.Count.ToString()),
+            ("Suggestions", result.Suggestions.Count.ToString()),
         });
-        WriteWorkspaceTable(result.Workspaces);
-        WriteLinkTable(result.Links);
+        WriteWorkspaces(result.Workspaces);
+        WriteLinks(result.Links);
         WriteSuggestions(result.Suggestions);
-        return 0;
     }
 
-    private static int RunCheck(string[] args)
+    private static void RunCheck(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var meshPath = ParseMeshOnly(args, "check");
-        var result = Service.Check(meshPath);
+        var workspacePath = ResolveWorkspacePath(invocation);
+        var result = Service.Check(model, workspacePath);
         if (result.Issues.Count == 0)
         {
-            Presenter.WriteOk();
-            return 0;
+            Presenter.WriteInfo("MetaMesh check: Ok");
+            Presenter.WriteKeyValueBlock("Summary", new[]
+            {
+                ("Workspaces", model.WorkspaceInstanceList.Count.ToString()),
+                ("Links", model.WorkspaceLinkList.Count.ToString()),
+                ("Warnings", "0"),
+                ("Errors", "0"),
+            });
+            return;
         }
 
-        Presenter.WriteTable(
-            new[] { "Severity", "Code", "Handle", "Message" },
-            result.Issues.Select(issue => (IReadOnlyList<string>)new[] { issue.Severity, issue.Code, issue.WorkspaceHandle, issue.Message }).ToArray());
-        return result.HasErrors ? 2 : 0;
+        Presenter.WriteInfo("MetaMesh check: issues");
+        foreach (var issue in result.Issues)
+        {
+            var handle = string.IsNullOrWhiteSpace(issue.WorkspaceHandle)
+                ? string.Empty
+                : $" [{issue.WorkspaceHandle}]";
+            Presenter.WriteInfo($"  {issue.Severity} {issue.Code}{handle}: {issue.Message}");
+        }
+
+        if (result.HasErrors)
+        {
+            throw new InvalidOperationException("MetaMesh check found errors.");
+        }
     }
 
-    private static int RunImpact(string[] args)
+    private static void RunImpact(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: false, "--mesh", "--workspace");
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("impact"));
-        }
-
-        var meshPath = RequireOption(parse, "--mesh", HelpCommand("impact"));
-        var handle = RequireOption(parse, "--workspace", HelpCommand("impact"));
-        var result = Service.Impact(meshPath, handle);
-
+        var result = Service.Impact(model, invocation.Required("handle"));
         Presenter.WriteKeyValueBlock("Impact", new[]
         {
             ("Workspace", result.WorkspaceHandle),
             ("AffectedWorkspaces", result.AffectedHandles.Count.ToString()),
         });
+
         if (result.AffectedHandles.Count > 0)
         {
             Presenter.WriteInfo("Affected handles:");
@@ -173,395 +175,274 @@ internal static class Program
             }
         }
 
-        WriteLinkTable(result.AffectedLinks);
-        return 0;
+        WriteLinks(result.AffectedLinks);
     }
 
-    private static int RunMount(string[] args)
+    private static void RunMount(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: false, "--mesh", "--handle", "--path");
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("mount"));
-        }
-
+        var workspacePath = ResolveWorkspacePath(invocation);
         var summary = Service.Mount(
-            RequireOption(parse, "--mesh", HelpCommand("mount")),
-            RequireOption(parse, "--handle", HelpCommand("mount")),
-            RequireOption(parse, "--path", HelpCommand("mount")));
-        Presenter.WriteOk();
-        WriteWorkspaceTable(new[] { summary });
-        return 0;
+            model,
+            invocation.Required("handle"),
+            invocation.Required("path"));
+        model.SaveToXmlWorkspace(workspacePath);
+
+        Presenter.WriteOk("mesh mount", ("Workspace", workspacePath));
+        WriteWorkspaces(new[] { summary });
     }
 
-    private static int RunLink(string[] args)
+    private static void RunLink(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var parse = ParseOptions(args, 1, allowPositionals: false, "--mesh", "--from", "--to", "--kind");
-        if (!parse.Ok)
-        {
-            return Fail(parse.ErrorMessage, HelpCommand("link"));
-        }
-
+        var workspacePath = ResolveWorkspacePath(invocation);
         var summary = Service.Link(
-            RequireOption(parse, "--mesh", HelpCommand("link")),
-            RequireOption(parse, "--from", HelpCommand("link")),
-            RequireOption(parse, "--to", HelpCommand("link")),
-            RequireOption(parse, "--kind", HelpCommand("link")));
-        Presenter.WriteOk();
-        WriteLinkTable(new[] { summary });
-        return 0;
+            model,
+            invocation.Required("from"),
+            invocation.Required("to"),
+            invocation.Required("kind"));
+        model.SaveToXmlWorkspace(workspacePath);
+
+        Presenter.WriteOk("mesh link", ("Workspace", workspacePath));
+        WriteLinks(new[] { summary });
     }
 
-    private static int RunDescribe(string[] args)
+    private static string ResolveWorkspacePath(MetaCliInvocation invocation)
     {
-        var hostCallable = new HashSet<string>(
-            new[] { "describe", "show", "check", "impact" },
-            StringComparer.OrdinalIgnoreCase);
-        var commandNames = new[] { "check", "describe", "impact", "init", "link", "mount", "scan", "show", "suggest" };
-        var operations = commandNames
-            .Select(command => new
-            {
-                Name = command,
-                Inputs = DescribeInputs(command),
-                Effects = ResolveEffects(command),
-                HostCallable = hostCallable.Contains(command)
-            })
-            .ToArray();
+        var workspace = invocation.Optional("workspace");
+        return Path.GetFullPath(string.IsNullOrWhiteSpace(workspace)
+            ? Directory.GetCurrentDirectory()
+            : workspace);
+    }
 
-        Presenter.WriteKeyValueBlock("MetaMesh CLI", new[]
+    private static void WriteWorkspaces(IReadOnlyList<MetaMeshWorkspaceSummary> workspaces)
+    {
+        Presenter.WriteInfo("Workspaces:");
+        if (workspaces.Count == 0)
         {
-            ("Name", "meta-mesh"),
-            ("Supported model", "MetaMesh"),
-            ("Operations", operations.Length.ToString()),
-        });
-
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteInfo("Operations:");
-        foreach (var operation in operations)
-        {
-            Presenter.WriteInfo($"  {operation.Name}");
-            Presenter.WriteInfo($"    host: {(operation.HostCallable ? "yes" : "no")}");
-            Presenter.WriteInfo($"    effects: {string.Join(", ", operation.Effects)}");
-            Presenter.WriteInfo($"    inputs: {string.Join(", ", operation.Inputs)}");
+            Presenter.WriteInfo("  (none)");
+            return;
         }
 
-        return 0;
-    }
-
-    private static IReadOnlyList<string> DescribeInputs(string command) =>
-        command switch
+        foreach (var workspace in workspaces)
         {
-            "init" => new[] { "--new-workspace", "--name" },
-            "scan" => new[] { "<root>", "--new-workspace", "--name" },
-            "suggest" => new[] { "<root-or-mesh>" },
-            "show" or "check" => new[] { "--mesh" },
-            "impact" => new[] { "--mesh", "--workspace" },
-            "mount" => new[] { "--mesh", "--handle", "--path" },
-            "link" => new[] { "--mesh", "--from", "--to", "--kind" },
-            "describe" => Array.Empty<string>(),
-            _ => Array.Empty<string>(),
-        };
-
-    private static IReadOnlyList<string> ResolveEffects(string command) =>
-        command switch
-        {
-            "init" => new[] { "derives workspace" },
-            "scan" => new[] { "derives workspace" },
-            "mount" => new[] { "mutates workspace" },
-            "link" => new[] { "mutates workspace" },
-            "show" or "suggest" or "check" or "impact" or "describe" => new[] { "pure" },
-            _ => new[] { "pure" }
-        };
-
-    private static string ParseMeshOnly(string[] args, string commandName)
-    {
-        var parse = ParseOptions(args, 1, allowPositionals: false, "--mesh");
-        if (!parse.Ok)
-        {
-            throw new InvalidOperationException(parse.ErrorMessage);
+            var model = string.IsNullOrWhiteSpace(workspace.ModelName) ? "(unknown model)" : workspace.ModelName;
+            Presenter.WriteInfo($"  {workspace.Handle}  {model}");
         }
-
-        return RequireOption(parse, "--mesh", HelpCommand(commandName));
     }
 
-    private static void WriteWorkspaceTable(IReadOnlyList<MetaMeshWorkspaceSummary> workspaces)
-    {
-        Presenter.WriteTable(
-            new[] { "Handle", "Model", "Kind", "Lifecycle", "Path" },
-            workspaces.Select(workspace => (IReadOnlyList<string>)new[]
-            {
-                workspace.Handle,
-                workspace.ModelName,
-                workspace.WorkspaceKind,
-                workspace.Lifecycle,
-                workspace.PhysicalPath
-            }).ToArray());
-    }
-
-    private static void WriteLinkTable(IReadOnlyList<MetaMeshLinkSummary> links)
+    private static void WriteLinks(IReadOnlyList<MetaMeshLinkSummary> links)
     {
         if (links.Count == 0)
         {
             return;
         }
 
-        Presenter.WriteTable(
-            new[] { "From", "Kind", "To", "Description" },
-            links.Select(link => (IReadOnlyList<string>)new[] { link.FromHandle, link.Kind, link.ToHandle, link.Description }).ToArray());
+        Presenter.WriteInfo("Links:");
+        foreach (var link in links)
+        {
+            var description = string.IsNullOrWhiteSpace(link.Description) ? string.Empty : "  " + link.Description;
+            Presenter.WriteInfo($"  {link.FromHandle} --{link.Kind}--> {link.ToHandle}{description}");
+        }
     }
 
     private static void WriteSuggestions(IReadOnlyList<MetaMeshSuggestionSummary> suggestions)
     {
+        Presenter.WriteInfo("Suggestions:");
         if (suggestions.Count == 0)
         {
-            Presenter.WriteInfo("Suggestions: (none)");
+            Presenter.WriteInfo("  (none)");
             return;
         }
 
-        Presenter.WriteTable(
-            new[] { "Severity", "Kind", "Handle", "Message" },
-            suggestions.Select(suggestion => (IReadOnlyList<string>)new[]
-            {
-                suggestion.Severity,
-                suggestion.SuggestionKind,
-                suggestion.WorkspaceHandle,
-                suggestion.Message
-            }).ToArray());
-    }
-
-    private static bool LooksLikeMetaMeshWorkspace(string path)
-    {
-        try
+        foreach (var suggestion in suggestions)
         {
-            var modelPath = Path.Combine(Path.GetFullPath(path), "model.xml");
-            if (!File.Exists(modelPath))
-            {
-                return false;
-            }
-
-            var text = File.ReadAllText(modelPath);
-            return text.Contains("<Model name=\"MetaMesh\"", StringComparison.Ordinal);
-        }
-        catch
-        {
-            return false;
+            var handle = string.IsNullOrWhiteSpace(suggestion.WorkspaceHandle)
+                ? string.Empty
+                : $" [{suggestion.WorkspaceHandle}]";
+            Presenter.WriteInfo($"  {suggestion.Severity}{handle}: {suggestion.Message}");
         }
     }
-
-    private static int RunWithHelp(string[] args, string commandName, Func<string[], int> execute)
-    {
-        if (args.Length >= 2 && IsHelpToken(args[1]))
-        {
-            PrintCommandHelp(commandName);
-            return 0;
-        }
-
-        return execute(args);
-    }
-
-    private static int ReturnHelp()
-    {
-        PrintHelp();
-        return 0;
-    }
-
-    private static ParseResult ParseOptions(string[] args, int startIndex, bool allowPositionals, params string[] allowedOptions)
-    {
-        var allowed = new HashSet<string>(allowedOptions, StringComparer.OrdinalIgnoreCase);
-        var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        var positionals = new List<string>();
-
-        for (var index = startIndex; index < args.Length; index++)
-        {
-            var arg = args[index];
-            if (!arg.StartsWith("--", StringComparison.Ordinal))
-            {
-                if (!allowPositionals)
-                {
-                    return ParseResult.Fail($"unknown option '{arg}'.");
-                }
-
-                positionals.Add(arg);
-                continue;
-            }
-
-            if (!allowed.Contains(arg))
-            {
-                return ParseResult.Fail($"unknown option '{arg}'.");
-            }
-
-            if (index + 1 >= args.Length)
-            {
-                return ParseResult.Fail($"missing value for {arg}.");
-            }
-
-            if (values.ContainsKey(arg))
-            {
-                return ParseResult.Fail($"{arg} can only be provided once.");
-            }
-
-            values[arg] = args[++index];
-        }
-
-        return new ParseResult(true, values, positionals, string.Empty);
-    }
-
-    private static string RequireOption(ParseResult parse, string optionName, string next)
-    {
-        if (!parse.Values.TryGetValue(optionName, out var value) || string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException($"missing required option {optionName} <value>. Next: {next}");
-        }
-
-        return value;
-    }
-
-    private static string GetOption(ParseResult parse, string optionName, string fallback) =>
-        parse.Values.TryGetValue(optionName, out var value) && !string.IsNullOrWhiteSpace(value)
-            ? value
-            : fallback;
-
-    private static string RequireSinglePositional(ParseResult parse, string label, string next)
-    {
-        if (parse.Positionals.Count == 0)
-        {
-            throw new InvalidOperationException($"missing required argument {label}. Next: {next}");
-        }
-
-        if (parse.Positionals.Count > 1)
-        {
-            throw new InvalidOperationException($"expected one positional argument {label}, found {parse.Positionals.Count}. Next: {next}");
-        }
-
-        return parse.Positionals[0];
-    }
-
-    private static bool IsHelpToken(string value) =>
-        string.Equals(value, "help", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(value, "--help", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
 
     private static void PrintHelp()
     {
-        Presenter.WriteUsage("meta-mesh <command> [options]");
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteCommandCatalog("Commands:", new[]
+        var model = LoadCommandSurface();
+        var application = FindApplication(model);
+        Console.WriteLine("Usage:");
+        Console.WriteLine("  meta-mesh <command> [options]");
+        Console.WriteLine();
+        Console.WriteLine("Commands:");
+        foreach (var command in model.CommandList
+                     .Where(command => ReferenceEquals(command.Application, application))
+                     .Where(command => command.ParentCommand is null)
+                     .Where(command => !string.Equals(command.Token, "help", StringComparison.Ordinal))
+                     .OrderBy(command => command.Token, StringComparer.Ordinal))
         {
-            ("init", "Create an empty MetaMesh workspace."),
-            ("scan", "Scan a root folder and create a MetaMesh workspace from discovered meta workspaces."),
-            ("suggest", "Suggest logical workspace handles and mesh improvements without applying changes."),
-            ("show", "Show workspace handles, mounts, links, and suggestions in a MetaMesh workspace."),
-            ("check", "Validate a MetaMesh workspace map."),
-            ("impact", "Walk modeled workspace links from one handle."),
-            ("mount", "Mount or update a workspace path under a stable handle."),
-            ("link", "Add or update a modeled link between two workspace handles."),
-            ("describe", "Describe this CLI for host/tool inspection."),
-            ("help", "Show this help."),
-        });
-        Presenter.WriteInfo(string.Empty);
-        Presenter.WriteNext("meta-mesh scan <root> --new-workspace <mesh-workspace>");
+            var description = string.IsNullOrWhiteSpace(command.Description) ? string.Empty : command.Description;
+            Console.WriteLine($"  {command.Token,-18}{description}");
+        }
+
+        Console.WriteLine($"  {"help",-18}Show help.");
+        Console.WriteLine();
+        Console.WriteLine("Next: meta-mesh help <command>");
     }
 
-    private static void PrintCommandHelp(string commandName)
+    private static void PrintCommandHelp(IReadOnlyList<string> route)
     {
-        switch (commandName)
+        var model = LoadCommandSurface();
+        var application = FindApplication(model);
+        var command = FindCommand(model, application, route);
+        if (command is null)
         {
-            case "init":
-                Presenter.WriteUsage("meta-mesh init --new-workspace <path> [--name <name>]");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--new-workspace <path>", "Required. Empty target directory for the MetaMesh workspace."),
-                    ("--name <name>", "Optional mesh display name."),
-                });
-                break;
-            case "scan":
-                Presenter.WriteUsage("meta-mesh scan <root> --new-workspace <path> [--name <name>]");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("<root>", "Required. Folder to scan for meta workspaces."),
-                    ("--new-workspace <path>", "Required. Empty target directory for the generated MetaMesh workspace."),
-                    ("--name <name>", "Optional mesh display name."),
-                });
-                break;
-            case "suggest":
-                Presenter.WriteUsage("meta-mesh suggest <root-or-mesh>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("<root-or-mesh>", "Required. Root folder to scan or existing MetaMesh workspace."),
-                });
-                break;
-            case "show":
-                Presenter.WriteUsage("meta-mesh show --mesh <mesh-workspace>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect."),
-                });
-                break;
-            case "check":
-                Presenter.WriteUsage("meta-mesh check --mesh <mesh-workspace>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to validate."),
-                });
-                break;
-            case "impact":
-                Presenter.WriteUsage("meta-mesh impact --mesh <mesh-workspace> --workspace <handle>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to inspect."),
-                    ("--workspace <handle>", "Required. Logical workspace handle to start from."),
-                });
-                break;
-            case "mount":
-                Presenter.WriteUsage("meta-mesh mount --mesh <mesh-workspace> --handle <handle> --path <path>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
-                    ("--handle <handle>", "Required. Logical workspace handle."),
-                    ("--path <path>", "Required. Physical workspace path to mount."),
-                });
-                break;
-            case "link":
-                Presenter.WriteUsage("meta-mesh link --mesh <mesh-workspace> --from <handle> --to <handle> --kind <kind>");
-                Presenter.WriteOptionCatalog(new[]
-                {
-                    ("--mesh <mesh-workspace>", "Required. MetaMesh workspace to update."),
-                    ("--from <handle>", "Required. Source workspace handle."),
-                    ("--to <handle>", "Required. Target workspace handle."),
-                    ("--kind <kind>", "Required. Link kind such as depends-on or derives."),
-                });
-                break;
-            case "describe":
-                Presenter.WriteUsage("meta-mesh describe");
-                break;
-            default:
-                PrintHelp();
-                break;
+            Console.Error.WriteLine($"Command '{string.Join(" ", route)}' is not modeled.");
+            return;
+        }
+
+        var executableCommand = model.ExecutableCommandList.SingleOrDefault(item => ReferenceEquals(item.Command, command));
+        if (executableCommand is null)
+        {
+            Console.Error.WriteLine($"Command '{BuildRoute(command)}' is not runnable.");
+            return;
+        }
+
+        var parameters = EffectiveParameters(model, application, executableCommand).ToList();
+        var positionals = OrderPositionals(model, executableCommand).ToList();
+        Console.WriteLine("Usage:");
+        Console.Write($"  meta-mesh {BuildRoute(command)}");
+        var options = parameters
+            .Select(parameter => (Parameter: parameter, Token: model.OptionTokenList.FirstOrDefault(token => ReferenceEquals(token.Option.Parameter, parameter))))
+            .Where(item => item.Token is not null)
+            .ToList();
+        foreach (var option in options)
+        {
+            var token = option.Token!;
+            var valueLabel = ValueLabel(option.Parameter);
+            var required = IsTrue(option.Parameter.IsRequired);
+            Console.Write(required ? $" {token.Token}{valueLabel}" : $" [{token.Token}{valueLabel}]");
+        }
+
+        foreach (var positional in positionals)
+        {
+            Console.Write($" <{positional.Parameter.Name}>");
+        }
+
+        Console.WriteLine();
+        if (!string.IsNullOrWhiteSpace(command.Description))
+        {
+            Console.WriteLine();
+            Console.WriteLine(command.Description);
+        }
+
+        if (options.Count > 0)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            foreach (var option in options)
+            {
+                var parameter = option.Parameter;
+                var optionToken = option.Token!;
+                var label = optionToken.Token + ValueLabel(parameter);
+                var description = string.IsNullOrWhiteSpace(parameter.Description) ? string.Empty : "  " + parameter.Description;
+                Console.WriteLine($"  {label,-28}{description}");
+            }
         }
     }
 
-    private static string HelpCommand(string commandName) => $"meta-mesh {commandName} --help";
+    private static MetaCliModel LoadCommandSurface() =>
+        MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath, searchUpward: false);
 
-    private static int Fail(string message, string next, int exitCode = 1, IEnumerable<string>? details = null)
+    private static Application FindApplication(MetaCliModel model) =>
+        model.ApplicationList.Single(application => string.Equals(application.Id, ApplicationId, StringComparison.Ordinal));
+
+    private static Command? FindCommand(MetaCliModel model, Application application, IReadOnlyList<string> route)
     {
-        var renderedDetails = new List<string>();
-        if (details != null)
+        Command? current = null;
+        foreach (var token in route)
         {
-            renderedDetails.AddRange(details.Where(static detail => !string.IsNullOrWhiteSpace(detail)));
+            current = model.CommandList.SingleOrDefault(command =>
+                ReferenceEquals(command.Application, application) &&
+                ReferenceEquals(command.ParentCommand, current) &&
+                string.Equals(command.Token, token, StringComparison.OrdinalIgnoreCase));
+            if (current is null)
+            {
+                return null;
+            }
         }
 
-        renderedDetails.Add($"Next: {next}");
-        Presenter.WriteFailure(message, renderedDetails);
-        return exitCode;
+        return current;
     }
 
-    private sealed record ParseResult(
-        bool Ok,
-        IReadOnlyDictionary<string, string> Values,
-        IReadOnlyList<string> Positionals,
-        string ErrorMessage)
+    private static IEnumerable<Parameter> EffectiveParameters(
+        MetaCliModel model,
+        Application application,
+        ExecutableCommand executableCommand)
     {
-        public static ParseResult Fail(string message) =>
-            new(false, new Dictionary<string, string>(), Array.Empty<string>(), message);
+        foreach (var parameter in model.ApplicationParameterList
+                     .Where(item => ReferenceEquals(item.Application, application))
+                     .Select(item => item.Parameter))
+        {
+            yield return parameter;
+        }
+
+        foreach (var parameter in model.ExecutableCommandParameterList
+                     .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+                     .Select(item => item.Parameter))
+        {
+            yield return parameter;
+        }
+    }
+
+    private static IEnumerable<PositionalArgument> OrderPositionals(MetaCliModel model, ExecutableCommand executableCommand)
+    {
+        var commandParameters = model.ExecutableCommandParameterList
+            .Where(item => ReferenceEquals(item.ExecutableCommand, executableCommand))
+            .Select(item => item.Parameter)
+            .ToHashSet();
+        var positionals = model.PositionalArgumentList
+            .Where(argument => commandParameters.Contains(argument.Parameter))
+            .ToList();
+        var current = positionals.SingleOrDefault(argument => argument.PreviousArgument is null);
+        while (current is not null)
+        {
+            yield return current;
+            var previous = current;
+            current = positionals.SingleOrDefault(argument => ReferenceEquals(argument.PreviousArgument, previous));
+        }
+    }
+
+    private static string BuildRoute(Command command)
+    {
+        var parts = new Stack<string>();
+        for (var current = command; current is not null; current = current.ParentCommand!)
+        {
+            if (!string.IsNullOrWhiteSpace(current.Token))
+            {
+                parts.Push(current.Token);
+            }
+        }
+
+        return string.Join(" ", parts);
+    }
+
+    private static string ValueLabel(Parameter parameter)
+    {
+        var arity = parameter.ValueShape.ValueArity;
+        if (string.Equals(arity.MaxValueCount, "0", StringComparison.Ordinal))
+        {
+            return string.Empty;
+        }
+
+        var label = string.IsNullOrWhiteSpace(parameter.ValueShape.ValueLabel)
+            ? "<value>"
+            : parameter.ValueShape.ValueLabel;
+        return " " + label;
+    }
+
+    private static bool IsTrue(string? value) =>
+        bool.TryParse(value, out var parsed) && parsed;
+
+    private static bool IsHelpToken(string value)
+    {
+        return string.Equals(value, "help", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(value, "--help", StringComparison.OrdinalIgnoreCase) ||
+               string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
     }
 }

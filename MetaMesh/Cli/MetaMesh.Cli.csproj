@@ -11,8 +11,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\Core\MetaMesh.Core.csproj" />
     <ProjectReference Include="..\Tooling\MetaMesh.Tooling.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="meta-mesh.MetaCli\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
