@@ -159,7 +159,7 @@ public sealed class MetaCliRuntimeTests
         runtime.Run("banana");
 
         Assert.Equal(2, exitCode);
-        Assert.Contains("Command 'banana' is not modeled", error.ToString());
+        Assert.Contains("Unknown command 'banana'.", error.ToString());
     }
 
     [Fact]
@@ -203,6 +203,26 @@ public sealed class MetaCliRuntimeTests
     }
 
     [Fact]
+    public void Runtime_AllowsHandlerToSetExitCodeWithoutGenericFailure()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var error = new StringWriter();
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-property", _ => throw new MetaCliExitException(2));
+
+        runtime.Run("model", "add-property", "Customer", "Name");
+
+        Assert.Equal(2, exitCode);
+        Assert.Equal(string.Empty, error.ToString());
+    }
+
+    [Fact]
     public void Runtime_WritesCommandSurfaceLoadFailureAndExitCode()
     {
         using var temp = TempDirectory.Create();
@@ -229,8 +249,76 @@ public sealed class MetaCliRuntimeTests
         AssertRunFails(commandWorkspace, 2, "Command 'model' is not runnable.", "model");
         AssertRunFails(commandWorkspace, 2, "Option '--workspace' was provided more than once.", "model", "add-property", "--workspace", "Demo.Meta", "--workspace", "Other.Meta", "Customer", "Name");
         AssertRunFails(commandWorkspace, 2, "Option '--workspace' requires a value.", "model", "add-property", "--workspace");
-        AssertRunFails(commandWorkspace, 2, "Option '--workspace' cannot appear after positional arguments.", "model", "add-property", "Customer", "--workspace", "Demo.Meta", "Name");
+        AssertRunSucceeds(commandWorkspace, "model", "add-property", "Customer", "--workspace", "Demo.Meta", "Name");
         AssertRunFails(commandWorkspace, 2, "Unexpected argument 'Two.MetaCli'.", "new-workspace", "One.MetaCli", "Two.MetaCli");
+    }
+
+    [Fact]
+    public void Runtime_DefaultHelp_WritesApplicationHelpFromMetaCliModel()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+
+        var noArguments = RunDefaultHelp(commandWorkspace);
+        var longOption = RunDefaultHelp(commandWorkspace, "--help");
+        var shortOption = RunDefaultHelp(commandWorkspace, "-h");
+        var helpCommand = RunDefaultHelp(commandWorkspace, "help");
+
+        foreach (var result in new[] { noArguments, longOption, shortOption, helpCommand })
+        {
+            Assert.Equal(0, result.ExitCode);
+            Assert.Equal(string.Empty, result.Error);
+            Assert.Contains("demo <command> [options]", result.Output);
+            Assert.Contains("model", result.Output);
+            Assert.Contains("new-workspace", result.Output);
+            Assert.Contains("Next: demo help <command>", result.Output);
+        }
+    }
+
+    [Fact]
+    public void Runtime_DefaultHelp_WritesCommandHelpFromMetaCliModel()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+
+        var forms = new[]
+        {
+            new[] { "help", "model", "add-property" },
+            new[] { "model", "add-property", "help" },
+            new[] { "model", "add-property", "--help" },
+            new[] { "model", "add-property", "-h" },
+        };
+
+        foreach (var arguments in forms)
+        {
+            var result = RunDefaultHelp(commandWorkspace, arguments);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Equal(string.Empty, result.Error);
+            Assert.Contains("demo model add-property", result.Output);
+            Assert.Contains("<Entity>", result.Output);
+            Assert.Contains("<Property>", result.Output);
+            Assert.Contains("--workspace <value>", result.Output);
+            Assert.Contains("--visibility <value>", result.Output);
+        }
+    }
+
+    [Fact]
+    public void Runtime_DefaultHelp_ReportsUnknownRoutesAndWritesCommandGroupHelp()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+
+        var unknown = RunDefaultHelp(commandWorkspace, "help", "missing");
+        var groupHelp = RunDefaultHelp(commandWorkspace, "model", "--help");
+
+        Assert.Equal(2, unknown.ExitCode);
+        Assert.Equal(string.Empty, unknown.Output);
+        Assert.Contains("Unknown command 'missing'.", unknown.Error);
+        Assert.Equal(0, groupHelp.ExitCode);
+        Assert.Equal(string.Empty, groupHelp.Error);
+        Assert.Contains("demo model <command> [options]", groupHelp.Output);
+        Assert.Contains("add-property", groupHelp.Output);
     }
 
     [Fact]
@@ -331,6 +419,50 @@ public sealed class MetaCliRuntimeTests
 
         Assert.Equal(expectedExitCode, exitCode);
         Assert.Contains(expectedMessage, error.ToString());
+    }
+
+    private static void AssertRunSucceeds(
+        string commandWorkspace,
+        params string[] arguments)
+    {
+        var error = new StringWriter();
+        var exitCode = -1;
+        var ran = false;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind("exec-add-property", invocation =>
+            {
+                ran = true;
+                Assert.Equal("Demo.Meta", invocation.Required("workspace"));
+                Assert.Equal("Customer", invocation.Required("Entity"));
+                Assert.Equal("Name", invocation.Required("Property"));
+            });
+
+        runtime.Run(arguments);
+
+        Assert.True(ran);
+        Assert.Equal(0, exitCode);
+        Assert.Equal(string.Empty, error.ToString());
+    }
+
+    private static (int ExitCode, string Output, string Error) RunDefaultHelp(
+        string commandWorkspace,
+        params string[] arguments)
+    {
+        var output = new StringWriter();
+        var error = new StringWriter();
+        var exitCode = -1;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .UseDefaultHelp(output, error);
+
+        runtime.Run(arguments);
+
+        return (exitCode, output.ToString(), error.ToString());
     }
 
     private static MetaCliModel CreateRuntimeModel(bool includeDefaultCommand = true)

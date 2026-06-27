@@ -2,14 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> BulkInsertAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 2)
-        {
-            return PrintUsageError(
-                "Usage: bulk-insert <Entity> [--from tsv|csv] [--file <path>|--stdin] [--key Field[,Field2...]] [--auto-id] [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[1];
-        var parseResult = ParseUpsertOptions(commandArgs, startIndex: 2);
+        var entityName = RequiredValue("Entity");
+        var parseResult = ReadUpsertOptions(commandArgs, startIndex: 2);
         if (!parseResult.Ok)
         {
             return PrintArgumentError(parseResult.ErrorMessage);

@@ -2,14 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> DeleteAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 3)
-        {
-            return PrintUsageError("Usage: delete <Entity> <Id> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[1];
-        var id = commandArgs[2];
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex: 3);
+        var entityName = RequiredValue("Entity");
+        var id = RequiredValue("Id");
+        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

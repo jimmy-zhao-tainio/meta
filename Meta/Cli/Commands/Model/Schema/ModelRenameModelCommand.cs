@@ -8,7 +8,7 @@ internal sealed partial class CliRuntime
 
     async Task<int> ModelRenameModelAsync(string[] commandArgs)
     {
-        var options = ParseModelRenameModelOptions(commandArgs, startIndex: 2);
+        var options = ReadModelRenameModelOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -69,33 +69,11 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, string OldModelName, string NewModelName, string WorkspacePath, string ErrorMessage)
-        ParseModelRenameModelOptions(string[] commandArgs, int startIndex)
+        ReadModelRenameModelOptions(string[] commandArgs, int startIndex)
     {
-        if (commandArgs.Length <= startIndex + 1)
-        {
-            return (false, string.Empty, string.Empty, string.Empty, "Error: missing required arguments <Old> <New>.");
-        }
-
-        var oldModelName = commandArgs[startIndex].Trim();
-        var newModelName = commandArgs[startIndex + 1].Trim();
-        var workspacePath = DefaultWorkspacePath();
-        for (var i = startIndex + 2; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, string.Empty, string.Empty, string.Empty, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, string.Empty, string.Empty, string.Empty, $"Error: unknown option '{arg}'.");
-        }
-
+        var oldModelName = RequiredValue("Old").Trim();
+        var newModelName = RequiredValue("New").Trim();
+        var workspacePath = WorkspacePath();
         if (string.IsNullOrWhiteSpace(oldModelName) || string.IsNullOrWhiteSpace(newModelName))
         {
             return (false, string.Empty, string.Empty, string.Empty, "Error: missing required arguments <Old> <New>.");

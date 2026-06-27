@@ -2,15 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelAddRelationshipAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 4)
-        {
-            return PrintUsageError(
-                "Usage: model add-relationship <FromEntity> <ToEntity> [--role <RoleName>] [--default-id <ToId>] [--workspace <path>]");
-        }
-
-        var fromEntity = commandArgs[2];
-        var toEntity = commandArgs[3];
-        var options = ParseModelAddRelationshipOptions(commandArgs, startIndex: 4);
+        var fromEntity = RequiredValue("FromEntity");
+        var toEntity = RequiredValue("ToEntity");
+        var options = ReadModelAddRelationshipOptions(commandArgs, startIndex: 4);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

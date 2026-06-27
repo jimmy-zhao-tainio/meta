@@ -8,7 +8,7 @@ internal sealed partial class CliRuntime
 
     async Task<int> ModelRefactorPropertyToRelationshipAsync(string[] commandArgs)
     {
-        var options = ParseModelRefactorPropertyToRelationshipOptions(commandArgs, startIndex: 3);
+        var options = ReadModelRefactorPropertyToRelationshipOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -75,96 +75,14 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, PropertyToRelationshipCommandOptions Options, string ErrorMessage)
-        ParseModelRefactorPropertyToRelationshipOptions(string[] commandArgs, int startIndex)
+        ReadModelRefactorPropertyToRelationshipOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var source = string.Empty;
-        var target = string.Empty;
-        var lookup = string.Empty;
-        var role = string.Empty;
-        var preserveProperty = false;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--source", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --source requires <Entity.Property>.");
-                }
-
-                source = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--target", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --target requires <Entity>.");
-                }
-
-                target = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--lookup", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --lookup requires <Property>.");
-                }
-
-                lookup = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--role", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --role requires <Role>.");
-                }
-
-                role = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--preserve-property", StringComparison.OrdinalIgnoreCase))
-            {
-                preserveProperty = true;
-                continue;
-            }
-
-            return (false, default, $"Error: unknown option '{arg}'.");
-        }
-
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            return (false, default, "Error: --source <Entity.Property> is required.");
-        }
-
-        if (string.IsNullOrWhiteSpace(target))
-        {
-            return (false, default, "Error: --target <Entity> is required.");
-        }
-
-        if (string.IsNullOrWhiteSpace(lookup))
-        {
-            return (false, default, "Error: --lookup <Property> is required.");
-        }
+        var workspacePath = WorkspacePath();
+        var source = RequiredValue("source").Trim();
+        var target = RequiredValue("target").Trim();
+        var lookup = RequiredValue("lookup").Trim();
+        var role = OptionalValue("role").Trim();
+        var preserveProperty = Flag("preserve-property");
 
         var separatorIndex = source.IndexOf('.', StringComparison.Ordinal);
         if (separatorIndex <= 0 || separatorIndex == source.Length - 1 || source.IndexOf('.', separatorIndex + 1) >= 0)

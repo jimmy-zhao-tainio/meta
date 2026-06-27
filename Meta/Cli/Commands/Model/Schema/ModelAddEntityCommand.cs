@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelAddEntityAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 3)
-        {
-            return PrintUsageError("Usage: model add-entity <Name> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex: 3);
+        var entityName = RequiredValue("Name");
+        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

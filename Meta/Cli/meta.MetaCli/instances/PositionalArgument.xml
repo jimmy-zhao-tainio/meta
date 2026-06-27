@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <PositionalArgumentList>
+    <PositionalArgument Id="pos-help-command" ParameterId="param-help-command" />
+    <PositionalArgument Id="pos-init-path" ParameterId="param-init-path" />
+    <PositionalArgument Id="pos-workspace-merge-leftworkspace" ParameterId="param-workspace-merge-leftworkspace" />
+    <PositionalArgument Id="pos-workspace-merge-rightworkspace" ParameterId="param-workspace-merge-rightworkspace" PreviousArgumentId="pos-workspace-merge-leftworkspace" />
+    <PositionalArgument Id="pos-list-properties-entity" ParameterId="param-list-properties-entity" />
+    <PositionalArgument Id="pos-list-relationships-entity" ParameterId="param-list-relationships-entity" />
+    <PositionalArgument Id="pos-view-entity-entity" ParameterId="param-view-entity-entity" />
+    <PositionalArgument Id="pos-view-instance-entity" ParameterId="param-view-instance-entity" />
+    <PositionalArgument Id="pos-view-instance-id" ParameterId="param-view-instance-id" PreviousArgumentId="pos-view-instance-entity" />
+    <PositionalArgument Id="pos-query-entity" ParameterId="param-query-entity" />
+    <PositionalArgument Id="pos-graph-inbound-entity" ParameterId="param-graph-inbound-entity" />
+    <PositionalArgument Id="pos-model-add-entity-name" ParameterId="param-model-add-entity-name" />
+    <PositionalArgument Id="pos-model-rename-model-old" ParameterId="param-model-rename-model-old" />
+    <PositionalArgument Id="pos-model-rename-model-new" ParameterId="param-model-rename-model-new" PreviousArgumentId="pos-model-rename-model-old" />
+    <PositionalArgument Id="pos-model-rename-entity-old" ParameterId="param-model-rename-entity-old" />
+    <PositionalArgument Id="pos-model-rename-entity-new" ParameterId="param-model-rename-entity-new" PreviousArgumentId="pos-model-rename-entity-old" />
+    <PositionalArgument Id="pos-model-add-property-entity" ParameterId="param-model-add-property-entity" />
+    <PositionalArgument Id="pos-model-add-property-property" ParameterId="param-model-add-property-property" PreviousArgumentId="pos-model-add-property-entity" />
+    <PositionalArgument Id="pos-model-rename-property-entity" ParameterId="param-model-rename-property-entity" />
+    <PositionalArgument Id="pos-model-rename-property-old" ParameterId="param-model-rename-property-old" PreviousArgumentId="pos-model-rename-property-entity" />
+    <PositionalArgument Id="pos-model-rename-property-new" ParameterId="param-model-rename-property-new" PreviousArgumentId="pos-model-rename-property-old" />
+    <PositionalArgument Id="pos-model-set-property-required-entity" ParameterId="param-model-set-property-required-entity" />
+    <PositionalArgument Id="pos-model-set-property-required-property" ParameterId="param-model-set-property-required-property" PreviousArgumentId="pos-model-set-property-required-entity" />
+    <PositionalArgument Id="pos-model-rename-relationship-fromentity" ParameterId="param-model-rename-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-rename-relationship-toentity" ParameterId="param-model-rename-relationship-toentity" PreviousArgumentId="pos-model-rename-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-add-relationship-fromentity" ParameterId="param-model-add-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-add-relationship-toentity" ParameterId="param-model-add-relationship-toentity" PreviousArgumentId="pos-model-add-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-drop-property-entity" ParameterId="param-model-drop-property-entity" />
+    <PositionalArgument Id="pos-model-drop-property-property" ParameterId="param-model-drop-property-property" PreviousArgumentId="pos-model-drop-property-entity" />
+    <PositionalArgument Id="pos-model-drop-relationship-fromentity" ParameterId="param-model-drop-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-drop-relationship-toentity" ParameterId="param-model-drop-relationship-toentity" PreviousArgumentId="pos-model-drop-relationship-fromentity" />
+    <PositionalArgument Id="pos-model-drop-entity-entity" ParameterId="param-model-drop-entity-entity" />
+    <PositionalArgument Id="pos-insert-entity" ParameterId="param-insert-entity" />
+    <PositionalArgument Id="pos-insert-id" ParameterId="param-insert-id" PreviousArgumentId="pos-insert-entity" />
+    <PositionalArgument Id="pos-bulk-insert-entity" ParameterId="param-bulk-insert-entity" />
+    <PositionalArgument Id="pos-instance-diff-leftworkspace" ParameterId="param-instance-diff-leftworkspace" />
+    <PositionalArgument Id="pos-instance-diff-rightworkspace" ParameterId="param-instance-diff-rightworkspace" PreviousArgumentId="pos-instance-diff-leftworkspace" />
+    <PositionalArgument Id="pos-instance-merge-targetworkspace" ParameterId="param-instance-merge-targetworkspace" />
+    <PositionalArgument Id="pos-instance-merge-diffworkspace" ParameterId="param-instance-merge-diffworkspace" PreviousArgumentId="pos-instance-merge-targetworkspace" />
+    <PositionalArgument Id="pos-instance-diff-aligned-leftworkspace" ParameterId="param-instance-diff-aligned-leftworkspace" />
+    <PositionalArgument Id="pos-instance-diff-aligned-rightworkspace" ParameterId="param-instance-diff-aligned-rightworkspace" PreviousArgumentId="pos-instance-diff-aligned-leftworkspace" />
+    <PositionalArgument Id="pos-instance-diff-aligned-alignmentworkspace" ParameterId="param-instance-diff-aligned-alignmentworkspace" PreviousArgumentId="pos-instance-diff-aligned-rightworkspace" />
+    <PositionalArgument Id="pos-instance-merge-aligned-targetworkspace" ParameterId="param-instance-merge-aligned-targetworkspace" />
+    <PositionalArgument Id="pos-instance-merge-aligned-diffworkspace" ParameterId="param-instance-merge-aligned-diffworkspace" PreviousArgumentId="pos-instance-merge-aligned-targetworkspace" />
+    <PositionalArgument Id="pos-instance-update-entity" ParameterId="param-instance-update-entity" />
+    <PositionalArgument Id="pos-instance-update-id" ParameterId="param-instance-update-id" PreviousArgumentId="pos-instance-update-entity" />
+    <PositionalArgument Id="pos-instance-rename-id-entity" ParameterId="param-instance-rename-id-entity" />
+    <PositionalArgument Id="pos-instance-rename-id-oldid" ParameterId="param-instance-rename-id-oldid" PreviousArgumentId="pos-instance-rename-id-entity" />
+    <PositionalArgument Id="pos-instance-rename-id-newid" ParameterId="param-instance-rename-id-newid" PreviousArgumentId="pos-instance-rename-id-oldid" />
+    <PositionalArgument Id="pos-instance-relationship-set-fromentity" ParameterId="param-instance-relationship-set-fromentity" />
+    <PositionalArgument Id="pos-instance-relationship-set-fromid" ParameterId="param-instance-relationship-set-fromid" PreviousArgumentId="pos-instance-relationship-set-fromentity" />
+    <PositionalArgument Id="pos-instance-relationship-list-fromentity" ParameterId="param-instance-relationship-list-fromentity" />
+    <PositionalArgument Id="pos-instance-relationship-list-fromid" ParameterId="param-instance-relationship-list-fromid" PreviousArgumentId="pos-instance-relationship-list-fromentity" />
+    <PositionalArgument Id="pos-delete-entity" ParameterId="param-delete-entity" />
+    <PositionalArgument Id="pos-delete-id" ParameterId="param-delete-id" PreviousArgumentId="pos-delete-entity" />
+    <PositionalArgument Id="pos-import-sql-schema" ParameterId="param-import-sql-schema" />
+    <PositionalArgument Id="pos-import-csv-csvfile" ParameterId="param-import-csv-csvfile" />
+    <PositionalArgument Id="pos-export-csv-entity" ParameterId="param-export-csv-entity" />
+  </PositionalArgumentList>
+</MetaCli>

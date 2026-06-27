@@ -2,15 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelDropRelationshipAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 4)
-        {
-            return PrintUsageError(
-                "Usage: model drop-relationship <FromEntity> <ToEntity> [--workspace <path>]");
-        }
-
-        var fromEntityName = commandArgs[2];
-        var toEntityName = commandArgs[3];
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex: 4);
+        var fromEntityName = RequiredValue("FromEntity");
+        var toEntityName = RequiredValue("ToEntity");
+        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 4);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

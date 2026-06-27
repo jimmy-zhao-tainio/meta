@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Tooling\MetaCli.Tooling.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="meta-cli.MetaCli\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

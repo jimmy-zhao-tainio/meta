@@ -37,6 +37,37 @@ public sealed class MetaMeshCliTests
     }
 
     [Fact]
+    public void Help_Forms_AreServedByMetaCliRuntime()
+    {
+        foreach (var arguments in new[] { "--help", "-h", "help", "help impact", "impact help", "impact -h" })
+        {
+            var result = RunCli(arguments);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("meta-mesh", result.Output);
+        }
+
+        var commandHelp = RunCli("help impact");
+        Assert.Contains("--workspace <path>", commandHelp.Output);
+        Assert.Contains("--handle <value>", commandHelp.Output);
+        Assert.DoesNotContain("--mesh", commandHelp.Output);
+    }
+
+    [Fact]
+    public void Program_DoesNotImplementGenericHelpProjection()
+    {
+        var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "MetaMesh", "Cli", "Program.cs"));
+
+        Assert.Contains(".UseDefaultHelp()", source);
+        Assert.DoesNotContain("TryHandleHelp", source);
+        Assert.DoesNotContain("PrintCommandHelp", source);
+        Assert.DoesNotContain("LoadCommandSurface", source);
+        Assert.DoesNotContain("EffectiveParameters", source);
+        Assert.DoesNotContain("OrderPositionals", source);
+        Assert.DoesNotContain("ValueLabel", source);
+    }
+
+    [Fact]
     public void ScanCheckLinkAndImpact_UseLogicalHandles()
     {
         var root = Path.Combine(Path.GetTempPath(), "metamesh-cli", Guid.NewGuid().ToString("N"));

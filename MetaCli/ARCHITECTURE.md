@@ -249,8 +249,10 @@ These are intentionally rejected unless reopened explicitly:
 - reintroducing `from-syntax` or a parallel command-surface language before the
   modeled workspace authoring surface itself proves insufficient
 
-Pre-existing `CliAppDefinition` infrastructure remains legacy surface area in
-other CLIs and MetaDocs import paths. It is not the MetaCli architecture.
+The old `CliAppDefinition` source-of-truth path has been removed from the
+active CLI/documentation code. Generated documentation workspaces may still
+contain stale imported rows until the public MetaDocs suite is regenerated from
+MetaCli workspaces.
 
 ## Runtime Direction
 
@@ -401,10 +403,9 @@ pain first.
 
 ## Open Questions
 
-- How should MetaDocs import change once MetaCli workspaces replace
-  `CliAppDefinition` factories? MetaDocs should import MetaCli workspaces
-  directly. It is MetaDocs' responsibility to understand MetaCli as a source
-  model; MetaCli should not grow a MetaDocs-specific projection layer.
+- MetaDocs imports MetaCli workspaces directly. It is MetaDocs'
+  responsibility to understand MetaCli as a source model; MetaCli should not
+  grow a MetaDocs-specific projection layer.
 
 ## Operating Notes
 

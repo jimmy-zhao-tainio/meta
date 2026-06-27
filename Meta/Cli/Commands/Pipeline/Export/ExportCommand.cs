@@ -2,21 +2,11 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ExportAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 2)
-        {
-            return PrintUsageError("Usage: export <csv> ...");
-        }
-
-        var mode = commandArgs[1].Trim().ToLowerInvariant();
+        var mode = CommandToken().Trim().ToLowerInvariant();
         switch (mode)
         {
             case "csv":
-                if (commandArgs.Length < 3)
-                {
-                    return PrintUsageError("Usage: export csv <Entity> --out <file> [--workspace <path>]");
-                }
-
-                var options = ParseExportCsvOptions(commandArgs, startIndex: 3);
+                var options = ReadExportCsvOptions(commandArgs, startIndex: 3);
                 if (!options.Ok)
                 {
                     return PrintArgumentError(options.ErrorMessage);
@@ -38,11 +28,12 @@ internal sealed partial class CliRuntime
                         return PrintOperationValidationFailure("export", Array.Empty<Meta.Core.Operations.WorkspaceOp>(), diagnostics);
                     }
 
-                    await services.ExportService.ExportCsvAsync(workspace, commandArgs[2], options.OutputPath).ConfigureAwait(false);
+                    var entityName = RequiredValue("Entity");
+                    await services.ExportService.ExportCsvAsync(workspace, entityName, options.OutputPath).ConfigureAwait(false);
                     presenter.WriteOk(
                         "exported csv",
                         ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                        ("Entity", commandArgs[2]),
+                        ("Entity", entityName),
                         ("Out", Path.GetFullPath(options.OutputPath)));
                     return 0;
                 }
@@ -57,39 +48,8 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, string OutputPath, string WorkspacePath, string ErrorMessage)
-        ParseExportCsvOptions(string[] commandArgs, int startIndex)
+        ReadExportCsvOptions(string[] commandArgs, int startIndex)
     {
-        var outputPath = string.Empty;
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--out", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, outputPath, workspacePath, "Error: --out requires a file path.");
-                }
-
-                outputPath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, outputPath, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, outputPath, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, outputPath, workspacePath, string.Empty);
+        return (true, RequiredValue("out"), WorkspacePath(), string.Empty);
     }
 }

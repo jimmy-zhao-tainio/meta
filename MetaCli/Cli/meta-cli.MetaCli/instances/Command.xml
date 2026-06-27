@@ -2,66 +2,82 @@
 <MetaCli>
   <CommandList>
     <Command Id="cmd-help" ApplicationId="app-meta-cli">
+      <Description>Show help.</Description>
       <Name>help</Name>
       <Token>help</Token>
     </Command>
     <Command Id="cmd-new-workspace" ApplicationId="app-meta-cli">
+      <Description>Create a MetaCli workspace.</Description>
       <Name>new-workspace</Name>
       <Token>new-workspace</Token>
     </Command>
     <Command Id="cmd-show" ApplicationId="app-meta-cli">
+      <Description>Show the authored command surface.</Description>
       <Name>show</Name>
       <Token>show</Token>
     </Command>
     <Command Id="cmd-add-application" ApplicationId="app-meta-cli">
+      <Description>Add a CLI application.</Description>
       <Name>add-application</Name>
       <Token>add-application</Token>
     </Command>
     <Command Id="cmd-add-command" ApplicationId="app-meta-cli">
+      <Description>Add a command path segment.</Description>
       <Name>add-command</Name>
       <Token>add-command</Token>
     </Command>
     <Command Id="cmd-add-executable-command" ApplicationId="app-meta-cli">
+      <Description>Mark a command as runnable.</Description>
       <Name>add-executable-command</Name>
       <Token>add-executable-command</Token>
     </Command>
     <Command Id="cmd-set-default-command" ApplicationId="app-meta-cli">
+      <Description>Set the application-level default command.</Description>
       <Name>set-default-command</Name>
       <Token>set-default-command</Token>
     </Command>
     <Command Id="cmd-add-value-arity" ApplicationId="app-meta-cli">
+      <Description>Define how many values a parameter accepts.</Description>
       <Name>add-value-arity</Name>
       <Token>add-value-arity</Token>
     </Command>
     <Command Id="cmd-add-value-shape" ApplicationId="app-meta-cli">
+      <Description>Define a parameter value shape.</Description>
       <Name>add-value-shape</Name>
       <Token>add-value-shape</Token>
     </Command>
     <Command Id="cmd-add-allowed-value" ApplicationId="app-meta-cli">
+      <Description>Add one allowed value for a value shape.</Description>
       <Name>add-allowed-value</Name>
       <Token>add-allowed-value</Token>
     </Command>
     <Command Id="cmd-add-application-option" ApplicationId="app-meta-cli">
+      <Description>Add an option available to all commands.</Description>
       <Name>add-application-option</Name>
       <Token>add-application-option</Token>
     </Command>
     <Command Id="cmd-add-option" ApplicationId="app-meta-cli">
+      <Description>Add a command option with its first token.</Description>
       <Name>add-option</Name>
       <Token>add-option</Token>
     </Command>
     <Command Id="cmd-add-option-token" ApplicationId="app-meta-cli">
+      <Description>Add an additional token for an option.</Description>
       <Name>add-option-token</Name>
       <Token>add-option-token</Token>
     </Command>
     <Command Id="cmd-add-positional" ApplicationId="app-meta-cli">
+      <Description>Add a positional argument.</Description>
       <Name>add-positional</Name>
       <Token>add-positional</Token>
     </Command>
     <Command Id="cmd-add-parameter-group" ApplicationId="app-meta-cli">
+      <Description>Start a parameter choice group.</Description>
       <Name>add-parameter-group</Name>
       <Token>add-parameter-group</Token>
     </Command>
     <Command Id="cmd-add-parameter-group-member" ApplicationId="app-meta-cli">
+      <Description>Add another parameter to a group.</Description>
       <Name>add-parameter-group-member</Name>
       <Token>add-parameter-group-member</Token>
     </Command>

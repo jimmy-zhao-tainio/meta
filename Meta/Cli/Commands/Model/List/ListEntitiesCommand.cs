@@ -2,7 +2,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ListEntitiesAsync(string[] commandArgs)
     {
-        var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 2);
+        var options = ReadWorkspaceOnlyOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

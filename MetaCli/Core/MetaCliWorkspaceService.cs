@@ -52,6 +52,7 @@ public sealed class MetaCliWorkspaceService
                 Application = application,
                 Name = "help",
                 Token = "help",
+                Description = "Show help.",
             };
             var helpExecutable = new ExecutableCommand
             {

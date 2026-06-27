@@ -2,14 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceDiffAlignedAsync(string[] commandArgs)
     {
-        if (commandArgs.Length != 5)
-        {
-            return PrintUsageError("Usage: instance diff-aligned <leftWorkspace> <rightWorkspace> <alignmentWorkspace>");
-        }
-
-        var leftPath = Path.GetFullPath(commandArgs[2]);
-        var rightPath = Path.GetFullPath(commandArgs[3]);
-        var alignmentPath = Path.GetFullPath(commandArgs[4]);
+        var leftPath = Path.GetFullPath(RequiredValue("leftWorkspace"));
+        var rightPath = Path.GetFullPath(RequiredValue("rightWorkspace"));
+        var alignmentPath = Path.GetFullPath(RequiredValue("alignmentWorkspace"));
 
         var leftWorkspace = await services.WorkspaceService.LoadAsync(leftPath, searchUpward: false).ConfigureAwait(false);
         var rightWorkspace = await services.WorkspaceService.LoadAsync(rightPath, searchUpward: false).ConfigureAwait(false);

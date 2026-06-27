@@ -2,15 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceRelationshipSetAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 7)
-        {
-            return PrintUsageError(
-                "Usage: instance relationship set <FromEntity> <FromId> --to <RelationshipSelector> <ToId> [--workspace <path>]");
-        }
-
-        var fromEntityName = commandArgs[3];
-        var fromId = commandArgs[4];
-        var options = ParseInstanceRelationshipSetOptions(commandArgs, startIndex: 5);
+        var fromEntityName = RequiredValue("FromEntity");
+        var fromId = RequiredValue("FromId");
+        var options = ReadInstanceRelationshipSetOptions(commandArgs, startIndex: 5);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

@@ -108,7 +108,7 @@ public sealed record MetaCliParameterOccurrence(
     PositionalArgument? PositionalArgument,
     bool IsDefaultValue);
 
-internal enum MetaCliParseErrorCode
+public enum MetaCliParseErrorCode
 {
     None,
     ApplicationMissing,
@@ -122,7 +122,6 @@ internal enum MetaCliParseErrorCode
     DuplicateOption,
     OptionDoesNotAcceptValue,
     OptionRequiresValue,
-    OptionAfterPositional,
     InlineValueSyntaxNotAllowed,
     UnexpectedArgument,
     RequiredParameterMissing,
@@ -133,7 +132,7 @@ internal enum MetaCliParseErrorCode
     InvalidModel,
 }
 
-internal sealed record MetaCliParseResult(
+public sealed record MetaCliParseResult(
     bool Succeeded,
     MetaCliParseErrorCode ErrorCode,
     string? Message,

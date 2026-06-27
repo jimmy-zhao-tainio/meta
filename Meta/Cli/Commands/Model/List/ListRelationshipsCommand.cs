@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ListRelationshipsAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 3)
-        {
-            return PrintUsageError("Usage: list relationships <Entity> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 3);
+        var entityName = RequiredValue("Entity");
+        var options = ReadWorkspaceOnlyOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

@@ -2,22 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InsertAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 2)
-        {
-            return PrintUsageError("Usage: insert <Entity> [<Id>|--auto-id] --set Field=Value [--set Field=Value ...] [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[1];
-        string? explicitId = null;
-        var optionsStartIndex = 2;
-
-        if (commandArgs.Length > 2 && !commandArgs[2].StartsWith("--", StringComparison.Ordinal))
-        {
-            explicitId = commandArgs[2];
-            optionsStartIndex = 3;
-        }
-
-        var parseResult = ParseMutatingEntityOptions(commandArgs, startIndex: optionsStartIndex, allowAutoId: true);
+        var entityName = RequiredValue("Entity");
+        var explicitId = OptionalValue("Id");
+        var parseResult = ReadMutatingEntityOptions(commandArgs, startIndex: 2, allowAutoId: true);
         if (!parseResult.Ok)
         {
             return PrintArgumentError(parseResult.ErrorMessage);
@@ -50,7 +37,7 @@ internal sealed partial class CliRuntime
             var entity = RequireEntity(workspace, entityName);
             var resolvedId = parseResult.AutoId
                 ? GenerateNextAutoId(workspace, entityName)
-                : explicitId!;
+                : explicitId;
 
             var rowPatch = BuildRowPatchForCreate(workspace, entity, parseResult.SetValues, resolvedId);
             var operation = new WorkspaceOp

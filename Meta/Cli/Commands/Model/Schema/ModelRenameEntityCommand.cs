@@ -5,7 +5,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelRenameEntityAsync(string[] commandArgs)
     {
-        var options = ParseModelRenameEntityOptions(commandArgs, startIndex: 2);
+        var options = ReadModelRenameEntityOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -69,33 +69,11 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, RenameEntityCommandOptions Options, string ErrorMessage)
-        ParseModelRenameEntityOptions(string[] commandArgs, int startIndex)
+        ReadModelRenameEntityOptions(string[] commandArgs, int startIndex)
     {
-        if (commandArgs.Length <= startIndex + 1)
-        {
-            return (false, default, "Error: missing required arguments <Old> <New>.");
-        }
-
-        var oldEntityName = commandArgs[startIndex].Trim();
-        var newEntityName = commandArgs[startIndex + 1].Trim();
-        var workspacePath = DefaultWorkspacePath();
-        for (var i = startIndex + 2; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, default, $"Error: unknown option '{arg}'.");
-        }
-
+        var oldEntityName = RequiredValue("Old").Trim();
+        var newEntityName = RequiredValue("New").Trim();
+        var workspacePath = WorkspacePath();
         if (string.IsNullOrWhiteSpace(oldEntityName) || string.IsNullOrWhiteSpace(newEntityName))
         {
             return (false, default, "Error: missing required arguments <Old> <New>.");

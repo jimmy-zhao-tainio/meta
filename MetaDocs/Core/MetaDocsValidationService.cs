@@ -573,12 +573,13 @@ public sealed class MetaDocsValidationService
         {
             if (string.IsNullOrWhiteSpace(option.ParentKey) ||
                 !activeById.TryGetValue(option.ParentKey, out var parent) ||
-                !string.Equals(parent.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase))
+                (!string.Equals(parent.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase) &&
+                 !string.Equals(parent.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)))
             {
                 diagnostics.Add(Error(
                     "MDOC026",
-                    "CliOptionMissingCommand",
-                    $"CLI option '{option.Id}' is not parented by an active CLI command.",
+                    "CliOptionMissingOwner",
+                    $"CLI option '{option.Id}' is not parented by an active CLI application or CLI command.",
                     option.Id));
             }
         }

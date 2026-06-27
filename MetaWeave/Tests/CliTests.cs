@@ -39,6 +39,35 @@ public sealed class CliTests
     }
 
     [Fact]
+    public void Help_Forms_AreServedByMetaCliRuntime()
+    {
+        foreach (var arguments in new[] { "--help", "-h", "help", "help check", "check help", "check -h" })
+        {
+            var result = RunCli(arguments);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("meta-weave", result.Output);
+        }
+
+        var commandHelp = RunCli("help check");
+        Assert.Contains("--workspace <path>", commandHelp.Output);
+    }
+
+    [Fact]
+    public void Program_DoesNotImplementGenericHelpProjection()
+    {
+        var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "MetaWeave", "Cli", "Program.cs"));
+
+        Assert.Contains(".UseDefaultHelp()", source);
+        Assert.DoesNotContain("TryHandleHelp", source);
+        Assert.DoesNotContain("PrintCommandHelp", source);
+        Assert.DoesNotContain("LoadCommandSurface", source);
+        Assert.DoesNotContain("EffectiveParameters", source);
+        Assert.DoesNotContain("OrderPositionals", source);
+        Assert.DoesNotContain("ValueLabel", source);
+    }
+
+    [Fact]
     public void NewWorkspace_Help_DoesNotShowWorkspaceOption()
     {
         var result = RunCli("new-workspace --help");

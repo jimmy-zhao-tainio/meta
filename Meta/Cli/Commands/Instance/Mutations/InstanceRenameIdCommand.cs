@@ -5,15 +5,10 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceRenameIdAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 5)
-        {
-            return PrintUsageError("Usage: instance rename-id <Entity> <OldId> <NewId> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var oldId = commandArgs[3];
-        var newId = commandArgs[4];
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex: 5);
+        var entityName = RequiredValue("Entity");
+        var oldId = RequiredValue("OldId");
+        var newId = RequiredValue("NewId");
+        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 5);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

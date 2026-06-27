@@ -2,7 +2,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> CheckWorkspaceAsync(string[] commandArgs)
     {
-        var options = ParseValidateOptions(commandArgs, startIndex: 1);
+        var options = ReadValidateOptions(commandArgs, startIndex: 1);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

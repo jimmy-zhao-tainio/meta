@@ -2,14 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ViewInstanceAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 4)
-        {
-            return PrintUsageError("Usage: view instance <Entity> <Id> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var id = commandArgs[3];
-        var options = ParseWorkspaceOnlyOptions(commandArgs, startIndex: 4);
+        var entityName = RequiredValue("Entity");
+        var id = RequiredValue("Id");
+        var options = ReadWorkspaceOnlyOptions(commandArgs, startIndex: 4);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

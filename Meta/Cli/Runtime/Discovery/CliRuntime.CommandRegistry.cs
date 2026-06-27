@@ -4,38 +4,62 @@ internal sealed partial class CliRuntime
     {
         var registry = new Dictionary<string, CliCommandRegistration>(StringComparer.OrdinalIgnoreCase);
 
-        Register("init", "Workspace", "Initialize workspace.", InitWorkspaceAsync);
-        Register("status", "Workspace", "Show workspace summary.", StatusWorkspaceAsync);
-        Register("workspace", "Workspace", "Merge workspaces and inspect workspace-level operations.", WorkspaceAsync);
+        Register("exec-init", InitWorkspaceAsync);
+        Register("exec-status", StatusWorkspaceAsync);
+        Register("exec-workspace-merge", WorkspaceMergeAsync);
 
-        Register("check", "Model", "Check model and instance integrity.", CheckWorkspaceAsync);
-        Register("graph", "Model", "Graph stats and inbound relationships.", GraphAsync);
-        Register("list", "Model", "List entities, properties, and relationships.", ListAsync);
-        Register("model", "Model", "Inspect and mutate model entities, properties, and relationships.", ModelAsync);
-        Register("view", "Model", "View entity or instance details.", ViewAsync);
+        Register("exec-check", CheckWorkspaceAsync);
+        Register("exec-graph-stats", GraphStatsAsync);
+        Register("exec-graph-inbound", GraphInboundAsync);
+        Register("exec-list-entities", ListEntitiesAsync);
+        Register("exec-list-properties", ListPropertiesAsync);
+        Register("exec-list-relationships", ListRelationshipsAsync);
+        Register("exec-view-entity", ViewEntityAsync);
+        Register("exec-view-instance", ViewInstanceAsync);
 
-        Register("instance", "Instance", "Diff and merge instance artifacts.", InstanceAsync);
-        Register("insert", "Instance", "Insert one instance: <Entity> <Id> or --auto-id for brand-new rows.", InsertAsync);
-        Register("delete", "Instance", "Delete one instance: <Entity> <Id>.", DeleteAsync);
-        Register("query", "Instance", "Search instances with equals/contains filters.", QueryAsync);
-        Register("bulk-insert", "Instance", "Insert many instances from tsv/csv input (supports --auto-id for new rows only).", BulkInsertAsync);
+        Register("exec-model-add-entity", ModelAddEntityAsync);
+        Register("exec-model-rename-model", ModelRenameModelAsync);
+        Register("exec-model-rename-entity", ModelRenameEntityAsync);
+        Register("exec-model-add-property", ModelAddPropertyAsync);
+        Register("exec-model-rename-property", ModelRenamePropertyAsync);
+        Register("exec-model-set-property-required", ModelSetPropertyRequiredAsync);
+        Register("exec-model-rename-relationship", ModelRenameRelationshipAsync);
+        Register("exec-model-add-relationship", ModelAddRelationshipAsync);
+        Register("exec-model-refactor-property-to-relationship", ModelRefactorPropertyToRelationshipAsync);
+        Register("exec-model-refactor-relationship-to-property", ModelRefactorRelationshipToPropertyAsync);
+        Register("exec-model-drop-property", ModelDropPropertyAsync);
+        Register("exec-model-drop-relationship", ModelDropRelationshipAsync);
+        Register("exec-model-drop-entity", ModelDropEntityAsync);
+        Register("exec-model-suggest", ModelSuggestAsync);
 
-        Register("import", "Pipeline", "Import xml/sql into NEW workspace or csv into NEW/existing workspace.", ImportAsync);
-        Register("export", "Pipeline", "Export workspace data to external formats.", ExportAsync);
-        Register("generate", "Pipeline", "Generate artifacts from the workspace.", GenerateAsync);
-        Register("deploy", "Pipeline", "Deploy generated artifacts to external targets.", DeployAsync);
+        Register("exec-insert", InsertAsync);
+        Register("exec-delete", DeleteAsync);
+        Register("exec-query", QueryAsync);
+        Register("exec-bulk-insert", BulkInsertAsync);
+        Register("exec-instance-diff", InstanceDiffAsync);
+        Register("exec-instance-merge", InstanceMergeAsync);
+        Register("exec-instance-diff-aligned", InstanceDiffAlignedAsync);
+        Register("exec-instance-merge-aligned", InstanceMergeAlignedAsync);
+        Register("exec-instance-update", InstanceUpdateAsync);
+        Register("exec-instance-rename-id", InstanceRenameIdAsync);
+        Register("exec-instance-relationship-set", InstanceRelationshipSetAsync);
+        Register("exec-instance-relationship-list", InstanceRelationshipListAsync);
+
+        Register("exec-import-sql", ImportAsync);
+        Register("exec-import-csv", ImportAsync);
+        Register("exec-export-csv", ExportAsync);
+        Register("exec-generate-sql", GenerateAsync);
+        Register("exec-generate-csharp", GenerateAsync);
+        Register("exec-generate-ssdt", GenerateAsync);
+        Register("exec-deploy-sqlserver", DeployAsync);
 
         return registry;
 
-        void Register(string commandName, string domain, string description, Func<string[], Task<int>> handler)
+        void Register(string executableCommandId, Func<string[], Task<int>> handler)
         {
-            registry[commandName] = new CliCommandRegistration(domain, description, handler);
-            HelpTopics.RegisterCommand(commandName, domain, description);
+            registry[executableCommandId] = new CliCommandRegistration(handler);
         }
     }
 
-    readonly record struct CliCommandRegistration(
-        string Domain,
-        string Description,
-        Func<string[], Task<int>> Handler);
+    readonly record struct CliCommandRegistration(Func<string[], Task<int>> Handler);
 }

@@ -792,7 +792,7 @@ dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- impact --mesh <mesh-wor
 
 MetaDocs is the foundation documentation overlay model for generated facts plus authored explanation/commentary.
 
-It lives in `meta` because it is not BI-specific. Product repos can expose command surfaces as `CliAppDefinition` factories, and any Meta workspace can contribute model or opt-in instance facts. `meta-docs` imports those facts into a modeled docs workspace while human or agent-written commentary stays in metadata.
+It lives in `meta` because it is not BI-specific. Product repos expose command surfaces as authored MetaCli workspaces, and any Meta workspace can contribute model or opt-in instance facts. `meta-docs` imports those facts into a modeled docs workspace while human or agent-written commentary stays in metadata.
 
 ### meta-docs
 
@@ -809,7 +809,7 @@ Behavior summary:
 Examples:
 
 ```cmd
-meta-docs import-cli --assembly .\MetaTransformBinding.CliDefinition.dll --type MetaTransform.Binding.CliDefinition.MetaTransformBindingCliDefinitions --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
+meta-docs import-cli --source-workspace .\MetaTransformBinding.Cli\meta-transform-binding.MetaCli --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
 meta-docs import-command-prose --workspace .\Docs\BindingCli --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme
 meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\Docs\SourceModel --source-id source:workspace-model:source
 meta-docs merge --include .\Docs\BindingCli --include .\Docs\SourceModel --new-workspace .\Docs\SuiteWorkspace
@@ -821,7 +821,7 @@ The renderer writes one merged metametabi-style docs artifact for the generic do
 
 ```cmd
 meta-docs author-page --new-workspace .\Docs\Authored --id docs:home --title "meta + meta-bi" --summary "Model-first docs." --body "Authored overview." --ordinal 10
-meta-docs import-cli --assembly .\MetaTransform\Binding\CliDefinition\bin\Debug\net8.0\MetaTransformBinding.CliDefinition.dll --type MetaTransform.Binding.CliDefinition.MetaTransformBindingCliDefinitions --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
+meta-docs import-cli --source-workspace .\MetaTransformBinding.Cli\meta-transform-binding.MetaCli --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
 meta-docs import-command-prose --workspace .\Docs\BindingCli --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme
 meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\Docs\SourceModel --source-id source:workspace-model:source
 meta-docs author-page --new-workspace .\Docs\SourceInstances --id docs:selected-instances --title "Selected instances" --summary "Opt-in instance docs." --body "Only selected instance facts are imported." --ordinal 100

@@ -2,15 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelDropPropertyAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 4)
-        {
-            return PrintUsageError(
-                "Usage: model drop-property <Entity> <Property> [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var propertyName = commandArgs[3];
-        var options = ParseMutatingCommonOptions(commandArgs, startIndex: 4);
+        var entityName = RequiredValue("Entity");
+        var propertyName = RequiredValue("Property");
+        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 4);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

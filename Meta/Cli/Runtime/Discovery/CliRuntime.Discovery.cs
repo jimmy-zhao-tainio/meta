@@ -101,23 +101,20 @@ internal sealed partial class CliRuntime
 
     string? TryGetEntityFromCurrentCommandArgs()
     {
-        if (args.Length == 0)
+        if (currentInvocation is null)
         {
             return null;
         }
 
-        var command = args[0].Trim().ToLowerInvariant();
-        return command switch
+        foreach (var parameter in new[] { "Entity", "FromEntity" })
         {
-            "view" when args.Length >= 3 && string.Equals(args[1], "entity", StringComparison.OrdinalIgnoreCase) => args[2],
-            "view" when args.Length >= 4 && string.Equals(args[1], "instance", StringComparison.OrdinalIgnoreCase) => args[2],
-            "query" when args.Length >= 2 => args[1],
-            "insert" when args.Length >= 2 => args[1],
-            "bulk-insert" when args.Length >= 2 => args[1],
-            "delete" when args.Length >= 2 => args[1],
-            "instance" when args.Length >= 3 && string.Equals(args[1], "update", StringComparison.OrdinalIgnoreCase) => args[2],
-            "instance" when args.Length >= 4 && string.Equals(args[1], "relationship", StringComparison.OrdinalIgnoreCase) => args[3],
-            _ => null,
-        };
+            var value = OptionalValue(parameter);
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+        }
+
+        return null;
     }
 }

@@ -2,14 +2,9 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceUpdateAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 6)
-        {
-            return PrintUsageError("Usage: instance update <Entity> <Id> --set Field=Value [--set Field=Value ...] [--workspace <path>]");
-        }
-
-        var entityName = commandArgs[2];
-        var id = commandArgs[3];
-        var options = ParseMutatingEntityOptions(commandArgs, startIndex: 4);
+        var entityName = RequiredValue("Entity");
+        var id = RequiredValue("Id");
+        var options = ReadMutatingEntityOptions(commandArgs, startIndex: 4);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

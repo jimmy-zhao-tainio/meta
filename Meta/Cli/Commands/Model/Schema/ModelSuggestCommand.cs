@@ -2,13 +2,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelSuggestAsync(string[] commandArgs)
     {
-        if (commandArgs.Length >= 3 && !commandArgs[2].StartsWith("--", StringComparison.Ordinal))
-        {
-            var mode = commandArgs[2].Trim().ToLowerInvariant();
-            return PrintCommandUnknownError($"model suggest {mode}");
-        }
-
-        var options = ParseModelSuggestOptions(commandArgs, startIndex: 2);
+        var options = ReadModelSuggestOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -27,49 +21,9 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, string WorkspacePath, bool ShowKeys, bool Explain, bool PrintCommands, string ErrorMessage)
-        ParseModelSuggestOptions(string[] commandArgs, int startIndex)
+        ReadModelSuggestOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var showKeys = false;
-        var explain = false;
-        var printCommands = false;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, showKeys, explain, printCommands, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--show-keys", StringComparison.OrdinalIgnoreCase))
-            {
-                showKeys = true;
-                continue;
-            }
-
-            if (string.Equals(arg, "--explain", StringComparison.OrdinalIgnoreCase))
-            {
-                explain = true;
-                continue;
-            }
-
-            if (string.Equals(arg, "--print-commands", StringComparison.OrdinalIgnoreCase))
-            {
-                printCommands = true;
-                continue;
-            }
-
-            return (false, workspacePath, showKeys, explain, printCommands, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, workspacePath, showKeys, explain, printCommands, string.Empty);
+        return (true, WorkspacePath(), Flag("show-keys"), Flag("explain"), Flag("print-commands"), string.Empty);
     }
 
     void PrintModelSuggestReport(

@@ -1,0 +1,124 @@
+<Model name="MetaCli">
+  <EntityList>
+    <Entity name="AllowedValue">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Value" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ValueShape" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Application">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="ExecutableName" isRequired="false" />
+        <Property name="Name" />
+        <Property name="Version" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="ApplicationDefaultCommand">
+      <RelationshipList>
+        <Relationship entity="Application" />
+        <Relationship entity="ExecutableCommand" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ApplicationParameter">
+      <RelationshipList>
+        <Relationship entity="Application" />
+        <Relationship entity="Parameter" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Command">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+        <Property name="Token" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Application" />
+        <Relationship entity="Command" role="ParentCommand" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ExecutableCommand">
+      <RelationshipList>
+        <Relationship entity="Command" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ExecutableCommandParameter">
+      <RelationshipList>
+        <Relationship entity="ExecutableCommand" />
+        <Relationship entity="Parameter" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Option">
+      <RelationshipList>
+        <Relationship entity="Parameter" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="OptionToken">
+      <PropertyList>
+        <Property name="Token" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Option" />
+        <Relationship entity="OptionToken" role="PreviousToken" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Parameter">
+      <PropertyList>
+        <Property name="DefaultValue" isRequired="false" />
+        <Property name="Description" isRequired="false" />
+        <Property name="IsRepeatable" isRequired="false" />
+        <Property name="IsRequired" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ValueShape" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ParameterGroup">
+      <PropertyList>
+        <Property name="AllowsMultiple" isRequired="false" />
+        <Property name="Description" isRequired="false" />
+        <Property name="IsRequired" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ExecutableCommand" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ParameterGroupMember">
+      <RelationshipList>
+        <Relationship entity="ParameterGroup" />
+        <Relationship entity="Parameter" />
+        <Relationship entity="ParameterGroupMember" role="PreviousMember" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="PositionalArgument">
+      <RelationshipList>
+        <Relationship entity="Parameter" />
+        <Relationship entity="PositionalArgument" role="PreviousArgument" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ValueArity">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="MaxValueCount" isRequired="false" />
+        <Property name="MinValueCount" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="ValueShape">
+      <PropertyList>
+        <Property name="AllowsOptionLikeValue" isRequired="false" />
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+        <Property name="ValueLabel" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ValueArity" />
+      </RelationshipList>
+    </Entity>
+  </EntityList>
+</Model>

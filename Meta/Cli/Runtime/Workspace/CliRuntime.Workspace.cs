@@ -7,20 +7,12 @@ internal sealed partial class CliRuntime
 
     bool HasWorkspaceOverrideInInvocation()
     {
-        if (!string.IsNullOrWhiteSpace(globalWorkspacePath))
+        if (currentInvocation is not null)
         {
-            return true;
+            return IsPresent("workspace");
         }
 
-        for (var i = 0; i < args.Length; i++)
-        {
-            if (string.Equals(args[i], "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return args.Any(arg => string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase));
     }
 
     async Task<Workspace> LoadWorkspaceForCommandAsync(string workspacePath)
@@ -103,12 +95,9 @@ internal sealed partial class CliRuntime
             return globalWorkspacePath;
         }
 
-        for (var i = 0; i < args.Length - 1; i++)
+        if (currentInvocation is not null)
         {
-            if (string.Equals(args[i], "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                return args[i + 1];
-            }
+            return OptionalValue("workspace", DefaultWorkspacePath());
         }
 
         return DefaultWorkspacePath();

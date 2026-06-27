@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-application-option-workspace" ValueShapeId="shape-path">
-      <Name>workspace</Name>
-    </Parameter>
     <Parameter Id="param-command-new-workspace-positional-path" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>Path</Name>
@@ -16,6 +13,14 @@
     </Parameter>
     <Parameter Id="param-command-new-workspace-option-default-help" ValueShapeId="shape-flag">
       <Name>default-help</Name>
+    </Parameter>
+    <Parameter Id="param-show-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-application-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -33,6 +38,10 @@
     </Parameter>
     <Parameter Id="param-add-application-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-command-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -56,6 +65,10 @@
     <Parameter Id="param-add-command-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
     </Parameter>
+    <Parameter Id="param-add-executable-command-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-executable-command-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>id</Name>
@@ -64,6 +77,10 @@
       <IsRequired>true</IsRequired>
       <Name>command</Name>
     </Parameter>
+    <Parameter Id="param-set-default-command-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-set-default-command-option-application" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>application</Name>
@@ -71,6 +88,10 @@
     <Parameter Id="param-set-default-command-option-executable-command" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-value-arity-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -89,6 +110,10 @@
     </Parameter>
     <Parameter Id="param-add-value-arity-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-value-shape-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -111,6 +136,10 @@
     <Parameter Id="param-add-value-shape-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
     </Parameter>
+    <Parameter Id="param-add-allowed-value-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-allowed-value-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>id</Name>
@@ -125,6 +154,10 @@
     </Parameter>
     <Parameter Id="param-add-allowed-value-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-application-option-option-parameter-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -166,6 +199,10 @@
     <Parameter Id="param-add-application-option-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
     </Parameter>
+    <Parameter Id="param-add-option-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-option-option-parameter-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>parameter-id</Name>
@@ -206,6 +243,10 @@
     <Parameter Id="param-add-option-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
     </Parameter>
+    <Parameter Id="param-add-option-token-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-option-token-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>id</Name>
@@ -221,6 +262,10 @@
     <Parameter Id="param-add-option-token-option-previous-token" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>previous-token</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-positional-option-parameter-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -257,6 +302,10 @@
     <Parameter Id="param-add-positional-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
     </Parameter>
+    <Parameter Id="param-add-parameter-group-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-parameter-group-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>id</Name>
@@ -285,6 +334,10 @@
     </Parameter>
     <Parameter Id="param-add-parameter-group-option-description" ValueShapeId="shape-text">
       <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-parameter-group-member-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>

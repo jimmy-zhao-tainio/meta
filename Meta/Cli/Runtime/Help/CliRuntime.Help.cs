@@ -1,8 +1,24 @@
+using MetaCli;
+using MetaCli.Core;
+
 internal sealed partial class CliRuntime
 {
+    private const string CommandApplicationId = "app-meta";
+    private MetaCliModel? commandSurfaceModel;
+
+    private static string CommandWorkspacePath =>
+        Path.Combine(AppContext.BaseDirectory, "meta.MetaCli");
+
     string BuildUsageHintForCurrentArgs()
     {
-        return HelpTopics.TryResolveUsageForArgs(args, out var usage)
+        var model = LoadCommandSurface();
+        if (model is null)
+        {
+            return string.Empty;
+        }
+
+        var help = new MetaCliHelpService();
+        return help.TryBuildUsage(model, CommandApplicationId, args, out var usage)
             ? usage
             : string.Empty;
     }
@@ -58,17 +74,7 @@ internal sealed partial class CliRuntime
             topic.Add(token);
         }
 
-        if (topic.Count == 0)
-        {
-            return "meta help";
-        }
-
-        if (topic.Count == 1 && string.Equals(topic[0], "help", StringComparison.OrdinalIgnoreCase))
-        {
-            return "meta help";
-        }
-
-        return $"meta {string.Join(" ", topic)} help";
+        return topic.Count == 0 ? "meta help" : $"meta help {string.Join(" ", topic)}";
     }
 
     string BuildNextHelpHintForCurrentArgs()
@@ -77,206 +83,32 @@ internal sealed partial class CliRuntime
         return BuildNextHelpHintFromUsage(usage);
     }
 
-    bool IsHelpToken(string value)
-    {
-        return string.Equals(value, "help", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(value, "--help", StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(value, "-h", StringComparison.OrdinalIgnoreCase);
-    }
-
     bool TryHandleHelpRequest(string[] commandArgs, out int exitCode)
     {
         exitCode = 0;
-        if (commandArgs.Length == 0)
+        if (commandArgs.Length == 0 ||
+            !MetaCliHelpService.IsHelpToken(commandArgs[0]) &&
+            !MetaCliHelpService.IsHelpToken(commandArgs[^1]))
         {
             return false;
         }
 
-        if (IsHelpToken(commandArgs[0]))
+        var model = LoadCommandSurface();
+        if (model is null)
         {
-            exitCode = PrintHelpForTopic(commandArgs.Skip(1).ToArray());
-            return true;
+            return false;
         }
 
-        var helpIndex = Array.FindIndex(commandArgs, IsHelpToken);
-        if (helpIndex > 0)
-        {
-            exitCode = PrintHelpForTopic(commandArgs.Take(helpIndex).ToArray());
-            return true;
-        }
-
-        return false;
+        var help = new MetaCliHelpService(Console.Out, Console.Error);
+        return help.TryWriteHelp(model, CommandApplicationId, commandArgs, out exitCode);
     }
 
-    int PrintHelpForTopic(string[] topicTokens)
-    {
-        if (topicTokens == null || topicTokens.Length == 0)
-        {
-            PrintUsage();
-            return 0;
-        }
-
-        var normalizedTokens = topicTokens
-            .Where(token => !string.IsNullOrWhiteSpace(token))
-            .Select(token => token.Trim())
-            .ToArray();
-        if (normalizedTokens.Length == 0)
-        {
-            PrintUsage();
-            return 0;
-        }
-
-        var key = string.Join(" ", normalizedTokens).ToLowerInvariant();
-        if (string.Equals(key, "help", StringComparison.OrdinalIgnoreCase))
-        {
-            PrintUsage();
-            return 0;
-        }
-
-        if (HelpTopics.TryBuildHelpTopic(key, out var topicDocument))
-        {
-            RenderHelpDocument(WithRuntimeHeader(topicDocument));
-            return 0;
-        }
-
-        var suggestionCandidates = HelpTopics.GetCommandSuggestions();
-        var suggestions = SuggestValues(normalizedTokens[0], suggestionCandidates);
-
-        var hints = new List<string>();
-        if (suggestions.Count > 0)
-        {
-            hints.Add("Did you mean: " + string.Join(", ", suggestions.Take(3)));
-        }
-
-        hints.Add("Usage: meta help [<command> ...]");
-        hints.Add("Next: meta help");
-
-        return PrintFormattedError(
-            "E_USAGE",
-            $"unknown help topic '{string.Join(" ", normalizedTokens)}'.",
-            exitCode: 1,
-            hints: hints);
-    }
-
-    void PrintUsage()
-    {
-        var sections = HelpTopics.GetCommandCatalogByDomain()
-            .Select(item => (Title: NormalizeHelpDomainTitle(item.Domain), item.Commands))
-            .Select(item => new HelpSection($"{item.Title}:", item.Commands))
-            .ToArray();
-
-        RenderHelpDocument(new HelpDocument(
-            Header: new HelpHeader(
-                "Meta CLI",
-                TryGetCliVersion(),
-                "Workspace is discovered from current directory; use --workspace to override."),
-            Usage: "meta <command> [options]",
-            OptionsTitle: "Global options:",
-            Options: new[]
-            {
-                ("--workspace <path>", "Override workspace root."),
-                ("--strict", "Treat warnings as errors for mutating commands."),
-            },
-            Sections: sections,
-            Examples: new[]
-            {
-                "meta status",
-                "meta model add-entity SourceSystem",
-                "meta insert Cube 10 --set \"CubeName=Ops Cube\"",
-            },
-            Next: "meta <command> help"));
-    }
-
-    void RenderHelpDocument(HelpDocument document)
-    {
-        WriteHelpHeader(document.Header);
-
-        presenter.WriteInfo(string.Empty);
-        presenter.WriteUsage(document.Usage);
-
-        presenter.WriteInfo(string.Empty);
-        presenter.WriteOptionCatalog(document.Options, document.OptionsTitle);
-
-        if (document.Sections is { Count: > 0 })
-        {
-            presenter.WriteInfo(string.Empty);
-            for (var i = 0; i < document.Sections.Count; i++)
-            {
-                var section = document.Sections[i];
-                presenter.WriteCommandCatalog(section.Title, section.Entries);
-                if (i < document.Sections.Count - 1)
-                {
-                    presenter.WriteInfo(string.Empty);
-                }
-            }
-        }
-
-        if (document.Examples is { Count: > 0 })
-        {
-            presenter.WriteInfo(string.Empty);
-            presenter.WriteExamples(document.Examples);
-        }
-
-        presenter.WriteInfo(string.Empty);
-        presenter.WriteNext(NormalizeNextHelpHint(document.Next));
-    }
-
-    HelpDocument WithRuntimeHeader(HelpDocument document)
-    {
-        var header = document.Header;
-        var version = string.IsNullOrWhiteSpace(header.Version)
-            ? TryGetCliVersion()
-            : header.Version;
-
-        var product = string.IsNullOrWhiteSpace(header.Product)
-            ? "Meta CLI"
-            : header.Product;
-
-        return document with
-        {
-            Header = header with
-            {
-                Product = product,
-                Version = version,
-            },
-        };
-    }
-    static string NormalizeNextHelpHint(string next)
-    {
-        var trimmed = next?.Trim() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(trimmed))
-        {
-            return "meta help";
-        }
-
-        if (trimmed.EndsWith(" --help", StringComparison.OrdinalIgnoreCase))
-        {
-            return trimmed[..^7] + " help";
-        }
-
-        return trimmed;
-    }
-
-    static string NormalizeHelpDomainTitle(string domain)
-    {
-        return domain.Trim().ToLowerInvariant() switch
-        {
-            "workspace" => "Workspace",
-            "model" => "Model",
-            "instance" => "Instance",
-            "pipeline" => "Pipeline",
-            "inspect" => "Model",
-            "modify" => "Instance",
-            "generate" => "Pipeline",
-            "utility" => "Utility",
-            _ => string.IsNullOrWhiteSpace(domain) ? "Other" : domain.Trim(),
-        };
-    }
+    static bool IsHelpToken(string value) =>
+        MetaCliHelpService.IsHelpToken(value);
 
     int PrintCommandUnknownError(string command)
     {
-        var suggestionCandidates = HelpTopics.GetCommandSuggestions();
-        var suggestions = SuggestValues(command, suggestionCandidates);
+        var suggestions = SuggestValues(command, GetCommandSuggestions());
         var hints = new List<string>();
         if (suggestions.Count > 0)
         {
@@ -292,31 +124,43 @@ internal sealed partial class CliRuntime
             hints: hints);
     }
 
-    void WriteHelpHeader(HelpHeader header)
+    private MetaCliModel? LoadCommandSurface()
     {
-        if (!string.IsNullOrWhiteSpace(header.Note))
+        if (commandSurfaceModel is not null)
         {
-            presenter.WriteInfo(header.Note);
+            return commandSurfaceModel;
         }
-    }
 
-    static string TryGetCliVersion()
-    {
         try
         {
-            var version = System.Reflection.Assembly.GetEntryAssembly()?.GetName().Version;
-            if (version == null)
-            {
-                return string.Empty;
-            }
-
-            return version.Revision > 0
-                ? version.ToString(3)
-                : $"{version.Major}.{version.Minor}.{Math.Max(0, version.Build)}";
+            commandSurfaceModel = MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath, searchUpward: false);
+            return commandSurfaceModel;
         }
         catch
         {
-            return string.Empty;
+            return null;
         }
+    }
+
+    private IReadOnlyList<string> GetCommandSuggestions()
+    {
+        var model = LoadCommandSurface();
+        if (model is null)
+        {
+            return new[] { "help" };
+        }
+
+        var surface = new MetaCliCommandSurface(model, CommandApplicationId);
+        if (!surface.TryResolveApplication(out var application, out _))
+        {
+            return new[] { "help" };
+        }
+
+        return new[] { "help" }
+            .Concat(surface.RootCommands(application).Select(command =>
+                string.IsNullOrWhiteSpace(command.Token) ? command.Name : command.Token))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(value => value, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
     }
 }

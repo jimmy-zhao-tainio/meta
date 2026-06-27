@@ -279,10 +279,11 @@ public sealed partial class CliStrictModeTests
         Assert.Equal(0, overview.ExitCode);
         Assert.DoesNotContain("Meta CLI", overview.StdOut, StringComparison.Ordinal);
         Assert.DoesNotContain("Version:", overview.StdOut, StringComparison.Ordinal);
-        Assert.Contains("Workspace", overview.StdOut, StringComparison.Ordinal);
-        Assert.Contains("Model", overview.StdOut, StringComparison.Ordinal);
-        Assert.Contains("Instance", overview.StdOut, StringComparison.Ordinal);
-        Assert.Contains("Pipeline", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta <command> [options]", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("workspace", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("model", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("instance", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("import", overview.StdOut, StringComparison.Ordinal);
         Assert.DoesNotContain("Utility", overview.StdOut, StringComparison.Ordinal);
         Assert.DoesNotContain("random", overview.StdOut, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Command  Description", overview.StdOut, StringComparison.Ordinal);
@@ -290,13 +291,13 @@ public sealed partial class CliStrictModeTests
         {
             Assert.Equal(line.TrimEnd(), line);
         }
-        Assert.Contains("Next: meta <command> help", overview.StdOut, StringComparison.Ordinal);
+        Assert.Contains("Next: meta help <command>", overview.StdOut, StringComparison.Ordinal);
 
         var commandHelp = await RunCliAsync("model", "--help");
         Assert.Equal(0, commandHelp.ExitCode);
         Assert.Contains("model", commandHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("Usage:", commandHelp.StdOut, StringComparison.Ordinal);
-        Assert.Contains("Next: meta model <subcommand> help", commandHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("Next: meta help model <command>", commandHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("rename-entity", commandHelp.StdOut, StringComparison.OrdinalIgnoreCase);
 
         var suggestHelp = await RunCliAsync("model", "suggest", "--help");
@@ -366,7 +367,7 @@ public sealed partial class CliStrictModeTests
     {
         var importHelp = await RunCliAsync("import", "sql", "--help");
         Assert.Equal(0, importHelp.ExitCode);
-        Assert.Contains("meta import sql --connection-env <name> <schema> --new-workspace <path>", importHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta import sql <schema> --connection-env <name> --new-workspace <path>", importHelp.StdOut, StringComparison.Ordinal);
         Assert.DoesNotContain("<connectionString>", importHelp.StdOut, StringComparison.OrdinalIgnoreCase);
 
         var deployHelp = await RunCliAsync("deploy", "sqlserver", "--help");
@@ -555,7 +556,7 @@ public sealed partial class CliStrictModeTests
             var result = await RunCliAsync("model", "suggest", "--wat", "--workspace", workspaceRoot);
             Assert.Equal(1, result.ExitCode);
             Assert.Contains("Cannot continue.", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("unknown option --wat.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Option '--wat' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -571,12 +572,12 @@ public sealed partial class CliStrictModeTests
         {
             var concepts = await RunCliAsync("model", "suggest", "concepts", "--workspace", workspaceRoot);
             Assert.Equal(1, concepts.ExitCode);
-            Assert.Contains("Unknown command 'model suggest concepts'.", concepts.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Unexpected argument 'concepts'.", concepts.CombinedOutput, StringComparison.Ordinal);
 
             var confirm = await RunCliAsync(
                 "model", "suggest", "confirm", "--concept", "DisplayName", "--labels", "CubeName", "--workspace", workspaceRoot);
             Assert.Equal(1, confirm.ExitCode);
-            Assert.Contains("Unknown command 'model suggest confirm'.", confirm.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Unexpected argument 'confirm'.", confirm.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -613,7 +614,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("--tooling is only supported for 'generate csharp'.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Option '--tooling' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -628,9 +629,9 @@ public sealed partial class CliStrictModeTests
         var result = await RunCliAsync("model", "add-entity");
 
         Assert.Equal(1, result.ExitCode);
-        Assert.Contains("missing required argument <Name>", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-        Assert.Contains("Usage: meta model add-entity <Name> [--workspace <path>]", result.CombinedOutput, StringComparison.Ordinal);
-        Assert.Contains("Next: meta model add-entity help", result.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Required parameter 'Name' was not provided.", result.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Usage: meta model add-entity <Name> [--workspace <path>] [--strict]", result.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Next: meta help model add-entity", result.CombinedOutput, StringComparison.Ordinal);
         Assert.DoesNotContain("Where:", result.CombinedOutput, StringComparison.Ordinal);
         Assert.DoesNotContain("Hint:", result.CombinedOutput, StringComparison.Ordinal);
     }
@@ -648,7 +649,7 @@ public sealed partial class CliStrictModeTests
         var errorUsage = ExtractUsageClause(error.CombinedOutput);
 
         Assert.Equal(helpUsage, errorUsage);
-        Assert.Contains("Next: meta model rename-entity help", error.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Next: meta help model rename-entity", error.CombinedOutput, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -660,7 +661,7 @@ public sealed partial class CliStrictModeTests
             var result = await RunCliAsync("check", "--scope", "all", "--workspace", workspaceRoot);
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("unknown option --scope", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Option '--scope' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -770,7 +771,7 @@ public sealed partial class CliStrictModeTests
             {
                 var result = await RunCliAsync(command);
                 Assert.Equal(1, result.ExitCode);
-                Assert.Contains("unknown option", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains("Option '--id' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
                 Assert.Contains("Usage:", result.CombinedOutput, StringComparison.Ordinal);
                 Assert.Contains("Next:", result.CombinedOutput, StringComparison.Ordinal);
             }
@@ -1080,7 +1081,7 @@ public sealed partial class CliStrictModeTests
                 "dbo");
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("import sql requires --new-workspace <path>.", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Required parameter 'new-workspace' was not provided.", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -1180,7 +1181,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(1, result.ExitCode);
-            Assert.Contains("unknown option", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Option '--id-column' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("--id-column", result.CombinedOutput, StringComparison.Ordinal);
             Assert.False(Directory.Exists(workspaceRoot));
         }
@@ -5516,10 +5517,9 @@ public sealed partial class CliStrictModeTests
 
     private static string ExtractUsageClause(string output)
     {
-        var normalized = Regex.Replace(output, @"\s+", " ").Trim();
-        var usageMatch = Regex.Match(normalized, @"Usage:\s+meta\s+.+?(?=\s+Options:|\s+Examples:|\s+Next:|$)");
+        var usageMatch = Regex.Match(output, @"(?m)^Usage:\s*(?:\r?\n\s*)?(meta .+)$");
         Assert.True(usageMatch.Success, $"Expected usage clause in output:{Environment.NewLine}{output}");
-        return usageMatch.Value.Trim();
+        return $"Usage: {usageMatch.Groups[1].Value.Trim()}";
     }
 }
 

@@ -1,4 +1,5 @@
 using Meta.Core.Connections;
+using MetaCli.Core;
 
 internal sealed partial class CliRuntime
 {
@@ -7,21 +8,14 @@ internal sealed partial class CliRuntime
     private const int SupportedContractMajorVersion = 1;
     private const int SupportedContractMinorVersion = 0;
     private string[] args = Array.Empty<string>();
+    private MetaCliInvocation? currentInvocation;
     private string? globalWorkspacePath;
     private bool globalStrict;
     private Dictionary<string, CliCommandRegistration> commandRegistry = new(StringComparer.OrdinalIgnoreCase);
 
     public async Task<int> RunAsync(string[] cliArgs)
     {
-        var globalOptions = ParseGlobalOptions(cliArgs);
-        globalWorkspacePath = globalOptions.WorkspacePath;
-        globalStrict = globalOptions.Strict;
-        if (!globalOptions.Ok)
-        {
-            return PrintArgumentError(globalOptions.ErrorMessage);
-        }
-
-        args = globalOptions.CommandArgs;
+        args = cliArgs;
         if (args.Length == 0)
         {
             return PrintUsageError("Usage: meta <command> [options]");
@@ -34,15 +28,34 @@ internal sealed partial class CliRuntime
             return helpExitCode;
         }
 
-        var command = args[0].Trim().ToLowerInvariant();
+        var model = LoadCommandSurface();
+        if (model is null)
+        {
+            return PrintDataError("E_COMMAND_SURFACE", "Cannot load meta.MetaCli command surface.");
+        }
+
+        var parse = new MetaCliParser(model, CommandApplicationId).Parse(args);
+        if (!parse.Succeeded)
+        {
+            return PrintArgumentError(parse.Message ?? "Error: command line could not be parsed.");
+        }
+
+        var invocation = parse.RequireInvocation();
+        currentInvocation = invocation;
+        globalWorkspacePath = OptionalValue("workspace", string.Empty);
+        globalStrict = Flag("strict");
         try
         {
-            if (commandRegistry.TryGetValue(command, out var registration))
+            if (commandRegistry.TryGetValue(invocation.ExecutableCommand.Id, out var registration))
             {
                 return await registration.Handler(args).ConfigureAwait(false);
             }
 
-            return PrintCommandUnknownError(command);
+            return PrintFormattedError(
+                "E_COMMAND_NOT_IMPLEMENTED",
+                $"Command '{invocation.CommandRoute}' is modeled but has no implementation.",
+                exitCode: 4,
+                hints: new[] { $"Next: meta help {invocation.CommandRoute}" });
         }
         catch (XmlException exception)
         {
@@ -221,178 +234,176 @@ internal sealed partial class CliRuntime
 
 
 
-    (bool Ok, string WorkspacePath, bool Strict, string[] CommandArgs, string ErrorMessage)
-        ParseGlobalOptions(string[] allArgs)
+    private MetaCliInvocation Invocation =>
+        currentInvocation ?? throw new InvalidOperationException("Command invocation has not been parsed.");
+
+    private string WorkspacePath() =>
+        OptionalValue("workspace", DefaultWorkspacePath());
+
+    private string CommandToken() =>
+        Invocation.Command.Token ?? Invocation.Command.Name;
+
+    private bool IsPresent(string parameter)
     {
-        var workspacePath = string.Empty;
-        var strict = false;
-        var commandArgs = new List<string>(allArgs.Length);
-
-        for (var index = 0; index < allArgs.Length; index++)
+        try
         {
-            var arg = allArgs[index];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (index + 1 >= allArgs.Length)
-                {
-                    return (false, workspacePath, strict, Array.Empty<string>(),
-                        "Error: global --workspace requires a path.");
-                }
+            return Invocation.IsPresent(parameter);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+    }
 
-                workspacePath = allArgs[++index];
-                continue;
+    private bool Flag(string parameter)
+    {
+        try
+        {
+            return Invocation.Flag(parameter);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
+        }
+    }
+
+    private string RequiredValue(string parameter) =>
+        Invocation.Required(parameter);
+
+    private string OptionalValue(string parameter, string defaultValue = "")
+    {
+        try
+        {
+            var value = Invocation.Optional(parameter);
+            return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
+        }
+        catch (KeyNotFoundException)
+        {
+            return defaultValue;
+        }
+    }
+
+    private IReadOnlyList<string> Values(string parameter)
+    {
+        try
+        {
+            return Invocation.Values(parameter);
+        }
+        catch (KeyNotFoundException)
+        {
+            return Array.Empty<string>();
+        }
+    }
+
+    private IReadOnlyList<IReadOnlyList<string>> OccurrenceValues(string parameter)
+    {
+        try
+        {
+            var binding = Invocation.Binding(parameter);
+            var values = binding.Values.ToArray();
+            if (values.Length == 0)
+            {
+                return Array.Empty<IReadOnlyList<string>>();
             }
 
-            if (string.Equals(arg, "--strict", StringComparison.OrdinalIgnoreCase))
+            var width = 1;
+            if (int.TryParse(binding.Parameter.ValueShape.ValueArity.MinValueCount, out var parsedWidth) && parsedWidth > 0)
             {
-                strict = true;
-                continue;
+                width = parsedWidth;
             }
 
-            commandArgs.Add(arg);
+            var groups = new List<IReadOnlyList<string>>();
+            for (var index = 0; index < values.Length; index += width)
+            {
+                groups.Add(values.Skip(index).Take(width).ToArray());
+            }
+
+            return groups;
+        }
+        catch (KeyNotFoundException)
+        {
+            return Array.Empty<IReadOnlyList<string>>();
+        }
+    }
+
+    private bool TryOptionalInt(
+        string parameter,
+        int defaultValue,
+        Func<int, bool> isValid,
+        string errorMessage,
+        out int value,
+        out string error)
+    {
+        var raw = OptionalValue(parameter);
+        if (string.IsNullOrWhiteSpace(raw))
+        {
+            value = defaultValue;
+            error = string.Empty;
+            return true;
         }
 
-        return (true, workspacePath, strict, commandArgs.ToArray(), string.Empty);
+        if (!int.TryParse(raw, out value) || !isValid(value))
+        {
+            error = errorMessage;
+            return false;
+        }
+
+        error = string.Empty;
+        return true;
+    }
+
+    private bool TryReadAssignments(
+        string parameter,
+        out Dictionary<string, string> setValues,
+        out string error)
+    {
+        setValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var assignment in Values(parameter))
+        {
+            var separator = assignment.IndexOf('=');
+            if (separator <= 0)
+            {
+                error = $"Error: invalid --{parameter} assignment '{assignment}'. Expected Field=Value.";
+                return false;
+            }
+
+            var field = assignment[..separator].Trim();
+            var value = assignment[(separator + 1)..].Trim();
+            if (string.IsNullOrWhiteSpace(field))
+            {
+                error = $"Error: invalid --{parameter} assignment '{assignment}'. Field is empty.";
+                return false;
+            }
+
+            setValues[field] = value;
+        }
+
+        error = string.Empty;
+        return true;
     }
 
     (bool Ok, string WorkspacePath, string ErrorMessage)
-        ParseWorkspaceOnlyOptions(string[] commandArgs, int startIndex)
+        ReadWorkspaceOnlyOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, workspacePath, string.Empty);
+        return (true, WorkspacePath(), string.Empty);
     }
 
     (bool Ok, string NewWorkspacePath, string ErrorMessage)
-        ParseRequiredNewWorkspaceOption(string[] commandArgs, int startIndex)
+        ReadRequiredNewWorkspaceOption(string[] commandArgs, int startIndex)
     {
-        var newWorkspacePath = string.Empty;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--new-workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, newWorkspacePath, "Error: --new-workspace requires a path.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(newWorkspacePath))
-                {
-                    return (false, newWorkspacePath, "Error: --new-workspace can only be provided once.");
-                }
-
-                newWorkspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, newWorkspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        if (string.IsNullOrWhiteSpace(newWorkspacePath))
-        {
-            return (false, newWorkspacePath, "Error: import requires --new-workspace <path>.");
-        }
-
-        return (true, newWorkspacePath, string.Empty);
+        return (true, RequiredValue("new-workspace"), string.Empty);
     }
 
     (bool Ok, string EntityName, bool UseNewWorkspace, string WorkspacePath, string NewWorkspacePath, string ErrorMessage)
-        ParseImportCsvOptions(string[] commandArgs, int startIndex)
+        ReadImportCsvOptions(string[] commandArgs, int startIndex)
     {
-        var entityName = string.Empty;
-        var workspacePath = DefaultWorkspacePath();
-        var workspaceSelected = !string.IsNullOrWhiteSpace(globalWorkspacePath);
-        var newWorkspacePath = string.Empty;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
+        var entityName = RequiredValue("entity").Trim();
+        var workspacePath = WorkspacePath();
+        var newWorkspacePath = OptionalValue("new-workspace");
+        if (!string.IsNullOrWhiteSpace(newWorkspacePath) && IsPresent("workspace"))
         {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--entity", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity requires a value.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(entityName))
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity can only be provided once.");
-                }
-
-                entityName = commandArgs[++i].Trim();
-                if (string.IsNullOrWhiteSpace(entityName))
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --entity requires a non-empty value.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --workspace requires a path.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(newWorkspacePath))
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath,
-                        "Error: use either --workspace <path> or --new-workspace <path>, not both.");
-                }
-
-                workspacePath = commandArgs[++i];
-                workspaceSelected = true;
-                continue;
-            }
-
-            if (string.Equals(arg, "--new-workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --new-workspace requires a path.");
-                }
-
-                if (workspaceSelected)
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath,
-                        "Error: use either --workspace <path> or --new-workspace <path>, not both.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(newWorkspacePath))
-                {
-                    return (false, entityName, false, workspacePath, newWorkspacePath, "Error: --new-workspace can only be provided once.");
-                }
-
-                newWorkspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, entityName, false, workspacePath, newWorkspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        if (string.IsNullOrWhiteSpace(entityName))
-        {
-            return (false, entityName, false, workspacePath, newWorkspacePath, "Error: import csv requires --entity <EntityName>.");
+            return (false, entityName, false, workspacePath, newWorkspacePath,
+                "Error: use either --workspace <path> or --new-workspace <path>, not both.");
         }
 
         return (true, entityName, !string.IsNullOrWhiteSpace(newWorkspacePath), workspacePath, newWorkspacePath, string.Empty);
@@ -400,498 +411,127 @@ internal sealed partial class CliRuntime
 
 
     (bool Ok, string WorkspacePath, string ErrorMessage)
-        ParseValidateOptions(string[] commandArgs, int startIndex)
+        ReadValidateOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, workspacePath, string.Empty);
+        return (true, WorkspacePath(), string.Empty);
     }
 
     (bool Ok, string WorkspacePath, int TopN, int CycleSampleLimit, string ErrorMessage)
-        ParseGraphStatsOptions(string[] commandArgs, int startIndex)
+        ReadGraphStatsOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var topN = 10;
-        var cycleSampleLimit = 10;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
+        var workspacePath = WorkspacePath();
+        if (!TryOptionalInt("top", 10, value => value > 0, "Error: --top requires an integer > 0.", out var topN, out var topError))
         {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, topN, cycleSampleLimit, "Error: --workspace requires a path.");
-                }
+            return (false, workspacePath, topN, 10, topError);
+        }
 
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--top", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length || !int.TryParse(commandArgs[++i], out topN) || topN <= 0)
-                {
-                    return (false, workspacePath, topN, cycleSampleLimit, "Error: --top requires an integer > 0.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--cycles", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length || !int.TryParse(commandArgs[++i], out cycleSampleLimit) || cycleSampleLimit < 0)
-                {
-                    return (false, workspacePath, topN, cycleSampleLimit, "Error: --cycles requires an integer >= 0.");
-                }
-
-                continue;
-            }
-
-            return (false, workspacePath, topN, cycleSampleLimit, $"Error: unknown option '{arg}'.");
+        if (!TryOptionalInt("cycles", 10, value => value >= 0, "Error: --cycles requires an integer >= 0.", out var cycleSampleLimit, out var cycleError))
+        {
+            return (false, workspacePath, topN, cycleSampleLimit, cycleError);
         }
 
         return (true, workspacePath, topN, cycleSampleLimit, string.Empty);
     }
 
     (bool Ok, string WorkspacePath, int Top, string ErrorMessage)
-        ParseGraphInboundOptions(string[] commandArgs, int startIndex)
+        ReadGraphInboundOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var top = 20;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
+        var workspacePath = WorkspacePath();
+        if (!TryOptionalInt("top", 20, value => value > 0, "Error: --top requires an integer > 0.", out var top, out var error))
         {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, top, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--top", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length || !int.TryParse(commandArgs[++i], out top) || top <= 0)
-                {
-                    return (false, workspacePath, top, "Error: --top requires an integer > 0.");
-                }
-
-                continue;
-            }
-
-            return (false, workspacePath, top, $"Error: unknown option '{arg}'.");
+            return (false, workspacePath, top, error);
         }
 
         return (true, workspacePath, top, string.Empty);
     }
 
     (bool Ok, string WorkspacePath, IReadOnlyList<(string Mode, string Field, string Value)> Filters, int Top, string ErrorMessage)
-        ParseQueryCommandOptions(string[] commandArgs, int startIndex)
+        ReadQueryCommandOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
+        var workspacePath = WorkspacePath();
         var filters = new List<(string Mode, string Field, string Value)>();
-        var top = 200;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
+        foreach (var values in OccurrenceValues("equals"))
         {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--equals", StringComparison.OrdinalIgnoreCase))
+            if (values.Count != 2 || string.IsNullOrWhiteSpace(values[0]))
             {
-                if (i + 2 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, filters, top, "Error: --equals requires <Field> <Value>.");
-                }
-
-                var field = commandArgs[++i].Trim();
-                var value = commandArgs[++i];
-                if (string.IsNullOrWhiteSpace(field))
-                {
-                    return (false, workspacePath, filters, top, "Error: --equals field is empty.");
-                }
-
-                filters.Add(("equals", field, value));
-                continue;
+                return (false, workspacePath, filters, 200, "Error: --equals requires <Field> <Value>.");
             }
 
-            if (string.Equals(arg, "--contains", StringComparison.OrdinalIgnoreCase))
+            filters.Add(("equals", values[0].Trim(), values[1]));
+        }
+
+        foreach (var values in OccurrenceValues("contains"))
+        {
+            if (values.Count != 2 || string.IsNullOrWhiteSpace(values[0]))
             {
-                if (i + 2 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, filters, top, "Error: --contains requires <Field> <Value>.");
-                }
-
-                var field = commandArgs[++i].Trim();
-                var value = commandArgs[++i];
-                if (string.IsNullOrWhiteSpace(field))
-                {
-                    return (false, workspacePath, filters, top, "Error: --contains field is empty.");
-                }
-
-                filters.Add(("contains", field, value));
-                continue;
+                return (false, workspacePath, filters, 200, "Error: --contains requires <Field> <Value>.");
             }
 
-            if (string.Equals(arg, "--top", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length || !int.TryParse(commandArgs[++i], out top) || top <= 0)
-                {
-                    return (false, workspacePath, filters, top, "Error: --top requires an integer > 0.");
-                }
+            filters.Add(("contains", values[0].Trim(), values[1]));
+        }
 
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, filters, top, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, workspacePath, filters, top, $"Error: unknown option '{arg}'.");
+        if (!TryOptionalInt("top", 200, value => value > 0, "Error: --top requires an integer > 0.", out var top, out var error))
+        {
+            return (false, workspacePath, filters, top, error);
         }
 
         return (true, workspacePath, filters, top, string.Empty);
     }
 
     (bool Ok, string WorkspacePath, string OutputDirectory, bool IncludeTooling, string ErrorMessage)
-        ParseGenerateOptions(string[] commandArgs, int startIndex)
+        ReadGenerateOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var outputDirectory = string.Empty;
-        var includeTooling = false;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, outputDirectory, includeTooling, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--out", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, outputDirectory, includeTooling, "Error: --out requires a directory path.");
-                }
-
-                outputDirectory = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--tooling", StringComparison.OrdinalIgnoreCase))
-            {
-                includeTooling = true;
-                continue;
-            }
-
-            return (false, workspacePath, outputDirectory, includeTooling, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, workspacePath, outputDirectory, includeTooling, string.Empty);
+        return (true, WorkspacePath(), RequiredValue("out"), Flag("tooling"), string.Empty);
     }
 
     (bool Ok, string RelationshipSelector, string ToId, string WorkspacePath, string ErrorMessage)
-        ParseInstanceRelationshipSetOptions(string[] commandArgs, int startIndex)
+        ReadInstanceRelationshipSetOptions(string[] commandArgs, int startIndex)
     {
-        var relationshipSelector = string.Empty;
-        var toId = string.Empty;
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--to", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 2 >= commandArgs.Length)
-                {
-                    return (false, relationshipSelector, toId, workspacePath, "Error: --to requires <RelationshipSelector> <ToId>.");
-                }
-
-                relationshipSelector = commandArgs[++i];
-                toId = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, relationshipSelector, toId, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, relationshipSelector, toId, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, relationshipSelector, toId, workspacePath, string.Empty);
+        var values = Values("to");
+        return (true, values[0], values[1], WorkspacePath(), string.Empty);
     }
 
     (bool Ok, Dictionary<string, string> SetValues, string WorkspacePath, bool AutoId, string ErrorMessage)
-        ParseMutatingEntityOptions(string[] commandArgs, int startIndex, bool allowAutoId = false)
+        ReadMutatingEntityOptions(string[] commandArgs, int startIndex, bool allowAutoId = false)
     {
-        var setValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        var workspacePath = DefaultWorkspacePath();
-        var autoId = false;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
+        if (!TryReadAssignments("set", out var setValues, out var error))
         {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--set", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, setValues, workspacePath, autoId, "Error: --set requires Field=Value.");
-                }
-
-                var assignment = commandArgs[++i];
-                var separator = assignment.IndexOf('=');
-                if (separator <= 0)
-                {
-                    return (false, setValues, workspacePath, autoId,
-                        $"Error: invalid --set assignment '{assignment}'. Expected Field=Value.");
-                }
-
-                var field = assignment[..separator].Trim();
-                var value = assignment[(separator + 1)..].Trim();
-                if (string.IsNullOrWhiteSpace(field))
-                {
-                    return (false, setValues, workspacePath, autoId,
-                        $"Error: invalid --set assignment '{assignment}'. Field is empty.");
-                }
-
-                setValues[field] = value;
-                continue;
-            }
-
-            if (allowAutoId && string.Equals(arg, "--auto-id", StringComparison.OrdinalIgnoreCase))
-            {
-                if (autoId)
-                {
-                    return (false, setValues, workspacePath, autoId, "Error: --auto-id specified more than once.");
-                }
-
-                autoId = true;
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, setValues, workspacePath, autoId, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, setValues, workspacePath, autoId, $"Error: unknown option '{arg}'.");
+            return (false, setValues, WorkspacePath(), false, error);
         }
 
-        return (true, setValues, workspacePath, autoId, string.Empty);
+        var autoId = allowAutoId && Flag("auto-id");
+        return (true, setValues, WorkspacePath(), autoId, string.Empty);
     }
 
     (bool Ok, string WorkspacePath, string ErrorMessage)
-        ParseMutatingCommonOptions(string[] commandArgs, int startIndex)
+        ReadMutatingCommonOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
-        return (true, workspacePath, string.Empty);
+        return (true, WorkspacePath(), string.Empty);
     }
 
     (bool Ok, string Role, string DefaultId, string WorkspacePath, string ErrorMessage)
-        ParseModelAddRelationshipOptions(string[] commandArgs, int startIndex)
+        ReadModelAddRelationshipOptions(string[] commandArgs, int startIndex)
     {
-        var role = string.Empty;
-        var defaultId = string.Empty;
-        var workspacePath = DefaultWorkspacePath();
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--role", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, role, defaultId, workspacePath, "Error: --role requires a value.");
-                }
-
-                role = commandArgs[++i];
-                if (string.IsNullOrWhiteSpace(role))
-                {
-                    return (false, role, defaultId, workspacePath, "Error: --role requires a non-empty value.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--default-id", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, role, defaultId, workspacePath, "Error: --default-id requires a value.");
-                }
-
-                defaultId = commandArgs[++i];
-                if (string.IsNullOrWhiteSpace(defaultId))
-                {
-                    return (false, role, defaultId, workspacePath, "Error: --default-id requires a non-empty value.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, role, defaultId, workspacePath, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, role, defaultId, workspacePath, $"Error: unknown option '{arg}'.");
-        }
-
+        var role = OptionalValue("role");
+        var defaultId = OptionalValue("default-id");
+        var workspacePath = WorkspacePath();
         return (true, role, defaultId, workspacePath, string.Empty);
     }
 
     (bool Ok, string Format, string FilePath, bool UseStdin, string WorkspacePath, IReadOnlyList<string> KeyFields, bool AutoId, string ErrorMessage)
-        ParseUpsertOptions(string[] commandArgs, int startIndex)
+        ReadUpsertOptions(string[] commandArgs, int startIndex)
     {
-        var format = string.Empty;
-        var filePath = string.Empty;
-        var useStdin = false;
-        var workspacePath = DefaultWorkspacePath();
-        var keyFields = new List<string>();
-        var autoId = false;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            switch (arg.ToLowerInvariant())
-            {
-                case "--from":
-                    if (i + 1 >= commandArgs.Length)
-                    {
-                        return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                            "Error: --from requires a value (tsv|csv).");
-                    }
-
-                    format = commandArgs[++i].Trim().ToLowerInvariant();
-                    break;
-
-                case "--file":
-                    if (i + 1 >= commandArgs.Length)
-                    {
-                        return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                            "Error: --file requires a path.");
-                    }
-
-                    filePath = commandArgs[++i];
-                    break;
-
-                case "--stdin":
-                    useStdin = true;
-                    break;
-
-                case "--auto-id":
-                    if (autoId)
-                    {
-                        return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                            "Error: --auto-id specified more than once.");
-                    }
-
-                    autoId = true;
-                    break;
-
-                case "--workspace":
-                    if (i + 1 >= commandArgs.Length)
-                    {
-                        return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                            "Error: --workspace requires a path.");
-                    }
-
-                    workspacePath = commandArgs[++i];
-                    break;
-
-                case "--key":
-                    if (i + 1 >= commandArgs.Length)
-                    {
-                        return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                            "Error: --key requires a comma-separated field list.");
-                    }
-
-                    keyFields = commandArgs[++i]
-                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(item => item.Trim())
-                        .Where(item => !string.IsNullOrWhiteSpace(item))
-                        .Distinct(StringComparer.OrdinalIgnoreCase)
-                        .ToList();
-                    break;
-
-                default:
-                    return (false, format, filePath, useStdin, workspacePath, keyFields, autoId,
-                        $"Error: unknown bulk-insert option '{arg}'.");
-            }
-        }
-
+        var format = OptionalValue("from").Trim().ToLowerInvariant();
+        var filePath = OptionalValue("file");
+        var useStdin = Flag("stdin");
+        var workspacePath = WorkspacePath();
+        var keyFields = OptionalValue("key")
+            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(item => item.Trim())
+            .Where(item => !string.IsNullOrWhiteSpace(item))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        var autoId = Flag("auto-id");
         return (true, format, filePath, useStdin, workspacePath, keyFields, autoId, string.Empty);
     }
 

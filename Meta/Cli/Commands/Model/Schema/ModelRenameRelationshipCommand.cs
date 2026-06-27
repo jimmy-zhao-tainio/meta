@@ -5,7 +5,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelRenameRelationshipAsync(string[] commandArgs)
     {
-        var options = ParseModelRenameRelationshipOptions(commandArgs, startIndex: 2);
+        var options = ReadModelRenameRelationshipOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -97,51 +97,12 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, RenameRelationshipCommandOptions Options, string ErrorMessage)
-        ParseModelRenameRelationshipOptions(string[] commandArgs, int startIndex)
+        ReadModelRenameRelationshipOptions(string[] commandArgs, int startIndex)
     {
-        if (commandArgs.Length <= startIndex + 1)
-        {
-            return (false, default, "Error: missing required arguments <FromEntity> <ToEntity>.");
-        }
-
-        var sourceEntityName = commandArgs[startIndex].Trim();
-        var targetEntityName = commandArgs[startIndex + 1].Trim();
-        var workspacePath = DefaultWorkspacePath();
-        var newRole = string.Empty;
-
-        for (var i = startIndex + 2; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--role", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --role requires <Role>.");
-                }
-
-                newRole = commandArgs[++i].Trim();
-                if (string.IsNullOrWhiteSpace(newRole))
-                {
-                    return (false, default, "Error: --role requires a non-empty value.");
-                }
-
-                continue;
-            }
-
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            return (false, default, $"Error: unknown option '{arg}'.");
-        }
-
+        var sourceEntityName = RequiredValue("FromEntity").Trim();
+        var targetEntityName = RequiredValue("ToEntity").Trim();
+        var workspacePath = WorkspacePath();
+        var newRole = OptionalValue("role").Trim();
         if (string.IsNullOrWhiteSpace(sourceEntityName) || string.IsNullOrWhiteSpace(targetEntityName))
         {
             return (false, default, "Error: missing required arguments <FromEntity> <ToEntity>.");

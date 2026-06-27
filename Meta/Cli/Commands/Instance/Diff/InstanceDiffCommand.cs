@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceDiffAsync(string[] commandArgs)
     {
-        if (commandArgs.Length != 4)
-        {
-            return PrintUsageError("Usage: instance diff <leftWorkspace> <rightWorkspace>");
-        }
-
-        var leftPath = Path.GetFullPath(commandArgs[2]);
-        var rightPath = Path.GetFullPath(commandArgs[3]);
+        var leftPath = Path.GetFullPath(RequiredValue("leftWorkspace"));
+        var rightPath = Path.GetFullPath(RequiredValue("rightWorkspace"));
 
         var leftWorkspace = await services.WorkspaceService.LoadAsync(leftPath, searchUpward: false).ConfigureAwait(false);
         var rightWorkspace = await services.WorkspaceService.LoadAsync(rightPath, searchUpward: false).ConfigureAwait(false);

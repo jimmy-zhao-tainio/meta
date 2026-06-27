@@ -1,7 +1,9 @@
+using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using Meta.Core.Presentation.Cli;
-using MetaDocs;
+using MetaCli;
+using MetaCli.Core;
 
 namespace MetaDocs.Core;
 
@@ -9,51 +11,57 @@ public sealed class MetaDocsCliImporter
 {
     public DocumentationSubject ImportApplication(
         MetaDocsModel model,
-        CliAppDefinition app,
+        MetaCliModel cli,
         CliDocumentationProfile? profile = null,
+        string applicationId = "",
         string groupName = "",
         int ordinal = 100,
         string sourceId = "")
     {
         ArgumentNullException.ThrowIfNull(model);
-        ArgumentNullException.ThrowIfNull(app);
+        ArgumentNullException.ThrowIfNull(cli);
         profile ??= new CliDocumentationProfile();
 
+        var app = ResolveApplication(cli, applicationId);
+        var surface = new MetaCliCommandSurface(cli, app.Id);
+        var appName = ApplicationCommandName(app);
         var normalizedSourceId = string.IsNullOrWhiteSpace(sourceId)
-            ? $"source:cli:{NormalizeKey(app.Name)}"
+            ? $"source:cli:{NormalizeKey(appName)}"
             : sourceId;
         var session = new MetaDocsImportSession(
             model,
             normalizedSourceId,
-            "CliDefinition",
-            app.Name,
-            app.Name,
-            ComputeCliFingerprint(app),
-            "MetaDocs.CliDefinition",
+            "MetaCliWorkspace",
+            appName,
+            appName,
+            ComputeCliFingerprint(cli, app),
+            "MetaDocs.MetaCliWorkspace",
             "1");
 
-        var visibleCommands = app.Commands
-            .Where(command =>
-                command.ShowInCommandCatalog &&
-                !string.Equals(command.Name, "help", StringComparison.OrdinalIgnoreCase))
+        var executables = cli.ExecutableCommandList
+            .Where(executable => ReferenceEquals(executable.Command.Application, app))
+            .OrderBy(executable => surface.Route(executable.Command), StringComparer.OrdinalIgnoreCase)
             .ToArray();
         var hasAuthoredApplicationSummary = !string.IsNullOrWhiteSpace(profile.ApplicationSummary);
         var applicationSummary = FirstNonEmpty(
             profile.ApplicationSummary,
             FindNarrative(model, $"{normalizedSourceId}:app", "Summary")?.Body,
-            app.Notes.FirstOrDefault(),
-            visibleCommands.FirstOrDefault()?.Description);
+            app.Description,
+            executables.FirstOrDefault()?.Command.Description);
         var application = session.UpsertSubject(
             $"{normalizedSourceId}:app",
             "CliApplication",
-            "CliAppDefinition",
-            app.Name,
-            app.Name,
-            app.Name,
+            "MetaCli.Application",
+            app.Id,
+            appName,
+            appName,
             applicationSummary,
             string.Empty,
             ordinal);
-        session.UpsertFact(application, "Cli", "CommandCount", visibleCommands.Length.ToString(), "Number");
+        session.UpsertFact(application, "Cli", "ApplicationId", app.Id);
+        session.UpsertFact(application, "Cli", "ExecutableName", appName);
+        session.UpsertFact(application, "Cli", "CommandCount", executables.Length.ToString(CultureInfo.InvariantCulture), "Number");
+        session.UpsertFact(application, "Cli", "ApplicationOptionCount", ApplicationOptions(cli, surface, app).Count().ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(application, "Cli", "GroupName", groupName, "String");
         session.UpsertNarrative(
             application,
@@ -62,11 +70,17 @@ public sealed class MetaDocsCliImporter
             applicationSummary,
             hasAuthoredApplicationSummary ? "Authored" : "Generated",
             10);
-        session.EnsureViewNode(application, app.Name, ordinal);
+        session.EnsureViewNode(application, appName, ordinal);
 
-        for (var i = 0; i < visibleCommands.Length; i++)
+        var appOptions = ApplicationOptions(cli, surface, app).ToArray();
+        for (var i = 0; i < appOptions.Length; i++)
         {
-            AddCommand(model, session, application, visibleCommands[i], i + 1, profile);
+            AddOption(model, session, application, surface, appOptions[i], i + 1, profile, string.Empty);
+        }
+
+        for (var i = 0; i < executables.Length; i++)
+        {
+            AddCommand(model, session, application, cli, surface, executables[i], i + 1, profile);
         }
 
         session.Complete();
@@ -77,33 +91,42 @@ public sealed class MetaDocsCliImporter
         MetaDocsModel model,
         MetaDocsImportSession session,
         DocumentationSubject application,
-        CliCommandDefinition command,
+        MetaCliModel cli,
+        MetaCliCommandSurface surface,
+        ExecutableCommand executable,
         int ordinal,
         CliDocumentationProfile profile)
     {
-        var commandCommentary = profile.FindCommand(command.Name);
-        var commandKey = $"{application.Id}:command:{NormalizeKey(command.Name)}";
-        var commandPath = $"{application.NativeId} {command.Name}".Trim();
-        var commandSummary = command.Description;
+        var commandRoute = surface.Route(executable.Command);
+        var commandPath = $"{application.DisplayName} {commandRoute}".Trim();
+        var commandCommentary = profile.FindCommand(commandRoute);
+        var commandKey = $"{application.Id}:command:{NormalizeKey(commandRoute)}";
+        var commandSummary = executable.Command.Description ?? string.Empty;
         var commandSubject = session.UpsertSubject(
             commandKey,
             "CliCommand",
-            "CliCommandDefinition",
-            command.Name,
+            "MetaCli.ExecutableCommand",
+            executable.Id,
             commandPath,
             commandPath,
             commandSummary,
             application.Id,
             ordinal);
-        session.UpsertFact(commandSubject, "Cli", "Name", command.Name);
+        session.UpsertFact(commandSubject, "Cli", "ExecutableCommandId", executable.Id);
+        session.UpsertFact(commandSubject, "Cli", "CommandId", executable.Command.Id);
+        session.UpsertFact(commandSubject, "Cli", "Name", commandRoute);
         session.UpsertFact(commandSubject, "Cli", "CommandPath", commandPath);
-        session.UpsertFact(commandSubject, "Cli", "UsageCount", command.Usages.Count.ToString(), "Number");
-        session.UpsertFact(commandSubject, "Cli", "OptionCount", command.Options.Count.ToString(), "Number");
+        session.UpsertFact(commandSubject, "Cli", "UsageCount", "1", "Number");
+
+        var commandOptions = CommandOptions(cli, surface, executable).ToArray();
+        var commandPositionals = surface.OrderedPositionals(executable).ToArray();
+        session.UpsertFact(commandSubject, "Cli", "OptionCount", commandOptions.Length.ToString(CultureInfo.InvariantCulture), "Number");
+        session.UpsertFact(commandSubject, "Cli", "PositionalCount", commandPositionals.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertNarrative(
             commandSubject,
             "Summary",
             "Summary",
-            FirstNonEmpty(commandCommentary?.Purpose, FindNarrative(model, commandKey, "Summary")?.Body, command.Description),
+            FirstNonEmpty(commandCommentary?.Purpose, FindNarrative(model, commandKey, "Summary")?.Body, commandSummary),
             commandCommentary is null ? "Generated" : "Authored",
             10);
         UpsertNarrativeIfPresent(
@@ -127,92 +150,61 @@ public sealed class MetaDocsCliImporter
             commandCommentary is null ? "Generated" : "Authored",
             30);
 
-        for (var i = 0; i < command.Usages.Count; i++)
+        session.UpsertFact(commandSubject, "Usage", "001", BuildUsage(commandPath, commandOptions, commandPositionals, surface));
+
+        for (var i = 0; i < commandOptions.Length; i++)
         {
-            session.UpsertFact(
-                commandSubject,
-                "Usage",
-                (i + 1).ToString("000"),
-                command.Usages[i]);
+            AddOption(model, session, commandSubject, surface, commandOptions[i], i + 1, profile, commandRoute);
         }
 
-        for (var i = 0; i < command.Options.Count; i++)
+        for (var i = 0; i < commandPositionals.Length; i++)
         {
-            AddOption(model, session, commandSubject, command, command.Options[i], i + 1, profile);
-        }
-
-        for (var i = 0; i < command.Notes.Count; i++)
-        {
-            session.UpsertFact(
-                commandSubject,
-                "Note",
-                (i + 1).ToString("000"),
-                command.Notes[i]);
-        }
-
-        for (var i = 0; i < command.Examples.Count; i++)
-        {
-            var example = command.Examples[i];
-            var exampleSubject = session.UpsertSubject(
-                $"{commandSubject.Id}:example:{i + 1:000}",
-                "CliArgument",
-                "CliExample",
-                example,
-                $"Example {i + 1}",
-                $"{commandSubject.DisplayPath} example {i + 1}",
-                profile.FindExampleExplanation(command.Name, example),
-                commandSubject.Id,
-                1000 + i);
-            session.UpsertFact(exampleSubject, "Cli", "CommandText", example);
-            var exampleExplanation = profile.FindExampleExplanation(command.Name, example);
-            if (!string.IsNullOrWhiteSpace(exampleExplanation))
-            {
-                session.UpsertNarrative(
-                    exampleSubject,
-                    "Example",
-                    $"Example {i + 1}",
-                    exampleExplanation,
-                    "Authored",
-                    10);
-            }
-            else
-            {
-                RemoveEmptyGeneratedNarratives(model, exampleSubject.Id, "Example");
-            }
+            AddPositional(session, commandSubject, commandPositionals[i], i + 1);
         }
     }
 
     private static void AddOption(
         MetaDocsModel model,
         MetaDocsImportSession session,
-        DocumentationSubject commandSubject,
-        CliCommandDefinition command,
-        CliOptionDefinition option,
+        DocumentationSubject parent,
+        MetaCliCommandSurface surface,
+        Option option,
         int ordinal,
-        CliDocumentationProfile profile)
+        CliDocumentationProfile profile,
+        string commandRoute)
     {
-        var (optionName, valueName) = SplitOptionSyntax(option.Syntax);
-        var optionCommentary = profile.FindOption(command.Name, optionName);
-        var optionKey = $"{commandSubject.Id}:option:{NormalizeKey(optionName)}";
+        var tokens = surface.OptionTokens(option.Parameter).ToArray();
+        var optionName = tokens.FirstOrDefault()?.Token ?? option.Parameter.Name;
+        var optionSyntax = BuildOptionSyntax(optionName, option.Parameter);
+        var optionCommentary = string.IsNullOrWhiteSpace(commandRoute)
+            ? null
+            : profile.FindOption(commandRoute, optionName);
+        var optionKey = $"{parent.Id}:option:{NormalizeKey(optionName)}";
         var optionSubject = session.UpsertSubject(
             optionKey,
             "CliOption",
-            "CliOptionDefinition",
+            "MetaCli.Option",
+            option.Id,
             optionName,
-            optionName,
-            $"{commandSubject.DisplayPath} {optionName}",
-            option.Description,
-            commandSubject.Id,
+            $"{parent.DisplayPath} {optionName}",
+            option.Parameter.Description ?? string.Empty,
+            parent.Id,
             ordinal);
+        session.UpsertFact(optionSubject, "Cli", "OptionId", option.Id);
+        session.UpsertFact(optionSubject, "Cli", "ParameterId", option.Parameter.Id);
         session.UpsertFact(optionSubject, "Cli", "Name", optionName);
-        session.UpsertFact(optionSubject, "Cli", "Syntax", option.Syntax);
-        session.UpsertFact(optionSubject, "Cli", "ValueName", valueName);
-        session.UpsertFact(optionSubject, "Cli", "Description", option.Description);
+        session.UpsertFact(optionSubject, "Cli", "Syntax", optionSyntax);
+        session.UpsertFact(optionSubject, "Cli", "ValueName", ValueName(option.Parameter));
+        session.UpsertFact(optionSubject, "Cli", "Description", option.Parameter.Description ?? string.Empty);
+        session.UpsertFact(optionSubject, "Cli", "Required", option.Parameter.IsRequired ?? string.Empty);
+        session.UpsertFact(optionSubject, "Cli", "Repeatable", option.Parameter.IsRepeatable ?? string.Empty);
+        session.UpsertFact(optionSubject, "Cli", "DefaultValue", option.Parameter.DefaultValue ?? string.Empty);
+        session.UpsertFact(optionSubject, "Cli", "Aliases", string.Join(" ", tokens.Skip(1).Select(static token => token.Token)));
         session.UpsertNarrative(
             optionSubject,
             "Summary",
             "Summary",
-            FirstNonEmpty(optionCommentary?.Explanation, FindNarrative(model, optionKey, "Summary")?.Body, option.Description),
+            FirstNonEmpty(optionCommentary?.Explanation, FindNarrative(model, optionKey, "Summary")?.Body, option.Parameter.Description),
             optionCommentary is null ? "Generated" : "Authored",
             10);
         UpsertNarrativeIfPresent(
@@ -231,6 +223,108 @@ public sealed class MetaDocsCliImporter
             "ExampleValue",
             FirstNonEmpty(optionCommentary?.ExampleValue, FindFact(model, optionKey, "Cli", "ExampleValue")?.Value));
     }
+
+    private static void AddPositional(
+        MetaDocsImportSession session,
+        DocumentationSubject commandSubject,
+        PositionalArgument positional,
+        int ordinal)
+    {
+        var parameter = positional.Parameter;
+        var name = $"<{parameter.Name}>";
+        var subject = session.UpsertSubject(
+            $"{commandSubject.Id}:argument:{NormalizeKey(parameter.Name)}",
+            "CliArgument",
+            "MetaCli.PositionalArgument",
+            positional.Id,
+            name,
+            $"{commandSubject.DisplayPath} {name}",
+            parameter.Description ?? string.Empty,
+            commandSubject.Id,
+            ordinal);
+        session.UpsertFact(subject, "Cli", "PositionalArgumentId", positional.Id);
+        session.UpsertFact(subject, "Cli", "ParameterId", parameter.Id);
+        session.UpsertFact(subject, "Cli", "Name", parameter.Name);
+        session.UpsertFact(subject, "Cli", "ValueName", ValueName(parameter));
+        session.UpsertFact(subject, "Cli", "Required", parameter.IsRequired ?? string.Empty);
+        session.UpsertFact(subject, "Cli", "Repeatable", parameter.IsRepeatable ?? string.Empty);
+        session.UpsertFact(subject, "Cli", "DefaultValue", parameter.DefaultValue ?? string.Empty);
+    }
+
+    private static Application ResolveApplication(MetaCliModel cli, string applicationId)
+    {
+        if (!string.IsNullOrWhiteSpace(applicationId))
+        {
+            return cli.ApplicationList.FirstOrDefault(application =>
+                       string.Equals(application.Id, applicationId, StringComparison.Ordinal))
+                   ?? throw new InvalidOperationException($"MetaCli application '{applicationId}' was not found.");
+        }
+
+        return cli.ApplicationList.Count switch
+        {
+            1 => cli.ApplicationList[0],
+            0 => throw new InvalidOperationException("MetaCli workspace contains no applications."),
+            _ => throw new InvalidOperationException("MetaCli workspace contains more than one application; provide --application <id>.")
+        };
+    }
+
+    private static IEnumerable<Option> ApplicationOptions(
+        MetaCliModel cli,
+        MetaCliCommandSurface surface,
+        Application app)
+    {
+        var parameters = cli.ApplicationParameterList
+            .Where(item => ReferenceEquals(item.Application, app))
+            .Select(static item => item.Parameter)
+            .ToHashSet(ReferenceComparer<Parameter>.Instance);
+        return cli.OptionList
+            .Where(option => parameters.Contains(option.Parameter))
+            .OrderBy(option => surface.OptionTokens(option.Parameter).FirstOrDefault()?.Token ?? option.Parameter.Name, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static IEnumerable<Option> CommandOptions(
+        MetaCliModel cli,
+        MetaCliCommandSurface surface,
+        ExecutableCommand executable)
+    {
+        var parameters = surface.CommandParameters(executable)
+            .ToHashSet(ReferenceComparer<Parameter>.Instance);
+        return cli.OptionList
+            .Where(option => parameters.Contains(option.Parameter))
+            .OrderBy(option => surface.OptionTokens(option.Parameter).FirstOrDefault()?.Token ?? option.Parameter.Name, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private static string BuildUsage(
+        string commandPath,
+        IReadOnlyList<Option> options,
+        IReadOnlyList<PositionalArgument> positionals,
+        MetaCliCommandSurface surface)
+    {
+        var parts = new List<string> { commandPath };
+        parts.AddRange(positionals.Select(static positional => $"<{positional.Parameter.Name}>"));
+        parts.AddRange(options.Select(option =>
+        {
+            var token = surface.OptionTokens(option.Parameter).FirstOrDefault()?.Token ?? option.Parameter.Name;
+            var syntax = BuildOptionSyntax(token, option.Parameter);
+            return IsRequired(option.Parameter) ? syntax : $"[{syntax}]";
+        }));
+        return string.Join(" ", parts);
+    }
+
+    private static string BuildOptionSyntax(string token, Parameter parameter)
+    {
+        var valueLabel = ValueName(parameter);
+        return string.IsNullOrWhiteSpace(valueLabel) ? token : $"{token} {valueLabel}";
+    }
+
+    private static string ValueName(Parameter parameter) =>
+        MetaCliCommandSurface.ValueName(parameter, $"<{parameter.Name}>");
+
+    private static string ApplicationCommandName(Application app) =>
+        FirstNonEmpty(app.ExecutableName, app.Name, app.Id);
+
+    private static bool IsRequired(Parameter parameter) =>
+        bool.TryParse(parameter.IsRequired, out var parsed) && parsed;
 
     private static void UpsertNarrativeIfPresent(
         MetaDocsModel model,
@@ -282,39 +376,33 @@ public sealed class MetaDocsCliImporter
             string.Equals(row.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(row.Name, name, StringComparison.OrdinalIgnoreCase));
 
-    private static (string OptionName, string ValueName) SplitOptionSyntax(string syntax)
+    private static string ComputeCliFingerprint(MetaCliModel cli, Application app)
     {
-        var trimmed = syntax.Trim();
-        if (trimmed.Length == 0)
-        {
-            return (string.Empty, string.Empty);
-        }
-
-        var firstSpace = trimmed.IndexOf(' ');
-        if (firstSpace < 0)
-        {
-            return (trimmed, string.Empty);
-        }
-
-        return (trimmed[..firstSpace], trimmed[(firstSpace + 1)..].Trim());
-    }
-
-    private static string ComputeCliFingerprint(CliAppDefinition app)
-    {
+        var surface = new MetaCliCommandSurface(cli, app.Id);
         var builder = new StringBuilder();
+        builder.AppendLine(app.Id);
         builder.AppendLine(app.Name);
-        foreach (var command in app.Commands.OrderBy(command => command.Name, StringComparer.OrdinalIgnoreCase))
+        builder.AppendLine(app.ExecutableName);
+        foreach (var executable in cli.ExecutableCommandList
+                     .Where(executable => ReferenceEquals(executable.Command.Application, app))
+                     .OrderBy(executable => surface.Route(executable.Command), StringComparer.OrdinalIgnoreCase))
         {
-            builder.AppendLine(command.Name);
-            builder.AppendLine(command.Description);
-            foreach (var usage in command.Usages)
+            builder.AppendLine(executable.Id);
+            builder.AppendLine(surface.Route(executable.Command));
+            builder.AppendLine(executable.Command.Description);
+            foreach (var option in ApplicationOptions(cli, surface, app).Concat(CommandOptions(cli, surface, executable)))
             {
-                builder.AppendLine("usage:" + usage);
+                builder.AppendLine("option:" + option.Id);
+                builder.AppendLine("parameter:" + option.Parameter.Id + ":" + option.Parameter.Name);
+                foreach (var token in surface.OptionTokens(option.Parameter))
+                {
+                    builder.AppendLine("token:" + token.Id + ":" + token.Token);
+                }
             }
 
-            foreach (var option in command.Options)
+            foreach (var positional in surface.OrderedPositionals(executable))
             {
-                builder.AppendLine("option:" + option.Syntax + ":" + option.Description);
+                builder.AppendLine("positional:" + positional.Id + ":" + positional.Parameter.Id + ":" + positional.Parameter.Name);
             }
         }
 
@@ -326,4 +414,14 @@ public sealed class MetaDocsCliImporter
         values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
 
     private static string NormalizeKey(string value) => MetaDocsImportSession.NormalizeKey(value);
+
+    private sealed class ReferenceComparer<T> : IEqualityComparer<T>
+        where T : class?
+    {
+        public static readonly ReferenceComparer<T> Instance = new();
+
+        public bool Equals(T? x, T? y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(T obj) => RuntimeHelpers.GetHashCode(obj);
+    }
 }

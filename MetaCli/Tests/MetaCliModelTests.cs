@@ -52,12 +52,14 @@ public sealed class MetaCliModelTests
     public void Cli_HelpShowsCurrentAuthoringSurfaceAndDoesNotExposeDeletedConcepts()
     {
         var result = RunCli("help");
+        var newWorkspace = RunCli("new-workspace --help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("meta-cli new-workspace <path>", result.Output);
+        Assert.Equal(0, newWorkspace.ExitCode);
+        Assert.Contains("meta-cli <command> [options]", result.Output);
         Assert.Contains("new-workspace", result.Output);
-        Assert.Contains("--standard-cli-shapes", result.Output);
-        Assert.Contains("--default-help", result.Output);
+        Assert.Contains("--standard-cli-shapes", newWorkspace.Output);
+        Assert.Contains("--default-help", newWorkspace.Output);
         Assert.DoesNotContain("from-syntax", result.Output);
         Assert.Contains("add-application-option", result.Output);
         Assert.Contains("add-option-token", result.Output);
@@ -70,6 +72,41 @@ public sealed class MetaCliModelTests
         Assert.DoesNotContain("add-exit", result.Output, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("init", result.Output, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("check", result.Output, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Cli_HelpIsDerivedFromAuthoredMetaCliWorkspace()
+    {
+        var result = RunCli("help add-option");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("meta-cli add-option", result.Output);
+        Assert.Contains("--parameter-id <value>", result.Output);
+        Assert.Contains("--token <token>", result.Output);
+
+        var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "MetaCli", "Cli", "Program.cs"));
+        Assert.Contains("MetaCliRuntime<MetaCliModel>", source);
+        Assert.Contains(".UseDefaultHelp()", source);
+        Assert.DoesNotContain("ParseOptions", source);
+        Assert.DoesNotContain("PrintCommandHelp", source);
+        Assert.DoesNotContain("WriteUsageAndOptions", source);
+        Assert.DoesNotContain("WriteCommandCatalog", source);
+    }
+
+    [Fact]
+    public void Cli_AuthoredCommandSurfacePreservesProviderIntegrity()
+    {
+        var workspace = Path.Combine(FindRepositoryRoot(), "MetaCli", "Cli", "meta-cli.MetaCli");
+
+        AssertWorkspacePreservesProviderIntegrity(workspace);
+
+        var newWorkspaceHelp = RunCli("new-workspace --help");
+        Assert.Equal(0, newWorkspaceHelp.ExitCode);
+        Assert.DoesNotContain("--workspace <path>", newWorkspaceHelp.Output);
+
+        var showHelp = RunCli("show --help");
+        Assert.Equal(0, showHelp.ExitCode);
+        Assert.Contains("--workspace <path>", showHelp.Output);
     }
 
     [Fact]
@@ -238,8 +275,8 @@ public sealed class MetaCliModelTests
 
             var addOption = RunCli("add-option --parameter-id param-workspace --option-id option-workspace --executable-command exec-show --name workspace --value-shape shape-path", workspace);
 
-            Assert.Equal(4, addOption.ExitCode);
-            Assert.Contains("missing required option --token-id", addOption.Output);
+            Assert.Equal(2, addOption.ExitCode);
+            Assert.Contains("Required parameter 'token-id' was not provided.", addOption.Output);
 
             AssertWorkspacePreservesProviderIntegrity(workspace);
             var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);

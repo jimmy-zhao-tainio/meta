@@ -43,10 +43,13 @@ Results:
 
 ## Remaining Architectural Debt
 
-Leave `HelpTopics` alone for now per user direction.
+The old in-repo help catalogue has been removed. CLI help should come
+from authored MetaCli workspaces and shared MetaCli help/runtime services.
 
 Good next candidates:
 
+- Move `Meta.Cli` command dispatch and option parsing onto MetaCli runtime
+  instead of the remaining command-local `Parse*Options` helpers.
 - Split `GenerationService.CSharp.cs` further into tooling serializer generation and consumer model/entity generation.
 - Continue reducing `WorkspaceService` by extracting read/load, shard planning, workspace config serialization, and backup helpers.
 - Split `CliRuntime.InstanceMutationHelpers.cs` further into row patch construction and relationship resolution.

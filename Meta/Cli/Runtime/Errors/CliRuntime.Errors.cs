@@ -457,7 +457,7 @@ internal sealed partial class CliRuntime
 
         if (normalized.Contains("generate requires --out", StringComparison.OrdinalIgnoreCase))
         {
-            var mode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "sql";
+            var mode = currentInvocation is null ? "sql" : CommandToken().Trim().ToLowerInvariant();
             if (mode is not ("sql" or "csharp" or "ssdt"))
             {
                 mode = "sql";
@@ -474,7 +474,7 @@ internal sealed partial class CliRuntime
         else if (normalized.Contains("--new-workspace", StringComparison.OrdinalIgnoreCase) ||
                  normalized.Contains("import requires --new-workspace", StringComparison.OrdinalIgnoreCase))
         {
-            var importMode = args.Length >= 2 ? args[1].Trim().ToLowerInvariant() : "sql";
+            var importMode = currentInvocation is null ? "sql" : CommandToken().Trim().ToLowerInvariant();
             if (string.Equals(importMode, "sql", StringComparison.OrdinalIgnoreCase))
             {
                 detailHints.Add("example: meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\\ImportedWorkspace");

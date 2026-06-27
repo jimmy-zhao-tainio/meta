@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> GenerateAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 2)
-        {
-            return PrintUsageError("Usage: generate <sql|csharp|ssdt> --out <dir> [--workspace <path>]");
-        }
-
-        var mode = commandArgs[1].Trim().ToLowerInvariant();
-        var options = ParseGenerateOptions(commandArgs, startIndex: 2);
+        var mode = CommandToken().Trim().ToLowerInvariant();
+        var options = ReadGenerateOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

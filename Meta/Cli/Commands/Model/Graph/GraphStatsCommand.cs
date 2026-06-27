@@ -2,7 +2,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> GraphStatsAsync(string[] commandArgs)
     {
-        var options = ParseGraphStatsOptions(commandArgs, startIndex: 2);
+        var options = ReadGraphStatsOptions(commandArgs, startIndex: 2);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

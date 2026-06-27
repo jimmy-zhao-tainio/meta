@@ -1,4 +1,6 @@
-using Meta.Core.Presentation.Cli;
+using System.Diagnostics;
+using MetaCli;
+using MetaCli.Core;
 using MetaDocs;
 using MetaDocs.Core;
 
@@ -6,6 +8,40 @@ namespace MetaDocs.Tests;
 
 public sealed class MetaDocsRuntimeTests
 {
+    [Fact]
+    public void Cli_HelpIsDerivedFromAuthoredMetaCliWorkspace()
+    {
+        var repoRoot = FindRepositoryRoot();
+        var commandWorkspace = Path.Combine(repoRoot, "MetaDocs", "Cli", "meta-docs.MetaCli");
+        var integrity = new MetaCliWorkspaceService().ValidateIntegrity(commandWorkspace);
+
+        Assert.False(
+            integrity.HasErrors,
+            string.Join(Environment.NewLine, integrity.Issues.Select(issue => $"{issue.Code}: {issue.Message} ({issue.Location})")));
+
+        var appHelp = RunCli("help");
+        Assert.Equal(0, appHelp.ExitCode);
+        Assert.Contains("meta-docs <command> [options]", appHelp.Output);
+        Assert.Contains("import-cli", appHelp.Output);
+        Assert.Contains("render-site", appHelp.Output);
+
+        var commandHelp = RunCli("help import-cli");
+        Assert.Equal(0, commandHelp.ExitCode);
+        Assert.Contains("meta-docs import-cli", commandHelp.Output);
+        Assert.Contains("--source-workspace <path>", commandHelp.Output);
+        Assert.Contains("--new-workspace <path>", commandHelp.Output);
+
+        var source = File.ReadAllText(Path.Combine(repoRoot, "MetaDocs", "Cli", "Program.cs"));
+        Assert.Contains("MetaCliRuntime<MetaDocsModel>", source);
+        Assert.Contains(".UseDefaultHelp()", source);
+        Assert.DoesNotContain("ParseAuthorPageArgs", source);
+        Assert.DoesNotContain("ReadStringOption", source);
+        Assert.DoesNotContain("CliAppDefinition", source);
+        Assert.DoesNotContain("CliCommandDefinition", source);
+        Assert.DoesNotContain("CliOptionDefinition", source);
+        Assert.DoesNotContain("CliHelpRenderer", source);
+    }
+
     [Fact]
     public void AuthoringService_UpsertsPageNarrativeAndViewNode()
     {
@@ -388,7 +424,7 @@ public sealed class MetaDocsRuntimeTests
         {
             Id = "source:test",
             DisplayName = "Source",
-            Kind = "CliDefinition",
+            Kind = "MetaCliWorkspace",
             Status = "Current",
         };
         var batch = new DocumentationImportBatch
@@ -539,7 +575,7 @@ public sealed class MetaDocsRuntimeTests
         var model = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."));
 
-        var source = Assert.Single(model.DocumentationSourceList, source => source.Kind == "CliDefinition");
+        var source = Assert.Single(model.DocumentationSourceList, source => source.Kind == "MetaCliWorkspace");
         var batch = Assert.Single(model.DocumentationImportBatchList);
         model.DocumentationSubjectList.Add(new DocumentationSubject
         {
@@ -547,7 +583,7 @@ public sealed class MetaDocsRuntimeTests
             Key = "source:cli:empty:app",
             DocumentationSource = source,
             Kind = "CliApplication",
-            NativeKind = "CliAppDefinition",
+            NativeKind = "MetaCli.Application",
             NativeId = "empty-cli",
             DisplayName = "empty-cli",
             DisplayPath = "empty-cli",
@@ -559,7 +595,7 @@ public sealed class MetaDocsRuntimeTests
             Key = "source:cli:orphan:command:run",
             DocumentationSource = source,
             Kind = "CliCommand",
-            NativeKind = "CliCommandDefinition",
+            NativeKind = "MetaCli.ExecutableCommand",
             NativeId = "run",
             DisplayName = "orphan run",
             DisplayPath = "orphan run",
@@ -572,7 +608,7 @@ public sealed class MetaDocsRuntimeTests
             Key = "source:cli:orphan:option:flag",
             DocumentationSource = source,
             Kind = "CliOption",
-            NativeKind = "CliOptionDefinition",
+            NativeKind = "MetaCli.Option",
             NativeId = "--flag",
             DisplayName = "--flag",
             DisplayPath = "orphan run --flag",
@@ -1222,16 +1258,77 @@ public sealed class MetaDocsRuntimeTests
         Assert.DoesNotContain("requestAnimationFrame", html, StringComparison.Ordinal);
     }
 
-    [Fact]
-    public void CliAppDefinitionReflectionLoader_LoadsPublicStaticFactory()
+    private static (int ExitCode, string Output) RunCli(string arguments)
     {
-        var app = new CliAppDefinitionReflectionLoader().Load(
-            typeof(TestCliDefinitionSource).Assembly.Location,
-            typeof(TestCliDefinitionSource).FullName!,
-            nameof(TestCliDefinitionSource.CreateAppDefinition));
+        var repoRoot = FindRepositoryRoot();
+        var cliPath = Path.Combine(repoRoot, "MetaDocs", "Cli", "bin", "Debug", "net8.0", "meta-docs.exe");
+        if (!File.Exists(cliPath))
+        {
+            throw new FileNotFoundException($"Could not find compiled meta-docs executable at '{cliPath}'. Build MetaDocs.Cli before running tests.");
+        }
 
-        Assert.Equal("test-cli", app.Name);
-        Assert.Contains(app.Commands, command => command.Name == "run");
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = cliPath,
+            Arguments = arguments,
+            WorkingDirectory = repoRoot,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        };
+
+        using var process = Process.Start(startInfo)
+                            ?? throw new InvalidOperationException("Could not start meta-docs process.");
+        var stdoutTask = process.StandardOutput.ReadToEndAsync();
+        var stderrTask = process.StandardError.ReadToEndAsync();
+
+        using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+        try
+        {
+            process.WaitForExitAsync(timeout.Token).GetAwaiter().GetResult();
+        }
+        catch (OperationCanceledException exception)
+        {
+            TryKillProcessTree(process);
+            process.WaitForExit();
+            throw new TimeoutException($"Timed out waiting for process: {startInfo.FileName} {startInfo.Arguments}", exception);
+        }
+
+        return (process.ExitCode, stdoutTask.GetAwaiter().GetResult() + stderrTask.GetAwaiter().GetResult());
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = AppContext.BaseDirectory;
+        while (!string.IsNullOrWhiteSpace(directory))
+        {
+            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            {
+                return directory;
+            }
+
+            directory = Directory.GetParent(directory)?.FullName;
+        }
+
+        throw new InvalidOperationException("Could not locate repository root from test base directory.");
+    }
+
+    private static void TryKillProcessTree(Process process)
+    {
+        try
+        {
+            if (!process.HasExited)
+            {
+                process.Kill(entireProcessTree: true);
+            }
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (NotSupportedException)
+        {
+        }
     }
 
     private static void AssertClassification(
@@ -1409,95 +1506,175 @@ public sealed class MetaDocsRuntimeTests
             """);
     }
 
-    private static CliAppDefinition CreateMetaApp() =>
-        new(
+    private static MetaCliModel CreateMetaApp() =>
+        CreateCliApp(
             "meta",
-            new[] { "meta <command> [options]" },
-            new[]
-            {
-                new CliCommandDefinition(
-                    "status",
-                    "Show workspace summary.",
-                    new[] { "meta status" })
-            },
-            Notes: new[] { "Core metadata model + instance engine." });
+            "Core metadata model + instance engine.",
+            new TestCliCommand("status", "Show workspace summary."));
 
-    private static CliAppDefinition CreateMetaDocsApp() =>
-        new(
+    private static MetaCliModel CreateMetaDocsApp() =>
+        CreateCliApp(
             "meta-docs",
-            new[] { "meta-docs <command> [options]" },
-            new[]
-            {
-                new CliCommandDefinition(
-                    "validate",
-                    "Validate documentation workspace.",
-                    new[] { "meta-docs validate --workspace <path>" })
-            });
+            commands: new TestCliCommand(
+                "validate",
+                "Validate documentation workspace.",
+                new TestCliOption("--workspace", "<path>", "Source schema workspace.")));
 
-    private static CliAppDefinition CreateSimpleApp(string name) =>
-        new(
+    private static MetaCliModel CreateSimpleApp(string name) =>
+        CreateCliApp(
             name,
-            new[] { $"{name} <command> [options]" },
-            new[]
-            {
-                new CliCommandDefinition(
-                    "run",
-                    "Run the command.",
-                    new[] { $"{name} run" })
-            });
+            commands: new TestCliCommand("run", "Run the command."));
 
-    private static CliAppDefinition CreateBindingApp(string summary, bool includeInspect = false)
+    private static MetaCliModel CreateBindingApp(string summary, bool includeInspect = false)
     {
-        var commands = new List<CliCommandDefinition>
+        var commands = new List<TestCliCommand>
         {
             new(
                 "bind",
                 summary,
-                new[] { "meta-transform-binding bind --source-schema <path>" },
-                new[]
-                {
-                    new CliOptionDefinition("--source-schema <path>", "Source schema workspace.")
-                })
+                new TestCliOption("--source-schema", "<path>", "Source schema workspace."))
         };
         if (includeInspect)
         {
-            commands.Add(new CliCommandDefinition(
+            commands.Add(new TestCliCommand(
                 "inspect",
                 "Inspect binding findings.",
-                new[] { "meta-transform-binding inspect --workspace <path>" }));
+                new TestCliOption("--workspace", "<path>", "MetaDocs workspace.")));
         }
 
-        return new CliAppDefinition(
+        return CreateCliApp(
             "meta-transform-binding",
-            new[] { "meta-transform-binding <command> [options]" },
-            commands,
-            Notes: new[] { "Bind transform scripts against schema contracts." });
+            "Bind transform scripts against schema contracts.",
+            commands.ToArray());
     }
 
-    private static CliAppDefinition CreateSameNamedApp() =>
-        new(
+    private static MetaCliModel CreateSameNamedApp() =>
+        CreateCliApp(
             "same-cli",
-            new[] { "same-cli <command>" },
-            new[]
-            {
-                new CliCommandDefinition(
-                    "run",
-                    "Run the command.",
-                    new[] { "same-cli run" })
-            });
-}
+            commands: new TestCliCommand("run", "Run the command."));
 
-public static class TestCliDefinitionSource
-{
-    public static CliAppDefinition CreateAppDefinition() =>
-        new(
-            "test-cli",
-            new[] { "test-cli <command>" },
-            new[]
+    private static MetaCliModel CreateCliApp(
+        string executableName,
+        string description = "",
+        params TestCliCommand[] commands)
+    {
+        var model = MetaCliModel.CreateEmpty();
+        var arityNone = new ValueArity
+        {
+            Id = "arity-none",
+            Name = "None",
+            MinValueCount = "0",
+            MaxValueCount = "0",
+        };
+        var arityOne = new ValueArity
+        {
+            Id = "arity-one",
+            Name = "One",
+            MinValueCount = "1",
+            MaxValueCount = "1",
+        };
+        var shapeFlag = new ValueShape
+        {
+            Id = "shape-flag",
+            Name = "Flag",
+            ValueArity = arityNone,
+        };
+        var shapeText = new ValueShape
+        {
+            Id = "shape-text",
+            Name = "Text",
+            ValueLabel = "<value>",
+            ValueArity = arityOne,
+        };
+        var shapePath = new ValueShape
+        {
+            Id = "shape-path",
+            Name = "Path",
+            ValueLabel = "<path>",
+            AllowsOptionLikeValue = "true",
+            ValueArity = arityOne,
+        };
+        model.ValueArityList.AddRange([arityNone, arityOne]);
+        model.ValueShapeList.AddRange([shapeFlag, shapeText, shapePath]);
+
+        var app = new Application
+        {
+            Id = $"app-{NormalizeTestId(executableName)}",
+            Name = executableName,
+            ExecutableName = executableName,
+            Description = description,
+        };
+        model.ApplicationList.Add(app);
+
+        foreach (var commandSpec in commands)
+        {
+            var command = new Command
             {
-                new CliCommandDefinition(
-                    "run",
-                    "Run the test command.",
-                    new[] { "test-cli run" })
-            });
+                Id = $"cmd-{NormalizeTestId(commandSpec.Name)}",
+                Application = app,
+                Name = commandSpec.Name,
+                Token = commandSpec.Name,
+                Description = commandSpec.Description,
+            };
+            var executable = new ExecutableCommand
+            {
+                Id = commandSpec.Name,
+                Command = command,
+            };
+            model.CommandList.Add(command);
+            model.ExecutableCommandList.Add(executable);
+
+            foreach (var optionSpec in commandSpec.Options)
+            {
+                var valueShape = optionSpec.ValueLabel.Length == 0
+                    ? shapeFlag
+                    : string.Equals(optionSpec.ValueLabel, "<path>", StringComparison.Ordinal)
+                        ? shapePath
+                        : shapeText;
+                var optionName = optionSpec.Token.TrimStart('-');
+                var parameter = new Parameter
+                {
+                    Id = $"param-{NormalizeTestId(commandSpec.Name)}-{NormalizeTestId(optionName)}",
+                    Name = optionName,
+                    Description = optionSpec.Description,
+                    ValueShape = valueShape,
+                };
+                var option = new Option
+                {
+                    Id = $"option-{NormalizeTestId(commandSpec.Name)}-{NormalizeTestId(optionName)}",
+                    Parameter = parameter,
+                };
+                var token = new OptionToken
+                {
+                    Id = $"token-{NormalizeTestId(commandSpec.Name)}-{NormalizeTestId(optionName)}",
+                    Option = option,
+                    Token = optionSpec.Token,
+                };
+                model.ParameterList.Add(parameter);
+                model.ExecutableCommandParameterList.Add(new ExecutableCommandParameter
+                {
+                    Id = $"{executable.Id}:parameter:{parameter.Id}",
+                    ExecutableCommand = executable,
+                    Parameter = parameter,
+                });
+                model.OptionList.Add(option);
+                model.OptionTokenList.Add(token);
+            }
+        }
+
+        return model;
+    }
+
+    private static string NormalizeTestId(string value) =>
+        MetaDocsImportSession.NormalizeKey(value);
+
+    private sealed record TestCliCommand(
+        string Name,
+        string Description,
+        params TestCliOption[] Options);
+
+    private sealed record TestCliOption(
+        string Token,
+        string ValueLabel,
+        string Description);
 }

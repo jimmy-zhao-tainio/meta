@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> InstanceMergeAsync(string[] commandArgs)
     {
-        if (commandArgs.Length != 4)
-        {
-            return PrintUsageError("Usage: instance merge <targetWorkspace> <diffWorkspace>");
-        }
-
-        var targetPath = Path.GetFullPath(commandArgs[2]);
-        var diffWorkspacePath = Path.GetFullPath(commandArgs[3]);
+        var targetPath = Path.GetFullPath(RequiredValue("targetWorkspace"));
+        var diffWorkspacePath = Path.GetFullPath(RequiredValue("diffWorkspace"));
 
         var targetWorkspace = await services.WorkspaceService.LoadAsync(targetPath, searchUpward: false).ConfigureAwait(false);
         var diffWorkspace = await services.WorkspaceService.LoadAsync(diffWorkspacePath, searchUpward: false).ConfigureAwait(false);

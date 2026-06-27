@@ -2,13 +2,8 @@ internal sealed partial class CliRuntime
 {
     async Task<int> GraphInboundAsync(string[] commandArgs)
     {
-        if (commandArgs.Length < 3)
-        {
-            return PrintUsageError("Usage: graph inbound <Entity> [--workspace <path>] [--top <n>]");
-        }
-
-        var targetEntityName = commandArgs[2];
-        var options = ParseGraphInboundOptions(commandArgs, startIndex: 3);
+        var targetEntityName = RequiredValue("Entity");
+        var options = ReadGraphInboundOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);

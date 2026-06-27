@@ -16,7 +16,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\Core\MetaDocs.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="meta-docs.MetaCli\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <Target

@@ -6,7 +6,7 @@ internal sealed partial class CliRuntime
 {
     async Task<int> ModelRefactorRelationshipToPropertyAsync(string[] commandArgs)
     {
-        var options = ParseModelRefactorRelationshipToPropertyOptions(commandArgs, startIndex: 3);
+        var options = ReadModelRefactorRelationshipToPropertyOptions(commandArgs, startIndex: 3);
         if (!options.Ok)
         {
             return PrintArgumentError(options.ErrorMessage);
@@ -72,84 +72,13 @@ internal sealed partial class CliRuntime
     }
 
     (bool Ok, RelationshipToPropertyCommandOptions Options, string ErrorMessage)
-        ParseModelRefactorRelationshipToPropertyOptions(string[] commandArgs, int startIndex)
+        ReadModelRefactorRelationshipToPropertyOptions(string[] commandArgs, int startIndex)
     {
-        var workspacePath = DefaultWorkspacePath();
-        var source = string.Empty;
-        var target = string.Empty;
-        var role = string.Empty;
-        var propertyName = string.Empty;
-
-        for (var i = startIndex; i < commandArgs.Length; i++)
-        {
-            var arg = commandArgs[i];
-            if (string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --workspace requires a path.");
-                }
-
-                workspacePath = commandArgs[++i];
-                continue;
-            }
-
-            if (string.Equals(arg, "--source", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --source requires <Entity>.");
-                }
-
-                source = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--target", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --target requires <Entity>.");
-                }
-
-                target = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--role", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --role requires <Role>.");
-                }
-
-                role = commandArgs[++i].Trim();
-                continue;
-            }
-
-            if (string.Equals(arg, "--property", StringComparison.OrdinalIgnoreCase))
-            {
-                if (i + 1 >= commandArgs.Length)
-                {
-                    return (false, default, "Error: --property requires <PropertyName>.");
-                }
-
-                propertyName = commandArgs[++i].Trim();
-                continue;
-            }
-
-            return (false, default, $"Error: unknown option '{arg}'.");
-        }
-
-        if (string.IsNullOrWhiteSpace(source))
-        {
-            return (false, default, "Error: --source <Entity> is required.");
-        }
-
-        if (string.IsNullOrWhiteSpace(target))
-        {
-            return (false, default, "Error: --target <Entity> is required.");
-        }
+        var workspacePath = WorkspacePath();
+        var source = RequiredValue("source").Trim();
+        var target = RequiredValue("target").Trim();
+        var role = OptionalValue("role").Trim();
+        var propertyName = OptionalValue("property").Trim();
 
         if (!string.IsNullOrWhiteSpace(role) && !ModelNamePattern.IsMatch(role))
         {

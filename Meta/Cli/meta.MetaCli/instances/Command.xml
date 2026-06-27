@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <CommandList>
+    <Command ApplicationId="app-meta" Id="cmd-help">
+      <Description>Show help.</Description>
+      <Name>help</Name>
+      <Token>help</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-init">
+      <Description>Initialize a metadata workspace.</Description>
+      <Name>init</Name>
+      <Token>init</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-status">
+      <Description>Show workspace summary and model/instance sizes.</Description>
+      <Name>status</Name>
+      <Token>status</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-workspace">
+      <Description>Workspace-level operations.</Description>
+      <Name>workspace</Name>
+      <Token>workspace</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-workspace-merge" ParentCommandId="cmd-workspace">
+      <Description>Merge two full workspaces into a new workspace.</Description>
+      <Name>merge</Name>
+      <Token>merge</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-list">
+      <Description>List model entities, properties, and relationships.</Description>
+      <Name>list</Name>
+      <Token>list</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-list-entities" ParentCommandId="cmd-list">
+      <Description>List entities in the model.</Description>
+      <Name>entities</Name>
+      <Token>entities</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-list-properties" ParentCommandId="cmd-list">
+      <Description>List properties for an entity.</Description>
+      <Name>properties</Name>
+      <Token>properties</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-list-relationships" ParentCommandId="cmd-list">
+      <Description>List relationships for an entity.</Description>
+      <Name>relationships</Name>
+      <Token>relationships</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-view">
+      <Description>View entity or instance details.</Description>
+      <Name>view</Name>
+      <Token>view</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-view-entity" ParentCommandId="cmd-view">
+      <Description>View one entity definition.</Description>
+      <Name>entity</Name>
+      <Token>entity</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-view-instance" ParentCommandId="cmd-view">
+      <Description>View one instance row.</Description>
+      <Name>instance</Name>
+      <Token>instance</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-query">
+      <Description>Search instances with equals/contains filters.</Description>
+      <Name>query</Name>
+      <Token>query</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-graph">
+      <Description>Graph stats and inbound relationships.</Description>
+      <Name>graph</Name>
+      <Token>graph</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-graph-stats" ParentCommandId="cmd-graph">
+      <Description>Show graph statistics.</Description>
+      <Name>stats</Name>
+      <Token>stats</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-graph-inbound" ParentCommandId="cmd-graph">
+      <Description>Show inbound relationships for an entity.</Description>
+      <Name>inbound</Name>
+      <Token>inbound</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-check">
+      <Description>Check model and instance integrity.</Description>
+      <Name>check</Name>
+      <Token>check</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model">
+      <Description>Inspect and mutate model entities, properties, and relationships.</Description>
+      <Name>model</Name>
+      <Token>model</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-add-entity" ParentCommandId="cmd-model">
+      <Description>Add an entity.</Description>
+      <Name>add-entity</Name>
+      <Token>add-entity</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-rename-model" ParentCommandId="cmd-model">
+      <Description>Rename the model.</Description>
+      <Name>rename-model</Name>
+      <Token>rename-model</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-rename-entity" ParentCommandId="cmd-model">
+      <Description>Rename an entity.</Description>
+      <Name>rename-entity</Name>
+      <Token>rename-entity</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-add-property" ParentCommandId="cmd-model">
+      <Description>Add a property to an entity.</Description>
+      <Name>add-property</Name>
+      <Token>add-property</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-rename-property" ParentCommandId="cmd-model">
+      <Description>Rename a property.</Description>
+      <Name>rename-property</Name>
+      <Token>rename-property</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-set-property-required" ParentCommandId="cmd-model">
+      <Description>Change whether a property is required.</Description>
+      <Name>set-property-required</Name>
+      <Token>set-property-required</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-rename-relationship" ParentCommandId="cmd-model">
+      <Description>Rename a relationship role.</Description>
+      <Name>rename-relationship</Name>
+      <Token>rename-relationship</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-add-relationship" ParentCommandId="cmd-model">
+      <Description>Add a relationship.</Description>
+      <Name>add-relationship</Name>
+      <Token>add-relationship</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-refactor" ParentCommandId="cmd-model">
+      <Description>Refactor model shape.</Description>
+      <Name>refactor</Name>
+      <Token>refactor</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-refactor-property-to-relationship" ParentCommandId="cmd-model-refactor">
+      <Description>Convert a property into a relationship.</Description>
+      <Name>property-to-relationship</Name>
+      <Token>property-to-relationship</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-refactor-relationship-to-property" ParentCommandId="cmd-model-refactor">
+      <Description>Convert a relationship into a property.</Description>
+      <Name>relationship-to-property</Name>
+      <Token>relationship-to-property</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-drop-property" ParentCommandId="cmd-model">
+      <Description>Drop a property.</Description>
+      <Name>drop-property</Name>
+      <Token>drop-property</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-drop-relationship" ParentCommandId="cmd-model">
+      <Description>Drop a relationship.</Description>
+      <Name>drop-relationship</Name>
+      <Token>drop-relationship</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-drop-entity" ParentCommandId="cmd-model">
+      <Description>Drop an entity.</Description>
+      <Name>drop-entity</Name>
+      <Token>drop-entity</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-model-suggest" ParentCommandId="cmd-model">
+      <Description>Suggest model improvements.</Description>
+      <Name>suggest</Name>
+      <Token>suggest</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-insert">
+      <Description>Insert one instance.</Description>
+      <Name>insert</Name>
+      <Token>insert</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-bulk-insert">
+      <Description>Insert many instances from tsv/csv input.</Description>
+      <Name>bulk-insert</Name>
+      <Token>bulk-insert</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance">
+      <Description>Diff, merge, and mutate instance artifacts.</Description>
+      <Name>instance</Name>
+      <Token>instance</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-diff" ParentCommandId="cmd-instance">
+      <Description>Diff instance data for two workspaces with byte-identical model.xml.</Description>
+      <Name>diff</Name>
+      <Token>diff</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-merge" ParentCommandId="cmd-instance">
+      <Description>Apply an equal-model instance diff artifact to a target workspace.</Description>
+      <Name>merge</Name>
+      <Token>merge</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-diff-aligned" ParentCommandId="cmd-instance">
+      <Description>Diff mapped instance data using an explicit alignment workspace.</Description>
+      <Name>diff-aligned</Name>
+      <Token>diff-aligned</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-merge-aligned" ParentCommandId="cmd-instance">
+      <Description>Apply an aligned instance diff artifact to a target workspace.</Description>
+      <Name>merge-aligned</Name>
+      <Token>merge-aligned</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-update" ParentCommandId="cmd-instance">
+      <Description>Update one instance.</Description>
+      <Name>update</Name>
+      <Token>update</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-rename-id" ParentCommandId="cmd-instance">
+      <Description>Rename one instance id.</Description>
+      <Name>rename-id</Name>
+      <Token>rename-id</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-relationship" ParentCommandId="cmd-instance">
+      <Description>Inspect or mutate instance relationships.</Description>
+      <Name>relationship</Name>
+      <Token>relationship</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-relationship-set" ParentCommandId="cmd-instance-relationship">
+      <Description>Set an instance relationship.</Description>
+      <Name>set</Name>
+      <Token>set</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-instance-relationship-list" ParentCommandId="cmd-instance-relationship">
+      <Description>List instance relationships.</Description>
+      <Name>list</Name>
+      <Token>list</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-delete">
+      <Description>Delete one instance.</Description>
+      <Name>delete</Name>
+      <Token>delete</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-generate">
+      <Description>Generate artifacts from the workspace.</Description>
+      <Name>generate</Name>
+      <Token>generate</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-generate-sql" ParentCommandId="cmd-generate">
+      <Description>Generate SQL artifacts.</Description>
+      <Name>sql</Name>
+      <Token>sql</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-generate-csharp" ParentCommandId="cmd-generate">
+      <Description>Generate C# artifacts.</Description>
+      <Name>csharp</Name>
+      <Token>csharp</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-generate-ssdt" ParentCommandId="cmd-generate">
+      <Description>Generate SSDT artifacts.</Description>
+      <Name>ssdt</Name>
+      <Token>ssdt</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-deploy">
+      <Description>Deploy generated artifacts to external targets.</Description>
+      <Name>deploy</Name>
+      <Token>deploy</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-deploy-sqlserver" ParentCommandId="cmd-deploy">
+      <Description>Deploy SQL Server scripts.</Description>
+      <Name>sqlserver</Name>
+      <Token>sqlserver</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-import">
+      <Description>Import xml/sql into new workspaces or csv into workspaces.</Description>
+      <Name>import</Name>
+      <Token>import</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-import-sql" ParentCommandId="cmd-import">
+      <Description>Import SQL metadata into a new workspace.</Description>
+      <Name>sql</Name>
+      <Token>sql</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-import-csv" ParentCommandId="cmd-import">
+      <Description>Import CSV data into a workspace.</Description>
+      <Name>csv</Name>
+      <Token>csv</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-export">
+      <Description>Export workspace data to external formats.</Description>
+      <Name>export</Name>
+      <Token>export</Token>
+    </Command>
+    <Command ApplicationId="app-meta" Id="cmd-export-csv" ParentCommandId="cmd-export">
+      <Description>Export instances as CSV.</Description>
+      <Name>csv</Name>
+      <Token>csv</Token>
+    </Command>
+  </CommandList>
+</MetaCli>
