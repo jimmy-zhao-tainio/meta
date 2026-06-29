@@ -1,8 +1,13 @@
+using MetaCli.Core;
+
 internal sealed partial class CliRuntime
 {
-    Dictionary<string, CliCommandRegistration> BuildCommandRegistry()
+    public void BindCommandHandlers(
+        MetaCliRuntime<MetaCli.MetaCliModel> runtime,
+        IReadOnlyList<string> arguments)
     {
-        var registry = new Dictionary<string, CliCommandRegistration>(StringComparer.OrdinalIgnoreCase);
+        ArgumentNullException.ThrowIfNull(runtime);
+        ArgumentNullException.ThrowIfNull(arguments);
 
         Register("exec-init", InitWorkspaceAsync);
         Register("exec-status", StatusWorkspaceAsync);
@@ -53,13 +58,11 @@ internal sealed partial class CliRuntime
         Register("exec-generate-ssdt", GenerateAsync);
         Register("exec-deploy-sqlserver", DeployAsync);
 
-        return registry;
-
         void Register(string executableCommandId, Func<string[], Task<int>> handler)
         {
-            registry[executableCommandId] = new CliCommandRegistration(handler);
+            runtime.Bind(
+                executableCommandId,
+                invocation => ExecuteBoundAsync(invocation, arguments, handler));
         }
     }
-
-    readonly record struct CliCommandRegistration(Func<string[], Task<int>> Handler);
 }

@@ -4,10 +4,34 @@ namespace MetaCli.Core;
 
 public delegate void MetaCliCommandHandler(MetaCliInvocation invocation);
 
+public delegate Task MetaCliAsyncCommandHandler(MetaCliInvocation invocation);
+
 public delegate void MetaCliModelCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model)
     where TModel : IMetaWorkspaceModel<TModel>;
+
+public delegate Task MetaCliAsyncModelCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model)
+    where TModel : IMetaWorkspaceModel<TModel>;
+
+public delegate int MetaCliRuntimeFailureHandler(MetaCliRuntimeFailure failure);
+
+public sealed record MetaCliRuntimeFailure(
+    MetaCliRuntimeFailureKind Kind,
+    int ExitCode,
+    string Message,
+    MetaCliInvocation? Invocation = null,
+    Exception? Exception = null);
+
+public enum MetaCliRuntimeFailureKind
+{
+    CommandSurfaceLoadFailed,
+    ParseFailed,
+    HandlerMissing,
+    HandlerFailed
+}
 
 public sealed class MetaCliRuntime<TModel>
     where TModel : IMetaWorkspaceModel<TModel>
@@ -21,6 +45,7 @@ public sealed class MetaCliRuntime<TModel>
     private bool useDefaultHelp;
     private TextWriter? helpOutput;
     private TextWriter? helpError;
+    private MetaCliRuntimeFailureHandler? failureHandler;
     private MetaCliModel model = MetaCliModel.CreateEmpty();
 
     public MetaCliRuntime(
@@ -56,11 +81,34 @@ public sealed class MetaCliRuntime<TModel>
         return this;
     }
 
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliAsyncCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithoutWorkspace(handler);
+        return this;
+    }
+
     public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliModelCommandHandler<TModel> handler)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
         ArgumentNullException.ThrowIfNull(handler);
         handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliAsyncModelCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> OnFailure(MetaCliRuntimeFailureHandler handler)
+    {
+        ArgumentNullException.ThrowIfNull(handler);
+        failureHandler = handler;
         return this;
     }
 
@@ -77,7 +125,11 @@ public sealed class MetaCliRuntime<TModel>
         }
         catch (Exception exception)
         {
-            Fail(4, $"Cannot load command surface workspace '{Path.GetFullPath(commandWorkspacePath)}'. {exception.Message}");
+            Fail(new MetaCliRuntimeFailure(
+                MetaCliRuntimeFailureKind.CommandSurfaceLoadFailed,
+                4,
+                $"Cannot load command surface workspace '{Path.GetFullPath(commandWorkspacePath)}'. {exception.Message}",
+                Exception: exception));
             return;
         }
 
@@ -94,24 +146,42 @@ public sealed class MetaCliRuntime<TModel>
         var parse = new MetaCliParser(model, applicationId).Parse(arguments);
         if (!parse.Succeeded)
         {
-            Fail(2, parse.Message ?? "Command line could not be parsed.");
+            Fail(new MetaCliRuntimeFailure(
+                MetaCliRuntimeFailureKind.ParseFailed,
+                2,
+                parse.Message ?? "Command line could not be parsed."));
             return;
         }
 
         var invocation = parse.RequireInvocation();
         if (!handlers.TryGetValue(invocation.ExecutableCommand.Id, out var handler))
         {
-            Fail(4, $"Command '{invocation.CommandRoute}' is modeled but has no implementation.");
+            Fail(new MetaCliRuntimeFailure(
+                MetaCliRuntimeFailureKind.HandlerMissing,
+                4,
+                $"Command '{invocation.CommandRoute}' is modeled but has no implementation.",
+                invocation));
             return;
         }
 
         try
         {
-            if (handler.WorkspaceHandler is not null)
+            if (handler.WorkspaceHandler is not null || handler.AsyncWorkspaceHandler is not null)
             {
                 var workspacePath = ResolveWorkspacePath(invocation);
                 var domainModel = TModel.LoadFromXmlWorkspace(workspacePath);
-                handler.WorkspaceHandler(invocation, domainModel);
+                if (handler.WorkspaceHandler is not null)
+                {
+                    handler.WorkspaceHandler(invocation, domainModel);
+                }
+                else
+                {
+                    handler.AsyncWorkspaceHandler!(invocation, domainModel).GetAwaiter().GetResult();
+                }
+            }
+            else if (handler.AsyncHandler is not null)
+            {
+                handler.AsyncHandler(invocation).GetAwaiter().GetResult();
             }
             else
             {
@@ -130,7 +200,12 @@ public sealed class MetaCliRuntime<TModel>
         }
         catch (Exception exception)
         {
-            Fail(4, $"Command '{invocation.CommandRoute}' failed. {exception.Message}");
+            Fail(new MetaCliRuntimeFailure(
+                MetaCliRuntimeFailureKind.HandlerFailed,
+                4,
+                $"Command '{invocation.CommandRoute}' failed. {exception.Message}",
+                invocation,
+                exception));
             return;
         }
 
@@ -154,20 +229,37 @@ public sealed class MetaCliRuntime<TModel>
         return Directory.GetCurrentDirectory();
     }
 
-    private void Fail(int exitCode, string message)
+    private void Fail(MetaCliRuntimeFailure failure)
     {
-        error.WriteLine(message);
+        var exitCode = failure.ExitCode;
+        if (failureHandler is not null)
+        {
+            exitCode = failureHandler(failure);
+        }
+        else
+        {
+            error.WriteLine(failure.Message);
+        }
+
         setExitCode(exitCode);
     }
 
     private sealed record HandlerBinding(
         MetaCliCommandHandler? Handler,
-        MetaCliModelCommandHandler<TModel>? WorkspaceHandler)
+        MetaCliAsyncCommandHandler? AsyncHandler,
+        MetaCliModelCommandHandler<TModel>? WorkspaceHandler,
+        MetaCliAsyncModelCommandHandler<TModel>? AsyncWorkspaceHandler)
     {
         public static HandlerBinding WithoutWorkspace(MetaCliCommandHandler handler) =>
-            new(handler, null);
+            new(handler, null, null, null);
+
+        public static HandlerBinding WithoutWorkspace(MetaCliAsyncCommandHandler handler) =>
+            new(null, handler, null, null);
 
         public static HandlerBinding WithWorkspace(MetaCliModelCommandHandler<TModel> handler) =>
-            new(null, handler);
+            new(null, null, handler, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliAsyncModelCommandHandler<TModel> handler) =>
+            new(null, null, null, handler);
     }
 }

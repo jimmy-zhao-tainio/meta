@@ -83,47 +83,6 @@ internal sealed partial class CliRuntime
         return BuildNextHelpHintFromUsage(usage);
     }
 
-    bool TryHandleHelpRequest(string[] commandArgs, out int exitCode)
-    {
-        exitCode = 0;
-        if (commandArgs.Length == 0 ||
-            !MetaCliHelpService.IsHelpToken(commandArgs[0]) &&
-            !MetaCliHelpService.IsHelpToken(commandArgs[^1]))
-        {
-            return false;
-        }
-
-        var model = LoadCommandSurface();
-        if (model is null)
-        {
-            return false;
-        }
-
-        var help = new MetaCliHelpService(Console.Out, Console.Error);
-        return help.TryWriteHelp(model, CommandApplicationId, commandArgs, out exitCode);
-    }
-
-    static bool IsHelpToken(string value) =>
-        MetaCliHelpService.IsHelpToken(value);
-
-    int PrintCommandUnknownError(string command)
-    {
-        var suggestions = SuggestValues(command, GetCommandSuggestions());
-        var hints = new List<string>();
-        if (suggestions.Count > 0)
-        {
-            hints.Add("Did you mean: " + string.Join(", ", suggestions.Take(3)));
-        }
-
-        hints.Add("Next: meta help");
-
-        return PrintFormattedError(
-            "E_COMMAND_UNKNOWN",
-            $"Unknown command '{command}'.",
-            exitCode: 1,
-            hints: hints);
-    }
-
     private MetaCliModel? LoadCommandSurface()
     {
         if (commandSurfaceModel is not null)
@@ -140,27 +99,5 @@ internal sealed partial class CliRuntime
         {
             return null;
         }
-    }
-
-    private IReadOnlyList<string> GetCommandSuggestions()
-    {
-        var model = LoadCommandSurface();
-        if (model is null)
-        {
-            return new[] { "help" };
-        }
-
-        var surface = new MetaCliCommandSurface(model, CommandApplicationId);
-        if (!surface.TryResolveApplication(out var application, out _))
-        {
-            return new[] { "help" };
-        }
-
-        return new[] { "help" }
-            .Concat(surface.RootCommands(application).Select(command =>
-                string.IsNullOrWhiteSpace(command.Token) ? command.Name : command.Token))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .OrderBy(value => value, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
     }
 }

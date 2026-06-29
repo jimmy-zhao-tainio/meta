@@ -11,124 +11,136 @@ internal sealed partial class CliRuntime
     private MetaCliInvocation? currentInvocation;
     private string? globalWorkspacePath;
     private bool globalStrict;
-    private Dictionary<string, CliCommandRegistration> commandRegistry = new(StringComparer.OrdinalIgnoreCase);
 
-    public async Task<int> RunAsync(string[] cliArgs)
+    public void UseArguments(IReadOnlyList<string> cliArgs)
     {
-        args = cliArgs;
-        if (args.Length == 0)
+        ArgumentNullException.ThrowIfNull(cliArgs);
+        args = cliArgs.ToArray();
+    }
+
+    public int HandleRuntimeFailure(MetaCliRuntimeFailure failure)
+    {
+        ArgumentNullException.ThrowIfNull(failure);
+
+        return failure.Kind switch
         {
-            return PrintUsageError("Usage: meta <command> [options]");
-        }
+            MetaCliRuntimeFailureKind.CommandSurfaceLoadFailed => PrintDataError(
+                "E_COMMAND_SURFACE",
+                failure.Message),
 
-        commandRegistry = BuildCommandRegistry();
+            MetaCliRuntimeFailureKind.ParseFailed => PrintArgumentError(
+                failure.Message),
 
-        if (TryHandleHelpRequest(args, out var helpExitCode))
-        {
-            return helpExitCode;
-        }
+            MetaCliRuntimeFailureKind.HandlerMissing => PrintFormattedError(
+                "E_COMMAND_NOT_IMPLEMENTED",
+                failure.Message,
+                exitCode: failure.ExitCode,
+                hints: new[] { $"Next: meta help {failure.Invocation?.CommandRoute ?? string.Empty}".TrimEnd() }),
 
-        var model = LoadCommandSurface();
-        if (model is null)
-        {
-            return PrintDataError("E_COMMAND_SURFACE", "Cannot load meta.MetaCli command surface.");
-        }
+            _ => PrintDataError(
+                "E_OPERATION",
+                failure.Exception?.Message ?? failure.Message),
+        };
+    }
 
-        var parse = new MetaCliParser(model, CommandApplicationId).Parse(args);
-        if (!parse.Succeeded)
-        {
-            return PrintArgumentError(parse.Message ?? "Error: command line could not be parsed.");
-        }
+    public async Task ExecuteBoundAsync(
+        MetaCliInvocation invocation,
+        IReadOnlyList<string> cliArgs,
+        Func<string[], Task<int>> handler)
+    {
+        ArgumentNullException.ThrowIfNull(invocation);
+        ArgumentNullException.ThrowIfNull(cliArgs);
+        ArgumentNullException.ThrowIfNull(handler);
 
-        var invocation = parse.RequireInvocation();
+        args = cliArgs.ToArray();
         currentInvocation = invocation;
         globalWorkspacePath = OptionalValue("workspace", string.Empty);
         globalStrict = Flag("strict");
+
+        var exitCode = 0;
         try
         {
-            if (commandRegistry.TryGetValue(invocation.ExecutableCommand.Id, out var registration))
-            {
-                return await registration.Handler(args).ConfigureAwait(false);
-            }
-
-            return PrintFormattedError(
-                "E_COMMAND_NOT_IMPLEMENTED",
-                $"Command '{invocation.CommandRoute}' is modeled but has no implementation.",
-                exitCode: 4,
-                hints: new[] { $"Next: meta help {invocation.CommandRoute}" });
+            exitCode = await handler(args).ConfigureAwait(false);
         }
         catch (XmlException exception)
         {
-            return PrintDataError("E_WORKSPACE_XML_INVALID", exception.Message);
+            exitCode = PrintDataError("E_WORKSPACE_XML_INVALID", exception.Message);
         }
         catch (InvalidDataException exception)
         {
-            return PrintDataError("E_WORKSPACE_INVALID", exception.Message);
+            exitCode = PrintDataError("E_WORKSPACE_INVALID", exception.Message);
         }
         catch (FileNotFoundException exception)
         {
-            return PrintDataError("E_FILE_NOT_FOUND", exception.Message);
+            exitCode = PrintDataError("E_FILE_NOT_FOUND", exception.Message);
         }
         catch (DirectoryNotFoundException exception)
         {
-            return PrintDataError("E_DIRECTORY_NOT_FOUND", exception.Message);
+            exitCode = PrintDataError("E_DIRECTORY_NOT_FOUND", exception.Message);
         }
         catch (UnauthorizedAccessException exception)
         {
-            return PrintDataError("E_IO", exception.Message);
+            exitCode = PrintDataError("E_IO", exception.Message);
         }
         catch (IOException exception)
         {
-            return PrintDataError("E_IO", exception.Message);
+            exitCode = PrintDataError("E_IO", exception.Message);
         }
         catch (ConnectionEnvironmentVariableException exception)
         {
-            return PrintArgumentError(exception.Message);
+            exitCode = PrintArgumentError(exception.Message);
         }
         catch (ArgumentException exception)
         {
             if (Regex.IsMatch(exception.Message, "illegal characters in path", RegexOptions.IgnoreCase))
             {
-                return PrintDataError("E_IO", exception.Message);
+                exitCode = PrintDataError("E_IO", exception.Message);
             }
-
-            return PrintArgumentError(exception.Message);
+            else
+            {
+                exitCode = PrintArgumentError(exception.Message);
+            }
         }
         catch (FormatException exception)
         {
-            return PrintArgumentError(exception.Message);
+            exitCode = PrintArgumentError(exception.Message);
         }
         catch (OverflowException exception)
         {
-            return PrintArgumentError(exception.Message);
+            exitCode = PrintArgumentError(exception.Message);
         }
         catch (NotSupportedException exception)
         {
-            return PrintDataError("E_NOT_SUPPORTED", exception.Message);
+            exitCode = PrintDataError("E_NOT_SUPPORTED", exception.Message);
         }
         catch (TimeoutException exception)
         {
-            return PrintDataError("E_TIMEOUT", exception.Message);
+            exitCode = PrintDataError("E_TIMEOUT", exception.Message);
         }
         catch (OperationCanceledException exception)
         {
-            return PrintDataError("E_CANCELLED", exception.Message);
+            exitCode = PrintDataError("E_CANCELLED", exception.Message);
         }
         catch (SqlException exception)
         {
-            return PrintDataError("E_SQL", exception.Message);
+            exitCode = PrintDataError("E_SQL", exception.Message);
         }
         catch (InvalidOperationException exception)
         {
-            return PrintDataError("E_OPERATION", exception.Message);
+            exitCode = PrintDataError("E_OPERATION", exception.Message);
         }
         catch (Exception exception)
         {
-            return PrintFormattedError(
+            exitCode = PrintFormattedError(
                 "E_INTERNAL",
                 NormalizeErrorMessage(exception.Message),
                 exitCode: 6,
                 hints: new[] { "Next: rerun the command and inspect the human-readable error details above." });
+        }
+
+        if (exitCode != 0)
+        {
+            throw new MetaCliExitException(exitCode);
         }
     }
 
