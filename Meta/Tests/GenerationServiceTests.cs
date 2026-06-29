@@ -142,6 +142,7 @@ public sealed class GenerationServiceTests
             Assert.Contains("public Task SaveToXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static {workspace.Model.Name}Model LoadFromXmlWorkspace(", modelCode, StringComparison.Ordinal);
             Assert.Contains($"public static Task<{workspace.Model.Name}Model> LoadFromXmlWorkspaceAsync(", modelCode, StringComparison.Ordinal);
+            Assert.Contains("bool searchUpward = false", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("HydrateReferences", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("PrepareForXmlSerialization", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain($"{workspace.Model.Name}ModelFactory", modelCode, StringComparison.Ordinal);
@@ -150,6 +151,9 @@ public sealed class GenerationServiceTests
             Assert.DoesNotContain("[XmlArray", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("[XmlArrayItem", modelCode, StringComparison.Ordinal);
             Assert.Contains($"{workspace.Model.Name}ModelXmlSerializer.Load(workspacePath, searchUpward)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("throw new NotSupportedException(\"Typed workspace loading does not search parent directories.", modelCode, StringComparison.Ordinal);
+            Assert.Contains($"TypedWorkspaceXmlSerializer.RequireWorkspace<{workspace.Model.Name}Model>(workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("DiscoverWorkspaceRoot", modelCode, StringComparison.Ordinal);
             Assert.Contains($"{workspace.Model.Name}ModelXmlSerializer.Save(this, workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.Contains("TypedWorkspaceXmlSerializer.SaveModel(model, workspacePath);", modelCode, StringComparison.Ordinal);
             Assert.Contains("private sealed class LoadIndexes", modelCode, StringComparison.Ordinal);
@@ -172,6 +176,9 @@ public sealed class GenerationServiceTests
             Assert.Contains($"public static class {workspace.Model.Name}Tooling", toolingCode, StringComparison.Ordinal);
             Assert.Contains($"public static {workspace.Model.Name}Model Load(", toolingCode, StringComparison.Ordinal);
             Assert.Contains($"public static Task<{workspace.Model.Name}Model> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static string CreateWorkspace(string workspacePath)", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static bool IsWorkspace(string workspacePath)", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("bool searchUpward = false", toolingCode, StringComparison.Ordinal);
             Assert.Contains($"public static void Save({workspace.Model.Name}Model model, string workspacePath)", toolingCode, StringComparison.Ordinal);
             Assert.Contains($"public static Task SaveAsync({workspace.Model.Name}Model model, string workspacePath,", toolingCode, StringComparison.Ordinal);
             Assert.DoesNotContain("LoadWorkspaceAsync", toolingCode, StringComparison.Ordinal);
@@ -257,6 +264,8 @@ public sealed class GenerationServiceTests
             Assert.Contains("public void SaveToXmlWorkspace(string workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("[XmlRoot", modelCode, StringComparison.Ordinal);
             Assert.Contains("ArchitectureModelXmlSerializer.Load(workspacePath, searchUpward)", modelCode, StringComparison.Ordinal);
+            Assert.Contains("TypedWorkspaceXmlSerializer.RequireWorkspace<ArchitectureModel>(workspacePath)", modelCode, StringComparison.Ordinal);
+            Assert.DoesNotContain("DiscoverWorkspaceRoot", modelCode, StringComparison.Ordinal);
             Assert.Contains("ArchitectureModelXmlSerializer.Save(this, workspacePath)", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
@@ -266,6 +275,8 @@ public sealed class GenerationServiceTests
             Assert.Contains("public static class ArchitectureTooling", toolingCode, StringComparison.Ordinal);
             Assert.Contains("public static ArchitectureModel Load(", toolingCode, StringComparison.Ordinal);
             Assert.Contains("public static Task<ArchitectureModel> LoadAsync(", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static string CreateWorkspace(string workspacePath)", toolingCode, StringComparison.Ordinal);
+            Assert.Contains("public static bool IsWorkspace(string workspacePath)", toolingCode, StringComparison.Ordinal);
             Assert.Contains("namespace Architecture", entityCode, StringComparison.Ordinal);
             Assert.Contains("public sealed class Architecture", entityCode, StringComparison.Ordinal);
         }

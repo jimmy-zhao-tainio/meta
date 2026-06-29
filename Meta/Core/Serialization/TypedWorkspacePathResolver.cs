@@ -11,32 +11,6 @@ internal static class TypedWorkspacePathResolver
     private const string DefaultModelFileRelativePath = "model.xml";
     private const string DefaultInstanceDirectoryRelativePath = "instances";
 
-    public static string DiscoverWorkspaceRoot(string inputPath)
-    {
-        var initialDirectory = Directory.Exists(inputPath)
-            ? inputPath
-            : Path.GetDirectoryName(Path.GetFullPath(inputPath)) ?? Path.GetFullPath(inputPath);
-        var current = Path.GetFullPath(initialDirectory);
-
-        while (!string.IsNullOrWhiteSpace(current))
-        {
-            if (LooksLikeWorkspaceRoot(current))
-            {
-                return current;
-            }
-
-            var parent = Directory.GetParent(current);
-            if (parent == null)
-            {
-                break;
-            }
-
-            current = parent.FullName;
-        }
-
-        return Path.GetFullPath(initialDirectory);
-    }
-
     public static string ResolveWorkspaceRootFromPath(string inputPath)
     {
         var fullPath = Path.GetFullPath(inputPath);
@@ -76,17 +50,6 @@ internal static class TypedWorkspacePathResolver
         var modelFilePath = Path.GetFullPath(Path.Combine(workspaceRootPath, normalizedRelativePath));
         EnsurePathUnderWorkspaceRoot(workspaceRootPath, modelFilePath, "ModelFilePath");
         return modelFilePath;
-    }
-
-    private static bool LooksLikeWorkspaceRoot(string workspaceRootPath)
-    {
-        if (File.Exists(Path.Combine(workspaceRootPath, WorkspaceXmlFileName)))
-        {
-            return true;
-        }
-
-        return File.Exists(Path.Combine(workspaceRootPath, Path.GetFileName(DefaultModelFileRelativePath))) ||
-               Directory.Exists(Path.Combine(workspaceRootPath, DefaultInstanceDirectoryRelativePath));
     }
 
     private static string ReadInstanceDirectoryRelativePath(string workspaceRootPath)

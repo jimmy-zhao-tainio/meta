@@ -10,11 +10,11 @@ public interface IMetaWorkspaceModel<TModel>
 
     static abstract TModel LoadFromXmlWorkspace(
         string workspacePath,
-        bool searchUpward = true);
+        bool searchUpward = false);
 
     static abstract Task<TModel> LoadFromXmlWorkspaceAsync(
         string workspacePath,
-        bool searchUpward = true,
+        bool searchUpward = false,
         CancellationToken cancellationToken = default);
 
     void SaveToXmlWorkspace(string workspacePath);

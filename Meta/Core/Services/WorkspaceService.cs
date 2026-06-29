@@ -40,7 +40,7 @@ public sealed class WorkspaceService : IWorkspaceService
 
     public Task<Workspace> LoadAsync(
         string workspaceRootPath,
-        bool searchUpward = true,
+        bool searchUpward = false,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -50,10 +50,13 @@ public sealed class WorkspaceService : IWorkspaceService
             throw new ArgumentException("Workspace path must not be empty.", nameof(workspaceRootPath));
         }
 
+        if (searchUpward)
+        {
+            throw new NotSupportedException("Workspace loading does not search parent directories. Pass an explicit workspace path.");
+        }
+
         var absoluteInputPath = Path.GetFullPath(workspaceRootPath);
-        var paths = searchUpward
-            ? DiscoverWorkspacePaths(absoluteInputPath)
-            : ResolveWorkspacePathsFromRoot(absoluteInputPath);
+        var paths = ResolveWorkspacePathsFromRoot(absoluteInputPath);
         for (var attempt = 0; ; attempt++)
         {
             try
@@ -230,40 +233,6 @@ public sealed class WorkspaceService : IWorkspaceService
         return Convert.ToHexString(hash).ToLowerInvariant();
     }
 
-    private static WorkspacePaths DiscoverWorkspacePaths(string inputPath)
-    {
-        var initialDirectory = Directory.Exists(inputPath)
-            ? inputPath
-            : Path.GetDirectoryName(inputPath) ?? inputPath;
-        var current = Path.GetFullPath(initialDirectory);
-
-        while (!string.IsNullOrWhiteSpace(current))
-        {
-            var workspaceXmlPath = Path.Combine(current, WorkspaceXmlFileName);
-
-            if (File.Exists(workspaceXmlPath))
-            {
-                return new WorkspacePaths(current, current);
-            }
-
-            if (HasRootLevelWorkspaceData(current))
-            {
-                return new WorkspacePaths(current, current);
-            }
-
-            var parent = Directory.GetParent(current);
-            if (parent == null)
-            {
-                break;
-            }
-
-            current = parent.FullName;
-        }
-
-        var fallbackRoot = Path.GetFullPath(initialDirectory);
-        return new WorkspacePaths(fallbackRoot, fallbackRoot);
-    }
-
     private static WorkspacePaths ResolveWorkspacePathsFromRoot(string inputPath)
     {
         var rootPath = Path.GetFullPath(inputPath);
@@ -277,12 +246,6 @@ public sealed class WorkspaceService : IWorkspaceService
         }
 
         return new WorkspacePaths(rootPath, rootPath);
-    }
-
-    private static bool HasRootLevelWorkspaceData(string workspaceRootPath)
-    {
-        return File.Exists(Path.Combine(workspaceRootPath, ModelFileName)) ||
-               Directory.Exists(Path.Combine(workspaceRootPath, DefaultInstanceDirectoryName));
     }
 
     private static bool ShouldRetryLoad(string workspaceRootPath)

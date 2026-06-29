@@ -17,20 +17,17 @@ public static class TypedWorkspaceXmlSerializer
     private static readonly object CacheLock = new();
     private static readonly Dictionary<Type, ModelMap> ModelMaps = new();
 
-    public static TModel Load<TModel>(string workspacePath, bool searchUpward = true)
+    public static TModel Load<TModel>(string workspacePath, bool searchUpward = false)
         where TModel : class, new()
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
-
-        var workspaceRootPath = searchUpward
-            ? DiscoverWorkspaceRoot(workspacePath)
-            : ResolveWorkspaceRootFromPath(workspacePath);
-        if (!Directory.Exists(workspaceRootPath))
+        if (searchUpward)
         {
-            throw new DirectoryNotFoundException($"Workspace '{workspaceRootPath}' was not found.");
+            throw new NotSupportedException("Typed workspace loading does not search parent directories. Pass an explicit workspace path.");
         }
 
         var modelMap = GetModelMap(typeof(TModel));
+        var workspaceRootPath = RequireWorkspace<TModel>(workspacePath);
         var model = new TModel();
         var instanceDirectoryPath = ResolveInstanceDirectoryPath(workspaceRootPath);
         if (!Directory.Exists(instanceDirectoryPath))
@@ -48,6 +45,57 @@ public static class TypedWorkspaceXmlSerializer
 
         ResolveReferences(model, modelMap, pendingRows);
         return model;
+    }
+
+    public static string CreateWorkspace<TModel>(string workspacePath)
+        where TModel : class, new()
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
+
+        var workspaceRootPath = Path.GetFullPath(workspacePath);
+        if (Directory.Exists(workspaceRootPath) && Directory.EnumerateFileSystemEntries(workspaceRootPath).Any())
+        {
+            throw new InvalidOperationException($"Target directory must be empty: {workspaceRootPath}");
+        }
+
+        SaveModel(new TModel(), workspaceRootPath);
+        return workspaceRootPath;
+    }
+
+    public static bool IsWorkspace<TModel>(string workspacePath)
+        where TModel : class, new()
+    {
+        if (string.IsNullOrWhiteSpace(workspacePath))
+        {
+            return false;
+        }
+
+        try
+        {
+            RequireWorkspace<TModel>(workspacePath);
+            return true;
+        }
+        catch (Exception exception) when (
+            exception is DirectoryNotFoundException or
+                FileNotFoundException or
+                InvalidDataException or
+                InvalidOperationException or
+                UnauthorizedAccessException or
+                XmlException)
+        {
+            return false;
+        }
+    }
+
+    public static string RequireWorkspace<TModel>(string workspacePath)
+        where TModel : class, new()
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
+
+        var workspaceRootPath = ResolveWorkspaceRootFromPath(workspacePath);
+        var modelMap = GetModelMap(typeof(TModel));
+        RequireExistingWorkspace(workspaceRootPath, modelMap);
+        return workspaceRootPath;
     }
 
     public static void Save<TModel>(TModel model, string workspacePath)
@@ -101,11 +149,6 @@ public static class TypedWorkspaceXmlSerializer
         SaveModelDocument(workspacePath, GetModelMap(typeof(TModel)));
     }
 
-    public static string DiscoverWorkspaceRoot(string inputPath)
-    {
-        return TypedWorkspacePathResolver.DiscoverWorkspaceRoot(inputPath);
-    }
-
     public static string ResolveWorkspaceRootFromPath(string inputPath)
     {
         return TypedWorkspacePathResolver.ResolveWorkspaceRootFromPath(inputPath);
@@ -143,6 +186,34 @@ public static class TypedWorkspaceXmlSerializer
             }
 
             return modelMap;
+        }
+    }
+
+    private static void RequireExistingWorkspace(string workspaceRootPath, ModelMap modelMap)
+    {
+        if (!Directory.Exists(workspaceRootPath))
+        {
+            throw new DirectoryNotFoundException($"Workspace '{workspaceRootPath}' was not found.");
+        }
+
+        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
+        if (!File.Exists(workspaceXmlPath))
+        {
+            throw new InvalidDataException($"Workspace '{workspaceRootPath}' does not contain {WorkspaceXmlFileName}.");
+        }
+
+        var modelPath = TypedWorkspacePathResolver.ResolveModelFilePath(workspaceRootPath);
+        if (!File.Exists(modelPath))
+        {
+            throw new FileNotFoundException($"Workspace '{workspaceRootPath}' does not contain model file '{modelPath}'.", modelPath);
+        }
+
+        var document = XDocument.Load(modelPath, LoadOptions.None);
+        var modelName = document.Root?.Attribute("name")?.Value?.Trim();
+        if (!string.Equals(modelName, modelMap.RootElementName, StringComparison.Ordinal))
+        {
+            throw new InvalidDataException(
+                $"Workspace '{workspaceRootPath}' contained model '{modelName ?? string.Empty}', not '{modelMap.RootElementName}'.");
         }
     }
 

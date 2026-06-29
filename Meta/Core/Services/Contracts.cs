@@ -10,7 +10,7 @@ public interface IWorkspaceService
 {
     Task<Workspace> LoadAsync(
         string workspaceRootPath,
-        bool searchUpward = true,
+        bool searchUpward = false,
         CancellationToken cancellationToken = default);
     Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default);
     Task SaveAsync(Workspace workspace, string? expectedFingerprint, CancellationToken cancellationToken = default);

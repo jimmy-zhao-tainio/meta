@@ -73,7 +73,7 @@ public sealed class MetaCliRuntime<TModel>
 
         try
         {
-            model = MetaCliModel.LoadFromXmlWorkspace(commandWorkspacePath, searchUpward: false);
+            model = MetaCliModel.LoadFromXmlWorkspace(commandWorkspacePath);
         }
         catch (Exception exception)
         {
@@ -110,7 +110,7 @@ public sealed class MetaCliRuntime<TModel>
             if (handler.WorkspaceHandler is not null)
             {
                 var workspacePath = ResolveWorkspacePath(invocation);
-                var domainModel = TModel.LoadFromXmlWorkspace(workspacePath, searchUpward: false);
+                var domainModel = TModel.LoadFromXmlWorkspace(workspacePath);
                 handler.WorkspaceHandler(invocation, domainModel);
             }
             else

@@ -18,7 +18,7 @@ internal sealed partial class CliRuntime
     async Task<Workspace> LoadWorkspaceForCommandAsync(string workspacePath)
     {
         return await services.WorkspaceService
-            .LoadAsync(workspacePath, searchUpward: !HasWorkspaceOverrideInInvocation())
+            .LoadAsync(workspacePath)
             .ConfigureAwait(false);
     }
 
@@ -128,7 +128,7 @@ internal sealed partial class CliRuntime
         {
             var path = ResolveWorkspacePathForHints();
             return services.WorkspaceService
-                .LoadAsync(path, searchUpward: !HasWorkspaceOverrideInInvocation())
+                .LoadAsync(path)
                 .GetAwaiter()
                 .GetResult();
         }

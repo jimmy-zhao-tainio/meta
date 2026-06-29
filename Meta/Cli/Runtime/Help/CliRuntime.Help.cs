@@ -133,7 +133,7 @@ internal sealed partial class CliRuntime
 
         try
         {
-            commandSurfaceModel = MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath, searchUpward: false);
+            commandSurfaceModel = MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath);
             return commandSurfaceModel;
         }
         catch

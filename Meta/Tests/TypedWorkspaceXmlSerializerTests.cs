@@ -103,11 +103,101 @@ public sealed class TypedWorkspaceXmlSerializerTests
             var splitShardPath = Path.Combine(instancePath, "Alpha.part-a.xml");
             File.Move(canonicalShardPath, splitShardPath);
 
-            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath, searchUpward: false);
+            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);
 
             var row = Assert.Single(loaded.AlphaList);
             Assert.Equal("1", row.Id);
             Assert.Equal("One", row.Name);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
+    public void Load_DoesNotSearchUpward()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath);
+            var childPath = Path.Combine(workspacePath, "child");
+            Directory.CreateDirectory(childPath);
+
+            var exception = Assert.Throws<NotSupportedException>(
+                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(childPath, searchUpward: true));
+
+            Assert.Contains("does not search parent directories", exception.Message, StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
+    public void Load_RequiresExistingWorkspace()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "not-a-workspace");
+            Directory.CreateDirectory(workspacePath);
+
+            var exception = Assert.Throws<InvalidDataException>(
+                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath));
+
+            Assert.Contains("workspace.xml", exception.Message, StringComparison.Ordinal);
+            Assert.Empty(Directory.EnumerateFileSystemEntries(workspacePath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
+    public void IsWorkspace_RequiresMatchingModel()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath);
+            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
+
+            var emptyPath = Path.Combine(tempRoot, "empty");
+            Directory.CreateDirectory(emptyPath);
+            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(emptyPath));
+
+            File.WriteAllText(Path.Combine(workspacePath, "model.xml"), "<model name=\"OtherModel\" />");
+            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
+    public void CreateWorkspace_CreatesEmptyWorkspace()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+
+            var createdPath = TypedWorkspaceXmlSerializer.CreateWorkspace<TestTypedModel>(workspacePath);
+
+            Assert.Equal(Path.GetFullPath(workspacePath), createdPath);
+            Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(workspacePath, "model.xml")));
+            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
+            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);
+            Assert.Empty(loaded.AlphaList);
+            Assert.Empty(loaded.BetaList);
         }
         finally
         {

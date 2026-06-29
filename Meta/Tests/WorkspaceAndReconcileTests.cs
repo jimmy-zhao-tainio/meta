@@ -223,7 +223,7 @@ public sealed class WorkspaceServiceTests
     }
 
     [Fact]
-    public async Task Load_DiscoversWorkspaceRoot_FromNestedDirectory()
+    public async Task Load_DoesNotDiscoverWorkspaceRoot_FromNestedDirectory()
     {
         var services = new ServiceCollection();
         var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
@@ -234,9 +234,12 @@ public sealed class WorkspaceServiceTests
             var nestedPath = Path.Combine(tempRoot, "a", "b", "c");
             Directory.CreateDirectory(nestedPath);
 
-            var discovered = await services.WorkspaceService.LoadAsync(nestedPath);
-            Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(discovered.WorkspaceRootPath));
-            Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(discovered.MetadataRootPath));
+            await Assert.ThrowsAsync<FileNotFoundException>(async () =>
+                await services.WorkspaceService.LoadAsync(nestedPath));
+
+            var exception = await Assert.ThrowsAsync<NotSupportedException>(async () =>
+                await services.WorkspaceService.LoadAsync(nestedPath, searchUpward: true));
+            Assert.Contains("does not search parent directories", exception.Message, StringComparison.Ordinal);
         }
         finally
         {

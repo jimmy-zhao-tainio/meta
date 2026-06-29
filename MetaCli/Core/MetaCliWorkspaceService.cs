@@ -93,7 +93,7 @@ public sealed class MetaCliWorkspaceService
     }
 
     public MetaCliModel Load(string? workspacePath) =>
-        MetaCliModel.LoadFromXmlWorkspace(ResolveWorkspacePath(workspacePath), searchUpward: false);
+        MetaCliModel.LoadFromXmlWorkspace(ResolveWorkspacePath(workspacePath));
 
     public void Save(MetaCliModel model, string? workspacePath)
     {
