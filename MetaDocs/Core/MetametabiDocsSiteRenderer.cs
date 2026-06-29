@@ -501,7 +501,7 @@ public sealed class MetametabiDocsSiteRenderer
                 .Append(Html(description))
                 .AppendLine("</td>");
             builder.Append("                      <td>")
-                .Append(Html(FindFact(model, option, "Cli", "ValueName")))
+                .Append(Html(OptionValueDetails(model, option)))
                 .AppendLine("</td>");
             builder.Append("                      <td>")
                 .Append(Html(IsRequiredOption(description)))
@@ -512,6 +512,20 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("                  </tbody>");
         builder.AppendLine("                </table>");
         builder.AppendLine("              </section>");
+    }
+
+    private static string OptionValueDetails(MetaDocsModel model, DocumentationSubject option)
+    {
+        var valueName = FindFact(model, option, "Cli", "ValueName");
+        var allowedValues = FindFact(model, option, "Cli", "AllowedValues");
+        if (string.IsNullOrWhiteSpace(allowedValues))
+        {
+            return valueName;
+        }
+
+        return string.IsNullOrWhiteSpace(valueName)
+            ? allowedValues
+            : $"{valueName}: {allowedValues}";
     }
 
     private static void AppendModelPanel(
@@ -587,9 +601,13 @@ public sealed class MetametabiDocsSiteRenderer
         builder.Append("            <h2>")
             .Append(Html(name))
             .AppendLine("</h2>");
-        builder.Append("            <p class=\"panel-lead\">")
-            .Append(Html(summary))
-            .AppendLine("</p>");
+        if (!string.IsNullOrWhiteSpace(summary))
+        {
+            builder.Append("            <p class=\"panel-lead\">")
+                .Append(Html(summary))
+                .AppendLine("</p>");
+        }
+
         builder.AppendLine("          </header>");
     }
 

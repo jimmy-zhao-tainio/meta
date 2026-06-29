@@ -4,6 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app">
       <Body>`meta-analytics` owns common analytics concepts that can be realized through target-specific tabular or multidimensional models.</Body>
       <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -12,9 +13,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:new-workspace">
-      <Body>Create an empty MetaAnalytics workspace.</Body>
+      <Body>Create a MetaAnalytics workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -36,7 +37,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
       <Body>Declare a base measure aggregate function.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -45,9 +46,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -56,9 +57,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id">
-      <Body>Required. AggregationBehavior row id.</Body>
+      <Body>AggregationBehavior row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,9 +68,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function">
-      <Body>Required. Function.</Body>
+      <Body>Aggregate function.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -78,9 +79,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -89,9 +90,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure">
-      <Body>Required. Measure id for MeasureId.</Body>
+      <Body>Measure id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -102,7 +103,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute">
       <Body>Add a typed table attribute or calculated attribute.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -111,9 +112,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -122,9 +123,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:id">
-      <Body>Required. Attribute row id.</Body>
+      <Body>Attribute row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -133,9 +134,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Attribute name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -144,9 +145,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:data-type-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:data-type-id">
-      <Body>Required. DataTypeId.</Body>
+      <Body>Data type id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -155,9 +156,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:ordinal">
-      <Body>Optional. Ordinal.</Body>
+      <Body>Attribute ordinal.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -166,9 +167,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:kind">
-      <Body>Optional. Kind.</Body>
+      <Body>Attribute kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -177,9 +178,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:source-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:source-name">
-      <Body>Optional. SourceName.</Body>
+      <Body>Source column name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -188,9 +189,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:expression-language:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression-language">
-      <Body>Optional. ExpressionLanguage.</Body>
+      <Body>Expression language.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -199,9 +200,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression">
-      <Body>Optional. Expression.</Body>
+      <Body>Expression.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -210,9 +211,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-key:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-key">
-      <Body>Optional. IsKey.</Body>
+      <Body>Whether the attribute is a key.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -221,9 +222,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-nullable:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-nullable">
-      <Body>Optional. IsNullable.</Body>
+      <Body>Whether the attribute is nullable.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -232,9 +233,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-hidden">
-      <Body>Optional. IsHidden.</Body>
+      <Body>Whether the attribute is hidden.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -243,9 +244,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:format-string:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:format-string">
-      <Body>Optional. FormatString.</Body>
+      <Body>Format string.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -254,9 +255,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:summarize-by:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:summarize-by">
-      <Body>Optional. SummarizeBy.</Body>
+      <Body>Summarize by.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -265,9 +266,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:data-category:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:data-category">
-      <Body>Optional. DataCategory.</Body>
+      <Body>Data category.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -276,9 +277,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -287,9 +288,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -300,7 +301,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission">
       <Body>Add object-level security for an attribute.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -309,9 +310,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -320,9 +321,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:id">
-      <Body>Required. AttributePermission row id.</Body>
+      <Body>AttributePermission row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -331,9 +332,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:metadata-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:metadata-permission">
-      <Body>Required. MetadataPermission.</Body>
+      <Body>Metadata permission.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -342,9 +343,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -353,9 +354,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:role">
-      <Body>Required. SecurityRole id for SecurityRoleId.</Body>
+      <Body>SecurityRole id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -364,9 +365,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:attribute">
-      <Body>Required. Attribute id for AttributeId.</Body>
+      <Body>Attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -377,7 +378,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship">
       <Body>Declare an attribute relationship inside a table.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -386,9 +387,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -397,9 +398,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:id">
-      <Body>Required. AttributeRelationship row id.</Body>
+      <Body>AttributeRelationship row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -408,9 +409,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:relationship-type:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:relationship-type">
-      <Body>Optional. RelationshipType.</Body>
+      <Body>Relationship type.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -419,9 +420,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -430,9 +431,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:child-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:child-attribute">
-      <Body>Required. Attribute id for ChildAttributeId.</Body>
+      <Body>Child attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -441,9 +442,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:parent-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:parent-attribute">
-      <Body>Required. Attribute id for ParentAttributeId.</Body>
+      <Body>Parent attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -454,7 +455,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation">
       <Body>Translate attribute metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -463,9 +464,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -474,9 +475,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:id">
-      <Body>Required. AttributeTranslation row id.</Body>
+      <Body>AttributeTranslation row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -485,9 +486,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:caption">
-      <Body>Optional. Caption.</Body>
+      <Body>Caption.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -496,9 +497,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -507,9 +508,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:culture">
-      <Body>Required. Culture id for CultureId.</Body>
+      <Body>Culture id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -518,9 +519,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:attribute">
-      <Body>Required. Attribute id for AttributeId.</Body>
+      <Body>Attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -531,7 +532,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture">
       <Body>Add a model culture.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -540,9 +541,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -551,9 +552,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:id">
-      <Body>Required. Culture row id.</Body>
+      <Body>Culture row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -562,9 +563,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Culture name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -573,9 +574,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -584,9 +585,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:model">
-      <Body>Required. AnalyticsModel id for AnalyticsModelId.</Body>
+      <Body>AnalyticsModel id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -597,7 +598,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source">
       <Body>Add an analytics source declaration.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -606,9 +607,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -617,9 +618,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:id">
-      <Body>Required. DataSource row id.</Body>
+      <Body>DataSource row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -628,9 +629,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Data source name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -639,9 +640,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:provider:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:provider">
-      <Body>Optional. Provider.</Body>
+      <Body>Provider name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -650,9 +651,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:connection-reference:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:connection-reference">
-      <Body>Optional. ConnectionReference.</Body>
+      <Body>Connection reference.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -661,9 +662,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:source-kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:source-kind">
-      <Body>Optional. SourceKind.</Body>
+      <Body>Source kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -672,9 +673,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -683,9 +684,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:model">
-      <Body>Required. AnalyticsModel id for AnalyticsModelId.</Body>
+      <Body>AnalyticsModel id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -696,7 +697,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy">
       <Body>Add a hierarchy.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -705,9 +706,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -716,9 +717,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:id">
-      <Body>Required. Hierarchy row id.</Body>
+      <Body>Hierarchy row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -727,9 +728,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Hierarchy name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -738,9 +739,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:kind">
-      <Body>Optional. Kind.</Body>
+      <Body>Hierarchy kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -749,9 +750,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:is-hidden">
-      <Body>Optional. IsHidden.</Body>
+      <Body>Whether the hierarchy is hidden.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -760,9 +761,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:display-folder:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:display-folder">
-      <Body>Optional. DisplayFolder.</Body>
+      <Body>Display folder.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -771,9 +772,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -782,9 +783,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -795,7 +796,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level">
       <Body>Add an ordered hierarchy level.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -804,9 +805,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -815,9 +816,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:id">
-      <Body>Required. HierarchyLevel row id.</Body>
+      <Body>HierarchyLevel row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -826,9 +827,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Level name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -837,9 +838,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:ordinal:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:ordinal">
-      <Body>Optional. Ordinal.</Body>
+      <Body>Hierarchy level ordinal.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -848,9 +849,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:hierarchy">
-      <Body>Required. Hierarchy id for HierarchyId.</Body>
+      <Body>Hierarchy id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -859,9 +860,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:attribute">
-      <Body>Required. Attribute id for AttributeId.</Body>
+      <Body>Attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -872,7 +873,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation">
       <Body>Translate hierarchy metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -881,9 +882,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -892,9 +893,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:id">
-      <Body>Required. HierarchyTranslation row id.</Body>
+      <Body>HierarchyTranslation row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -903,9 +904,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:caption">
-      <Body>Optional. Caption.</Body>
+      <Body>Caption.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -914,9 +915,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -925,9 +926,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:culture">
-      <Body>Required. Culture id for CultureId.</Body>
+      <Body>Culture id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -936,9 +937,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:hierarchy">
-      <Body>Required. Hierarchy id for HierarchyId.</Body>
+      <Body>Hierarchy id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -949,7 +950,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure">
       <Body>Add a source-backed base measure.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -958,9 +959,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -969,9 +970,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:id">
-      <Body>Required. Measure row id.</Body>
+      <Body>Measure row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -980,9 +981,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Measure name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -991,9 +992,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:data-type-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:data-type-id">
-      <Body>Optional. DataTypeId.</Body>
+      <Body>Data type id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1002,9 +1003,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:format-string:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:format-string">
-      <Body>Optional. FormatString.</Body>
+      <Body>Format string.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1013,9 +1014,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:display-folder:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:display-folder">
-      <Body>Optional. DisplayFolder.</Body>
+      <Body>Display folder.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1024,9 +1025,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:is-hidden">
-      <Body>Optional. IsHidden.</Body>
+      <Body>Whether the measure is hidden.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1035,9 +1036,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1046,9 +1047,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1057,9 +1058,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:source-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:source-attribute">
-      <Body>Required. Attribute id for SourceAttributeId.</Body>
+      <Body>Source attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1070,7 +1071,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation">
       <Body>Translate measure metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1079,9 +1080,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1090,9 +1091,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:id">
-      <Body>Required. MeasureTranslation row id.</Body>
+      <Body>MeasureTranslation row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1101,9 +1102,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:caption">
-      <Body>Optional. Caption.</Body>
+      <Body>Caption.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1112,9 +1113,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1123,9 +1124,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:culture">
-      <Body>Required. Culture id for CultureId.</Body>
+      <Body>Culture id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1134,9 +1135,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:measure">
-      <Body>Required. Measure id for MeasureId.</Body>
+      <Body>Measure id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1147,7 +1148,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model">
       <Body>Add an analytics model.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1156,9 +1157,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1167,9 +1168,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:id">
-      <Body>Required. AnalyticsModel row id.</Body>
+      <Body>AnalyticsModel row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1178,9 +1179,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Analytics model name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1189,9 +1190,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:default-culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:default-culture">
-      <Body>Optional. DefaultCulture.</Body>
+      <Body>Default culture.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1200,9 +1201,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1213,7 +1214,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective">
       <Body>Add a perspective.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1222,9 +1223,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1233,9 +1234,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:id">
-      <Body>Required. Perspective row id.</Body>
+      <Body>Perspective row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1244,9 +1245,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Perspective name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1255,9 +1256,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1266,9 +1267,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:model">
-      <Body>Required. AnalyticsModel id for AnalyticsModelId.</Body>
+      <Body>AnalyticsModel id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1279,7 +1280,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute">
       <Body>Expose an attribute in a perspective.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1288,9 +1289,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1299,9 +1300,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:id">
-      <Body>Required. PerspectiveAttribute row id.</Body>
+      <Body>PerspectiveAttribute row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1310,9 +1311,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:perspective">
-      <Body>Required. Perspective id for PerspectiveId.</Body>
+      <Body>Perspective id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1321,9 +1322,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:attribute">
-      <Body>Required. Attribute id for AttributeId.</Body>
+      <Body>Attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1334,7 +1335,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy">
       <Body>Expose a hierarchy in a perspective.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1343,9 +1344,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1354,9 +1355,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:id">
-      <Body>Required. PerspectiveHierarchy row id.</Body>
+      <Body>PerspectiveHierarchy row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1365,9 +1366,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:perspective">
-      <Body>Required. Perspective id for PerspectiveId.</Body>
+      <Body>Perspective id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1376,9 +1377,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:hierarchy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:hierarchy">
-      <Body>Required. Hierarchy id for HierarchyId.</Body>
+      <Body>Hierarchy id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1389,7 +1390,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure">
       <Body>Expose a measure in a perspective.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1398,9 +1399,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1409,9 +1410,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:id">
-      <Body>Required. PerspectiveMeasure row id.</Body>
+      <Body>PerspectiveMeasure row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1420,9 +1421,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:perspective">
-      <Body>Required. Perspective id for PerspectiveId.</Body>
+      <Body>Perspective id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1431,9 +1432,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:measure:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:measure">
-      <Body>Required. Measure id for MeasureId.</Body>
+      <Body>Measure id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1444,7 +1445,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table">
       <Body>Expose a table in a perspective.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1453,9 +1454,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1464,9 +1465,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:id">
-      <Body>Required. PerspectiveTable row id.</Body>
+      <Body>PerspectiveTable row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1475,9 +1476,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:perspective">
-      <Body>Required. Perspective id for PerspectiveId.</Body>
+      <Body>Perspective id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1486,9 +1487,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1499,7 +1500,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation">
       <Body>Translate perspective metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1508,9 +1509,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1519,9 +1520,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:id">
-      <Body>Required. PerspectiveTranslation row id.</Body>
+      <Body>PerspectiveTranslation row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1530,9 +1531,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:caption">
-      <Body>Optional. Caption.</Body>
+      <Body>Caption.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1541,9 +1542,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1552,9 +1553,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:culture">
-      <Body>Required. Culture id for CultureId.</Body>
+      <Body>Culture id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1563,9 +1564,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:perspective:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:perspective">
-      <Body>Required. Perspective id for PerspectiveId.</Body>
+      <Body>Perspective id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1576,7 +1577,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship">
       <Body>Add a relationship between analytics tables.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1585,9 +1586,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1596,9 +1597,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:id">
-      <Body>Required. Relationship row id.</Body>
+      <Body>Relationship row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1607,9 +1608,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Relationship name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1618,9 +1619,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:role-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:role-name">
-      <Body>Optional. RoleName.</Body>
+      <Body>Role name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1629,9 +1630,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:relationship-kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:relationship-kind">
-      <Body>Required. RelationshipKind.</Body>
+      <Body>Relationship kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1640,9 +1641,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:cardinality:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:cardinality">
-      <Body>Required. Cardinality.</Body>
+      <Body>Cardinality.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1651,9 +1652,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:cross-filter-direction:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:cross-filter-direction">
-      <Body>Optional. CrossFilterDirection.</Body>
+      <Body>Cross-filter direction.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1662,9 +1663,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:is-active:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:is-active">
-      <Body>Optional. IsActive.</Body>
+      <Body>Whether the relationship is active.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1673,9 +1674,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:is-required:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:is-required">
-      <Body>Optional. IsRequired.</Body>
+      <Body>Whether the relationship is required.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1684,9 +1685,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1695,9 +1696,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:from-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:from-table">
-      <Body>Required. Table id for FromTableId.</Body>
+      <Body>From table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1706,9 +1707,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:from-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:from-attribute">
-      <Body>Required. Attribute id for FromAttributeId.</Body>
+      <Body>From attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1717,9 +1718,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:to-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:to-table">
-      <Body>Required. Table id for ToTableId.</Body>
+      <Body>To table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1728,9 +1729,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:to-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:to-attribute">
-      <Body>Required. Attribute id for ToAttributeId.</Body>
+      <Body>To attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1739,9 +1740,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:granularity-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:granularity-attribute">
-      <Body>Optional. Attribute id for GranularityAttributeId.</Body>
+      <Body>Granularity attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1750,9 +1751,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:intermediate-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:intermediate-table">
-      <Body>Optional. Table id for IntermediateTableId.</Body>
+      <Body>Intermediate table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1763,7 +1764,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter">
       <Body>Add row-level security over a table.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1772,9 +1773,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1783,9 +1784,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:id">
-      <Body>Required. RoleFilter row id.</Body>
+      <Body>RoleFilter row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1794,9 +1795,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language">
-      <Body>Required. ExpressionLanguage.</Body>
+      <Body>Expression language.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1805,9 +1806,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression">
-      <Body>Required. Expression.</Body>
+      <Body>Expression.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1816,9 +1817,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1827,9 +1828,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:role">
-      <Body>Required. SecurityRole id for SecurityRoleId.</Body>
+      <Body>SecurityRole id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1838,9 +1839,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1851,7 +1852,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member">
       <Body>Add a member to a security role.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1860,9 +1861,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1871,9 +1872,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:id">
-      <Body>Required. RoleMember row id.</Body>
+      <Body>RoleMember row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1882,9 +1883,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:member-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:member-name">
-      <Body>Required. MemberName.</Body>
+      <Body>Member name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1893,9 +1894,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:member-kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:member-kind">
-      <Body>Optional. MemberKind.</Body>
+      <Body>Member kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1904,9 +1905,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:role">
-      <Body>Required. SecurityRole id for SecurityRoleId.</Body>
+      <Body>SecurityRole id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1917,7 +1918,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role">
       <Body>Add a security role.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1926,9 +1927,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1937,9 +1938,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:id">
-      <Body>Required. SecurityRole row id.</Body>
+      <Body>SecurityRole row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1948,9 +1949,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Security role name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1959,9 +1960,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:permission">
-      <Body>Required. Permission.</Body>
+      <Body>Permission.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1970,9 +1971,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1981,9 +1982,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:model">
-      <Body>Required. AnalyticsModel id for AnalyticsModelId.</Body>
+      <Body>AnalyticsModel id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1994,7 +1995,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute">
       <Body>Declare one attribute as the sort key for another.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2003,9 +2004,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2014,9 +2015,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:id">
-      <Body>Required. SortByAttribute row id.</Body>
+      <Body>SortByAttribute row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2025,9 +2026,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2036,9 +2037,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:source-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:source-attribute">
-      <Body>Required. Attribute id for SourceAttributeId.</Body>
+      <Body>Source attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2047,9 +2048,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:sort-attribute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:sort-attribute">
-      <Body>Required. Attribute id for SortAttributeId.</Body>
+      <Body>Sort attribute id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2060,7 +2061,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table">
       <Body>Add an analytics table.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2069,9 +2070,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2080,9 +2081,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:id">
-      <Body>Required. Table row id.</Body>
+      <Body>Table row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2091,9 +2092,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:name">
-      <Body>Required. Name.</Body>
+      <Body>Table name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2102,9 +2103,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:kind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:kind">
-      <Body>Required. Kind.</Body>
+      <Body>Table kind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2113,9 +2114,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:data-category:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:data-category">
-      <Body>Optional. DataCategory.</Body>
+      <Body>Data category.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2124,9 +2125,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:is-hidden:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:is-hidden">
-      <Body>Optional. IsHidden.</Body>
+      <Body>Whether the table is hidden.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2135,9 +2136,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:display-folder:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:display-folder">
-      <Body>Optional. DisplayFolder.</Body>
+      <Body>Display folder.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2146,9 +2147,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2157,9 +2158,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:model">
-      <Body>Required. AnalyticsModel id for AnalyticsModelId.</Body>
+      <Body>AnalyticsModel id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2170,7 +2171,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission">
       <Body>Add object-level security for a table.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2179,9 +2180,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2190,9 +2191,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:id">
-      <Body>Required. TablePermission row id.</Body>
+      <Body>TablePermission row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2201,9 +2202,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:metadata-permission:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:metadata-permission">
-      <Body>Required. MetadataPermission.</Body>
+      <Body>Metadata permission.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2212,9 +2213,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2223,9 +2224,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:role">
-      <Body>Required. SecurityRole id for SecurityRoleId.</Body>
+      <Body>SecurityRole id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2234,9 +2235,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2247,7 +2248,7 @@
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation">
       <Body>Translate table metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2256,9 +2257,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:workspace">
-      <Body>Optional. Workspace path. Default: current working directory.</Body>
+      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2267,9 +2268,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:id">
-      <Body>Required. TableTranslation row id.</Body>
+      <Body>TableTranslation row id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2278,9 +2279,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:caption:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:caption">
-      <Body>Optional. Caption.</Body>
+      <Body>Caption.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2289,9 +2290,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:description">
-      <Body>Optional. Description.</Body>
+      <Body>Description.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2300,9 +2301,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:culture:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:culture">
-      <Body>Required. Culture id for CultureId.</Body>
+      <Body>Culture id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -2311,14 +2312,25 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:table">
-      <Body>Required. Table id for TableId.</Body>
+      <Body>Table id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260608145056846</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta-analytics:app:command:add-table-translation:option:table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-analytics:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260629214431025</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-analytics:app:command:help</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="source:cli:meta-mesh:app" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh</DisplayName>
+      <DisplayPath>meta-mesh</DisplayPath>
+      <Key>source:cli:meta-mesh:app</Key>
+      <Kind>CliApplication</Kind>
+      <NativeId>app-meta-mesh</NativeId>
+      <NativeKind>MetaCli.Application</NativeKind>
+      <Ordinal>040</Ordinal>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:check" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh check</DisplayName>
+      <DisplayPath>meta-mesh check</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:check</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-check</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Inspect mounted paths and modeled links in a MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh check --workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:check:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-check-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:check</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh help</DisplayName>
+      <DisplayPath>meta-mesh help</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:help</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-help</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:impact" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh impact</DisplayName>
+      <DisplayPath>meta-mesh impact</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:impact</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-impact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Walk modeled workspace links from one handle.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:impact:option:handle" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--handle</DisplayName>
+      <DisplayPath>meta-mesh impact --handle</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:impact:option:handle</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-impact-handle</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:impact</ParentKey>
+      <Status>Current</Status>
+      <Summary>Logical workspace handle to start from.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:impact:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh impact --workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:impact:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-impact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:impact</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:link" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh link</DisplayName>
+      <DisplayPath>meta-mesh link</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:link</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-link</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Add or update a modeled link between two workspace handles.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:link:option:from" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--from</DisplayName>
+      <DisplayPath>meta-mesh link --from</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:link:option:from</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-link-from</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:link</ParentKey>
+      <Status>Current</Status>
+      <Summary>Source workspace handle.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:link:option:kind" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--kind</DisplayName>
+      <DisplayPath>meta-mesh link --kind</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:link:option:kind</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-link-kind</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:link</ParentKey>
+      <Status>Current</Status>
+      <Summary>Link kind.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:link:option:to" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--to</DisplayName>
+      <DisplayPath>meta-mesh link --to</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:link:option:to</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-link-to</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:link</ParentKey>
+      <Status>Current</Status>
+      <Summary>Target workspace handle.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:link:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh link --workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:link:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-link-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:link</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:mount" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh mount</DisplayName>
+      <DisplayPath>meta-mesh mount</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:mount</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-mount</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Mount or update a workspace path under a stable handle.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:mount:option:handle" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--handle</DisplayName>
+      <DisplayPath>meta-mesh mount --handle</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:mount:option:handle</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-mount-handle</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:mount</ParentKey>
+      <Status>Current</Status>
+      <Summary>Logical workspace handle.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:mount:option:path" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--path</DisplayName>
+      <DisplayPath>meta-mesh mount --path</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:mount:option:path</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-mount-path</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:mount</ParentKey>
+      <Status>Current</Status>
+      <Summary>Physical workspace path to mount.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:mount:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh mount --workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:mount:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-mount-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:mount</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh new-workspace</DisplayName>
+      <DisplayPath>meta-mesh new-workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:new-workspace</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-new-workspace</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create an empty MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --name</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:new-workspace:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-new-workspace-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional mesh display name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>&lt;path&gt;</DisplayName>
+      <DisplayPath>meta-mesh new-workspace &lt;path&gt;</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:new-workspace:argument:path</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-new-workspace-path</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Empty target directory for the MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:scan" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh scan</DisplayName>
+      <DisplayPath>meta-mesh scan</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:scan</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-scan</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Scan a root folder and create a MetaMesh workspace from discovered meta workspaces.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:scan:option:name" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh scan --name</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:scan:option:name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-scan-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:scan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional mesh display name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:scan:option:new-workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta-mesh scan --new-workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:scan:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-scan-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:scan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Empty target directory for the generated MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:scan:argument:root" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>&lt;root&gt;</DisplayName>
+      <DisplayPath>meta-mesh scan &lt;root&gt;</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:scan:argument:root</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-scan-root</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:scan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Folder to scan for meta workspaces.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh show</DisplayName>
+      <DisplayPath>meta-mesh show</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:show</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-show</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show a MetaMesh workspace map.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh show --workspace</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:show:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-show-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:show</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:suggest" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>meta-mesh suggest</DisplayName>
+      <DisplayPath>meta-mesh suggest</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:suggest</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-suggest</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Suggest logical workspace handles from a root folder without applying changes.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:suggest:argument:root" DocumentationSourceId="source:cli:meta-mesh">
+      <DisplayName>&lt;root&gt;</DisplayName>
+      <DisplayPath>meta-mesh suggest &lt;root&gt;</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:suggest:argument:root</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-suggest-root</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-mesh:app:command:suggest</ParentKey>
+      <Status>Current</Status>
+      <Summary>Folder to scan for suggestions.</Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

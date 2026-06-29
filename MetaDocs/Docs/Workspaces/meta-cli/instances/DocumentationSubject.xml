@@ -6,8 +6,8 @@
       <DisplayPath>meta</DisplayPath>
       <Key>source:cli:meta:app</Key>
       <Kind>CliApplication</Kind>
-      <NativeId>meta</NativeId>
-      <NativeKind>CliAppDefinition</NativeKind>
+      <NativeId>app-meta</NativeId>
+      <NativeKind>MetaCli.Application</NativeKind>
       <Ordinal>010</Ordinal>
       <Status>Current</Status>
       <Summary>`meta` is the core workspace CLI for creating, inspecting, editing, comparing, and maintaining modeled metadata.</Summary>
@@ -17,72 +17,67 @@
       <DisplayPath>meta bulk-insert</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>bulk-insert</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
+      <NativeId>exec-bulk-insert</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Bulk insert instances from tsv/csv input. Use --auto-id only for new rows whose source data does not carry an external Id.</Summary>
+      <Summary>Insert many instances from tsv/csv input.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:from" DocumentationSourceId="source:cli:meta">
       <DisplayName>--from</DisplayName>
       <DisplayPath>meta bulk-insert --from</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert:option:from</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--from</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-bulk-insert-from</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Input format.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:file" DocumentationSourceId="source:cli:meta">
       <DisplayName>--file</DisplayName>
       <DisplayPath>meta bulk-insert --file</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert:option:file</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--file</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-bulk-insert-file</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Input file.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:stdin" DocumentationSourceId="source:cli:meta">
       <DisplayName>--stdin</DisplayName>
       <DisplayPath>meta bulk-insert --stdin</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert:option:stdin</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--stdin</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-bulk-insert-stdin</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Read input from stdin.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:key" DocumentationSourceId="source:cli:meta">
       <DisplayName>--key</DisplayName>
       <DisplayPath>meta bulk-insert --key</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert:option:key</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--key</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-bulk-insert-key</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Match key fields.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:auto-id" DocumentationSourceId="source:cli:meta">
       <DisplayName>--auto-id</DisplayName>
       <DisplayPath>meta bulk-insert --auto-id</DisplayPath>
       <Key>source:cli:meta:app:command:bulk-insert:option:auto-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--auto-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-bulk-insert-auto-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Generate numeric Id only for input rows that omit Id and are being created.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -93,7 +88,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:example:001" DocumentationSourceId="source:cli:meta">
@@ -105,7 +100,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -116,19 +111,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta delete</DisplayName>
       <DisplayPath>meta delete</DisplayPath>
       <Key>source:cli:meta:app:command:delete</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>delete</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>exec-delete</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Delete one instance by Id.</Summary>
+      <Summary>Delete one instance.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -139,7 +134,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:delete</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete:example:001" DocumentationSourceId="source:cli:meta">
@@ -151,43 +146,41 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:delete</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta insert</DisplayName>
       <DisplayPath>meta insert</DisplayPath>
       <Key>source:cli:meta:app:command:insert</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>insert</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>exec-insert</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>015</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Insert one instance by explicit Id or auto-generated numeric Id. Use --auto-id only when creating a brand-new row with no external identity.</Summary>
+      <Summary>Insert one instance.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:auto-id" DocumentationSourceId="source:cli:meta">
       <DisplayName>--auto-id</DisplayName>
       <DisplayPath>meta insert --auto-id</DisplayPath>
       <Key>source:cli:meta:app:command:insert:option:auto-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--auto-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-insert-auto-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Generate next numeric Id from existing instances for a new row when no external Id exists.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:set" DocumentationSourceId="source:cli:meta">
       <DisplayName>--set</DisplayName>
       <DisplayPath>meta insert --set</DisplayPath>
       <Key>source:cli:meta:app:command:insert:option:set</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--set</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-insert-set</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:insert</ParentKey>
       <Status>Current</Status>
-      <Summary>Set property/relationship values.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -198,7 +191,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:example:001" DocumentationSourceId="source:cli:meta">
@@ -210,7 +203,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -221,7 +214,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:insert</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta instance</DisplayName>
@@ -232,7 +225,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Diff/merge instances and apply instance updates.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -244,7 +237,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:instance</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance:example:001" DocumentationSourceId="source:cli:meta">
@@ -256,7 +249,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:instance</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -267,7 +260,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:instance</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance:example:003" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 3</DisplayName>
@@ -278,7 +271,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1002</Ordinal>
       <ParentKey>source:cli:meta:app:command:instance</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance:example:004" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 4</DisplayName>
@@ -289,55 +282,52 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1003</Ordinal>
       <ParentKey>source:cli:meta:app:command:instance</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta query</DisplayName>
       <DisplayPath>meta query</DisplayPath>
       <Key>source:cli:meta:app:command:query</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>query</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>exec-query</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>041</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Search instances using equals/contains filters.</Summary>
+      <Summary>Search instances with equals/contains filters.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:equals" DocumentationSourceId="source:cli:meta">
       <DisplayName>--equals</DisplayName>
       <DisplayPath>meta query --equals</DisplayPath>
       <Key>source:cli:meta:app:command:query:option:equals</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--equals</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-query-equals</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
       <Status>Current</Status>
-      <Summary>Exact field value match (repeatable).</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:contains" DocumentationSourceId="source:cli:meta">
       <DisplayName>--contains</DisplayName>
       <DisplayPath>meta query --contains</DisplayPath>
       <Key>source:cli:meta:app:command:query:option:contains</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--contains</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-query-contains</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
       <Status>Current</Status>
-      <Summary>Contains match (repeatable).</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:top" DocumentationSourceId="source:cli:meta">
       <DisplayName>--top</DisplayName>
       <DisplayPath>meta query --top</DisplayPath>
       <Key>source:cli:meta:app:command:query:option:top</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--top</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-query-top</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
       <Status>Current</Status>
-      <Summary>Limit preview instances (default 200).</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -348,7 +338,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:example:001" DocumentationSourceId="source:cli:meta">
@@ -360,7 +350,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -371,19 +361,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:query</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:check" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta check</DisplayName>
       <DisplayPath>meta check</DisplayPath>
       <Key>source:cli:meta:app:command:check</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>check</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>exec-check</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Run model + instance integrity checks.</Summary>
+      <Summary>Check model and instance integrity.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -394,7 +384,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:check</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:check:example:001" DocumentationSourceId="source:cli:meta">
@@ -406,7 +396,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:check</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta graph</DisplayName>
@@ -417,7 +407,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Inspect relationship graph structure.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -429,7 +419,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:graph</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph:example:001" DocumentationSourceId="source:cli:meta">
@@ -441,7 +431,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:graph</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -452,7 +442,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:graph</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta list</DisplayName>
@@ -463,7 +453,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>List entities, properties, or relationships.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -475,7 +465,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:list</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list:example:001" DocumentationSourceId="source:cli:meta">
@@ -487,7 +477,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:list</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -498,7 +488,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:list</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list:example:003" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 3</DisplayName>
@@ -509,7 +499,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1002</Ordinal>
       <ParentKey>source:cli:meta:app:command:list</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model</DisplayName>
@@ -520,7 +510,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Inspect and edit model entities, properties, and relationships.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -532,7 +522,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Workspace root override.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:example:001" DocumentationSourceId="source:cli:meta">
@@ -544,7 +534,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -555,7 +545,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:example:003" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 3</DisplayName>
@@ -566,7 +556,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:example:004" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 4</DisplayName>
@@ -577,7 +567,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model:example:005" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 5</DisplayName>
@@ -588,7 +578,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1004</Ordinal>
       <ParentKey>source:cli:meta:app:command:model</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta view</DisplayName>
@@ -599,7 +589,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>025</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>View entity schema or one instance.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -611,7 +601,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:view</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view:example:001" DocumentationSourceId="source:cli:meta">
@@ -623,7 +613,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:view</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -634,7 +624,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:view</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta deploy</DisplayName>
@@ -645,7 +635,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>026</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Deploy generated artifacts to external targets.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy:option:scripts" DocumentationSourceId="source:cli:meta">
@@ -657,7 +647,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Input directory containing generated SQL scripts.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy:option:connection-env" DocumentationSourceId="source:cli:meta">
@@ -669,7 +659,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Environment variable name that contains the target SQL Server connection string.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy:option:database" DocumentationSourceId="source:cli:meta">
@@ -681,7 +671,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Optional database to create/use before deployment.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy:example:001" DocumentationSourceId="source:cli:meta">
@@ -693,7 +683,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta export</DisplayName>
@@ -704,7 +694,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>027</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Export workspace data to external formats.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -716,7 +706,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:export</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export:example:001" DocumentationSourceId="source:cli:meta">
@@ -728,7 +718,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:export</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta generate</DisplayName>
@@ -739,7 +729,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>028</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Generate artifacts from the workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:option:out" DocumentationSourceId="source:cli:meta">
@@ -751,7 +741,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Output directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -763,7 +753,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:option:tooling" DocumentationSourceId="source:cli:meta">
@@ -775,7 +765,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>C# only. Emit optional tooling helpers in &lt;Model&gt;.Tooling.cs.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:example:001" DocumentationSourceId="source:cli:meta">
@@ -787,7 +777,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -798,7 +788,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:example:003" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 3</DisplayName>
@@ -809,7 +799,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1002</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate:example:004" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 4</DisplayName>
@@ -820,7 +810,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1003</Ordinal>
       <ParentKey>source:cli:meta:app:command:generate</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta import</DisplayName>
@@ -831,7 +821,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>029</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Import from SQL into a new workspace, or import CSV into new/existing workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import:option:new-workspace" DocumentationSourceId="source:cli:meta">
@@ -843,7 +833,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:import</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Required for sql; optional for csv (mutually exclusive with --workspace).</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -855,7 +845,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:import</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Use existing workspace for csv import.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import:example:001" DocumentationSourceId="source:cli:meta">
@@ -867,7 +857,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:import</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -878,16 +868,16 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:import</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:init" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta init</DisplayName>
       <DisplayPath>meta init</DisplayPath>
       <Key>source:cli:meta:app:command:init</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>init</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>030</Ordinal>
+      <NativeId>exec-init</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>014</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
       <Summary>Initialize a metadata workspace.</Summary>
@@ -901,7 +891,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:init</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:init:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -912,16 +902,16 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:init</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:status" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta status</DisplayName>
       <DisplayPath>meta status</DisplayPath>
       <Key>source:cli:meta:app:command:status</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>status</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>031</Ordinal>
+      <NativeId>exec-status</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>042</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
       <Status>Current</Status>
       <Summary>Show workspace summary and model/instance sizes.</Summary>
@@ -935,7 +925,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:status</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:status:example:001" DocumentationSourceId="source:cli:meta">
@@ -947,7 +937,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:status</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:status:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -958,7 +948,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:status</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta workspace</DisplayName>
@@ -969,7 +959,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>032</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Workspace-level operations.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace:example:001" DocumentationSourceId="source:cli:meta">
@@ -981,19 +971,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model add-entity</DisplayName>
       <DisplayPath>meta model add-entity</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-entity</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model add-entity</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>010</Ordinal>
+      <NativeId>exec-model-add-entity</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>027</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a new entity definition.</Summary>
+      <Status>Current</Status>
+      <Summary>Add an entity.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1004,7 +994,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity:example:001" DocumentationSourceId="source:cli:meta">
@@ -1016,19 +1006,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model rename-model</DisplayName>
       <DisplayPath>meta model rename-model</DisplayPath>
       <Key>source:cli:meta:app:command:model-rename-model</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model rename-model</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>011</Ordinal>
+      <NativeId>exec-model-rename-model</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>036</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Rename the model contract and instance root element.</Summary>
+      <Status>Current</Status>
+      <Summary>Rename the model.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1039,7 +1029,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-model</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:example:001" DocumentationSourceId="source:cli:meta">
@@ -1051,19 +1041,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-model</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model rename-entity</DisplayName>
       <DisplayPath>meta model rename-entity</DisplayPath>
       <Key>source:cli:meta:app:command:model-rename-entity</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model rename-entity</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>012</Ordinal>
+      <NativeId>exec-model-rename-entity</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>035</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Atomically rename an entity, update relationship targets, and rename implied non-role relationship fields.</Summary>
+      <Status>Current</Status>
+      <Summary>Rename an entity.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1074,7 +1064,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:example:001" DocumentationSourceId="source:cli:meta">
@@ -1086,19 +1076,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model drop-entity</DisplayName>
       <DisplayPath>meta model drop-entity</DisplayPath>
       <Key>source:cli:meta:app:command:model-drop-entity</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model drop-entity</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>013</Ordinal>
+      <NativeId>exec-model-drop-entity</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>030</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Drop an entity (blocked if instances or inbound relationships exist).</Summary>
+      <Status>Current</Status>
+      <Summary>Drop an entity.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1109,7 +1099,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity:example:001" DocumentationSourceId="source:cli:meta">
@@ -1121,43 +1111,41 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-entity</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model add-property</DisplayName>
       <DisplayPath>meta model add-property</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-property</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model add-property</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>014</Ordinal>
+      <NativeId>exec-model-add-property</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>028</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add an entity property.</Summary>
+      <Status>Current</Status>
+      <Summary>Add a property to an entity.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required" DocumentationSourceId="source:cli:meta">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta model add-property --required</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-property:option:required</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--required</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-add-property-required</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Set required/nullable state.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:default-value" DocumentationSourceId="source:cli:meta">
       <DisplayName>--default-value</DisplayName>
       <DisplayPath>meta model add-property --default-value</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-property:option:default-value</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--default-value</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-add-property-default-value</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Backfill existing rows (required for required properties when entity already has rows).</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1168,7 +1156,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:example:001" DocumentationSourceId="source:cli:meta">
@@ -1180,43 +1168,41 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model set-property-required</DisplayName>
       <DisplayPath>meta model set-property-required</DisplayPath>
       <Key>source:cli:meta:app:command:model-set-property-required</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model set-property-required</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>015</Ordinal>
+      <NativeId>exec-model-set-property-required</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>039</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Change whether a property is required; use --default-value to backfill existing rows when making a property required.</Summary>
+      <Status>Current</Status>
+      <Summary>Change whether a property is required.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required" DocumentationSourceId="source:cli:meta">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta model set-property-required --required</DisplayPath>
       <Key>source:cli:meta:app:command:model-set-property-required:option:required</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--required</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-set-property-required-required</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
-      <Status>New</Status>
-      <Summary>Required. Set required/nullable state.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:default-value" DocumentationSourceId="source:cli:meta">
       <DisplayName>--default-value</DisplayName>
       <DisplayPath>meta model set-property-required --default-value</DisplayPath>
       <Key>source:cli:meta:app:command:model-set-property-required:option:default-value</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--default-value</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-set-property-required-default-value</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
-      <Status>New</Status>
-      <Summary>Backfill existing missing/blank rows when switching to required; only valid with --required true.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1227,7 +1213,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:example:001" DocumentationSourceId="source:cli:meta">
@@ -1239,7 +1225,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -1250,19 +1236,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model rename-property</DisplayName>
       <DisplayPath>meta model rename-property</DisplayPath>
       <Key>source:cli:meta:app:command:model-rename-property</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model rename-property</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>016</Ordinal>
+      <NativeId>exec-model-rename-property</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>037</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Rename a property in one entity.</Summary>
+      <Status>Current</Status>
+      <Summary>Rename a property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1273,7 +1259,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:example:001" DocumentationSourceId="source:cli:meta">
@@ -1285,19 +1271,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model drop-property</DisplayName>
       <DisplayPath>meta model drop-property</DisplayPath>
       <Key>source:cli:meta:app:command:model-drop-property</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model drop-property</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>017</Ordinal>
+      <NativeId>exec-model-drop-property</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>031</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Drop a property from an entity.</Summary>
+      <Status>Current</Status>
+      <Summary>Drop a property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1308,7 +1294,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:example:001" DocumentationSourceId="source:cli:meta">
@@ -1320,31 +1306,30 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model rename-relationship</DisplayName>
       <DisplayPath>meta model rename-relationship</DisplayPath>
       <Key>source:cli:meta:app:command:model-rename-relationship</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model rename-relationship</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>018</Ordinal>
+      <NativeId>exec-model-rename-relationship</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>038</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically.</Summary>
+      <Status>Current</Status>
+      <Summary>Rename a relationship role.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model rename-relationship --role</DisplayPath>
       <Key>source:cli:meta:app:command:model-rename-relationship:option:role</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-model-rename-relationship-role</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Set a new relationship role (usage column becomes &lt;Role&gt;Id). Omit --role to clear the role and revert usage naming to &lt;TargetEntity&gt;Id.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1355,7 +1340,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:example:001" DocumentationSourceId="source:cli:meta">
@@ -1367,7 +1352,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -1378,43 +1363,41 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model add-relationship</DisplayName>
       <DisplayPath>meta model add-relationship</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-relationship</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model add-relationship</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>019</Ordinal>
+      <NativeId>exec-model-add-relationship</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>029</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a required relationship; use --default-id to backfill existing source instances.</Summary>
+      <Status>Current</Status>
+      <Summary>Add a relationship.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:role" DocumentationSourceId="source:cli:meta">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model add-relationship --role</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-relationship:option:role</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-add-relationship-role</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship role (column becomes &lt;RoleName&gt;Id).</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:default-id" DocumentationSourceId="source:cli:meta">
       <DisplayName>--default-id</DisplayName>
       <DisplayPath>meta model add-relationship --default-id</DisplayPath>
       <Key>source:cli:meta:app:command:model-add-relationship:option:default-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--default-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-add-relationship-default-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required when source entity already has rows; must exist in target entity.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1425,7 +1408,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:example:001" DocumentationSourceId="source:cli:meta">
@@ -1437,7 +1420,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model refactor</DisplayName>
@@ -1448,7 +1431,7 @@
       <NativeKind>CliCommandDefinition</NativeKind>
       <Ordinal>020</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Run atomic model+instance refactors.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor:option:workspace" DocumentationSourceId="source:cli:meta">
@@ -1460,7 +1443,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor:example:001" DocumentationSourceId="source:cli:meta">
@@ -1472,79 +1455,74 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model refactor property-to-relationship</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model refactor property-to-relationship</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>021</Ordinal>
+      <NativeId>exec-model-refactor-property-to-relationship</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>033</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Atomically convert a scalar source property to a required relationship using a target lookup key. Source property is dropped by default; use --preserve-property only when the source property name will not collide with the implied relationship usage name.</Summary>
+      <Status>Current</Status>
+      <Summary>Convert a property into a relationship.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:source" DocumentationSourceId="source:cli:meta">
       <DisplayName>--source</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship --source</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship:option:source</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-refactor-property-to-relationship-source</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required source scalar property to rewrite.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:target" DocumentationSourceId="source:cli:meta">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship --target</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship:option:target</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-refactor-property-to-relationship-target</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required target entity.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup" DocumentationSourceId="source:cli:meta">
       <DisplayName>--lookup</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship --lookup</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--lookup</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-model-refactor-property-to-relationship-lookup</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required lookup key property on target entity.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:role" DocumentationSourceId="source:cli:meta">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship --role</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship:option:role</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-model-refactor-property-to-relationship-role</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship role (usage column becomes &lt;Role&gt;Id).</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property" DocumentationSourceId="source:cli:meta">
       <DisplayName>--preserve-property</DisplayName>
       <DisplayPath>meta model refactor property-to-relationship --preserve-property</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--preserve-property</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-model-refactor-property-to-relationship-preserve-property</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Keep the source scalar property. This is only valid when the source property name does not collide with the implied relationship usage name.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1555,7 +1533,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:example:001" DocumentationSourceId="source:cli:meta">
@@ -1567,7 +1545,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -1578,67 +1556,63 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-property-to-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model refactor relationship-to-property</DisplayName>
       <DisplayPath>meta model refactor relationship-to-property</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-relationship-to-property</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model refactor relationship-to-property</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>022</Ordinal>
+      <NativeId>exec-model-refactor-relationship-to-property</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>034</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Atomically convert a required relationship back to a required scalar Id property.</Summary>
+      <Status>Current</Status>
+      <Summary>Convert a relationship into a property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:source" DocumentationSourceId="source:cli:meta">
       <DisplayName>--source</DisplayName>
       <DisplayPath>meta model refactor relationship-to-property --source</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-relationship-to-property:option:source</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-refactor-relationship-to-property-source</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Required source entity that owns the relationship.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:target" DocumentationSourceId="source:cli:meta">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta model refactor relationship-to-property --target</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-relationship-to-property:option:target</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-refactor-relationship-to-property-target</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Required target entity referenced by the relationship.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:role" DocumentationSourceId="source:cli:meta">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model refactor relationship-to-property --role</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-relationship-to-property:option:role</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-model-refactor-relationship-to-property-role</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship role when multiple edges target the same entity.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:property" DocumentationSourceId="source:cli:meta">
       <DisplayName>--property</DisplayName>
       <DisplayPath>meta model refactor relationship-to-property --property</DisplayPath>
       <Key>source:cli:meta:app:command:model-refactor-relationship-to-property:option:property</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--property</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-model-refactor-relationship-to-property-property</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional replacement scalar property name (default: &lt;RoleOrTarget&gt;Id).</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1649,7 +1623,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:example:001" DocumentationSourceId="source:cli:meta">
@@ -1661,7 +1635,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -1672,19 +1646,19 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-refactor-relationship-to-property</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model drop-relationship</DisplayName>
       <DisplayPath>meta model drop-relationship</DisplayPath>
       <Key>source:cli:meta:app:command:model-drop-relationship</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model drop-relationship</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>023</Ordinal>
+      <NativeId>exec-model-drop-relationship</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>032</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Drop a declared relationship (blocked if in use).</Summary>
+      <Status>Current</Status>
+      <Summary>Drop a relationship.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1695,7 +1669,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:example:001" DocumentationSourceId="source:cli:meta">
@@ -1707,55 +1681,52 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-drop-relationship</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest" DocumentationSourceId="source:cli:meta">
       <DisplayName>meta model suggest</DisplayName>
       <DisplayPath>meta model suggest</DisplayPath>
       <Key>source:cli:meta:app:command:model-suggest</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>model suggest</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>024</Ordinal>
+      <NativeId>exec-model-suggest</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>040</Ordinal>
       <ParentKey>source:cli:meta:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Read-only relationship inference from model + instance data. Strong suggestions require one exact eligible Id-based target; weak suggestions cover role-style suffix matches and other ambiguous multi-target cases.</Summary>
+      <Status>Current</Status>
+      <Summary>Suggest model improvements.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:show-keys" DocumentationSourceId="source:cli:meta">
       <DisplayName>--show-keys</DisplayName>
       <DisplayPath>meta model suggest --show-keys</DisplayPath>
       <Key>source:cli:meta:app:command:model-suggest:option:show-keys</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--show-keys</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-model-suggest-show-keys</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
-      <Summary>Also print candidate business keys.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:explain" DocumentationSourceId="source:cli:meta">
       <DisplayName>--explain</DisplayName>
       <DisplayPath>meta model suggest --explain</DisplayPath>
       <Key>source:cli:meta:app:command:model-suggest:option:explain</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--explain</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-model-suggest-explain</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
-      <Summary>Include Evidence/Stats/Why detail blocks.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:print-commands" DocumentationSourceId="source:cli:meta">
       <DisplayName>--print-commands</DisplayName>
       <DisplayPath>meta model suggest --print-commands</DisplayPath>
       <Key>source:cli:meta:app:command:model-suggest:option:print-commands</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--print-commands</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-model-suggest-print-commands</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
-      <Summary>Print copy/paste refactor commands for eligible relationship suggestions.</Summary>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:workspace" DocumentationSourceId="source:cli:meta">
       <DisplayName>--workspace</DisplayName>
@@ -1766,7 +1737,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Override workspace root.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:example:001" DocumentationSourceId="source:cli:meta">
@@ -1778,7 +1749,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:example:002" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 2</DisplayName>
@@ -1789,7 +1760,7 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1001</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:example:003" DocumentationSourceId="source:cli:meta">
       <DisplayName>Example 3</DisplayName>
@@ -1800,7 +1771,1209 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1002</Ordinal>
       <ParentKey>source:cli:meta:app:command:model-suggest</ParentKey>
-      <Status>New</Status>
+      <Status>MissingFromSource</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:option:strict" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--strict</DisplayName>
+      <DisplayPath>meta --strict</DisplayPath>
+      <Key>source:cli:meta:app:option:strict</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-strict</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:option:workspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta --workspace</DisplayPath>
+      <Key>source:cli:meta:app:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta bulk-insert &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:bulk-insert:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-bulk-insert-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:bulk-insert</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:delete:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta delete &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:delete:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-delete-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:delete</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:delete:argument:id" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Id&gt;</DisplayName>
+      <DisplayPath>meta delete &lt;Id&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:delete:argument:id</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-delete-id</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:delete</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta deploy sqlserver</DisplayName>
+      <DisplayPath>meta deploy sqlserver</DisplayPath>
+      <Key>source:cli:meta:app:command:deploy-sqlserver</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-deploy-sqlserver</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Deploy SQL Server scripts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:connection-env" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta deploy sqlserver --connection-env</DisplayPath>
+      <Key>source:cli:meta:app:command:deploy-sqlserver:option:connection-env</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-deploy-sqlserver-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:deploy-sqlserver</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:database" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--database</DisplayName>
+      <DisplayPath>meta deploy sqlserver --database</DisplayPath>
+      <Key>source:cli:meta:app:command:deploy-sqlserver:option:database</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-deploy-sqlserver-database</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:deploy-sqlserver</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:scripts" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--scripts</DisplayName>
+      <DisplayPath>meta deploy sqlserver --scripts</DisplayPath>
+      <Key>source:cli:meta:app:command:deploy-sqlserver:option:scripts</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-deploy-sqlserver-scripts</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta:app:command:deploy-sqlserver</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:export-csv" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta export csv</DisplayName>
+      <DisplayPath>meta export csv</DisplayPath>
+      <Key>source:cli:meta:app:command:export-csv</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-export-csv</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Export instances as CSV.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:export-csv:option:out" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta export csv --out</DisplayPath>
+      <Key>source:cli:meta:app:command:export-csv:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-export-csv-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:export-csv</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:export-csv:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta export csv &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:export-csv:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-export-csv-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:export-csv</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta generate csharp</DisplayName>
+      <DisplayPath>meta generate csharp</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-csharp</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-generate-csharp</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Generate C# artifacts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:out" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta generate csharp --out</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-csharp:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-generate-csharp-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:generate-csharp</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:tooling" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--tooling</DisplayName>
+      <DisplayPath>meta generate csharp --tooling</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-csharp:option:tooling</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-generate-csharp-tooling</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:generate-csharp</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta generate sql</DisplayName>
+      <DisplayPath>meta generate sql</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-generate-sql</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Generate SQL artifacts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:out" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta generate sql --out</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-sql:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-generate-sql-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:generate-sql</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta generate ssdt</DisplayName>
+      <DisplayPath>meta generate ssdt</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-ssdt</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-generate-ssdt</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Generate SSDT artifacts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt:option:out" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta generate ssdt --out</DisplayPath>
+      <Key>source:cli:meta:app:command:generate-ssdt:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-generate-ssdt-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:generate-ssdt</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta graph inbound</DisplayName>
+      <DisplayPath>meta graph inbound</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-inbound</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-graph-inbound</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show inbound relationships for an entity.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound:option:top" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--top</DisplayName>
+      <DisplayPath>meta graph inbound --top</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-inbound:option:top</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-graph-inbound-top</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:graph-inbound</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta graph inbound &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-inbound:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-graph-inbound-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:graph-inbound</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-stats" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta graph stats</DisplayName>
+      <DisplayPath>meta graph stats</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-stats</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-graph-stats</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show graph statistics.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-stats:option:cycles" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--cycles</DisplayName>
+      <DisplayPath>meta graph stats --cycles</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-stats:option:cycles</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-graph-stats-cycles</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:graph-stats</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-stats:option:top" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--top</DisplayName>
+      <DisplayPath>meta graph stats --top</DisplayPath>
+      <Key>source:cli:meta:app:command:graph-stats:option:top</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-graph-stats-top</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:graph-stats</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:help" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta help</DisplayName>
+      <DisplayPath>meta help</DisplayPath>
+      <Key>source:cli:meta:app:command:help</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-help</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:help:argument:command" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;command&gt;</DisplayName>
+      <DisplayPath>meta help &lt;command&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:help:argument:command</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-help-command</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:help</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta import csv</DisplayName>
+      <DisplayPath>meta import csv</DisplayPath>
+      <Key>source:cli:meta:app:command:import-csv</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-import-csv</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Import CSV data into a workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--entity</DisplayName>
+      <DisplayPath>meta import csv --entity</DisplayPath>
+      <Key>source:cli:meta:app:command:import-csv:option:entity</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-csv-entity</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-csv</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:new-workspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta import csv --new-workspace</DisplayPath>
+      <Key>source:cli:meta:app:command:import-csv:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-csv-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-csv</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:argument:csvfile" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;csvFile&gt;</DisplayName>
+      <DisplayPath>meta import csv &lt;csvFile&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:import-csv:argument:csvfile</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-import-csv-csvfile</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-csv</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta import sql</DisplayName>
+      <DisplayPath>meta import sql</DisplayPath>
+      <Key>source:cli:meta:app:command:import-sql</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-import-sql</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>013</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Import SQL metadata into a new workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:connection-env" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta import sql --connection-env</DisplayPath>
+      <Key>source:cli:meta:app:command:import-sql:option:connection-env</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-sql-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-sql</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:new-workspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta import sql --new-workspace</DisplayPath>
+      <Key>source:cli:meta:app:command:import-sql:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-sql-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-sql</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:argument:schema" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;schema&gt;</DisplayName>
+      <DisplayPath>meta import sql &lt;schema&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:import-sql:argument:schema</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-import-sql-schema</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:import-sql</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:init:argument:path" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;path&gt;</DisplayName>
+      <DisplayPath>meta init &lt;path&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:init:argument:path</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-init-path</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:init</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:insert:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta insert &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:insert:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-insert-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:insert</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:insert:argument:id" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Id&gt;</DisplayName>
+      <DisplayPath>meta insert &lt;Id&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:insert:argument:id</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-insert-id</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:insert</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance diff</DisplayName>
+      <DisplayPath>meta instance diff</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-diff</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>016</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Diff instance data for two workspaces with byte-identical model.xml.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:argument:leftworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;leftWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance diff &lt;leftWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff:argument:leftworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-diff-leftworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-diff</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:argument:rightworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance diff &lt;rightWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff:argument:rightworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-diff-rightworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-diff</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance diff-aligned</DisplayName>
+      <DisplayPath>meta instance diff-aligned</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff-aligned</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-diff-aligned</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>017</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Diff mapped instance data using an explicit alignment workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:argument:leftworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;leftWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance diff-aligned &lt;leftWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff-aligned:argument:leftworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-diff-aligned-leftworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-diff-aligned</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:argument:rightworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance diff-aligned &lt;rightWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff-aligned:argument:rightworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-diff-aligned-rightworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-diff-aligned</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:argument:alignmentworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;alignmentWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance diff-aligned &lt;alignmentWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-diff-aligned:argument:alignmentworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-diff-aligned-alignmentworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-diff-aligned</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance merge</DisplayName>
+      <DisplayPath>meta instance merge</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-merge</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>018</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Apply an equal-model instance diff artifact to a target workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:argument:targetworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;targetWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance merge &lt;targetWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge:argument:targetworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-merge-targetworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-merge</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:argument:diffworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;diffWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance merge &lt;diffWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge:argument:diffworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-merge-diffworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-merge</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance merge-aligned</DisplayName>
+      <DisplayPath>meta instance merge-aligned</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge-aligned</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-merge-aligned</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>019</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Apply an aligned instance diff artifact to a target workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned:argument:targetworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;targetWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance merge-aligned &lt;targetWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge-aligned:argument:targetworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-merge-aligned-targetworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-merge-aligned</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned:argument:diffworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;diffWorkspace&gt;</DisplayName>
+      <DisplayPath>meta instance merge-aligned &lt;diffWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-merge-aligned:argument:diffworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-merge-aligned-diffworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-merge-aligned</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance relationship list</DisplayName>
+      <DisplayPath>meta instance relationship list</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-list</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-relationship-list</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>020</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>List instance relationships.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list:argument:fromentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromEntity&gt;</DisplayName>
+      <DisplayPath>meta instance relationship list &lt;FromEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-list:argument:fromentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-relationship-list-fromentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-relationship-list</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list:argument:fromid" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromId&gt;</DisplayName>
+      <DisplayPath>meta instance relationship list &lt;FromId&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-list:argument:fromid</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-relationship-list-fromid</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-relationship-list</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance relationship set</DisplayName>
+      <DisplayPath>meta instance relationship set</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-set</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-relationship-set</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>021</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Set an instance relationship.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:option:to" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--to</DisplayName>
+      <DisplayPath>meta instance relationship set --to</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-set:option:to</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-instance-relationship-set-to</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-relationship-set</ParentKey>
+      <Status>Current</Status>
+      <Summary>Target entity, relationship role, or implied relationship field name, followed by target instance id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:argument:fromentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromEntity&gt;</DisplayName>
+      <DisplayPath>meta instance relationship set &lt;FromEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-set:argument:fromentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-relationship-set-fromentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-relationship-set</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:argument:fromid" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromId&gt;</DisplayName>
+      <DisplayPath>meta instance relationship set &lt;FromId&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-relationship-set:argument:fromid</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-relationship-set-fromid</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-relationship-set</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance rename-id</DisplayName>
+      <DisplayPath>meta instance rename-id</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-rename-id</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-rename-id</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>022</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Rename one instance id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta instance rename-id &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-rename-id:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-rename-id-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-rename-id</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:argument:oldid" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;OldId&gt;</DisplayName>
+      <DisplayPath>meta instance rename-id &lt;OldId&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-rename-id:argument:oldid</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-rename-id-oldid</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-rename-id</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:argument:newid" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;NewId&gt;</DisplayName>
+      <DisplayPath>meta instance rename-id &lt;NewId&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-rename-id:argument:newid</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-rename-id-newid</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-rename-id</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-update" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta instance update</DisplayName>
+      <DisplayPath>meta instance update</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-update</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-instance-update</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>023</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Update one instance.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-update:option:set" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--set</DisplayName>
+      <DisplayPath>meta instance update --set</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-update:option:set</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-instance-update-set</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-update</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-update:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta instance update &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-update:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-update-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-update</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-update:argument:id" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Id&gt;</DisplayName>
+      <DisplayPath>meta instance update &lt;Id&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:instance-update:argument:id</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-instance-update-id</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:instance-update</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:list-entities" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta list entities</DisplayName>
+      <DisplayPath>meta list entities</DisplayPath>
+      <Key>source:cli:meta:app:command:list-entities</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-list-entities</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>024</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>List entities in the model.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:list-properties" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta list properties</DisplayName>
+      <DisplayPath>meta list properties</DisplayPath>
+      <Key>source:cli:meta:app:command:list-properties</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-list-properties</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>025</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>List properties for an entity.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:list-properties:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta list properties &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:list-properties:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-list-properties-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:list-properties</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:list-relationships" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta list relationships</DisplayName>
+      <DisplayPath>meta list relationships</DisplayPath>
+      <Key>source:cli:meta:app:command:list-relationships</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-list-relationships</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>026</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>List relationships for an entity.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:list-relationships:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta list relationships &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:list-relationships:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-list-relationships-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:list-relationships</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity:argument:name" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Name&gt;</DisplayName>
+      <DisplayPath>meta model add-entity &lt;Name&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-entity:argument:name</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-add-entity-name</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-entity</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta model add-property --required value false</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-property:option:required:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-bool-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-property:option:required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta model add-property --required value true</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-property:option:required:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-bool-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-property:option:required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta model add-property &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-property:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-add-property-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:argument:property" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Property&gt;</DisplayName>
+      <DisplayPath>meta model add-property &lt;Property&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-property:argument:property</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-add-property-property</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:argument:fromentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromEntity&gt;</DisplayName>
+      <DisplayPath>meta model add-relationship &lt;FromEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-relationship:argument:fromentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-add-relationship-fromentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:argument:toentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;ToEntity&gt;</DisplayName>
+      <DisplayPath>meta model add-relationship &lt;ToEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-add-relationship:argument:toentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-add-relationship-toentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-add-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta model drop-entity &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-drop-entity:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-drop-entity-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-drop-entity</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta model drop-property &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-drop-property:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-drop-property-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-drop-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:argument:property" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Property&gt;</DisplayName>
+      <DisplayPath>meta model drop-property &lt;Property&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-drop-property:argument:property</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-drop-property-property</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-drop-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:argument:fromentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromEntity&gt;</DisplayName>
+      <DisplayPath>meta model drop-relationship &lt;FromEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-drop-relationship:argument:fromentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-drop-relationship-fromentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-drop-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:argument:toentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;ToEntity&gt;</DisplayName>
+      <DisplayPath>meta model drop-relationship &lt;ToEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-drop-relationship:argument:toentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-drop-relationship-toentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-drop-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:argument:old" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Old&gt;</DisplayName>
+      <DisplayPath>meta model rename-entity &lt;Old&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-entity:argument:old</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-entity-old</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-entity</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:argument:new" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;New&gt;</DisplayName>
+      <DisplayPath>meta model rename-entity &lt;New&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-entity:argument:new</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-entity-new</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-entity</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:argument:old" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Old&gt;</DisplayName>
+      <DisplayPath>meta model rename-model &lt;Old&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-model:argument:old</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-model-old</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-model</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:argument:new" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;New&gt;</DisplayName>
+      <DisplayPath>meta model rename-model &lt;New&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-model:argument:new</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-model-new</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-model</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta model rename-property &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-property:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-property-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:argument:old" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Old&gt;</DisplayName>
+      <DisplayPath>meta model rename-property &lt;Old&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-property:argument:old</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-property-old</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:argument:new" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;New&gt;</DisplayName>
+      <DisplayPath>meta model rename-property &lt;New&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-property:argument:new</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-property-new</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-property</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:argument:fromentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;FromEntity&gt;</DisplayName>
+      <DisplayPath>meta model rename-relationship &lt;FromEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-relationship:argument:fromentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-relationship-fromentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:argument:toentity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;ToEntity&gt;</DisplayName>
+      <DisplayPath>meta model rename-relationship &lt;ToEntity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-rename-relationship:argument:toentity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-rename-relationship-toentity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-rename-relationship</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta model set-property-required --required value false</DisplayPath>
+      <Key>source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-bool-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-set-property-required:option:required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta model set-property-required --required value true</DisplayPath>
+      <Key>source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-bool-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-set-property-required:option:required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta model set-property-required &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-set-property-required:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-set-property-required-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:argument:property" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Property&gt;</DisplayName>
+      <DisplayPath>meta model set-property-required &lt;Property&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:model-set-property-required:argument:property</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-model-set-property-required-property</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:model-set-property-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:query:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta query &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:query:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-query-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:query</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:view-entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta view entity</DisplayName>
+      <DisplayPath>meta view entity</DisplayPath>
+      <Key>source:cli:meta:app:command:view-entity</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-view-entity</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>043</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>View one entity definition.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:view-entity:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta view entity &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:view-entity:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-view-entity-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:view-entity</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:view-instance" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta view instance</DisplayName>
+      <DisplayPath>meta view instance</DisplayPath>
+      <Key>source:cli:meta:app:command:view-instance</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-view-instance</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>044</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>View one instance row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:view-instance:argument:entity" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Entity&gt;</DisplayName>
+      <DisplayPath>meta view instance &lt;Entity&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:view-instance:argument:entity</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-view-instance-entity</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:view-instance</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:view-instance:argument:id" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;Id&gt;</DisplayName>
+      <DisplayPath>meta view instance &lt;Id&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:view-instance:argument:id</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-view-instance-id</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:view-instance</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge" DocumentationSourceId="source:cli:meta">
+      <DisplayName>meta workspace merge</DisplayName>
+      <DisplayPath>meta workspace merge</DisplayPath>
+      <Key>source:cli:meta:app:command:workspace-merge</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-workspace-merge</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>045</Ordinal>
+      <ParentKey>source:cli:meta:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Merge two full workspaces into a new workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:model" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--model</DisplayName>
+      <DisplayPath>meta workspace merge --model</DisplayPath>
+      <Key>source:cli:meta:app:command:workspace-merge:option:model</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-workspace-merge-model</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:workspace-merge</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:new-workspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta workspace merge --new-workspace</DisplayPath>
+      <Key>source:cli:meta:app:command:workspace-merge:option:new-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-workspace-merge-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:workspace-merge</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:argument:leftworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;leftWorkspace&gt;</DisplayName>
+      <DisplayPath>meta workspace merge &lt;leftWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:workspace-merge:argument:leftworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-workspace-merge-leftworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta:app:command:workspace-merge</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:argument:rightworkspace" DocumentationSourceId="source:cli:meta">
+      <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
+      <DisplayPath>meta workspace merge &lt;rightWorkspace&gt;</DisplayPath>
+      <Key>source:cli:meta:app:command:workspace-merge:argument:rightworkspace</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>pos-workspace-merge-rightworkspace</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta:app:command:workspace-merge</ParentKey>
+      <Status>Current</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

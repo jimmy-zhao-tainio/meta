@@ -4,6 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta-sql:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app">
       <Body>`meta-sql` plans and applies manifest-driven SQL Server deployments from sanctioned MetaSql workspaces.</Body>
       <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -23,9 +24,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan">
-      <Body>Create a deploy manifest (add/alter/block/replace; destructive actions require exact object-scoped approvals).</Body>
+      <Body>Create a deploy manifest from a source MetaSql workspace and a live SQL Server database.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -34,9 +35,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace">
-      <Body>Required. Source MetaSql workspace to compare with the live database.</Body>
+      <Body>Source MetaSql workspace to compare with the live database.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -45,9 +46,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:connection-env">
-      <Body>Required. Environment variable containing the SQL Server connection string.</Body>
+      <Body>Environment variable containing the SQL Server connection string.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -56,9 +57,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:out:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:out">
-      <Body>Required. Directory where the deploy manifest workspace will be written.</Body>
+      <Body>Directory where the deploy manifest workspace will be written.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,9 +68,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table">
-      <Body>Approve one exact destructive table drop.</Body>
+      <Body>Approve one exact destructive table drop in the form schema.table.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -78,9 +79,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column">
-      <Body>Approve one exact destructive column drop.</Body>
+      <Body>Approve one exact destructive column drop in the form schema.table.column.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -89,9 +90,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column">
-      <Body>Approve one exact destructive column truncation.</Body>
+      <Body>Approve one exact destructive column truncation in the form schema.table.column.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -100,9 +101,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy-plan:option:approval-file:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approval-file">
-      <Body>Optional JSON file containing destructive approvals.</Body>
+      <Body>JSON file containing destructive approvals.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -111,9 +112,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy">
-      <Body>Apply a deploy manifest after source/live fingerprint validation.</Body>
+      <Body>Apply a deploy manifest after source and live fingerprint validation.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -122,9 +123,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy:option:manifest-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy:option:manifest-workspace">
-      <Body>Required. Deploy manifest workspace created by deploy-plan.</Body>
+      <Body>Deploy manifest workspace created by deploy-plan.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -133,9 +134,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy:option:source-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy:option:source-workspace">
-      <Body>Required. Source MetaSql workspace used to create the manifest.</Body>
+      <Body>Source MetaSql workspace used to create the manifest.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -144,9 +145,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:deploy:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy:option:connection-env">
-      <Body>Required. Environment variable containing the SQL Server connection string.</Body>
+      <Body>Environment variable containing the SQL Server connection string.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -155,9 +156,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute">
-      <Body>Execute a SQL Server file or query for demo/bootstrap/verification scripts.</Body>
+      <Body>Execute a SQL Server file or query for demo, bootstrap, and verification scripts.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -166,9 +167,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:connection-env">
-      <Body>Required. Environment variable containing the SQL Server connection string.</Body>
+      <Body>Environment variable containing the SQL Server connection string.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -179,7 +180,7 @@
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:file:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:file">
       <Body>Execute SQL from a file. Mutually exclusive with --query.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -190,7 +191,7 @@
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:query:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:query">
       <Body>Execute inline SQL. Mutually exclusive with --file.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -199,9 +200,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:var:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:var">
-      <Body>Replace one SQLCMD-style $(NAME) token before execution. Can be repeated.</Body>
+      <Body>Replace one SQLCMD-style $(NAME) token before execution.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -212,7 +213,7 @@
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:timeout-seconds">
       <Body>Command timeout for each SQL batch. 0 or omitted means no timeout.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -223,12 +224,133 @@
     <DocumentationNarrative Id="source:cli:meta-sql:app:command:execute:option:quiet:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:execute:option:quiet">
       <Body>Suppress result-set and success output.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260608145053933</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta-sql:app:command:execute:option:quiet</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver">
+      <Body>Extract SQL Server database objects into a MetaSql workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:allow-empty:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:allow-empty">
+      <Body>Create an empty database/schema workspace when no tables or modules match.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:allow-empty</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env">
+      <Body>Environment variable containing the SQL Server connection string.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions">
+      <Body>Extract function modules. If any include switch is provided, only selected object kinds are extracted.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures">
+      <Body>Extract stored procedure modules. If any include switch is provided, only selected object kinds are extracted.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables">
+      <Body>Extract tables, columns, keys, and indexes. If no include switch is provided, all object kinds are extracted.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views">
+      <Body>Extract view modules. If any include switch is provided, only selected object kinds are extracted.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:include-views</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace">
+      <Body>Directory where the MetaSql workspace will be created.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:schema">
+      <Body>Extract only one SQL Server schema.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:schema</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:extract-sqlserver:option:table:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:table">
+      <Body>Extract only one table. SQL module extraction is skipped when a table filter is used.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:extract-sqlserver:option:table</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-sql:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-sql:batch:20260629214429734</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-sql:app:command:help</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

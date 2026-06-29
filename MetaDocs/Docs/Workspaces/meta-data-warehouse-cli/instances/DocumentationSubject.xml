@@ -6,23 +6,23 @@
       <DisplayPath>meta-data-warehouse</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app</Key>
       <Kind>CliApplication</Kind>
-      <NativeId>meta-data-warehouse</NativeId>
-      <NativeKind>CliAppDefinition</NativeKind>
+      <NativeId>app-meta-data-warehouse</NativeId>
+      <NativeKind>MetaCli.Application</NativeKind>
       <Ordinal>200</Ordinal>
       <Status>Current</Status>
       <Summary>`meta-data-warehouse` models logical dimensional warehouse concepts, separating warehouse intent from SQL Server realization and deployment mechanics.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-warehouse">
-      <DisplayName>meta-data-warehouse --new-workspace</DisplayName>
-      <DisplayPath>meta-data-warehouse --new-workspace</DisplayPath>
+      <DisplayName>meta-data-warehouse new-workspace</DisplayName>
+      <DisplayPath>meta-data-warehouse new-workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>--new-workspace</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>exec-new-workspace</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>032</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Create an empty MetaDataWarehouse workspace.</Summary>
+      <Summary>Create a MetaDataWarehouse workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:new-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--new-workspace</DisplayName>
@@ -33,7 +33,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Required. Directory where the empty MetaDataWarehouse workspace will be created.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
@@ -41,9 +41,9 @@
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-accumulating-snapshot-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>exec-add-accumulating-snapshot-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Mark a fact as an accumulating snapshot.</Summary>
@@ -53,57 +53,57 @@
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. AccumulatingSnapshotFact row id.</Summary>
+      <Summary>AccumulatingSnapshotFact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-fact --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-fact-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-accumulating-snapshot-milestone</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-accumulating-snapshot-milestone</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>exec-add-accumulating-snapshot-milestone</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a lifecycle milestone to an accumulating snapshot.</Summary>
@@ -113,93 +113,93 @@
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. AccumulatingSnapshotMilestone row id.</Summary>
+      <Summary>AccumulatingSnapshotMilestone row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:date-role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--date-role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --date-role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:date-role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--date-role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-date-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DateRoleName.</Summary>
+      <Summary>DateRoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:accumulating-snapshot" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--accumulating-snapshot</DisplayName>
       <DisplayPath>meta-data-warehouse add-accumulating-snapshot-milestone --accumulating-snapshot</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone:option:accumulating-snapshot</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--accumulating-snapshot</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-accumulating-snapshot-milestone-accumulating-snapshot</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-milestone</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. AccumulatingSnapshotFact id for AccumulatingSnapshotFactId.</Summary>
+      <Summary>AccumulatingSnapshotFact id for AccumulatingSnapshotFactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-aggregate-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-aggregate-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-aggregate-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-aggregate-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>exec-add-aggregate-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare an aggregate fact derived from a source fact.</Summary>
@@ -209,69 +209,69 @@
       <DisplayPath>meta-data-warehouse add-aggregate-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-aggregate-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-aggregate-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-aggregate-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. AggregateFact row id.</Summary>
+      <Summary>AggregateFact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-aggregate-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-aggregate-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:aggregated-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--aggregated-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-aggregate-fact --aggregated-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:aggregated-fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--aggregated-fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-aggregate-fact-aggregated-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for AggregatedFactId.</Summary>
+      <Summary>Fact id for AggregatedFactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:source-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--source-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-aggregate-fact --source-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-aggregate-fact:option:source-fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-aggregate-fact-source-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-aggregate-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for SourceFactId.</Summary>
+      <Summary>Fact id for SourceFactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-bridge</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-bridge</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>exec-add-bridge</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimensional bridge table.</Summary>
@@ -281,69 +281,69 @@
       <DisplayPath>meta-data-warehouse add-bridge --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-bridge-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-bridge-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeTable row id.</Summary>
+      <Summary>BridgeTable row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-bridge-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-bridge-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge:option:warehouse" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--warehouse</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge --warehouse</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge:option:warehouse</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--warehouse</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-bridge-warehouse</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Warehouse id for WarehouseId.</Summary>
+      <Summary>Warehouse id for WarehouseId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-bridge-participant</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-bridge-participant</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>exec-add-bridge-participant</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimension participant to a bridge.</Summary>
@@ -353,93 +353,93 @@
       <DisplayPath>meta-data-warehouse add-bridge-participant --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-bridge-participant-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-bridge-participant-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeParticipant row id.</Summary>
+      <Summary>BridgeParticipant row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-bridge-participant-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. RoleName.</Summary>
+      <Summary>RoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-bridge-participant-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--is-required</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --is-required</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--is-required</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-bridge-participant-is-required</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. IsRequired.</Summary>
+      <Summary>IsRequired.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:bridge" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--bridge</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --bridge</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:bridge</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--bridge</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-bridge-participant-bridge</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeTable id for BridgeTableId.</Summary>
+      <Summary>BridgeTable id for BridgeTableId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-participant --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-bridge-participant-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-bridge-weight</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-bridge-weight</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>exec-add-bridge-weight</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a bridge weighting measure with a Meta data type.</Summary>
@@ -449,81 +449,81 @@
       <DisplayPath>meta-data-warehouse add-bridge-weight --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-bridge-weight-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-bridge-weight-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeWeight row id.</Summary>
+      <Summary>BridgeWeight row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-bridge-weight-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:data-type-id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--data-type-id</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight --data-type-id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:data-type-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-bridge-weight-data-type-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DataTypeId.</Summary>
+      <Summary>DataTypeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-bridge-weight-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:bridge" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--bridge</DisplayName>
       <DisplayPath>meta-data-warehouse add-bridge-weight --bridge</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-bridge-weight:option:bridge</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--bridge</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-bridge-weight-bridge</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-weight</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeTable id for BridgeTableId.</Summary>
+      <Summary>BridgeTable id for BridgeTableId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-conformed-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-conformed-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-conformed-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-conformed-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>exec-add-conformed-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Mark a dimension as conformed.</Summary>
@@ -533,69 +533,69 @@
       <DisplayPath>meta-data-warehouse add-conformed-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-conformed-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-conformed-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-conformed-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. ConformedDimension row id.</Summary>
+      <Summary>ConformedDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:conformance-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--conformance-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-conformed-dimension --conformance-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:conformance-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--conformance-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-conformed-dimension-conformance-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. ConformanceName.</Summary>
+      <Summary>ConformanceName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-conformed-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-conformed-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-conformed-dimension --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-conformed-dimension:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-conformed-dimension-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-conformed-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-degenerate-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-degenerate-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>009</Ordinal>
+      <NativeId>exec-add-degenerate-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a degenerate dimension value to a fact.</Summary>
@@ -605,93 +605,93 @@
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DegenerateDimension row id.</Summary>
+      <Summary>DegenerateDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:data-type-id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--data-type-id</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --data-type-id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:data-type-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-data-type-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DataTypeId.</Summary>
+      <Summary>DataTypeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-degenerate-dimension --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-degenerate-dimension-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-degenerate-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>010</Ordinal>
+      <NativeId>exec-add-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimension.</Summary>
@@ -701,69 +701,69 @@
       <DisplayPath>meta-data-warehouse add-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension row id.</Summary>
+      <Summary>Dimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-dimension-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension:option:warehouse" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--warehouse</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension --warehouse</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension:option:warehouse</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--warehouse</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-warehouse</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Warehouse id for WarehouseId.</Summary>
+      <Summary>Warehouse id for WarehouseId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension-attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension-attribute</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>011</Ordinal>
+      <NativeId>exec-add-dimension-attribute</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimension attribute with a Meta data type.</Summary>
@@ -773,105 +773,105 @@
       <DisplayPath>meta-data-warehouse add-dimension-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-attribute-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-dimension-attribute-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute row id.</Summary>
+      <Summary>DimensionAttribute row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-dimension-attribute-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--data-type-id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --data-type-id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:data-type-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-attribute-data-type-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DataTypeId.</Summary>
+      <Summary>DataTypeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-attribute-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--is-nullable</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --is-nullable</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--is-nullable</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-dimension-attribute-is-nullable</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. IsNullable.</Summary>
+      <Summary>IsNullable.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-dimension-attribute-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-attribute --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-add-dimension-attribute-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension-business-key</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension-business-key</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>012</Ordinal>
+      <NativeId>exec-add-dimension-business-key</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimension business key.</Summary>
@@ -881,69 +881,69 @@
       <DisplayPath>meta-data-warehouse add-dimension-business-key --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-business-key-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-dimension-business-key-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionBusinessKey row id.</Summary>
+      <Summary>DimensionBusinessKey row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-dimension-business-key-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-business-key-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-business-key-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension-business-key-part</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension-business-key-part</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>013</Ordinal>
+      <NativeId>exec-add-dimension-business-key-part</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add an ordered attribute to a dimension business key.</Summary>
@@ -953,69 +953,69 @@
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-business-key-part-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-dimension-business-key-part-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionBusinessKeyPart row id.</Summary>
+      <Summary>DimensionBusinessKeyPart row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-dimension-business-key-part-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:business-key" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--business-key</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part --business-key</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:business-key</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--business-key</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-business-key-part-business-key</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionBusinessKey id for DimensionBusinessKeyId.</Summary>
+      <Summary>DimensionBusinessKey id for DimensionBusinessKeyId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-business-key-part --attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part:option:attribute</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--attribute</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-business-key-part-attribute</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-business-key-part</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute id for DimensionAttributeId.</Summary>
+      <Summary>DimensionAttribute id for DimensionAttributeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension-hierarchy</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension-hierarchy</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>014</Ordinal>
+      <NativeId>exec-add-dimension-hierarchy</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>013</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimension hierarchy.</Summary>
@@ -1025,69 +1025,69 @@
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionHierarchy row id.</Summary>
+      <Summary>DimensionHierarchy row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-dimension-hierarchy-level</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-dimension-hierarchy-level</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>015</Ordinal>
+      <NativeId>exec-add-dimension-hierarchy-level</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>014</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a hierarchy level.</Summary>
@@ -1097,81 +1097,81 @@
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionHierarchyLevel row id.</Summary>
+      <Summary>DimensionHierarchyLevel row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:hierarchy" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--hierarchy</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --hierarchy</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:hierarchy</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--hierarchy</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-hierarchy</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionHierarchy id for DimensionHierarchyId.</Summary>
+      <Summary>DimensionHierarchy id for DimensionHierarchyId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-dimension-hierarchy-level --attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level:option:attribute</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--attribute</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-dimension-hierarchy-level-attribute</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-hierarchy-level</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute id for DimensionAttributeId.</Summary>
+      <Summary>DimensionAttribute id for DimensionAttributeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>016</Ordinal>
+      <NativeId>exec-add-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>015</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a fact table concept.</Summary>
@@ -1181,69 +1181,69 @@
       <DisplayPath>meta-data-warehouse add-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact row id.</Summary>
+      <Summary>Fact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-fact-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact:option:warehouse" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--warehouse</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact --warehouse</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact:option:warehouse</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--warehouse</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-fact-warehouse</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Warehouse id for WarehouseId.</Summary>
+      <Summary>Warehouse id for WarehouseId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-fact-bridge</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-fact-bridge</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>017</Ordinal>
+      <NativeId>exec-add-fact-bridge</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>016</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Connect a fact to a bridge table.</Summary>
@@ -1253,93 +1253,93 @@
       <DisplayPath>meta-data-warehouse add-fact-bridge --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-fact-bridge-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-fact-bridge-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. FactBridge row id.</Summary>
+      <Summary>FactBridge row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-fact-bridge-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. RoleName.</Summary>
+      <Summary>RoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-fact-bridge-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-fact-bridge-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-fact-bridge-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:bridge" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--bridge</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-bridge --bridge</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-bridge:option:bridge</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--bridge</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-fact-bridge-bridge</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-bridge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. BridgeTable id for BridgeTableId.</Summary>
+      <Summary>BridgeTable id for BridgeTableId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-fact-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-fact-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>018</Ordinal>
+      <NativeId>exec-add-fact-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>017</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimensional role to a fact.</Summary>
@@ -1349,105 +1349,105 @@
       <DisplayPath>meta-data-warehouse add-fact-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-fact-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-fact-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. FactDimension row id.</Summary>
+      <Summary>FactDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-fact-dimension-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. RoleName.</Summary>
+      <Summary>RoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-fact-dimension-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--is-required</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --is-required</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--is-required</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-fact-dimension-is-required</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. IsRequired.</Summary>
+      <Summary>IsRequired.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-fact-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-fact-dimension-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-dimension --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-add-fact-dimension-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-grain" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-fact-grain</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-grain</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-fact-grain</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>019</Ordinal>
+      <NativeId>exec-add-fact-grain</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>018</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare a fact grain.</Summary>
@@ -1457,69 +1457,69 @@
       <DisplayPath>meta-data-warehouse add-fact-grain --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-fact-grain-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-grain</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-grain:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-grain --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-fact-grain-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-grain</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. FactGrain row id.</Summary>
+      <Summary>FactGrain row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-grain:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-grain --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-fact-grain-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-grain</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-grain:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-grain --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-fact-grain-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-grain</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-grain:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-grain --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-grain:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-fact-grain-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-grain</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-fact-measure</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-fact-measure</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>020</Ordinal>
+      <NativeId>exec-add-fact-measure</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>019</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a typed fact measure.</Summary>
@@ -1529,105 +1529,105 @@
       <DisplayPath>meta-data-warehouse add-fact-measure --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-fact-measure-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-fact-measure-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. FactMeasure row id.</Summary>
+      <Summary>FactMeasure row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-fact-measure-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:data-type-id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--data-type-id</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --data-type-id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:data-type-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-fact-measure-data-type-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DataTypeId.</Summary>
+      <Summary>DataTypeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-fact-measure-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--is-nullable</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --is-nullable</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--is-nullable</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-fact-measure-is-nullable</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. IsNullable.</Summary>
+      <Summary>IsNullable.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-fact-measure-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-fact-measure --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-add-fact-measure-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-factless-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-factless-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-factless-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-factless-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-factless-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>021</Ordinal>
+      <NativeId>exec-add-factless-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>020</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Mark a fact as factless.</Summary>
@@ -1637,57 +1637,57 @@
       <DisplayPath>meta-data-warehouse add-factless-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-factless-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-factless-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-factless-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-factless-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-factless-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-factless-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-factless-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-factless-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. FactlessFact row id.</Summary>
+      <Summary>FactlessFact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-factless-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-factless-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-factless-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-factless-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-factless-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-factless-fact:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-factless-fact --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-factless-fact:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-factless-fact-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-factless-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-junk-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-junk-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>022</Ordinal>
+      <NativeId>exec-add-junk-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>021</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare a junk dimension.</Summary>
@@ -1697,57 +1697,57 @@
       <DisplayPath>meta-data-warehouse add-junk-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-junk-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-junk-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. JunkDimension row id.</Summary>
+      <Summary>JunkDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-junk-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-junk-dimension-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-junk-dimension-component</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-junk-dimension-component</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>023</Ordinal>
+      <NativeId>exec-add-junk-dimension-component</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>022</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add an attribute component to a junk dimension.</Summary>
@@ -1757,81 +1757,81 @@
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. JunkDimensionComponent row id.</Summary>
+      <Summary>JunkDimensionComponent row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:junk-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--junk-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --junk-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:junk-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--junk-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-junk-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. JunkDimension id for JunkDimensionId.</Summary>
+      <Summary>JunkDimension id for JunkDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-junk-dimension-component --attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component:option:attribute</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--attribute</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-junk-dimension-component-attribute</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-junk-dimension-component</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute id for DimensionAttributeId.</Summary>
+      <Summary>DimensionAttribute id for DimensionAttributeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-mini-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-mini-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>024</Ordinal>
+      <NativeId>exec-add-mini-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>023</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare a mini-dimension relationship.</Summary>
@@ -1841,81 +1841,81 @@
       <DisplayPath>meta-data-warehouse add-mini-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-mini-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-mini-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MiniDimension row id.</Summary>
+      <Summary>MiniDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension --role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-mini-dimension-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. RoleName.</Summary>
+      <Summary>RoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-mini-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:source-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--source-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension --source-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:source-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-mini-dimension-source-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for SourceDimensionId.</Summary>
+      <Summary>Dimension id for SourceDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:profile-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--profile-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-mini-dimension --profile-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-mini-dimension:option:profile-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--profile-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-mini-dimension-profile-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-mini-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for ProfileDimensionId.</Summary>
+      <Summary>Dimension id for ProfileDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-outrigger-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-outrigger-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>025</Ordinal>
+      <NativeId>exec-add-outrigger-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>024</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare an outrigger dimension relationship.</Summary>
@@ -1925,105 +1925,105 @@
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. OutriggerDimension row id.</Summary>
+      <Summary>OutriggerDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:role-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --role-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:role-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--role-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-role-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. RoleName.</Summary>
+      <Summary>RoleName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:ordinal" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --ordinal</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Ordinal.</Summary>
+      <Summary>Ordinal.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--is-required</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --is-required</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--is-required</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-is-required</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. IsRequired.</Summary>
+      <Summary>IsRequired.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:parent-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--parent-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --parent-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:parent-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--parent-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-parent-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for ParentDimensionId.</Summary>
+      <Summary>Dimension id for ParentDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:child-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--child-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-outrigger-dimension --child-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:child-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--child-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-add-outrigger-dimension-child-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for ChildDimensionId.</Summary>
+      <Summary>Dimension id for ChildDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-periodic-snapshot-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-periodic-snapshot-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>026</Ordinal>
+      <NativeId>exec-add-periodic-snapshot-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>025</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Mark a fact as a periodic snapshot.</Summary>
@@ -2033,69 +2033,69 @@
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-periodic-snapshot-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-periodic-snapshot-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. PeriodicSnapshotFact row id.</Summary>
+      <Summary>PeriodicSnapshotFact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:period-name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--period-name</DisplayName>
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact --period-name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:period-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--period-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-periodic-snapshot-fact-period-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. PeriodName.</Summary>
+      <Summary>PeriodName.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-periodic-snapshot-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-periodic-snapshot-fact --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-periodic-snapshot-fact-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-periodic-snapshot-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-slowly-changing-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-slowly-changing-dimension</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>027</Ordinal>
+      <NativeId>exec-add-slowly-changing-dimension</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>026</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare SCD behavior for a dimension.</Summary>
@@ -2105,69 +2105,69 @@
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-slowly-changing-dimension-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-slowly-changing-dimension-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. SlowlyChangingDimension row id.</Summary>
+      <Summary>SlowlyChangingDimension row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-slowly-changing-dimension-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-slowly-changing-dimension-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-slowly-changing-dimension --dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension:option:dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-slowly-changing-dimension-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-slowly-changing-dimension</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Dimension id for DimensionId.</Summary>
+      <Summary>Dimension id for DimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-transaction-fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-transaction-fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-transaction-fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-transaction-fact</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-transaction-fact</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>028</Ordinal>
+      <NativeId>exec-add-transaction-fact</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>027</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Mark a fact as transaction-grain.</Summary>
@@ -2177,57 +2177,57 @@
       <DisplayPath>meta-data-warehouse add-transaction-fact --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-transaction-fact-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-transaction-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-transaction-fact --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-transaction-fact-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-transaction-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. TransactionFact row id.</Summary>
+      <Summary>TransactionFact row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-transaction-fact --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-transaction-fact-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-transaction-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:fact" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--fact</DisplayName>
       <DisplayPath>meta-data-warehouse add-transaction-fact --fact</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-transaction-fact:option:fact</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--fact</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-transaction-fact-fact</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-transaction-fact</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Fact id for FactId.</Summary>
+      <Summary>Fact id for FactId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-type1-dimension-attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-type1-dimension-attribute</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>029</Ordinal>
+      <NativeId>exec-add-type1-dimension-attribute</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>028</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare a Type 1 attribute in an SCD dimension.</Summary>
@@ -2237,69 +2237,69 @@
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-type1-dimension-attribute-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-type1-dimension-attribute-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Type1DimensionAttribute row id.</Summary>
+      <Summary>Type1DimensionAttribute row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-type1-dimension-attribute-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:slowly-changing-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--slowly-changing-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute --slowly-changing-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:slowly-changing-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--slowly-changing-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-type1-dimension-attribute-slowly-changing-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. SlowlyChangingDimension id for SlowlyChangingDimensionId.</Summary>
+      <Summary>SlowlyChangingDimension id for SlowlyChangingDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-type1-dimension-attribute --attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute:option:attribute</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--attribute</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-type1-dimension-attribute-attribute</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type1-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute id for DimensionAttributeId.</Summary>
+      <Summary>DimensionAttribute id for DimensionAttributeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-type2-dimension-attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-type2-dimension-attribute</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>030</Ordinal>
+      <NativeId>exec-add-type2-dimension-attribute</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>029</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Declare a Type 2 attribute in an SCD dimension.</Summary>
@@ -2309,69 +2309,69 @@
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-type2-dimension-attribute-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-type2-dimension-attribute-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Type2DimensionAttribute row id.</Summary>
+      <Summary>Type2DimensionAttribute row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-type2-dimension-attribute-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:slowly-changing-dimension" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--slowly-changing-dimension</DisplayName>
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute --slowly-changing-dimension</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:slowly-changing-dimension</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--slowly-changing-dimension</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-type2-dimension-attribute-slowly-changing-dimension</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. SlowlyChangingDimension id for SlowlyChangingDimensionId.</Summary>
+      <Summary>SlowlyChangingDimension id for SlowlyChangingDimensionId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:attribute" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--attribute</DisplayName>
       <DisplayPath>meta-data-warehouse add-type2-dimension-attribute --attribute</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute:option:attribute</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--attribute</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-type2-dimension-attribute-attribute</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-type2-dimension-attribute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. DimensionAttribute id for DimensionAttributeId.</Summary>
+      <Summary>DimensionAttribute id for DimensionAttributeId.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-warehouse" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>meta-data-warehouse add-warehouse</DisplayName>
       <DisplayPath>meta-data-warehouse add-warehouse</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-warehouse</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-warehouse</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>031</Ordinal>
+      <NativeId>exec-add-warehouse</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>030</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add a dimensional warehouse.</Summary>
@@ -2381,48 +2381,181 @@
       <DisplayPath>meta-data-warehouse add-warehouse --workspace</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-warehouse:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-warehouse-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-warehouse</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Workspace path. Default: current working directory.</Summary>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-warehouse:option:id" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-data-warehouse add-warehouse --id</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-warehouse:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-warehouse-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-warehouse</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Warehouse row id.</Summary>
+      <Summary>Warehouse row id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-warehouse:option:name" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-data-warehouse add-warehouse --name</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-warehouse:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-warehouse-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-warehouse</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Name.</Summary>
+      <Summary>Name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-warehouse:option:description" DocumentationSourceId="source:cli:meta-data-warehouse">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-data-warehouse add-warehouse --description</DisplayPath>
       <Key>source:cli:meta-data-warehouse:app:command:add-warehouse:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-warehouse-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-warehouse:app:command:add-warehouse</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Description.</Summary>
+      <Summary>Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required:allowed-value:false" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-data-warehouse add-bridge-participant --is-required value false</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required:allowed-value:true" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-data-warehouse add-bridge-participant --is-required value true</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-bridge-participant:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable:allowed-value:false" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-data-warehouse add-dimension-attribute --is-nullable value false</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable:allowed-value:true" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-data-warehouse add-dimension-attribute --is-nullable value true</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-dimension-attribute:option:is-nullable</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required:allowed-value:false" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-data-warehouse add-fact-dimension --is-required value false</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required:allowed-value:true" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-data-warehouse add-fact-dimension --is-required value true</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-dimension:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable:allowed-value:false" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-data-warehouse add-fact-measure --is-nullable value false</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable:allowed-value:true" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-data-warehouse add-fact-measure --is-nullable value true</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-fact-measure:option:is-nullable</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required:allowed-value:false" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-data-warehouse add-outrigger-dimension --is-required value false</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required:allowed-value:false</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-false</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required:allowed-value:true" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-data-warehouse add-outrigger-dimension --is-required value true</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required:allowed-value:true</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>allowed-boolean-true</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:add-outrigger-dimension:option:is-required</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:help" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>meta-data-warehouse help</DisplayName>
+      <DisplayPath>meta-data-warehouse help</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:help</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-help</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>031</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-warehouse:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-data-warehouse">
+      <DisplayName>&lt;path&gt;</DisplayName>
+      <DisplayPath>meta-data-warehouse new-workspace &lt;path&gt;</DisplayPath>
+      <Key>source:cli:meta-data-warehouse:app:command:new-workspace:argument:path</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>arg-new-workspace-path</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-data-warehouse:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

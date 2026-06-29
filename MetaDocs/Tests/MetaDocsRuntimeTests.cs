@@ -151,6 +151,102 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void ImportApplication_CapturesAllowedValuesAndParameterGroups()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        var cli = CreateCliApp(
+            "demo-cli",
+            commands: new TestCliCommand(
+                "run",
+                "Run demo.",
+                new TestCliOption("--mode", "<value>", "Execution mode."),
+                new TestCliOption("--id", "<value>", "Explicit id."),
+                new TestCliOption("--auto-id", string.Empty, "Generate id.")));
+        var arityOne = cli.ValueArityList.Single(row => row.Id == "arity-one");
+        var modeShape = new ValueShape
+        {
+            Id = "shape-mode",
+            Name = "Mode",
+            ValueLabel = "<mode>",
+            ValueArity = arityOne,
+        };
+        cli.ValueShapeList.Add(modeShape);
+        var modeParameter = cli.ParameterList.Single(parameter => parameter.Name == "mode");
+        modeParameter.ValueShape = modeShape;
+        cli.AllowedValueList.Add(new AllowedValue
+        {
+            Id = "mode-fast",
+            ValueShape = modeShape,
+            Value = "fast",
+            Description = "Optimize for speed.",
+        });
+        cli.AllowedValueList.Add(new AllowedValue
+        {
+            Id = "mode-safe",
+            ValueShape = modeShape,
+            Value = "safe",
+            Description = "Optimize for checks.",
+        });
+
+        var executable = cli.ExecutableCommandList.Single();
+        var idParameter = cli.ParameterList.Single(parameter => parameter.Name == "id");
+        var autoIdParameter = cli.ParameterList.Single(parameter => parameter.Name == "auto-id");
+        var group = new ParameterGroup
+        {
+            Id = "group-id-choice",
+            ExecutableCommand = executable,
+            Name = "IdChoice",
+            Description = "Choose an explicit id or generated id.",
+            IsRequired = "true",
+            AllowsMultiple = "false",
+        };
+        var idMember = new ParameterGroupMember
+        {
+            Id = "group-id-choice-id",
+            ParameterGroup = group,
+            Parameter = idParameter,
+        };
+        cli.ParameterGroupList.Add(group);
+        cli.ParameterGroupMemberList.Add(idMember);
+        cli.ParameterGroupMemberList.Add(new ParameterGroupMember
+        {
+            Id = "group-id-choice-auto",
+            ParameterGroup = group,
+            Parameter = autoIdParameter,
+            PreviousMember = idMember,
+        });
+
+        new MetaDocsCliImporter().ImportApplication(model, cli, groupName: "meta");
+
+        var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        Assert.Equal(string.Empty, application.Summary);
+        Assert.True(string.IsNullOrWhiteSpace(FindNarrative(model, application, "Summary").Body));
+
+        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
+        Assert.Equal("1", FindFact(model, command, "Cli", "ParameterGroupCount").Value);
+
+        var mode = Assert.Single(model.DocumentationSubjectList, row =>
+            row.Kind == "CliOption" &&
+            row.DisplayName == "--mode");
+        Assert.Equal("Mode", FindFact(model, mode, "Cli", "ValueShape").Value);
+        Assert.Equal("One", FindFact(model, mode, "Cli", "ValueArity").Value);
+        Assert.Equal("fast, safe", FindFact(model, mode, "Cli", "AllowedValues").Value);
+        Assert.Equal(2, model.DocumentationSubjectList.Count(row =>
+            row.Kind == "CliAllowedValue" &&
+            row.ParentKey == mode.Id));
+
+        var importedGroup = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliParameterGroup");
+        Assert.Equal("IdChoice", importedGroup.DisplayName);
+        Assert.Equal("true", FindFact(model, importedGroup, "Cli", "Required").Value);
+        Assert.Equal("false", FindFact(model, importedGroup, "Cli", "AllowsMultiple").Value);
+        Assert.Equal("auto-id, id", FindFact(model, importedGroup, "Cli", "Members").Value);
+
+        var html = new MetametabiDocsSiteRenderer().RenderSite(model);
+        Assert.Contains("&lt;mode&gt;: fast, safe", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("<p class=\"panel-lead\"></p>", html, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task ImportCommandProse_MapsMarkdownToCliSubjectsAndPreservesAuthoredNarratives()
     {
         var model = MetaDocsModel.CreateEmpty();
@@ -374,17 +470,24 @@ public sealed class MetaDocsRuntimeTests
         var importer = new MetaDocsCliImporter();
         importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
         importer.ImportApplication(model, CreateMetaDocsApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta");
+        importer.ImportApplication(model, CreateSimpleApp("meta-cli"), groupName: "meta");
+        importer.ImportApplication(model, CreateSimpleApp("meta-mesh"), groupName: "meta");
+        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta-bi");
+        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta-bi");
         AddModelSubject(model, "MetaDocs");
         AddModelSubject(model, "MetaDataType");
 
         AssertClassification(model, "meta", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
         AssertClassification(model, "meta-docs", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
+        AssertClassification(model, "meta-cli", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
+        AssertClassification(model, "meta-mesh", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
         AssertClassification(model, "meta-data-type", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Cli);
         AssertClassification(model, "meta-convert", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Cli);
         AssertClassification(model, "MetaDocs", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Models);
         AssertClassification(model, "MetaDataType", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Models);
+
+        var ungrouped = new MetaDocsCliImporter().ImportApplication(model, CreateSimpleApp("meta-ungrouped"));
+        Assert.False(MetaDocsPublicReferenceClassifier.TryClassify(model, ungrouped, out _));
     }
 
     [Fact]
@@ -520,10 +623,17 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC003" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC005" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC006" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC008" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
+        Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC008");
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC010" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC011" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.True(result.HasErrors());
+
+        var resultWithProseDiagnostics = new MetaDocsValidationService().Validate(
+            model,
+            new MetaDocsValidationOptions { IncludeProseDiagnostics = true });
+        Assert.Contains(resultWithProseDiagnostics.Diagnostics, diagnostic =>
+            diagnostic.Id == "MDOC008" &&
+            diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
     }
 
     [Fact]
@@ -635,7 +745,15 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC025" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC026" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC028" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC030" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Info);
+        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC036" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
+        Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC030");
+
+        var resultWithProseDiagnostics = new MetaDocsValidationService().Validate(
+            model,
+            new MetaDocsValidationOptions { IncludeProseDiagnostics = true });
+        Assert.Contains(resultWithProseDiagnostics.Diagnostics, diagnostic =>
+            diagnostic.Id == "MDOC030" &&
+            diagnostic.Severity == MetaDocsDiagnosticSeverity.Info);
     }
 
     [Fact]
@@ -958,7 +1076,7 @@ public sealed class MetaDocsRuntimeTests
     {
         var model = MetaDocsModel.CreateEmpty();
         var importer = new MetaDocsCliImporter();
-        importer.ImportApplication(model, CreateMetaApp(), ordinal: 10);
+        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta", ordinal: 10);
         importer.ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi", ordinal: 20);
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
@@ -1047,6 +1165,16 @@ public sealed class MetaDocsRuntimeTests
         model.DocumentationSubjectList.Add(child);
         model.DocumentationFactList.Add(new DocumentationFact
         {
+            Id = "source:cli:sample:app:fact:cli:groupname",
+            SubjectKey = app.Id,
+            Kind = "Cli",
+            Name = "GroupName",
+            Value = "meta",
+            ValueKind = "String",
+            Status = "Current",
+        });
+        model.DocumentationFactList.Add(new DocumentationFact
+        {
             Id = "source:cli:sample:app:command:parent:command:child:fact:cli:commandpath",
             SubjectKey = child.Id,
             Kind = "Cli",
@@ -1127,7 +1255,7 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_ConsumesModeledShellTemplateAndThemeAsset()
     {
         var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), ordinal: 10);
+        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), groupName: "meta", ordinal: 10);
         var template = Assert.Single(model.DocumentationTemplateList, row => row.Kind == "SiteShell");
         template.Html = "MODELED {{title}} {{css}} {{navigation}} {{content}} {{script}}";
         var css = Assert.Single(model.DocumentationThemeAssetList, row => row.AssetKind == "Css");
@@ -1232,8 +1360,8 @@ public sealed class MetaDocsRuntimeTests
         var importer = new MetaDocsCliImporter();
         importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
         importer.ImportApplication(model, CreateMetaDocsApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta");
+        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta-bi");
+        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta-bi");
         AddModelSubject(model, "MetaDocs");
         AddModelSubject(model, "MetaTransformBinding");
 

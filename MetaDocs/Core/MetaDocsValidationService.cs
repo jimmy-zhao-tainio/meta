@@ -4,9 +4,10 @@ namespace MetaDocs.Core;
 
 public sealed class MetaDocsValidationService
 {
-    public MetaDocsValidationResult Validate(MetaDocsModel model)
+    public MetaDocsValidationResult Validate(MetaDocsModel model, MetaDocsValidationOptions? options = null)
     {
         ArgumentNullException.ThrowIfNull(model);
+        options ??= MetaDocsValidationOptions.Default;
 
         var diagnostics = new List<MetaDocsDiagnostic>();
         var subjectsById = model.DocumentationSubjectList
@@ -26,14 +27,17 @@ public sealed class MetaDocsValidationService
         CheckNarrativeReferences(model, diagnostics, subjectIds);
         CheckRelationships(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckViews(model, diagnostics, subjectsById);
-        CheckNarrativeReviewState(model, diagnostics);
-        CheckMissingExpectedNarratives(model, diagnostics);
+        CheckNarrativeReviewState(model, diagnostics, options.IncludeProseDiagnostics);
+        if (options.IncludeProseDiagnostics)
+        {
+            CheckMissingExpectedNarratives(model, diagnostics);
+        }
         CheckAliases(model, diagnostics, subjectIds);
         CheckTheme(model, diagnostics);
         CheckImportSpecs(model, diagnostics, sourceIds);
         CheckInstancePolicies(model, diagnostics);
         CheckInstanceDocs(model, diagnostics, subjectIds);
-        CheckCliReference(model, diagnostics);
+        CheckCliReference(model, diagnostics, options.IncludeProseDiagnostics);
         CheckPublicReferenceView(model, diagnostics);
 
         return new MetaDocsValidationResult(diagnostics);
@@ -211,7 +215,8 @@ public sealed class MetaDocsValidationService
 
     private static void CheckNarrativeReviewState(
         MetaDocsModel model,
-        ICollection<MetaDocsDiagnostic> diagnostics)
+        ICollection<MetaDocsDiagnostic> diagnostics,
+        bool includeProseDiagnostics)
     {
         var subjectsById = model.DocumentationSubjectList
             .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
@@ -219,8 +224,9 @@ public sealed class MetaDocsValidationService
 
         foreach (var narrative in model.DocumentationNarrativeList)
         {
-            if (string.Equals(narrative.ReviewStatus, "NeedsReview", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(narrative.ReviewStatus, "NeedsAuthoring", StringComparison.OrdinalIgnoreCase))
+            if (includeProseDiagnostics &&
+                (string.Equals(narrative.ReviewStatus, "NeedsReview", StringComparison.OrdinalIgnoreCase) ||
+                 string.Equals(narrative.ReviewStatus, "NeedsAuthoring", StringComparison.OrdinalIgnoreCase)))
             {
                 diagnostics.Add(Warning(
                     "MDOC008",
@@ -486,7 +492,8 @@ public sealed class MetaDocsValidationService
 
     private static void CheckCliReference(
         MetaDocsModel model,
-        ICollection<MetaDocsDiagnostic> diagnostics)
+        ICollection<MetaDocsDiagnostic> diagnostics,
+        bool includeProseDiagnostics)
     {
         var activeSubjects = model.DocumentationSubjectList
             .Where(IsActive)
@@ -499,6 +506,17 @@ public sealed class MetaDocsValidationService
 
         foreach (var application in activeSubjects.Where(subject => string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase)))
         {
+            var groupName = GetTextFact(model, application.Id, "Cli", "GroupName");
+            if (!string.Equals(groupName, "meta", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(groupName, "meta-bi", StringComparison.OrdinalIgnoreCase))
+            {
+                diagnostics.Add(Warning(
+                    "MDOC036",
+                    "CliApplicationGroupMissing",
+                    $"CLI application '{application.DisplayName}' does not declare a recognized public docs group.",
+                    application.Id));
+            }
+
             var commands = CliCommandDescendants(activeChildrenByParent, application.Id).ToArray();
             if (commands.Length == 0)
             {
@@ -559,7 +577,7 @@ public sealed class MetaDocsValidationService
                     command.Id));
             }
 
-            if (!HasAuthoredOrImportedNarrative(model, command.Id))
+            if (includeProseDiagnostics && !HasAuthoredOrImportedNarrative(model, command.Id))
             {
                 diagnostics.Add(Info(
                     "MDOC030",
@@ -798,6 +816,20 @@ public sealed class MetaDocsValidationService
         return int.TryParse(value, out var parsed) ? parsed : 0;
     }
 
+    private static string GetTextFact(
+        MetaDocsModel model,
+        string subjectKey,
+        string kind,
+        string name) =>
+        model.DocumentationFactList
+            .Where(fact =>
+                string.Equals(fact.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(fact.Name, name, StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
+            .Select(fact => fact.Value)
+            .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
+
     private static bool HasAuthoredOrImportedNarrative(MetaDocsModel model, string subjectKey) =>
         model.DocumentationNarrativeList.Any(narrative =>
             string.Equals(narrative.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
@@ -873,6 +905,13 @@ public sealed record MetaDocsValidationResult(IReadOnlyList<MetaDocsDiagnostic> 
 
     public bool HasErrors(bool warningsAsErrors = false) =>
         ErrorCount > 0 || warningsAsErrors && WarningCount > 0;
+}
+
+public sealed class MetaDocsValidationOptions
+{
+    public static MetaDocsValidationOptions Default { get; } = new();
+
+    public bool IncludeProseDiagnostics { get; init; }
 }
 
 public sealed record MetaDocsDiagnostic(

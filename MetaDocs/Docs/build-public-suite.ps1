@@ -2,12 +2,19 @@
 param(
     [string] $DocsRoot = $PSScriptRoot,
     [string] $MetaDocsExe,
+    [string] $MetaBiRoot,
+    [switch] $RefreshCliWorkspaces,
+    [switch] $IncludeProseDiagnostics,
     [switch] $WarningsAsErrors,
     [switch] $IncludePrivateWorkspaces
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
+
+if ([string]::IsNullOrWhiteSpace($DocsRoot)) {
+    $DocsRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+}
 
 function Resolve-FullPath {
     param([Parameter(Mandatory = $true)][string] $Path)
@@ -47,6 +54,21 @@ if (-not (Test-Path -LiteralPath $workspacesRoot -PathType Container)) {
     throw "MetaDocs workspaces directory was not found: $workspacesRoot"
 }
 
+if ($RefreshCliWorkspaces) {
+    $refreshArgs = @{
+        DocsRoot = $docsRootPath
+        MetaDocsExe = $script:MetaDocsExe
+    }
+    if (-not [string]::IsNullOrWhiteSpace($MetaBiRoot)) {
+        $refreshArgs.MetaBiRoot = $MetaBiRoot
+    }
+
+    & (Join-Path $docsRootPath "refresh-public-cli-workspaces.ps1") @refreshArgs
+    if ($LASTEXITCODE -ne 0) {
+        throw "Refreshing public CLI MetaDocs workspaces failed with exit code $LASTEXITCODE."
+    }
+}
+
 $excludedWorkspaceNames = @(
     "metametabi-authored",
     "metametabi-safe-instances"
@@ -79,6 +101,10 @@ Invoke-Checked "Merging $($workspaceDirectories.Count) MetaDocs workspace(s)" (
     @("merge") + $includeArgs + @("--new-workspace", $suiteWorkspace))
 
 $validateArgs = @("validate", "--workspace", $suiteWorkspace)
+if ($IncludeProseDiagnostics) {
+    $validateArgs += "--include-prose-diagnostics"
+}
+
 if ($WarningsAsErrors) {
     $validateArgs += "--warnings-as-errors"
 }

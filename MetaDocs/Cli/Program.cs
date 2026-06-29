@@ -279,7 +279,12 @@ internal static class Program
         try
         {
             var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var result = new MetaDocsValidationService().Validate(model);
+            var result = new MetaDocsValidationService().Validate(
+                model,
+                new MetaDocsValidationOptions
+                {
+                    IncludeProseDiagnostics = invocation.Flag("include-prose-diagnostics"),
+                });
             PrintValidationResult(result);
             if (result.HasErrors(invocation.Flag("warnings-as-errors")))
             {

@@ -4,6 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app">
       <Body>`meta-transform-binding` binds MetaTransformScript workspaces to explicit source and target schema contracts, producing rowset, column, and validation evidence.</Body>
       <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -12,9 +13,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind">
-      <Body>Bind all transform scripts and validate against source/target schema contracts into a new workspace.</Body>
+      <Body>Bind transform scripts and validate them against source and target schema contracts into a new workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -23,9 +24,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:transform-workspace">
-      <Body>Required. MetaTransformScript workspace to bind.</Body>
+      <Body>MetaTransformScript workspace to bind.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -34,9 +35,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:source-schema:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:source-schema">
-      <Body>Required. Repeatable source MetaSchema workspace.</Body>
+      <Body>Repeatable source MetaSchema workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -45,9 +46,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:target-schema:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:target-schema">
-      <Body>Required. Target MetaSchema workspace.</Body>
+      <Body>Target MetaSchema workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -56,9 +57,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:execute-system:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:execute-system">
-      <Body>Required. Execution context for one/two-part source identifiers.</Body>
+      <Body>Execution context for one/two-part source identifiers.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,9 +68,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:new-workspace">
-      <Body>Required. Directory where the binding workspace will be created.</Body>
+      <Body>Directory where the binding workspace will be created.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -80,7 +81,7 @@
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:execute-system-default-schema-name:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:execute-system-default-schema-name">
       <Body>Required when any one-part source identifier exists.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -89,9 +90,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns">
-      <Body>Optional comma-separated target columns to exclude from target conformance checks.</Body>
+      <Body>Comma-separated target columns to exclude from target conformance checks.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -100,9 +101,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present">
-      <Body>Optional comma-separated target columns to exclude only on target tables where they exist.</Body>
+      <Body>Comma-separated target columns to exclude only on target tables where they exist.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -113,7 +114,7 @@
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:data-type-conversion-workspace">
       <Body>Optional sanctioned conversion policy workspace. Omitted uses built-in defaults.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -122,9 +123,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:allow-partial:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:allow-partial">
-      <Body>Optional. Save only objects that bind and validate successfully; skipped objects are failures.</Body>
+      <Body>Save only objects that bind and validate successfully.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -133,9 +134,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:bind:option:partial-report:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:bind:option:partial-report">
-      <Body>Optional TSV report for objects skipped due to binding or validation failure. Requires --allow-partial.</Body>
+      <Body>TSV report for objects skipped due to binding or validation failure. Requires --allow-partial.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260608145054760</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -271,6 +272,17 @@ meta-transform-binding bind --transform-workspace .\TransformWS --source-schema 
       <Slot>Usage</Slot>
       <SubjectKey>source:cli:meta-transform-binding:app:command:bind:option:partial-report</SubjectKey>
       <Title>Usage</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-binding:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-transform-binding:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-transform-binding:batch:20260629214430233</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-transform-binding:app:command:help</SubjectKey>
+      <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

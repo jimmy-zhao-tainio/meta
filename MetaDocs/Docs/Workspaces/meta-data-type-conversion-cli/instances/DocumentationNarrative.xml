@@ -4,6 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app">
       <Body>`meta-data-type-conversion` authors and validates sanctioned conversion graphs between data types, including resolution from a source type through modeled conversion rules.</Body>
       <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -12,9 +13,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:new-workspace">
-      <Body>Create a new MetaDataTypeConversion workspace.</Body>
+      <Body>Create a seeded MetaDataTypeConversion workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -36,7 +37,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:check:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:check">
       <Body>Validate sanctioned type mappings.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -45,9 +46,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:check:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:check:option:workspace">
-      <Body>Required. MetaDataTypeConversion workspace to validate.</Body>
+      <Body>MetaDataTypeConversion workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -58,7 +59,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve">
       <Body>Resolve one source data type id through the sanctioned mappings.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,9 +68,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace">
-      <Body>Required. MetaDataTypeConversion workspace to query.</Body>
+      <Body>MetaDataTypeConversion workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -78,9 +79,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type">
-      <Body>Required. Source data type id to resolve.</Body>
+      <Body>Source data type id to resolve.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -89,14 +90,25 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system">
-      <Body>Optional target system when the source type has mappings to several target systems.</Body>
+      <Body>Target data type system when the source type has mappings to several target systems.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260608145053438</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260629214429497</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-data-type-conversion:app:command:help</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

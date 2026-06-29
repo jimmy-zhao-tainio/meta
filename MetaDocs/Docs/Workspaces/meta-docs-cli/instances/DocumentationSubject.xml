@@ -6,9 +6,9 @@
       <DisplayPath>meta-docs</DisplayPath>
       <Key>source:cli:meta-docs:app</Key>
       <Kind>CliApplication</Kind>
-      <NativeId>meta-docs</NativeId>
-      <NativeKind>CliAppDefinition</NativeKind>
-      <Ordinal>020</Ordinal>
+      <NativeId>app-meta-docs</NativeId>
+      <NativeKind>MetaCli.Application</NativeKind>
+      <Ordinal>030</Ordinal>
       <Status>Current</Status>
       <Summary>`meta-docs` turns CLI definitions, workspace models, selected instance facts, and authored narrative into refreshable reference documentation.</Summary>
     </DocumentationSubject>
@@ -17,8 +17,8 @@
       <DisplayPath>meta-docs author-page</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>author-page</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
+      <NativeId>exec-author-page</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
@@ -29,9 +29,9 @@
       <DisplayPath>meta-docs author-page --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-author-page-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>013</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Existing MetaDocs workspace to update in place.</Summary>
@@ -41,9 +41,9 @@
       <DisplayPath>meta-docs author-page --new-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:new-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--new-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-author-page-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>New MetaDocs workspace to create.</Summary>
@@ -53,57 +53,57 @@
       <DisplayPath>meta-docs author-page --id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-author-page-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Stable documentation subject id.</Summary>
+      <Summary>Stable documentation subject id.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:title" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--title</DisplayName>
       <DisplayPath>meta-docs author-page --title</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:title</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--title</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-author-page-title</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Page title and subject display name.</Summary>
+      <Summary>Page title and subject display name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:summary" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--summary</DisplayName>
       <DisplayPath>meta-docs author-page --summary</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:summary</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--summary</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-author-page-summary</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Short subject summary.</Summary>
+      <Summary>Short subject summary.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:body" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--body</DisplayName>
       <DisplayPath>meta-docs author-page --body</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:body</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--body</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>option-author-page-body</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Authored narrative body.</Summary>
+      <Summary>Authored narrative body.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:kind" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--kind</DisplayName>
       <DisplayPath>meta-docs author-page --kind</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:kind</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--kind</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>option-author-page-kind</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional subject kind. Default: Guide.</Summary>
@@ -113,9 +113,9 @@
       <DisplayPath>meta-docs author-page --path</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:path</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--path</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>option-author-page-path</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional display path. Default: title.</Summary>
@@ -125,9 +125,9 @@
       <DisplayPath>meta-docs author-page --parent</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:parent</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--parent</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>009</Ordinal>
+      <NativeId>option-author-page-parent</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional parent subject id.</Summary>
@@ -137,9 +137,9 @@
       <DisplayPath>meta-docs author-page --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>010</Ordinal>
+      <NativeId>option-author-page-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional page ordering number. Default: 100.</Summary>
@@ -149,9 +149,9 @@
       <DisplayPath>meta-docs author-page --slot</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:slot</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--slot</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>011</Ordinal>
+      <NativeId>option-author-page-slot</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional narrative slot. Default: Summary.</Summary>
@@ -161,9 +161,9 @@
       <DisplayPath>meta-docs author-page --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>012</Ordinal>
+      <NativeId>option-author-page-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional authored documentation source id.</Summary>
@@ -173,9 +173,9 @@
       <DisplayPath>meta-docs author-page --source-name</DisplayPath>
       <Key>source:cli:meta-docs:app:command:author-page:option:source-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>013</Ordinal>
+      <NativeId>option-author-page-source-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:author-page</ParentKey>
       <Status>Current</Status>
       <Summary>Optional authored documentation source display name.</Summary>
@@ -185,12 +185,12 @@
       <DisplayPath>meta-docs import-cli</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>import-cli</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>exec-import-cli</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Import a structured CLI definition into a MetaDocs workspace.</Summary>
+      <Summary>Import an authored MetaCli workspace into a MetaDocs workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:assembly" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--assembly</DisplayName>
@@ -201,7 +201,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Required. Assembly that exposes a public static CliAppDefinition factory method.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:type" DocumentationSourceId="source:cli:meta-docs">
@@ -213,7 +213,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Required. Fully qualified type name containing the factory method.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:method" DocumentationSourceId="source:cli:meta-docs">
@@ -225,7 +225,7 @@
       <NativeKind>CliOptionDefinition</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
       <Summary>Optional. Public static factory method name. Default: CreateAppDefinition.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationSourceId="source:cli:meta-docs">
@@ -233,9 +233,9 @@
       <DisplayPath>meta-docs import-cli --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-import-cli-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
       <Status>Current</Status>
       <Summary>Existing MetaDocs workspace to update in place.</Summary>
@@ -245,9 +245,9 @@
       <DisplayPath>meta-docs import-cli --new-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli:option:new-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--new-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-import-cli-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
       <Status>Current</Status>
       <Summary>New MetaDocs workspace to create.</Summary>
@@ -257,9 +257,9 @@
       <DisplayPath>meta-docs import-cli --group</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli:option:group</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--group</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>option-import-cli-group</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
       <Status>Current</Status>
       <Summary>Optional rendered group name, for example meta-bi.</Summary>
@@ -269,9 +269,9 @@
       <DisplayPath>meta-docs import-cli --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>option-import-cli-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
       <Status>Current</Status>
       <Summary>Optional application ordering number. Default: 100.</Summary>
@@ -281,9 +281,9 @@
       <DisplayPath>meta-docs import-cli --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-cli:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>option-import-cli-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
       <Status>Current</Status>
       <Summary>Optional stable documentation source id.</Summary>
@@ -293,9 +293,9 @@
       <DisplayPath>meta-docs import-command-prose</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-command-prose</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>import-command-prose</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>exec-import-command-prose</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Import command-oriented markdown prose into existing CLI documentation subjects.</Summary>
@@ -305,33 +305,33 @@
       <DisplayPath>meta-docs import-command-prose --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-command-prose:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-import-command-prose-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-command-prose</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaDocs workspace that already contains imported CLI subjects.</Summary>
+      <Summary>Existing MetaDocs workspace that already contains imported CLI subjects.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-command-prose:option:source-root" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-root</DisplayName>
       <DisplayPath>meta-docs import-command-prose --source-root</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-command-prose:option:source-root</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-root</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-import-command-prose-source-root</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-command-prose</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Markdown file or directory to scan for command prose.</Summary>
+      <Summary>Markdown file or directory to scan for command prose.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-command-prose:option:source-id" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-id</DisplayName>
       <DisplayPath>meta-docs import-command-prose --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-command-prose:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-import-command-prose-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-command-prose</ParentKey>
       <Status>Current</Status>
       <Summary>Optional stable documentation source id for imported markdown prose.</Summary>
@@ -341,9 +341,9 @@
       <DisplayPath>meta-docs import-workspace-model</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>import-workspace-model</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>exec-import-workspace-model</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Import generic model documentation from a Meta workspace.</Summary>
@@ -353,21 +353,21 @@
       <DisplayPath>meta-docs import-workspace-model --source-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:source-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-import-workspace-model-source-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Source Meta workspace whose model should be documented.</Summary>
+      <Summary>Source Meta workspace whose model should be documented.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-docs import-workspace-model --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-import-workspace-model-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
       <Summary>Existing MetaDocs workspace to update in place.</Summary>
@@ -377,9 +377,9 @@
       <DisplayPath>meta-docs import-workspace-model --new-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--new-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-import-workspace-model-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
       <Summary>New MetaDocs workspace to create.</Summary>
@@ -389,8 +389,8 @@
       <DisplayPath>meta-docs import-workspace-model --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-import-workspace-model-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
@@ -401,9 +401,9 @@
       <DisplayPath>meta-docs import-workspace-model --display-name</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:display-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--display-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-import-workspace-model-display-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
       <Summary>Optional source display name.</Summary>
@@ -413,9 +413,9 @@
       <DisplayPath>meta-docs import-workspace-model --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-model:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>option-import-workspace-model-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
       <Status>Current</Status>
       <Summary>Optional root subject ordering number. Default: 100.</Summary>
@@ -425,8 +425,8 @@
       <DisplayPath>meta-docs import-workspace-instances</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>import-workspace-instances</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
+      <NativeId>exec-import-workspace-instances</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
@@ -437,33 +437,33 @@
       <DisplayPath>meta-docs import-workspace-instances --source-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:source-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-import-workspace-instances-source-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Source Meta workspace whose allowed instances should be documented.</Summary>
+      <Summary>Source Meta workspace whose allowed instances should be documented.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-docs import-workspace-instances --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-import-workspace-instances-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaDocs workspace to update in place.</Summary>
+      <Summary>Existing MetaDocs workspace to update in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-instances:option:source-id" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-id</DisplayName>
       <DisplayPath>meta-docs import-workspace-instances --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-import-workspace-instances-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
       <Summary>Optional stable documentation source id for imported instance docs.</Summary>
@@ -473,9 +473,9 @@
       <DisplayPath>meta-docs import-workspace-instances --model-source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:model-source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--model-source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-import-workspace-instances-model-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
       <Summary>Optional source id used by import-workspace-model, for linking instance docs to model docs.</Summary>
@@ -485,9 +485,9 @@
       <DisplayPath>meta-docs import-workspace-instances --display-name</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:display-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--display-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-import-workspace-instances-display-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
       <Summary>Optional source display name.</Summary>
@@ -497,9 +497,9 @@
       <DisplayPath>meta-docs import-workspace-instances --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:import-workspace-instances:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>option-import-workspace-instances-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-instances</ParentKey>
       <Status>Current</Status>
       <Summary>Optional root subject ordering number. Default: 200.</Summary>
@@ -509,9 +509,9 @@
       <DisplayPath>meta-docs include-instance-entity</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>include-instance-entity</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>exec-include-instance-entity</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add or update an opt-in entity policy for workspace instance documentation.</Summary>
@@ -521,33 +521,33 @@
       <DisplayPath>meta-docs include-instance-entity --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-include-instance-entity-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaDocs workspace to update in place.</Summary>
+      <Summary>Existing MetaDocs workspace to update in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-entity:option:entity" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--entity</DisplayName>
       <DisplayPath>meta-docs include-instance-entity --entity</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:entity</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--entity</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-entity-entity</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Source workspace entity name to include.</Summary>
+      <Summary>Source workspace entity name to include.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-entity:option:source-id" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-id</DisplayName>
       <DisplayPath>meta-docs include-instance-entity --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>option-include-instance-entity-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
       <Summary>Optional model documentation source id this policy applies to. Omit for a global policy.</Summary>
@@ -557,9 +557,9 @@
       <DisplayPath>meta-docs include-instance-entity --display-name-property</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:display-name-property</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--display-name-property</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>option-include-instance-entity-display-name-property</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
       <Summary>Optional property used only as the imported instance display name.</Summary>
@@ -569,8 +569,8 @@
       <DisplayPath>meta-docs include-instance-entity --summary-property</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:summary-property</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--summary-property</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-entity-summary-property</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
@@ -581,9 +581,9 @@
       <DisplayPath>meta-docs include-instance-entity --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-entity:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>option-include-instance-entity-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-entity</ParentKey>
       <Status>Current</Status>
       <Summary>Optional policy ordering number. Default: 100.</Summary>
@@ -593,9 +593,9 @@
       <DisplayPath>meta-docs include-instance-property</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>include-instance-property</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>exec-include-instance-property</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add or update an opt-in property policy for workspace instance documentation.</Summary>
@@ -605,44 +605,44 @@
       <DisplayPath>meta-docs include-instance-property --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-include-instance-property-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-property</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaDocs workspace to update in place.</Summary>
+      <Summary>Existing MetaDocs workspace to update in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-property:option:entity" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--entity</DisplayName>
       <DisplayPath>meta-docs include-instance-property --entity</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property:option:entity</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--entity</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-include-instance-property-entity</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-property</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Source workspace entity name.</Summary>
+      <Summary>Source workspace entity name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-property:option:property" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--property</DisplayName>
       <DisplayPath>meta-docs include-instance-property --property</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property:option:property</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--property</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-property-property</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-property</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Property name to import as a generated fact.</Summary>
+      <Summary>Property name to import as a generated fact.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-property:option:source-id" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-id</DisplayName>
       <DisplayPath>meta-docs include-instance-property --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-property-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-property</ParentKey>
       <Status>Current</Status>
@@ -653,9 +653,9 @@
       <DisplayPath>meta-docs include-instance-property --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-property:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-include-instance-property-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-property</ParentKey>
       <Status>Current</Status>
       <Summary>Optional policy ordering number. Default: 100.</Summary>
@@ -665,9 +665,9 @@
       <DisplayPath>meta-docs include-instance-relationship</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>include-instance-relationship</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>exec-include-instance-relationship</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add or update an opt-in relationship policy for workspace instance documentation.</Summary>
@@ -677,44 +677,44 @@
       <DisplayPath>meta-docs include-instance-relationship --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-include-instance-relationship-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-relationship</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaDocs workspace to update in place.</Summary>
+      <Summary>Existing MetaDocs workspace to update in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-relationship:option:entity" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--entity</DisplayName>
       <DisplayPath>meta-docs include-instance-relationship --entity</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship:option:entity</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--entity</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-include-instance-relationship-entity</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-relationship</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Source workspace entity name.</Summary>
+      <Summary>Source workspace entity name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-relationship:option:relationship" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--relationship</DisplayName>
       <DisplayPath>meta-docs include-instance-relationship --relationship</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship:option:relationship</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--relationship</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-relationship-relationship</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-relationship</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Relationship selector, navigation name, or relationship column name.</Summary>
+      <Summary>Relationship selector, navigation name, or relationship column name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-relationship:option:source-id" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--source-id</DisplayName>
       <DisplayPath>meta-docs include-instance-relationship --source-id</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship:option:source-id</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--source-id</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-include-instance-relationship-source-id</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-relationship</ParentKey>
       <Status>Current</Status>
@@ -725,9 +725,9 @@
       <DisplayPath>meta-docs include-instance-relationship --ordinal</DisplayPath>
       <Key>source:cli:meta-docs:app:command:include-instance-relationship:option:ordinal</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--ordinal</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>option-include-instance-relationship-ordinal</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:include-instance-relationship</ParentKey>
       <Status>Current</Status>
       <Summary>Optional policy ordering number. Default: 100.</Summary>
@@ -737,9 +737,9 @@
       <DisplayPath>meta-docs merge</DisplayPath>
       <Key>source:cli:meta-docs:app:command:merge</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>merge</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>009</Ordinal>
+      <NativeId>exec-merge</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Merge multiple MetaDocs workspaces into a suite workspace.</Summary>
@@ -749,33 +749,33 @@
       <DisplayPath>meta-docs merge --include</DisplayPath>
       <Key>source:cli:meta-docs:app:command:merge:option:include</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--include</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-merge-include</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:merge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaDocs workspace to include. Repeat for many workspaces.</Summary>
+      <Summary>MetaDocs workspace to include. Repeat for many workspaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:new-workspace" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-docs merge --new-workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:merge:option:new-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--new-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-merge-new-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:merge</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Suite workspace to create or replace.</Summary>
+      <Summary>Suite workspace to create or replace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:validate" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>meta-docs validate</DisplayName>
       <DisplayPath>meta-docs validate</DisplayPath>
       <Key>source:cli:meta-docs:app:command:validate</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>validate</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>010</Ordinal>
+      <NativeId>exec-validate</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
       <Summary>Validate a MetaDocs workspace lifecycle and reference integrity.</Summary>
@@ -785,60 +785,108 @@
       <DisplayPath>meta-docs validate --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:validate:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-validate-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:validate</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaDocs workspace to validate.</Summary>
+      <Summary>MetaDocs workspace to validate.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:validate:option:warnings-as-errors" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--warnings-as-errors</DisplayName>
       <DisplayPath>meta-docs validate --warnings-as-errors</DisplayPath>
       <Key>source:cli:meta-docs:app:command:validate:option:warnings-as-errors</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--warnings-as-errors</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>option-validate-warnings-as-errors</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:validate</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional. Treat warnings as failing diagnostics.</Summary>
+      <Summary>Treat warnings as failing diagnostics.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>meta-docs render-site</DisplayName>
       <DisplayPath>meta-docs render-site</DisplayPath>
       <Key>source:cli:meta-docs:app:command:render-site</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>render-site</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
+      <NativeId>exec-render-site</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Render one merged metametabi docs page from a MetaDocs workspace.</Summary>
+      <Summary>Render a MetaDocs workspace as a static documentation site.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-docs render-site --workspace</DisplayPath>
       <Key>source:cli:meta-docs:app:command:render-site:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>option-render-site-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:render-site</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaDocs workspace to render.</Summary>
+      <Summary>MetaDocs workspace to render.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site:option:out" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--out</DisplayName>
       <DisplayPath>meta-docs render-site --out</DisplayPath>
       <Key>source:cli:meta-docs:app:command:render-site:option:out</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--out</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>option-render-site-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-docs:app:command:render-site</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Output directory. The merged page is written as docs.html.</Summary>
+      <Summary>Output directory. The merged page is written as docs.html.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:help" DocumentationSourceId="source:cli:meta-docs">
+      <DisplayName>meta-docs help</DisplayName>
+      <DisplayPath>meta-docs help</DisplayPath>
+      <Key>source:cli:meta-docs:app:command:help</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-help</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-docs:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:application" DocumentationSourceId="source:cli:meta-docs">
+      <DisplayName>--application</DisplayName>
+      <DisplayPath>meta-docs import-cli --application</DisplayPath>
+      <Key>source:cli:meta-docs:app:command:import-cli:option:application</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-cli-application</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
+      <Status>Current</Status>
+      <Summary>Optional MetaCli application id when the source workspace contains more than one application.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:source-workspace" DocumentationSourceId="source:cli:meta-docs">
+      <DisplayName>--source-workspace</DisplayName>
+      <DisplayPath>meta-docs import-cli --source-workspace</DisplayPath>
+      <Key>source:cli:meta-docs:app:command:import-cli:option:source-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-import-cli-source-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
+      <Status>Current</Status>
+      <Summary>Source MetaCli workspace to document.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:validate:option:include-prose-diagnostics" DocumentationSourceId="source:cli:meta-docs">
+      <DisplayName>--include-prose-diagnostics</DisplayName>
+      <DisplayPath>meta-docs validate --include-prose-diagnostics</DisplayPath>
+      <Key>source:cli:meta-docs:app:command:validate:option:include-prose-diagnostics</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>option-validate-include-prose-diagnostics</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-docs:app:command:validate</ParentKey>
+      <Status>Current</Status>
+      <Summary>Include prose authoring diagnostics.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

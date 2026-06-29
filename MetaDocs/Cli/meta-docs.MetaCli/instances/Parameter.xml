@@ -243,6 +243,10 @@
       <Description>Treat warnings as failing diagnostics.</Description>
       <Name>warnings-as-errors</Name>
     </Parameter>
+    <Parameter Id="param-validate-option-include-prose-diagnostics" ValueShapeId="shape-flag">
+      <Description>Include prose authoring diagnostics.</Description>
+      <Name>include-prose-diagnostics</Name>
+    </Parameter>
     <Parameter Id="param-render-site-option-workspace" ValueShapeId="shape-path">
       <Description>MetaDocs workspace to render.</Description>
       <IsRequired>true</IsRequired>

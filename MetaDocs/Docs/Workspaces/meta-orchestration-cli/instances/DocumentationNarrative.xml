@@ -4,6 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app">
       <Body>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</Body>
       <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -14,7 +15,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:inspect:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:inspect">
       <Body>Inspect a MetaOrchestration workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -23,9 +24,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:inspect:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:inspect:option:workspace">
-      <Body>Required. MetaOrchestration workspace to inspect.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -36,7 +37,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:list-issues:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:list-issues">
       <Body>List analyzer issues recorded in an orchestration workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -45,9 +46,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:list-issues:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:list-issues:option:workspace">
-      <Body>Required. MetaOrchestration workspace to inspect.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -58,7 +59,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:explain-issue:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:explain-issue">
       <Body>Explain one analyzer issue and its participating pipelines.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,9 +68,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:explain-issue:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:explain-issue:option:workspace">
-      <Body>Required. MetaOrchestration workspace to inspect.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -78,9 +79,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:explain-issue:option:issue:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:explain-issue:option:issue">
-      <Body>Required. Issue id or unique issue code.</Body>
+      <Body>Issue id or unique issue code.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -91,7 +92,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency">
       <Body>Record an explicit success or failure dependency between tasks.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -100,9 +101,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:workspace">
-      <Body>Required. MetaOrchestration workspace to update.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -111,9 +112,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:from-task:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:from-task">
-      <Body>Required. Predecessor task selector.</Body>
+      <Body>Predecessor task selector.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -122,9 +123,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:to-task:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:to-task">
-      <Body>Required. Successor task selector.</Body>
+      <Body>Successor task selector.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -133,9 +134,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:condition">
-      <Body>Required. Whether the successor follows predecessor success or failure.</Body>
+      <Body>Whether the successor follows predecessor success or failure.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -144,9 +145,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:object:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:object">
-      <Body>Optional object selector for object-scoped dependency resolution.</Body>
+      <Body>Object selector for object-scoped dependency resolution.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -155,9 +156,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-dependency:option:reason:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-dependency:option:reason">
-      <Body>Optional reason recorded with the policy row.</Body>
+      <Body>Reason recorded with the policy row.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -168,7 +169,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order">
       <Body>Record an explicit success dependency/order resolution in an orchestration workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -177,9 +178,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:workspace">
-      <Body>Required. MetaOrchestration workspace to update.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -188,9 +189,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:from-task:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:from-task">
-      <Body>Required. Predecessor task selector.</Body>
+      <Body>Predecessor task selector.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -199,9 +200,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:to-task:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:to-task">
-      <Body>Required. Successor task selector.</Body>
+      <Body>Successor task selector.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -210,9 +211,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:condition:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:condition">
-      <Body>Optional dependency condition. Default: success.</Body>
+      <Body>Dependency condition. Default: success.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -221,9 +222,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:object:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:object">
-      <Body>Optional object selector for object-scoped dependency resolution.</Body>
+      <Body>Object selector for object-scoped dependency resolution.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -232,9 +233,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:add-order:option:reason:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:add-order:option:reason">
-      <Body>Optional reason recorded with the policy row.</Body>
+      <Body>Reason recorded with the policy row.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -245,7 +246,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append">
       <Body>Allow concurrent execution for multiple Append effects on one object.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -254,9 +255,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace">
-      <Body>Required. MetaOrchestration workspace to update.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -265,9 +266,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:object:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:object">
-      <Body>Required. Data object whose append writers can overlap.</Body>
+      <Body>Data object whose append writers can overlap.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -276,9 +277,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:reason:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:reason">
-      <Body>Optional reason recorded with the policy row.</Body>
+      <Body>Reason recorded with the policy row.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -289,7 +290,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy">
       <Body>Record scoped lock compatibility for one object/effect interaction.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -298,9 +299,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace">
-      <Body>Required. MetaOrchestration workspace to update.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -309,9 +310,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:object:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:object">
-      <Body>Required. Data object whose effect interaction is being resolved.</Body>
+      <Body>Data object whose effect interaction is being resolved.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -320,9 +321,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect">
-      <Body>Required. Left write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Body>
+      <Body>Left write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -331,9 +332,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect">
-      <Body>Required. Right write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Body>
+      <Body>Right write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -342,9 +343,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior">
-      <Body>Required. Lock behavior for the object/effect pair.</Body>
+      <Body>Lock behavior for the object/effect pair.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -353,9 +354,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:reason:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:set-lock-policy:option:reason">
-      <Body>Optional reason recorded with the policy row.</Body>
+      <Body>Reason recorded with the policy row.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -364,9 +365,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:refresh-run-plan:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:refresh-run-plan">
-      <Body>Refresh the model-inferred, lock-aware run-plan rows in an orchestration workspace.</Body>
+      <Body>Refresh lock-aware run-plan rows in an orchestration workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -375,9 +376,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace">
-      <Body>Required. MetaOrchestration workspace to update.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -386,9 +387,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:inspect-run-plan:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:inspect-run-plan">
-      <Body>Inspect the model-inferred task dependency graph.</Body>
+      <Body>Inspect the planned task dependency graph.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -397,9 +398,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace">
-      <Body>Required. MetaOrchestration workspace to inspect.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -410,7 +411,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute">
       <Body>Execute the current run plan by coordinating meta-pipeline worker processes.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -419,9 +420,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:workspace">
-      <Body>Required. MetaOrchestration workspace containing the analysis and run-plan rows.</Body>
+      <Body>MetaOrchestration workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -430,9 +431,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace">
-      <Body>Required. MetaPipeline workspace used by child pipeline workers.</Body>
+      <Body>MetaPipeline workspace used by child pipeline workers.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -463,9 +464,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:data-type-conversion-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:data-type-conversion-workspace">
-      <Body>Optional conversion policy workspace passed to child workers.</Body>
+      <Body>Conversion policy workspace passed to child workers.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -474,9 +475,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env">
-      <Body>Optional operational DB connection env passed to child workers.</Body>
+      <Body>Operational DB connection environment variable passed to child workers.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -487,7 +488,7 @@
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:max-degree-of-parallelism:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:max-degree-of-parallelism">
       <Body>Maximum concurrently granted pipeline tasks. Default: 1.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -496,9 +497,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:run-artifacts-root:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:run-artifacts-root">
-      <Body>Optional operational root for run journals, worker logs, and workspace execution leases.</Body>
+      <Body>Operational root for run journals, worker logs, and workspace execution leases.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -507,9 +508,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds">
-      <Body>Optional timeout for silent worker protocol periods. 0 or omitted means no timeout.</Body>
+      <Body>Timeout for silent worker protocol periods. 0 or omitted means no timeout.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -518,9 +519,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:worker-activation-timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:worker-activation-timeout-seconds">
-      <Body>Optional startup/activation timeout. Omitted follows --worker-event-timeout-seconds; 0 disables activation timeout.</Body>
+      <Body>Startup/activation timeout. Omitted follows --worker-event-timeout-seconds; 0 disables activation timeout.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -529,14 +530,69 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:execute:option:worker-control-pipe-connect-timeout-seconds:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:execute:option:worker-control-pipe-connect-timeout-seconds">
-      <Body>Optional timeout while waiting for child workers to connect to the named pipe. 0 or omitted means no timeout.</Body>
+      <Body>Timeout while waiting for child workers to connect to the named pipe. 0 or omitted means no timeout.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260608145100967</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta-orchestration:app:command:execute:option:worker-control-pipe-connect-timeout-seconds</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-orchestration:app:command:help</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:infer:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:infer">
+      <Body>Infer a MetaOrchestration workspace from a modeled MetaPipeline workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-orchestration:app:command:infer</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:infer:option:description:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:infer:option:description">
+      <Body>Description recorded on the orchestration plan.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-orchestration:app:command:infer:option:description</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:infer:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:infer:option:new-workspace">
+      <Body>Directory where the MetaOrchestration workspace will be created.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-orchestration:app:command:infer:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:command:infer:option:pipeline-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-orchestration:app:command:infer:option:pipeline-workspace">
+      <Body>MetaPipeline workspace to analyze.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-orchestration:batch:20260629214433115</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-orchestration:app:command:infer:option:pipeline-workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

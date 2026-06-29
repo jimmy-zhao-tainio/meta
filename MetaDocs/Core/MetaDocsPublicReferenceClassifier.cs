@@ -4,13 +4,6 @@ namespace MetaDocs.Core;
 
 public static class MetaDocsPublicReferenceClassifier
 {
-    private static readonly HashSet<string> MetaCliApplications = new(StringComparer.OrdinalIgnoreCase)
-    {
-        "meta",
-        "meta-docs",
-        "meta-weave",
-    };
-
     private static readonly HashSet<string> MetaModels = new(StringComparer.OrdinalIgnoreCase)
     {
         "MetaDocs",
@@ -34,7 +27,11 @@ public static class MetaDocsPublicReferenceClassifier
         if (string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase))
         {
             var appName = FirstNonEmpty(FindFact(model, subject, "Cli", "ApplicationName"), subject.DisplayName, subject.NativeId);
-            var family = ClassifyCliFamily(model, subject, appName);
+            if (!TryClassifyCliFamily(model, subject, out var family))
+            {
+                return false;
+            }
+
             classification = new MetaDocsPublicReferenceClassification(
                 family,
                 MetaDocsReferenceSurface.Cli,
@@ -75,30 +72,26 @@ public static class MetaDocsPublicReferenceClassifier
         !string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
 
-    private static MetaDocsProductFamily ClassifyCliFamily(
+    private static bool TryClassifyCliFamily(
         MetaDocsModel model,
         DocumentationSubject subject,
-        string appName)
+        out MetaDocsProductFamily family)
     {
-        if (MetaCliApplications.Contains(appName))
-        {
-            return MetaDocsProductFamily.Meta;
-        }
-
-        if (appName.StartsWith("meta-data-type", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(appName, "meta-convert", StringComparison.OrdinalIgnoreCase))
-        {
-            return MetaDocsProductFamily.MetaBi;
-        }
-
         var groupName = FindFact(model, subject, "Cli", "GroupName");
-        if (string.Equals(groupName, "meta", StringComparison.OrdinalIgnoreCase) &&
-            MetaCliApplications.Contains(appName))
+        if (string.Equals(groupName, "meta", StringComparison.OrdinalIgnoreCase))
         {
-            return MetaDocsProductFamily.Meta;
+            family = MetaDocsProductFamily.Meta;
+            return true;
         }
 
-        return MetaDocsProductFamily.MetaBi;
+        if (string.Equals(groupName, "meta-bi", StringComparison.OrdinalIgnoreCase))
+        {
+            family = MetaDocsProductFamily.MetaBi;
+            return true;
+        }
+
+        family = default;
+        return false;
     }
 
     private static string FindFact(

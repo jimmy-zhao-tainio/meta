@@ -4,7 +4,7 @@
     <DocumentationNarrative Id="source:cli:meta:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app">
       <Body>`meta` is the core workspace CLI for creating, inspecting, editing, comparing, and maintaining modeled metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -13,9 +13,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert">
-      <Body>Bulk insert instances from tsv/csv input. Use --auto-id only for new rows whose source data does not carry an external Id.</Body>
+      <Body>Insert many instances from tsv/csv input.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -24,56 +24,51 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:option:from:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert:option:from">
-      <Body>Input format.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:bulk-insert:option:from</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:option:file:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert:option:file">
-      <Body>Input file.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:bulk-insert:option:file</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:option:stdin:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert:option:stdin">
-      <Body>Read input from stdin.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:bulk-insert:option:stdin</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:option:key:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert:option:key">
-      <Body>Match key fields.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:bulk-insert:option:key</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:option:auto-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert:option:auto-id">
-      <Body>Generate numeric Id only for input rows that omit Id and are being created.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:bulk-insert:option:auto-id</SubjectKey>
       <Title>Summary</Title>
@@ -90,9 +85,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:delete:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:delete">
-      <Body>Delete one instance by Id.</Body>
+      <Body>Delete one instance.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -112,9 +107,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:insert">
-      <Body>Insert one instance by explicit Id or auto-generated numeric Id. Use --auto-id only when creating a brand-new row with no external identity.</Body>
+      <Body>Insert one instance.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -123,23 +118,21 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:insert:option:auto-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:insert:option:auto-id">
-      <Body>Generate next numeric Id from existing instances for a new row when no external Id exists.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:insert:option:auto-id</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:insert:option:set:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:insert:option:set">
-      <Body>Set property/relationship values.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:insert:option:set</SubjectKey>
       <Title>Summary</Title>
@@ -178,9 +171,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:query:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:query">
-      <Body>Search instances using equals/contains filters.</Body>
+      <Body>Search instances with equals/contains filters.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -189,34 +182,31 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:query:option:equals:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:query:option:equals">
-      <Body>Exact field value match (repeatable).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:query:option:equals</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:query:option:contains:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:query:option:contains">
-      <Body>Contains match (repeatable).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:query:option:contains</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:query:option:top:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:query:option:top">
-      <Body>Limit preview instances (default 200).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:query:option:top</SubjectKey>
       <Title>Summary</Title>
@@ -233,9 +223,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:check:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:check">
-      <Body>Run model + instance integrity checks.</Body>
+      <Body>Check model and instance integrity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -488,7 +478,7 @@
     <DocumentationNarrative Id="source:cli:meta:app:command:init:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:init">
       <Body>Initialize a metadata workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -499,7 +489,7 @@
     <DocumentationNarrative Id="source:cli:meta:app:command:status:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:status">
       <Body>Show workspace summary and model/instance sizes.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -530,9 +520,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-entity:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-entity">
-      <Body>Add a new entity definition.</Body>
+      <Body>Add an entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -552,9 +542,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-rename-model:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-rename-model">
-      <Body>Rename the model contract and instance root element.</Body>
+      <Body>Rename the model.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -574,9 +564,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-rename-entity:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-rename-entity">
-      <Body>Atomically rename an entity, update relationship targets, and rename implied non-role relationship fields.</Body>
+      <Body>Rename an entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -596,9 +586,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-drop-entity:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-drop-entity">
-      <Body>Drop an entity (blocked if instances or inbound relationships exist).</Body>
+      <Body>Drop an entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -618,9 +608,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-property">
-      <Body>Add an entity property.</Body>
+      <Body>Add a property to an entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -629,23 +619,21 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-property:option:required:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-property:option:required">
-      <Body>Set required/nullable state.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-add-property:option:required</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-property:option:default-value:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-property:option:default-value">
-      <Body>Backfill existing rows (required for required properties when entity already has rows).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-add-property:option:default-value</SubjectKey>
       <Title>Summary</Title>
@@ -662,9 +650,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-set-property-required:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-set-property-required">
-      <Body>Change whether a property is required; use --default-value to backfill existing rows when making a property required.</Body>
+      <Body>Change whether a property is required.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -673,23 +661,21 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-set-property-required:option:required:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-set-property-required:option:required">
-      <Body>Required. Set required/nullable state.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-set-property-required:option:required</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-set-property-required:option:default-value:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-set-property-required:option:default-value">
-      <Body>Backfill existing missing/blank rows when switching to required; only valid with --required true.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-set-property-required:option:default-value</SubjectKey>
       <Title>Summary</Title>
@@ -706,9 +692,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-rename-property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-rename-property">
-      <Body>Rename a property in one entity.</Body>
+      <Body>Rename a property.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -728,9 +714,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-drop-property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-drop-property">
-      <Body>Drop a property from an entity.</Body>
+      <Body>Drop a property.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -750,9 +736,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-rename-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-rename-relationship">
-      <Body>Rename a relationship usage by setting or clearing its role; instance relationship field names are rewritten atomically.</Body>
+      <Body>Rename a relationship role.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -761,12 +747,11 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-rename-relationship:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-rename-relationship:option:role">
-      <Body>Set a new relationship role (usage column becomes &lt;Role&gt;Id). Omit --role to clear the role and revert usage naming to &lt;TargetEntity&gt;Id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-rename-relationship:option:role</SubjectKey>
       <Title>Summary</Title>
@@ -783,9 +768,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship">
-      <Body>Add a required relationship; use --default-id to backfill existing source instances.</Body>
+      <Body>Add a relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -794,23 +779,21 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship:option:role">
-      <Body>Optional relationship role (column becomes &lt;RoleName&gt;Id).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-add-relationship:option:role</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:option:default-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
-      <Body>Required when source entity already has rows; must exist in target entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-add-relationship:option:default-id</SubjectKey>
       <Title>Summary</Title>
@@ -849,9 +832,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship">
-      <Body>Atomically convert a scalar source property to a required relationship using a target lookup key. Source property is dropped by default; use --preserve-property only when the source property name will not collide with the implied relationship usage name.</Body>
+      <Body>Convert a property into a relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -860,56 +843,51 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:source:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:source">
-      <Body>Required source scalar property to rewrite.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-property-to-relationship:option:source</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:target:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:target">
-      <Body>Required target entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-property-to-relationship:option:target</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup">
-      <Body>Required lookup key property on target entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:role">
-      <Body>Optional relationship role (usage column becomes &lt;Role&gt;Id).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-property-to-relationship:option:role</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property">
-      <Body>Keep the source scalar property. This is only valid when the source property name does not collide with the implied relationship usage name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property</SubjectKey>
       <Title>Summary</Title>
@@ -926,9 +904,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property">
-      <Body>Atomically convert a required relationship back to a required scalar Id property.</Body>
+      <Body>Convert a relationship into a property.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -937,45 +915,41 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:source:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:source">
-      <Body>Required source entity that owns the relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-relationship-to-property:option:source</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:target:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:target">
-      <Body>Required target entity referenced by the relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-relationship-to-property:option:target</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:role:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:role">
-      <Body>Optional relationship role when multiple edges target the same entity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-relationship-to-property:option:role</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:property:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:property">
-      <Body>Optional replacement scalar property name (default: &lt;RoleOrTarget&gt;Id).</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-refactor-relationship-to-property:option:property</SubjectKey>
       <Title>Summary</Title>
@@ -992,9 +966,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-drop-relationship:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-drop-relationship">
-      <Body>Drop a declared relationship (blocked if in use).</Body>
+      <Body>Drop a relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1014,9 +988,9 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-suggest">
-      <Body>Read-only relationship inference from model + instance data. Strong suggestions require one exact eligible Id-based target; weak suggestions cover role-style suffix matches and other ambiguous multi-target cases.</Body>
+      <Body>Suggest model improvements.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -1025,34 +999,31 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:option:show-keys:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-suggest:option:show-keys">
-      <Body>Also print candidate business keys.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-suggest:option:show-keys</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:option:explain:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-suggest:option:explain">
-      <Body>Include Evidence/Stats/Why detail blocks.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-suggest:option:explain</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:option:print-commands:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:model-suggest:option:print-commands">
-      <Body>Print copy/paste refactor commands for eligible relationship suggestions.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260609202830665</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-suggest:option:print-commands</SubjectKey>
       <Title>Summary</Title>
@@ -1066,6 +1037,481 @@
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta:app:command:model-suggest:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:option:strict:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:option:strict">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:option:strict</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:option:workspace">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:option:workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:deploy-sqlserver:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:deploy-sqlserver">
+      <Body>Deploy SQL Server scripts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:deploy-sqlserver</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:deploy-sqlserver:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:connection-env">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:deploy-sqlserver:option:connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:deploy-sqlserver:option:database:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:database">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:deploy-sqlserver:option:database</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:deploy-sqlserver:option:scripts:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:scripts">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:deploy-sqlserver:option:scripts</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:export-csv:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:export-csv">
+      <Body>Export instances as CSV.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:export-csv</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:export-csv:option:out:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:export-csv:option:out">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:export-csv:option:out</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-csharp:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-csharp">
+      <Body>Generate C# artifacts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-csharp</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-csharp:option:out:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-csharp:option:out">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-csharp:option:out</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-csharp:option:tooling:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-csharp:option:tooling">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-csharp:option:tooling</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-sql:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-sql">
+      <Body>Generate SQL artifacts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-sql</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-sql:option:out:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-sql:option:out">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-sql:option:out</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-ssdt:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-ssdt">
+      <Body>Generate SSDT artifacts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-ssdt</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-ssdt:option:out:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:generate-ssdt:option:out">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:generate-ssdt:option:out</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:graph-inbound:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:graph-inbound">
+      <Body>Show inbound relationships for an entity.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:graph-inbound</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:graph-inbound:option:top:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:graph-inbound:option:top">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:graph-inbound:option:top</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:graph-stats:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:graph-stats">
+      <Body>Show graph statistics.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:graph-stats</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:graph-stats:option:cycles:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:graph-stats:option:cycles">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:graph-stats:option:cycles</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:graph-stats:option:top:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:graph-stats:option:top">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:graph-stats:option:top</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:help</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-csv">
+      <Body>Import CSV data into a workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-csv</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:option:entity:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-csv:option:entity">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-csv:option:entity</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-csv:option:new-workspace">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-csv:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-sql:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-sql">
+      <Body>Import SQL metadata into a new workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-sql</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-sql:option:connection-env:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-sql:option:connection-env">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-sql:option:connection-env</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-sql:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:import-sql:option:new-workspace">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:import-sql:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-diff">
+      <Body>Diff instance data for two workspaces with byte-identical model.xml.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-diff</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff-aligned:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-diff-aligned">
+      <Body>Diff mapped instance data using an explicit alignment workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-diff-aligned</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-merge">
+      <Body>Apply an equal-model instance diff artifact to a target workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-merge</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge-aligned:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-merge-aligned">
+      <Body>Apply an aligned instance diff artifact to a target workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-merge-aligned</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-relationship-list:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-relationship-list">
+      <Body>List instance relationships.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-relationship-list</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-relationship-set:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-relationship-set">
+      <Body>Set an instance relationship.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-relationship-set</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-relationship-set:option:to:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-relationship-set:option:to">
+      <Body>Target entity, relationship role, or implied relationship field name, followed by target instance id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-relationship-set:option:to</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-rename-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-rename-id">
+      <Body>Rename one instance id.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-rename-id</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-update:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-update">
+      <Body>Update one instance.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-update</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-update:option:set:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:instance-update:option:set">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:instance-update:option:set</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:list-entities:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:list-entities">
+      <Body>List entities in the model.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:list-entities</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:list-properties:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:list-properties">
+      <Body>List properties for an entity.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:list-properties</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:list-relationships:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:list-relationships">
+      <Body>List relationships for an entity.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:list-relationships</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:view-entity:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:view-entity">
+      <Body>View one entity definition.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:view-entity</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:view-instance:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:view-instance">
+      <Body>View one instance row.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:view-instance</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:workspace-merge:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:workspace-merge">
+      <Body>Merge two full workspaces into a new workspace.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:workspace-merge</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:workspace-merge:option:model:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:workspace-merge:option:model">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:workspace-merge:option:model</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:workspace-merge:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta:app:command:workspace-merge:option:new-workspace">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260629214427575</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta:app:command:workspace-merge:option:new-workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

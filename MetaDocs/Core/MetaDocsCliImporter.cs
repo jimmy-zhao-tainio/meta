@@ -46,8 +46,7 @@ public sealed class MetaDocsCliImporter
         var applicationSummary = FirstNonEmpty(
             profile.ApplicationSummary,
             FindNarrative(model, $"{normalizedSourceId}:app", "Summary")?.Body,
-            app.Description,
-            executables.FirstOrDefault()?.Command.Description);
+            app.Description);
         var application = session.UpsertSubject(
             $"{normalizedSourceId}:app",
             "CliApplication",
@@ -75,7 +74,7 @@ public sealed class MetaDocsCliImporter
         var appOptions = ApplicationOptions(cli, surface, app).ToArray();
         for (var i = 0; i < appOptions.Length; i++)
         {
-            AddOption(model, session, application, surface, appOptions[i], i + 1, profile, string.Empty);
+            AddOption(model, session, application, cli, surface, appOptions[i], i + 1, profile, string.Empty);
         }
 
         for (var i = 0; i < executables.Length; i++)
@@ -120,8 +119,13 @@ public sealed class MetaDocsCliImporter
 
         var commandOptions = CommandOptions(cli, surface, executable).ToArray();
         var commandPositionals = surface.OrderedPositionals(executable).ToArray();
+        var parameterGroups = cli.ParameterGroupList
+            .Where(group => ReferenceEquals(group.ExecutableCommand, executable))
+            .OrderBy(group => group.Name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
         session.UpsertFact(commandSubject, "Cli", "OptionCount", commandOptions.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(commandSubject, "Cli", "PositionalCount", commandPositionals.Length.ToString(CultureInfo.InvariantCulture), "Number");
+        session.UpsertFact(commandSubject, "Cli", "ParameterGroupCount", parameterGroups.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertNarrative(
             commandSubject,
             "Summary",
@@ -154,12 +158,17 @@ public sealed class MetaDocsCliImporter
 
         for (var i = 0; i < commandOptions.Length; i++)
         {
-            AddOption(model, session, commandSubject, surface, commandOptions[i], i + 1, profile, commandRoute);
+            AddOption(model, session, commandSubject, cli, surface, commandOptions[i], i + 1, profile, commandRoute);
         }
 
         for (var i = 0; i < commandPositionals.Length; i++)
         {
-            AddPositional(session, commandSubject, commandPositionals[i], i + 1);
+            AddPositional(session, cli, commandSubject, commandPositionals[i], i + 1);
+        }
+
+        for (var i = 0; i < parameterGroups.Length; i++)
+        {
+            AddParameterGroup(session, cli, commandSubject, parameterGroups[i], i + 1);
         }
     }
 
@@ -167,6 +176,7 @@ public sealed class MetaDocsCliImporter
         MetaDocsModel model,
         MetaDocsImportSession session,
         DocumentationSubject parent,
+        MetaCliModel cli,
         MetaCliCommandSurface surface,
         Option option,
         int ordinal,
@@ -195,6 +205,7 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(optionSubject, "Cli", "Name", optionName);
         session.UpsertFact(optionSubject, "Cli", "Syntax", optionSyntax);
         session.UpsertFact(optionSubject, "Cli", "ValueName", ValueName(option.Parameter));
+        AddParameterShapeFacts(session, optionSubject, cli, option.Parameter);
         session.UpsertFact(optionSubject, "Cli", "Description", option.Parameter.Description ?? string.Empty);
         session.UpsertFact(optionSubject, "Cli", "Required", option.Parameter.IsRequired ?? string.Empty);
         session.UpsertFact(optionSubject, "Cli", "Repeatable", option.Parameter.IsRepeatable ?? string.Empty);
@@ -226,6 +237,7 @@ public sealed class MetaDocsCliImporter
 
     private static void AddPositional(
         MetaDocsImportSession session,
+        MetaCliModel cli,
         DocumentationSubject commandSubject,
         PositionalArgument positional,
         int ordinal)
@@ -246,9 +258,103 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(subject, "Cli", "ParameterId", parameter.Id);
         session.UpsertFact(subject, "Cli", "Name", parameter.Name);
         session.UpsertFact(subject, "Cli", "ValueName", ValueName(parameter));
+        AddParameterShapeFacts(session, subject, cli, parameter);
         session.UpsertFact(subject, "Cli", "Required", parameter.IsRequired ?? string.Empty);
         session.UpsertFact(subject, "Cli", "Repeatable", parameter.IsRepeatable ?? string.Empty);
         session.UpsertFact(subject, "Cli", "DefaultValue", parameter.DefaultValue ?? string.Empty);
+    }
+
+    private static void AddParameterGroup(
+        MetaDocsImportSession session,
+        MetaCliModel cli,
+        DocumentationSubject commandSubject,
+        ParameterGroup group,
+        int ordinal)
+    {
+        var members = cli.ParameterGroupMemberList
+            .Where(member => ReferenceEquals(member.ParameterGroup, group))
+            .OrderBy(member => member.Parameter.Name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        var memberNames = members
+            .Select(member => member.Parameter.Name)
+            .Where(static name => !string.IsNullOrWhiteSpace(name))
+            .OrderBy(static name => name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        var displayName = group.Name;
+        var summary = FirstNonEmpty(
+            group.Description,
+            memberNames.Length == 0
+                ? string.Empty
+                : $"Choose {string.Join(" or ", memberNames)}.");
+        var subject = session.UpsertSubject(
+            $"{commandSubject.Id}:parameter-group:{NormalizeKey(group.Name)}",
+            "CliParameterGroup",
+            "MetaCli.ParameterGroup",
+            group.Id,
+            displayName,
+            $"{commandSubject.DisplayPath} group {displayName}",
+            summary,
+            commandSubject.Id,
+            ordinal);
+        session.UpsertFact(subject, "Cli", "ParameterGroupId", group.Id);
+        session.UpsertFact(subject, "Cli", "Name", group.Name);
+        session.UpsertFact(subject, "Cli", "Required", group.IsRequired ?? string.Empty);
+        session.UpsertFact(subject, "Cli", "AllowsMultiple", group.AllowsMultiple ?? string.Empty);
+        session.UpsertFact(subject, "Cli", "MemberCount", members.Length.ToString(CultureInfo.InvariantCulture), "Number");
+        session.UpsertFact(subject, "Cli", "Members", string.Join(", ", memberNames));
+    }
+
+    private static void AddParameterShapeFacts(
+        MetaDocsImportSession session,
+        DocumentationSubject subject,
+        MetaCliModel? cli,
+        Parameter parameter)
+    {
+        var shape = parameter.ValueShape;
+        session.UpsertFact(subject, "Cli", "ValueShapeId", shape.Id);
+        session.UpsertFact(subject, "Cli", "ValueShape", shape.Name);
+        session.UpsertFact(subject, "Cli", "ValueArity", shape.ValueArity.Name);
+        session.UpsertFact(subject, "Cli", "MinValueCount", shape.ValueArity.MinValueCount, "Number");
+        session.UpsertFact(subject, "Cli", "MaxValueCount", shape.ValueArity.MaxValueCount ?? string.Empty, "Number");
+        session.UpsertFact(subject, "Cli", "AllowsOptionLikeValue", shape.AllowsOptionLikeValue ?? string.Empty);
+
+        if (cli is null)
+        {
+            return;
+        }
+
+        var allowedValues = cli.AllowedValueList
+            .Where(value => ReferenceEquals(value.ValueShape, shape))
+            .OrderBy(value => value.Value, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        session.UpsertFact(subject, "Cli", "AllowedValues", string.Join(", ", allowedValues.Select(value => value.Value)));
+        for (var i = 0; i < allowedValues.Length; i++)
+        {
+            AddAllowedValue(session, subject, allowedValues[i], i + 1);
+        }
+    }
+
+    private static void AddAllowedValue(
+        MetaDocsImportSession session,
+        DocumentationSubject parent,
+        AllowedValue allowedValue,
+        int ordinal)
+    {
+        var subject = session.UpsertSubject(
+            $"{parent.Id}:allowed-value:{NormalizeKey(allowedValue.Value)}",
+            "CliAllowedValue",
+            "MetaCli.AllowedValue",
+            allowedValue.Id,
+            allowedValue.Value,
+            $"{parent.DisplayPath} value {allowedValue.Value}",
+            allowedValue.Description ?? string.Empty,
+            parent.Id,
+            ordinal);
+        session.UpsertFact(subject, "Cli", "AllowedValueId", allowedValue.Id);
+        session.UpsertFact(subject, "Cli", "Value", allowedValue.Value);
+        session.UpsertFact(subject, "Cli", "Description", allowedValue.Description ?? string.Empty);
+        session.UpsertFact(subject, "Cli", "ValueShapeId", allowedValue.ValueShape.Id);
+        session.UpsertFact(subject, "Cli", "ValueShape", allowedValue.ValueShape.Name);
     }
 
     private static Application ResolveApplication(MetaCliModel cli, string applicationId)

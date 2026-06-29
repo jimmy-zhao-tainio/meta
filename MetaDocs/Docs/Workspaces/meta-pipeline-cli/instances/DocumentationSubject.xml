@@ -6,8 +6,8 @@
       <DisplayPath>meta-pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app</Key>
       <Kind>CliApplication</Kind>
-      <NativeId>meta-pipeline</NativeId>
-      <NativeKind>CliAppDefinition</NativeKind>
+      <NativeId>app-meta-pipeline</NativeId>
+      <NativeKind>MetaCli.Application</NativeKind>
       <Ordinal>230</Ordinal>
       <Status>Current</Status>
       <Summary>`meta-pipeline` creates sanctioned MetaPipeline workspaces that describe transform steps and pipeline structure as explicit metadata.</Summary>
@@ -17,84 +17,84 @@
       <DisplayPath>meta-pipeline execute</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>execute</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>exec-execute</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Execute a modeled pipeline's serial task chain.</Summary>
+      <Summary>Execute a modeled pipeline's serial task chain with compact live progress including B/KB/MB/GB rate.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-pipeline execute --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-execute-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaPipeline workspace that contains the modeled serial task chain.</Summary>
+      <Summary>MetaPipeline workspace. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:pipeline" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline</DisplayName>
       <DisplayPath>meta-pipeline execute --pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:pipeline</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-execute-pipeline</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline name to execute.</Summary>
+      <Summary>Pipeline name to execute.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:transform-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute --transform-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-execute-transform-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformScript workspace used by transform tasks.</Summary>
+      <Summary>MetaTransformScript workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:binding-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute --binding-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:binding-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-execute-binding-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformBinding workspace used by transform tasks.</Summary>
+      <Summary>MetaTransformBinding workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:data-type-conversion-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--data-type-conversion-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute --data-type-conversion-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:data-type-conversion-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-conversion-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-execute-data-type-conversion-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional conversion policy workspace; omitted uses the built-in defaults.</Summary>
+      <Summary>Conversion policy workspace; omitted uses built-in defaults.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-execute-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Summary>
+      <Summary>Environment variable for an initialized MetaPipeline operational DB.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute:example:001" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>Example 1</DisplayName>
@@ -105,115 +105,115 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline execute-worker</DisplayName>
       <DisplayPath>meta-pipeline execute-worker</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>execute-worker</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>exec-execute-worker</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Execute a modeled pipeline under an orchestration worker protocol.</Summary>
+      <Summary>Execute a modeled pipeline as an orchestration worker boundary over a named pipe; stdout and stderr are diagnostics only; preserves that pipeline context and handles GrantTask and StopPipeline.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-execute-worker-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaPipeline workspace that contains the modeled serial task chain.</Summary>
+      <Summary>MetaPipeline workspace. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:pipeline</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-execute-worker-pipeline</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline name to execute as a worker.</Summary>
+      <Summary>Pipeline name to execute as a worker.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:transform-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --transform-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-execute-worker-transform-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformScript workspace used by transform tasks.</Summary>
+      <Summary>MetaTransformScript workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:binding-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --binding-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:binding-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-execute-worker-binding-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformBinding workspace used by transform tasks.</Summary>
+      <Summary>MetaTransformBinding workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--control-pipe</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --control-pipe</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--control-pipe</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-execute-worker-control-pipe</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Named pipe used for orchestration worker control messages.</Summary>
+      <Summary>Named pipe used for orchestration worker control messages.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe-connect-timeout-seconds" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--control-pipe-connect-timeout-seconds</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --control-pipe-connect-timeout-seconds</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:control-pipe-connect-timeout-seconds</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--control-pipe-connect-timeout-seconds</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-execute-worker-control-pipe-connect-timeout-seconds</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional timeout while connecting to the orchestration control pipe. 0 or omitted means no timeout.</Summary>
+      <Summary>Timeout while connecting to the orchestration control pipe. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:data-type-conversion-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--data-type-conversion-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --data-type-conversion-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:data-type-conversion-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-conversion-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-execute-worker-data-type-conversion-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional conversion policy workspace; omitted uses the built-in defaults.</Summary>
+      <Summary>Conversion policy workspace; omitted uses built-in defaults.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute-worker --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-worker:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-execute-worker-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Summary>
+      <Summary>Environment variable for an initialized MetaPipeline operational DB.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-worker:example:001" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>Example 1</DisplayName>
@@ -224,103 +224,103 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-worker</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline execute-step</DisplayName>
       <DisplayPath>meta-pipeline execute-step</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>execute-step</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>exec-execute-step</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Execute one modeled transform-backed pipeline step.</Summary>
+      <Summary>Execute exactly one modeled pipeline task by task name or id; diagnostic surface, while orchestration uses execute-worker.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-step --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-execute-step-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaPipeline workspace that contains the modeled step.</Summary>
+      <Summary>MetaPipeline workspace. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:pipeline" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline</DisplayName>
       <DisplayPath>meta-pipeline execute-step --pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:pipeline</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-execute-step-pipeline</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline name containing the step.</Summary>
+      <Summary>Pipeline name containing the step.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:step-name" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--step-name</DisplayName>
       <DisplayPath>meta-pipeline execute-step --step-name</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:step-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--step-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-execute-step-step-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline task name or id to execute.</Summary>
+      <Summary>Pipeline task name or id to execute.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:transform-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-step --transform-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-execute-step-transform-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformScript workspace used by the step.</Summary>
+      <Summary>MetaTransformScript workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:binding-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-step --binding-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:binding-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-execute-step-binding-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformBinding workspace used by the step.</Summary>
+      <Summary>MetaTransformBinding workspace path used for operational run context.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:data-type-conversion-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--data-type-conversion-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-step --data-type-conversion-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:data-type-conversion-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-conversion-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-execute-step-data-type-conversion-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional conversion policy workspace; omitted uses the built-in defaults.</Summary>
+      <Summary>Conversion policy workspace; omitted uses built-in defaults.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute-step --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-step:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-execute-step-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Summary>
+      <Summary>Environment variable for an initialized MetaPipeline operational DB.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-step:example:001" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>Example 1</DisplayName>
@@ -331,100 +331,100 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-step</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline execute-sqlserver</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>execute-sqlserver</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>exec-execute-sqlserver</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Execute the direct SQL Server runtime slice.</Summary>
+      <Summary>Execute one SQL Server transform script with script selection options and compact live progress including B/KB/MB/GB rate.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:transform-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --transform-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-execute-sqlserver-transform-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformScript workspace containing the script.</Summary>
+      <Summary>MetaTransformScript workspace containing the script.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding-workspace</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --binding-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-execute-sqlserver-binding-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformBinding workspace containing script binding rows.</Summary>
+      <Summary>MetaTransformBinding workspace containing script binding rows.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:script" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--script</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --script</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:script</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--script</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-execute-sqlserver-script</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. TransformScript.Name or TransformScript.Id to execute.</Summary>
+      <Summary>TransformScript.Name or TransformScript.Id to execute.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --binding</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:binding</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-execute-sqlserver-binding</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional binding id when the selected script has multiple bindings.</Summary>
+      <Summary>Binding id when the selected script has multiple bindings.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:execution-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--execution-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --execution-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:execution-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--execution-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-execute-sqlserver-execution-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Shell-visible environment variable for the execution SQL Server connection.</Summary>
+      <Summary>Environment variable for the execution SQL Server connection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--target-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --target-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-execute-sqlserver-target-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Required for SELECT-kind scripts. Shell-visible environment variable for the target SQL Server connection.</Summary>
+      <Summary>Environment variable for the target SQL Server connection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:target" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --target</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>opt-execute-sqlserver-target</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
       <Summary>Target table identifier when a SELECT binding has multiple targets.</Summary>
@@ -434,9 +434,9 @@
       <DisplayPath>meta-pipeline execute-sqlserver --batch-size</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:batch-size</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--batch-size</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-execute-sqlserver-batch-size</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
       <Summary>Bounded in-memory row buffer size. Default: 1000.</Summary>
@@ -446,9 +446,9 @@
       <DisplayPath>meta-pipeline execute-sqlserver --timeout-seconds</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:timeout-seconds</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--timeout-seconds</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>009</Ordinal>
+      <NativeId>opt-execute-sqlserver-timeout-seconds</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
       <Summary>SQL command and bulk-copy timeout seconds. 0 or omitted means no command timeout.</Summary>
@@ -458,8 +458,8 @@
       <DisplayPath>meta-pipeline execute-sqlserver --target-data-type-system</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:target-data-type-system</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target-data-type-system</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-execute-sqlserver-target-data-type-system</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
@@ -470,24 +470,24 @@
       <DisplayPath>meta-pipeline execute-sqlserver --data-type-conversion-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:data-type-conversion-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--data-type-conversion-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>011</Ordinal>
+      <NativeId>opt-execute-sqlserver-data-type-conversion-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional conversion policy workspace; omitted uses the built-in defaults.</Summary>
+      <Summary>Conversion policy workspace; omitted uses built-in defaults.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline execute-sqlserver --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:execute-sqlserver:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>012</Ordinal>
+      <NativeId>opt-execute-sqlserver-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional shell-visible environment variable for an initialized MetaPipeline operational DB.</Summary>
+      <Summary>Environment variable for an initialized MetaPipeline operational DB.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute-sqlserver:example:001" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>Example 1</DisplayName>
@@ -498,39 +498,39 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:execute-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline create-pipeline-db</DisplayName>
       <DisplayPath>meta-pipeline create-pipeline-db</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:create-pipeline-db</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>create-pipeline-db</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>exec-create-pipeline-db</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Create or update the MetaPipeline operational DB.</Summary>
+      <Summary>Create or update the SQL Server MetaPipeline operational DB for diagnostic logs, audit logs, metrics, and failures; it does not store model truth.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline create-pipeline-db --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-create-pipeline-db-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:create-pipeline-db</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Shell-visible environment variable with a SQL Server connection string that can create the database.</Summary>
+      <Summary>Environment variable with a SQL Server connection string that can create the database.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-name" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-name</DisplayName>
       <DisplayPath>meta-pipeline create-pipeline-db --pipeline-db-name</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:create-pipeline-db:option:pipeline-db-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-create-pipeline-db-pipeline-db-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:create-pipeline-db</ParentKey>
       <Status>Current</Status>
@@ -545,52 +545,52 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:create-pipeline-db</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline prune-pipeline-db</DisplayName>
       <DisplayPath>meta-pipeline prune-pipeline-db</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:prune-pipeline-db</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>prune-pipeline-db</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>exec-prune-pipeline-db</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Prune old MetaPipeline operational diagnostic logs.</Summary>
+      <Summary>Prune old completed RunDiagnosticsLog rows while preserving RunLog and audit lineage.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline-db-connection-env</DisplayName>
       <DisplayPath>meta-pipeline prune-pipeline-db --pipeline-db-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:pipeline-db-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline-db-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-prune-pipeline-db-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:prune-pipeline-db</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Shell-visible environment variable for the initialized MetaPipeline operational DB.</Summary>
+      <Summary>Environment variable for the initialized MetaPipeline operational DB.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:retention-days" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--retention-days</DisplayName>
       <DisplayPath>meta-pipeline prune-pipeline-db --retention-days</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:retention-days</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--retention-days</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-prune-pipeline-db-retention-days</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:prune-pipeline-db</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Delete eligible diagnostic rows older than this retention window.</Summary>
+      <Summary>Delete eligible diagnostic rows older than this retention window.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db:option:dry-run" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--dry-run</DisplayName>
       <DisplayPath>meta-pipeline prune-pipeline-db --dry-run</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:prune-pipeline-db:option:dry-run</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--dry-run</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-prune-pipeline-db-dry-run</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:prune-pipeline-db</ParentKey>
       <Status>Current</Status>
       <Summary>Report eligible rows without deleting them.</Summary>
@@ -604,16 +604,16 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:prune-pipeline-db</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-pipeline" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline add-pipeline</DisplayName>
       <DisplayPath>meta-pipeline add-pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-pipeline</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-pipeline</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>007</Ordinal>
+      <NativeId>exec-add-pipeline</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
       <Summary>Add one Pipeline instance to a MetaPipeline workspace.</Summary>
@@ -623,165 +623,165 @@
       <DisplayPath>meta-pipeline add-pipeline --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-pipeline:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-pipeline-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-pipeline</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaPipeline workspace to update.</Summary>
+      <Summary>Existing MetaPipeline workspace to update. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-pipeline:option:name" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-pipeline add-pipeline --name</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-pipeline:option:name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-pipeline-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-pipeline</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline name.</Summary>
+      <Summary>Pipeline name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-pipeline:option:description" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-pipeline add-pipeline --description</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-pipeline:option:description</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--description</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-pipeline-description</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-pipeline</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional pipeline description.</Summary>
+      <Summary>Pipeline description.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline add-step</DisplayName>
       <DisplayPath>meta-pipeline add-step</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>add-step</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>exec-add-step</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
-      <Summary>Add one transform-backed step to a pipeline.</Summary>
+      <Summary>Append one transform-backed task instance to the pipeline's serial task chain.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-pipeline add-step --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
+      <NativeId>opt-add-step-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>014</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Existing MetaPipeline workspace to update.</Summary>
+      <Summary>Existing MetaPipeline workspace to update. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:pipeline" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--pipeline</DisplayName>
       <DisplayPath>meta-pipeline add-step --pipeline</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:pipeline</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--pipeline</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>002</Ordinal>
+      <NativeId>opt-add-step-pipeline</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Pipeline that receives the new serial step.</Summary>
+      <Summary>Pipeline that receives the new serial step.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:script" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--script</DisplayName>
       <DisplayPath>meta-pipeline add-step --script</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:script</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--script</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
+      <NativeId>opt-add-step-script</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. TransformScript.Name or TransformScript.Id to model.</Summary>
+      <Summary>TransformScript.Name or TransformScript.Id to model.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:transform-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-pipeline add-step --transform-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
+      <NativeId>opt-add-step-transform-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>013</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformScript workspace used for script selection.</Summary>
+      <Summary>MetaTransformScript workspace used for script selection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:binding-workspace" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding-workspace</DisplayName>
       <DisplayPath>meta-pipeline add-step --binding-workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:binding-workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>005</Ordinal>
+      <NativeId>opt-add-step-binding-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaTransformBinding workspace used for binding selection.</Summary>
+      <Summary>MetaTransformBinding workspace used for binding selection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:execution-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--execution-connection-env</DisplayName>
       <DisplayPath>meta-pipeline add-step --execution-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:execution-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--execution-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>006</Ordinal>
+      <NativeId>opt-add-step-execution-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. Shell-visible environment variable named by the modeled execution connection.</Summary>
+      <Summary>Environment variable named by the modeled execution connection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:step-name" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--step-name</DisplayName>
       <DisplayPath>meta-pipeline add-step --step-name</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:step-name</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--step-name</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-step-step-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional step name; omitted derives a deterministic name from the script name.</Summary>
+      <Summary>Step name; omitted derives a deterministic name from the script name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:binding" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--binding</DisplayName>
       <DisplayPath>meta-pipeline add-step --binding</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:binding</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--binding</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>008</Ordinal>
+      <NativeId>opt-add-step-binding</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Optional binding id when the selected script has multiple bindings.</Summary>
+      <Summary>Binding id when the selected script has multiple bindings.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:target-connection-env" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--target-connection-env</DisplayName>
       <DisplayPath>meta-pipeline add-step --target-connection-env</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:target-connection-env</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target-connection-env</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-step-target-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>Required for SELECT-kind scripts. Shell-visible environment variable named by the modeled target connection.</Summary>
+      <Summary>Environment variable named by the modeled target connection.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:target" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta-pipeline add-step --target</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:target</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>010</Ordinal>
+      <NativeId>opt-add-step-target</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
       <Summary>Target table identifier when a SELECT binding has multiple targets.</Summary>
@@ -791,8 +791,8 @@
       <DisplayPath>meta-pipeline add-step --target-write</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:target-write</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target-write</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-add-step-target-write</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
@@ -803,9 +803,9 @@
       <DisplayPath>meta-pipeline add-step --batch-size</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:batch-size</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--batch-size</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>012</Ordinal>
+      <NativeId>opt-add-step-batch-size</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
       <Summary>Bounded in-memory row buffer size for InsertRows. Default: 1000.</Summary>
@@ -815,21 +815,21 @@
       <DisplayPath>meta-pipeline add-step --timeout-seconds</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:timeout-seconds</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--timeout-seconds</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>013</Ordinal>
+      <NativeId>opt-add-step-timeout-seconds</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
-      <Summary>SQL command and bulk-copy timeout seconds for the transform execution. 0 or omitted means no timeout.</Summary>
+      <Summary>SQL command and bulk-copy timeout seconds. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-step:option:target-data-type-system" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>--target-data-type-system</DisplayName>
       <DisplayPath>meta-pipeline add-step --target-data-type-system</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:add-step:option:target-data-type-system</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--target-data-type-system</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>014</Ordinal>
+      <NativeId>opt-add-step-target-data-type-system</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
       <Status>Current</Status>
       <Summary>InsertRows target type family. Default: SqlServer.</Summary>
@@ -843,16 +843,16 @@
       <NativeKind>CliExample</NativeKind>
       <Ordinal>1000</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:add-step</ParentKey>
-      <Status>Current</Status>
+      <Status>MissingFromSource</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:inspect" DocumentationSourceId="source:cli:meta-pipeline">
       <DisplayName>meta-pipeline inspect</DisplayName>
       <DisplayPath>meta-pipeline inspect</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:inspect</Key>
       <Kind>CliCommand</Kind>
-      <NativeId>inspect</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>009</Ordinal>
+      <NativeId>exec-inspect</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app</ParentKey>
       <Status>Current</Status>
       <Summary>Show a compact MetaPipeline workspace summary.</Summary>
@@ -862,12 +862,156 @@
       <DisplayPath>meta-pipeline inspect --workspace</DisplayPath>
       <Key>source:cli:meta-pipeline:app:command:inspect:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>--workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
+      <NativeId>opt-inspect-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-pipeline:app:command:inspect</ParentKey>
       <Status>Current</Status>
-      <Summary>Required. MetaPipeline workspace to inspect.</Summary>
+      <Summary>MetaPipeline workspace to inspect. Defaults to the current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>meta-pipeline add-executable-step</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-add-executable-step</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Append one executable-backed task instance to the pipeline's serial task chain.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:arguments" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--arguments</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --arguments</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:arguments</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-arguments</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Raw command-line arguments passed to the executable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:executable" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--executable</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --executable</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:executable</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-executable</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Executable path or executable name resolvable by the operating system.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:pipeline" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--pipeline</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --pipeline</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:pipeline</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-pipeline</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Pipeline that receives the new serial step.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:step-name" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--step-name</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --step-name</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:step-name</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-step-name</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Step name; omitted derives a deterministic name from the executable file name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:success-exit-code" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--success-exit-code</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --success-exit-code</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:success-exit-code</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-success-exit-code</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Expected process exit code. Default: 0.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:timeout-seconds" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--timeout-seconds</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --timeout-seconds</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:timeout-seconds</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-timeout-seconds</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Process timeout seconds. 0 or omitted means no timeout.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:working-directory" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--working-directory</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --working-directory</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:working-directory</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-working-directory</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Process working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:add-executable-step:option:workspace" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-pipeline add-executable-step --workspace</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:add-executable-step:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-executable-step-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:add-executable-step</ParentKey>
+      <Status>Current</Status>
+      <Summary>Existing MetaPipeline workspace to update. Defaults to the current working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:help" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>meta-pipeline help</DisplayName>
+      <DisplayPath>meta-pipeline help</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:help</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-help</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:new-workspace" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>meta-pipeline new-workspace</DisplayName>
+      <DisplayPath>meta-pipeline new-workspace</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:new-workspace</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-new-workspace</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create an empty sanctioned MetaPipeline workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-pipeline">
+      <DisplayName>&lt;path&gt;</DisplayName>
+      <DisplayPath>meta-pipeline new-workspace &lt;path&gt;</DisplayPath>
+      <Key>source:cli:meta-pipeline:app:command:new-workspace:argument:path</Key>
+      <Kind>CliArgument</Kind>
+      <NativeId>arg-new-workspace-path</NativeId>
+      <NativeKind>MetaCli.PositionalArgument</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-pipeline:app:command:new-workspace</ParentKey>
+      <Status>Current</Status>
+      <Summary>Directory where the MetaPipeline workspace will be created.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>
