@@ -242,10 +242,6 @@ internal sealed partial class CliRuntime
         }
     }
 
-
-
-
-
     private MetaCliInvocation Invocation =>
         currentInvocation ?? throw new InvalidOperationException("Command invocation has not been parsed.");
 
@@ -421,7 +417,6 @@ internal sealed partial class CliRuntime
         return (true, entityName, !string.IsNullOrWhiteSpace(newWorkspacePath), workspacePath, newWorkspacePath, string.Empty);
     }
 
-
     (bool Ok, string WorkspacePath, string ErrorMessage)
         ReadValidateOptions(string[] commandArgs, int startIndex)
     {
@@ -547,20 +542,6 @@ internal sealed partial class CliRuntime
         return (true, format, filePath, useStdin, workspacePath, keyFields, autoId, string.Empty);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     IReadOnlyList<(string Key, string Value)> ParseWherePairs(string? where)
     {
         if (string.IsNullOrWhiteSpace(where))
@@ -586,15 +567,6 @@ internal sealed partial class CliRuntime
                 pairs.Add((key, value));
             }
         }
-
         return pairs;
     }
-
-
-
-
-
 }
-
-
-
