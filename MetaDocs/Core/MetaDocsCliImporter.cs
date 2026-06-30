@@ -82,7 +82,7 @@ public sealed class MetaDocsCliImporter
             AddCommand(model, session, application, cli, surface, executables[i], i + 1, profile);
         }
 
-        session.Complete();
+        session.Complete(pruneMissingFromSource: true);
         return application;
     }
 
@@ -117,7 +117,12 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(commandSubject, "Cli", "CommandPath", commandPath);
         session.UpsertFact(commandSubject, "Cli", "UsageCount", "1", "Number");
 
-        var commandOptions = CommandOptions(cli, surface, executable).ToArray();
+        var commandOptions = ApplicationOptions(cli, surface, executable.Command.Application)
+            .Concat(CommandOptions(cli, surface, executable))
+            .GroupBy(static option => option.Parameter, ReferenceComparer<Parameter>.Instance)
+            .Select(static group => group.First())
+            .OrderBy(option => surface.OptionTokens(option.Parameter).FirstOrDefault()?.Token ?? option.Parameter.Name, StringComparer.OrdinalIgnoreCase)
+            .ToArray();
         var commandPositionals = surface.OrderedPositionals(executable).ToArray();
         var parameterGroups = cli.ParameterGroupList
             .Where(group => ReferenceEquals(group.ExecutableCommand, executable))

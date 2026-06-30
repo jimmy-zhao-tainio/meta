@@ -233,7 +233,7 @@ internal static class Program
 
     private static void RunMerge(MetaCliInvocation invocation)
     {
-        var outputWorkspace = invocation.Required("new-workspace");
+        var outputWorkspace = invocation.Required("workspace");
         try
         {
             var models = new List<MetaDocsModel>();

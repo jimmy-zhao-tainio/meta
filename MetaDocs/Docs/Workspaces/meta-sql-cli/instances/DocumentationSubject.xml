@@ -10,115 +10,6 @@
       <NativeKind>MetaCli.Application</NativeKind>
       <Ordinal>140</Ordinal>
       <Status>Current</Status>
-      <Summary>`meta-sql` plans and applies manifest-driven SQL Server deployments from sanctioned MetaSql workspaces.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>meta-sql extract</DisplayName>
-      <DisplayPath>meta-sql extract</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:extract</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>extract</NativeId>
-      <NativeKind>CliCommandDefinition</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>MissingFromSource</Status>
-      <Summary>Materialize sanctioned MetaSql workspaces from external sources.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>meta-sql deploy-plan</DisplayName>
-      <DisplayPath>meta-sql deploy-plan</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-deploy-plan</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Create a deploy manifest from a source MetaSql workspace and a live SQL Server database.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--source-workspace</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --source-workspace</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:source-workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-source-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Source MetaSql workspace to compare with the live database.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--connection-env</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --connection-env</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:connection-env</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-connection-env</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Environment variable containing the SQL Server connection string.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:out" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --out</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:out</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-out</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Directory where the deploy manifest workspace will be written.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--approve-drop-table</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --approve-drop-table</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-approve-drop-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Approve one exact destructive table drop in the form schema.table.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--approve-drop-column</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --approve-drop-column</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-approve-drop-column</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Approve one exact destructive column drop in the form schema.table.column.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--approve-truncate-column</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --approve-truncate-column</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-approve-truncate-column</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>Approve one exact destructive column truncation in the form schema.table.column.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approval-file" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--approval-file</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --approval-file</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approval-file</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-plan-approval-file</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>JSON file containing destructive approvals.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>meta-sql deploy</DisplayName>
@@ -131,6 +22,18 @@
       <ParentKey>source:cli:meta-sql:app</ParentKey>
       <Status>Current</Status>
       <Summary>Apply a deploy manifest after source and live fingerprint validation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-sql deploy --connection-env</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy:option:connection-env</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:manifest-workspace" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>--manifest-workspace</DisplayName>
@@ -156,17 +59,101 @@
       <Status>Current</Status>
       <Summary>Source MetaSql workspace used to create the manifest.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--connection-env</DisplayName>
-      <DisplayPath>meta-sql deploy --connection-env</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:deploy:option:connection-env</Key>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>meta-sql deploy-plan</DisplayName>
+      <DisplayPath>meta-sql deploy-plan</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-deploy-plan</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-sql:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Create a deploy manifest from a source MetaSql workspace and a live SQL Server database.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approval-file" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--approval-file</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --approval-file</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approval-file</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-deploy-connection-env</NativeId>
+      <NativeId>opt-deploy-plan-approval-file</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-sql:app:command:deploy</ParentKey>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>JSON file containing destructive approvals.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--approve-drop-column</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --approve-drop-column</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-approve-drop-column</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Approve one exact destructive column drop in the form schema.table.column.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--approve-drop-table</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --approve-drop-table</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-approve-drop-table</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Approve one exact destructive table drop in the form schema.table.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--approve-truncate-column</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --approve-truncate-column</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-approve-truncate-column</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Approve one exact destructive column truncation in the form schema.table.column.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --connection-env</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:connection-env</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
       <Status>Current</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:out" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --out</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:out</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-out</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Directory where the deploy manifest workspace will be written.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--source-workspace</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --source-workspace</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:deploy-plan:option:source-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-deploy-plan-source-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>007</Ordinal>
+      <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>Source MetaSql workspace to compare with the live database.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:execute" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>meta-sql execute</DisplayName>
@@ -216,17 +203,17 @@
       <Status>Current</Status>
       <Summary>Execute inline SQL. Mutually exclusive with --file.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:var" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--var</DisplayName>
-      <DisplayPath>meta-sql execute --var</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:execute:option:var</Key>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:quiet" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--quiet</DisplayName>
+      <DisplayPath>meta-sql execute --quiet</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:execute:option:quiet</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-execute-var</NativeId>
+      <NativeId>opt-execute-quiet</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
+      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Replace one SQLCMD-style $(NAME) token before execution.</Summary>
+      <Summary>Suppress result-set and success output.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:timeout-seconds" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>--timeout-seconds</DisplayName>
@@ -240,17 +227,17 @@
       <Status>Current</Status>
       <Summary>Command timeout for each SQL batch. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:quiet" DocumentationSourceId="source:cli:meta-sql">
-      <DisplayName>--quiet</DisplayName>
-      <DisplayPath>meta-sql execute --quiet</DisplayPath>
-      <Key>source:cli:meta-sql:app:command:execute:option:quiet</Key>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:var" DocumentationSourceId="source:cli:meta-sql">
+      <DisplayName>--var</DisplayName>
+      <DisplayPath>meta-sql execute --var</DisplayPath>
+      <Key>source:cli:meta-sql:app:command:execute:option:var</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-execute-quiet</NativeId>
+      <NativeId>opt-execute-var</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
+      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
       <Status>Current</Status>
-      <Summary>Suppress result-set and success output.</Summary>
+      <Summary>Replace one SQLCMD-style $(NAME) token before execution.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:parameter-group:sql-input" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>sql-input</DisplayName>

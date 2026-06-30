@@ -1,52 +1,55 @@
 namespace MetaMesh.Core;
 
 public sealed record MetaMeshWorkspaceSummary(
-    string Handle,
-    string PhysicalPath,
+    string Name,
+    string Path,
+    string ResolvedPath,
     string ModelName,
-    string WorkspaceKind,
-    string Lifecycle);
-
-public sealed record MetaMeshLinkSummary(
-    string FromHandle,
-    string ToHandle,
-    string Kind,
     string Description);
 
-public sealed record MetaMeshSuggestionSummary(
-    string SuggestionKind,
-    string Severity,
-    string WorkspaceHandle,
-    string Message,
-    string SuggestedHandle = "",
-    string SuggestedWorkspaceKind = "",
-    string SuggestedLifecycle = "",
-    string SuggestedPath = "");
+public sealed record MetaMeshOperationStepSummary(
+    string Name,
+    string Executable,
+    string Arguments,
+    string WorkingDirectory,
+    string Description);
 
-public sealed record MetaMeshIssue(
-    string Severity,
-    string Code,
-    string Message,
-    string WorkspaceHandle = "");
-
-public sealed record MetaMeshScanResult(
-    string RootPath,
-    IReadOnlyList<MetaMeshWorkspaceSummary> Workspaces,
-    IReadOnlyList<MetaMeshSuggestionSummary> Suggestions);
+public sealed record MetaMeshOperationSummary(
+    string Name,
+    string Description,
+    IReadOnlyList<MetaMeshOperationStepSummary> Steps);
 
 public sealed record MetaMeshShowResult(
     string MeshName,
     string RootPath,
+    string ResolvedRootPath,
     IReadOnlyList<MetaMeshWorkspaceSummary> Workspaces,
-    IReadOnlyList<MetaMeshLinkSummary> Links,
-    IReadOnlyList<MetaMeshSuggestionSummary> Suggestions);
+    IReadOnlyList<MetaMeshOperationSummary> Operations);
 
-public sealed record MetaMeshCheckResult(IReadOnlyList<MetaMeshIssue> Issues)
+public sealed record MetaMeshRunStepResult(
+    string Name,
+    string Command,
+    string WorkingDirectory,
+    int ExitCode,
+    string Output);
+
+public sealed record MetaMeshRunResult(
+    string OperationName,
+    IReadOnlyList<MetaMeshRunStepResult> Steps)
 {
-    public bool HasErrors => Issues.Any(static issue => string.Equals(issue.Severity, "Error", StringComparison.OrdinalIgnoreCase));
+    public bool Succeeded => Steps.All(static step => step.ExitCode == 0);
 }
 
-public sealed record MetaMeshImpactResult(
-    string WorkspaceHandle,
-    IReadOnlyList<MetaMeshLinkSummary> AffectedLinks,
-    IReadOnlyList<string> AffectedHandles);
+public sealed record MetaMeshRunStepStart(
+    int Index,
+    int Total,
+    string Name,
+    string Command,
+    string WorkingDirectory);
+
+public interface IMetaMeshRunObserver
+{
+    void StepStarted(MetaMeshRunStepStart step);
+
+    void StepCompleted(MetaMeshRunStepResult step);
+}

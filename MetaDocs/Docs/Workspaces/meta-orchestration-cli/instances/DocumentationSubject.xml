@@ -10,91 +10,6 @@
       <NativeKind>MetaCli.Application</NativeKind>
       <Ordinal>240</Ordinal>
       <Status>Current</Status>
-      <Summary>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration inspect</DisplayName>
-      <DisplayPath>meta-orchestration inspect</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:inspect</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-inspect</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>008</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Inspect a MetaOrchestration workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration inspect --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:inspect:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-inspect-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:inspect</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:list-issues" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration list-issues</DisplayName>
-      <DisplayPath>meta-orchestration list-issues</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:list-issues</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-list-issues</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>010</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>List analyzer issues recorded in an orchestration workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:list-issues:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration list-issues --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:list-issues:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-list-issues-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:list-issues</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration explain-issue</DisplayName>
-      <DisplayPath>meta-orchestration explain-issue</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:explain-issue</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-explain-issue</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Explain one analyzer issue and its participating pipelines.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration explain-issue --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:explain-issue:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-explain-issue-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:explain-issue</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue:option:issue" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--issue</DisplayName>
-      <DisplayPath>meta-orchestration explain-issue --issue</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:explain-issue:option:issue</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-explain-issue-issue</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:explain-issue</ParentKey>
-      <Status>Current</Status>
-      <Summary>Issue id or unique issue code.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration add-dependency</DisplayName>
@@ -108,17 +23,39 @@
       <Status>Current</Status>
       <Summary>Record an explicit success or failure dependency between tasks.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration add-dependency --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:workspace</Key>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--condition</DisplayName>
+      <DisplayPath>meta-orchestration add-dependency --condition</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-add-dependency-workspace</NativeId>
+      <NativeId>opt-add-dependency-condition</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
       <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+      <Summary>Whether the successor follows predecessor success or failure.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:failure" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>failure</DisplayName>
+      <DisplayPath>meta-orchestration add-dependency --condition value failure</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:failure</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>value-dependency-failure</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency:option:condition</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:success" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>success</DisplayName>
+      <DisplayPath>meta-orchestration add-dependency --condition value success</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:success</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>value-dependency-success</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency:option:condition</ParentKey>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:from-task" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--from-task</DisplayName>
@@ -131,30 +68,6 @@
       <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
       <Status>Current</Status>
       <Summary>Predecessor task selector.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:to-task" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--to-task</DisplayName>
-      <DisplayPath>meta-orchestration add-dependency --to-task</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:to-task</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-add-dependency-to-task</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
-      <Status>Current</Status>
-      <Summary>Successor task selector.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--condition</DisplayName>
-      <DisplayPath>meta-orchestration add-dependency --condition</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-add-dependency-condition</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
-      <Status>Current</Status>
-      <Summary>Whether the successor follows predecessor success or failure.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:object" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--object</DisplayName>
@@ -180,6 +93,30 @@
       <Status>Current</Status>
       <Summary>Reason recorded with the policy row.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:to-task" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--to-task</DisplayName>
+      <DisplayPath>meta-orchestration add-dependency --to-task</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:to-task</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-dependency-to-task</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
+      <Status>Current</Status>
+      <Summary>Successor task selector.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration add-dependency --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-dependency-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration add-order</DisplayName>
       <DisplayPath>meta-orchestration add-order</DisplayPath>
@@ -192,17 +129,39 @@
       <Status>Current</Status>
       <Summary>Record an explicit success dependency/order resolution in an orchestration workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration add-order --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-order:option:workspace</Key>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--condition</DisplayName>
+      <DisplayPath>meta-orchestration add-order --condition</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-add-order-workspace</NativeId>
+      <NativeId>opt-add-order-condition</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
+      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
       <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+      <Summary>Dependency condition. Default: success.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:failure" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>failure</DisplayName>
+      <DisplayPath>meta-orchestration add-order --condition value failure</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:failure</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>value-dependency-failure</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-order:option:condition</ParentKey>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:success" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>success</DisplayName>
+      <DisplayPath>meta-orchestration add-order --condition value success</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:success</Key>
+      <Kind>CliAllowedValue</Kind>
+      <NativeId>value-dependency-success</NativeId>
+      <NativeKind>MetaCli.AllowedValue</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-order:option:condition</ParentKey>
+      <Status>Current</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:from-task" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--from-task</DisplayName>
@@ -215,30 +174,6 @@
       <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
       <Status>Current</Status>
       <Summary>Predecessor task selector.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:to-task" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--to-task</DisplayName>
-      <DisplayPath>meta-orchestration add-order --to-task</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-order:option:to-task</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-add-order-to-task</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
-      <Status>Current</Status>
-      <Summary>Successor task selector.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--condition</DisplayName>
-      <DisplayPath>meta-orchestration add-order --condition</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-add-order-condition</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
-      <Status>Current</Status>
-      <Summary>Dependency condition. Default: success.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:object" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--object</DisplayName>
@@ -264,6 +199,30 @@
       <Status>Current</Status>
       <Summary>Reason recorded with the policy row.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:to-task" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--to-task</DisplayName>
+      <DisplayPath>meta-orchestration add-order --to-task</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-order:option:to-task</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-order-to-task</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
+      <Status>Current</Status>
+      <Summary>Successor task selector.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration add-order --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:add-order:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-add-order-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:add-order</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:allow-concurrent-append" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration allow-concurrent-append</DisplayName>
       <DisplayPath>meta-orchestration allow-concurrent-append</DisplayPath>
@@ -275,18 +234,6 @@
       <ParentKey>source:cli:meta-orchestration:app</ParentKey>
       <Status>Current</Status>
       <Summary>Allow concurrent execution for multiple Append effects on one object.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration allow-concurrent-append --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-allow-concurrent-append-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:allow-concurrent-append</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:object" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--object</DisplayName>
@@ -312,135 +259,15 @@
       <Status>Current</Status>
       <Summary>Reason recorded with the policy row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration set-lock-policy</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-set-lock-policy</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>012</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Record scoped lock compatibility for one object/effect interaction.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace</Key>
+      <DisplayPath>meta-orchestration allow-concurrent-append --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:allow-concurrent-append:option:workspace</Key>
       <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:object" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--object</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --object</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:object</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-object</NativeId>
+      <NativeId>opt-allow-concurrent-append-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>003</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>Data object whose effect interaction is being resolved.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--left-effect</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --left-effect</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-left-effect</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>Left write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--right-effect</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --right-effect</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-right-effect</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>Right write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--behavior</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --behavior</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-behavior</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>Lock behavior for the object/effect pair.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:reason" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--reason</DisplayName>
-      <DisplayPath>meta-orchestration set-lock-policy --reason</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:reason</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-set-lock-policy-reason</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
-      <Status>Current</Status>
-      <Summary>Reason recorded with the policy row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration refresh-run-plan</DisplayName>
-      <DisplayPath>meta-orchestration refresh-run-plan</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:refresh-run-plan</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-refresh-run-plan</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>011</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Refresh lock-aware run-plan rows in an orchestration workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration refresh-run-plan --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-refresh-run-plan-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:refresh-run-plan</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>meta-orchestration inspect-run-plan</DisplayName>
-      <DisplayPath>meta-orchestration inspect-run-plan</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:inspect-run-plan</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-inspect-run-plan</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>009</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
-      <Status>Current</Status>
-      <Summary>Inspect the planned task dependency graph.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration inspect-run-plan --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-inspect-run-plan-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:inspect-run-plan</ParentKey>
+      <ParentKey>source:cli:meta-orchestration:app:command:allow-concurrent-append</ParentKey>
       <Status>Current</Status>
       <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
@@ -456,54 +283,6 @@
       <Status>Current</Status>
       <Summary>Execute the current run plan by coordinating meta-pipeline worker processes.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-orchestration execute --workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-execute-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--pipeline-workspace</DisplayName>
-      <DisplayPath>meta-orchestration execute --pipeline-workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-execute-pipeline-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>Current</Status>
-      <Summary>MetaPipeline workspace used by child pipeline workers.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:transform-workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--transform-workspace</DisplayName>
-      <DisplayPath>meta-orchestration execute --transform-workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:transform-workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>--transform-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>003</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>MissingFromSource</Status>
-      <Summary>Required. MetaTransformScript workspace used by child pipeline workers.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:binding-workspace" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--binding-workspace</DisplayName>
-      <DisplayPath>meta-orchestration execute --binding-workspace</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:binding-workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>--binding-workspace</NativeId>
-      <NativeKind>CliOptionDefinition</NativeKind>
-      <Ordinal>004</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>MissingFromSource</Status>
-      <Summary>Required. MetaTransformBinding workspace used by child pipeline workers.</Summary>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:data-type-conversion-workspace" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--data-type-conversion-workspace</DisplayName>
       <DisplayPath>meta-orchestration execute --data-type-conversion-workspace</DisplayPath>
@@ -515,18 +294,6 @@
       <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
       <Status>Current</Status>
       <Summary>Conversion policy workspace passed to child workers.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--pipeline-db-connection-env</DisplayName>
-      <DisplayPath>meta-orchestration execute --pipeline-db-connection-env</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-execute-pipeline-db-connection-env</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>Current</Status>
-      <Summary>Operational DB connection environment variable passed to child workers.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:max-degree-of-parallelism" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--max-degree-of-parallelism</DisplayName>
@@ -540,6 +307,30 @@
       <Status>Current</Status>
       <Summary>Maximum concurrently granted pipeline tasks. Default: 1.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--pipeline-db-connection-env</DisplayName>
+      <DisplayPath>meta-orchestration execute --pipeline-db-connection-env</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:execute:option:pipeline-db-connection-env</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-execute-pipeline-db-connection-env</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
+      <Status>Current</Status>
+      <Summary>Operational DB connection environment variable passed to child workers.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--pipeline-workspace</DisplayName>
+      <DisplayPath>meta-orchestration execute --pipeline-workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:execute:option:pipeline-workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-execute-pipeline-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaPipeline workspace used by child pipeline workers.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:run-artifacts-root" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--run-artifacts-root</DisplayName>
       <DisplayPath>meta-orchestration execute --run-artifacts-root</DisplayPath>
@@ -551,18 +342,6 @@
       <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
       <Status>Current</Status>
       <Summary>Operational root for run journals, worker logs, and workspace execution leases.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>--worker-event-timeout-seconds</DisplayName>
-      <DisplayPath>meta-orchestration execute --worker-event-timeout-seconds</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-execute-worker-event-timeout-seconds</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
-      <Status>Current</Status>
-      <Summary>Timeout for silent worker protocol periods. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:worker-activation-timeout-seconds" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>--worker-activation-timeout-seconds</DisplayName>
@@ -588,49 +367,65 @@
       <Status>Current</Status>
       <Summary>Timeout while waiting for child workers to connect to the named pipe. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:failure" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>failure</DisplayName>
-      <DisplayPath>meta-orchestration add-dependency --condition value failure</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:failure</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>value-dependency-failure</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--worker-event-timeout-seconds</DisplayName>
+      <DisplayPath>meta-orchestration execute --worker-event-timeout-seconds</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:execute:option:worker-event-timeout-seconds</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-execute-worker-event-timeout-seconds</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
+      <Status>Current</Status>
+      <Summary>Timeout for silent worker protocol periods. 0 or omitted means no timeout.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration execute --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:execute:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-execute-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:execute</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration explain-issue</DisplayName>
+      <DisplayPath>meta-orchestration explain-issue</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:explain-issue</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-explain-issue</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Explain one analyzer issue and its participating pipelines.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue:option:issue" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--issue</DisplayName>
+      <DisplayPath>meta-orchestration explain-issue --issue</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:explain-issue:option:issue</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-explain-issue-issue</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency:option:condition</ParentKey>
+      <ParentKey>source:cli:meta-orchestration:app:command:explain-issue</ParentKey>
       <Status>Current</Status>
+      <Summary>Issue id or unique issue code.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:success" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>success</DisplayName>
-      <DisplayPath>meta-orchestration add-dependency --condition value success</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-dependency:option:condition:allowed-value:success</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>value-dependency-success</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:explain-issue:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration explain-issue --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:explain-issue:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-explain-issue-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
       <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-dependency:option:condition</ParentKey>
+      <ParentKey>source:cli:meta-orchestration:app:command:explain-issue</ParentKey>
       <Status>Current</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:failure" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>failure</DisplayName>
-      <DisplayPath>meta-orchestration add-order --condition value failure</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:failure</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>value-dependency-failure</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-order:option:condition</ParentKey>
-      <Status>Current</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:success" DocumentationSourceId="source:cli:meta-orchestration">
-      <DisplayName>success</DisplayName>
-      <DisplayPath>meta-orchestration add-order --condition value success</DisplayPath>
-      <Key>source:cli:meta-orchestration:app:command:add-order:option:condition:allowed-value:success</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>value-dependency-success</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
-      <ParentKey>source:cli:meta-orchestration:app:command:add-order:option:condition</ParentKey>
-      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:help" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>meta-orchestration help</DisplayName>
@@ -692,6 +487,126 @@
       <Status>Current</Status>
       <Summary>MetaPipeline workspace to analyze.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration inspect</DisplayName>
+      <DisplayPath>meta-orchestration inspect</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:inspect</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-inspect</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>008</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Inspect a MetaOrchestration workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration inspect --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:inspect:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-inspect-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:inspect</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration inspect-run-plan</DisplayName>
+      <DisplayPath>meta-orchestration inspect-run-plan</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:inspect-run-plan</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-inspect-run-plan</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>009</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Inspect the planned task dependency graph.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration inspect-run-plan --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:inspect-run-plan:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-inspect-run-plan-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:inspect-run-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:list-issues" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration list-issues</DisplayName>
+      <DisplayPath>meta-orchestration list-issues</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:list-issues</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-list-issues</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>010</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>List analyzer issues recorded in an orchestration workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:list-issues:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration list-issues --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:list-issues:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-list-issues-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:list-issues</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration refresh-run-plan</DisplayName>
+      <DisplayPath>meta-orchestration refresh-run-plan</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:refresh-run-plan</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-refresh-run-plan</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>011</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Refresh lock-aware run-plan rows in an orchestration workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration refresh-run-plan --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:refresh-run-plan:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-refresh-run-plan-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:refresh-run-plan</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>meta-orchestration set-lock-policy</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy</Key>
+      <Kind>CliCommand</Kind>
+      <NativeId>exec-set-lock-policy</NativeId>
+      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
+      <Ordinal>012</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app</ParentKey>
+      <Status>Current</Status>
+      <Summary>Record scoped lock compatibility for one object/effect interaction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--behavior</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --behavior</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-behavior</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>001</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Lock behavior for the object/effect pair.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior:allowed-value:allow" DocumentationSourceId="source:cli:meta-orchestration">
       <DisplayName>allow</DisplayName>
       <DisplayPath>meta-orchestration set-lock-policy --behavior value allow</DisplayPath>
@@ -713,6 +628,66 @@
       <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy:option:behavior</ParentKey>
       <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--left-effect</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --left-effect</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:left-effect</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-left-effect</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>002</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Left write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:object" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--object</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --object</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:object</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-object</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>003</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Data object whose effect interaction is being resolved.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:reason" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--reason</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --reason</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:reason</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-reason</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>004</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Reason recorded with the policy row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--right-effect</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --right-effect</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:right-effect</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-right-effect</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>005</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>Right write effect, such as Append, Replace, Mutation, KeyedUpsert, or ConditionalKeyedUpsert.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace" DocumentationSourceId="source:cli:meta-orchestration">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-orchestration set-lock-policy --workspace</DisplayPath>
+      <Key>source:cli:meta-orchestration:app:command:set-lock-policy:option:workspace</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-set-lock-policy-workspace</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <Ordinal>006</Ordinal>
+      <ParentKey>source:cli:meta-orchestration:app:command:set-lock-policy</ParentKey>
+      <Status>Current</Status>
+      <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

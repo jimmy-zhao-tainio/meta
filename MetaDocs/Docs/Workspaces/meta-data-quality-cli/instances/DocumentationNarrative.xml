@@ -2,12 +2,11 @@
 <MetaDocs>
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app">
-      <Body>`meta-data-quality` derives reviewable MetaDataQuality candidates directly from typed MetaTransformScript structure and optional binding evidence. The checks are model-derived, not hand-authored one-off test SQL.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <SubjectKey>source:cli:meta-data-quality:app</SubjectKey>
       <Title>Summary</Title>
@@ -15,7 +14,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace">
       <Body>Create generated DQ views from a full MetaTransformScript workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -23,32 +22,10 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace">
-      <Body>MetaTransformScript workspace to analyze.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
-      <Ordinal>010</Ordinal>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace</SubjectKey>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace">
-      <Body>Directory where the generated MetaDataQuality workspace will be created.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
-      <Ordinal>010</Ordinal>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace</SubjectKey>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace">
       <Body>MetaTransformBinding workspace used to scan only validated scripts.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -56,10 +33,43 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace">
+      <Body>Directory where the generated MetaDataQuality workspace will be created.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace">
+      <Body>MetaTransformScript workspace to analyze.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:help">
+      <Body>Show help.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
+      <Ordinal>010</Ordinal>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <SubjectKey>source:cli:meta-data-quality:app:command:help</SubjectKey>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect">
       <Body>Review the generated DQ pack and optional adjustments.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -67,21 +77,21 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:inspect</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:workspace">
-      <Body>MetaDataQuality workspace. Defaults to the current directory.</Body>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids">
+      <Body>Include candidate ids in adjustment output. Implies --show-cases.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:inspect:option:workspace</SubjectKey>
+      <SubjectKey>source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:show-cases:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:show-cases">
       <Body>Show candidate adjustment cases.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -92,7 +102,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:top-cases:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:top-cases">
       <Body>Show up to n candidate cases. Implies --show-cases.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -100,21 +110,21 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:inspect:option:top-cases</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids">
-      <Body>Include candidate ids in adjustment output. Implies --show-cases.</Body>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:inspect:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:inspect:option:workspace">
+      <Body>MetaDataQuality workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids</SubjectKey>
+      <SubjectKey>source:cli:meta-data-quality:app:command:inspect:option:workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:promote:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:promote">
       <Body>Promote generated DQ candidates for SQL output.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -122,21 +132,10 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:promote</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:promote:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:promote:option:workspace">
-      <Body>MetaDataQuality workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
-      <Ordinal>010</Ordinal>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:promote:option:workspace</SubjectKey>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:promote:option:all:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:promote:option:all">
       <Body>Promote every generated data-quality candidate.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -147,7 +146,7 @@
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:promote:option:candidate-id:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:promote:option:candidate-id">
       <Body>Promote one generated candidate. May be provided more than once.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -155,15 +154,15 @@
       <SubjectKey>source:cli:meta-data-quality:app:command:promote:option:candidate-id</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:help:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:help">
-      <Body>Show help.</Body>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:promote:option:workspace:narrative:summary:010" DocumentationSubjectId="source:cli:meta-data-quality:app:command:promote:option:workspace">
+      <Body>MetaDataQuality workspace. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260629214430474</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260630212247674</LastReviewedImportBatchId>
       <Ordinal>010</Ordinal>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>source:cli:meta-data-quality:app:command:help</SubjectKey>
+      <SubjectKey>source:cli:meta-data-quality:app:command:promote:option:workspace</SubjectKey>
       <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>

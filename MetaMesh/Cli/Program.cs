@@ -21,13 +21,11 @@ internal static class Program
         var runtime = new MetaCliRuntime<MetaMeshModel>(CommandWorkspacePath, ApplicationId)
             .UseDefaultHelp()
             .Bind("exec-new-workspace", RunNewWorkspace)
-            .Bind("exec-scan", RunScan)
-            .Bind("exec-suggest", RunSuggest)
             .Bind("exec-show", RunShow)
-            .Bind("exec-check", RunCheck)
-            .Bind("exec-impact", RunImpact)
-            .Bind("exec-mount", RunMount)
-            .Bind("exec-link", RunLink);
+            .Bind("exec-add-workspace", RunAddWorkspace)
+            .Bind("exec-add-operation", RunAddOperation)
+            .Bind("exec-add-step", RunAddStep)
+            .Bind("exec-run", RunOperation);
 
         runtime.Run(args);
         return Environment.ExitCode;
@@ -44,128 +42,96 @@ internal static class Program
             throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
         }
 
-        Service.CreateEmpty(invocation.Optional("name") ?? "Mesh").SaveToXmlWorkspace(workspacePath);
-        Presenter.WriteOk(
-            "mesh workspace created",
-            ("Workspace", workspacePath),
-            ("Model", "MetaMesh"));
-    }
+        Service.CreateEmpty(
+                invocation.Optional("name") ?? "Mesh",
+                invocation.Optional("root"),
+                invocation.Optional("description"))
+            .SaveToXmlWorkspace(workspacePath);
 
-    private static void RunScan(MetaCliInvocation invocation)
-    {
-        var root = invocation.Required("root");
-        var workspacePath = Path.GetFullPath(invocation.Required("new-workspace"));
-        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
-        {
-            throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
-        }
-
-        var result = Service.ScanToWorkspace(root, workspacePath, invocation.Optional("name") ?? "Mesh");
-        Presenter.WriteOk("mesh scan", ("Workspace", workspacePath), ("Root", Path.GetFullPath(root)));
-        WriteWorkspaces(result.Workspaces);
-        WriteSuggestions(result.Suggestions);
-    }
-
-    private static void RunSuggest(MetaCliInvocation invocation)
-    {
-        var result = Service.SuggestFromRoot(invocation.Required("root"));
-        WriteSuggestions(result.Suggestions);
+        Presenter.WriteOk();
+        Presenter.WriteInfo($"Created MetaMesh workspace: {workspacePath}");
     }
 
     private static void RunShow(MetaCliInvocation invocation, MetaMeshModel model)
     {
-        var result = Service.Show(model);
-        Presenter.WriteKeyValueBlock("MetaMesh", new[]
-        {
-            ("Name", result.MeshName),
-            ("Root", result.RootPath),
-            ("Workspaces", result.Workspaces.Count.ToString()),
-            ("Links", result.Links.Count.ToString()),
-            ("Suggestions", result.Suggestions.Count.ToString()),
-        });
-        WriteWorkspaces(result.Workspaces);
-        WriteLinks(result.Links);
-        WriteSuggestions(result.Suggestions);
+        var workspacePath = ResolveWorkspacePath(invocation);
+        WriteShow(Service.Show(model, workspacePath), invocation.Flag("verbose"));
     }
 
-    private static void RunCheck(MetaCliInvocation invocation, MetaMeshModel model)
+    private static void RunAddWorkspace(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var result = Service.Check(model, workspacePath);
-        if (result.Issues.Count == 0)
-        {
-            Presenter.WriteInfo("MetaMesh check: Ok");
-            Presenter.WriteKeyValueBlock("Summary", new[]
-            {
-                ("Workspaces", model.WorkspaceInstanceList.Count.ToString()),
-                ("Links", model.WorkspaceLinkList.Count.ToString()),
-                ("Warnings", "0"),
-                ("Errors", "0"),
-            });
-            return;
-        }
-
-        Presenter.WriteInfo("MetaMesh check: issues");
-        foreach (var issue in result.Issues)
-        {
-            var handle = string.IsNullOrWhiteSpace(issue.WorkspaceHandle)
-                ? string.Empty
-                : $" [{issue.WorkspaceHandle}]";
-            Presenter.WriteInfo($"  {issue.Severity} {issue.Code}{handle}: {issue.Message}");
-        }
-
-        if (result.HasErrors)
-        {
-            throw new InvalidOperationException("MetaMesh check found errors.");
-        }
-    }
-
-    private static void RunImpact(MetaCliInvocation invocation, MetaMeshModel model)
-    {
-        var result = Service.Impact(model, invocation.Required("handle"));
-        Presenter.WriteKeyValueBlock("Impact", new[]
-        {
-            ("Workspace", result.WorkspaceHandle),
-            ("AffectedWorkspaces", result.AffectedHandles.Count.ToString()),
-        });
-
-        if (result.AffectedHandles.Count > 0)
-        {
-            Presenter.WriteInfo("Affected handles:");
-            foreach (var affected in result.AffectedHandles)
-            {
-                Presenter.WriteInfo("  " + affected);
-            }
-        }
-
-        WriteLinks(result.AffectedLinks);
-    }
-
-    private static void RunMount(MetaCliInvocation invocation, MetaMeshModel model)
-    {
-        var workspacePath = ResolveWorkspacePath(invocation);
-        var summary = Service.Mount(
+        var summary = Service.AddWorkspace(
             model,
-            invocation.Required("handle"),
-            invocation.Required("path"));
+            invocation.Required("name"),
+            invocation.Required("path"),
+            invocation.Optional("model"),
+            invocation.Optional("description"),
+            workspacePath);
         model.SaveToXmlWorkspace(workspacePath);
 
-        Presenter.WriteOk("mesh mount", ("Workspace", workspacePath));
+        Presenter.WriteOk();
         WriteWorkspaces(new[] { summary });
     }
 
-    private static void RunLink(MetaCliInvocation invocation, MetaMeshModel model)
+    private static void RunAddOperation(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var summary = Service.Link(
+        var summary = Service.AddOperation(
             model,
-            invocation.Required("from"),
-            invocation.Required("to"),
-            invocation.Required("kind"));
+            invocation.Required("name"),
+            invocation.Optional("description"));
         model.SaveToXmlWorkspace(workspacePath);
 
-        Presenter.WriteOk("mesh link", ("Workspace", workspacePath));
-        WriteLinks(new[] { summary });
+        Presenter.WriteOk();
+        WriteOperations(new[] { summary });
+    }
+
+    private static void RunAddStep(MetaCliInvocation invocation, MetaMeshModel model)
+    {
+        var workspacePath = ResolveWorkspacePath(invocation);
+        var summary = Service.AddStep(
+            model,
+            invocation.Required("operation"),
+            invocation.Required("name"),
+            invocation.Required("executable"),
+            invocation.Optional("arguments"),
+            invocation.Optional("working-directory"),
+            invocation.Optional("previous-step"),
+            invocation.Optional("description"));
+        model.SaveToXmlWorkspace(workspacePath);
+
+        Presenter.WriteOk();
+        WriteOperations(new[] { summary });
+    }
+
+    private static void RunOperation(MetaCliInvocation invocation, MetaMeshModel model)
+    {
+        var workspacePath = ResolveWorkspacePath(invocation);
+        var operationName = invocation.Required("operation");
+        Presenter.WriteInfo($"Operation: {operationName}");
+
+        using var progress = MetaMeshRunProgressRenderer.TryCreate();
+        try
+        {
+            IMetaMeshRunObserver observer = progress is null
+                ? new ConsoleRunObserver()
+                : new ProgressRunObserver(progress);
+            var result = Service.RunOperation(model, operationName, workspacePath, observer);
+            progress?.Complete(failed: !result.Succeeded);
+            if (!result.Succeeded)
+            {
+                WriteFailedStepOutput(result);
+                throw new MetaCliExitException(4, $"Operation '{result.OperationName}' failed.");
+            }
+
+            WriteRunSummary(result);
+        }
+        catch
+        {
+            progress?.Complete(failed: true);
+            throw;
+        }
     }
 
     private static string ResolveWorkspacePath(MetaCliInvocation invocation)
@@ -174,6 +140,28 @@ internal static class Program
         return Path.GetFullPath(string.IsNullOrWhiteSpace(workspace)
             ? Directory.GetCurrentDirectory()
             : workspace);
+    }
+
+    private static void WriteShow(MetaMeshShowResult result, bool verbose)
+    {
+        Presenter.WriteKeyValueBlock("MetaMesh", new[]
+        {
+            ("Name", result.MeshName),
+            ("Root", result.RootPath),
+            ("ResolvedRoot", result.ResolvedRootPath),
+            ("Workspaces", result.Workspaces.Count.ToString()),
+            ("Operations", result.Operations.Count.ToString()),
+        });
+
+        if (verbose)
+        {
+            WriteWorkspaces(result.Workspaces);
+            WriteOperations(result.Operations, verbose: true);
+            return;
+        }
+
+        WriteOperations(result.Operations, verbose: false);
+        Presenter.WriteInfo("Use --verbose to list workspace paths and step commands.");
     }
 
     private static void WriteWorkspaces(IReadOnlyList<MetaMeshWorkspaceSummary> workspaces)
@@ -187,41 +175,125 @@ internal static class Program
 
         foreach (var workspace in workspaces)
         {
-            var model = string.IsNullOrWhiteSpace(workspace.ModelName) ? "(unknown model)" : workspace.ModelName;
-            Presenter.WriteInfo($"  {workspace.Handle}  {model}");
+            Presenter.WriteInfo($"  {workspace.Name}");
+            if (!string.IsNullOrWhiteSpace(workspace.ModelName))
+            {
+                Presenter.WriteInfo($"    model: {workspace.ModelName}");
+            }
+
+            Presenter.WriteInfo($"    path: {workspace.Path}");
+            Presenter.WriteInfo($"    resolved: {workspace.ResolvedPath}");
+            if (!string.IsNullOrWhiteSpace(workspace.Description))
+            {
+                Presenter.WriteInfo($"    description: {workspace.Description}");
+            }
         }
     }
 
-    private static void WriteLinks(IReadOnlyList<MetaMeshLinkSummary> links)
+    private static void WriteOperations(IReadOnlyList<MetaMeshOperationSummary> operations, bool verbose = true)
     {
-        if (links.Count == 0)
-        {
-            return;
-        }
-
-        Presenter.WriteInfo("Links:");
-        foreach (var link in links)
-        {
-            var description = string.IsNullOrWhiteSpace(link.Description) ? string.Empty : "  " + link.Description;
-            Presenter.WriteInfo($"  {link.FromHandle} --{link.Kind}--> {link.ToHandle}{description}");
-        }
-    }
-
-    private static void WriteSuggestions(IReadOnlyList<MetaMeshSuggestionSummary> suggestions)
-    {
-        Presenter.WriteInfo("Suggestions:");
-        if (suggestions.Count == 0)
+        Presenter.WriteInfo("Operations:");
+        if (operations.Count == 0)
         {
             Presenter.WriteInfo("  (none)");
             return;
         }
 
-        foreach (var suggestion in suggestions)
+        foreach (var operation in operations)
         {
-            var handle = string.IsNullOrWhiteSpace(suggestion.WorkspaceHandle)
-                ? string.Empty
-                : $" [{suggestion.WorkspaceHandle}]";
-            Presenter.WriteInfo($"  {suggestion.Severity}{handle}: {suggestion.Message}");
+            Presenter.WriteInfo($"  {operation.Name}");
+            if (!string.IsNullOrWhiteSpace(operation.Description))
+            {
+                Presenter.WriteInfo($"    description: {operation.Description}");
+            }
+
+            if (!verbose)
+            {
+                Presenter.WriteInfo($"    steps: {operation.Steps.Count}");
+                continue;
+            }
+
+            if (operation.Steps.Count > 0)
+            {
+                Presenter.WriteInfo("    steps:");
+                foreach (var step in operation.Steps)
+                {
+                    var command = string.IsNullOrWhiteSpace(step.Arguments)
+                        ? step.Executable
+                        : step.Executable + " " + step.Arguments;
+                    Presenter.WriteInfo($"      {step.Name}: {command}");
+                    if (!string.IsNullOrWhiteSpace(step.WorkingDirectory))
+                    {
+                        Presenter.WriteInfo($"        working-directory: {step.WorkingDirectory}");
+                    }
+                }
+            }
         }
     }
+
+    private sealed class ConsoleRunObserver : IMetaMeshRunObserver
+    {
+        public void StepStarted(MetaMeshRunStepStart step)
+        {
+            Presenter.WriteInfo($"  {step.Name}");
+        }
+
+        public void StepCompleted(MetaMeshRunStepResult step)
+        {
+            if (!string.IsNullOrWhiteSpace(step.Output))
+            {
+                foreach (var line in step.Output.Replace("\r\n", "\n").Split('\n'))
+                {
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        Presenter.WriteInfo("      " + line);
+                    }
+                }
+            }
+        }
+    }
+
+    private sealed class ProgressRunObserver(MetaMeshRunProgressRenderer progress) : IMetaMeshRunObserver
+    {
+        public void StepStarted(MetaMeshRunStepStart step)
+        {
+            progress.StepStarted(step.Index, step.Total, step.Name);
+        }
+
+        public void StepCompleted(MetaMeshRunStepResult step)
+        {
+            progress.StepCompleted(step.Name, step.ExitCode == 0);
+        }
+    }
+
+    private static void WriteRunSummary(MetaMeshRunResult result)
+    {
+        Presenter.WriteInfo($"{result.Steps.Count} {Pluralize(result.Steps.Count, "step", "steps")} completed.");
+    }
+
+    private static void WriteFailedStepOutput(MetaMeshRunResult result)
+    {
+        var failed = result.Steps.FirstOrDefault(static step => step.ExitCode != 0);
+        if (failed is null)
+        {
+            return;
+        }
+
+        Presenter.WriteInfo($"Failed step: {failed.Name}");
+        if (string.IsNullOrWhiteSpace(failed.Output))
+        {
+            return;
+        }
+
+        foreach (var line in failed.Output.Replace("\r\n", "\n").Split('\n'))
+        {
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                Presenter.WriteInfo("  " + line);
+            }
+        }
+    }
+
+    private static string Pluralize(int count, string singular, string plural) =>
+        count == 1 ? singular : plural;
 }

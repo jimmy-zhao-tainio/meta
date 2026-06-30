@@ -11,19 +11,23 @@
 
 namespace MetaMesh
 {
-    public sealed class WorkspaceLink
+    public sealed class OperationStep
     {
         public string Id { get; set; } = string.Empty;
 
+        public string? Arguments { get; set; }
+
         public string? Description { get; set; }
 
-        public string Kind { get; set; } = string.Empty;
+        public string Executable { get; set; } = string.Empty;
 
-        public WorkspaceInstance FromWorkspace { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
 
-        public Mesh Mesh { get; set; } = null!;
+        public string? WorkingDirectory { get; set; }
 
-        public WorkspaceInstance ToWorkspace { get; set; } = null!;
+        public Operation Operation { get; set; } = null!;
+
+        public OperationStep? PreviousStep { get; set; }
 
     }
 }

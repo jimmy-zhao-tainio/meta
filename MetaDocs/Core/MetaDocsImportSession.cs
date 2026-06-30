@@ -283,7 +283,18 @@ public sealed class MetaDocsImportSession
         return node;
     }
 
-    public void Complete()
+    public void Complete(bool pruneMissingFromSource = false)
+    {
+        if (pruneMissingFromSource)
+        {
+            PruneUntouchedSourceRows();
+            return;
+        }
+
+        MarkUntouchedSourceRowsMissing();
+    }
+
+    private void MarkUntouchedSourceRowsMissing()
     {
         foreach (var subject in model.DocumentationSubjectList.Where(row =>
                      ReferenceEquals(row.DocumentationSource, source) &&
@@ -298,6 +309,34 @@ public sealed class MetaDocsImportSession
         {
             fact.Status = "MissingFromSource";
         }
+    }
+
+    private void PruneUntouchedSourceRows()
+    {
+        var staleSubjectIds = model.DocumentationSubjectList
+            .Where(row => ReferenceEquals(row.DocumentationSource, source) &&
+                          !touchedSubjects.Contains(row.Id))
+            .Select(row => row.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        model.DocumentationFactList.RemoveAll(row =>
+            ReferenceEquals(row.DocumentationSource, source) &&
+            (!touchedFacts.Contains(row.Id) || staleSubjectIds.Contains(row.SubjectKey ?? string.Empty)));
+        model.DocumentationRelationshipList.RemoveAll(row =>
+            ReferenceEquals(row.DocumentationSource, source) &&
+            (!touchedRelationships.Contains(row.Id) ||
+             staleSubjectIds.Contains(row.FromSubjectKey ?? string.Empty) ||
+             staleSubjectIds.Contains(row.ToSubjectKey ?? string.Empty)));
+        model.DocumentationNarrativeList.RemoveAll(row =>
+            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty) ||
+            (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
+        model.DocumentationSubjectAliasList.RemoveAll(row =>
+            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty) ||
+            (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
+        model.DocumentationViewNodeList.RemoveAll(row =>
+            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty));
+        model.DocumentationSubjectList.RemoveAll(row =>
+            staleSubjectIds.Contains(row.Id));
     }
 
     private void EnsureAlias(DocumentationSubject subject, string aliasKey, string reason)

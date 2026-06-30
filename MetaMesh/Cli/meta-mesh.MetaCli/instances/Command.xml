@@ -11,40 +11,30 @@
       <Name>new-workspace</Name>
       <Token>new-workspace</Token>
     </Command>
-    <Command Id="cmd-scan" ApplicationId="app-meta-mesh">
-      <Description>Scan a root folder and create a MetaMesh workspace from discovered meta workspaces.</Description>
-      <Name>scan</Name>
-      <Token>scan</Token>
-    </Command>
-    <Command Id="cmd-suggest" ApplicationId="app-meta-mesh">
-      <Description>Suggest logical workspace handles from a root folder without applying changes.</Description>
-      <Name>suggest</Name>
-      <Token>suggest</Token>
-    </Command>
     <Command Id="cmd-show" ApplicationId="app-meta-mesh">
-      <Description>Show a MetaMesh workspace map.</Description>
+      <Description>Show declared workspaces and operations.</Description>
       <Name>show</Name>
       <Token>show</Token>
     </Command>
-    <Command Id="cmd-check" ApplicationId="app-meta-mesh">
-      <Description>Inspect mounted paths and modeled links in a MetaMesh workspace.</Description>
-      <Name>check</Name>
-      <Token>check</Token>
+    <Command Id="cmd-add-workspace" ApplicationId="app-meta-mesh">
+      <Description>Add one declared workspace.</Description>
+      <Name>add-workspace</Name>
+      <Token>add-workspace</Token>
     </Command>
-    <Command Id="cmd-impact" ApplicationId="app-meta-mesh">
-      <Description>Walk modeled workspace links from one handle.</Description>
-      <Name>impact</Name>
-      <Token>impact</Token>
+    <Command Id="cmd-add-operation" ApplicationId="app-meta-mesh">
+      <Description>Add one declared operation.</Description>
+      <Name>add-operation</Name>
+      <Token>add-operation</Token>
     </Command>
-    <Command Id="cmd-mount" ApplicationId="app-meta-mesh">
-      <Description>Mount or update a workspace path under a stable handle.</Description>
-      <Name>mount</Name>
-      <Token>mount</Token>
+    <Command Id="cmd-add-step" ApplicationId="app-meta-mesh">
+      <Description>Add one executable step to an operation.</Description>
+      <Name>add-step</Name>
+      <Token>add-step</Token>
     </Command>
-    <Command Id="cmd-link" ApplicationId="app-meta-mesh">
-      <Description>Add or update a modeled link between two workspace handles.</Description>
-      <Name>link</Name>
-      <Token>link</Token>
+    <Command Id="cmd-run" ApplicationId="app-meta-mesh">
+      <Description>Run the steps declared for one operation.</Description>
+      <Name>run</Name>
+      <Token>run</Token>
     </Command>
   </CommandList>
 </MetaCli>

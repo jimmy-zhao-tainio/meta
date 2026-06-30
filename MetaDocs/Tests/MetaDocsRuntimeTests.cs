@@ -134,20 +134,18 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void ImportApplication_RemovedSourceCommandIsMarkedMissingFromSource()
+    public void ImportApplication_RemovedSourceCommandIsPrunedFromGeneratedCliDocs()
     {
         var model = MetaDocsModel.CreateEmpty();
         var importer = new MetaDocsCliImporter();
         importer.ImportApplication(model, CreateBindingApp("Bind transforms.", includeInspect: true));
         importer.ImportApplication(model, CreateBindingApp("Bind transforms.", includeInspect: false));
 
-        var inspect = Assert.Single(model.DocumentationSubjectList, row =>
+        Assert.DoesNotContain(model.DocumentationSubjectList, row =>
             row.Kind == "CliCommand" &&
             row.NativeId == "inspect");
-        Assert.Equal("MissingFromSource", inspect.Status);
-        Assert.All(
-            model.DocumentationFactList.Where(row => row.SubjectKey == inspect.Id),
-            fact => Assert.Equal("MissingFromSource", fact.Status));
+        Assert.DoesNotContain(model.DocumentationFactList, row =>
+            row.SubjectKey.Contains("inspect", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -637,25 +635,16 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void Validate_WarnsWhenMissingSourceSubjectIsStillInView()
+    public void Validate_DoesNotWarnForPrunedGeneratedCliSubjects()
     {
         var model = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms.", includeInspect: true));
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms.", includeInspect: false));
-        var inspect = Assert.Single(model.DocumentationSubjectList, row => row.NativeId == "inspect");
-        var view = Assert.Single(model.DocumentationViewList);
-        model.DocumentationViewNodeList.Add(new DocumentationViewNode
-        {
-            Id = "view:default:node:inspect",
-            DocumentationView = view,
-            SubjectKey = inspect.Id,
-            Title = "Inspect",
-            Ordinal = "900",
-        });
 
         var result = new MetaDocsValidationService().Validate(model);
 
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC007" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
+        Assert.DoesNotContain(model.DocumentationSubjectList, row => row.NativeId == "inspect");
+        Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC007");
     }
 
     [Fact]

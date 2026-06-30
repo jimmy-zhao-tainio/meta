@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionList>
+    <Option Id="opt-workspace" ParameterId="param-workspace">
+    </Option>
     <Option Id="opt-new-workspace-name" ParameterId="param-new-workspace-name">
     </Option>
-    <Option Id="opt-scan-new-workspace" ParameterId="param-scan-new-workspace">
+    <Option Id="opt-new-workspace-root" ParameterId="param-new-workspace-root">
     </Option>
-    <Option Id="opt-scan-name" ParameterId="param-scan-name">
+    <Option Id="opt-new-workspace-description" ParameterId="param-new-workspace-description">
     </Option>
-    <Option Id="opt-show-workspace" ParameterId="param-show-workspace">
+    <Option Id="opt-workspace-name" ParameterId="param-workspace-name">
     </Option>
-    <Option Id="opt-check-workspace" ParameterId="param-check-workspace">
+    <Option Id="opt-workspace-path" ParameterId="param-workspace-path">
     </Option>
-    <Option Id="opt-impact-workspace" ParameterId="param-impact-workspace">
+    <Option Id="opt-workspace-model" ParameterId="param-workspace-model">
     </Option>
-    <Option Id="opt-impact-handle" ParameterId="param-impact-handle">
+    <Option Id="opt-workspace-description" ParameterId="param-workspace-description">
     </Option>
-    <Option Id="opt-mount-workspace" ParameterId="param-mount-workspace">
+    <Option Id="opt-operation-name" ParameterId="param-operation-name">
     </Option>
-    <Option Id="opt-mount-handle" ParameterId="param-mount-handle">
+    <Option Id="opt-operation-description" ParameterId="param-operation-description">
     </Option>
-    <Option Id="opt-mount-path" ParameterId="param-mount-path">
+    <Option Id="opt-step-operation" ParameterId="param-step-operation">
     </Option>
-    <Option Id="opt-link-workspace" ParameterId="param-link-workspace">
+    <Option Id="opt-step-name" ParameterId="param-step-name">
     </Option>
-    <Option Id="opt-link-from" ParameterId="param-link-from">
+    <Option Id="opt-step-executable" ParameterId="param-step-executable">
     </Option>
-    <Option Id="opt-link-to" ParameterId="param-link-to">
+    <Option Id="opt-step-arguments" ParameterId="param-step-arguments">
     </Option>
-    <Option Id="opt-link-kind" ParameterId="param-link-kind">
+    <Option Id="opt-step-working-directory" ParameterId="param-step-working-directory">
+    </Option>
+    <Option Id="opt-step-previous-step" ParameterId="param-step-previous-step">
+    </Option>
+    <Option Id="opt-step-description" ParameterId="param-step-description">
+    </Option>
+    <Option Id="opt-show-verbose" ParameterId="param-show-verbose">
+    </Option>
+    <Option Id="opt-run-operation" ParameterId="param-run-operation">
     </Option>
   </OptionList>
 </MetaCli>

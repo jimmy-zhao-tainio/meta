@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionTokenList>
+    <OptionToken Id="token-workspace" OptionId="opt-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
     <OptionToken Id="token-new-workspace-name" OptionId="opt-new-workspace-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-scan-new-workspace" OptionId="opt-scan-new-workspace">
-      <Token>--new-workspace</Token>
+    <OptionToken Id="token-new-workspace-root" OptionId="opt-new-workspace-root">
+      <Token>--root</Token>
     </OptionToken>
-    <OptionToken Id="token-scan-name" OptionId="opt-scan-name">
+    <OptionToken Id="token-new-workspace-description" OptionId="opt-new-workspace-description">
+      <Token>--description</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-name" OptionId="opt-workspace-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-show-workspace" OptionId="opt-show-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-check-workspace" OptionId="opt-check-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-impact-workspace" OptionId="opt-impact-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-impact-handle" OptionId="opt-impact-handle">
-      <Token>--handle</Token>
-    </OptionToken>
-    <OptionToken Id="token-mount-workspace" OptionId="opt-mount-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-mount-handle" OptionId="opt-mount-handle">
-      <Token>--handle</Token>
-    </OptionToken>
-    <OptionToken Id="token-mount-path" OptionId="opt-mount-path">
+    <OptionToken Id="token-workspace-path" OptionId="opt-workspace-path">
       <Token>--path</Token>
     </OptionToken>
-    <OptionToken Id="token-link-workspace" OptionId="opt-link-workspace">
-      <Token>--workspace</Token>
+    <OptionToken Id="token-workspace-model" OptionId="opt-workspace-model">
+      <Token>--model</Token>
     </OptionToken>
-    <OptionToken Id="token-link-from" OptionId="opt-link-from">
-      <Token>--from</Token>
+    <OptionToken Id="token-workspace-description" OptionId="opt-workspace-description">
+      <Token>--description</Token>
     </OptionToken>
-    <OptionToken Id="token-link-to" OptionId="opt-link-to">
-      <Token>--to</Token>
+    <OptionToken Id="token-operation-name" OptionId="opt-operation-name">
+      <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-link-kind" OptionId="opt-link-kind">
-      <Token>--kind</Token>
+    <OptionToken Id="token-operation-description" OptionId="opt-operation-description">
+      <Token>--description</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-operation" OptionId="opt-step-operation">
+      <Token>--operation</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-name" OptionId="opt-step-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-executable" OptionId="opt-step-executable">
+      <Token>--executable</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-arguments" OptionId="opt-step-arguments">
+      <Token>--arguments</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-working-directory" OptionId="opt-step-working-directory">
+      <Token>--working-directory</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-previous-step" OptionId="opt-step-previous-step">
+      <Token>--previous-step</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-description" OptionId="opt-step-description">
+      <Token>--description</Token>
+    </OptionToken>
+    <OptionToken Id="token-show-verbose" OptionId="opt-show-verbose">
+      <Token>--verbose</Token>
+    </OptionToken>
+    <OptionToken Id="token-run-operation" OptionId="opt-run-operation">
+      <Token>--operation</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

@@ -7,7 +7,7 @@ This repo contains these CLI projects:
 - `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.
 - `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
 - `meta-docs` (MetaDocs CLI): modeled CLI documentation import and merged metametabi-style docs rendering.
-- `meta-mesh` (MetaMesh CLI): modeled workspace maps with workspace handles, mounts, and declared links.
+- `meta-mesh` (MetaMesh CLI): declared workspace sets and executable operations over those workspaces.
 
 BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.
 
@@ -772,20 +772,25 @@ meta instance merge <TargetWs> <DiffWorkspace>
 
 ## MetaMesh
 
-MetaMesh is a modeled workspace map. It records workspace handles, optional mounts to physical workspace paths, and declared links between handles in a normal Meta workspace.
+MetaMesh declares a set of workspaces and the operations that act on them. It is not a folder scanner, lineage inference layer, or XML validator. A mesh records named workspaces and ordered executable steps in a normal Meta workspace.
 
-`scan` discovers directories that contain `workspace.xml` and `model.xml`. Links are `WorkspaceLink` rows in the mesh, not lineage inferred from target workspace content.
+Relative workspace paths are resolved from the mesh root. Operation steps can refer to declared workspace paths with tokens such as `{workspace:docs.path}` and environment variables with `{env:NAME}`. Before running an operation, `meta-mesh` verifies the full step chain, declared workspace directories, executable resolution, working directories, write access for step working directories, and non-empty environment tokens. If the operation cannot be prepared completely, no step is started.
 
 Representative command shapes:
 
 ```cmd
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- init --new-workspace .\out\Empty.MetaMesh --name Empty
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- scan ..\meta-bi --new-workspace .\out\Scanned.MetaMesh --name Current
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- show --mesh .\out\Scanned.MetaMesh
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- check --mesh .\out\Scanned.MetaMesh
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- mount --mesh <mesh-workspace> --handle <handle> --path <workspace-path>
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- link --mesh <mesh-workspace> --from <handle> --to <handle> --kind <kind>
-dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- impact --mesh <mesh-workspace> --workspace <handle>
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- new-workspace .\out\Docs.MetaMesh --name Docs --root .
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- add-workspace --workspace .\out\Docs.MetaMesh --name docs --path .\MetaDocs\Docs\SuiteWorkspace --model MetaDocs
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- add-operation --workspace .\out\Docs.MetaMesh --name refresh-docs
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- add-step --workspace .\out\Docs.MetaMesh --operation refresh-docs --name search --executable meta-docs.exe --arguments "search MetaDocs --workspace {workspace:docs.path}"
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- show --workspace .\out\Docs.MetaMesh
+dotnet run --project MetaMesh\Cli\MetaMesh.Cli.csproj -- run --workspace .\out\Docs.MetaMesh --operation refresh-docs
+```
+
+The checked-in documentation mesh is `MetaDocs\Docs\Documentation.MetaMesh`.
+
+```cmd
+meta-mesh run --workspace MetaDocs\Docs\Documentation.MetaMesh --operation regenerate-public-docs
 ```
 
 ## MetaDocs
@@ -812,7 +817,7 @@ Examples:
 meta-docs import-cli --source-workspace .\MetaTransformBinding.Cli\meta-transform-binding.MetaCli --new-workspace .\Docs\BindingCli --group meta-bi --ordinal 80
 meta-docs import-command-prose --workspace .\Docs\BindingCli --source-root ..\meta-bi\README.md --source-id source:markdown:meta-bi-readme
 meta-docs import-workspace-model --source-workspace .\SourceWS --new-workspace .\Docs\SourceModel --source-id source:workspace-model:source
-meta-docs merge --include .\Docs\BindingCli --include .\Docs\SourceModel --new-workspace .\Docs\SuiteWorkspace
+meta-docs merge --include .\Docs\BindingCli --include .\Docs\SourceModel --workspace .\Docs\SuiteWorkspace
 meta-docs validate --workspace .\Docs\SuiteWorkspace
 meta-docs render-site --workspace .\Docs\SuiteWorkspace --out .\Docs\Site
 ```
@@ -828,7 +833,7 @@ meta-docs author-page --new-workspace .\Docs\SourceInstances --id docs:selected-
 meta-docs include-instance-entity --workspace .\Docs\SourceInstances --entity Measure --display-name-property Name
 meta-docs include-instance-property --workspace .\Docs\SourceInstances --entity Measure --property Name
 meta-docs import-workspace-instances --source-workspace .\SourceWS --workspace .\Docs\SourceInstances --model-source-id source:workspace-model:source
-meta-docs merge --include .\Docs\Authored --include .\Docs\BindingCli --include .\Docs\SourceModel --include .\Docs\SourceInstances --new-workspace .\Docs\SuiteWorkspace
+meta-docs merge --include .\Docs\Authored --include .\Docs\BindingCli --include .\Docs\SourceModel --include .\Docs\SourceInstances --workspace .\Docs\SuiteWorkspace
 meta-docs validate --workspace .\Docs\SuiteWorkspace
 meta-docs render-site --workspace .\Docs\SuiteWorkspace --out .\Docs\Site
 ```

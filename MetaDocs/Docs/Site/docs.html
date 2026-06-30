@@ -173,7 +173,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <tbody>
                   <tr>
                     <td class="cmd"><a href="#cli-meta" data-panel-link="cli-meta">meta</a></td>
-                    <td>`meta` is the core workspace CLI for creating, inspecting, editing, comparing, and maintaining modeled metadata.</td>
+                    <td>Meta workspace CLI.</td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-cli" data-panel-link="cli-meta-cli">meta-cli</a></td>
@@ -181,15 +181,15 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-docs" data-panel-link="cli-meta-docs">meta-docs</a></td>
-                    <td>`meta-docs` turns CLI definitions, workspace models, selected instance facts, and authored narrative into refreshable reference documentation.</td>
-                  </tr>
-                  <tr>
-                    <td class="cmd"><a href="#cli-meta-mesh" data-panel-link="cli-meta-mesh">meta-mesh</a></td>
                     <td></td>
                   </tr>
                   <tr>
+                    <td class="cmd"><a href="#cli-meta-mesh" data-panel-link="cli-meta-mesh">meta-mesh</a></td>
+                    <td>Author and run declared workspace operations.</td>
+                  </tr>
+                  <tr>
                     <td class="cmd"><a href="#cli-meta-weave" data-panel-link="cli-meta-weave">meta-weave</a></td>
-                    <td>`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -232,7 +232,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta</h2>
-            <p class="panel-lead">`meta` is the core workspace CLI for creating, inspecting, editing, comparing, and maintaining modeled metadata.</p>
+            <p class="panel-lead">Meta workspace CLI.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -434,13 +434,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta bulk-insert</span>
                 <span class="command-summary-text">Insert many instances from tsv/csv input.</span>
               </span>
-              <span class="command-counts">5 options / 0 examples</span>
+              <span class="command-counts">7 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta bulk-insert &lt;Entity&gt; [--auto-id] [--file &lt;path&gt;] [--from tsv|csv] [--key Field[,Field2...]] [--stdin]</code></pre>
+                <pre><code>meta bulk-insert &lt;Entity&gt; [--auto-id] [--file &lt;path&gt;] [--from tsv|csv] [--key Field[,Field2...]] [--stdin] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -477,6 +477,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -490,13 +502,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta check</span>
                 <span class="command-summary-text">Check model and instance integrity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta check</code></pre>
+                <pre><code>meta check [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -508,13 +540,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta delete</span>
                 <span class="command-summary-text">Delete one instance.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta delete &lt;Entity&gt; &lt;Id&gt;</code></pre>
+                <pre><code>meta delete &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -526,13 +578,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta deploy sqlserver</span>
                 <span class="command-summary-text">Deploy SQL Server scripts.</span>
               </span>
-              <span class="command-counts">3 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta deploy sqlserver --connection-env &lt;name&gt; [--database &lt;name&gt;] --scripts &lt;dir&gt;</code></pre>
+                <pre><code>meta deploy sqlserver --connection-env &lt;name&gt; [--database &lt;name&gt;] --scripts &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -557,6 +609,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>&lt;dir&gt;</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -570,13 +634,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta export csv</span>
                 <span class="command-summary-text">Export instances as CSV.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta export csv &lt;Entity&gt; --out &lt;file&gt;</code></pre>
+                <pre><code>meta export csv &lt;Entity&gt; --out &lt;file&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -587,6 +651,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--out &lt;file&gt;</td>
                       <td></td>
                       <td>&lt;file&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -602,13 +678,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta generate csharp</span>
                 <span class="command-summary-text">Generate C# artifacts.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate csharp --out &lt;dir&gt; [--tooling]</code></pre>
+                <pre><code>meta generate csharp --out &lt;dir&gt; [--strict] [--tooling] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -622,9 +698,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--tooling</td>
                       <td></td>
                       <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -640,13 +728,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta generate sql</span>
                 <span class="command-summary-text">Generate SQL artifacts.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate sql --out &lt;dir&gt;</code></pre>
+                <pre><code>meta generate sql --out &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -657,6 +745,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--out &lt;dir&gt;</td>
                       <td></td>
                       <td>&lt;dir&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -672,13 +772,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta generate ssdt</span>
                 <span class="command-summary-text">Generate SSDT artifacts.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate ssdt --out &lt;dir&gt;</code></pre>
+                <pre><code>meta generate ssdt --out &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -689,6 +789,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--out &lt;dir&gt;</td>
                       <td></td>
                       <td>&lt;dir&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -704,13 +816,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta graph inbound</span>
                 <span class="command-summary-text">Show inbound relationships for an entity.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta graph inbound &lt;Entity&gt; [--top &lt;n&gt;]</code></pre>
+                <pre><code>meta graph inbound &lt;Entity&gt; [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -718,9 +830,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--top &lt;n&gt;</td>
                       <td></td>
                       <td>&lt;n&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -736,13 +860,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta graph stats</span>
                 <span class="command-summary-text">Show graph statistics.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta graph stats [--cycles &lt;n&gt;] [--top &lt;n&gt;]</code></pre>
+                <pre><code>meta graph stats [--cycles &lt;n&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -756,9 +880,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--top &lt;n&gt;</td>
                       <td></td>
                       <td>&lt;n&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -774,13 +910,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta help</span>
                 <span class="command-summary-text">Show help.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta help &lt;command&gt;</code></pre>
+                <pre><code>meta help &lt;command&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -792,13 +948,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta import csv</span>
                 <span class="command-summary-text">Import CSV data into a workspace.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -817,6 +973,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -830,13 +998,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta import sql</span>
                 <span class="command-summary-text">Import SQL metadata into a new workspace.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; --new-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -855,6 +1023,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -868,13 +1048,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta init</span>
                 <span class="command-summary-text">Initialize a metadata workspace.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta init &lt;path&gt;</code></pre>
+                <pre><code>meta init &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -886,13 +1086,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta insert</span>
                 <span class="command-summary-text">Insert one instance.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta insert &lt;Entity&gt; &lt;Id&gt; [--auto-id] [--set Field=Value]</code></pre>
+                <pre><code>meta insert &lt;Entity&gt; &lt;Id&gt; [--auto-id] [--set Field=Value] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -911,6 +1111,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>Field=Value</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -924,13 +1136,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance diff</span>
                 <span class="command-summary-text">Diff instance data for two workspaces with byte-identical model.xml.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt;</code></pre>
+                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -942,13 +1174,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance diff-aligned</span>
                 <span class="command-summary-text">Diff mapped instance data using an explicit alignment workspace.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt;</code></pre>
+                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -960,13 +1212,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance merge</span>
                 <span class="command-summary-text">Apply an equal-model instance diff artifact to a target workspace.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance merge &lt;targetWorkspace&gt; &lt;diffWorkspace&gt;</code></pre>
+                <pre><code>meta instance merge &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -978,13 +1250,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance merge-aligned</span>
                 <span class="command-summary-text">Apply an aligned instance diff artifact to a target workspace.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance merge-aligned &lt;targetWorkspace&gt; &lt;diffWorkspace&gt;</code></pre>
+                <pre><code>meta instance merge-aligned &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -996,13 +1288,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance relationship list</span>
                 <span class="command-summary-text">List instance relationships.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance relationship list &lt;FromEntity&gt; &lt;FromId&gt;</code></pre>
+                <pre><code>meta instance relationship list &lt;FromEntity&gt; &lt;FromId&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1014,13 +1326,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance relationship set</span>
                 <span class="command-summary-text">Set an instance relationship.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance relationship set &lt;FromEntity&gt; &lt;FromId&gt; --to &lt;RelationshipSelector&gt; &lt;ToId&gt;</code></pre>
+                <pre><code>meta instance relationship set &lt;FromEntity&gt; &lt;FromId&gt; [--strict] --to &lt;RelationshipSelector&gt; &lt;ToId&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1028,9 +1340,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--to &lt;RelationshipSelector&gt; &lt;ToId&gt;</td>
                       <td>Target entity, relationship role, or implied relationship field name, followed by target instance id.</td>
                       <td>&lt;RelationshipSelector&gt; &lt;ToId&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1046,13 +1370,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance rename-id</span>
                 <span class="command-summary-text">Rename one instance id.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance rename-id &lt;Entity&gt; &lt;OldId&gt; &lt;NewId&gt;</code></pre>
+                <pre><code>meta instance rename-id &lt;Entity&gt; &lt;OldId&gt; &lt;NewId&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1064,13 +1408,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta instance update</span>
                 <span class="command-summary-text">Update one instance.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance update &lt;Entity&gt; &lt;Id&gt; [--set Field=Value]</code></pre>
+                <pre><code>meta instance update &lt;Entity&gt; &lt;Id&gt; [--set Field=Value] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1081,6 +1425,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--set Field=Value</td>
                       <td></td>
                       <td>Field=Value</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1096,13 +1452,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta list entities</span>
                 <span class="command-summary-text">List entities in the model.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list entities</code></pre>
+                <pre><code>meta list entities [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1114,13 +1490,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta list properties</span>
                 <span class="command-summary-text">List properties for an entity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list properties &lt;Entity&gt;</code></pre>
+                <pre><code>meta list properties &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1132,13 +1528,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta list relationships</span>
                 <span class="command-summary-text">List relationships for an entity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list relationships &lt;Entity&gt;</code></pre>
+                <pre><code>meta list relationships &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1150,13 +1566,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model add-entity</span>
                 <span class="command-summary-text">Add an entity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-entity &lt;Name&gt;</code></pre>
+                <pre><code>meta model add-entity &lt;Name&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1168,13 +1604,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model add-property</span>
                 <span class="command-summary-text">Add a property to an entity.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-property &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] [--required true|false]</code></pre>
+                <pre><code>meta model add-property &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] [--required true|false] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1193,6 +1629,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>true|false: false, true</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -1206,13 +1654,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model add-relationship</span>
                 <span class="command-summary-text">Add a relationship.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--default-id &lt;ToId&gt;] [--role &lt;RoleName&gt;]</code></pre>
+                <pre><code>meta model add-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--default-id &lt;ToId&gt;] [--role &lt;RoleName&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1231,6 +1679,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>&lt;RoleName&gt;</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -1244,13 +1704,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model drop-entity</span>
                 <span class="command-summary-text">Drop an entity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-entity &lt;Entity&gt;</code></pre>
+                <pre><code>meta model drop-entity &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1262,13 +1742,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model drop-property</span>
                 <span class="command-summary-text">Drop a property.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-property &lt;Entity&gt; &lt;Property&gt;</code></pre>
+                <pre><code>meta model drop-property &lt;Entity&gt; &lt;Property&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1280,13 +1780,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model drop-relationship</span>
                 <span class="command-summary-text">Drop a relationship.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-relationship &lt;FromEntity&gt; &lt;ToEntity&gt;</code></pre>
+                <pre><code>meta model drop-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1298,13 +1818,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model refactor property-to-relationship</span>
                 <span class="command-summary-text">Convert a property into a relationship.</span>
               </span>
-              <span class="command-counts">5 options / 0 examples</span>
+              <span class="command-counts">7 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model refactor property-to-relationship --lookup &lt;Property&gt; [--preserve-property] [--role &lt;Role&gt;] --source &lt;Entity.Property&gt; --target &lt;Entity&gt;</code></pre>
+                <pre><code>meta model refactor property-to-relationship --lookup &lt;Property&gt; [--preserve-property] [--role &lt;Role&gt;] --source &lt;Entity.Property&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1336,9 +1856,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--target &lt;Entity&gt;</td>
                       <td></td>
                       <td>&lt;Entity&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1354,13 +1886,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model refactor relationship-to-property</span>
                 <span class="command-summary-text">Convert a relationship into a property.</span>
               </span>
-              <span class="command-counts">4 options / 0 examples</span>
+              <span class="command-counts">6 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model refactor relationship-to-property [--property &lt;PropertyName&gt;] [--role &lt;Role&gt;] --source &lt;Entity&gt; --target &lt;Entity&gt;</code></pre>
+                <pre><code>meta model refactor relationship-to-property [--property &lt;PropertyName&gt;] [--role &lt;Role&gt;] --source &lt;Entity&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1386,9 +1918,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--target &lt;Entity&gt;</td>
                       <td></td>
                       <td>&lt;Entity&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1404,13 +1948,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model rename-entity</span>
                 <span class="command-summary-text">Rename an entity.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-entity &lt;Old&gt; &lt;New&gt;</code></pre>
+                <pre><code>meta model rename-entity &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1422,13 +1986,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model rename-model</span>
                 <span class="command-summary-text">Rename the model.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-model &lt;Old&gt; &lt;New&gt;</code></pre>
+                <pre><code>meta model rename-model &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1440,13 +2024,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model rename-property</span>
                 <span class="command-summary-text">Rename a property.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-property &lt;Entity&gt; &lt;Old&gt; &lt;New&gt;</code></pre>
+                <pre><code>meta model rename-property &lt;Entity&gt; &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1458,13 +2062,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model rename-relationship</span>
                 <span class="command-summary-text">Rename a relationship role.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--role &lt;Role&gt;]</code></pre>
+                <pre><code>meta model rename-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--role &lt;Role&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1475,6 +2079,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--role &lt;Role&gt;</td>
                       <td></td>
                       <td>&lt;Role&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1490,13 +2106,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model set-property-required</span>
                 <span class="command-summary-text">Change whether a property is required.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model set-property-required &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] --required true|false</code></pre>
+                <pre><code>meta model set-property-required &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] --required true|false [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1515,6 +2131,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>true|false: false, true</td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -1528,13 +2156,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta model suggest</span>
                 <span class="command-summary-text">Suggest model improvements.</span>
               </span>
-              <span class="command-counts">3 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model suggest [--explain] [--print-commands] [--show-keys]</code></pre>
+                <pre><code>meta model suggest [--explain] [--print-commands] [--show-keys] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1559,6 +2187,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -1572,13 +2212,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta query</span>
                 <span class="command-summary-text">Search instances with equals/contains filters.</span>
               </span>
-              <span class="command-counts">3 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta query &lt;Entity&gt; [--contains &lt;Field&gt; &lt;Value&gt;] [--equals &lt;Field&gt; &lt;Value&gt;] [--top &lt;n&gt;]</code></pre>
+                <pre><code>meta query &lt;Entity&gt; [--contains &lt;Field&gt; &lt;Value&gt;] [--equals &lt;Field&gt; &lt;Value&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1598,9 +2238,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--top &lt;n&gt;</td>
                       <td></td>
                       <td>&lt;n&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1616,13 +2268,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta status</span>
                 <span class="command-summary-text">Show workspace summary and model/instance sizes.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta status</code></pre>
+                <pre><code>meta status [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1634,13 +2306,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta view entity</span>
                 <span class="command-summary-text">View one entity definition.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta view entity &lt;Entity&gt;</code></pre>
+                <pre><code>meta view entity &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1652,13 +2344,33 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta view instance</span>
                 <span class="command-summary-text">View one instance row.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta view instance &lt;Entity&gt; &lt;Id&gt;</code></pre>
+                <pre><code>meta view instance &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -1670,13 +2382,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta workspace merge</span>
                 <span class="command-summary-text">Merge two full workspaces into a new workspace.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; --new-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1691,6 +2403,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td class="opt">--new-workspace &lt;path&gt;</td>
+                      <td></td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
                       <td></td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
@@ -2767,7 +3491,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta-docs</h2>
-            <p class="panel-lead">`meta-docs` turns CLI definitions, workspace models, selected instance facts, and authored narrative into refreshable reference documentation.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -3375,7 +4098,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs merge --include &lt;path&gt; --new-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-docs merge --include &lt;path&gt; --workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3389,8 +4112,8 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Suite workspace to create or replace.</td>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>Suite workspace to write.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -3487,51 +4210,44 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta-mesh</h2>
+            <p class="panel-lead">Author and run declared workspace operations.</p>
           </header>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
-              <p>9 commands exposed by meta-mesh.</p>
+              <p>7 commands exposed by meta-mesh.</p>
             </div>
             <div class="card-body">
               <table>
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
-                    <td class="cmd">meta-mesh check</td>
-                    <td>Inspect mounted paths and modeled links in a MetaMesh workspace.</td>
+                    <td class="cmd">meta-mesh add-operation</td>
+                    <td>Add one declared operation.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-mesh add-step</td>
+                    <td>Add one executable step to an operation.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-mesh add-workspace</td>
+                    <td>Add one declared workspace.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-mesh help</td>
                     <td>Show help.</td>
                   </tr>
                   <tr>
-                    <td class="cmd">meta-mesh impact</td>
-                    <td>Walk modeled workspace links from one handle.</td>
-                  </tr>
-                  <tr>
-                    <td class="cmd">meta-mesh link</td>
-                    <td>Add or update a modeled link between two workspace handles.</td>
-                  </tr>
-                  <tr>
-                    <td class="cmd">meta-mesh mount</td>
-                    <td>Mount or update a workspace path under a stable handle.</td>
-                  </tr>
-                  <tr>
                     <td class="cmd">meta-mesh new-workspace</td>
                     <td>Create an empty MetaMesh workspace.</td>
                   </tr>
                   <tr>
-                    <td class="cmd">meta-mesh scan</td>
-                    <td>Scan a root folder and create a MetaMesh workspace from discovered meta workspaces.</td>
+                    <td class="cmd">meta-mesh run</td>
+                    <td>Run the steps declared for one operation.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-mesh show</td>
-                    <td>Show a MetaMesh workspace map.</td>
-                  </tr>
-                  <tr>
-                    <td class="cmd">meta-mesh suggest</td>
-                    <td>Suggest logical workspace handles from a root folder without applying changes.</td>
+                    <td>Show declared workspaces and operations.</td>
                   </tr>
                 </tbody>
               </table>
@@ -3541,22 +4257,164 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
-                <span class="command-name">meta-mesh check</span>
-                <span class="command-summary-text">Inspect mounted paths and modeled links in a MetaMesh workspace.</span>
+                <span class="command-name">meta-mesh add-operation</span>
+                <span class="command-summary-text">Add one declared operation.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">3 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh check [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh add-operation [--description &lt;value&gt;] --name &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td class="opt">--description &lt;value&gt;</td>
+                      <td>Operation description.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--name &lt;value&gt;</td>
+                      <td>Operation name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh add-step</span>
+                <span class="command-summary-text">Add one executable step to an operation.</span>
+              </span>
+              <span class="command-counts">8 options / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--description &lt;value&gt;] --executable &lt;path&gt; --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--arguments &lt;arguments&gt;</td>
+                      <td>Arguments passed to the executable.</td>
+                      <td>&lt;arguments&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--description &lt;value&gt;</td>
+                      <td>Step description.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--executable &lt;path&gt;</td>
+                      <td>Executable or script command to run.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--name &lt;value&gt;</td>
+                      <td>Step name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--operation &lt;value&gt;</td>
+                      <td>Operation name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--previous-step &lt;value&gt;</td>
+                      <td>Previous step by step name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--working-directory &lt;path&gt;</td>
+                      <td>Working directory, absolute or relative to the mesh root.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh add-workspace</span>
+                <span class="command-summary-text">Add one declared workspace.</span>
+              </span>
+              <span class="command-counts">5 options / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh add-workspace [--description &lt;value&gt;] [--model &lt;value&gt;] --name &lt;value&gt; --path &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--description &lt;value&gt;</td>
+                      <td>Workspace description.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--model &lt;value&gt;</td>
+                      <td>Model name hosted by the workspace.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--name &lt;value&gt;</td>
+                      <td>Declared workspace name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--path &lt;path&gt;</td>
+                      <td>Workspace path, absolute or relative to the mesh root.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>MetaMesh workspace. Defaults to the current directory.</td>
@@ -3576,137 +4434,19 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-mesh help</span>
                 <span class="command-summary-text">Show help.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">1 option / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh impact</span>
-                <span class="command-summary-text">Walk modeled workspace links from one handle.</span>
-              </span>
-              <span class="command-counts">2 options / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh impact --handle &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh help [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
-                    <tr>
-                      <td class="opt">--handle &lt;value&gt;</td>
-                      <td>Logical workspace handle to start from.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh link</span>
-                <span class="command-summary-text">Add or update a modeled link between two workspace handles.</span>
-              </span>
-              <span class="command-counts">4 options / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh link --from &lt;value&gt; --kind &lt;value&gt; --to &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--from &lt;value&gt;</td>
-                      <td>Source workspace handle.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--kind &lt;value&gt;</td>
-                      <td>Link kind.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--to &lt;value&gt;</td>
-                      <td>Target workspace handle.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh mount</span>
-                <span class="command-summary-text">Mount or update a workspace path under a stable handle.</span>
-              </span>
-              <span class="command-counts">3 options / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh mount --handle &lt;value&gt; --path &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--handle &lt;value&gt;</td>
-                      <td>Logical workspace handle.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--path &lt;path&gt;</td>
-                      <td>Physical workspace path to mount.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>MetaMesh workspace. Defaults to the current directory.</td>
@@ -3726,13 +4466,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-mesh new-workspace</span>
                 <span class="command-summary-text">Create an empty MetaMesh workspace.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh new-workspace &lt;path&gt; [--name &lt;value&gt;]</code></pre>
+                <pre><code>meta-mesh new-workspace &lt;path&gt; [--description &lt;value&gt;] [--name &lt;value&gt;] [--root &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3740,75 +4480,23 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--name &lt;value&gt;</td>
-                      <td>Optional mesh display name.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh scan</span>
-                <span class="command-summary-text">Scan a root folder and create a MetaMesh workspace from discovered meta workspaces.</span>
-              </span>
-              <span class="command-counts">2 options / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh scan &lt;root&gt; [--name &lt;value&gt;] --new-workspace &lt;path&gt;</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--name &lt;value&gt;</td>
-                      <td>Optional mesh display name.</td>
+                      <td class="opt">--description &lt;value&gt;</td>
+                      <td>Mesh description.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Empty target directory for the generated MetaMesh workspace.</td>
+                      <td class="opt">--name &lt;value&gt;</td>
+                      <td>Mesh name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--root &lt;path&gt;</td>
+                      <td>Root path used to resolve relative workspace paths.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh show</span>
-                <span class="command-summary-text">Show a MetaMesh workspace map.</span>
-              </span>
-              <span class="command-counts">1 option / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh show [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>MetaMesh workspace. Defaults to the current directory.</td>
@@ -3825,16 +4513,74 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
-                <span class="command-name">meta-mesh suggest</span>
-                <span class="command-summary-text">Suggest logical workspace handles from a root folder without applying changes.</span>
+                <span class="command-name">meta-mesh run</span>
+                <span class="command-summary-text">Run the steps declared for one operation.</span>
               </span>
-              <span class="command-counts">0 options / 0 examples</span>
+              <span class="command-counts">2 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh suggest &lt;root&gt;</code></pre>
+                <pre><code>meta-mesh run --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--operation &lt;value&gt;</td>
+                      <td>Operation name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh show</span>
+                <span class="command-summary-text">Show declared workspaces and operations.</span>
+              </span>
+              <span class="command-counts">2 options / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh show [--verbose] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--verbose</td>
+                      <td>Show workspace paths and step commands.</td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
               </div>
             </div>
@@ -3844,7 +4590,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta-weave</h2>
-            <p class="panel-lead">`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -6077,67 +6822,67 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <tbody>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-analytics" data-panel-link="cli-meta-analytics">meta-analytics</a></td>
-                    <td>`meta-analytics` owns common analytics concepts that can be realized through target-specific tabular or multidimensional models.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-convert" data-panel-link="cli-meta-convert">meta-convert</a></td>
-                    <td>`meta-convert` performs explicit cross-model conversions between supported Meta-BI workspaces, carrying structure from one modeled surface into another.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-data-quality" data-panel-link="cli-meta-data-quality">meta-data-quality</a></td>
-                    <td>`meta-data-quality` derives reviewable MetaDataQuality candidates directly from typed MetaTransformScript structure and optional binding evidence. The checks are model-derived, not hand-authored one-off test SQL.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-data-type" data-panel-link="cli-meta-data-type">meta-data-type</a></td>
-                    <td>`meta-data-type` bootstraps sanctioned MetaDataType workspaces that define the data-type vocabulary used across Meta-BI models and conversions.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-data-type-conversion" data-panel-link="cli-meta-data-type-conversion">meta-data-type-conversion</a></td>
-                    <td>`meta-data-type-conversion` authors and validates sanctioned conversion graphs between data types, including resolution from a source type through modeled conversion rules.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-data-warehouse" data-panel-link="cli-meta-data-warehouse">meta-data-warehouse</a></td>
-                    <td>`meta-data-warehouse` models logical dimensional warehouse concepts, separating warehouse intent from SQL Server realization and deployment mechanics.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-datavault-business" data-panel-link="cli-meta-datavault-business">meta-datavault-business</a></td>
-                    <td>`meta-datavault-business` creates sanctioned business Data Vault workspaces for modeling business-oriented vault structures.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-datavault-raw" data-panel-link="cli-meta-datavault-raw">meta-datavault-raw</a></td>
-                    <td>`meta-datavault-raw` creates sanctioned raw Data Vault workspaces for modeling source-oriented Data Vault structures.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-multi-dimensional" data-panel-link="cli-meta-multi-dimensional">meta-multi-dimensional</a></td>
-                    <td>`meta-multi-dimensional` creates sanctioned MetaMultiDimensional workspaces for modeling multidimensional analytics artifacts.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-orchestration" data-panel-link="cli-meta-orchestration">meta-orchestration</a></td>
-                    <td>`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-pipeline" data-panel-link="cli-meta-pipeline">meta-pipeline</a></td>
-                    <td>`meta-pipeline` creates sanctioned MetaPipeline workspaces that describe transform steps and pipeline structure as explicit metadata.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-schema" data-panel-link="cli-meta-schema">meta-schema</a></td>
-                    <td>`meta-schema` extracts live SQL Server schema structure into sanctioned MetaSchema workspaces, making database objects available as explicit metadata.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-sql" data-panel-link="cli-meta-sql">meta-sql</a></td>
-                    <td>`meta-sql` plans and applies manifest-driven SQL Server deployments from sanctioned MetaSql workspaces.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-tabular" data-panel-link="cli-meta-tabular">meta-tabular</a></td>
-                    <td>`meta-tabular` creates sanctioned MetaTabular workspaces for modeling tabular analytics artifacts.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-transform-binding" data-panel-link="cli-meta-transform-binding">meta-transform-binding</a></td>
-                    <td>`meta-transform-binding` binds MetaTransformScript workspaces to explicit source and target schema contracts, producing rowset, column, and validation evidence.</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-transform-script" data-panel-link="cli-meta-transform-script">meta-transform-script</a></td>
-                    <td>`meta-transform-script` models a bounded SQL transform surface as semantically round-trippable workspace data, preserving transform intent through import, emit, and diff cycles.</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -6276,7 +7021,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-analytics</h2>
-            <p class="panel-lead">`meta-analytics` owns common analytics concepts that can be realized through target-specific tabular or multidimensional models.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -8236,7 +8980,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-convert</h2>
-            <p class="panel-lead">`meta-convert` performs explicit cross-model conversions between supported Meta-BI workspaces, carrying structure from one modeled surface into another.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -8746,7 +9489,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-data-quality</h2>
-            <p class="panel-lead">`meta-data-quality` derives reviewable MetaDataQuality candidates directly from typed MetaTransformScript structure and optional binding evidence. The checks are model-derived, not hand-authored one-off test SQL.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -8938,7 +9680,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-data-type</h2>
-            <p class="panel-lead">`meta-data-type` bootstraps sanctioned MetaDataType workspaces that define the data-type vocabulary used across Meta-BI models and conversions.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -8986,21 +9727,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-data-type new-workspace</span>
                 <span class="command-summary-text">Create a MetaDataType workspace.</span>
               </span>
-              <span class="command-counts">0 options / 1 example</span>
+              <span class="command-counts">0 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-data-type new-workspace &lt;path&gt;</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Guidance</h4>
-                <p class="note">bootstrap sanctioned `MetaDataType` workspaces</p>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Examples</h4>
-                <pre><code>meta-data-type --new-workspace .\MetaDataType.Workspace</code></pre>
               </section>
               </div>
             </div>
@@ -9010,7 +9743,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-data-type-conversion</h2>
-            <p class="panel-lead">`meta-data-type-conversion` authors and validates sanctioned conversion graphs between data types, including resolution from a source type through modeled conversion rules.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -9158,7 +9890,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-data-warehouse</h2>
-            <p class="panel-lead">`meta-data-warehouse` models logical dimensional warehouse concepts, separating warehouse intent from SQL Server realization and deployment mechanics.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -11136,7 +11867,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-datavault-business</h2>
-            <p class="panel-lead">`meta-datavault-business` creates sanctioned business Data Vault workspaces for modeling business-oriented vault structures.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -12904,7 +13634,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-datavault-raw</h2>
-            <p class="panel-lead">`meta-datavault-raw` creates sanctioned raw Data Vault workspaces for modeling source-oriented Data Vault structures.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -13898,7 +14627,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-multi-dimensional</h2>
-            <p class="panel-lead">`meta-multi-dimensional` creates sanctioned MetaMultiDimensional workspaces for modeling multidimensional analytics artifacts.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -16842,7 +17570,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-orchestration</h2>
-            <p class="panel-lead">`meta-orchestration` infers the safe run graph and run plan from modeled pipeline tasks and binding-derived access profiles, recording policy issues when safe ordering cannot be proven.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -17448,7 +18175,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-pipeline</h2>
-            <p class="panel-lead">`meta-pipeline` creates sanctioned MetaPipeline workspaces that describe transform steps and pipeline structure as explicit metadata.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -18196,7 +18922,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-schema</h2>
-            <p class="panel-lead">`meta-schema` extracts live SQL Server schema structure into sanctioned MetaSchema workspaces, making database objects available as explicit metadata.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -18310,7 +19035,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-sql</h2>
-            <p class="panel-lead">`meta-sql` plans and applies manifest-driven SQL Server deployments from sanctioned MetaSql workspaces.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -18622,7 +19346,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-tabular</h2>
-            <p class="panel-lead">`meta-tabular` creates sanctioned MetaTabular workspaces for modeling tabular analytics artifacts.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -21086,7 +21809,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-transform-binding</h2>
-            <p class="panel-lead">`meta-transform-binding` binds MetaTransformScript workspaces to explicit source and target schema contracts, producing rowset, column, and validation evidence.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -21116,17 +21838,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-transform-binding bind</span>
                 <span class="command-summary-text">Bind transform scripts and validate them against source and target schema contracts into a new workspace.</span>
               </span>
-              <span class="command-counts">11 options / 1 example</span>
+              <span class="command-counts">11 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-transform-binding bind [--allow-partial] [--data-type-conversion-workspace &lt;path&gt;] --execute-system &lt;value&gt; [--execute-system-default-schema-name &lt;value&gt;] [--ignore-target-columns &lt;col[,col...]&gt;] [--ignore-target-columns-if-present &lt;col[,col...]&gt;] --new-workspace &lt;path&gt; [--partial-report &lt;path&gt;] --source-schema &lt;path&gt; --target-schema &lt;path&gt; --transform-workspace &lt;path&gt;</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Guidance</h4>
-                <p class="note">bind all transform scripts in a transform workspace into an explicit binding workspace (`rowsets`, `columns`, source/target SQL identifiers)</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -21202,14 +21920,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tbody>
                 </table>
               </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Examples</h4>
-                <pre><code>meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SourceSchemaWS --target-schema .\TargetSchemaWS --execute-system WarehouseDb --new-workspace .\BindingWS
-
-meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SalesSchemaWS --source-schema .\ReferenceSchemaWS --target-schema .\WarehouseSchemaWS --execute-system WarehouseDb --execute-system-default-schema-name dbo --new-workspace .\BindingWS --ignore-target-columns LoadUtc,RunId --ignore-target-columns-if-present UpdateAudit_ID --data-type-conversion-workspace .\MetaDataTypeConversion.Workspace
-
-meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SourceSchemaWS --target-schema .\TargetSchemaWS --execute-system WarehouseDb --execute-system-default-schema-name dbo --new-workspace .\BindingWS --allow-partial --partial-report .\binding-partial.tsv</code></pre>
-              </section>
               </div>
             </div>
           </details>
@@ -21236,7 +21946,6 @@ meta-transform-binding bind --transform-workspace .\TransformWS --source-schema 
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
             <h2>meta-transform-script</h2>
-            <p class="panel-lead">`meta-transform-script` models a bounded SQL transform surface as semantically round-trippable workspace data, preserving transform intent through import, emit, and diff cycles.</p>
           </header>
           <div class="card">
             <div class="card-header">

@@ -11,15 +11,19 @@
 
 namespace MetaMesh
 {
-    public sealed class WorkspaceMount
+    public sealed class Workspace
     {
         public string Id { get; set; } = string.Empty;
 
-        public string? PathKind { get; set; }
+        public string? Description { get; set; }
 
-        public string PhysicalPath { get; set; } = string.Empty;
+        public string? ModelName { get; set; }
 
-        public WorkspaceInstance WorkspaceInstance { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
+
+        public string Path { get; set; } = string.Empty;
+
+        public Mesh Mesh { get; set; } = null!;
 
     }
 }

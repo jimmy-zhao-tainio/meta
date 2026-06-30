@@ -8,91 +8,37 @@
         <Property name="Description" isRequired="false" />
       </PropertyList>
     </Entity>
-    <Entity name="WorkspaceInstance">
+    <Entity name="Workspace">
       <PropertyList>
-        <Property name="Handle" />
-        <Property name="DisplayName" isRequired="false" />
+        <Property name="Name" />
+        <Property name="Path" />
         <Property name="ModelName" isRequired="false" />
-        <Property name="WorkspaceKind" isRequired="false" />
-        <Property name="Lifecycle" isRequired="false" />
-        <Property name="Summary" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Mesh" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="WorkspaceMount">
-      <PropertyList>
-        <Property name="PhysicalPath" />
-        <Property name="PathKind" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="WorkspaceInstance" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="WorkspaceLink">
-      <PropertyList>
-        <Property name="Kind" />
-        <Property name="Description" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="Mesh" />
-        <Relationship entity="WorkspaceInstance" role="FromWorkspace" />
-        <Relationship entity="WorkspaceInstance" role="ToWorkspace" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="ModelProvider">
-      <PropertyList>
-        <Property name="Name" />
-        <Property name="ProviderKind" isRequired="false" />
-        <Property name="ExecutableName" isRequired="false" />
         <Property name="Description" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Mesh" />
       </RelationshipList>
     </Entity>
-    <Entity name="ProviderBinding">
-      <PropertyList>
-        <Property name="SupportedModelName" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="WorkspaceInstance" />
-        <Relationship entity="ModelProvider" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="OperationCapability">
+    <Entity name="Operation">
       <PropertyList>
         <Property name="Name" />
         <Property name="Description" isRequired="false" />
-        <Property name="CanHandleHostRequest" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="ModelProvider" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="OperationEffect">
-      <PropertyList>
-        <Property name="EffectKind" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="OperationCapability" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="MeshSuggestion">
-      <PropertyList>
-        <Property name="SuggestionKind" />
-        <Property name="Severity" />
-        <Property name="WorkspaceHandle" isRequired="false" />
-        <Property name="SuggestedHandle" isRequired="false" />
-        <Property name="SuggestedWorkspaceKind" isRequired="false" />
-        <Property name="SuggestedLifecycle" isRequired="false" />
-        <Property name="SuggestedPath" isRequired="false" />
-        <Property name="Message" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Mesh" />
-        <Relationship entity="WorkspaceInstance" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="OperationStep">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Executable" />
+        <Property name="Arguments" isRequired="false" />
+        <Property name="WorkingDirectory" isRequired="false" />
+        <Property name="Description" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Operation" />
+        <Relationship entity="OperationStep" role="PreviousStep" isRequired="false" />
       </RelationshipList>
     </Entity>
   </EntityList>

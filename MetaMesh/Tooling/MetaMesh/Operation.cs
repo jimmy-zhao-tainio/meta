@@ -11,21 +11,13 @@
 
 namespace MetaMesh
 {
-    public sealed class WorkspaceInstance
+    public sealed class Operation
     {
         public string Id { get; set; } = string.Empty;
 
-        public string? DisplayName { get; set; }
+        public string? Description { get; set; }
 
-        public string Handle { get; set; } = string.Empty;
-
-        public string? Lifecycle { get; set; }
-
-        public string? ModelName { get; set; }
-
-        public string? Summary { get; set; }
-
-        public string? WorkspaceKind { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         public Mesh Mesh { get; set; } = null!;
 

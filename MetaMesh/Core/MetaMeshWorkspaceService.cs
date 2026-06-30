@@ -1,582 +1,756 @@
-using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace MetaMesh.Core;
 
 public sealed class MetaMeshWorkspaceService
 {
     private const string DefaultMeshName = "Mesh";
-    private static readonly HashSet<string> IgnoredDirectoryNames = new(StringComparer.OrdinalIgnoreCase)
-    {
-        ".git",
-        ".vs",
-        "bin",
-        "obj",
-        "node_modules",
-        "packages"
-    };
 
-    public MetaMesh.MetaMeshModel CreateEmpty(string meshName = DefaultMeshName, string rootPath = "")
+    public MetaMesh.MetaMeshModel CreateEmpty(
+        string? meshName = null,
+        string? rootPath = null,
+        string? description = null)
     {
         var model = MetaMesh.MetaMeshModel.CreateEmpty();
         model.MeshList.Add(new MetaMesh.Mesh
         {
             Id = "mesh:default",
-            Name = string.IsNullOrWhiteSpace(meshName) ? DefaultMeshName : meshName.Trim(),
-            RootPath = rootPath.Trim(),
-            Description = "Concrete map of mounted meta workspaces."
+            Name = RequiredName(string.IsNullOrWhiteSpace(meshName) ? DefaultMeshName : meshName),
+            RootPath = NormalizeOptional(rootPath),
+            Description = NormalizeOptional(description)
         });
         return model;
     }
 
-    public MetaMeshScanResult ScanToWorkspace(string rootPath, string meshWorkspacePath, string meshName = DefaultMeshName)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootPath);
-        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
-
-        var fullRoot = Path.GetFullPath(rootPath);
-        var fullMeshPath = Path.GetFullPath(meshWorkspacePath);
-        var model = BuildScanModel(fullRoot, meshName);
-        model.SaveToXmlWorkspace(fullMeshPath);
-        return BuildScanResult(model);
-    }
-
-    public MetaMeshScanResult SuggestFromRoot(string rootPath, string meshName = DefaultMeshName)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(rootPath);
-        return BuildScanResult(BuildScanModel(Path.GetFullPath(rootPath), meshName));
-    }
-
-    public MetaMeshShowResult Show(MetaMesh.MetaMeshModel model)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        return BuildShowResult(model);
-    }
-
-    public MetaMeshCheckResult Check(MetaMesh.MetaMeshModel model, string meshWorkspacePath)
+    public MetaMeshShowResult Show(MetaMesh.MetaMeshModel model, string meshWorkspacePath)
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
 
+        var mesh = RequireMesh(model);
         var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
-        var issues = new List<MetaMeshIssue>();
-
-        if (model.MeshList.Count == 0)
-        {
-            issues.Add(new MetaMeshIssue("Error", "MMESH001", "Mesh workspace contains no Mesh row."));
-        }
-
-        foreach (var duplicateHandle in model.WorkspaceInstanceList
-                     .Where(static item => !string.IsNullOrWhiteSpace(item.Handle))
-                     .GroupBy(static item => item.Handle, StringComparer.OrdinalIgnoreCase)
-                     .Where(static group => group.Count() > 1)
-                     .Select(static group => group.Key))
-        {
-            issues.Add(new MetaMeshIssue("Error", "MMESH002", $"Workspace handle '{duplicateHandle}' is duplicated.", duplicateHandle));
-        }
-
-        foreach (var workspace in model.WorkspaceInstanceList.OrderBy(static item => item.Handle, StringComparer.OrdinalIgnoreCase))
-        {
-            var mounts = model.WorkspaceMountList
-                .Where(item => ReferenceEquals(item.WorkspaceInstance, workspace) || string.Equals(item.WorkspaceInstance.Id, workspace.Id, StringComparison.Ordinal))
-                .ToArray();
-
-            if (mounts.Length == 0)
-            {
-                issues.Add(new MetaMeshIssue("Error", "MMESH003", $"Workspace '{workspace.Handle}' has no mount.", workspace.Handle));
-                continue;
-            }
-
-            foreach (var mount in mounts)
-            {
-                var resolvedPath = ResolveMountPath(model, mount, fullMeshWorkspacePath);
-                if (!Directory.Exists(resolvedPath))
-                {
-                    issues.Add(new MetaMeshIssue("Error", "MMESH004", $"Mounted path does not exist: {mount.PhysicalPath}", workspace.Handle));
-                    continue;
-                }
-
-                if (!File.Exists(Path.Combine(resolvedPath, "model.xml")))
-                {
-                    issues.Add(new MetaMeshIssue("Warning", "MMESH005", $"Mounted path is not a normal meta workspace: {mount.PhysicalPath}", workspace.Handle));
-                }
-            }
-        }
-
-        foreach (var link in model.WorkspaceLinkList)
-        {
-            if (string.Equals(link.FromWorkspace?.Id, link.ToWorkspace?.Id, StringComparison.Ordinal))
-            {
-                issues.Add(new MetaMeshIssue("Warning", "MMESH006", $"Workspace link '{link.Id}' points from a workspace to itself.", link.FromWorkspace?.Handle ?? string.Empty));
-            }
-        }
-
-        return new MetaMeshCheckResult(issues);
-    }
-
-    public MetaMeshImpactResult Impact(MetaMesh.MetaMeshModel model, string workspaceHandle)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(workspaceHandle);
-
-        var start = ResolveWorkspaceByHandle(model, workspaceHandle);
-        var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { start.Handle };
-        var queue = new Queue<MetaMesh.WorkspaceInstance>();
-        var affectedLinks = new List<MetaMeshLinkSummary>();
-        queue.Enqueue(start);
-
-        while (queue.Count > 0)
-        {
-            var current = queue.Dequeue();
-            var outgoing = model.WorkspaceLinkList
-                .Where(link => string.Equals(link.FromWorkspace.Id, current.Id, StringComparison.Ordinal))
-                .OrderBy(static link => link.ToWorkspace.Handle, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(static link => link.Kind, StringComparer.OrdinalIgnoreCase);
-
-            foreach (var link in outgoing)
-            {
-                affectedLinks.Add(new MetaMeshLinkSummary(
-                    link.FromWorkspace.Handle,
-                    link.ToWorkspace.Handle,
-                    link.Kind,
-                    link.Description ?? string.Empty));
-
-                if (visited.Add(link.ToWorkspace.Handle))
-                {
-                    queue.Enqueue(link.ToWorkspace);
-                }
-            }
-        }
-
-        return new MetaMeshImpactResult(
-            start.Handle,
-            affectedLinks,
-            visited.Where(handle => !string.Equals(handle, start.Handle, StringComparison.OrdinalIgnoreCase))
-                .OrderBy(static handle => handle, StringComparer.OrdinalIgnoreCase)
-                .ToArray());
-    }
-
-    public MetaMeshWorkspaceSummary Mount(MetaMesh.MetaMeshModel model, string handle, string physicalPath)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(handle);
-        ArgumentException.ThrowIfNullOrWhiteSpace(physicalPath);
-
-        var mesh = EnsureMesh(model);
-        var normalizedHandle = NormalizeHandle(handle);
-        var fullPath = Path.GetFullPath(physicalPath);
-        var modelName = TryReadModelName(fullPath);
-        var kind = InferWorkspaceKind(fullPath, modelName);
-        var lifecycle = InferLifecycle(fullPath);
-
-        var workspace = model.WorkspaceInstanceList
-            .FirstOrDefault(item => string.Equals(item.Handle, normalizedHandle, StringComparison.OrdinalIgnoreCase));
-        if (workspace is null)
-        {
-            workspace = new MetaMesh.WorkspaceInstance
-            {
-                Id = "workspace:" + normalizedHandle,
-                Mesh = mesh,
-                Handle = normalizedHandle,
-            };
-            model.WorkspaceInstanceList.Add(workspace);
-        }
-
-        workspace.DisplayName = string.IsNullOrWhiteSpace(workspace.DisplayName) ? normalizedHandle : workspace.DisplayName;
-        workspace.ModelName = modelName;
-        workspace.WorkspaceKind = kind;
-        workspace.Lifecycle = lifecycle;
-
-        var mount = model.WorkspaceMountList
-            .FirstOrDefault(item => string.Equals(item.WorkspaceInstance.Id, workspace.Id, StringComparison.Ordinal));
-        if (mount is null)
-        {
-            mount = new MetaMesh.WorkspaceMount
-            {
-                Id = "mount:" + normalizedHandle,
-                WorkspaceInstance = workspace,
-            };
-            model.WorkspaceMountList.Add(mount);
-        }
-
-        mount.PhysicalPath = fullPath;
-        mount.PathKind = "Absolute";
-
-        return ToWorkspaceSummary(model, workspace);
-    }
-
-    public MetaMeshLinkSummary Link(MetaMesh.MetaMeshModel model, string fromHandle, string toHandle, string kind)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(fromHandle);
-        ArgumentException.ThrowIfNullOrWhiteSpace(toHandle);
-        ArgumentException.ThrowIfNullOrWhiteSpace(kind);
-
-        var mesh = EnsureMesh(model);
-        var from = ResolveWorkspaceByHandle(model, fromHandle);
-        var to = ResolveWorkspaceByHandle(model, toHandle);
-        var normalizedKind = NormalizeToken(kind);
-        var id = $"link:{from.Handle}:{normalizedKind}:{to.Handle}";
-        var existing = model.WorkspaceLinkList.FirstOrDefault(item => string.Equals(item.Id, id, StringComparison.Ordinal));
-        if (existing is null)
-        {
-            existing = new MetaMesh.WorkspaceLink
-            {
-                Id = id,
-                Mesh = mesh,
-                FromWorkspace = from,
-                ToWorkspace = to,
-            };
-            model.WorkspaceLinkList.Add(existing);
-        }
-
-        existing.Kind = normalizedKind;
-
-        return new MetaMeshLinkSummary(from.Handle, to.Handle, existing.Kind, existing.Description ?? string.Empty);
-    }
-
-    private static MetaMesh.MetaMeshModel BuildScanModel(string fullRoot, string meshName)
-    {
-        var service = new MetaMeshWorkspaceService();
-        var model = service.CreateEmpty(meshName, fullRoot);
-        var mesh = model.MeshList.Single();
-        var usedHandles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var workspacePath in FindWorkspaceRoots(fullRoot))
-        {
-            var modelName = TryReadModelName(workspacePath);
-            var relativePath = Path.GetRelativePath(fullRoot, workspacePath);
-            var handle = MakeUniqueHandle(DeriveHandle(relativePath, modelName), usedHandles);
-            var workspace = new MetaMesh.WorkspaceInstance
-            {
-                Id = "workspace:" + handle,
-                Mesh = mesh,
-                Handle = handle,
-                DisplayName = handle,
-                ModelName = modelName,
-                WorkspaceKind = InferWorkspaceKind(workspacePath, modelName),
-                Lifecycle = InferLifecycle(workspacePath),
-            };
-            model.WorkspaceInstanceList.Add(workspace);
-            model.WorkspaceMountList.Add(new MetaMesh.WorkspaceMount
-            {
-                Id = "mount:" + handle,
-                WorkspaceInstance = workspace,
-                PhysicalPath = relativePath,
-                PathKind = "RelativeToMeshRoot",
-            });
-
-            foreach (var suggestion in BuildWorkspaceSuggestions(model, mesh, workspace, relativePath))
-            {
-                model.MeshSuggestionList.Add(suggestion);
-            }
-        }
-
-        return model;
-    }
-
-    private static IEnumerable<MetaMesh.MeshSuggestion> BuildWorkspaceSuggestions(
-        MetaMesh.MetaMeshModel model,
-        MetaMesh.Mesh mesh,
-        MetaMesh.WorkspaceInstance workspace,
-        string relativePath)
-    {
-        var suggestions = new List<MetaMesh.MeshSuggestion>();
-        if (relativePath.Contains("WS", StringComparison.OrdinalIgnoreCase) ||
-            relativePath.Contains("Workspace", StringComparison.OrdinalIgnoreCase))
-        {
-            suggestions.Add(new MetaMesh.MeshSuggestion
-            {
-                Id = "suggestion:" + workspace.Handle + ":clean-handle",
-                Mesh = mesh,
-                WorkspaceInstance = workspace,
-                SuggestionKind = "CleanHandle",
-                Severity = "Info",
-                WorkspaceHandle = workspace.Handle,
-                SuggestedHandle = workspace.Handle,
-                SuggestedWorkspaceKind = workspace.WorkspaceKind,
-                SuggestedLifecycle = workspace.Lifecycle,
-                Message = "Physical workspace name looks tool-oriented; keep using the logical handle in commands."
-            });
-        }
-
-        if (string.IsNullOrWhiteSpace(workspace.ModelName))
-        {
-            suggestions.Add(new MetaMesh.MeshSuggestion
-            {
-                Id = "suggestion:" + workspace.Handle + ":missing-model",
-                Mesh = mesh,
-                WorkspaceInstance = workspace,
-                SuggestionKind = "MissingModelName",
-                Severity = "Warning",
-                WorkspaceHandle = workspace.Handle,
-                Message = "Workspace model name could not be read."
-            });
-        }
-
-        return suggestions;
-    }
-
-    private static IReadOnlyList<string> FindWorkspaceRoots(string fullRoot)
-    {
-        var results = new List<string>();
-        if (!Directory.Exists(fullRoot))
-        {
-            return results;
-        }
-
-        var pending = new Stack<string>();
-        pending.Push(fullRoot);
-        while (pending.Count > 0)
-        {
-            var current = pending.Pop();
-            if (File.Exists(Path.Combine(current, "workspace.xml")) && File.Exists(Path.Combine(current, "model.xml")))
-            {
-                results.Add(current);
-                continue;
-            }
-
-            foreach (var child in Directory.EnumerateDirectories(current).OrderByDescending(Path.GetFileName, StringComparer.OrdinalIgnoreCase))
-            {
-                if (IgnoredDirectoryNames.Contains(Path.GetFileName(child)))
-                {
-                    continue;
-                }
-
-                pending.Push(child);
-            }
-        }
-
-        return results.OrderBy(static item => item, StringComparer.OrdinalIgnoreCase).ToArray();
-    }
-
-    private static MetaMesh.Mesh EnsureMesh(MetaMesh.MetaMeshModel model)
-    {
-        if (model.MeshList.Count > 0)
-        {
-            return model.MeshList[0];
-        }
-
-        var mesh = new MetaMesh.Mesh
-        {
-            Id = "mesh:default",
-            Name = DefaultMeshName,
-        };
-        model.MeshList.Add(mesh);
-        return mesh;
-    }
-
-    private static MetaMesh.WorkspaceInstance ResolveWorkspaceByHandle(MetaMesh.MetaMeshModel model, string handle)
-    {
-        var normalizedHandle = NormalizeHandle(handle);
-        return model.WorkspaceInstanceList.FirstOrDefault(item => string.Equals(item.Handle, normalizedHandle, StringComparison.OrdinalIgnoreCase))
-               ?? throw new InvalidOperationException($"Workspace handle '{handle}' was not found.");
-    }
-
-    private static MetaMeshScanResult BuildScanResult(MetaMesh.MetaMeshModel model)
-    {
-        var show = BuildShowResult(model);
-        return new MetaMeshScanResult(show.RootPath, show.Workspaces, show.Suggestions);
-    }
-
-    private static MetaMeshShowResult BuildShowResult(MetaMesh.MetaMeshModel model)
-    {
-        var mesh = model.MeshList.FirstOrDefault();
+        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
         return new MetaMeshShowResult(
-            mesh?.Name ?? string.Empty,
-            mesh?.RootPath ?? string.Empty,
-            model.WorkspaceInstanceList
-                .OrderBy(static item => item.Handle, StringComparer.OrdinalIgnoreCase)
-                .Select(item => ToWorkspaceSummary(model, item))
+            mesh.Name,
+            mesh.RootPath ?? string.Empty,
+            resolvedRootPath,
+            model.WorkspaceList
+                .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
+                .Select(item => ToWorkspaceSummary(item, fullMeshWorkspacePath, resolvedRootPath))
                 .ToArray(),
-            model.WorkspaceLinkList
-                .OrderBy(static item => item.FromWorkspace.Handle, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(static item => item.ToWorkspace.Handle, StringComparer.OrdinalIgnoreCase)
-                .Select(static item => new MetaMeshLinkSummary(item.FromWorkspace.Handle, item.ToWorkspace.Handle, item.Kind, item.Description ?? string.Empty))
-                .ToArray(),
-            model.MeshSuggestionList
-                .OrderBy(static item => item.WorkspaceHandle, StringComparer.OrdinalIgnoreCase)
-                .ThenBy(static item => item.SuggestionKind, StringComparer.OrdinalIgnoreCase)
-                .Select(static item => new MetaMeshSuggestionSummary(
-                    item.SuggestionKind,
-                    item.Severity,
-                    item.WorkspaceHandle ?? string.Empty,
-                    item.Message,
-                    item.SuggestedHandle ?? string.Empty,
-                    item.SuggestedWorkspaceKind ?? string.Empty,
-                    item.SuggestedLifecycle ?? string.Empty,
-                    item.SuggestedPath ?? string.Empty))
+            model.OperationList
+                .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
+                .Select(operation => ToOperationSummary(model, operation))
                 .ToArray());
     }
 
-    private static MetaMeshWorkspaceSummary ToWorkspaceSummary(MetaMesh.MetaMeshModel model, MetaMesh.WorkspaceInstance workspace)
+    public MetaMeshWorkspaceSummary AddWorkspace(
+        MetaMesh.MetaMeshModel model,
+        string name,
+        string path,
+        string? modelName,
+        string? description,
+        string meshWorkspacePath)
     {
-        var mount = model.WorkspaceMountList.FirstOrDefault(item => string.Equals(item.WorkspaceInstance.Id, workspace.Id, StringComparison.Ordinal));
+        ArgumentNullException.ThrowIfNull(model);
+        var mesh = RequireMesh(model);
+        var normalizedName = RequiredName(name);
+        var normalizedPath = RequiredName(path);
+
+        if (model.WorkspaceList.Any(item => string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new InvalidOperationException($"Workspace '{normalizedName}' already exists.");
+        }
+
+        var workspace = new MetaMesh.Workspace
+        {
+            Id = "workspace:" + NormalizeToken(normalizedName),
+            Mesh = mesh,
+            Name = normalizedName,
+            Path = normalizedPath,
+            ModelName = NormalizeOptional(modelName),
+            Description = NormalizeOptional(description)
+        };
+
+        RequireUniqueId(model.WorkspaceList, workspace.Id, "Workspace");
+        model.WorkspaceList.Add(workspace);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, Path.GetFullPath(meshWorkspacePath));
+        return ToWorkspaceSummary(workspace, meshWorkspacePath, resolvedRootPath);
+    }
+
+    public MetaMeshOperationSummary AddOperation(
+        MetaMesh.MetaMeshModel model,
+        string name,
+        string? description)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        var mesh = RequireMesh(model);
+        var normalizedName = RequiredName(name);
+
+        if (model.OperationList.Any(item => string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new InvalidOperationException($"Operation '{normalizedName}' already exists.");
+        }
+
+        var operation = new MetaMesh.Operation
+        {
+            Id = "operation:" + NormalizeToken(normalizedName),
+            Mesh = mesh,
+            Name = normalizedName,
+            Description = NormalizeOptional(description)
+        };
+
+        RequireUniqueId(model.OperationList, operation.Id, "Operation");
+        model.OperationList.Add(operation);
+        return ToOperationSummary(model, operation);
+    }
+
+    public MetaMeshOperationSummary AddStep(
+        MetaMesh.MetaMeshModel model,
+        string operationName,
+        string name,
+        string executable,
+        string? arguments,
+        string? workingDirectory,
+        string? previousStepName,
+        string? description)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        var operation = RequireOperation(model, operationName);
+        var normalizedName = RequiredName(name);
+        var normalizedExecutable = RequiredName(executable);
+
+        if (model.OperationStepList.Any(item =>
+                ReferenceEquals(item.Operation, operation) &&
+                string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase)))
+        {
+            throw new InvalidOperationException($"Operation '{operation.Name}' already has step '{normalizedName}'.");
+        }
+
+        var previousStep = string.IsNullOrWhiteSpace(previousStepName)
+            ? null
+            : RequireOperationStep(model, operation, previousStepName);
+
+        var step = new MetaMesh.OperationStep
+        {
+            Id = "operation-step:" + NormalizeToken(operation.Name) + ":" + NormalizeToken(normalizedName),
+            Operation = operation,
+            Name = normalizedName,
+            Executable = normalizedExecutable,
+            Arguments = NormalizeOptional(arguments),
+            WorkingDirectory = NormalizeOptional(workingDirectory),
+            PreviousStep = previousStep,
+            Description = NormalizeOptional(description)
+        };
+
+        RequireUniqueId(model.OperationStepList, step.Id, "OperationStep");
+        model.OperationStepList.Add(step);
+        return ToOperationSummary(model, operation);
+    }
+
+    public MetaMeshRunResult RunOperation(
+        MetaMesh.MetaMeshModel model,
+        string operationName,
+        string meshWorkspacePath,
+        IMetaMeshRunObserver? observer = null)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+        var mesh = RequireMesh(model);
+        var operation = RequireOperation(model, operationName);
+        var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
+        var workspaceTokens = BuildWorkspaceTokens(model, resolvedRootPath);
+        var stepResults = new List<MetaMeshRunStepResult>();
+        var plan = BuildRunPlan(model, operation, fullMeshWorkspacePath, resolvedRootPath, workspaceTokens);
+
+        for (var i = 0; i < plan.Steps.Count; i++)
+        {
+            var step = plan.Steps[i];
+            observer?.StepStarted(new MetaMeshRunStepStart(
+                i + 1,
+                plan.Steps.Count,
+                step.Name,
+                FormatCommand(step.Executable, step.Arguments),
+                step.WorkingDirectory));
+            var result = RunProcess(step.Name, step.Executable, step.Arguments, step.WorkingDirectory);
+            observer?.StepCompleted(result);
+            stepResults.Add(result);
+            if (result.ExitCode != 0)
+            {
+                break;
+            }
+        }
+
+        return new MetaMeshRunResult(operation.Name, stepResults);
+    }
+
+    private static MetaMeshRunPlan BuildRunPlan(
+        MetaMesh.MetaMeshModel model,
+        MetaMesh.Operation operation,
+        string meshWorkspacePath,
+        string resolvedRootPath,
+        IReadOnlyDictionary<string, string> workspaceTokens)
+    {
+        RequireWorkspaceDirectory(meshWorkspacePath, "MetaMesh workspace");
+        RequireDirectoryReadable(meshWorkspacePath, "MetaMesh workspace");
+        RequireDirectory(resolvedRootPath, "Mesh root");
+
+        foreach (var workspacePath in workspaceTokens)
+        {
+            RequireWorkspaceDirectory(workspacePath.Value, $"Workspace '{workspacePath.Key}'");
+            RequireDirectoryReadable(workspacePath.Value, $"Workspace '{workspacePath.Key}'");
+        }
+
+        var steps = OrderOperationSteps(model, operation, strict: true);
+        if (steps.Count == 0)
+        {
+            throw new InvalidOperationException($"Operation '{operation.Name}' has no steps.");
+        }
+
+        var plannedSteps = new List<MetaMeshPlannedStep>();
+        foreach (var step in steps)
+        {
+            ValidateTokens(step.Executable, workspaceTokens);
+            ValidateTokens(step.Arguments, workspaceTokens);
+            ValidateTokens(step.WorkingDirectory, workspaceTokens);
+
+            var executable = ExpandTokens(step.Executable, meshWorkspacePath, resolvedRootPath, workspaceTokens);
+            var arguments = ExpandTokens(step.Arguments ?? string.Empty, meshWorkspacePath, resolvedRootPath, workspaceTokens);
+            var workingDirectory = ResolveWorkingDirectory(
+                ExpandTokens(step.WorkingDirectory ?? string.Empty, meshWorkspacePath, resolvedRootPath, workspaceTokens),
+                resolvedRootPath);
+
+            RequireDirectory(workingDirectory, $"Working directory for step '{step.Name}'");
+            RequireDirectoryReadable(workingDirectory, $"Working directory for step '{step.Name}'");
+            RequireDirectoryWritable(workingDirectory, $"Working directory for step '{step.Name}'");
+
+            var resolvedExecutable = ResolveExecutable(executable, workingDirectory)
+                                     ?? throw new InvalidOperationException($"Executable '{executable}' for step '{step.Name}' was not found.");
+            plannedSteps.Add(new MetaMeshPlannedStep(step.Name, resolvedExecutable, arguments, workingDirectory));
+        }
+
+        return new MetaMeshRunPlan(plannedSteps);
+    }
+
+    private static MetaMeshRunStepResult RunProcess(
+        string stepName,
+        string executable,
+        string arguments,
+        string workingDirectory)
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = executable,
+            Arguments = arguments,
+            WorkingDirectory = workingDirectory,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        };
+
+        using var process = Process.Start(startInfo)
+                            ?? throw new InvalidOperationException($"Could not start operation step '{stepName}'.");
+        var stdout = process.StandardOutput.ReadToEndAsync();
+        var stderr = process.StandardError.ReadToEndAsync();
+        process.WaitForExit();
+
+        var output = stdout.GetAwaiter().GetResult() + stderr.GetAwaiter().GetResult();
+        return new MetaMeshRunStepResult(
+            stepName,
+            FormatCommand(executable, arguments),
+            workingDirectory,
+            process.ExitCode,
+            output);
+    }
+
+    private static string FormatCommand(string executable, string arguments) =>
+        string.IsNullOrWhiteSpace(arguments) ? executable : executable + " " + arguments;
+
+    private static MetaMeshOperationSummary ToOperationSummary(
+        MetaMesh.MetaMeshModel model,
+        MetaMesh.Operation operation)
+    {
+        return new MetaMeshOperationSummary(
+            operation.Name,
+            operation.Description ?? string.Empty,
+            OrderOperationSteps(model, operation, strict: false)
+                .Select(static item => new MetaMeshOperationStepSummary(
+                    item.Name,
+                    item.Executable,
+                    item.Arguments ?? string.Empty,
+                    item.WorkingDirectory ?? string.Empty,
+                    item.Description ?? string.Empty))
+                .ToArray());
+    }
+
+    private static MetaMeshWorkspaceSummary ToWorkspaceSummary(
+        MetaMesh.Workspace workspace,
+        string meshWorkspacePath,
+        string resolvedRootPath)
+    {
         return new MetaMeshWorkspaceSummary(
-            workspace.Handle,
-            mount?.PhysicalPath ?? string.Empty,
+            workspace.Name,
+            workspace.Path,
+            ResolveWorkspacePath(workspace, resolvedRootPath),
             workspace.ModelName ?? string.Empty,
-            workspace.WorkspaceKind ?? string.Empty,
-            workspace.Lifecycle ?? string.Empty);
+            workspace.Description ?? string.Empty);
     }
 
-    private static string ResolveMountPath(MetaMesh.MetaMeshModel model, MetaMesh.WorkspaceMount mount, string meshWorkspacePath)
+    private static IReadOnlyList<MetaMesh.OperationStep> OrderOperationSteps(
+        MetaMesh.MetaMeshModel model,
+        MetaMesh.Operation operation,
+        bool strict)
     {
-        if (Path.IsPathRooted(mount.PhysicalPath))
+        var steps = model.OperationStepList
+            .Where(item => ReferenceEquals(item.Operation, operation))
+            .ToArray();
+        if (steps.Length == 0)
         {
-            return Path.GetFullPath(mount.PhysicalPath);
+            return steps;
         }
 
-        var root = model.MeshList.FirstOrDefault()?.RootPath;
-        if (string.IsNullOrWhiteSpace(root))
+        if (!strict)
         {
-            root = ".";
+            return OrderLooseChain(steps, static item => item.PreviousStep, static item => item.Name);
         }
 
-        if (!Path.IsPathRooted(root))
+        foreach (var step in steps)
         {
-            root = Path.Combine(meshWorkspacePath, root);
+            if (step.PreviousStep is not null && !ReferenceEquals(step.PreviousStep.Operation, operation))
+            {
+                throw new InvalidOperationException($"Step '{step.Name}' points to a previous step from another operation.");
+            }
         }
 
-        return Path.GetFullPath(Path.Combine(root, mount.PhysicalPath));
+        var heads = steps.Where(static item => item.PreviousStep is null).ToArray();
+        if (heads.Length != 1)
+        {
+            throw new InvalidOperationException($"Operation '{operation.Name}' must have one first step.");
+        }
+
+        var ordered = new List<MetaMesh.OperationStep>();
+        var current = heads[0];
+        while (current is not null)
+        {
+            if (ordered.Any(item => ReferenceEquals(item, current)))
+            {
+                throw new InvalidOperationException($"Operation '{operation.Name}' has a cycle in its step order.");
+            }
+
+            ordered.Add(current);
+            var next = steps.Where(item => ReferenceEquals(item.PreviousStep, current)).ToArray();
+            if (next.Length > 1)
+            {
+                throw new InvalidOperationException($"Operation '{operation.Name}' has multiple steps after '{current.Name}'.");
+            }
+
+            current = next.SingleOrDefault();
+        }
+
+        if (ordered.Count != steps.Length)
+        {
+            throw new InvalidOperationException($"Operation '{operation.Name}' has disconnected steps.");
+        }
+
+        return ordered;
     }
 
-    private static string TryReadModelName(string workspacePath)
+    private static IReadOnlyList<T> OrderLooseChain<T>(
+        IReadOnlyList<T> items,
+        Func<T, T?> previous,
+        Func<T, string> name)
+        where T : class
+    {
+        var ordered = new List<T>();
+        var remaining = items.ToList();
+        foreach (var head in items
+                     .Where(item => previous(item) is null)
+                     .OrderBy(name, StringComparer.OrdinalIgnoreCase))
+        {
+            AppendLooseChain(head, remaining, ordered, previous);
+        }
+
+        foreach (var item in remaining.OrderBy(name, StringComparer.OrdinalIgnoreCase).ToArray())
+        {
+            AppendLooseChain(item, remaining, ordered, previous);
+        }
+
+        return ordered;
+    }
+
+    private static void AppendLooseChain<T>(
+        T item,
+        List<T> remaining,
+        List<T> ordered,
+        Func<T, T?> previous)
+        where T : class
+    {
+        if (!remaining.Remove(item))
+        {
+            return;
+        }
+
+        ordered.Add(item);
+        foreach (var next in remaining.Where(candidate => ReferenceEquals(previous(candidate), item)).ToArray())
+        {
+            AppendLooseChain(next, remaining, ordered, previous);
+        }
+    }
+
+    private static IReadOnlyDictionary<string, string> BuildWorkspaceTokens(
+        MetaMesh.MetaMeshModel model,
+        string resolvedRootPath)
+    {
+        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var workspace in model.WorkspaceList)
+        {
+            if (!result.TryAdd(workspace.Name, ResolveWorkspacePath(workspace, resolvedRootPath)))
+            {
+                throw new InvalidOperationException($"Workspace name '{workspace.Name}' is declared more than once.");
+            }
+        }
+
+        return result;
+    }
+
+    private static MetaMesh.Mesh RequireMesh(MetaMesh.MetaMeshModel model)
+    {
+        if (model.MeshList.Count != 1)
+        {
+            throw new InvalidOperationException("MetaMesh workspace must contain exactly one Mesh row.");
+        }
+
+        return model.MeshList[0];
+    }
+
+    private static MetaMesh.Operation RequireOperation(MetaMesh.MetaMeshModel model, string name)
+    {
+        var normalizedName = RequiredName(name);
+        return model.OperationList.FirstOrDefault(item => string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase))
+               ?? throw new InvalidOperationException($"Operation '{normalizedName}' was not found.");
+    }
+
+    private static MetaMesh.OperationStep RequireOperationStep(
+        MetaMesh.MetaMeshModel model,
+        MetaMesh.Operation operation,
+        string stepName)
+    {
+        var normalizedName = RequiredName(stepName);
+        return model.OperationStepList.FirstOrDefault(item =>
+                   ReferenceEquals(item.Operation, operation) &&
+                   string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase))
+               ?? throw new InvalidOperationException($"Operation '{operation.Name}' has no step '{normalizedName}'.");
+    }
+
+    private static string ResolveMeshRootPath(MetaMesh.Mesh mesh, string meshWorkspacePath)
+    {
+        if (string.IsNullOrWhiteSpace(mesh.RootPath))
+        {
+            return Path.GetFullPath(meshWorkspacePath);
+        }
+
+        return Path.IsPathRooted(mesh.RootPath)
+            ? Path.GetFullPath(mesh.RootPath)
+            : Path.GetFullPath(Path.Combine(meshWorkspacePath, mesh.RootPath));
+    }
+
+    private static string ResolveWorkspacePath(MetaMesh.Workspace workspace, string resolvedRootPath)
+    {
+        return Path.IsPathRooted(workspace.Path)
+            ? Path.GetFullPath(workspace.Path)
+            : Path.GetFullPath(Path.Combine(resolvedRootPath, workspace.Path));
+    }
+
+    private static string ResolveWorkingDirectory(string workingDirectory, string resolvedRootPath)
+    {
+        if (string.IsNullOrWhiteSpace(workingDirectory))
+        {
+            return resolvedRootPath;
+        }
+
+        return Path.IsPathRooted(workingDirectory)
+            ? Path.GetFullPath(workingDirectory)
+            : Path.GetFullPath(Path.Combine(resolvedRootPath, workingDirectory));
+    }
+
+    private static string ExpandTokens(
+        string value,
+        string meshWorkspacePath,
+        string resolvedRootPath,
+        IReadOnlyDictionary<string, string> workspacePaths)
+    {
+        var result = ReplaceOrdinalIgnoreCase(value, "{mesh.workspace}", meshWorkspacePath);
+        result = ReplaceOrdinalIgnoreCase(result, "{mesh.root}", resolvedRootPath);
+        foreach (var workspace in workspacePaths)
+        {
+            result = ReplaceOrdinalIgnoreCase(result, "{workspace:" + workspace.Key + ".path}", workspace.Value);
+        }
+
+        foreach (var environmentVariable in FindEnvironmentVariableTokens(result))
+        {
+            result = ReplaceOrdinalIgnoreCase(
+                result,
+                "{env:" + environmentVariable + "}",
+                Environment.GetEnvironmentVariable(environmentVariable) ?? string.Empty);
+        }
+
+        return result;
+    }
+
+    private static void ValidateTokens(
+        string? value,
+        IReadOnlyDictionary<string, string> workspacePaths)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return;
+        }
+
+        foreach (var workspaceName in FindWorkspacePathTokens(value))
+        {
+            if (!workspacePaths.ContainsKey(workspaceName))
+            {
+                throw new InvalidOperationException($"Workspace token '{{workspace:{workspaceName}.path}}' references an undeclared workspace.");
+            }
+        }
+
+        foreach (var environmentVariable in FindEnvironmentVariableTokens(value))
+        {
+            if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(environmentVariable)))
+            {
+                throw new InvalidOperationException($"Environment variable '{environmentVariable}' is not set or empty.");
+            }
+        }
+    }
+
+    private static IEnumerable<string> FindWorkspacePathTokens(string value)
+    {
+        const string prefix = "{workspace:";
+        const string suffix = ".path}";
+        var startIndex = 0;
+        while (true)
+        {
+            var index = value.IndexOf(prefix, startIndex, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+            {
+                yield break;
+            }
+
+            var nameStart = index + prefix.Length;
+            var endIndex = value.IndexOf(suffix, nameStart, StringComparison.OrdinalIgnoreCase);
+            if (endIndex < 0)
+            {
+                startIndex = nameStart;
+                continue;
+            }
+
+            var name = value[nameStart..endIndex].Trim();
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                yield return name;
+            }
+
+            startIndex = endIndex + suffix.Length;
+        }
+    }
+
+    private static IEnumerable<string> FindEnvironmentVariableTokens(string value)
+    {
+        const string prefix = "{env:";
+        const string suffix = "}";
+        var startIndex = 0;
+        while (true)
+        {
+            var index = value.IndexOf(prefix, startIndex, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+            {
+                yield break;
+            }
+
+            var nameStart = index + prefix.Length;
+            var endIndex = value.IndexOf(suffix, nameStart, StringComparison.Ordinal);
+            if (endIndex < 0)
+            {
+                startIndex = nameStart;
+                continue;
+            }
+
+            var name = value[nameStart..endIndex].Trim();
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                yield return name;
+            }
+
+            startIndex = endIndex + suffix.Length;
+        }
+    }
+
+    private static string? ResolveExecutable(string executable, string workingDirectory)
+    {
+        if (Path.IsPathFullyQualified(executable) || ContainsDirectorySeparator(executable))
+        {
+            var candidate = Path.IsPathRooted(executable)
+                ? executable
+                : Path.Combine(workingDirectory, executable);
+            return File.Exists(candidate) ? Path.GetFullPath(candidate) : null;
+        }
+
+        foreach (var directory in EnumerateExecutableSearchPaths(workingDirectory))
+        {
+            foreach (var candidate in EnumerateExecutableCandidates(directory, executable))
+            {
+                if (File.Exists(candidate))
+                {
+                    return Path.GetFullPath(candidate);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<string> EnumerateExecutableSearchPaths(string workingDirectory)
+    {
+        yield return workingDirectory;
+
+        var path = Environment.GetEnvironmentVariable("PATH");
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            yield break;
+        }
+
+        foreach (var directory in path.Split(Path.PathSeparator))
+        {
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                yield return directory.Trim();
+            }
+        }
+    }
+
+    private static IEnumerable<string> EnumerateExecutableCandidates(string directory, string executable)
+    {
+        yield return Path.Combine(directory, executable);
+
+        if (!OperatingSystem.IsWindows() || Path.HasExtension(executable))
+        {
+            yield break;
+        }
+
+        var pathExtensions = Environment.GetEnvironmentVariable("PATHEXT");
+        if (string.IsNullOrWhiteSpace(pathExtensions))
+        {
+            pathExtensions = ".COM;.EXE;.BAT;.CMD";
+        }
+
+        foreach (var extension in pathExtensions.Split(';'))
+        {
+            if (!string.IsNullOrWhiteSpace(extension))
+            {
+                yield return Path.Combine(directory, executable + extension.Trim());
+            }
+        }
+    }
+
+    private static bool ContainsDirectorySeparator(string value) =>
+        value.Contains(Path.DirectorySeparatorChar) ||
+        value.Contains(Path.AltDirectorySeparatorChar);
+
+    private static void RequireWorkspaceDirectory(string path, string label)
+    {
+        RequireDirectory(path, label);
+        var workspaceFilePath = Path.Combine(path, "workspace.xml");
+        if (!File.Exists(workspaceFilePath))
+        {
+            throw new InvalidOperationException($"{label} '{path}' does not contain workspace.xml.");
+        }
+    }
+
+    private static void RequireDirectory(string path, string label)
+    {
+        if (!Directory.Exists(path))
+        {
+            throw new InvalidOperationException($"{label} '{path}' does not exist.");
+        }
+    }
+
+    private static void RequireDirectoryReadable(string path, string label)
     {
         try
         {
-            var modelPath = Path.Combine(workspacePath, "model.xml");
-            if (!File.Exists(modelPath))
-            {
-                return string.Empty;
-            }
-
-            return XDocument.Load(modelPath).Root?.Attribute("name")?.Value?.Trim() ?? string.Empty;
+            Directory.EnumerateFileSystemEntries(path).FirstOrDefault();
         }
-        catch
+        catch (Exception exception) when (exception is UnauthorizedAccessException or IOException)
         {
-            return string.Empty;
+            throw new InvalidOperationException($"{label} '{path}' is not readable.", exception);
         }
     }
 
-    private static string DeriveHandle(string relativePath, string modelName)
+    private static void RequireDirectoryWritable(string path, string label)
     {
-        var segments = relativePath
-            .Split(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(NormalizeHandle)
-            .Where(static item => !string.IsNullOrWhiteSpace(item))
-            .ToArray();
-        var segmentSet = new HashSet<string>(segments, StringComparer.OrdinalIgnoreCase);
-
-        foreach (var candidate in new[]
-                 {
-                     "source", "conversion", "transform", "transforms", "binding", "pipeline", "orchestration",
-                     "quality", "data-quality", "raw-vault", "business-vault", "vault", "warehouse", "analytics",
-                     "tabular", "multidim", "multi-dimensional", "schema", "sql"
-                 })
+        var probePath = Path.Combine(path, ".metamesh-write-probe-" + Guid.NewGuid().ToString("N"));
+        try
         {
-            if (segmentSet.Contains(candidate))
+            using (File.Create(probePath, 1, FileOptions.DeleteOnClose))
             {
-                return NormalizeKnownHandle(candidate);
             }
         }
-
-        var modelHandle = NormalizeKnownHandle(ModelNameToHandle(modelName));
-        if (!string.IsNullOrWhiteSpace(modelHandle))
+        catch (Exception exception) when (exception is UnauthorizedAccessException or IOException)
         {
-            return modelHandle;
+            throw new InvalidOperationException($"{label} '{path}' is not writable.", exception);
         }
-
-        return segments.LastOrDefault() ?? "workspace";
+        finally
+        {
+            if (File.Exists(probePath))
+            {
+                File.Delete(probePath);
+            }
+        }
     }
 
-    private static string ModelNameToHandle(string modelName) =>
-        modelName.Trim() switch
-        {
-            "MetaSchema" => "schema",
-            "MetaTransformScript" => "transform",
-            "MetaTransformBinding" => "binding",
-            "MetaDataQuality" => "quality",
-            "MetaPipeline" => "pipeline",
-            "MetaOrchestration" => "orchestration",
-            "MetaSql" => "sql",
-            "MetaSqlDeployManifest" => "deploy",
-            "MetaRawDataVault" => "raw-vault",
-            "MetaBusinessDataVault" => "business-vault",
-            "MetaDataWarehouse" => "warehouse",
-            "MetaAnalytics" => "analytics",
-            "MetaTabular" => "tabular",
-            "MetaMultiDimensional" => "multidim",
-            _ => string.Empty
-        };
-
-    private static string NormalizeKnownHandle(string handle) =>
-        handle switch
-        {
-            "transforms" => "transform",
-            "data-quality" => "quality",
-            "multi-dimensional" => "multidim",
-            _ => handle
-        };
-
-    private static string MakeUniqueHandle(string baseHandle, HashSet<string> usedHandles)
+    private static string ReplaceOrdinalIgnoreCase(string text, string oldValue, string newValue)
     {
-        var normalized = string.IsNullOrWhiteSpace(baseHandle) ? "workspace" : NormalizeHandle(baseHandle);
-        var candidate = normalized;
-        var suffix = 2;
-        while (!usedHandles.Add(candidate))
+        var startIndex = 0;
+        while (true)
         {
-            candidate = normalized + "-" + suffix;
-            suffix++;
-        }
+            var index = text.IndexOf(oldValue, startIndex, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+            {
+                return text;
+            }
 
-        return candidate;
+            text = text[..index] + newValue + text[(index + oldValue.Length)..];
+            startIndex = index + newValue.Length;
+        }
     }
 
-    private static string InferWorkspaceKind(string path, string modelName)
+    private static void RequireUniqueId<T>(IEnumerable<T> rows, string id, string entityName)
+        where T : class
     {
-        if (!string.IsNullOrWhiteSpace(modelName))
+        var property = typeof(T).GetProperty("Id")
+                       ?? throw new InvalidOperationException($"Entity '{entityName}' does not expose Id.");
+        if (rows.Any(row => string.Equals((string?)property.GetValue(row), id, StringComparison.Ordinal)))
         {
-            return modelName;
+            throw new InvalidOperationException($"{entityName} id '{id}' already exists.");
         }
-
-        var normalizedPath = NormalizeHandle(path);
-        if (normalizedPath.Contains("source", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Source";
-        }
-
-        if (normalizedPath.Contains("pipeline", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Pipeline";
-        }
-
-        return "Workspace";
     }
 
-    private static string InferLifecycle(string path)
+    private static string RequiredName(string? value)
     {
-        var normalizedPath = NormalizeHandle(path);
-        if (normalizedPath.Contains("generated", StringComparison.OrdinalIgnoreCase) ||
-            normalizedPath.Contains("current", StringComparison.OrdinalIgnoreCase) ||
-            normalizedPath.Contains("sql", StringComparison.OrdinalIgnoreCase))
+        if (string.IsNullOrWhiteSpace(value))
         {
-            return "Generated";
+            throw new ArgumentException("A required name value was empty.");
         }
 
-        if (normalizedPath.Contains("external", StringComparison.OrdinalIgnoreCase))
-        {
-            return "External";
-        }
-
-        if (normalizedPath.Contains("temp", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Temporary";
-        }
-
-        return "Authored";
+        return value.Trim();
     }
 
-    private static string NormalizeHandle(string value)
+    private static string? NormalizeOptional(string? value) =>
+        string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+
+    private static string NormalizeToken(string value)
     {
         var output = new char[value.Length];
         var length = 0;
@@ -602,12 +776,14 @@ public sealed class MetaMeshWorkspaceService
             length--;
         }
 
-        return length == 0 ? string.Empty : new string(output, 0, length);
+        return length == 0 ? "item" : new string(output, 0, length);
     }
 
-    private static string NormalizeToken(string value)
-    {
-        var normalized = NormalizeHandle(value);
-        return string.IsNullOrWhiteSpace(normalized) ? "depends-on" : normalized;
-    }
+    private sealed record MetaMeshRunPlan(IReadOnlyList<MetaMeshPlannedStep> Steps);
+
+    private sealed record MetaMeshPlannedStep(
+        string Name,
+        string Executable,
+        string Arguments,
+        string WorkingDirectory);
 }

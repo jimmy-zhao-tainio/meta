@@ -1,45 +1,40 @@
 using System.Diagnostics;
-using Meta.Core.Domain;
-using Meta.Core.Services;
-using MetaMesh.Core;
 
 namespace MetaMesh.Tests;
 
 public sealed class MetaMeshCliTests
 {
     [Fact]
-    public void Help_ShowsExpectedCommands()
+    public void Help_ShowsDeclaredWorkspaceOperationSurface()
     {
         var result = RunCli("help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("meta-mesh <command>", result.Output);
-        Assert.Contains("scan", result.Output);
-        Assert.Contains("suggest", result.Output);
-        Assert.Contains("impact", result.Output);
-        Assert.Contains("mount", result.Output);
-        Assert.Contains("link", result.Output);
+        Assert.Contains("add-workspace", result.Output);
+        Assert.Contains("add-operation", result.Output);
+        Assert.Contains("add-step", result.Output);
+        Assert.Contains("run", result.Output);
+        Assert.Contains("show", result.Output);
         Assert.Contains("new-workspace", result.Output);
-        Assert.DoesNotContain("describe", result.Output);
-        Assert.DoesNotContain("init", result.Output);
-        Assert.DoesNotContain("doctor", result.Output, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void Impact_Help_UsesWorkspaceForMeshPathAndHandleForStart()
+    public void AddStep_Help_UsesApplicationWorkspaceAndOperationArguments()
     {
-        var result = RunCli("impact --help");
+        var result = RunCli("add-step --help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("--workspace <path>", result.Output);
-        Assert.Contains("--handle <value>", result.Output);
-        Assert.DoesNotContain("--mesh", result.Output);
+        Assert.Contains("--operation <value>", result.Output);
+        Assert.Contains("--executable <path>", result.Output);
+        Assert.Contains("--arguments <arguments>", result.Output);
     }
 
     [Fact]
     public void Help_Forms_AreServedByMetaCliRuntime()
     {
-        foreach (var arguments in new[] { "--help", "-h", "help", "help impact", "impact help", "impact -h" })
+        foreach (var arguments in new[] { "--help", "-h", "help", "help run", "run help", "run -h" })
         {
             var result = RunCli(arguments);
 
@@ -47,79 +42,119 @@ public sealed class MetaMeshCliTests
             Assert.Contains("meta-mesh", result.Output);
         }
 
-        var commandHelp = RunCli("help impact");
+        var commandHelp = RunCli("help run");
+        Assert.Contains("meta-mesh run", commandHelp.Output);
+        Assert.Contains("--operation <value>", commandHelp.Output);
         Assert.Contains("--workspace <path>", commandHelp.Output);
-        Assert.Contains("--handle <value>", commandHelp.Output);
-        Assert.DoesNotContain("--mesh", commandHelp.Output);
     }
 
     [Fact]
-    public void Program_DoesNotImplementGenericHelpProjection()
-    {
-        var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "MetaMesh", "Cli", "Program.cs"));
-
-        Assert.Contains(".UseDefaultHelp()", source);
-        Assert.DoesNotContain("TryHandleHelp", source);
-        Assert.DoesNotContain("PrintCommandHelp", source);
-        Assert.DoesNotContain("LoadCommandSurface", source);
-        Assert.DoesNotContain("EffectiveParameters", source);
-        Assert.DoesNotContain("OrderPositionals", source);
-        Assert.DoesNotContain("ValueLabel", source);
-    }
-
-    [Fact]
-    public void ScanCheckLinkAndImpact_UseLogicalHandles()
+    public void Authoring_DeclaresWorkspacesOperationsAndExecutableSteps()
     {
         var root = Path.Combine(Path.GetTempPath(), "metamesh-cli", Guid.NewGuid().ToString("N"));
-        var meshPath = Path.Combine(root, "BIStackDemo.MetaMesh");
-        var sourcePath = Path.Combine(root, "source", "AdventureWorks2022", "Schema");
-        var warehousePath = Path.Combine(root, "dw", "AdventureWorksMetaDemo", "Warehouse");
-
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
         try
         {
-            CreateWorkspace(sourcePath, "MetaSchema", "System");
-            CreateWorkspace(warehousePath, "MetaDataWarehouse", "Warehouse");
+            var create = RunCli($"new-workspace \"{meshPath}\" --name Docs --root .");
+            Assert.Equal(0, create.ExitCode);
 
-            var scan = RunCli($"scan --new-workspace \"{meshPath}\" --name BIStackDemo \"{root}\"");
+            var workspace = RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs");
+            Assert.Equal(0, workspace.ExitCode);
 
-            Assert.Equal(0, scan.ExitCode);
-            Assert.Contains("source", scan.Output, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("warehouse", scan.Output, StringComparison.OrdinalIgnoreCase);
-            Assert.True(File.Exists(Path.Combine(meshPath, "model.xml")));
-            Assert.True(File.Exists(Path.Combine(meshPath, "instances", "WorkspaceInstance.xml")));
-            Assert.True(File.Exists(Path.Combine(meshPath, "instances", "WorkspaceMount.xml")));
+            var operation = RunCli($"add-operation --workspace \"{meshPath}\" --name refresh-docs --description \"Refresh docs\"");
+            Assert.Equal(0, operation.ExitCode);
 
-            var model = global::MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(meshPath, searchUpward: false);
-            Assert.Equal("BIStackDemo", Assert.Single(model.MeshList).Name);
-            Assert.Contains(model.WorkspaceInstanceList, item => item.Handle == "source" && item.ModelName == "MetaSchema");
-            Assert.Contains(model.WorkspaceInstanceList, item => item.Handle == "warehouse" && item.ModelName == "MetaDataWarehouse");
-            Assert.Contains(model.WorkspaceMountList, item => item.PhysicalPath == Path.Combine("source", "AdventureWorks2022", "Schema"));
-
-            var check = RunCli($"check --workspace \"{meshPath}\"");
-
-            Assert.Equal(0, check.ExitCode);
-            Assert.Contains("Ok", check.Output);
-
-            var link = RunCli($"link --workspace \"{meshPath}\" --from source --to warehouse --kind derives");
-
-            Assert.Equal(0, link.ExitCode);
-            Assert.Contains("source", link.Output);
-            Assert.Contains("warehouse", link.Output);
-
-            var impact = RunCli($"impact --workspace \"{meshPath}\" --handle source");
-
-            Assert.Equal(0, impact.ExitCode);
-            Assert.Contains("Affected handles", impact.Output);
-            Assert.Contains("warehouse", impact.Output);
+            var step = RunCli($"add-step --workspace \"{meshPath}\" --operation refresh-docs --name echo --executable cmd.exe --arguments \"/c echo hello {{workspace:docs.path}}\"");
+            Assert.Equal(0, step.ExitCode);
 
             var show = RunCli($"show --workspace \"{meshPath}\"");
-
             Assert.Equal(0, show.ExitCode);
-            Assert.Contains("BIStackDemo", show.Output);
-            Assert.Contains("derives", show.Output);
+            Assert.Contains("MetaMesh:", show.Output);
+            Assert.Contains("Operations:", show.Output);
+            Assert.Contains("refresh-docs", show.Output);
+            Assert.Contains("Use --verbose", show.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", show.Output);
+
+            var verboseShow = RunCli($"show --workspace \"{meshPath}\" --verbose");
+            Assert.Equal(0, verboseShow.ExitCode);
+            Assert.Contains("Workspaces:", verboseShow.Output);
+            Assert.Contains("cmd.exe /c echo hello {workspace:docs.path}", verboseShow.Output);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation refresh-docs");
+            Assert.Equal(0, run.ExitCode);
+            Assert.Contains("Operation: refresh-docs", run.Output);
+            Assert.Contains("  echo", run.Output);
+            Assert.DoesNotContain("exit-code", run.Output);
+            Assert.DoesNotContain("elapsed", run.Output);
+            Assert.Contains("hello", run.Output);
+            Assert.Contains("1 step completed.", run.Output);
+
+            Assert.True(File.Exists(Path.Combine(meshPath, "instances", "Workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(meshPath, "instances", "Operation.xml")));
+            Assert.True(File.Exists(Path.Combine(meshPath, "instances", "OperationStep.xml")));
+
+            var model = global::MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(meshPath, searchUpward: false);
+            Assert.Equal("Docs", Assert.Single(model.MeshList).Name);
+            Assert.Contains(model.WorkspaceList, item => item.Name == "docs" && item.ModelName == "MetaDocs");
+            Assert.Contains(model.OperationList, item => item.Name == "refresh-docs");
+            Assert.Contains(model.OperationStepList, item => item.Name == "echo" && item.Executable == "cmd.exe");
         }
         finally
         {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Run_PreflightsEveryStepBeforeExecuting()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-preflight", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        var markerPath = Path.Combine(meshPath, "marker.txt");
+        try
+        {
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing --executable definitely-not-a-metamesh-executable --previous-step touch").ExitCode);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
+
+            Assert.NotEqual(0, run.ExitCode);
+            Assert.Contains("Executable 'definitely-not-a-metamesh-executable' for step 'missing' was not found.", run.Output);
+            Assert.False(File.Exists(markerPath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Run_RequiresEnvironmentTokensToResolveBeforeExecuting()
+    {
+        const string variableName = "METAMESH_TEST_EMPTY_ENV";
+        var previousValue = Environment.GetEnvironmentVariable(variableName);
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-env", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        try
+        {
+            Environment.SetEnvironmentVariable(variableName, null);
+
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name env").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation env --name echo --executable cmd.exe --arguments \"/c echo {{env:{variableName}}}\"").ExitCode);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation env");
+
+            Assert.NotEqual(0, run.ExitCode);
+            Assert.Contains($"Environment variable '{variableName}' is not set or empty.", run.Output);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(variableName, previousValue);
             DeleteDirectoryIfExists(root);
         }
     }
@@ -143,44 +178,6 @@ public sealed class MetaMeshCliTests
         {
             DeleteDirectoryIfExists(root);
         }
-    }
-
-    private static void CreateWorkspace(string path, string modelName, string entityName)
-    {
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = path,
-            MetadataRootPath = path,
-            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
-            Model = new GenericModel
-            {
-                Name = modelName,
-                Entities =
-                {
-                    new GenericEntity
-                    {
-                        Name = entityName,
-                        Properties =
-                        {
-                            new GenericProperty { Name = "Name", DataType = "string" }
-                        }
-                    }
-                }
-            },
-            Instance = new GenericInstance { ModelName = modelName },
-            IsDirty = true,
-        };
-
-        workspace.Instance.GetOrCreateEntityRecords(entityName).Add(new GenericRecord
-        {
-            Id = entityName.ToLowerInvariant() + ":sample",
-            Values =
-            {
-                ["Name"] = "Sample"
-            }
-        });
-
-        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
     }
 
     private static (int ExitCode, string Output) RunCli(string arguments, string? workingDirectory = null)

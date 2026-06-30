@@ -28,21 +28,11 @@ namespace MetaMesh
 
         public List<Mesh> MeshList { get; set; } = new();
 
-        public List<MeshSuggestion> MeshSuggestionList { get; set; } = new();
+        public List<Operation> OperationList { get; set; } = new();
 
-        public List<ModelProvider> ModelProviderList { get; set; } = new();
+        public List<OperationStep> OperationStepList { get; set; } = new();
 
-        public List<OperationCapability> OperationCapabilityList { get; set; } = new();
-
-        public List<OperationEffect> OperationEffectList { get; set; } = new();
-
-        public List<ProviderBinding> ProviderBindingList { get; set; } = new();
-
-        public List<WorkspaceInstance> WorkspaceInstanceList { get; set; } = new();
-
-        public List<WorkspaceLink> WorkspaceLinkList { get; set; } = new();
-
-        public List<WorkspaceMount> WorkspaceMountList { get; set; } = new();
+        public List<Workspace> WorkspaceList { get; set; } = new();
 
         public static MetaMeshModel LoadFromXmlWorkspace(
             string workspacePath,
@@ -158,92 +148,37 @@ namespace MetaMesh
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(meshShardPath, SerializeMeshShard(model, saveIndexes));
             }
 
-            model.MeshSuggestionList ??= new List<MeshSuggestion>();
-            var meshSuggestionShardPath = Path.Combine(instanceDirectoryPath, "MeshSuggestion.xml");
-            if (model.MeshSuggestionList.Count == 0)
+            model.OperationList ??= new List<Operation>();
+            var operationShardPath = Path.Combine(instanceDirectoryPath, "Operation.xml");
+            if (model.OperationList.Count == 0)
             {
-                DeleteIfExists(meshSuggestionShardPath);
+                DeleteIfExists(operationShardPath);
             }
             else
             {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(meshSuggestionShardPath, SerializeMeshSuggestionShard(model, saveIndexes));
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(operationShardPath, SerializeOperationShard(model, saveIndexes));
             }
 
-            model.ModelProviderList ??= new List<ModelProvider>();
-            var modelProviderShardPath = Path.Combine(instanceDirectoryPath, "ModelProvider.xml");
-            if (model.ModelProviderList.Count == 0)
+            model.OperationStepList ??= new List<OperationStep>();
+            var operationStepShardPath = Path.Combine(instanceDirectoryPath, "OperationStep.xml");
+            if (model.OperationStepList.Count == 0)
             {
-                DeleteIfExists(modelProviderShardPath);
+                DeleteIfExists(operationStepShardPath);
             }
             else
             {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(modelProviderShardPath, SerializeModelProviderShard(model, saveIndexes));
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(operationStepShardPath, SerializeOperationStepShard(model, saveIndexes));
             }
 
-            model.OperationCapabilityList ??= new List<OperationCapability>();
-            var operationCapabilityShardPath = Path.Combine(instanceDirectoryPath, "OperationCapability.xml");
-            if (model.OperationCapabilityList.Count == 0)
+            model.WorkspaceList ??= new List<Workspace>();
+            var workspaceShardPath = Path.Combine(instanceDirectoryPath, "Workspace.xml");
+            if (model.WorkspaceList.Count == 0)
             {
-                DeleteIfExists(operationCapabilityShardPath);
+                DeleteIfExists(workspaceShardPath);
             }
             else
             {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(operationCapabilityShardPath, SerializeOperationCapabilityShard(model, saveIndexes));
-            }
-
-            model.OperationEffectList ??= new List<OperationEffect>();
-            var operationEffectShardPath = Path.Combine(instanceDirectoryPath, "OperationEffect.xml");
-            if (model.OperationEffectList.Count == 0)
-            {
-                DeleteIfExists(operationEffectShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(operationEffectShardPath, SerializeOperationEffectShard(model, saveIndexes));
-            }
-
-            model.ProviderBindingList ??= new List<ProviderBinding>();
-            var providerBindingShardPath = Path.Combine(instanceDirectoryPath, "ProviderBinding.xml");
-            if (model.ProviderBindingList.Count == 0)
-            {
-                DeleteIfExists(providerBindingShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(providerBindingShardPath, SerializeProviderBindingShard(model, saveIndexes));
-            }
-
-            model.WorkspaceInstanceList ??= new List<WorkspaceInstance>();
-            var workspaceInstanceShardPath = Path.Combine(instanceDirectoryPath, "WorkspaceInstance.xml");
-            if (model.WorkspaceInstanceList.Count == 0)
-            {
-                DeleteIfExists(workspaceInstanceShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(workspaceInstanceShardPath, SerializeWorkspaceInstanceShard(model, saveIndexes));
-            }
-
-            model.WorkspaceLinkList ??= new List<WorkspaceLink>();
-            var workspaceLinkShardPath = Path.Combine(instanceDirectoryPath, "WorkspaceLink.xml");
-            if (model.WorkspaceLinkList.Count == 0)
-            {
-                DeleteIfExists(workspaceLinkShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(workspaceLinkShardPath, SerializeWorkspaceLinkShard(model, saveIndexes));
-            }
-
-            model.WorkspaceMountList ??= new List<WorkspaceMount>();
-            var workspaceMountShardPath = Path.Combine(instanceDirectoryPath, "WorkspaceMount.xml");
-            if (model.WorkspaceMountList.Count == 0)
-            {
-                DeleteIfExists(workspaceMountShardPath);
-            }
-            else
-            {
-                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(workspaceMountShardPath, SerializeWorkspaceMountShard(model, saveIndexes));
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(workspaceShardPath, SerializeWorkspaceShard(model, saveIndexes));
             }
 
         }
@@ -273,29 +208,14 @@ namespace MetaMesh
                     case "MeshList":
                         LoadMeshList(model, reader, loadState, relationshipBuffers);
                         break;
-                    case "MeshSuggestionList":
-                        LoadMeshSuggestionList(model, reader, loadState, relationshipBuffers);
+                    case "OperationList":
+                        LoadOperationList(model, reader, loadState, relationshipBuffers);
                         break;
-                    case "ModelProviderList":
-                        LoadModelProviderList(model, reader, loadState, relationshipBuffers);
+                    case "OperationStepList":
+                        LoadOperationStepList(model, reader, loadState, relationshipBuffers);
                         break;
-                    case "OperationCapabilityList":
-                        LoadOperationCapabilityList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "OperationEffectList":
-                        LoadOperationEffectList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "ProviderBindingList":
-                        LoadProviderBindingList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "WorkspaceInstanceList":
-                        LoadWorkspaceInstanceList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "WorkspaceLinkList":
-                        LoadWorkspaceLinkList(model, reader, loadState, relationshipBuffers);
-                        break;
-                    case "WorkspaceMountList":
-                        LoadWorkspaceMountList(model, reader, loadState, relationshipBuffers);
+                    case "WorkspaceList":
+                        LoadWorkspaceList(model, reader, loadState, relationshipBuffers);
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in '{shardPath}'.");
@@ -416,33 +336,33 @@ namespace MetaMesh
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadMeshSuggestionList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        private static void LoadOperationList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("MeshSuggestionList");
+                reader.ReadStartElement("OperationList");
                 return;
             }
 
-            reader.ReadStartElement("MeshSuggestionList");
+            reader.ReadStartElement("OperationList");
             while (reader.NodeType == XmlNodeType.Element)
             {
-                if (!string.Equals(reader.LocalName, "MeshSuggestion", StringComparison.Ordinal))
+                if (!string.Equals(reader.LocalName, "Operation", StringComparison.Ordinal))
                 {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'MeshSuggestionList'.");
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OperationList'.");
                 }
-                var row = ReadMeshSuggestion(reader, relationshipBuffers);
-                loadState.AddMeshSuggestionId(row.Id);
-                model.MeshSuggestionList.Add(row);
+                var row = ReadOperation(reader, relationshipBuffers);
+                loadState.AddOperationId(row.Id);
+                model.OperationList.Add(row);
                 reader.MoveToContent();
             }
             reader.ReadEndElement();
         }
 
-        private static MeshSuggestion ReadMeshSuggestion(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        private static Operation ReadOperation(XmlReader reader, RelationshipBuffers relationshipBuffers)
         {
-            var row = new MeshSuggestion();
-            var relationships = new MeshSuggestionRelationships { Row = row };
+            var row = new Operation();
+            var relationships = new OperationRelationships { Row = row };
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -460,11 +380,8 @@ namespace MetaMesh
                         case "MeshId":
                             relationships.MeshId = reader.Value;
                             break;
-                        case "WorkspaceInstanceId":
-                            relationships.WorkspaceInstanceId = reader.Value;
-                            break;
                         default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'MeshSuggestion'.");
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'Operation'.");
                     }
                 }
 
@@ -473,148 +390,253 @@ namespace MetaMesh
 
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("MeshSuggestion");
-                (relationshipBuffers.MeshSuggestionRelationships ??= new List<MeshSuggestionRelationships>()).Add(relationships);
+                reader.ReadStartElement("Operation");
+                (relationshipBuffers.OperationRelationships ??= new List<OperationRelationships>()).Add(relationships);
                 return row;
             }
 
-            reader.ReadStartElement("MeshSuggestion");
+            reader.ReadStartElement("Operation");
             while (reader.NodeType == XmlNodeType.Element)
             {
                 switch (reader.LocalName)
                 {
-                    case "Message":
-                        row.Message = reader.ReadElementContentAsString();
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
                         break;
-                    case "Severity":
-                        row.Severity = reader.ReadElementContentAsString();
-                        break;
-                    case "SuggestedHandle":
-                        row.SuggestedHandle = reader.ReadElementContentAsString();
-                        break;
-                    case "SuggestedLifecycle":
-                        row.SuggestedLifecycle = reader.ReadElementContentAsString();
-                        break;
-                    case "SuggestedPath":
-                        row.SuggestedPath = reader.ReadElementContentAsString();
-                        break;
-                    case "SuggestedWorkspaceKind":
-                        row.SuggestedWorkspaceKind = reader.ReadElementContentAsString();
-                        break;
-                    case "SuggestionKind":
-                        row.SuggestionKind = reader.ReadElementContentAsString();
-                        break;
-                    case "WorkspaceHandle":
-                        row.WorkspaceHandle = reader.ReadElementContentAsString();
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
                         break;
                     default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'MeshSuggestion'.");
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'Operation'.");
                 }
             }
             reader.ReadEndElement();
-            (relationshipBuffers.MeshSuggestionRelationships ??= new List<MeshSuggestionRelationships>()).Add(relationships);
+            (relationshipBuffers.OperationRelationships ??= new List<OperationRelationships>()).Add(relationships);
             return row;
         }
 
-        private static byte[] SerializeMeshSuggestionShard(MetaMeshModel model, SaveIndexes saveIndexes)
+        private static byte[] SerializeOperationShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
             var rowIds = new HashSet<string>(StringComparer.Ordinal);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
-            builder.Append("  <MeshSuggestionList>\n");
-            foreach (var row in model.MeshSuggestionList)
+            builder.Append("  <OperationList>\n");
+            foreach (var row in model.OperationList)
             {
                 ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'MeshSuggestion' contains a row with empty Id.");
+                var rowId = RequireIdentity(row.Id, "Entity 'Operation' contains a row with empty Id.");
                 if (!rowIds.Add(rowId))
                 {
-                    throw new InvalidOperationException($"Entity 'MeshSuggestion' contains duplicate Id '{rowId}'.");
+                    throw new InvalidOperationException($"Entity 'Operation' contains duplicate Id '{rowId}'.");
                 }
-                builder.Append("    <MeshSuggestion Id=\"");
+                builder.Append("    <Operation Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
-                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'MeshSuggestion.MeshId' on row 'MeshSuggestion:{row.Id}' is empty.");
+                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'Operation.MeshId' on row 'Operation:{row.Id}' is empty.");
                 if (!saveIndexes.MeshListById.TryGetValue(meshId, out var meshCanonical) || !ReferenceEquals(meshCanonical, row.Mesh))
                 {
-                    throw new InvalidOperationException($"Relationship 'MeshSuggestion.MeshId' on row 'MeshSuggestion:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
+                    throw new InvalidOperationException($"Relationship 'Operation.MeshId' on row 'Operation:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
                 }
                 builder.Append(' ');
                 builder.Append("MeshId");
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, meshId);
                 builder.Append('"');
-                if (row.WorkspaceInstance != null)
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
                 {
-                    var workspaceInstanceId = RequireIdentity(row.WorkspaceInstance?.Id, $"Relationship 'MeshSuggestion.WorkspaceInstanceId' on row 'MeshSuggestion:{row.Id}' is empty.");
-                    if (!saveIndexes.WorkspaceInstanceListById.TryGetValue(workspaceInstanceId, out var workspaceInstanceCanonical) || !ReferenceEquals(workspaceInstanceCanonical, row.WorkspaceInstance))
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'Operation' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </Operation>\n");
+            }
+            builder.Append("  </OperationList>\n");
+            builder.Append("</MetaMesh>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadOperationStepList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("OperationStepList");
+                return;
+            }
+
+            reader.ReadStartElement("OperationStepList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "OperationStep", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OperationStepList'.");
+                }
+                var row = ReadOperationStep(reader, relationshipBuffers);
+                loadState.AddOperationStepId(row.Id);
+                model.OperationStepList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static OperationStep ReadOperationStep(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new OperationStep();
+            var relationships = new OperationStepRelationships { Row = row };
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
                     {
-                        throw new InvalidOperationException($"Relationship 'MeshSuggestion.WorkspaceInstanceId' on row 'MeshSuggestion:{row.Id}' references an object that is not the canonical row for Id '{workspaceInstanceId}'.");
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        case "OperationId":
+                            relationships.OperationId = reader.Value;
+                            break;
+                        case "PreviousStepId":
+                            relationships.PreviousStepId = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'OperationStep'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("OperationStep");
+                (relationshipBuffers.OperationStepRelationships ??= new List<OperationStepRelationships>()).Add(relationships);
+                return row;
+            }
+
+            reader.ReadStartElement("OperationStep");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Arguments":
+                        row.Arguments = reader.ReadElementContentAsString();
+                        break;
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Executable":
+                        row.Executable = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    case "WorkingDirectory":
+                        row.WorkingDirectory = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'OperationStep'.");
+                }
+            }
+            reader.ReadEndElement();
+            (relationshipBuffers.OperationStepRelationships ??= new List<OperationStepRelationships>()).Add(relationships);
+            return row;
+        }
+
+        private static byte[] SerializeOperationStepShard(MetaMeshModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaMesh>\n");
+            builder.Append("  <OperationStepList>\n");
+            foreach (var row in model.OperationStepList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'OperationStep' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'OperationStep' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <OperationStep Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var operationId = RequireIdentity(row.Operation?.Id, $"Relationship 'OperationStep.OperationId' on row 'OperationStep:{row.Id}' is empty.");
+                if (!saveIndexes.OperationListById.TryGetValue(operationId, out var operationCanonical) || !ReferenceEquals(operationCanonical, row.Operation))
+                {
+                    throw new InvalidOperationException($"Relationship 'OperationStep.OperationId' on row 'OperationStep:{row.Id}' references an object that is not the canonical row for Id '{operationId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("OperationId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, operationId);
+                builder.Append('"');
+                if (row.PreviousStep != null)
+                {
+                    var previousStepId = RequireIdentity(row.PreviousStep?.Id, $"Relationship 'OperationStep.PreviousStepId' on row 'OperationStep:{row.Id}' is empty.");
+                    if (!saveIndexes.OperationStepListById.TryGetValue(previousStepId, out var previousStepCanonical) || !ReferenceEquals(previousStepCanonical, row.PreviousStep))
+                    {
+                        throw new InvalidOperationException($"Relationship 'OperationStep.PreviousStepId' on row 'OperationStep:{row.Id}' references an object that is not the canonical row for Id '{previousStepId}'.");
                     }
                     builder.Append(' ');
-                    builder.Append("WorkspaceInstanceId");
+                    builder.Append("PreviousStepId");
                     builder.Append("=\"");
-                    AppendXmlAttribute(builder, workspaceInstanceId);
+                    AppendXmlAttribute(builder, previousStepId);
                     builder.Append('"');
                 }
                 builder.Append(">\n");
-                AppendElement(builder, "Message", RequireText(row.Message, $"Entity 'MeshSuggestion' row '{row.Id}' is missing required property 'Message'."), "      ");
-                AppendElement(builder, "Severity", RequireText(row.Severity, $"Entity 'MeshSuggestion' row '{row.Id}' is missing required property 'Severity'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.SuggestedHandle))
+                if (!string.IsNullOrWhiteSpace(row.Arguments))
                 {
-                    AppendElement(builder, "SuggestedHandle", row.SuggestedHandle!, "      ");
+                    AppendElement(builder, "Arguments", row.Arguments!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.SuggestedLifecycle))
+                if (!string.IsNullOrWhiteSpace(row.Description))
                 {
-                    AppendElement(builder, "SuggestedLifecycle", row.SuggestedLifecycle!, "      ");
+                    AppendElement(builder, "Description", row.Description!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.SuggestedPath))
+                AppendElement(builder, "Executable", RequireText(row.Executable, $"Entity 'OperationStep' row '{row.Id}' is missing required property 'Executable'."), "      ");
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'OperationStep' row '{row.Id}' is missing required property 'Name'."), "      ");
+                if (!string.IsNullOrWhiteSpace(row.WorkingDirectory))
                 {
-                    AppendElement(builder, "SuggestedPath", row.SuggestedPath!, "      ");
+                    AppendElement(builder, "WorkingDirectory", row.WorkingDirectory!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.SuggestedWorkspaceKind))
-                {
-                    AppendElement(builder, "SuggestedWorkspaceKind", row.SuggestedWorkspaceKind!, "      ");
-                }
-                AppendElement(builder, "SuggestionKind", RequireText(row.SuggestionKind, $"Entity 'MeshSuggestion' row '{row.Id}' is missing required property 'SuggestionKind'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.WorkspaceHandle))
-                {
-                    AppendElement(builder, "WorkspaceHandle", row.WorkspaceHandle!, "      ");
-                }
-                builder.Append("    </MeshSuggestion>\n");
+                builder.Append("    </OperationStep>\n");
             }
-            builder.Append("  </MeshSuggestionList>\n");
+            builder.Append("  </OperationStepList>\n");
             builder.Append("</MetaMesh>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadModelProviderList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        private static void LoadWorkspaceList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("ModelProviderList");
+                reader.ReadStartElement("WorkspaceList");
                 return;
             }
 
-            reader.ReadStartElement("ModelProviderList");
+            reader.ReadStartElement("WorkspaceList");
             while (reader.NodeType == XmlNodeType.Element)
             {
-                if (!string.Equals(reader.LocalName, "ModelProvider", StringComparison.Ordinal))
+                if (!string.Equals(reader.LocalName, "Workspace", StringComparison.Ordinal))
                 {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ModelProviderList'.");
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'WorkspaceList'.");
                 }
-                var row = ReadModelProvider(reader, relationshipBuffers);
-                loadState.AddModelProviderId(row.Id);
-                model.ModelProviderList.Add(row);
+                var row = ReadWorkspace(reader, relationshipBuffers);
+                loadState.AddWorkspaceId(row.Id);
+                model.WorkspaceList.Add(row);
                 reader.MoveToContent();
             }
             reader.ReadEndElement();
         }
 
-        private static ModelProvider ReadModelProvider(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        private static Workspace ReadWorkspace(XmlReader reader, RelationshipBuffers relationshipBuffers)
         {
-            var row = new ModelProvider();
-            var relationships = new ModelProviderRelationships { Row = row };
+            var row = new Workspace();
+            var relationships = new WorkspaceRelationships { Row = row };
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -633,7 +655,7 @@ namespace MetaMesh
                             relationships.MeshId = reader.Value;
                             break;
                         default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ModelProvider'.");
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'Workspace'.");
                     }
                 }
 
@@ -642,568 +664,59 @@ namespace MetaMesh
 
             if (reader.IsEmptyElement)
             {
-                reader.ReadStartElement("ModelProvider");
-                (relationshipBuffers.ModelProviderRelationships ??= new List<ModelProviderRelationships>()).Add(relationships);
+                reader.ReadStartElement("Workspace");
+                (relationshipBuffers.WorkspaceRelationships ??= new List<WorkspaceRelationships>()).Add(relationships);
                 return row;
             }
 
-            reader.ReadStartElement("ModelProvider");
+            reader.ReadStartElement("Workspace");
             while (reader.NodeType == XmlNodeType.Element)
             {
                 switch (reader.LocalName)
                 {
                     case "Description":
                         row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "ExecutableName":
-                        row.ExecutableName = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "ProviderKind":
-                        row.ProviderKind = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ModelProvider'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.ModelProviderRelationships ??= new List<ModelProviderRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeModelProviderShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <ModelProviderList>\n");
-            foreach (var row in model.ModelProviderList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'ModelProvider' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'ModelProvider' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <ModelProvider Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'ModelProvider.MeshId' on row 'ModelProvider:{row.Id}' is empty.");
-                if (!saveIndexes.MeshListById.TryGetValue(meshId, out var meshCanonical) || !ReferenceEquals(meshCanonical, row.Mesh))
-                {
-                    throw new InvalidOperationException($"Relationship 'ModelProvider.MeshId' on row 'ModelProvider:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("MeshId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, meshId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.ExecutableName))
-                {
-                    AppendElement(builder, "ExecutableName", row.ExecutableName!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'ModelProvider' row '{row.Id}' is missing required property 'Name'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.ProviderKind))
-                {
-                    AppendElement(builder, "ProviderKind", row.ProviderKind!, "      ");
-                }
-                builder.Append("    </ModelProvider>\n");
-            }
-            builder.Append("  </ModelProviderList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadOperationCapabilityList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OperationCapabilityList");
-                return;
-            }
-
-            reader.ReadStartElement("OperationCapabilityList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "OperationCapability", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OperationCapabilityList'.");
-                }
-                var row = ReadOperationCapability(reader, relationshipBuffers);
-                loadState.AddOperationCapabilityId(row.Id);
-                model.OperationCapabilityList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static OperationCapability ReadOperationCapability(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new OperationCapability();
-            var relationships = new OperationCapabilityRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "ModelProviderId":
-                            relationships.ModelProviderId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'OperationCapability'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OperationCapability");
-                (relationshipBuffers.OperationCapabilityRelationships ??= new List<OperationCapabilityRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("OperationCapability");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "CanHandleHostRequest":
-                        row.CanHandleHostRequest = reader.ReadElementContentAsString();
-                        break;
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Name":
-                        row.Name = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'OperationCapability'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.OperationCapabilityRelationships ??= new List<OperationCapabilityRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeOperationCapabilityShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <OperationCapabilityList>\n");
-            foreach (var row in model.OperationCapabilityList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'OperationCapability' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'OperationCapability' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <OperationCapability Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var modelProviderId = RequireIdentity(row.ModelProvider?.Id, $"Relationship 'OperationCapability.ModelProviderId' on row 'OperationCapability:{row.Id}' is empty.");
-                if (!saveIndexes.ModelProviderListById.TryGetValue(modelProviderId, out var modelProviderCanonical) || !ReferenceEquals(modelProviderCanonical, row.ModelProvider))
-                {
-                    throw new InvalidOperationException($"Relationship 'OperationCapability.ModelProviderId' on row 'OperationCapability:{row.Id}' references an object that is not the canonical row for Id '{modelProviderId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ModelProviderId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, modelProviderId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.CanHandleHostRequest))
-                {
-                    AppendElement(builder, "CanHandleHostRequest", row.CanHandleHostRequest!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'OperationCapability' row '{row.Id}' is missing required property 'Name'."), "      ");
-                builder.Append("    </OperationCapability>\n");
-            }
-            builder.Append("  </OperationCapabilityList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadOperationEffectList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OperationEffectList");
-                return;
-            }
-
-            reader.ReadStartElement("OperationEffectList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "OperationEffect", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'OperationEffectList'.");
-                }
-                var row = ReadOperationEffect(reader, relationshipBuffers);
-                loadState.AddOperationEffectId(row.Id);
-                model.OperationEffectList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static OperationEffect ReadOperationEffect(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new OperationEffect();
-            var relationships = new OperationEffectRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "OperationCapabilityId":
-                            relationships.OperationCapabilityId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'OperationEffect'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("OperationEffect");
-                (relationshipBuffers.OperationEffectRelationships ??= new List<OperationEffectRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("OperationEffect");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "EffectKind":
-                        row.EffectKind = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'OperationEffect'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.OperationEffectRelationships ??= new List<OperationEffectRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeOperationEffectShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <OperationEffectList>\n");
-            foreach (var row in model.OperationEffectList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'OperationEffect' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'OperationEffect' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <OperationEffect Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var operationCapabilityId = RequireIdentity(row.OperationCapability?.Id, $"Relationship 'OperationEffect.OperationCapabilityId' on row 'OperationEffect:{row.Id}' is empty.");
-                if (!saveIndexes.OperationCapabilityListById.TryGetValue(operationCapabilityId, out var operationCapabilityCanonical) || !ReferenceEquals(operationCapabilityCanonical, row.OperationCapability))
-                {
-                    throw new InvalidOperationException($"Relationship 'OperationEffect.OperationCapabilityId' on row 'OperationEffect:{row.Id}' references an object that is not the canonical row for Id '{operationCapabilityId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("OperationCapabilityId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, operationCapabilityId);
-                builder.Append('"');
-                builder.Append(">\n");
-                AppendElement(builder, "EffectKind", RequireText(row.EffectKind, $"Entity 'OperationEffect' row '{row.Id}' is missing required property 'EffectKind'."), "      ");
-                builder.Append("    </OperationEffect>\n");
-            }
-            builder.Append("  </OperationEffectList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadProviderBindingList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("ProviderBindingList");
-                return;
-            }
-
-            reader.ReadStartElement("ProviderBindingList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "ProviderBinding", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'ProviderBindingList'.");
-                }
-                var row = ReadProviderBinding(reader, relationshipBuffers);
-                loadState.AddProviderBindingId(row.Id);
-                model.ProviderBindingList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static ProviderBinding ReadProviderBinding(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new ProviderBinding();
-            var relationships = new ProviderBindingRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "ModelProviderId":
-                            relationships.ModelProviderId = reader.Value;
-                            break;
-                        case "WorkspaceInstanceId":
-                            relationships.WorkspaceInstanceId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'ProviderBinding'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("ProviderBinding");
-                (relationshipBuffers.ProviderBindingRelationships ??= new List<ProviderBindingRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("ProviderBinding");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "SupportedModelName":
-                        row.SupportedModelName = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'ProviderBinding'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.ProviderBindingRelationships ??= new List<ProviderBindingRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeProviderBindingShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <ProviderBindingList>\n");
-            foreach (var row in model.ProviderBindingList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'ProviderBinding' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'ProviderBinding' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <ProviderBinding Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var modelProviderId = RequireIdentity(row.ModelProvider?.Id, $"Relationship 'ProviderBinding.ModelProviderId' on row 'ProviderBinding:{row.Id}' is empty.");
-                if (!saveIndexes.ModelProviderListById.TryGetValue(modelProviderId, out var modelProviderCanonical) || !ReferenceEquals(modelProviderCanonical, row.ModelProvider))
-                {
-                    throw new InvalidOperationException($"Relationship 'ProviderBinding.ModelProviderId' on row 'ProviderBinding:{row.Id}' references an object that is not the canonical row for Id '{modelProviderId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ModelProviderId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, modelProviderId);
-                builder.Append('"');
-                var workspaceInstanceId = RequireIdentity(row.WorkspaceInstance?.Id, $"Relationship 'ProviderBinding.WorkspaceInstanceId' on row 'ProviderBinding:{row.Id}' is empty.");
-                if (!saveIndexes.WorkspaceInstanceListById.TryGetValue(workspaceInstanceId, out var workspaceInstanceCanonical) || !ReferenceEquals(workspaceInstanceCanonical, row.WorkspaceInstance))
-                {
-                    throw new InvalidOperationException($"Relationship 'ProviderBinding.WorkspaceInstanceId' on row 'ProviderBinding:{row.Id}' references an object that is not the canonical row for Id '{workspaceInstanceId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("WorkspaceInstanceId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, workspaceInstanceId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.SupportedModelName))
-                {
-                    AppendElement(builder, "SupportedModelName", row.SupportedModelName!, "      ");
-                }
-                builder.Append("    </ProviderBinding>\n");
-            }
-            builder.Append("  </ProviderBindingList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadWorkspaceInstanceList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceInstanceList");
-                return;
-            }
-
-            reader.ReadStartElement("WorkspaceInstanceList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "WorkspaceInstance", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'WorkspaceInstanceList'.");
-                }
-                var row = ReadWorkspaceInstance(reader, relationshipBuffers);
-                loadState.AddWorkspaceInstanceId(row.Id);
-                model.WorkspaceInstanceList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static WorkspaceInstance ReadWorkspaceInstance(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new WorkspaceInstance();
-            var relationships = new WorkspaceInstanceRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "MeshId":
-                            relationships.MeshId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'WorkspaceInstance'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceInstance");
-                (relationshipBuffers.WorkspaceInstanceRelationships ??= new List<WorkspaceInstanceRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("WorkspaceInstance");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "DisplayName":
-                        row.DisplayName = reader.ReadElementContentAsString();
-                        break;
-                    case "Handle":
-                        row.Handle = reader.ReadElementContentAsString();
-                        break;
-                    case "Lifecycle":
-                        row.Lifecycle = reader.ReadElementContentAsString();
                         break;
                     case "ModelName":
                         row.ModelName = reader.ReadElementContentAsString();
                         break;
-                    case "Summary":
-                        row.Summary = reader.ReadElementContentAsString();
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
                         break;
-                    case "WorkspaceKind":
-                        row.WorkspaceKind = reader.ReadElementContentAsString();
+                    case "Path":
+                        row.Path = reader.ReadElementContentAsString();
                         break;
                     default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'WorkspaceInstance'.");
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'Workspace'.");
                 }
             }
             reader.ReadEndElement();
-            (relationshipBuffers.WorkspaceInstanceRelationships ??= new List<WorkspaceInstanceRelationships>()).Add(relationships);
+            (relationshipBuffers.WorkspaceRelationships ??= new List<WorkspaceRelationships>()).Add(relationships);
             return row;
         }
 
-        private static byte[] SerializeWorkspaceInstanceShard(MetaMeshModel model, SaveIndexes saveIndexes)
+        private static byte[] SerializeWorkspaceShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
             var rowIds = new HashSet<string>(StringComparer.Ordinal);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
-            builder.Append("  <WorkspaceInstanceList>\n");
-            foreach (var row in model.WorkspaceInstanceList)
+            builder.Append("  <WorkspaceList>\n");
+            foreach (var row in model.WorkspaceList)
             {
                 ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'WorkspaceInstance' contains a row with empty Id.");
+                var rowId = RequireIdentity(row.Id, "Entity 'Workspace' contains a row with empty Id.");
                 if (!rowIds.Add(rowId))
                 {
-                    throw new InvalidOperationException($"Entity 'WorkspaceInstance' contains duplicate Id '{rowId}'.");
+                    throw new InvalidOperationException($"Entity 'Workspace' contains duplicate Id '{rowId}'.");
                 }
-                builder.Append("    <WorkspaceInstance Id=\"");
+                builder.Append("    <Workspace Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
-                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'WorkspaceInstance.MeshId' on row 'WorkspaceInstance:{row.Id}' is empty.");
+                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'Workspace.MeshId' on row 'Workspace:{row.Id}' is empty.");
                 if (!saveIndexes.MeshListById.TryGetValue(meshId, out var meshCanonical) || !ReferenceEquals(meshCanonical, row.Mesh))
                 {
-                    throw new InvalidOperationException($"Relationship 'WorkspaceInstance.MeshId' on row 'WorkspaceInstance:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
+                    throw new InvalidOperationException($"Relationship 'Workspace.MeshId' on row 'Workspace:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
                 }
                 builder.Append(' ');
                 builder.Append("MeshId");
@@ -1211,486 +724,91 @@ namespace MetaMesh
                 AppendXmlAttribute(builder, meshId);
                 builder.Append('"');
                 builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.DisplayName))
+                if (!string.IsNullOrWhiteSpace(row.Description))
                 {
-                    AppendElement(builder, "DisplayName", row.DisplayName!, "      ");
-                }
-                AppendElement(builder, "Handle", RequireText(row.Handle, $"Entity 'WorkspaceInstance' row '{row.Id}' is missing required property 'Handle'."), "      ");
-                if (!string.IsNullOrWhiteSpace(row.Lifecycle))
-                {
-                    AppendElement(builder, "Lifecycle", row.Lifecycle!, "      ");
+                    AppendElement(builder, "Description", row.Description!, "      ");
                 }
                 if (!string.IsNullOrWhiteSpace(row.ModelName))
                 {
                     AppendElement(builder, "ModelName", row.ModelName!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.Summary))
-                {
-                    AppendElement(builder, "Summary", row.Summary!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.WorkspaceKind))
-                {
-                    AppendElement(builder, "WorkspaceKind", row.WorkspaceKind!, "      ");
-                }
-                builder.Append("    </WorkspaceInstance>\n");
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'Workspace' row '{row.Id}' is missing required property 'Name'."), "      ");
+                AppendElement(builder, "Path", RequireText(row.Path, $"Entity 'Workspace' row '{row.Id}' is missing required property 'Path'."), "      ");
+                builder.Append("    </Workspace>\n");
             }
-            builder.Append("  </WorkspaceInstanceList>\n");
+            builder.Append("  </WorkspaceList>\n");
             builder.Append("</MetaMesh>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
-        private static void LoadWorkspaceLinkList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        private sealed class OperationRelationships
         {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceLinkList");
-                return;
-            }
-
-            reader.ReadStartElement("WorkspaceLinkList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "WorkspaceLink", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'WorkspaceLinkList'.");
-                }
-                var row = ReadWorkspaceLink(reader, relationshipBuffers);
-                loadState.AddWorkspaceLinkId(row.Id);
-                model.WorkspaceLinkList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static WorkspaceLink ReadWorkspaceLink(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new WorkspaceLink();
-            var relationships = new WorkspaceLinkRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "FromWorkspaceId":
-                            relationships.FromWorkspaceId = reader.Value;
-                            break;
-                        case "MeshId":
-                            relationships.MeshId = reader.Value;
-                            break;
-                        case "ToWorkspaceId":
-                            relationships.ToWorkspaceId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'WorkspaceLink'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceLink");
-                (relationshipBuffers.WorkspaceLinkRelationships ??= new List<WorkspaceLinkRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("WorkspaceLink");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "Description":
-                        row.Description = reader.ReadElementContentAsString();
-                        break;
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'WorkspaceLink'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.WorkspaceLinkRelationships ??= new List<WorkspaceLinkRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeWorkspaceLinkShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <WorkspaceLinkList>\n");
-            foreach (var row in model.WorkspaceLinkList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'WorkspaceLink' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'WorkspaceLink' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <WorkspaceLink Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var fromWorkspaceId = RequireIdentity(row.FromWorkspace?.Id, $"Relationship 'WorkspaceLink.FromWorkspaceId' on row 'WorkspaceLink:{row.Id}' is empty.");
-                if (!saveIndexes.WorkspaceInstanceListById.TryGetValue(fromWorkspaceId, out var fromWorkspaceCanonical) || !ReferenceEquals(fromWorkspaceCanonical, row.FromWorkspace))
-                {
-                    throw new InvalidOperationException($"Relationship 'WorkspaceLink.FromWorkspaceId' on row 'WorkspaceLink:{row.Id}' references an object that is not the canonical row for Id '{fromWorkspaceId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("FromWorkspaceId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, fromWorkspaceId);
-                builder.Append('"');
-                var meshId = RequireIdentity(row.Mesh?.Id, $"Relationship 'WorkspaceLink.MeshId' on row 'WorkspaceLink:{row.Id}' is empty.");
-                if (!saveIndexes.MeshListById.TryGetValue(meshId, out var meshCanonical) || !ReferenceEquals(meshCanonical, row.Mesh))
-                {
-                    throw new InvalidOperationException($"Relationship 'WorkspaceLink.MeshId' on row 'WorkspaceLink:{row.Id}' references an object that is not the canonical row for Id '{meshId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("MeshId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, meshId);
-                builder.Append('"');
-                var toWorkspaceId = RequireIdentity(row.ToWorkspace?.Id, $"Relationship 'WorkspaceLink.ToWorkspaceId' on row 'WorkspaceLink:{row.Id}' is empty.");
-                if (!saveIndexes.WorkspaceInstanceListById.TryGetValue(toWorkspaceId, out var toWorkspaceCanonical) || !ReferenceEquals(toWorkspaceCanonical, row.ToWorkspace))
-                {
-                    throw new InvalidOperationException($"Relationship 'WorkspaceLink.ToWorkspaceId' on row 'WorkspaceLink:{row.Id}' references an object that is not the canonical row for Id '{toWorkspaceId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("ToWorkspaceId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, toWorkspaceId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.Description))
-                {
-                    AppendElement(builder, "Description", row.Description!, "      ");
-                }
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'WorkspaceLink' row '{row.Id}' is missing required property 'Kind'."), "      ");
-                builder.Append("    </WorkspaceLink>\n");
-            }
-            builder.Append("  </WorkspaceLinkList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private static void LoadWorkspaceMountList(MetaMeshModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
-        {
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceMountList");
-                return;
-            }
-
-            reader.ReadStartElement("WorkspaceMountList");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                if (!string.Equals(reader.LocalName, "WorkspaceMount", StringComparison.Ordinal))
-                {
-                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'WorkspaceMountList'.");
-                }
-                var row = ReadWorkspaceMount(reader, relationshipBuffers);
-                loadState.AddWorkspaceMountId(row.Id);
-                model.WorkspaceMountList.Add(row);
-                reader.MoveToContent();
-            }
-            reader.ReadEndElement();
-        }
-
-        private static WorkspaceMount ReadWorkspaceMount(XmlReader reader, RelationshipBuffers relationshipBuffers)
-        {
-            var row = new WorkspaceMount();
-            var relationships = new WorkspaceMountRelationships { Row = row };
-            if (reader.HasAttributes)
-            {
-                while (reader.MoveToNextAttribute())
-                {
-                    if (IsNamespaceDeclaration(reader))
-                    {
-                        continue;
-                    }
-
-                    switch (reader.LocalName)
-                    {
-                        case "Id":
-                            row.Id = reader.Value;
-                            break;
-                        case "WorkspaceInstanceId":
-                            relationships.WorkspaceInstanceId = reader.Value;
-                            break;
-                        default:
-                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'WorkspaceMount'.");
-                    }
-                }
-
-                reader.MoveToElement();
-            }
-
-            if (reader.IsEmptyElement)
-            {
-                reader.ReadStartElement("WorkspaceMount");
-                (relationshipBuffers.WorkspaceMountRelationships ??= new List<WorkspaceMountRelationships>()).Add(relationships);
-                return row;
-            }
-
-            reader.ReadStartElement("WorkspaceMount");
-            while (reader.NodeType == XmlNodeType.Element)
-            {
-                switch (reader.LocalName)
-                {
-                    case "PathKind":
-                        row.PathKind = reader.ReadElementContentAsString();
-                        break;
-                    case "PhysicalPath":
-                        row.PhysicalPath = reader.ReadElementContentAsString();
-                        break;
-                    default:
-                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'WorkspaceMount'.");
-                }
-            }
-            reader.ReadEndElement();
-            (relationshipBuffers.WorkspaceMountRelationships ??= new List<WorkspaceMountRelationships>()).Add(relationships);
-            return row;
-        }
-
-        private static byte[] SerializeWorkspaceMountShard(MetaMeshModel model, SaveIndexes saveIndexes)
-        {
-            var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
-            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-            builder.Append("<MetaMesh>\n");
-            builder.Append("  <WorkspaceMountList>\n");
-            foreach (var row in model.WorkspaceMountList)
-            {
-                ArgumentNullException.ThrowIfNull(row);
-                var rowId = RequireIdentity(row.Id, "Entity 'WorkspaceMount' contains a row with empty Id.");
-                if (!rowIds.Add(rowId))
-                {
-                    throw new InvalidOperationException($"Entity 'WorkspaceMount' contains duplicate Id '{rowId}'.");
-                }
-                builder.Append("    <WorkspaceMount Id=\"");
-                AppendXmlAttribute(builder, rowId);
-                builder.Append('"');
-                var workspaceInstanceId = RequireIdentity(row.WorkspaceInstance?.Id, $"Relationship 'WorkspaceMount.WorkspaceInstanceId' on row 'WorkspaceMount:{row.Id}' is empty.");
-                if (!saveIndexes.WorkspaceInstanceListById.TryGetValue(workspaceInstanceId, out var workspaceInstanceCanonical) || !ReferenceEquals(workspaceInstanceCanonical, row.WorkspaceInstance))
-                {
-                    throw new InvalidOperationException($"Relationship 'WorkspaceMount.WorkspaceInstanceId' on row 'WorkspaceMount:{row.Id}' references an object that is not the canonical row for Id '{workspaceInstanceId}'.");
-                }
-                builder.Append(' ');
-                builder.Append("WorkspaceInstanceId");
-                builder.Append("=\"");
-                AppendXmlAttribute(builder, workspaceInstanceId);
-                builder.Append('"');
-                builder.Append(">\n");
-                if (!string.IsNullOrWhiteSpace(row.PathKind))
-                {
-                    AppendElement(builder, "PathKind", row.PathKind!, "      ");
-                }
-                AppendElement(builder, "PhysicalPath", RequireText(row.PhysicalPath, $"Entity 'WorkspaceMount' row '{row.Id}' is missing required property 'PhysicalPath'."), "      ");
-                builder.Append("    </WorkspaceMount>\n");
-            }
-            builder.Append("  </WorkspaceMountList>\n");
-            builder.Append("</MetaMesh>\n");
-            return Utf8NoBom.GetBytes(builder.ToString());
-        }
-
-        private sealed class MeshSuggestionRelationships
-        {
-            public MeshSuggestion Row { get; set; } = null!;
-            public string MeshId { get; set; } = string.Empty;
-            public string WorkspaceInstanceId { get; set; } = string.Empty;
-        }
-
-        private sealed class ModelProviderRelationships
-        {
-            public ModelProvider Row { get; set; } = null!;
+            public Operation Row { get; set; } = null!;
             public string MeshId { get; set; } = string.Empty;
         }
 
-        private sealed class OperationCapabilityRelationships
+        private sealed class OperationStepRelationships
         {
-            public OperationCapability Row { get; set; } = null!;
-            public string ModelProviderId { get; set; } = string.Empty;
+            public OperationStep Row { get; set; } = null!;
+            public string OperationId { get; set; } = string.Empty;
+            public string PreviousStepId { get; set; } = string.Empty;
         }
 
-        private sealed class OperationEffectRelationships
+        private sealed class WorkspaceRelationships
         {
-            public OperationEffect Row { get; set; } = null!;
-            public string OperationCapabilityId { get; set; } = string.Empty;
-        }
-
-        private sealed class ProviderBindingRelationships
-        {
-            public ProviderBinding Row { get; set; } = null!;
-            public string ModelProviderId { get; set; } = string.Empty;
-            public string WorkspaceInstanceId { get; set; } = string.Empty;
-        }
-
-        private sealed class WorkspaceInstanceRelationships
-        {
-            public WorkspaceInstance Row { get; set; } = null!;
+            public Workspace Row { get; set; } = null!;
             public string MeshId { get; set; } = string.Empty;
-        }
-
-        private sealed class WorkspaceLinkRelationships
-        {
-            public WorkspaceLink Row { get; set; } = null!;
-            public string FromWorkspaceId { get; set; } = string.Empty;
-            public string MeshId { get; set; } = string.Empty;
-            public string ToWorkspaceId { get; set; } = string.Empty;
-        }
-
-        private sealed class WorkspaceMountRelationships
-        {
-            public WorkspaceMount Row { get; set; } = null!;
-            public string WorkspaceInstanceId { get; set; } = string.Empty;
         }
 
         private sealed class RelationshipBuffers
         {
-            public List<MeshSuggestionRelationships>? MeshSuggestionRelationships { get; set; }
-            public List<ModelProviderRelationships>? ModelProviderRelationships { get; set; }
-            public List<OperationCapabilityRelationships>? OperationCapabilityRelationships { get; set; }
-            public List<OperationEffectRelationships>? OperationEffectRelationships { get; set; }
-            public List<ProviderBindingRelationships>? ProviderBindingRelationships { get; set; }
-            public List<WorkspaceInstanceRelationships>? WorkspaceInstanceRelationships { get; set; }
-            public List<WorkspaceLinkRelationships>? WorkspaceLinkRelationships { get; set; }
-            public List<WorkspaceMountRelationships>? WorkspaceMountRelationships { get; set; }
+            public List<OperationRelationships>? OperationRelationships { get; set; }
+            public List<OperationStepRelationships>? OperationStepRelationships { get; set; }
+            public List<WorkspaceRelationships>? WorkspaceRelationships { get; set; }
         }
 
         private static void ResolveRelationshipGroup1(LoadIndexes loadIndexes, RelationshipBuffers relationshipBuffers)
         {
-            foreach (var relationship in relationshipBuffers.MeshSuggestionRelationships ?? Enumerable.Empty<MeshSuggestionRelationships>())
+            foreach (var relationship in relationshipBuffers.OperationRelationships ?? Enumerable.Empty<OperationRelationships>())
             {
                 relationship.Row.Mesh = RequireTarget(
                     loadIndexes.MeshListById,
                     relationship.MeshId,
-                    "MeshSuggestion",
+                    "Operation",
                     relationship.Row.Id,
                     "MeshId");
             }
 
-            foreach (var relationship in relationshipBuffers.MeshSuggestionRelationships ?? Enumerable.Empty<MeshSuggestionRelationships>())
+            foreach (var relationship in relationshipBuffers.OperationStepRelationships ?? Enumerable.Empty<OperationStepRelationships>())
             {
-                relationship.Row.WorkspaceInstance = string.IsNullOrWhiteSpace(relationship.WorkspaceInstanceId)
+                relationship.Row.Operation = RequireTarget(
+                    loadIndexes.OperationListById,
+                    relationship.OperationId,
+                    "OperationStep",
+                    relationship.Row.Id,
+                    "OperationId");
+            }
+
+            foreach (var relationship in relationshipBuffers.OperationStepRelationships ?? Enumerable.Empty<OperationStepRelationships>())
+            {
+                relationship.Row.PreviousStep = string.IsNullOrWhiteSpace(relationship.PreviousStepId)
                     ? null
                     : RequireTarget(
-                        loadIndexes.WorkspaceInstanceListById,
-                        relationship.WorkspaceInstanceId,
-                        "MeshSuggestion",
+                        loadIndexes.OperationStepListById,
+                        relationship.PreviousStepId,
+                        "OperationStep",
                         relationship.Row.Id,
-                        "WorkspaceInstanceId");
+                        "PreviousStepId");
             }
 
-            foreach (var relationship in relationshipBuffers.ModelProviderRelationships ?? Enumerable.Empty<ModelProviderRelationships>())
+            foreach (var relationship in relationshipBuffers.WorkspaceRelationships ?? Enumerable.Empty<WorkspaceRelationships>())
             {
                 relationship.Row.Mesh = RequireTarget(
                     loadIndexes.MeshListById,
                     relationship.MeshId,
-                    "ModelProvider",
+                    "Workspace",
                     relationship.Row.Id,
                     "MeshId");
-            }
-
-            foreach (var relationship in relationshipBuffers.OperationCapabilityRelationships ?? Enumerable.Empty<OperationCapabilityRelationships>())
-            {
-                relationship.Row.ModelProvider = RequireTarget(
-                    loadIndexes.ModelProviderListById,
-                    relationship.ModelProviderId,
-                    "OperationCapability",
-                    relationship.Row.Id,
-                    "ModelProviderId");
-            }
-
-            foreach (var relationship in relationshipBuffers.OperationEffectRelationships ?? Enumerable.Empty<OperationEffectRelationships>())
-            {
-                relationship.Row.OperationCapability = RequireTarget(
-                    loadIndexes.OperationCapabilityListById,
-                    relationship.OperationCapabilityId,
-                    "OperationEffect",
-                    relationship.Row.Id,
-                    "OperationCapabilityId");
-            }
-
-            foreach (var relationship in relationshipBuffers.ProviderBindingRelationships ?? Enumerable.Empty<ProviderBindingRelationships>())
-            {
-                relationship.Row.ModelProvider = RequireTarget(
-                    loadIndexes.ModelProviderListById,
-                    relationship.ModelProviderId,
-                    "ProviderBinding",
-                    relationship.Row.Id,
-                    "ModelProviderId");
-            }
-
-            foreach (var relationship in relationshipBuffers.ProviderBindingRelationships ?? Enumerable.Empty<ProviderBindingRelationships>())
-            {
-                relationship.Row.WorkspaceInstance = RequireTarget(
-                    loadIndexes.WorkspaceInstanceListById,
-                    relationship.WorkspaceInstanceId,
-                    "ProviderBinding",
-                    relationship.Row.Id,
-                    "WorkspaceInstanceId");
-            }
-
-            foreach (var relationship in relationshipBuffers.WorkspaceInstanceRelationships ?? Enumerable.Empty<WorkspaceInstanceRelationships>())
-            {
-                relationship.Row.Mesh = RequireTarget(
-                    loadIndexes.MeshListById,
-                    relationship.MeshId,
-                    "WorkspaceInstance",
-                    relationship.Row.Id,
-                    "MeshId");
-            }
-
-            foreach (var relationship in relationshipBuffers.WorkspaceLinkRelationships ?? Enumerable.Empty<WorkspaceLinkRelationships>())
-            {
-                relationship.Row.FromWorkspace = RequireTarget(
-                    loadIndexes.WorkspaceInstanceListById,
-                    relationship.FromWorkspaceId,
-                    "WorkspaceLink",
-                    relationship.Row.Id,
-                    "FromWorkspaceId");
-            }
-
-            foreach (var relationship in relationshipBuffers.WorkspaceLinkRelationships ?? Enumerable.Empty<WorkspaceLinkRelationships>())
-            {
-                relationship.Row.Mesh = RequireTarget(
-                    loadIndexes.MeshListById,
-                    relationship.MeshId,
-                    "WorkspaceLink",
-                    relationship.Row.Id,
-                    "MeshId");
-            }
-
-            foreach (var relationship in relationshipBuffers.WorkspaceLinkRelationships ?? Enumerable.Empty<WorkspaceLinkRelationships>())
-            {
-                relationship.Row.ToWorkspace = RequireTarget(
-                    loadIndexes.WorkspaceInstanceListById,
-                    relationship.ToWorkspaceId,
-                    "WorkspaceLink",
-                    relationship.Row.Id,
-                    "ToWorkspaceId");
-            }
-
-            foreach (var relationship in relationshipBuffers.WorkspaceMountRelationships ?? Enumerable.Empty<WorkspaceMountRelationships>())
-            {
-                relationship.Row.WorkspaceInstance = RequireTarget(
-                    loadIndexes.WorkspaceInstanceListById,
-                    relationship.WorkspaceInstanceId,
-                    "WorkspaceMount",
-                    relationship.Row.Id,
-                    "WorkspaceInstanceId");
             }
 
         }
@@ -1698,14 +816,9 @@ namespace MetaMesh
         private static readonly string[] ShardFileNames =
         {
             "Mesh.xml",
-            "MeshSuggestion.xml",
-            "ModelProvider.xml",
-            "OperationCapability.xml",
-            "OperationEffect.xml",
-            "ProviderBinding.xml",
-            "WorkspaceInstance.xml",
-            "WorkspaceLink.xml",
-            "WorkspaceMount.xml",
+            "Operation.xml",
+            "OperationStep.xml",
+            "Workspace.xml",
         };
 
         private static HashSet<string> BuildExpectedShardPaths(string instanceDirectoryPath)
@@ -1733,99 +846,39 @@ namespace MetaMesh
                 }
             }
 
-            private HashSet<string>? meshSuggestionIds;
+            private HashSet<string>? operationIds;
 
-            public void AddMeshSuggestionId(string? id)
+            public void AddOperationId(string? id)
             {
-                var normalizedId = RequireIdentity(id, "Entity 'MeshSuggestion' contains a row with empty Id.");
-                meshSuggestionIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!meshSuggestionIds.Add(normalizedId))
+                var normalizedId = RequireIdentity(id, "Entity 'Operation' contains a row with empty Id.");
+                operationIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!operationIds.Add(normalizedId))
                 {
-                    throw new InvalidDataException($"Entity 'MeshSuggestion' contains duplicate Id '{normalizedId}'.");
+                    throw new InvalidDataException($"Entity 'Operation' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
-            private HashSet<string>? modelProviderIds;
+            private HashSet<string>? operationStepIds;
 
-            public void AddModelProviderId(string? id)
+            public void AddOperationStepId(string? id)
             {
-                var normalizedId = RequireIdentity(id, "Entity 'ModelProvider' contains a row with empty Id.");
-                modelProviderIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!modelProviderIds.Add(normalizedId))
+                var normalizedId = RequireIdentity(id, "Entity 'OperationStep' contains a row with empty Id.");
+                operationStepIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!operationStepIds.Add(normalizedId))
                 {
-                    throw new InvalidDataException($"Entity 'ModelProvider' contains duplicate Id '{normalizedId}'.");
+                    throw new InvalidDataException($"Entity 'OperationStep' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
-            private HashSet<string>? operationCapabilityIds;
+            private HashSet<string>? workspaceIds;
 
-            public void AddOperationCapabilityId(string? id)
+            public void AddWorkspaceId(string? id)
             {
-                var normalizedId = RequireIdentity(id, "Entity 'OperationCapability' contains a row with empty Id.");
-                operationCapabilityIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!operationCapabilityIds.Add(normalizedId))
+                var normalizedId = RequireIdentity(id, "Entity 'Workspace' contains a row with empty Id.");
+                workspaceIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!workspaceIds.Add(normalizedId))
                 {
-                    throw new InvalidDataException($"Entity 'OperationCapability' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? operationEffectIds;
-
-            public void AddOperationEffectId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'OperationEffect' contains a row with empty Id.");
-                operationEffectIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!operationEffectIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'OperationEffect' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? providerBindingIds;
-
-            public void AddProviderBindingId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'ProviderBinding' contains a row with empty Id.");
-                providerBindingIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!providerBindingIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'ProviderBinding' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? workspaceInstanceIds;
-
-            public void AddWorkspaceInstanceId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'WorkspaceInstance' contains a row with empty Id.");
-                workspaceInstanceIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!workspaceInstanceIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'WorkspaceInstance' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? workspaceLinkIds;
-
-            public void AddWorkspaceLinkId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'WorkspaceLink' contains a row with empty Id.");
-                workspaceLinkIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!workspaceLinkIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'WorkspaceLink' contains duplicate Id '{normalizedId}'.");
-                }
-            }
-
-            private HashSet<string>? workspaceMountIds;
-
-            public void AddWorkspaceMountId(string? id)
-            {
-                var normalizedId = RequireIdentity(id, "Entity 'WorkspaceMount' contains a row with empty Id.");
-                workspaceMountIds ??= new HashSet<string>(StringComparer.Ordinal);
-                if (!workspaceMountIds.Add(normalizedId))
-                {
-                    throw new InvalidDataException($"Entity 'WorkspaceMount' contains duplicate Id '{normalizedId}'.");
+                    throw new InvalidDataException($"Entity 'Workspace' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -1844,37 +897,17 @@ namespace MetaMesh
 
             public Dictionary<string, Mesh> MeshListById => meshListById ??= BuildById(model.MeshList, row => row.Id, "Mesh");
 
-            private Dictionary<string, MeshSuggestion>? meshSuggestionListById;
+            private Dictionary<string, Operation>? operationListById;
 
-            public Dictionary<string, MeshSuggestion> MeshSuggestionListById => meshSuggestionListById ??= BuildById(model.MeshSuggestionList, row => row.Id, "MeshSuggestion");
+            public Dictionary<string, Operation> OperationListById => operationListById ??= BuildById(model.OperationList, row => row.Id, "Operation");
 
-            private Dictionary<string, ModelProvider>? modelProviderListById;
+            private Dictionary<string, OperationStep>? operationStepListById;
 
-            public Dictionary<string, ModelProvider> ModelProviderListById => modelProviderListById ??= BuildById(model.ModelProviderList, row => row.Id, "ModelProvider");
+            public Dictionary<string, OperationStep> OperationStepListById => operationStepListById ??= BuildById(model.OperationStepList, row => row.Id, "OperationStep");
 
-            private Dictionary<string, OperationCapability>? operationCapabilityListById;
+            private Dictionary<string, Workspace>? workspaceListById;
 
-            public Dictionary<string, OperationCapability> OperationCapabilityListById => operationCapabilityListById ??= BuildById(model.OperationCapabilityList, row => row.Id, "OperationCapability");
-
-            private Dictionary<string, OperationEffect>? operationEffectListById;
-
-            public Dictionary<string, OperationEffect> OperationEffectListById => operationEffectListById ??= BuildById(model.OperationEffectList, row => row.Id, "OperationEffect");
-
-            private Dictionary<string, ProviderBinding>? providerBindingListById;
-
-            public Dictionary<string, ProviderBinding> ProviderBindingListById => providerBindingListById ??= BuildById(model.ProviderBindingList, row => row.Id, "ProviderBinding");
-
-            private Dictionary<string, WorkspaceInstance>? workspaceInstanceListById;
-
-            public Dictionary<string, WorkspaceInstance> WorkspaceInstanceListById => workspaceInstanceListById ??= BuildById(model.WorkspaceInstanceList, row => row.Id, "WorkspaceInstance");
-
-            private Dictionary<string, WorkspaceLink>? workspaceLinkListById;
-
-            public Dictionary<string, WorkspaceLink> WorkspaceLinkListById => workspaceLinkListById ??= BuildById(model.WorkspaceLinkList, row => row.Id, "WorkspaceLink");
-
-            private Dictionary<string, WorkspaceMount>? workspaceMountListById;
-
-            public Dictionary<string, WorkspaceMount> WorkspaceMountListById => workspaceMountListById ??= BuildById(model.WorkspaceMountList, row => row.Id, "WorkspaceMount");
+            public Dictionary<string, Workspace> WorkspaceListById => workspaceListById ??= BuildById(model.WorkspaceList, row => row.Id, "Workspace");
 
         }
 
@@ -1891,37 +924,17 @@ namespace MetaMesh
 
             public Dictionary<string, Mesh> MeshListById => meshListById ??= BuildById(model.MeshList, row => row.Id, "Mesh");
 
-            private Dictionary<string, MeshSuggestion>? meshSuggestionListById;
+            private Dictionary<string, Operation>? operationListById;
 
-            public Dictionary<string, MeshSuggestion> MeshSuggestionListById => meshSuggestionListById ??= BuildById(model.MeshSuggestionList, row => row.Id, "MeshSuggestion");
+            public Dictionary<string, Operation> OperationListById => operationListById ??= BuildById(model.OperationList, row => row.Id, "Operation");
 
-            private Dictionary<string, ModelProvider>? modelProviderListById;
+            private Dictionary<string, OperationStep>? operationStepListById;
 
-            public Dictionary<string, ModelProvider> ModelProviderListById => modelProviderListById ??= BuildById(model.ModelProviderList, row => row.Id, "ModelProvider");
+            public Dictionary<string, OperationStep> OperationStepListById => operationStepListById ??= BuildById(model.OperationStepList, row => row.Id, "OperationStep");
 
-            private Dictionary<string, OperationCapability>? operationCapabilityListById;
+            private Dictionary<string, Workspace>? workspaceListById;
 
-            public Dictionary<string, OperationCapability> OperationCapabilityListById => operationCapabilityListById ??= BuildById(model.OperationCapabilityList, row => row.Id, "OperationCapability");
-
-            private Dictionary<string, OperationEffect>? operationEffectListById;
-
-            public Dictionary<string, OperationEffect> OperationEffectListById => operationEffectListById ??= BuildById(model.OperationEffectList, row => row.Id, "OperationEffect");
-
-            private Dictionary<string, ProviderBinding>? providerBindingListById;
-
-            public Dictionary<string, ProviderBinding> ProviderBindingListById => providerBindingListById ??= BuildById(model.ProviderBindingList, row => row.Id, "ProviderBinding");
-
-            private Dictionary<string, WorkspaceInstance>? workspaceInstanceListById;
-
-            public Dictionary<string, WorkspaceInstance> WorkspaceInstanceListById => workspaceInstanceListById ??= BuildById(model.WorkspaceInstanceList, row => row.Id, "WorkspaceInstance");
-
-            private Dictionary<string, WorkspaceLink>? workspaceLinkListById;
-
-            public Dictionary<string, WorkspaceLink> WorkspaceLinkListById => workspaceLinkListById ??= BuildById(model.WorkspaceLinkList, row => row.Id, "WorkspaceLink");
-
-            private Dictionary<string, WorkspaceMount>? workspaceMountListById;
-
-            public Dictionary<string, WorkspaceMount> WorkspaceMountListById => workspaceMountListById ??= BuildById(model.WorkspaceMountList, row => row.Id, "WorkspaceMount");
+            public Dictionary<string, Workspace> WorkspaceListById => workspaceListById ??= BuildById(model.WorkspaceList, row => row.Id, "Workspace");
 
         }
 
@@ -1953,89 +966,35 @@ namespace MetaMesh
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(MeshSuggestion),
-                "Id",
-                "Message",
-                "Severity",
-                "SuggestedHandle",
-                "SuggestedLifecycle",
-                "SuggestedPath",
-                "SuggestedWorkspaceKind",
-                "SuggestionKind",
-                "WorkspaceHandle",
-                "Mesh",
-                "WorkspaceInstance"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(ModelProvider),
+            if (HasUnexpectedProperties(typeof(Operation),
                 "Id",
                 "Description",
-                "ExecutableName",
                 "Name",
-                "ProviderKind",
                 "Mesh"))
             {
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(OperationCapability),
+            if (HasUnexpectedProperties(typeof(OperationStep),
                 "Id",
-                "CanHandleHostRequest",
+                "Arguments",
                 "Description",
+                "Executable",
                 "Name",
-                "ModelProvider"))
+                "WorkingDirectory",
+                "Operation",
+                "PreviousStep"))
             {
                 return true;
             }
 
-            if (HasUnexpectedProperties(typeof(OperationEffect),
+            if (HasUnexpectedProperties(typeof(Workspace),
                 "Id",
-                "EffectKind",
-                "OperationCapability"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(ProviderBinding),
-                "Id",
-                "SupportedModelName",
-                "ModelProvider",
-                "WorkspaceInstance"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(WorkspaceInstance),
-                "Id",
-                "DisplayName",
-                "Handle",
-                "Lifecycle",
+                "Description",
                 "ModelName",
-                "Summary",
-                "WorkspaceKind",
+                "Name",
+                "Path",
                 "Mesh"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(WorkspaceLink),
-                "Id",
-                "Description",
-                "Kind",
-                "FromWorkspace",
-                "Mesh",
-                "ToWorkspace"))
-            {
-                return true;
-            }
-
-            if (HasUnexpectedProperties(typeof(WorkspaceMount),
-                "Id",
-                "PathKind",
-                "PhysicalPath",
-                "WorkspaceInstance"))
             {
                 return true;
             }
@@ -2048,14 +1007,9 @@ namespace MetaMesh
             var knownLists = new HashSet<string>(StringComparer.Ordinal)
             {
                 "MeshList",
-                "MeshSuggestionList",
-                "ModelProviderList",
-                "OperationCapabilityList",
-                "OperationEffectList",
-                "ProviderBindingList",
-                "WorkspaceInstanceList",
-                "WorkspaceLinkList",
-                "WorkspaceMountList",
+                "OperationList",
+                "OperationStepList",
+                "WorkspaceList",
             };
             return typeof(MetaMeshModel).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Any(property =>

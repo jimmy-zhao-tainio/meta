@@ -5,35 +5,39 @@
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-name" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-name">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-scan:parameter:param-scan-root" ExecutableCommandId="exec-scan" ParameterId="param-scan-root">
+    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-root" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-root">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-scan:parameter:param-scan-new-workspace" ExecutableCommandId="exec-scan" ParameterId="param-scan-new-workspace">
+    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-description" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-description">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-scan:parameter:param-scan-name" ExecutableCommandId="exec-scan" ParameterId="param-scan-name">
+    <ExecutableCommandParameter Id="exec-show:parameter:param-show-verbose" ExecutableCommandId="exec-show" ParameterId="param-show-verbose">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-suggest:parameter:param-suggest-root" ExecutableCommandId="exec-suggest" ParameterId="param-suggest-root">
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-name" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-name">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-show:parameter:param-show-workspace" ExecutableCommandId="exec-show" ParameterId="param-show-workspace">
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-path" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-path">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-check:parameter:param-check-workspace" ExecutableCommandId="exec-check" ParameterId="param-check-workspace">
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-model" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-model">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-impact:parameter:param-impact-workspace" ExecutableCommandId="exec-impact" ParameterId="param-impact-workspace">
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-description" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-description">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-impact:parameter:param-impact-handle" ExecutableCommandId="exec-impact" ParameterId="param-impact-handle">
+    <ExecutableCommandParameter Id="exec-add-operation:parameter:param-operation-name" ExecutableCommandId="exec-add-operation" ParameterId="param-operation-name">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-mount:parameter:param-mount-workspace" ExecutableCommandId="exec-mount" ParameterId="param-mount-workspace">
+    <ExecutableCommandParameter Id="exec-add-operation:parameter:param-operation-description" ExecutableCommandId="exec-add-operation" ParameterId="param-operation-description">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-mount:parameter:param-mount-handle" ExecutableCommandId="exec-mount" ParameterId="param-mount-handle">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-operation" ExecutableCommandId="exec-add-step" ParameterId="param-step-operation">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-mount:parameter:param-mount-path" ExecutableCommandId="exec-mount" ParameterId="param-mount-path">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-name" ExecutableCommandId="exec-add-step" ParameterId="param-step-name">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-link:parameter:param-link-workspace" ExecutableCommandId="exec-link" ParameterId="param-link-workspace">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-executable" ExecutableCommandId="exec-add-step" ParameterId="param-step-executable">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-link:parameter:param-link-from" ExecutableCommandId="exec-link" ParameterId="param-link-from">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-arguments" ExecutableCommandId="exec-add-step" ParameterId="param-step-arguments">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-link:parameter:param-link-to" ExecutableCommandId="exec-link" ParameterId="param-link-to">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-working-directory" ExecutableCommandId="exec-add-step" ParameterId="param-step-working-directory">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-link:parameter:param-link-kind" ExecutableCommandId="exec-link" ParameterId="param-link-kind">
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-previous-step" ExecutableCommandId="exec-add-step" ParameterId="param-step-previous-step">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-description" ExecutableCommandId="exec-add-step" ParameterId="param-step-description">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-run:parameter:param-run-operation" ExecutableCommandId="exec-run" ParameterId="param-run-operation">
     </ExecutableCommandParameter>
   </ExecutableCommandParameterList>
 </MetaCli>
