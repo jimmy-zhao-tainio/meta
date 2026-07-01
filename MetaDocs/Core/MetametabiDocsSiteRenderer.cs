@@ -38,11 +38,13 @@ public sealed class MetametabiDocsSiteRenderer
         DocumentationView view,
         IReadOnlyDictionary<string, DocumentationSubject> subjectsByKey)
     {
-        var subjectNodes = model.DocumentationViewNodeList
-            .Where(node =>
+        var subjectNodes = MetaDocsOrdering.ByPrevious(
+                model.DocumentationViewNodeList
+                    .Where(node =>
                 ReferenceEquals(node.DocumentationView, view) &&
-                !string.IsNullOrWhiteSpace(node.SubjectKey))
-            .OrderBy(node => ParseOrdinal(node.Ordinal))
+                !string.IsNullOrWhiteSpace(node.SubjectKey)),
+                static node => node.PreviousNode,
+                static node => node.Title)
             .Select(node => subjectsByKey.TryGetValue(node.SubjectKey!, out var subject) &&
                             MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out var classification)
                 ? new ClassifiedReferenceSubject(subject, classification)
@@ -1053,10 +1055,12 @@ public sealed class MetametabiDocsSiteRenderer
             string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase));
 
     private static DocumentationNarrative[] Narratives(MetaDocsModel model, DocumentationSubject subject) =>
-        model.DocumentationNarrativeList
-            .Where(row => string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(row => !string.IsNullOrWhiteSpace(row.Body))
-            .OrderBy(row => ParseOrdinal(row.Ordinal))
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationNarrativeList
+                    .Where(row => string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
+                    .Where(row => !string.IsNullOrWhiteSpace(row.Body)),
+                static row => row.PreviousNarrative,
+                static row => $"{row.Slot}:{row.Title}:{row.Id}")
             .ToArray();
 
     private static DocumentationFact[] Facts(MetaDocsModel model, DocumentationSubject subject) =>
@@ -1070,12 +1074,13 @@ public sealed class MetametabiDocsSiteRenderer
         MetaDocsModel model,
         DocumentationSubject parent,
         string kind) =>
-        model.DocumentationSubjectList
-            .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
-            .Where(IsRenderable)
-            .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-            .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase)
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationSubjectList
+                    .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
+                    .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+                    .Where(IsRenderable),
+                static subject => subject.PreviousSubject,
+                static subject => subject.DisplayName)
             .ToArray();
 
     private static EntityReference[] IncomingEntityReferences(MetaDocsModel model, DocumentationSubject entity)
@@ -1136,10 +1141,10 @@ public sealed class MetametabiDocsSiteRenderer
                 return;
             }
 
-            foreach (var command in children
-                         .Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase))
-                         .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-                         .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase))
+            foreach (var command in MetaDocsOrdering.ByPrevious(
+                         children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+                         static subject => subject.PreviousSubject,
+                         static subject => subject.DisplayName))
             {
                 commands.Add(command);
                 AddCliCommandDescendants(command.Id);
@@ -1163,9 +1168,11 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static string ResolveCss(MetaDocsModel model)
     {
-        var asset = model.DocumentationThemeAssetList
-            .Where(row => string.Equals(row.AssetKind, "Css", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(row => ParseOrdinal(row.Ordinal))
+        var asset = MetaDocsOrdering.ByPrevious(
+                model.DocumentationThemeAssetList
+                    .Where(row => string.Equals(row.AssetKind, "Css", StringComparison.OrdinalIgnoreCase)),
+                static row => row.PreviousAsset,
+                static row => row.Name)
             .FirstOrDefault(row => !string.IsNullOrWhiteSpace(row.Content));
         return asset?.Content ?? string.Empty;
     }
@@ -1174,7 +1181,6 @@ public sealed class MetametabiDocsSiteRenderer
     {
         var asset = model.DocumentationThemeAssetList
             .Where(row => string.Equals(row.Id, "theme:metametabi-static:asset:brand-mark", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(row => ParseOrdinal(row.Ordinal))
             .FirstOrDefault(row => !string.IsNullOrWhiteSpace(row.Content));
         return asset?.Content ?? MetaDocsDefaults.MetametabiBrandMarkSvg;
     }
@@ -1205,9 +1211,11 @@ public sealed class MetametabiDocsSiteRenderer
     }
 
     private static string ResolveShellTemplate(MetaDocsModel model) =>
-        model.DocumentationTemplateList
-            .Where(row => string.Equals(row.Kind, "SiteShell", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(row => ParseOrdinal(row.Ordinal))
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationTemplateList
+                    .Where(row => string.Equals(row.Kind, "SiteShell", StringComparison.OrdinalIgnoreCase)),
+                static row => row.PreviousTemplate,
+                static row => row.Name)
             .Select(row => row.Html)
             .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value))
         ?? MetaDocsDefaults.DefaultShellTemplate;
@@ -1246,9 +1254,6 @@ public sealed class MetametabiDocsSiteRenderer
             ? title[..^" reference".Length]
             : title;
     }
-
-    private static int ParseOrdinal(string? value) =>
-        int.TryParse(value, out var parsed) ? parsed : int.MaxValue;
 
     private static string FirstNonEmpty(params string?[] values) =>
         values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;

@@ -17,8 +17,6 @@ namespace MetaDocs
 
         public string Include { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string PropertyName { get; set; } = string.Empty;
 
         public string ReviewStatus { get; set; } = string.Empty;

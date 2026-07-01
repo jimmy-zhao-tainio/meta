@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-weave</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>050</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding" DocumentationSourceId="source:cli:meta-weave">
       <DisplayName>meta-weave add-binding</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-binding</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a property binding between two model references.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:name" DocumentationSourceId="source:cli:meta-weave">
@@ -30,105 +28,96 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Binding name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-entity" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-entity" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:name">
       <DisplayName>--source-entity</DisplayName>
       <DisplayPath>meta-weave add-binding --source-entity</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:source-entity</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-source-entity</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source entity name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-model" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-model" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-entity">
       <DisplayName>--source-model</DisplayName>
       <DisplayPath>meta-weave add-binding --source-model</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:source-model</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-source-model</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source model alias.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-property" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:source-property" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-model">
       <DisplayName>--source-property</DisplayName>
       <DisplayPath>meta-weave add-binding --source-property</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:source-property</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-source-property</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source property name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-entity" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-entity" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-property">
       <DisplayName>--target-entity</DisplayName>
       <DisplayPath>meta-weave add-binding --target-entity</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:target-entity</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-target-entity</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Target entity name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-model" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-model" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-entity">
       <DisplayName>--target-model</DisplayName>
       <DisplayPath>meta-weave add-binding --target-model</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:target-model</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-target-model</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Target model alias.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-property" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:target-property" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-model">
       <DisplayName>--target-property</DisplayName>
       <DisplayPath>meta-weave add-binding --target-property</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:target-property</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-target-property</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Target property name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-property">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-weave add-binding --workspace</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-binding:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-binding-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-binding</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-binding">
       <DisplayName>meta-weave add-model</DisplayName>
       <DisplayPath>meta-weave add-model</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-model</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-model</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a referenced model workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:alias" DocumentationSourceId="source:cli:meta-weave">
@@ -138,57 +127,52 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-add-model-alias</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-model</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Local model alias used by bindings.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:model" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:model" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-model:option:alias">
       <DisplayName>--model</DisplayName>
       <DisplayPath>meta-weave add-model --model</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-model:option:model</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-model-model</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-model</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Referenced model name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-model:option:model">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-weave add-model --workspace</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-model:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-model-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-model</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:workspace-path" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-model:option:workspace-path" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace">
       <DisplayName>--workspace-path</DisplayName>
       <DisplayPath>meta-weave add-model --workspace-path</DisplayPath>
       <Key>source:cli:meta-weave:app:command:add-model:option:workspace-path</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-add-model-workspace-path</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:add-model</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Referenced model workspace path.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:check" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:check" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:add-model">
       <DisplayName>meta-weave check</DisplayName>
       <DisplayPath>meta-weave check</DisplayPath>
       <Key>source:cli:meta-weave:app:command:check</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-check</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Validate property bindings across referenced workspaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta-weave">
@@ -198,33 +182,30 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-check-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:check</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:help" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:help" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:check">
       <DisplayName>meta-weave help</DisplayName>
       <DisplayPath>meta-weave help</DisplayPath>
       <Key>source:cli:meta-weave:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:help">
       <DisplayName>meta-weave materialize</DisplayName>
       <DisplayPath>meta-weave materialize</DisplayPath>
       <Key>source:cli:meta-weave:app:command:materialize</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-materialize</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Materialize a new workspace from a valid weave.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:model" DocumentationSourceId="source:cli:meta-weave">
@@ -234,45 +215,41 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-materialize-model</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:materialize</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Materialized model name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:new-workspace" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:new-workspace" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:model">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-weave materialize --new-workspace</DisplayPath>
       <Key>source:cli:meta-weave:app:command:materialize:option:new-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-materialize-new-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:materialize</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Empty target directory for the materialized workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:new-workspace">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-weave materialize --workspace</DisplayPath>
       <Key>source:cli:meta-weave:app:command:materialize:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-materialize-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:materialize</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:new-workspace" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:new-workspace" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:materialize">
       <DisplayName>meta-weave new-workspace</DisplayName>
       <DisplayPath>meta-weave new-workspace</DisplayPath>
       <Key>source:cli:meta-weave:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a MetaWeave workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-weave">
@@ -282,21 +259,19 @@
       <Kind>CliArgument</Kind>
       <NativeId>pos-new-workspace-path</NativeId>
       <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Empty target directory for the new MetaWeave workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:suggest" DocumentationSourceId="source:cli:meta-weave">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:suggest" DocumentationSourceId="source:cli:meta-weave" PreviousSubjectId="source:cli:meta-weave:app:command:new-workspace">
       <DisplayName>meta-weave suggest</DisplayName>
       <DisplayPath>meta-weave suggest</DisplayPath>
       <Key>source:cli:meta-weave:app:command:suggest</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-suggest</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-weave:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Suggest missing property bindings.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationSourceId="source:cli:meta-weave">
@@ -306,9 +281,8 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-suggest-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-weave:app:command:suggest</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

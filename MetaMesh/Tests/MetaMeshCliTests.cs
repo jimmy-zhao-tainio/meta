@@ -11,6 +11,10 @@ public sealed class MetaMeshCliTests
 
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("meta-mesh <command>", result.Output);
+        Assert.Contains("workspaces", result.Output);
+        Assert.Contains("operations", result.Output);
+        Assert.Contains("steps", result.Output);
+        Assert.Contains("validate", result.Output);
         Assert.Contains("add-workspace", result.Output);
         Assert.Contains("add-operation", result.Output);
         Assert.Contains("add-step", result.Output);
@@ -70,14 +74,38 @@ public sealed class MetaMeshCliTests
             var show = RunCli($"show --workspace \"{meshPath}\"");
             Assert.Equal(0, show.ExitCode);
             Assert.Contains("MetaMesh:", show.Output);
-            Assert.Contains("Operations:", show.Output);
-            Assert.Contains("refresh-docs", show.Output);
-            Assert.Contains("Use --verbose", show.Output);
+            Assert.Contains("Workspaces: 1 (0 missing)", show.Output);
+            Assert.Contains("Operations: 1", show.Output);
+            Assert.Contains("Run `meta-mesh operations`", show.Output);
+            Assert.DoesNotContain("refresh-docs", show.Output);
             Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", show.Output);
+
+            var workspaces = RunCli($"workspaces --workspace \"{meshPath}\"");
+            Assert.Equal(0, workspaces.ExitCode);
+            Assert.Contains("docs (MetaDocs) - ok", workspaces.Output);
+
+            var operations = RunCli($"operations --workspace \"{meshPath}\"");
+            Assert.Equal(0, operations.ExitCode);
+            Assert.Contains("refresh-docs", operations.Output);
+            Assert.Contains("1 step", operations.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", operations.Output);
+
+            var steps = RunCli($"steps --workspace \"{meshPath}\" --operation refresh-docs");
+            Assert.Equal(0, steps.ExitCode);
+            Assert.Contains("Operation: refresh-docs", steps.Output);
+            Assert.Contains("1. echo", steps.Output);
+            Assert.Contains("cmd.exe /c echo hello {workspace:docs.path}", steps.Output);
+
+            var validate = RunCli($"validate --workspace \"{meshPath}\" --operation refresh-docs");
+            Assert.Equal(0, validate.ExitCode);
+            Assert.Contains("Operation: refresh-docs", validate.Output);
+            Assert.Contains("Validation: OK", validate.Output);
+            Assert.Contains("1 step ready.", validate.Output);
 
             var verboseShow = RunCli($"show --workspace \"{meshPath}\" --verbose");
             Assert.Equal(0, verboseShow.ExitCode);
             Assert.Contains("Workspaces:", verboseShow.Output);
+            Assert.Contains("Operations:", verboseShow.Output);
             Assert.Contains("cmd.exe /c echo hello {workspace:docs.path}", verboseShow.Output);
 
             var run = RunCli($"run --workspace \"{meshPath}\" --operation refresh-docs");
@@ -118,6 +146,12 @@ public sealed class MetaMeshCliTests
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing --executable definitely-not-a-metamesh-executable --previous-step touch").ExitCode);
+
+            var validate = RunCli($"validate --workspace \"{meshPath}\" --operation preflight");
+
+            Assert.NotEqual(0, validate.ExitCode);
+            Assert.Contains("Executable 'definitely-not-a-metamesh-executable' for step 'missing' was not found.", validate.Output);
+            Assert.False(File.Exists(markerPath));
 
             var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
 
@@ -206,11 +240,15 @@ public sealed class MetaMeshCliTests
             var show = RunCli($"show --workspace \"{meshPath}\"");
 
             Assert.Equal(0, show.ExitCode);
-            Assert.Contains("MissingWorkspaces: 2", show.Output);
-            Assert.Contains("Missing workspaces:", show.Output);
-            Assert.Contains("docs", show.Output);
-            Assert.Contains("pipeline", show.Output);
-            Assert.Contains("directory does not exist", show.Output);
+            Assert.Contains("Workspaces: 2 (2 missing)", show.Output);
+            Assert.Contains("Run `meta-mesh workspaces`", show.Output);
+            Assert.DoesNotContain("directory does not exist", show.Output);
+
+            var workspaces = RunCli($"workspaces --workspace \"{meshPath}\"");
+            Assert.Equal(0, workspaces.ExitCode);
+            Assert.Contains("docs (MetaDocs) - missing", workspaces.Output);
+            Assert.Contains("pipeline (MetaPipeline) - missing", workspaces.Output);
+            Assert.Contains("directory does not exist", workspaces.Output);
 
             var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
 

@@ -53,9 +53,8 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
 @media(max-width:900px){body{overflow:auto}.topbar-inner,.app{width:min(100vw - 32px,1320px)}.app{height:auto;grid-template-columns:1fr}.sidebar{height:auto;position:static;padding-bottom:20px;border-bottom:1px solid var(--line)}.viewer{height:auto;overflow:visible;padding:22px 0 64px}.entry-grid{grid-template-columns:1fr}.entity-summary,.command-summary{grid-template-columns:24px minmax(0,1fr)}.entity-counts,.command-counts{grid-column:2;white-space:normal}.entity-body,.command-body{grid-template-columns:24px minmax(0,1fr)}}</Content>
       <MediaType>text/css</MediaType>
       <Name>site.css</Name>
-      <Ordinal>010</Ordinal>
     </DocumentationThemeAsset>
-    <DocumentationThemeAsset Id="theme:metametabi-static:asset:brand-mark" DocumentationThemeId="theme:metametabi-static">
+    <DocumentationThemeAsset Id="theme:metametabi-static:asset:brand-mark" DocumentationThemeId="theme:metametabi-static" PreviousAssetId="theme:metametabi-static:asset:css">
       <AssetKind>Image</AssetKind>
       <Content>&lt;svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
   &lt;circle cx="11" cy="11" r="11" fill="#0a0a0a"/&gt;
@@ -64,7 +63,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
       <Hash>metametabi.com-inline-nav-svg-20260608</Hash>
       <MediaType>image/svg+xml</MediaType>
       <Name>metametabi-mark.svg</Name>
-      <Ordinal>020</Ordinal>
     </DocumentationThemeAsset>
   </DocumentationThemeAssetList>
 </MetaDocs>

@@ -15,7 +15,6 @@ public sealed class MetaDocsCliImporter
         CliDocumentationProfile? profile = null,
         string applicationId = "",
         string groupName = "",
-        int ordinal = 100,
         string sourceId = "")
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -56,7 +55,7 @@ public sealed class MetaDocsCliImporter
             appName,
             applicationSummary,
             string.Empty,
-            ordinal);
+            null);
         session.UpsertFact(application, "Cli", "ApplicationId", app.Id);
         session.UpsertFact(application, "Cli", "ExecutableName", appName);
         session.UpsertFact(application, "Cli", "CommandCount", executables.Length.ToString(CultureInfo.InvariantCulture), "Number");
@@ -67,33 +66,34 @@ public sealed class MetaDocsCliImporter
             "Summary",
             "Summary",
             applicationSummary,
-            hasAuthoredApplicationSummary ? "Authored" : "Generated",
-            10);
-        session.EnsureViewNode(application, appName, ordinal);
+            hasAuthoredApplicationSummary ? "Authored" : "Generated");
+        session.EnsureViewNode(application, appName);
 
+        DocumentationSubject? previousOption = null;
         var appOptions = ApplicationOptions(cli, surface, app).ToArray();
-        for (var i = 0; i < appOptions.Length; i++)
+        foreach (var option in appOptions)
         {
-            AddOption(model, session, application, cli, surface, appOptions[i], i + 1, profile, string.Empty);
+            previousOption = AddOption(model, session, application, cli, surface, option, previousOption, profile, string.Empty);
         }
 
-        for (var i = 0; i < executables.Length; i++)
+        DocumentationSubject? previousCommand = null;
+        foreach (var executable in executables)
         {
-            AddCommand(model, session, application, cli, surface, executables[i], i + 1, profile);
+            previousCommand = AddCommand(model, session, application, cli, surface, executable, previousCommand, profile);
         }
 
         session.Complete(pruneMissingFromSource: true);
         return application;
     }
 
-    private static void AddCommand(
+    private static DocumentationSubject AddCommand(
         MetaDocsModel model,
         MetaDocsImportSession session,
         DocumentationSubject application,
         MetaCliModel cli,
         MetaCliCommandSurface surface,
         ExecutableCommand executable,
-        int ordinal,
+        DocumentationSubject? previousCommand,
         CliDocumentationProfile profile)
     {
         var commandRoute = surface.Route(executable.Command);
@@ -110,7 +110,7 @@ public sealed class MetaDocsCliImporter
             commandPath,
             commandSummary,
             application.Id,
-            ordinal);
+            previousCommand);
         session.UpsertFact(commandSubject, "Cli", "ExecutableCommandId", executable.Id);
         session.UpsertFact(commandSubject, "Cli", "CommandId", executable.Command.Id);
         session.UpsertFact(commandSubject, "Cli", "Name", commandRoute);
@@ -131,14 +131,13 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(commandSubject, "Cli", "OptionCount", commandOptions.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(commandSubject, "Cli", "PositionalCount", commandPositionals.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(commandSubject, "Cli", "ParameterGroupCount", parameterGroups.Length.ToString(CultureInfo.InvariantCulture), "Number");
-        session.UpsertNarrative(
+        var previousNarrative = session.UpsertNarrative(
             commandSubject,
             "Summary",
             "Summary",
             FirstNonEmpty(commandCommentary?.Purpose, FindNarrative(model, commandKey, "Summary")?.Body, commandSummary),
-            commandCommentary is null ? "Generated" : "Authored",
-            10);
-        UpsertNarrativeIfPresent(
+            commandCommentary is null ? "Generated" : "Authored");
+        previousNarrative = UpsertNarrativeIfPresent(
             model,
             session,
             commandSubject,
@@ -147,8 +146,8 @@ public sealed class MetaDocsCliImporter
             "Usage",
             commandCommentary?.WhenToUse,
             commandCommentary is null ? "Generated" : "Authored",
-            20);
-        UpsertNarrativeIfPresent(
+            previousNarrative);
+        previousNarrative = UpsertNarrativeIfPresent(
             model,
             session,
             commandSubject,
@@ -157,34 +156,39 @@ public sealed class MetaDocsCliImporter
             "How it works",
             commandCommentary?.HowItWorks,
             commandCommentary is null ? "Generated" : "Authored",
-            30);
+            previousNarrative);
 
         session.UpsertFact(commandSubject, "Usage", "001", BuildUsage(commandPath, commandOptions, commandPositionals, surface));
 
-        for (var i = 0; i < commandOptions.Length; i++)
+        DocumentationSubject? previousOption = null;
+        foreach (var option in commandOptions)
         {
-            AddOption(model, session, commandSubject, cli, surface, commandOptions[i], i + 1, profile, commandRoute);
+            previousOption = AddOption(model, session, commandSubject, cli, surface, option, previousOption, profile, commandRoute);
         }
 
-        for (var i = 0; i < commandPositionals.Length; i++)
+        DocumentationSubject? previousPositional = null;
+        foreach (var positional in commandPositionals)
         {
-            AddPositional(session, cli, commandSubject, commandPositionals[i], i + 1);
+            previousPositional = AddPositional(session, cli, commandSubject, positional, previousPositional);
         }
 
-        for (var i = 0; i < parameterGroups.Length; i++)
+        DocumentationSubject? previousGroup = null;
+        foreach (var group in parameterGroups)
         {
-            AddParameterGroup(session, cli, commandSubject, parameterGroups[i], i + 1);
+            previousGroup = AddParameterGroup(session, cli, commandSubject, group, previousGroup);
         }
+
+        return commandSubject;
     }
 
-    private static void AddOption(
+    private static DocumentationSubject AddOption(
         MetaDocsModel model,
         MetaDocsImportSession session,
         DocumentationSubject parent,
         MetaCliModel cli,
         MetaCliCommandSurface surface,
         Option option,
-        int ordinal,
+        DocumentationSubject? previousOption,
         CliDocumentationProfile profile,
         string commandRoute)
     {
@@ -204,7 +208,7 @@ public sealed class MetaDocsCliImporter
             $"{parent.DisplayPath} {optionName}",
             option.Parameter.Description ?? string.Empty,
             parent.Id,
-            ordinal);
+            previousOption);
         session.UpsertFact(optionSubject, "Cli", "OptionId", option.Id);
         session.UpsertFact(optionSubject, "Cli", "ParameterId", option.Parameter.Id);
         session.UpsertFact(optionSubject, "Cli", "Name", optionName);
@@ -216,13 +220,12 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(optionSubject, "Cli", "Repeatable", option.Parameter.IsRepeatable ?? string.Empty);
         session.UpsertFact(optionSubject, "Cli", "DefaultValue", option.Parameter.DefaultValue ?? string.Empty);
         session.UpsertFact(optionSubject, "Cli", "Aliases", string.Join(" ", tokens.Skip(1).Select(static token => token.Token)));
-        session.UpsertNarrative(
+        var previousNarrative = session.UpsertNarrative(
             optionSubject,
             "Summary",
             "Summary",
             FirstNonEmpty(optionCommentary?.Explanation, FindNarrative(model, optionKey, "Summary")?.Body, option.Parameter.Description),
-            optionCommentary is null ? "Generated" : "Authored",
-            10);
+            optionCommentary is null ? "Generated" : "Authored");
         UpsertNarrativeIfPresent(
             model,
             session,
@@ -232,20 +235,21 @@ public sealed class MetaDocsCliImporter
             "When to use",
             optionCommentary?.WhenToUse,
             optionCommentary is null ? "Generated" : "Authored",
-            20);
+            previousNarrative);
         session.UpsertFact(
             optionSubject,
             "Cli",
             "ExampleValue",
             FirstNonEmpty(optionCommentary?.ExampleValue, FindFact(model, optionKey, "Cli", "ExampleValue")?.Value));
+        return optionSubject;
     }
 
-    private static void AddPositional(
+    private static DocumentationSubject AddPositional(
         MetaDocsImportSession session,
         MetaCliModel cli,
         DocumentationSubject commandSubject,
         PositionalArgument positional,
-        int ordinal)
+        DocumentationSubject? previousPositional)
     {
         var parameter = positional.Parameter;
         var name = $"<{parameter.Name}>";
@@ -258,7 +262,7 @@ public sealed class MetaDocsCliImporter
             $"{commandSubject.DisplayPath} {name}",
             parameter.Description ?? string.Empty,
             commandSubject.Id,
-            ordinal);
+            previousPositional);
         session.UpsertFact(subject, "Cli", "PositionalArgumentId", positional.Id);
         session.UpsertFact(subject, "Cli", "ParameterId", parameter.Id);
         session.UpsertFact(subject, "Cli", "Name", parameter.Name);
@@ -267,14 +271,15 @@ public sealed class MetaDocsCliImporter
         session.UpsertFact(subject, "Cli", "Required", parameter.IsRequired ?? string.Empty);
         session.UpsertFact(subject, "Cli", "Repeatable", parameter.IsRepeatable ?? string.Empty);
         session.UpsertFact(subject, "Cli", "DefaultValue", parameter.DefaultValue ?? string.Empty);
+        return subject;
     }
 
-    private static void AddParameterGroup(
+    private static DocumentationSubject AddParameterGroup(
         MetaDocsImportSession session,
         MetaCliModel cli,
         DocumentationSubject commandSubject,
         ParameterGroup group,
-        int ordinal)
+        DocumentationSubject? previousGroup)
     {
         var members = cli.ParameterGroupMemberList
             .Where(member => ReferenceEquals(member.ParameterGroup, group))
@@ -300,13 +305,14 @@ public sealed class MetaDocsCliImporter
             $"{commandSubject.DisplayPath} group {displayName}",
             summary,
             commandSubject.Id,
-            ordinal);
+            previousGroup);
         session.UpsertFact(subject, "Cli", "ParameterGroupId", group.Id);
         session.UpsertFact(subject, "Cli", "Name", group.Name);
         session.UpsertFact(subject, "Cli", "Required", group.IsRequired ?? string.Empty);
         session.UpsertFact(subject, "Cli", "AllowsMultiple", group.AllowsMultiple ?? string.Empty);
         session.UpsertFact(subject, "Cli", "MemberCount", members.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(subject, "Cli", "Members", string.Join(", ", memberNames));
+        return subject;
     }
 
     private static void AddParameterShapeFacts(
@@ -333,17 +339,18 @@ public sealed class MetaDocsCliImporter
             .OrderBy(value => value.Value, StringComparer.OrdinalIgnoreCase)
             .ToArray();
         session.UpsertFact(subject, "Cli", "AllowedValues", string.Join(", ", allowedValues.Select(value => value.Value)));
-        for (var i = 0; i < allowedValues.Length; i++)
+        DocumentationSubject? previousValue = null;
+        foreach (var allowedValue in allowedValues)
         {
-            AddAllowedValue(session, subject, allowedValues[i], i + 1);
+            previousValue = AddAllowedValue(session, subject, allowedValue, previousValue);
         }
     }
 
-    private static void AddAllowedValue(
+    private static DocumentationSubject AddAllowedValue(
         MetaDocsImportSession session,
         DocumentationSubject parent,
         AllowedValue allowedValue,
-        int ordinal)
+        DocumentationSubject? previousValue)
     {
         var subject = session.UpsertSubject(
             $"{parent.Id}:allowed-value:{NormalizeKey(allowedValue.Value)}",
@@ -354,12 +361,13 @@ public sealed class MetaDocsCliImporter
             $"{parent.DisplayPath} value {allowedValue.Value}",
             allowedValue.Description ?? string.Empty,
             parent.Id,
-            ordinal);
+            previousValue);
         session.UpsertFact(subject, "Cli", "AllowedValueId", allowedValue.Id);
         session.UpsertFact(subject, "Cli", "Value", allowedValue.Value);
         session.UpsertFact(subject, "Cli", "Description", allowedValue.Description ?? string.Empty);
         session.UpsertFact(subject, "Cli", "ValueShapeId", allowedValue.ValueShape.Id);
         session.UpsertFact(subject, "Cli", "ValueShape", allowedValue.ValueShape.Name);
+        return subject;
     }
 
     private static Application ResolveApplication(MetaCliModel cli, string applicationId)
@@ -437,7 +445,7 @@ public sealed class MetaDocsCliImporter
     private static bool IsRequired(Parameter parameter) =>
         bool.TryParse(parameter.IsRequired, out var parsed) && parsed;
 
-    private static void UpsertNarrativeIfPresent(
+    private static DocumentationNarrative UpsertNarrativeIfPresent(
         MetaDocsModel model,
         MetaDocsImportSession session,
         DocumentationSubject subject,
@@ -446,17 +454,17 @@ public sealed class MetaDocsCliImporter
         string title,
         string? body,
         string origin,
-        int ordinal)
+        DocumentationNarrative previousNarrative)
     {
         var existing = FindNarrative(model, subjectKey, slot)?.Body;
         var resolvedBody = FirstNonEmpty(body, existing);
         if (string.IsNullOrWhiteSpace(resolvedBody))
         {
             RemoveEmptyGeneratedNarratives(model, subjectKey, slot);
-            return;
+            return previousNarrative;
         }
 
-        session.UpsertNarrative(subject, slot, title, resolvedBody, origin, ordinal);
+        return session.UpsertNarrative(subject, slot, title, resolvedBody, origin, previousNarrative);
     }
 
     private static void RemoveEmptyGeneratedNarratives(MetaDocsModel model, string subjectKey, string slot)

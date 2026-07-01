@@ -51,7 +51,7 @@ public sealed class MetaDocsInstanceImportPolicy
             .Where(spec => IsIncluded(spec.IncludeInstances))
             .Where(spec => IsInstanceSpecIncluded(spec.DocumentationInstanceImportSpec, sourceId))
             .OrderBy(spec => IsSourceSpecific(spec.DocumentationInstanceImportSpec, sourceId) ? 0 : 1)
-            .ThenBy(spec => ParseOrdinal(spec.Ordinal))
+            .ThenBy(spec => spec.Id, StringComparer.OrdinalIgnoreCase)
             .FirstOrDefault();
     }
 
@@ -86,6 +86,4 @@ public sealed class MetaDocsInstanceImportPolicy
                normalized.Equals("enabled", StringComparison.OrdinalIgnoreCase);
     }
 
-    private static int ParseOrdinal(string? value) =>
-        int.TryParse(value, out var parsed) ? parsed : int.MaxValue;
 }

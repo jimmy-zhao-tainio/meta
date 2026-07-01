@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-cli</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>020</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>meta-cli add-allowed-value</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-allowed-value</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add one allowed value for a value shape.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:description" DocumentationSourceId="source:cli:meta-cli">
@@ -30,65 +28,59 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-allowed-value-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-allowed-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-allowed-value:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-allowed-value --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-allowed-value:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-allowed-value-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-allowed-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:value" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:value" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-allowed-value:option:id">
       <DisplayName>--value</DisplayName>
       <DisplayPath>meta-cli add-allowed-value --value</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-allowed-value:option:value</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-allowed-value-parameter-value</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-allowed-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:value-shape" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:value-shape" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-allowed-value:option:value">
       <DisplayName>--value-shape</DisplayName>
       <DisplayPath>meta-cli add-allowed-value --value-shape</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-allowed-value:option:value-shape</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-allowed-value-parameter-value-shape</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-allowed-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-allowed-value:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-allowed-value:option:value-shape">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-allowed-value --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-allowed-value:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-allowed-value-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-allowed-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-allowed-value">
       <DisplayName>meta-cli add-application</DisplayName>
       <DisplayPath>meta-cli add-application</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-application</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a CLI application.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:description" DocumentationSourceId="source:cli:meta-cli">
@@ -98,76 +90,69 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:executable-name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:executable-name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application:option:description">
       <DisplayName>--executable-name</DisplayName>
       <DisplayPath>meta-cli add-application --executable-name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application:option:executable-name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-executable-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application:option:executable-name">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-application --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-application --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:version" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:version" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application:option:name">
       <DisplayName>--version</DisplayName>
       <DisplayPath>meta-cli add-application --version</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application:option:version</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-version</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application:option:version">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-application --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application">
       <DisplayName>meta-cli add-application-option</DisplayName>
       <DisplayPath>meta-cli add-application-option</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-application-option</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add an option available to all commands.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:application" DocumentationSourceId="source:cli:meta-cli">
@@ -177,75 +162,68 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-application</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:default-value" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:default-value" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:application">
       <DisplayName>--default-value</DisplayName>
       <DisplayPath>meta-cli add-application-option --default-value</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:default-value</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-default-value</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:default-value">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-application-option --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:description">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-application-option --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:option-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:option-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:name">
       <DisplayName>--option-id</DisplayName>
       <DisplayPath>meta-cli add-application-option --option-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:option-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-option-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:parameter-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:parameter-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:option-id">
       <DisplayName>--parameter-id</DisplayName>
       <DisplayPath>meta-cli add-application-option --parameter-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:parameter-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:repeatable" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:repeatable" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:parameter-id">
       <DisplayName>--repeatable</DisplayName>
       <DisplayPath>meta-cli add-application-option --repeatable</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:repeatable</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-repeatable</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:repeatable:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -254,31 +232,28 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:repeatable:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-application-option --repeatable value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:repeatable:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:required" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:required" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:repeatable">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta-cli add-application-option --required</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:required</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-required</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -287,76 +262,69 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-application-option --required value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:required:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:required">
       <DisplayName>--token</DisplayName>
       <DisplayPath>meta-cli add-application-option --token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:token</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-token</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:token-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:token-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:token">
       <DisplayName>--token-id</DisplayName>
       <DisplayPath>meta-cli add-application-option --token-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:token-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-token-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:value-shape" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:value-shape" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:token-id">
       <DisplayName>--value-shape</DisplayName>
       <DisplayPath>meta-cli add-application-option --value-shape</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:value-shape</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-value-shape</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-application-option:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option:option:value-shape">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-application-option --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-application-option:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-application-option-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-application-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-application-option">
       <DisplayName>meta-cli add-command</DisplayName>
       <DisplayPath>meta-cli add-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-command</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a command path segment.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:application" DocumentationSourceId="source:cli:meta-cli">
@@ -366,87 +334,79 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-application</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:application">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-command --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-command --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-command --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:parent-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:parent-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:name">
       <DisplayName>--parent-command</DisplayName>
       <DisplayPath>meta-cli add-command --parent-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:parent-command</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-parent-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:parent-command">
       <DisplayName>--token</DisplayName>
       <DisplayPath>meta-cli add-command --token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:token</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-token</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-command:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command:option:token">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-command --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-command:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-command-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-command">
       <DisplayName>meta-cli add-executable-command</DisplayName>
       <DisplayPath>meta-cli add-executable-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-executable-command</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-executable-command</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Mark a command as runnable.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command:option:command" DocumentationSourceId="source:cli:meta-cli">
@@ -456,43 +416,39 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-executable-command-parameter-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-executable-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-executable-command:option:command">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-executable-command --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-executable-command:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-executable-command-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-executable-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-executable-command:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-executable-command:option:id">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-executable-command --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-executable-command:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-executable-command-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-executable-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-executable-command">
       <DisplayName>meta-cli add-option</DisplayName>
       <DisplayPath>meta-cli add-option</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-option</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a command option with its first token.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:default-value" DocumentationSourceId="source:cli:meta-cli">
@@ -502,75 +458,68 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-default-value</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:default-value">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-option --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:executable-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:executable-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:description">
       <DisplayName>--executable-command</DisplayName>
       <DisplayPath>meta-cli add-option --executable-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:executable-command</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-executable-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:executable-command">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-option --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:option-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:option-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:name">
       <DisplayName>--option-id</DisplayName>
       <DisplayPath>meta-cli add-option --option-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:option-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-option-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:parameter-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:parameter-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:option-id">
       <DisplayName>--parameter-id</DisplayName>
       <DisplayPath>meta-cli add-option --parameter-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:parameter-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:repeatable" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:repeatable" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:parameter-id">
       <DisplayName>--repeatable</DisplayName>
       <DisplayPath>meta-cli add-option --repeatable</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:repeatable</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-repeatable</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:repeatable:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -579,31 +528,28 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:repeatable:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-option --repeatable value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:repeatable:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:required" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:required" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:repeatable">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta-cli add-option --required</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:required</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-required</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -612,76 +558,69 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-option --required value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:required:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:required">
       <DisplayName>--token</DisplayName>
       <DisplayPath>meta-cli add-option --token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:token</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-token</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:token-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:token-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:token">
       <DisplayName>--token-id</DisplayName>
       <DisplayPath>meta-cli add-option --token-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:token-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-token-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:value-shape" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:value-shape" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:token-id">
       <DisplayName>--value-shape</DisplayName>
       <DisplayPath>meta-cli add-option --value-shape</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:value-shape</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-value-shape</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option:option:value-shape">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-option --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option">
       <DisplayName>meta-cli add-option-token</DisplayName>
       <DisplayPath>meta-cli add-option-token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option-token</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-option-token</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add an additional token for an option.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:id" DocumentationSourceId="source:cli:meta-cli">
@@ -691,65 +630,59 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-token-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option-token</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:option" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:option" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option-token:option:id">
       <DisplayName>--option</DisplayName>
       <DisplayPath>meta-cli add-option-token --option</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option-token:option:option</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-token-parameter-option</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option-token</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:previous-token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:previous-token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option-token:option:option">
       <DisplayName>--previous-token</DisplayName>
       <DisplayPath>meta-cli add-option-token --previous-token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option-token:option:previous-token</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-token-parameter-previous-token</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option-token</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:token" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:token" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option-token:option:previous-token">
       <DisplayName>--token</DisplayName>
       <DisplayPath>meta-cli add-option-token --token</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option-token:option:token</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-token-parameter-token</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option-token</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-option-token:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option-token:option:token">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-option-token --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-option-token:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-option-token-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-option-token</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-option-token">
       <DisplayName>meta-cli add-parameter-group</DisplayName>
       <DisplayPath>meta-cli add-parameter-group</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-parameter-group</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Start a parameter choice group.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple" DocumentationSourceId="source:cli:meta-cli">
@@ -759,9 +692,8 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-allows-multiple</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -770,97 +702,88 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --allows-multiple value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:allows-multiple">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:executable-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:executable-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:description">
       <DisplayName>--executable-command</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --executable-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:executable-command</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-executable-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:executable-command">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:member-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:member-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:id">
       <DisplayName>--member-id</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --member-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:member-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-member-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:member-id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:parameter" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:parameter" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:name">
       <DisplayName>--parameter</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --parameter</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:parameter</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-parameter</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:required" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:required" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:parameter">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --required</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:required</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-required</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -869,43 +792,39 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --required value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:required:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group:option:required">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-parameter-group --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group">
       <DisplayName>meta-cli add-parameter-group-member</DisplayName>
       <DisplayPath>meta-cli add-parameter-group-member</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group-member</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-parameter-group-member</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add another parameter to a group.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:id" DocumentationSourceId="source:cli:meta-cli">
@@ -915,65 +834,59 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-member-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group-member</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group-member:option:id">
       <DisplayName>--parameter</DisplayName>
       <DisplayPath>meta-cli add-parameter-group-member --parameter</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-member-parameter-parameter</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group-member</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter-group" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter-group" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter">
       <DisplayName>--parameter-group</DisplayName>
       <DisplayPath>meta-cli add-parameter-group-member --parameter-group</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter-group</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-member-parameter-parameter-group</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group-member</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:previous-member" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:previous-member" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group-member:option:parameter-group">
       <DisplayName>--previous-member</DisplayName>
       <DisplayPath>meta-cli add-parameter-group-member --previous-member</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group-member:option:previous-member</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-member-parameter-previous-member</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group-member</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-parameter-group-member:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group-member:option:previous-member">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-parameter-group-member --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-parameter-group-member:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-parameter-group-member-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-parameter-group-member</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-parameter-group-member">
       <DisplayName>meta-cli add-positional</DisplayName>
       <DisplayPath>meta-cli add-positional</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-positional</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a positional argument.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:default-value" DocumentationSourceId="source:cli:meta-cli">
@@ -983,86 +896,78 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-default-value</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:default-value">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-positional --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:executable-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:executable-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:description">
       <DisplayName>--executable-command</DisplayName>
       <DisplayPath>meta-cli add-positional --executable-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:executable-command</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-executable-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:executable-command">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-positional --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:parameter-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:parameter-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:name">
       <DisplayName>--parameter-id</DisplayName>
       <DisplayPath>meta-cli add-positional --parameter-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:parameter-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:positional-id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:positional-id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:parameter-id">
       <DisplayName>--positional-id</DisplayName>
       <DisplayPath>meta-cli add-positional --positional-id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:positional-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-positional-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:previous-argument" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:previous-argument" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:positional-id">
       <DisplayName>--previous-argument</DisplayName>
       <DisplayPath>meta-cli add-positional --previous-argument</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:previous-argument</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-previous-argument</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:repeatable" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:repeatable" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:previous-argument">
       <DisplayName>--repeatable</DisplayName>
       <DisplayPath>meta-cli add-positional --repeatable</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:repeatable</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-repeatable</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:repeatable:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -1071,31 +976,28 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:repeatable:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:repeatable:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-positional --repeatable value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:repeatable:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional:option:repeatable</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:required" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:required" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:repeatable">
       <DisplayName>--required</DisplayName>
       <DisplayPath>meta-cli add-positional --required</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:required</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-required</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -1104,54 +1006,49 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-positional --required value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:required:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional:option:required</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:value-shape" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:value-shape" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:required">
       <DisplayName>--value-shape</DisplayName>
       <DisplayPath>meta-cli add-positional --value-shape</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:value-shape</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-value-shape</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-positional:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional:option:value-shape">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-positional --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-positional:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-positional-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-positional</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-positional">
       <DisplayName>meta-cli add-value-arity</DisplayName>
       <DisplayPath>meta-cli add-value-arity</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-value-arity</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Define how many values a parameter accepts.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:description" DocumentationSourceId="source:cli:meta-cli">
@@ -1161,76 +1058,69 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-value-arity --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:max-value-count" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:max-value-count" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity:option:id">
       <DisplayName>--max-value-count</DisplayName>
       <DisplayPath>meta-cli add-value-arity --max-value-count</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity:option:max-value-count</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-max-value-count</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:min-value-count" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:min-value-count" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity:option:max-value-count">
       <DisplayName>--min-value-count</DisplayName>
       <DisplayPath>meta-cli add-value-arity --min-value-count</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity:option:min-value-count</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-min-value-count</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity:option:min-value-count">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-value-arity --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-arity:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-value-arity --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-arity:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-arity-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-arity</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-arity">
       <DisplayName>meta-cli add-value-shape</DisplayName>
       <DisplayPath>meta-cli add-value-shape</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-value-shape</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Define a parameter value shape.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value" DocumentationSourceId="source:cli:meta-cli">
@@ -1240,9 +1130,8 @@
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-allows-option-like-value</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value:allowed-value:false" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>false</DisplayName>
@@ -1251,110 +1140,100 @@
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-false</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value:allowed-value:true" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value:allowed-value:true" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value:allowed-value:false">
       <DisplayName>true</DisplayName>
       <DisplayPath>meta-cli add-value-shape --allows-option-like-value value true</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value:allowed-value:true</Key>
       <Kind>CliAllowedValue</Kind>
       <NativeId>allowed-boolean-true</NativeId>
       <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:description" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:description" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:allows-option-like-value">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-cli add-value-shape --description</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:id" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:id" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-cli add-value-shape --id</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:name" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:name" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-cli add-value-shape --name</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:value-arity" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:value-arity" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:name">
       <DisplayName>--value-arity</DisplayName>
       <DisplayPath>meta-cli add-value-shape --value-arity</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:value-arity</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-value-arity</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:value-label" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:value-label" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:value-arity">
       <DisplayName>--value-label</DisplayName>
       <DisplayPath>meta-cli add-value-shape --value-label</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:value-label</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-value-label</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:add-value-shape:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape:option:value-label">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli add-value-shape --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:add-value-shape:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-add-value-shape-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:add-value-shape</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:help" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:help" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:add-value-shape">
       <DisplayName>meta-cli help</DisplayName>
       <DisplayPath>meta-cli help</DisplayPath>
       <Key>source:cli:meta-cli:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>013</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:help">
       <DisplayName>meta-cli new-workspace</DisplayName>
       <DisplayPath>meta-cli new-workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>014</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a MetaCli workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:option:application" DocumentationSourceId="source:cli:meta-cli">
@@ -1364,31 +1243,28 @@
       <Kind>CliOption</Kind>
       <NativeId>option-command-new-workspace-parameter-application</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:option:default-help" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:option:default-help" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace:option:application">
       <DisplayName>--default-help</DisplayName>
       <DisplayPath>meta-cli new-workspace --default-help</DisplayPath>
       <Key>source:cli:meta-cli:app:command:new-workspace:option:default-help</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-command-new-workspace-parameter-default-help</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:option:standard-cli-shapes" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:option:standard-cli-shapes" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace:option:default-help">
       <DisplayName>--standard-cli-shapes</DisplayName>
       <DisplayPath>meta-cli new-workspace --standard-cli-shapes</DisplayPath>
       <Key>source:cli:meta-cli:app:command:new-workspace:option:standard-cli-shapes</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-command-new-workspace-parameter-standard-cli-shapes</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-cli">
       <DisplayName>&lt;Path&gt;</DisplayName>
@@ -1397,20 +1273,18 @@
       <Kind>CliArgument</Kind>
       <NativeId>pos-command-new-workspace-argument-path</NativeId>
       <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace">
       <DisplayName>meta-cli set-default-command</DisplayName>
       <DisplayPath>meta-cli set-default-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:set-default-command</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-set-default-command</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>015</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Set the application-level default command.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command:option:application" DocumentationSourceId="source:cli:meta-cli">
@@ -1420,43 +1294,39 @@
       <Kind>CliOption</Kind>
       <NativeId>option-set-default-command-parameter-application</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:set-default-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command:option:executable-command" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command:option:executable-command" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:set-default-command:option:application">
       <DisplayName>--executable-command</DisplayName>
       <DisplayPath>meta-cli set-default-command --executable-command</DisplayPath>
       <Key>source:cli:meta-cli:app:command:set-default-command:option:executable-command</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-set-default-command-parameter-executable-command</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:set-default-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command:option:workspace" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command:option:workspace" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:set-default-command:option:executable-command">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-cli set-default-command --workspace</DisplayPath>
       <Key>source:cli:meta-cli:app:command:set-default-command:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-set-default-command-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:set-default-command</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:show" DocumentationSourceId="source:cli:meta-cli">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:show" DocumentationSourceId="source:cli:meta-cli" PreviousSubjectId="source:cli:meta-cli:app:command:set-default-command">
       <DisplayName>meta-cli show</DisplayName>
       <DisplayPath>meta-cli show</DisplayPath>
       <Key>source:cli:meta-cli:app:command:show</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-show</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>016</Ordinal>
       <ParentKey>source:cli:meta-cli:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show the authored command surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app:command:show:option:workspace" DocumentationSourceId="source:cli:meta-cli">
@@ -1466,9 +1336,8 @@
       <Kind>CliOption</Kind>
       <NativeId>option-show-parameter-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-cli:app:command:show</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

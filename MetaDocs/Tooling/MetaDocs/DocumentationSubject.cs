@@ -27,8 +27,6 @@ namespace MetaDocs
 
         public string? NativeKind { get; set; }
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string? ParentKey { get; set; }
 
         public string Status { get; set; } = string.Empty;
@@ -36,6 +34,8 @@ namespace MetaDocs
         public string? Summary { get; set; }
 
         public DocumentationSource DocumentationSource { get; set; } = null!;
+
+        public DocumentationSubject? PreviousSubject { get; set; }
 
     }
 }

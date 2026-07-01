@@ -1,70 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationRelationshipList>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:workspace:relationship:containsmodel:source-workspace-model-meta-data-type-model-metadatatype" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:workspace:relationship:containsmodel:source-workspace-model-meta-data-type-model-metadatatype" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:workspace</FromSubjectKey>
       <Kind>ContainsModel</Kind>
-      <Ordinal>010</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:model:metadatatype</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:model:metadatatype:relationship:containsentity:source-workspace-model-meta-data-type-entity-datatype" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:model:metadatatype:relationship:containsentity:source-workspace-model-meta-data-type-entity-datatype" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:model:metadatatype</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-category" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-category" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype:property:category</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousRelationshipId="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-category">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype:property:description</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-iscanonical" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-iscanonical" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousRelationshipId="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-description">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype:property:iscanonical</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousRelationshipId="source:workspace-model:meta-data-type:entity:datatype:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatype-property-iscanonical">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>004</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsrelationship:source-workspace-model-meta-data-type-entity-datatype-relationship-datatypesystem-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:containsrelationship:source-workspace-model-meta-data-type-entity-datatype-relationship-datatypesystem-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem:relationship:referencesentity:source-workspace-model-meta-data-type-entity-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem:relationship:referencesentity:source-workspace-model-meta-data-type-entity-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:model:metadatatype:relationship:containsentity:source-workspace-model-meta-data-type-entity-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:model:metadatatype:relationship:containsentity:source-workspace-model-meta-data-type-entity-datatypesystem" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousRelationshipId="source:workspace-model:meta-data-type:model:metadatatype:relationship:containsentity:source-workspace-model-meta-data-type-entity-datatype">
       <FromSubjectKey>source:workspace-model:meta-data-type:model:metadatatype</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatypesystem:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatypesystem-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatypesystem:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatypesystem-property-description" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem:property:description</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatypesystem:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatypesystem-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260610050948859" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationRelationship Id="source:workspace-model:meta-data-type:entity:datatypesystem:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatypesystem-property-name" DocumentationImportBatchId="source:workspace-model:meta-data-type:batch:20260701172704395" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousRelationshipId="source:workspace-model:meta-data-type:entity:datatypesystem:relationship:containsproperty:source-workspace-model-meta-data-type-entity-datatypesystem-property-description">
       <FromSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-data-type:entity:datatypesystem:property:name</ToSubjectKey>
     </DocumentationRelationship>
   </DocumentationRelationshipList>

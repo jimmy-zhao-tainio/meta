@@ -60,10 +60,8 @@ internal static class Program
                 Optional(invocation, "kind", "Guide"),
                 Optional(invocation, "path"),
                 Optional(invocation, "parent"),
-                OptionalInt(invocation, "ordinal", 100),
                 Optional(invocation, "slot", "Summary"),
                 string.Empty,
-                10,
                 Optional(invocation, "source-id", "source:authored:metametabi-docs"),
                 Optional(invocation, "source-name", "Authored MetaDocs pages"));
             var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
@@ -89,7 +87,6 @@ internal static class Program
                 cli,
                 applicationId: Optional(invocation, "application"),
                 groupName: Optional(invocation, "group"),
-                ordinal: OptionalInt(invocation, "ordinal", 100),
                 sourceId: Optional(invocation, "source-id"));
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             var commandCount = CountCurrentChildren(model, application, "CliCommand");
@@ -132,8 +129,7 @@ internal static class Program
                 model,
                 sourceWorkspace,
                 Optional(invocation, "source-id"),
-                Optional(invocation, "display-name"),
-                OptionalInt(invocation, "ordinal", 100)).GetAwaiter().GetResult();
+                Optional(invocation, "display-name")).GetAwaiter().GetResult();
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             var entityCount = CountCurrentChildren(model, FindModelSubject(model, root) ?? root, "Entity");
             Presenter.WriteInfo($"Imported {root.DisplayName}: {entityCount} entity subject(s).");
@@ -156,8 +152,7 @@ internal static class Program
                 sourceWorkspace,
                 Optional(invocation, "source-id"),
                 Optional(invocation, "model-source-id"),
-                Optional(invocation, "display-name"),
-                OptionalInt(invocation, "ordinal", 200)).GetAwaiter().GetResult();
+                Optional(invocation, "display-name")).GetAwaiter().GetResult();
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Imported {result.ImportedInstanceCount} instance subject(s), {result.ImportedPropertyFactCount} property fact(s), {result.ImportedRelationshipCount} relationship(s).");
         }
@@ -178,8 +173,7 @@ internal static class Program
                 invocation.Required("entity"),
                 Optional(invocation, "source-id"),
                 Optional(invocation, "display-name-property"),
-                Optional(invocation, "summary-property"),
-                OptionalInt(invocation, "ordinal", 100));
+                Optional(invocation, "summary-property"));
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Included instance entity policy: {spec.EntityName}.");
         }
@@ -199,8 +193,7 @@ internal static class Program
                 model,
                 invocation.Required("entity"),
                 invocation.Required("property"),
-                Optional(invocation, "source-id"),
-                OptionalInt(invocation, "ordinal", 100));
+                Optional(invocation, "source-id"));
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Included instance property policy: {invocation.Required("entity")}.{spec.PropertyName}.");
         }
@@ -220,8 +213,7 @@ internal static class Program
                 model,
                 invocation.Required("entity"),
                 invocation.Required("relationship"),
-                Optional(invocation, "source-id"),
-                OptionalInt(invocation, "ordinal", 100));
+                Optional(invocation, "source-id"));
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Included instance relationship policy: {invocation.Required("entity")}.{spec.RelationshipSelector}.");
         }
@@ -317,19 +309,6 @@ internal static class Program
         }
 
         return (workspace, newWorkspace, string.IsNullOrWhiteSpace(workspace) ? newWorkspace : workspace);
-    }
-
-    private static int OptionalInt(MetaCliInvocation invocation, string parameter, int defaultValue)
-    {
-        var value = invocation.Optional(parameter);
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return defaultValue;
-        }
-
-        return int.TryParse(value, out var parsed)
-            ? parsed
-            : throw new MetaCliExitException(2, $"Parameter '{parameter}' must be an integer.");
     }
 
     private static string Optional(MetaCliInvocation invocation, string parameter, string defaultValue = "")

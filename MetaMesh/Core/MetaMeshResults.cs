@@ -26,6 +26,15 @@ public sealed record MetaMeshOperationSummary(
     string Description,
     IReadOnlyList<MetaMeshOperationStepSummary> Steps);
 
+public sealed record MetaMeshValidationStepSummary(
+    string Name,
+    string Command,
+    string WorkingDirectory);
+
+public sealed record MetaMeshValidationResult(
+    string OperationName,
+    IReadOnlyList<MetaMeshValidationStepSummary> Steps);
+
 public sealed record MetaMeshShowResult(
     string MeshName,
     string RootPath,

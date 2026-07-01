@@ -214,8 +214,8 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tr>
                     <td><a href="#model-metadocs" data-panel-link="model-metadocs">MetaDocs</a></td>
                     <td>20</td>
-                    <td>98</td>
-                    <td>20</td>
+                    <td>84</td>
+                    <td>29</td>
                   </tr>
                   <tr>
                     <td><a href="#model-metaweave" data-panel-link="model-metaweave">MetaWeave</a></td>
@@ -3560,13 +3560,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs author-page</span>
                 <span class="command-summary-text">Add or update an authored documentation page in a MetaDocs workspace.</span>
               </span>
-              <span class="command-counts">13 options / 0 examples</span>
+              <span class="command-counts">12 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--kind &lt;value&gt;] [--new-workspace &lt;path&gt;] [--ordinal &lt;value&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--kind &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3595,12 +3595,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--new-workspace &lt;path&gt;</td>
                       <td>New MetaDocs workspace to create.</td>
                       <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional page ordering number. Default: 100.</td>
-                      <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -3682,13 +3676,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs import-cli</span>
                 <span class="command-summary-text">Import an authored MetaCli workspace into a MetaDocs workspace.</span>
               </span>
-              <span class="command-counts">7 options / 0 examples</span>
+              <span class="command-counts">6 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--group &lt;value&gt;] [--new-workspace &lt;path&gt;] [--ordinal &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--group &lt;value&gt;] [--new-workspace &lt;path&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3711,12 +3705,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--new-workspace &lt;path&gt;</td>
                       <td>New MetaDocs workspace to create.</td>
                       <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional application ordering number. Default: 100.</td>
-                      <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -3794,13 +3782,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs import-workspace-instances</span>
                 <span class="command-summary-text">Import selected workspace instance documentation from a modeled opt-in policy.</span>
               </span>
-              <span class="command-counts">6 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--ordinal &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; --workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; --workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3816,12 +3804,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--model-source-id &lt;value&gt;</td>
                       <td>Optional source id used by import-workspace-model, for linking instance docs to model docs.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional root subject ordering number. Default: 200.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
@@ -3856,13 +3838,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs import-workspace-model</span>
                 <span class="command-summary-text">Import generic model documentation from a Meta workspace.</span>
               </span>
-              <span class="command-counts">6 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--ordinal &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3879,12 +3861,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--new-workspace &lt;path&gt;</td>
                       <td>New MetaDocs workspace to create.</td>
                       <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional root subject ordering number. Default: 100.</td>
-                      <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -3918,13 +3894,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs include-instance-entity</span>
                 <span class="command-summary-text">Add or update an opt-in entity policy for workspace instance documentation.</span>
               </span>
-              <span class="command-counts">6 options / 0 examples</span>
+              <span class="command-counts">5 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--ordinal &lt;value&gt;] [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3940,12 +3916,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--entity &lt;value&gt;</td>
                       <td>Source workspace entity name to include.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional policy ordering number. Default: 100.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
@@ -3980,13 +3950,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs include-instance-property</span>
                 <span class="command-summary-text">Add or update an opt-in property policy for workspace instance documentation.</span>
               </span>
-              <span class="command-counts">5 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-property --entity &lt;value&gt; [--ordinal &lt;value&gt;] --property &lt;value&gt; [--source-id &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-docs include-instance-property --entity &lt;value&gt; --property &lt;value&gt; [--source-id &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3996,12 +3966,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--entity &lt;value&gt;</td>
                       <td>Source workspace entity name.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional policy ordering number. Default: 100.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4036,13 +4000,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-docs include-instance-relationship</span>
                 <span class="command-summary-text">Add or update an opt-in relationship policy for workspace instance documentation.</span>
               </span>
-              <span class="command-counts">5 options / 0 examples</span>
+              <span class="command-counts">4 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-relationship --entity &lt;value&gt; [--ordinal &lt;value&gt;] --relationship &lt;value&gt; [--source-id &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-docs include-instance-relationship --entity &lt;value&gt; --relationship &lt;value&gt; [--source-id &lt;value&gt;] --workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4052,12 +4016,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--entity &lt;value&gt;</td>
                       <td>Source workspace entity name.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--ordinal &lt;value&gt;</td>
-                      <td>Optional policy ordering number. Default: 100.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4215,7 +4173,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
-              <p>7 commands exposed by meta-mesh.</p>
+              <p>11 commands exposed by meta-mesh.</p>
             </div>
             <div class="card-body">
               <table>
@@ -4242,12 +4200,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <td>Create an empty MetaMesh workspace.</td>
                   </tr>
                   <tr>
+                    <td class="cmd">meta-mesh operations</td>
+                    <td>List declared operations.</td>
+                  </tr>
+                  <tr>
                     <td class="cmd">meta-mesh run</td>
                     <td>Run the steps declared for one operation.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-mesh show</td>
-                    <td>Show declared workspaces and operations.</td>
+                    <td>Show a compact mesh overview.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-mesh steps</td>
+                    <td>List steps for one operation.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-mesh validate</td>
+                    <td>Validate one operation before running it.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-mesh workspaces</td>
+                    <td>List declared workspaces.</td>
                   </tr>
                 </tbody>
               </table>
@@ -4513,6 +4487,38 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
+                <span class="command-name">meta-mesh operations</span>
+                <span class="command-summary-text">List declared operations.</span>
+              </span>
+              <span class="command-counts">1 option / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh operations [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
                 <span class="command-name">meta-mesh run</span>
                 <span class="command-summary-text">Run the steps declared for one operation.</span>
               </span>
@@ -4552,7 +4558,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta-mesh show</span>
-                <span class="command-summary-text">Show declared workspaces and operations.</span>
+                <span class="command-summary-text">Show a compact mesh overview.</span>
               </span>
               <span class="command-counts">2 options / 0 examples</span>
             </summary>
@@ -4573,6 +4579,114 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>False</td>
                     </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh steps</span>
+                <span class="command-summary-text">List steps for one operation.</span>
+              </span>
+              <span class="command-counts">2 options / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh steps --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--operation &lt;value&gt;</td>
+                      <td>Operation name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh validate</span>
+                <span class="command-summary-text">Validate one operation before running it.</span>
+              </span>
+              <span class="command-counts">2 options / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh validate --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--operation &lt;value&gt;</td>
+                      <td>Operation name.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh workspaces</span>
+                <span class="command-summary-text">List declared workspaces.</span>
+              </span>
+              <span class="command-counts">1 option / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh workspaces [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>MetaMesh workspace. Defaults to the current directory.</td>
@@ -4909,8 +5023,8 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </header>
           <div class="summary-row">
             <span class="pill">20 entities</span>
-            <span class="pill">98 properties</span>
-            <span class="pill">20 relationships</span>
+            <span class="pill">84 properties</span>
+            <span class="pill">29 relationships</span>
           </div>
           <div class="card">
             <div class="card-header">
@@ -4923,12 +5037,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <tbody>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate">DocumentationComponentTemplate</a></td>
-                    <td>4</td>
-                    <td>1</td>
+                    <td>3</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationentityimportspec" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationentityimportspec">DocumentationEntityImportSpec</a></td>
-                    <td>6</td>
+                    <td>5</td>
                     <td>1</td>
                   </tr>
                   <tr>
@@ -4943,32 +5057,32 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationinstanceimportspec" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationinstanceimportspec">DocumentationInstanceImportSpec</a></td>
-                    <td>4</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationlayout" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationlayout">DocumentationLayout</a></td>
                     <td>3</td>
                     <td>1</td>
                   </tr>
                   <tr>
+                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationlayout" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationlayout">DocumentationLayout</a></td>
+                    <td>2</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationnarrative" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationnarrative">DocumentationNarrative</a></td>
-                    <td>9</td>
-                    <td>1</td>
+                    <td>8</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationpropertyimportspec" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationpropertyimportspec">DocumentationPropertyImportSpec</a></td>
-                    <td>4</td>
+                    <td>3</td>
                     <td>1</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationrelationship" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationrelationship">DocumentationRelationship</a></td>
-                    <td>4</td>
-                    <td>2</td>
+                    <td>3</td>
+                    <td>3</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationrelationshipimportspec" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationrelationshipimportspec">DocumentationRelationshipImportSpec</a></td>
-                    <td>4</td>
+                    <td>3</td>
                     <td>1</td>
                   </tr>
                   <tr>
@@ -4978,8 +5092,8 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubject" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubject">DocumentationSubject</a></td>
-                    <td>10</td>
-                    <td>1</td>
+                    <td>9</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubjectalias" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubjectalias">DocumentationSubjectAlias</a></td>
@@ -4988,13 +5102,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplate">DocumentationTemplate</a></td>
-                    <td>5</td>
-                    <td>1</td>
+                    <td>4</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion">DocumentationTemplateRegion</a></td>
-                    <td>3</td>
-                    <td>1</td>
+                    <td>2</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtheme" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtheme">DocumentationTheme</a></td>
@@ -5003,18 +5117,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationthemeasset" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationthemeasset">DocumentationThemeAsset</a></td>
-                    <td>7</td>
-                    <td>1</td>
+                    <td>6</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationview" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationview">DocumentationView</a></td>
-                    <td>5</td>
+                    <td>4</td>
                     <td>0</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationviewnode" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationviewnode">DocumentationViewNode</a></td>
-                    <td>5</td>
-                    <td>1</td>
+                    <td>4</td>
+                    <td>2</td>
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationworkspace" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationworkspace">DocumentationWorkspace</a></td>
@@ -5031,7 +5145,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationComponentTemplate</span>
               </span>
-              <span class="entity-counts">4 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">3 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5049,13 +5163,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>Name</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5083,6 +5190,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationThemeId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate-relationship-previouscomponent-documentationcomponenttemplate">
+                      <td>PreviousComponent</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate">DocumentationComponentTemplate</a></td>
+                      <td>PreviousComponent</td>
+                      <td>PreviousComponentId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate">DocumentationComponentTemplate</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate-relationship-previouscomponent-documentationcomponenttemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationcomponenttemplate-relationship-previouscomponent-documentationcomponenttemplate">PreviousComponent</a></td>
+                      <td>PreviousComponent</td>
+                      <td>PreviousComponentId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -5095,7 +5224,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationEntityImportSpec</span>
               </span>
-              <span class="entity-counts">6 properties / 1 relationship / 2 references</span>
+              <span class="entity-counts">5 properties / 1 relationship / 2 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5120,13 +5249,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>IncludeInstances</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5373,7 +5495,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationInstanceImportSpec</span>
               </span>
-              <span class="entity-counts">4 properties / 1 relationship / 1 reference</span>
+              <span class="entity-counts">3 properties / 1 relationship / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5391,13 +5513,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>Name</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5452,7 +5567,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationLayout</span>
               </span>
-              <span class="entity-counts">3 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">2 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5475,13 +5590,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                       <td>Required string property.</td>
                     </tr>
-                    <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -5497,6 +5605,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationThemeId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationlayout-relationship-previouslayout-documentationlayout">
+                      <td>PreviousLayout</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationlayout" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationlayout">DocumentationLayout</a></td>
+                      <td>PreviousLayout</td>
+                      <td>PreviousLayoutId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationlayout" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationlayout">DocumentationLayout</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationlayout-relationship-previouslayout-documentationlayout" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationlayout-relationship-previouslayout-documentationlayout">PreviousLayout</a></td>
+                      <td>PreviousLayout</td>
+                      <td>PreviousLayoutId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -5509,7 +5639,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationNarrative</span>
               </span>
-              <span class="entity-counts">9 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">8 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5538,13 +5668,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                       <td>True</td>
                       <td>Optional string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
                     </tr>
                     <tr>
                       <td>Origin</td>
@@ -5596,6 +5719,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationSubjectId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationnarrative-relationship-previousnarrative-documentationnarrative">
+                      <td>PreviousNarrative</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationnarrative" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationnarrative">DocumentationNarrative</a></td>
+                      <td>PreviousNarrative</td>
+                      <td>PreviousNarrativeId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationnarrative" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationnarrative">DocumentationNarrative</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationnarrative-relationship-previousnarrative-documentationnarrative" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationnarrative-relationship-previousnarrative-documentationnarrative">PreviousNarrative</a></td>
+                      <td>PreviousNarrative</td>
+                      <td>PreviousNarrativeId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -5608,7 +5753,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationPropertyImportSpec</span>
               </span>
-              <span class="entity-counts">4 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">3 properties / 1 relationship / 0 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5619,13 +5764,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tbody>
                     <tr>
                       <td>Include</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5672,7 +5810,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationRelationship</span>
               </span>
-              <span class="entity-counts">4 properties / 2 relationships / 0 references</span>
+              <span class="entity-counts">3 properties / 3 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5690,13 +5828,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>Kind</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5731,6 +5862,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationSourceId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationrelationship-relationship-previousrelationship-documentationrelationship">
+                      <td>PreviousRelationship</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationrelationship" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationrelationship">DocumentationRelationship</a></td>
+                      <td>PreviousRelationship</td>
+                      <td>PreviousRelationshipId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationrelationship" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationrelationship">DocumentationRelationship</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationrelationship-relationship-previousrelationship-documentationrelationship" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationrelationship-relationship-previousrelationship-documentationrelationship">PreviousRelationship</a></td>
+                      <td>PreviousRelationship</td>
+                      <td>PreviousRelationshipId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -5743,7 +5896,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationRelationshipImportSpec</span>
               </span>
-              <span class="entity-counts">4 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">3 properties / 1 relationship / 0 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5754,13 +5907,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tbody>
                     <tr>
                       <td>Include</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -5928,7 +6074,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationSubject</span>
               </span>
-              <span class="entity-counts">10 properties / 1 relationship / 3 references</span>
+              <span class="entity-counts">9 properties / 2 relationships / 4 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -5980,13 +6126,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>Optional string property.</td>
                     </tr>
                     <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
                       <td>ParentKey</td>
                       <td>string</td>
                       <td>False</td>
@@ -6022,6 +6161,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationSourceId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationsubject-relationship-previoussubject-documentationsubject">
+                      <td>PreviousSubject</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubject" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubject">DocumentationSubject</a></td>
+                      <td>PreviousSubject</td>
+                      <td>PreviousSubjectId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -6043,6 +6189,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>DocumentationSubjectId</td>
                       <td>True</td>
+                    </tr>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubject" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubject">DocumentationSubject</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubject-relationship-previoussubject-documentationsubject" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubject-relationship-previoussubject-documentationsubject">PreviousSubject</a></td>
+                      <td>PreviousSubject</td>
+                      <td>PreviousSubjectId</td>
+                      <td>False</td>
                     </tr>
                     <tr>
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationsubjectalias" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationsubjectalias">DocumentationSubjectAlias</a></td>
@@ -6120,7 +6273,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationTemplate</span>
               </span>
-              <span class="entity-counts">5 properties / 1 relationship / 1 reference</span>
+              <span class="entity-counts">4 properties / 2 relationships / 2 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -6151,13 +6304,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>Required string property.</td>
                     </tr>
                     <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
                       <td>SourceUrl</td>
                       <td>string</td>
                       <td>False</td>
@@ -6179,6 +6325,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationThemeId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationtemplate-relationship-previoustemplate-documentationtemplate">
+                      <td>PreviousTemplate</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplate">DocumentationTemplate</a></td>
+                      <td>PreviousTemplate</td>
+                      <td>PreviousTemplateId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -6187,6 +6340,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <table>
                   <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplate">DocumentationTemplate</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplate-relationship-previoustemplate-documentationtemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplate-relationship-previoustemplate-documentationtemplate">PreviousTemplate</a></td>
+                      <td>PreviousTemplate</td>
+                      <td>PreviousTemplateId</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion">DocumentationTemplateRegion</a></td>
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion-relationship-documentationtemplate-documentationtemplate" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion-relationship-documentationtemplate-documentationtemplate">DocumentationTemplate</a></td>
@@ -6206,7 +6366,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationTemplateRegion</span>
               </span>
-              <span class="entity-counts">3 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">2 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -6217,13 +6377,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tbody>
                     <tr>
                       <td>Name</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -6250,6 +6403,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>DocumentationTemplateId</td>
                       <td>True</td>
+                    </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion-relationship-previousregion-documentationtemplateregion">
+                      <td>PreviousRegion</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion">DocumentationTemplateRegion</a></td>
+                      <td>PreviousRegion</td>
+                      <td>PreviousRegionId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion">DocumentationTemplateRegion</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationtemplateregion-relationship-previousregion-documentationtemplateregion" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationtemplateregion-relationship-previousregion-documentationtemplateregion">PreviousRegion</a></td>
+                      <td>PreviousRegion</td>
+                      <td>PreviousRegionId</td>
+                      <td>False</td>
                     </tr>
                   </tbody>
                 </table>
@@ -6341,7 +6516,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationThemeAsset</span>
               </span>
-              <span class="entity-counts">7 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">6 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -6392,13 +6567,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>False</td>
                       <td>Required string property.</td>
                     </tr>
-                    <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -6414,6 +6582,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>DocumentationThemeId</td>
                       <td>True</td>
                     </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationthemeasset-relationship-previousasset-documentationthemeasset">
+                      <td>PreviousAsset</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationthemeasset" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationthemeasset">DocumentationThemeAsset</a></td>
+                      <td>PreviousAsset</td>
+                      <td>PreviousAssetId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationthemeasset" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationthemeasset">DocumentationThemeAsset</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationthemeasset-relationship-previousasset-documentationthemeasset" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationthemeasset-relationship-previousasset-documentationthemeasset">PreviousAsset</a></td>
+                      <td>PreviousAsset</td>
+                      <td>PreviousAssetId</td>
+                      <td>False</td>
+                    </tr>
                   </tbody>
                 </table>
               </section>
@@ -6426,7 +6616,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationView</span>
               </span>
-              <span class="entity-counts">5 properties / 0 relationships / 1 reference</span>
+              <span class="entity-counts">4 properties / 0 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -6444,13 +6634,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>Name</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -6497,7 +6680,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">DocumentationViewNode</span>
               </span>
-              <span class="entity-counts">5 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">4 properties / 2 relationships / 1 reference</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -6506,13 +6689,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <table>
                   <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
                   <tbody>
-                    <tr>
-                      <td>Ordinal</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
                     <tr>
                       <td>ParentNodeId</td>
                       <td>string</td>
@@ -6555,6 +6731,28 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td></td>
                       <td>DocumentationViewId</td>
                       <td>True</td>
+                    </tr>
+                    <tr id="subject-source-workspace-model-meta-docs-entity-documentationviewnode-relationship-previousnode-documentationviewnode">
+                      <td>PreviousNode</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationviewnode" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationviewnode">DocumentationViewNode</a></td>
+                      <td>PreviousNode</td>
+                      <td>PreviousNodeId</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationviewnode" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationviewnode">DocumentationViewNode</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-docs-entity-documentationviewnode-relationship-previousnode-documentationviewnode" data-local-anchor="subject-source-workspace-model-meta-docs-entity-documentationviewnode-relationship-previousnode-documentationviewnode">PreviousNode</a></td>
+                      <td>PreviousNode</td>
+                      <td>PreviousNodeId</td>
+                      <td>False</td>
                     </tr>
                   </tbody>
                 </table>
@@ -6621,7 +6819,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDocs model. Status: New.</p>
+            <p class="note">Source: MetaDocs. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metaweave" data-panel="model-metaweave">
@@ -6919,7 +7117,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tr>
                     <td><a href="#model-metadataquality" data-panel-link="model-metadataquality">MetaDataQuality</a></td>
                     <td>29</td>
-                    <td>83</td>
+                    <td>85</td>
                     <td>46</td>
                   </tr>
                   <tr>
@@ -6961,14 +7159,14 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tr>
                     <td><a href="#model-metaorchestration" data-panel-link="model-metaorchestration">MetaOrchestration</a></td>
                     <td>19</td>
-                    <td>77</td>
+                    <td>80</td>
                     <td>40</td>
                   </tr>
                   <tr>
                     <td><a href="#model-metapipeline" data-panel-link="model-metapipeline">MetaPipeline</a></td>
-                    <td>11</td>
-                    <td>15</td>
-                    <td>16</td>
+                    <td>12</td>
+                    <td>21</td>
+                    <td>17</td>
                   </tr>
                   <tr>
                     <td><a href="#model-metarawdatavault" data-panel-link="model-metarawdatavault">MetaRawDataVault</a></td>
@@ -24649,7 +24847,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaAnalytics model. Status: New.</p>
+            <p class="note">Source: MetaAnalytics. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metabusinessdatavault" data-panel="model-metabusinessdatavault">
@@ -26958,7 +27156,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaBusinessDataVault model. Status: New.</p>
+            <p class="note">Source: MetaBusinessDataVault. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadataquality" data-panel="model-metadataquality">
@@ -26969,7 +27167,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </header>
           <div class="summary-row">
             <span class="pill">29 entities</span>
-            <span class="pill">83 properties</span>
+            <span class="pill">85 properties</span>
             <span class="pill">46 relationships</span>
           </div>
           <div class="card">
@@ -27073,7 +27271,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-data-quality-entity-joinpatternkeypart" data-local-anchor="subject-source-workspace-model-meta-data-quality-entity-joinpatternkeypart">JoinPatternKeyPart</a></td>
-                    <td>6</td>
+                    <td>8</td>
                     <td>1</td>
                   </tr>
                   <tr>
@@ -28385,7 +28583,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">JoinPatternKeyPart</span>
               </span>
-              <span class="entity-counts">6 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">8 properties / 1 relationship / 0 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -28416,6 +28614,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>Required string property.</td>
                     </tr>
                     <tr>
+                      <td>FirstJoinInputColumnName</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                    <tr>
                       <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
@@ -28435,6 +28640,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>True</td>
                       <td>False</td>
                       <td>Required string property.</td>
+                    </tr>
+                    <tr>
+                      <td>SecondJoinInputColumnName</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -29110,7 +29322,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataQuality model. Status: New.</p>
+            <p class="note">Source: MetaDataQuality. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadatatype" data-panel="model-metadatatype">
@@ -29263,7 +29475,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataType model. Status: New.</p>
+            <p class="note">Source: MetaDataType. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadatatypeconversion" data-panel="model-metadatatypeconversion">
@@ -29409,7 +29621,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataTypeConversion model. Status: New.</p>
+            <p class="note">Source: MetaDataTypeConversion. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadatavaultimplementation" data-panel="model-metadatavaultimplementation">
@@ -31926,7 +32138,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataVaultImplementation model. Status: New.</p>
+            <p class="note">Source: MetaDataVaultImplementation. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadatawarehouse" data-panel="model-metadatawarehouse">
@@ -34090,7 +34302,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataWarehouse model. Status: New.</p>
+            <p class="note">Source: MetaDataWarehouse. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metadatawarehouseimplementation" data-panel="model-metadatawarehouseimplementation">
@@ -34752,7 +34964,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaDataWarehouseImplementation model. Status: New.</p>
+            <p class="note">Source: MetaDataWarehouseImplementation. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metamultidimensional" data-panel="model-metamultidimensional">
@@ -37873,7 +38085,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaMultiDimensional model. Status: New.</p>
+            <p class="note">Source: MetaMultiDimensional. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metaorchestration" data-panel="model-metaorchestration">
@@ -37884,7 +38096,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </header>
           <div class="summary-row">
             <span class="pill">19 entities</span>
-            <span class="pill">77 properties</span>
+            <span class="pill">80 properties</span>
             <span class="pill">40 relationships</span>
           </div>
           <div class="card">
@@ -37973,7 +38185,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-orchestration-entity-taskaccessprofile" data-local-anchor="subject-source-workspace-model-meta-orchestration-entity-taskaccessprofile">TaskAccessProfile</a></td>
-                    <td>7</td>
+                    <td>10</td>
                     <td>1</td>
                   </tr>
                   <tr>
@@ -39290,7 +39502,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">TaskAccessProfile</span>
               </span>
-              <span class="entity-counts">7 properties / 1 relationship / 7 references</span>
+              <span class="entity-counts">10 properties / 1 relationship / 7 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -39299,6 +39511,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <table>
                   <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td>BindingWorkspacePath</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
                     <tr>
                       <td>MetaPipelinePipelineTaskId</td>
                       <td>string</td>
@@ -39321,6 +39540,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td>Required string property.</td>
                     </tr>
                     <tr>
+                      <td>TaskKind</td>
+                      <td>string</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td>Required string property.</td>
+                    </tr>
+                    <tr>
                       <td>TaskName</td>
                       <td>string</td>
                       <td>True</td>
@@ -39330,23 +39556,30 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td>TransformBindingId</td>
                       <td>string</td>
-                      <td>True</td>
                       <td>False</td>
-                      <td>Required string property.</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
                     </tr>
                     <tr>
                       <td>TransformScriptId</td>
                       <td>string</td>
-                      <td>True</td>
                       <td>False</td>
-                      <td>Required string property.</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
                     </tr>
                     <tr>
                       <td>TransformScriptName</td>
                       <td>string</td>
-                      <td>True</td>
                       <td>False</td>
-                      <td>Required string property.</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                    <tr>
+                      <td>TransformWorkspacePath</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -39719,7 +39952,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaOrchestration model. Status: New.</p>
+            <p class="note">Source: MetaOrchestration. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metapipeline" data-panel="model-metapipeline">
@@ -39729,9 +39962,9 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <p class="panel-lead">Model MetaPipeline.</p>
           </header>
           <div class="summary-row">
-            <span class="pill">11 entities</span>
-            <span class="pill">15 properties</span>
-            <span class="pill">16 relationships</span>
+            <span class="pill">12 entities</span>
+            <span class="pill">21 properties</span>
+            <span class="pill">17 relationships</span>
           </div>
           <div class="card">
             <div class="card-header">
@@ -39748,6 +39981,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <td>1</td>
                   </tr>
                   <tr>
+                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-executabletask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-executabletask">ExecutableTask</a></td>
+                    <td>5</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-insertrowstargetwritetask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-insertrowstargetwritetask">InsertRowsTargetWriteTask</a></td>
                     <td>3</td>
                     <td>1</td>
@@ -39759,7 +39997,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-pipelinetask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-pipelinetask">PipelineTask</a></td>
-                    <td>2</td>
+                    <td>1</td>
                     <td>1</td>
                   </tr>
                   <tr>
@@ -39794,7 +40032,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-transformexecutiontask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-transformexecutiontask">TransformExecutionTask</a></td>
-                    <td>3</td>
+                    <td>5</td>
                     <td>2</td>
                   </tr>
                 </tbody>
@@ -39865,6 +40103,77 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-transformexecutiontask-relationship-executionconnectionreference-connectionreference" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-transformexecutiontask-relationship-executionconnectionreference-connectionreference">ExecutionConnectionReference</a></td>
                       <td>ExecutionConnectionReference</td>
                       <td>ExecutionConnectionReferenceId</td>
+                      <td>True</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card model-entity-card" id="subject-source-workspace-model-meta-pipeline-entity-executabletask">
+            <summary class="entity-summary">
+              <span class="entity-toggle" aria-hidden="true"></span>
+              <span class="entity-main">
+                <span class="entity-name">ExecutableTask</span>
+              </span>
+              <span class="entity-counts">5 properties / 1 relationship / 0 references</span>
+            </summary>
+            <div class="entity-body">
+              <div class="entity-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Properties</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td>Arguments</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                    <tr>
+                      <td>ExecutablePath</td>
+                      <td>string</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td>Required string property.</td>
+                    </tr>
+                    <tr>
+                      <td>SuccessExitCode</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                    <tr>
+                      <td>TimeoutSeconds</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                    <tr>
+                      <td>WorkingDirectory</td>
+                      <td>string</td>
+                      <td>False</td>
+                      <td>True</td>
+                      <td>Optional string property.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Relationships</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr id="subject-source-workspace-model-meta-pipeline-entity-executabletask-relationship-pipelinetask-pipelinetask">
+                      <td>PipelineTask</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-pipelinetask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-pipelinetask">PipelineTask</a></td>
+                      <td></td>
+                      <td>PipelineTaskId</td>
                       <td>True</td>
                     </tr>
                   </tbody>
@@ -40007,7 +40316,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">PipelineTask</span>
               </span>
-              <span class="entity-counts">2 properties / 1 relationship / 6 references</span>
+              <span class="entity-counts">1 property / 1 relationship / 7 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -40018,13 +40327,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tbody>
                     <tr>
                       <td>Name</td>
-                      <td>string</td>
-                      <td>True</td>
-                      <td>False</td>
-                      <td>Required string property.</td>
-                    </tr>
-                    <tr>
-                      <td>Ordinal</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -40053,6 +40355,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <table>
                   <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-executabletask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-executabletask">ExecutableTask</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-executabletask-relationship-pipelinetask-pipelinetask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-executabletask-relationship-pipelinetask-pipelinetask">PipelineTask</a></td>
+                      <td></td>
+                      <td>PipelineTaskId</td>
+                      <td>True</td>
+                    </tr>
                     <tr>
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-rowstreamconsumer" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-rowstreamconsumer">RowStreamConsumer</a></td>
                       <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-pipeline-entity-rowstreamconsumer-relationship-pipelinetask-pipelinetask" data-local-anchor="subject-source-workspace-model-meta-pipeline-entity-rowstreamconsumer-relationship-pipelinetask-pipelinetask">PipelineTask</a></td>
@@ -40391,7 +40700,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="entity-main">
                 <span class="entity-name">TransformExecutionTask</span>
               </span>
-              <span class="entity-counts">3 properties / 2 relationships / 0 references</span>
+              <span class="entity-counts">5 properties / 2 relationships / 0 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -40400,6 +40709,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <table>
                   <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td>BindingWorkspacePath</td>
+                      <td>string</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td>Required string property.</td>
+                    </tr>
                     <tr>
                       <td>TimeoutSeconds</td>
                       <td>string</td>
@@ -40416,6 +40732,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                     <tr>
                       <td>TransformScriptId</td>
+                      <td>string</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td>Required string property.</td>
+                    </tr>
+                    <tr>
+                      <td>TransformWorkspacePath</td>
                       <td>string</td>
                       <td>True</td>
                       <td>False</td>
@@ -40451,7 +40774,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaPipeline model. Status: New.</p>
+            <p class="note">Source: MetaPipeline. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metarawdatavault" data-panel="model-metarawdatavault">
@@ -41565,7 +41888,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaRawDataVault model. Status: New.</p>
+            <p class="note">Source: MetaRawDataVault. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metaschema" data-panel="model-metaschema">
@@ -42248,7 +42571,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaSchema model. Status: New.</p>
+            <p class="note">Source: MetaSchema. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metasql" data-panel="model-metasql">
@@ -43319,7 +43642,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaSql model. Status: New.</p>
+            <p class="note">Source: MetaSql. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metasqldeploymanifest" data-panel="model-metasqldeploymanifest">
@@ -45407,7 +45730,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaSqlDeployManifest model. Status: New.</p>
+            <p class="note">Source: MetaSqlDeployManifest. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metatabular" data-panel="model-metatabular">
@@ -47878,7 +48201,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaTabular model. Status: New.</p>
+            <p class="note">Source: MetaTabular. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metatransformbinding" data-panel="model-metatransformbinding">
@@ -49058,7 +49381,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaTransformBinding model. Status: New.</p>
+            <p class="note">Source: MetaTransformBinding. Status: New.</p>
           </details>
         </section>
         <section class="panel" id="model-metatransformscript" data-panel="model-metatransformscript">
@@ -67390,7 +67713,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           </details>
           <details class="inline-details">
             <summary>Technical metadata</summary>
-            <p class="note">Source: MetaTransformScript model. Status: New.</p>
+            <p class="note">Source: MetaTransformScript. Status: New.</p>
           </details>
         </section>
       </main>

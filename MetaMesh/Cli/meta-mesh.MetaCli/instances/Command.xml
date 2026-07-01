@@ -12,9 +12,29 @@
       <Token>new-workspace</Token>
     </Command>
     <Command Id="cmd-show" ApplicationId="app-meta-mesh">
-      <Description>Show declared workspaces and operations.</Description>
+      <Description>Show a compact mesh overview.</Description>
       <Name>show</Name>
       <Token>show</Token>
+    </Command>
+    <Command Id="cmd-workspaces" ApplicationId="app-meta-mesh">
+      <Description>List declared workspaces.</Description>
+      <Name>workspaces</Name>
+      <Token>workspaces</Token>
+    </Command>
+    <Command Id="cmd-operations" ApplicationId="app-meta-mesh">
+      <Description>List declared operations.</Description>
+      <Name>operations</Name>
+      <Token>operations</Token>
+    </Command>
+    <Command Id="cmd-steps" ApplicationId="app-meta-mesh">
+      <Description>List steps for one operation.</Description>
+      <Name>steps</Name>
+      <Token>steps</Token>
+    </Command>
+    <Command Id="cmd-validate" ApplicationId="app-meta-mesh">
+      <Description>Validate one operation before running it.</Description>
+      <Name>validate</Name>
+      <Token>validate</Token>
     </Command>
     <Command Id="cmd-add-workspace" ApplicationId="app-meta-mesh">
       <Description>Add one declared workspace.</Description>

@@ -612,10 +612,10 @@ public sealed class MetaDocsValidationService
             yield break;
         }
 
-        foreach (var command in children
-                     .Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase))
-                     .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-                     .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase))
+        foreach (var command in MetaDocsOrdering.ByPrevious(
+                     children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+                     static subject => subject.PreviousSubject,
+                     static subject => subject.DisplayName))
         {
             yield return command;
             foreach (var descendant in CliCommandDescendants(activeChildrenByParent, command.Id))
@@ -764,9 +764,6 @@ public sealed class MetaDocsValidationService
         !string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
-
-    private static int ParseOrdinal(string? value) =>
-        int.TryParse(value, out var ordinal) ? ordinal : int.MaxValue;
 
     private static bool IsIncluded(string? value)
     {

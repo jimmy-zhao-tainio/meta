@@ -51,16 +51,15 @@ public sealed class MetaDocsMarkdownCommandProseImporter
             }
 
             matchedApplications++;
-            importedNarratives += UpsertNarrative(
+            var importedApplicationNarrative = UpsertNarrative(
                 model,
                 batch,
                 application,
                 "Summary",
                 "Summary",
                 BuildApplicationSummary(appSection),
-                10)
-                    ? 1
-                    : 0;
+                null);
+            importedNarratives += importedApplicationNarrative is null ? 0 : 1;
 
             var commands = CurrentCliCommands(model, application).ToArray();
             foreach (var command in commands)
@@ -72,36 +71,38 @@ public sealed class MetaDocsMarkdownCommandProseImporter
                 }
 
                 matchedCommands++;
-                importedNarratives += UpsertNarrative(
+                var previousCommandNarrative = LastNarrative(model, command);
+                var importedCommandNarrative = UpsertNarrative(
                     model,
                     batch,
                     command,
                     "Guidance",
                     "Guidance",
                     BuildCommandGuidance(commandSection),
-                    40)
-                        ? 1
-                        : 0;
-                importedNarratives += UpsertNarrative(
+                    previousCommandNarrative);
+                importedNarratives += importedCommandNarrative is null ? 0 : 1;
+                previousCommandNarrative = importedCommandNarrative ?? previousCommandNarrative;
+
+                importedCommandNarrative = UpsertNarrative(
                     model,
                     batch,
                     command,
                     "Example",
                     "Examples",
                     BuildExamples(commandSection),
-                    50)
-                        ? 1
-                        : 0;
-                importedNarratives += UpsertNarrative(
+                    previousCommandNarrative);
+                importedNarratives += importedCommandNarrative is null ? 0 : 1;
+                previousCommandNarrative = importedCommandNarrative ?? previousCommandNarrative;
+
+                importedCommandNarrative = UpsertNarrative(
                     model,
                     batch,
                     command,
                     "Reference",
                     "See also",
                     BuildLabeledNarrative(commandSection, "See also"),
-                    60)
-                        ? 1
-                        : 0;
+                    previousCommandNarrative);
+                importedNarratives += importedCommandNarrative is null ? 0 : 1;
 
                 foreach (var option in CurrentChildren(model, command, "CliOption"))
                 {
@@ -109,16 +110,15 @@ public sealed class MetaDocsMarkdownCommandProseImporter
                         FindFact(model, option, "Cli", "Name"),
                         option.NativeId,
                         option.DisplayName);
-                    importedNarratives += UpsertNarrative(
+                    var importedOptionNarrative = UpsertNarrative(
                         model,
                         batch,
                         option,
                         "Usage",
                         "Usage",
                         BuildOptionNarrative(commandSection, optionName),
-                        20)
-                            ? 1
-                            : 0;
+                        LastNarrative(model, option));
+                    importedNarratives += importedOptionNarrative is null ? 0 : 1;
                 }
             }
         }
@@ -175,14 +175,14 @@ public sealed class MetaDocsMarkdownCommandProseImporter
         return batch;
     }
 
-    private static bool UpsertNarrative(
+    private static DocumentationNarrative? UpsertNarrative(
         MetaDocsModel model,
         DocumentationImportBatch batch,
         DocumentationSubject subject,
         string slot,
         string title,
         string body,
-        int ordinal)
+        DocumentationNarrative? previousNarrative)
     {
         if (model.DocumentationNarrativeList.Any(row =>
                 string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
@@ -191,16 +191,16 @@ public sealed class MetaDocsMarkdownCommandProseImporter
                 !string.IsNullOrWhiteSpace(row.Body)))
         {
             RemoveImportedNarratives(model, subject.Id, slot);
-            return false;
+            return null;
         }
 
         if (string.IsNullOrWhiteSpace(body))
         {
             RemoveImportedNarratives(model, subject.Id, slot);
-            return false;
+            return null;
         }
 
-        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}:{ordinal:000}";
+        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}:{MetaDocsImportSession.NormalizeKey(title)}";
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
@@ -214,7 +214,7 @@ public sealed class MetaDocsMarkdownCommandProseImporter
         else if (string.Equals(narrative.Origin, "Authored", StringComparison.OrdinalIgnoreCase) &&
                  !string.IsNullOrWhiteSpace(narrative.Body))
         {
-            return false;
+            return null;
         }
 
         narrative.DocumentationSubject = subject;
@@ -226,8 +226,8 @@ public sealed class MetaDocsMarkdownCommandProseImporter
         narrative.Origin = "ImportedMarkdown";
         narrative.LastReviewedImportBatchId = batch.Id;
         narrative.ReviewStatus = "Current";
-        narrative.Ordinal = ordinal.ToString("000");
-        return true;
+        narrative.PreviousNarrative = previousNarrative;
+        return narrative;
     }
 
     private static void RemoveImportedNarratives(MetaDocsModel model, string subjectKey, string slot)
@@ -306,22 +306,24 @@ public sealed class MetaDocsMarkdownCommandProseImporter
         NormalizeBody(string.Join(Environment.NewLine, section.LabeledBlockLines(label)));
 
     private static IEnumerable<DocumentationSubject> CurrentSubjects(MetaDocsModel model, string kind) =>
-        model.DocumentationSubjectList
-            .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
-            .Where(IsCurrent)
-            .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-            .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase);
+        MetaDocsOrdering.ByPrevious(
+            model.DocumentationSubjectList
+                .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+                .Where(IsCurrent),
+            static subject => subject.PreviousSubject,
+            static subject => subject.DisplayName);
 
     private static IEnumerable<DocumentationSubject> CurrentChildren(
         MetaDocsModel model,
         DocumentationSubject parent,
         string kind) =>
-        model.DocumentationSubjectList
-            .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
-            .Where(IsCurrent)
-            .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-            .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase);
+        MetaDocsOrdering.ByPrevious(
+            model.DocumentationSubjectList
+                .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
+                .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+                .Where(IsCurrent),
+            static subject => subject.PreviousSubject,
+            static subject => subject.DisplayName);
 
     private static IEnumerable<DocumentationSubject> CurrentCliCommands(
         MetaDocsModel model,
@@ -343,16 +345,24 @@ public sealed class MetaDocsMarkdownCommandProseImporter
                 return;
             }
 
-            foreach (var command in children
-                         .Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase))
-                         .OrderBy(subject => ParseOrdinal(subject.Ordinal))
-                         .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase))
+            foreach (var command in MetaDocsOrdering.ByPrevious(
+                         children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+                         static subject => subject.PreviousSubject,
+                         static subject => subject.DisplayName))
             {
                 commands.Add(command);
                 AddCommandDescendants(command.Id);
             }
         }
     }
+
+    private static DocumentationNarrative? LastNarrative(MetaDocsModel model, DocumentationSubject subject) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationNarrativeList
+                    .Where(row => string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase)),
+                static row => row.PreviousNarrative,
+                static row => $"{row.Slot}:{row.Title}:{row.Id}")
+            .LastOrDefault();
 
     private static MarkdownSection? FindBestSection(IEnumerable<MarkdownDocument> documents, DocumentationSubject subject)
     {
@@ -562,9 +572,6 @@ public sealed class MetaDocsMarkdownCommandProseImporter
         !string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
-
-    private static int ParseOrdinal(string? value) =>
-        int.TryParse(value, out var parsed) ? parsed : int.MaxValue;
 
     private static string FirstNonEmpty(params string?[] values) =>
         values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;

@@ -2,528 +2,572 @@
 <MetaDocs>
   <DocumentationSubjectList>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:workspace" DocumentationSourceId="source:workspace-model:meta-pipeline">
-      <DisplayName>MetaPipeline model</DisplayName>
-      <DisplayPath>MetaPipeline model</DisplayPath>
+      <DisplayName>MetaPipeline</DisplayName>
+      <DisplayPath>MetaPipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:workspace</Key>
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaPipeline\Workspaces\MetaPipeline</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Ordinal>250</Ordinal>
       <Status>New</Status>
       <Summary>Metadata workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:model:metapipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>MetaPipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.MetaPipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.MetaPipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:model:metapipeline</Key>
       <Kind>Model</Kind>
       <NativeId>MetaPipeline</NativeId>
       <NativeKind>GenericModel</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:workspace</ParentKey>
       <Status>New</Status>
       <Summary>Model MetaPipeline.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:connectionreference" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>ConnectionReference</DisplayName>
-      <DisplayPath>MetaPipeline model.ConnectionReference</DisplayPath>
+      <DisplayPath>MetaPipeline.ConnectionReference</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:connectionreference</Key>
       <Kind>Entity</Kind>
       <NativeId>ConnectionReference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity ConnectionReference.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:connectionreference:property:environmentvariablename" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>EnvironmentVariableName</DisplayName>
-      <DisplayPath>MetaPipeline model.ConnectionReference.EnvironmentVariableName</DisplayPath>
+      <DisplayPath>MetaPipeline.ConnectionReference.EnvironmentVariableName</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:connectionreference:property:environmentvariablename</Key>
       <Kind>Property</Kind>
       <NativeId>EnvironmentVariableName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:connectionreference</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:connectionreference:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:connectionreference:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:connectionreference:property:environmentvariablename">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaPipeline model.ConnectionReference.Name</DisplayPath>
+      <DisplayPath>MetaPipeline.ConnectionReference.Name</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:connectionreference:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:connectionreference</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:connectionreference:relationship:pipeline-pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Pipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.ConnectionReference.Pipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.ConnectionReference.Pipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:connectionreference:relationship:pipeline-pipeline</Key>
       <Kind>Relationship</Kind>
       <NativeId>Pipeline:Pipeline</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:connectionreference</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to Pipeline.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:connectionreference">
+      <DisplayName>ExecutableTask</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask</Key>
+      <Kind>Entity</Kind>
+      <NativeId>ExecutableTask</NativeId>
+      <NativeKind>GenericEntity</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
+      <Status>New</Status>
+      <Summary>Entity ExecutableTask.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:property:arguments" DocumentationSourceId="source:workspace-model:meta-pipeline">
+      <DisplayName>Arguments</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.Arguments</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:property:arguments</Key>
+      <Kind>Property</Kind>
+      <NativeId>Arguments</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:property:executablepath" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:executabletask:property:arguments">
+      <DisplayName>ExecutablePath</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.ExecutablePath</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:property:executablepath</Key>
+      <Kind>Property</Kind>
+      <NativeId>ExecutablePath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:property:successexitcode" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:executabletask:property:executablepath">
+      <DisplayName>SuccessExitCode</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.SuccessExitCode</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:property:successexitcode</Key>
+      <Kind>Property</Kind>
+      <NativeId>SuccessExitCode</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:property:timeoutseconds" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:executabletask:property:successexitcode">
+      <DisplayName>TimeoutSeconds</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.TimeoutSeconds</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:property:timeoutseconds</Key>
+      <Kind>Property</Kind>
+      <NativeId>TimeoutSeconds</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:property:workingdirectory" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:executabletask:property:timeoutseconds">
+      <DisplayName>WorkingDirectory</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.WorkingDirectory</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:property:workingdirectory</Key>
+      <Kind>Property</Kind>
+      <NativeId>WorkingDirectory</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:executabletask:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+      <DisplayName>PipelineTask</DisplayName>
+      <DisplayPath>MetaPipeline.ExecutableTask.PipelineTask</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:executabletask:relationship:pipelinetask-pipelinetask</Key>
+      <Kind>Relationship</Kind>
+      <NativeId>PipelineTask:PipelineTask</NativeId>
+      <NativeKind>GenericRelationship</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:executabletask</ParentKey>
+      <Status>New</Status>
+      <Summary>Required relationship to PipelineTask.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:executabletask">
       <DisplayName>InsertRowsTargetWriteTask</DisplayName>
-      <DisplayPath>MetaPipeline model.InsertRowsTargetWriteTask</DisplayPath>
+      <DisplayPath>MetaPipeline.InsertRowsTargetWriteTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask</Key>
       <Kind>Entity</Kind>
       <NativeId>InsertRowsTargetWriteTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity InsertRowsTargetWriteTask.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:batchsize" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>BatchSize</DisplayName>
-      <DisplayPath>MetaPipeline model.InsertRowsTargetWriteTask.BatchSize</DisplayPath>
+      <DisplayPath>MetaPipeline.InsertRowsTargetWriteTask.BatchSize</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:batchsize</Key>
       <Kind>Property</Kind>
       <NativeId>BatchSize</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetdatatypesystemname" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetdatatypesystemname" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:batchsize">
       <DisplayName>TargetDataTypeSystemName</DisplayName>
-      <DisplayPath>MetaPipeline model.InsertRowsTargetWriteTask.TargetDataTypeSystemName</DisplayPath>
+      <DisplayPath>MetaPipeline.InsertRowsTargetWriteTask.TargetDataTypeSystemName</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetdatatypesystemname</Key>
       <Kind>Property</Kind>
       <NativeId>TargetDataTypeSystemName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetsqlidentifier" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetsqlidentifier" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetdatatypesystemname">
       <DisplayName>TargetSqlIdentifier</DisplayName>
-      <DisplayPath>MetaPipeline model.InsertRowsTargetWriteTask.TargetSqlIdentifier</DisplayPath>
+      <DisplayPath>MetaPipeline.InsertRowsTargetWriteTask.TargetSqlIdentifier</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:property:targetsqlidentifier</Key>
       <Kind>Property</Kind>
       <NativeId>TargetSqlIdentifier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:relationship:targetwritetask-targetwritetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>TargetWriteTask</DisplayName>
-      <DisplayPath>MetaPipeline model.InsertRowsTargetWriteTask.TargetWriteTask</DisplayPath>
+      <DisplayPath>MetaPipeline.InsertRowsTargetWriteTask.TargetWriteTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask:relationship:targetwritetask-targetwritetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>TargetWriteTask:TargetWriteTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TargetWriteTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:insertrowstargetwritetask">
       <DisplayName>Pipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.Pipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.Pipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipeline</Key>
       <Kind>Entity</Kind>
       <NativeId>Pipeline</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity Pipeline.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipeline:property:description" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaPipeline model.Pipeline.Description</DisplayPath>
+      <DisplayPath>MetaPipeline.Pipeline.Description</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipeline:property:description</Key>
       <Kind>Property</Kind>
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:pipeline</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipeline:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipeline:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:pipeline:property:description">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaPipeline model.Pipeline.Name</DisplayPath>
+      <DisplayPath>MetaPipeline.Pipeline.Name</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipeline:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:pipeline</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:pipeline">
       <DisplayName>PipelineTask</DisplayName>
-      <DisplayPath>MetaPipeline model.PipelineTask</DisplayPath>
+      <DisplayPath>MetaPipeline.PipelineTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipelinetask</Key>
       <Kind>Entity</Kind>
       <NativeId>PipelineTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity PipelineTask.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipelinetask:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaPipeline model.PipelineTask.Name</DisplayPath>
+      <DisplayPath>MetaPipeline.PipelineTask.Name</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipelinetask:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:workspace-model:meta-pipeline:entity:pipelinetask</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipelinetask:property:ordinal" DocumentationSourceId="source:workspace-model:meta-pipeline">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaPipeline model.PipelineTask.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-pipeline:entity:pipelinetask:property:ordinal</Key>
-      <Kind>Property</Kind>
-      <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:pipelinetask</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:pipelinetask:relationship:pipeline-pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Pipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.PipelineTask.Pipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.PipelineTask.Pipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:pipelinetask:relationship:pipeline-pipeline</Key>
       <Kind>Relationship</Kind>
       <NativeId>Pipeline:Pipeline</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:pipelinetask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to Pipeline.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:pipelinetask">
       <DisplayName>RowStream</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStream</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStream</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstream</Key>
       <Kind>Entity</Kind>
       <NativeId>RowStream</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity RowStream.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstream:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStream.Name</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStream.Name</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstream:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstream</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstream:relationship:pipeline-pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Pipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStream.Pipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStream.Pipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstream:relationship:pipeline-pipeline</Key>
       <Kind>Relationship</Kind>
       <NativeId>Pipeline:Pipeline</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstream</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to Pipeline.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstream">
       <DisplayName>RowStreamColumn</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamColumn</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamColumn</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamcolumn</Key>
       <Kind>Entity</Kind>
       <NativeId>RowStreamColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity RowStreamColumn.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:name" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamColumn.Name</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamColumn.Name</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamcolumn</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:name">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamColumn.Ordinal</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamColumn.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamcolumn:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamcolumn</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamcolumn:relationship:rowstream-rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>RowStream</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamColumn.RowStream</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamColumn.RowStream</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamcolumn:relationship:rowstream-rowstream</Key>
       <Kind>Relationship</Kind>
       <NativeId>RowStream:RowStream</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamcolumn</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RowStream.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamconsumer" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamconsumer" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamcolumn">
       <DisplayName>RowStreamConsumer</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamConsumer</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamConsumer</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamconsumer</Key>
       <Kind>Entity</Kind>
       <NativeId>RowStreamConsumer</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity RowStreamConsumer.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>PipelineTask</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamConsumer.PipelineTask</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamConsumer.PipelineTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:pipelinetask-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineTask:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamconsumer</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:rowstream-rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:rowstream-rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:pipelinetask-pipelinetask">
       <DisplayName>RowStream</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamConsumer.RowStream</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamConsumer.RowStream</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamconsumer:relationship:rowstream-rowstream</Key>
       <Kind>Relationship</Kind>
       <NativeId>RowStream:RowStream</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamconsumer</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RowStream.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamproducer" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamproducer" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamconsumer">
       <DisplayName>RowStreamProducer</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamProducer</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamProducer</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamproducer</Key>
       <Kind>Entity</Kind>
       <NativeId>RowStreamProducer</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity RowStreamProducer.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>PipelineTask</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamProducer.PipelineTask</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamProducer.PipelineTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:pipelinetask-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineTask:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamproducer</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:rowstream-rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:rowstream-rowstream" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:pipelinetask-pipelinetask">
       <DisplayName>RowStream</DisplayName>
-      <DisplayPath>MetaPipeline model.RowStreamProducer.RowStream</DisplayPath>
+      <DisplayPath>MetaPipeline.RowStreamProducer.RowStream</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:rowstreamproducer:relationship:rowstream-rowstream</Key>
       <Kind>Relationship</Kind>
       <NativeId>RowStream:RowStream</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:rowstreamproducer</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RowStream.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:targetwritetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:targetwritetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:rowstreamproducer">
       <DisplayName>TargetWriteTask</DisplayName>
-      <DisplayPath>MetaPipeline model.TargetWriteTask</DisplayPath>
+      <DisplayPath>MetaPipeline.TargetWriteTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:targetwritetask</Key>
       <Kind>Entity</Kind>
       <NativeId>TargetWriteTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity TargetWriteTask.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>PipelineTask</DisplayName>
-      <DisplayPath>MetaPipeline model.TargetWriteTask.PipelineTask</DisplayPath>
+      <DisplayPath>MetaPipeline.TargetWriteTask.PipelineTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:pipelinetask-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineTask:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:targetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:targetconnectionreference-connectionreference" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:targetconnectionreference-connectionreference" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:pipelinetask-pipelinetask">
       <DisplayName>TargetConnectionReference</DisplayName>
-      <DisplayPath>MetaPipeline model.TargetWriteTask.TargetConnectionReference</DisplayPath>
+      <DisplayPath>MetaPipeline.TargetWriteTask.TargetConnectionReference</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:targetwritetask:relationship:targetconnectionreference-connectionreference</Key>
       <Kind>Relationship</Kind>
       <NativeId>TargetConnectionReference:ConnectionReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:targetwritetask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to ConnectionReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:targetwritetask">
       <DisplayName>TaskDependency</DisplayName>
-      <DisplayPath>MetaPipeline model.TaskDependency</DisplayPath>
+      <DisplayPath>MetaPipeline.TaskDependency</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:taskdependency</Key>
       <Kind>Entity</Kind>
       <NativeId>TaskDependency</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity TaskDependency.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:pipeline-pipeline" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>Pipeline</DisplayName>
-      <DisplayPath>MetaPipeline model.TaskDependency.Pipeline</DisplayPath>
+      <DisplayPath>MetaPipeline.TaskDependency.Pipeline</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:taskdependency:relationship:pipeline-pipeline</Key>
       <Kind>Relationship</Kind>
       <NativeId>Pipeline:Pipeline</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to Pipeline.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:predecessor-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:predecessor-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:pipeline-pipeline">
       <DisplayName>Predecessor</DisplayName>
-      <DisplayPath>MetaPipeline model.TaskDependency.Predecessor</DisplayPath>
+      <DisplayPath>MetaPipeline.TaskDependency.Predecessor</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:taskdependency:relationship:predecessor-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>Predecessor:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:successor-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:successor-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:taskdependency:relationship:predecessor-pipelinetask">
       <DisplayName>Successor</DisplayName>
-      <DisplayPath>MetaPipeline model.TaskDependency.Successor</DisplayPath>
+      <DisplayPath>MetaPipeline.TaskDependency.Successor</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:taskdependency:relationship:successor-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>Successor:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:taskdependency">
       <DisplayName>TransformExecutionTask</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask</DisplayPath>
+      <DisplayPath>MetaPipeline.TransformExecutionTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask</Key>
       <Kind>Entity</Kind>
       <NativeId>TransformExecutionTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:model:metapipeline</ParentKey>
       <Status>New</Status>
       <Summary>Entity TransformExecutionTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:timeoutseconds" DocumentationSourceId="source:workspace-model:meta-pipeline">
-      <DisplayName>TimeoutSeconds</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask.TimeoutSeconds</DisplayPath>
-      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:timeoutseconds</Key>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:bindingworkspacepath" DocumentationSourceId="source:workspace-model:meta-pipeline">
+      <DisplayName>BindingWorkspacePath</DisplayName>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.BindingWorkspacePath</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:bindingworkspacepath</Key>
       <Kind>Property</Kind>
-      <NativeId>TimeoutSeconds</NativeId>
+      <NativeId>BindingWorkspacePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
-      <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformbindingid" DocumentationSourceId="source:workspace-model:meta-pipeline">
-      <DisplayName>TransformBindingId</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask.TransformBindingId</DisplayPath>
-      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformbindingid</Key>
-      <Kind>Property</Kind>
-      <NativeId>TransformBindingId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:timeoutseconds" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:bindingworkspacepath">
+      <DisplayName>TimeoutSeconds</DisplayName>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.TimeoutSeconds</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:timeoutseconds</Key>
+      <Kind>Property</Kind>
+      <NativeId>TimeoutSeconds</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformbindingid" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:timeoutseconds">
+      <DisplayName>TransformBindingId</DisplayName>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.TransformBindingId</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformbindingid</Key>
+      <Kind>Property</Kind>
+      <NativeId>TransformBindingId</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformbindingid">
       <DisplayName>TransformScriptId</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask.TransformScriptId</DisplayPath>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.TransformScriptId</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformscriptid</Key>
       <Kind>Property</Kind>
       <NativeId>TransformScriptId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
+      <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformworkspacepath" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformscriptid">
+      <DisplayName>TransformWorkspacePath</DisplayName>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.TransformWorkspacePath</DisplayPath>
+      <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:property:transformworkspacepath</Key>
+      <Kind>Property</Kind>
+      <NativeId>TransformWorkspacePath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:executionconnectionreference-connectionreference" DocumentationSourceId="source:workspace-model:meta-pipeline">
       <DisplayName>ExecutionConnectionReference</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask.ExecutionConnectionReference</DisplayPath>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.ExecutionConnectionReference</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:executionconnectionreference-connectionreference</Key>
       <Kind>Relationship</Kind>
       <NativeId>ExecutionConnectionReference:ConnectionReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to ConnectionReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline">
+    <DocumentationSubject Id="source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:pipelinetask-pipelinetask" DocumentationSourceId="source:workspace-model:meta-pipeline" PreviousSubjectId="source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:executionconnectionreference-connectionreference">
       <DisplayName>PipelineTask</DisplayName>
-      <DisplayPath>MetaPipeline model.TransformExecutionTask.PipelineTask</DisplayPath>
+      <DisplayPath>MetaPipeline.TransformExecutionTask.PipelineTask</DisplayPath>
       <Key>source:workspace-model:meta-pipeline:entity:transformexecutiontask:relationship:pipelinetask-pipelinetask</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineTask:PipelineTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-pipeline:entity:transformexecutiontask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineTask.</Summary>

@@ -2,132 +2,121 @@
 <MetaDocs>
   <DocumentationSubjectList>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:workspace" DocumentationSourceId="source:workspace-model:meta-data-type">
-      <DisplayName>MetaDataType model</DisplayName>
-      <DisplayPath>MetaDataType model</DisplayPath>
+      <DisplayName>MetaDataType</DisplayName>
+      <DisplayPath>MetaDataType</DisplayPath>
       <Key>source:workspace-model:meta-data-type:workspace</Key>
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataType\Workspace</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Ordinal>160</Ordinal>
       <Status>New</Status>
       <Summary>Metadata workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:model:metadatatype" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>MetaDataType</DisplayName>
-      <DisplayPath>MetaDataType model.MetaDataType</DisplayPath>
+      <DisplayPath>MetaDataType.MetaDataType</DisplayPath>
       <Key>source:workspace-model:meta-data-type:model:metadatatype</Key>
       <Kind>Model</Kind>
       <NativeId>MetaDataType</NativeId>
       <NativeKind>GenericModel</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:workspace</ParentKey>
       <Status>New</Status>
       <Summary>Model MetaDataType.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>DataType</DisplayName>
-      <DisplayPath>MetaDataType model.DataType</DisplayPath>
+      <DisplayPath>MetaDataType.DataType</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype</Key>
       <Kind>Entity</Kind>
       <NativeId>DataType</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
       <Status>New</Status>
       <Summary>Entity DataType.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:category" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>Category</DisplayName>
-      <DisplayPath>MetaDataType model.DataType.Category</DisplayPath>
+      <DisplayPath>MetaDataType.DataType.Category</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype:property:category</Key>
       <Kind>Property</Kind>
       <NativeId>Category</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:description" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:description" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:category">
       <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaDataType model.DataType.Description</DisplayPath>
+      <DisplayPath>MetaDataType.DataType.Description</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype:property:description</Key>
       <Kind>Property</Kind>
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:description">
       <DisplayName>IsCanonical</DisplayName>
-      <DisplayPath>MetaDataType model.DataType.IsCanonical</DisplayPath>
+      <DisplayPath>MetaDataType.DataType.IsCanonical</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype:property:iscanonical</Key>
       <Kind>Property</Kind>
       <NativeId>IsCanonical</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:name" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaDataType model.DataType.Name</DisplayPath>
+      <DisplayPath>MetaDataType.DataType.Name</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>DataTypeSystem</DisplayName>
-      <DisplayPath>MetaDataType model.DataType.DataTypeSystem</DisplayPath>
+      <DisplayPath>MetaDataType.DataType.DataTypeSystem</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataTypeSystem:DataTypeSystem</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataTypeSystem.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype">
       <DisplayName>DataTypeSystem</DisplayName>
-      <DisplayPath>MetaDataType model.DataTypeSystem</DisplayPath>
+      <DisplayPath>MetaDataType.DataTypeSystem</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatypesystem</Key>
       <Kind>Entity</Kind>
       <NativeId>DataTypeSystem</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
       <Status>New</Status>
       <Summary>Entity DataTypeSystem.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:description" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaDataType model.DataTypeSystem.Description</DisplayPath>
+      <DisplayPath>MetaDataType.DataTypeSystem.Description</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatypesystem:property:description</Key>
       <Kind>Property</Kind>
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:name" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem:property:description">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaDataType model.DataTypeSystem.Name</DisplayPath>
+      <DisplayPath>MetaDataType.DataTypeSystem.Name</DisplayPath>
       <Key>source:workspace-model:meta-data-type:entity:datatypesystem:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>

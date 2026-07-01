@@ -16,7 +16,6 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         string sourceId = "",
         string modelSourceId = "",
         string displayName = "",
-        int ordinal = 200,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -62,9 +61,9 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             $"{normalizedDisplayName}.Instances",
             "Selected workspace instances.",
             string.Empty,
-            ordinal);
+            null);
         session.UpsertFact(root, "InstanceImport", "IncludedEntityCount", includedEntities.Length.ToString(), "Number");
-        session.EnsureViewNode(root, root.DisplayName, ordinal);
+        session.EnsureViewNode(root, root.DisplayName);
 
         var importedInstances = 0;
         var importedPropertyFacts = 0;
@@ -83,9 +82,9 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             var orderedRecords = records
                 .OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
-            for (var index = 0; index < orderedRecords.Length; index++)
+            DocumentationSubject? previousInstance = null;
+            foreach (var record in orderedRecords)
             {
-                var record = orderedRecords[index];
                 var subject = ImportInstanceSubject(
                     session,
                     policy,
@@ -95,8 +94,9 @@ public sealed class MetaDocsWorkspaceInstanceImporter
                     entity,
                     record,
                     parentKey,
-                    index + 1);
+                    previousInstance);
                 instanceSubjects[(entity.Name, record.Id)] = subject;
+                previousInstance = subject;
                 importedInstances++;
             }
         }
@@ -152,7 +152,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         GenericEntity entity,
         GenericRecord record,
         string parentKey,
-        int ordinal)
+        DocumentationSubject? previousInstance)
     {
         var entitySpec = policy.FindEntitySpec(entity.Name, modelSourceId);
         var displayName = ResolveRecordText(record, entitySpec?.DisplayNameProperty);
@@ -176,7 +176,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             $"{sourceDisplayName}.{entity.Name}.{displayName}",
             summary,
             parentKey,
-            ordinal);
+            previousInstance);
         session.UpsertFact(subject, "Instance", "EntityName", entity.Name);
         session.UpsertFact(subject, "Instance", "NativeId", record.Id);
         if (!string.IsNullOrWhiteSpace(record.SourceShardFileName))
@@ -197,6 +197,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         DocumentationSubject instanceSubject)
     {
         var count = 0;
+        DocumentationRelationship? previousRelationship = null;
         foreach (var property in entity.Properties
                      .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
                      .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase))
@@ -220,7 +221,11 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             var propertySubject = FindModelPropertySubject(docsModel, modelSourceId, entity.Name, property.Name);
             if (propertySubject is not null)
             {
-                session.UpsertRelationship(instanceSubject.Id, "DocumentsProperty", propertySubject.Id, count + 1);
+                previousRelationship = session.UpsertRelationship(
+                    instanceSubject.Id,
+                    "DocumentsProperty",
+                    propertySubject.Id,
+                    previousRelationship);
             }
 
             count++;
@@ -240,6 +245,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         DocumentationSubject instanceSubject)
     {
         var count = 0;
+        DocumentationRelationship? previousRelationship = null;
         foreach (var relationship in entity.Relationships
                      .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase))
         {
@@ -257,11 +263,11 @@ public sealed class MetaDocsWorkspaceInstanceImporter
 
             if (instanceSubjects.TryGetValue((relationship.Entity, targetRecordId), out var targetSubject))
             {
-                session.UpsertRelationship(
+                previousRelationship = session.UpsertRelationship(
                     instanceSubject.Id,
                     $"InstanceRelationship:{relationship.GetNavigationName()}",
                     targetSubject.Id,
-                    count + 1);
+                    previousRelationship);
             }
             else
             {
@@ -275,7 +281,11 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             var relationshipSubject = FindModelRelationshipSubject(docsModel, modelSourceId, entity.Name, relationship);
             if (relationshipSubject is not null)
             {
-                session.UpsertRelationship(instanceSubject.Id, "DocumentsRelationship", relationshipSubject.Id, count + 1);
+                previousRelationship = session.UpsertRelationship(
+                    instanceSubject.Id,
+                    "DocumentsRelationship",
+                    relationshipSubject.Id,
+                    previousRelationship);
             }
 
             count++;

@@ -19,8 +19,6 @@ namespace MetaDocs
 
         public string Name { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string SafetyStatus { get; set; } = string.Empty;
 
         public DocumentationSource? DocumentationSource { get; set; }

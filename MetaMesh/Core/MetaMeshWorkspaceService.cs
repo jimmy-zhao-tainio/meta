@@ -186,6 +186,29 @@ public sealed class MetaMeshWorkspaceService
         return new MetaMeshRunResult(operation.Name, stepResults);
     }
 
+    public MetaMeshValidationResult ValidateOperation(
+        MetaMesh.MetaMeshModel model,
+        string operationName,
+        string meshWorkspacePath)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+        var mesh = RequireMesh(model);
+        var operation = RequireOperation(model, operationName);
+        var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
+        var workspaceTokens = BuildWorkspaceTokens(model, resolvedRootPath);
+        var plan = BuildRunPlan(model, operation, fullMeshWorkspacePath, resolvedRootPath, workspaceTokens);
+        return new MetaMeshValidationResult(
+            operation.Name,
+            plan.Steps
+                .Select(static step => new MetaMeshValidationStepSummary(
+                    step.Name,
+                    FormatCommand(step.Executable, step.Arguments),
+                    step.WorkingDirectory))
+                .ToArray());
+    }
+
     private static MetaMeshRunPlan BuildRunPlan(
         MetaMesh.MetaMeshModel model,
         MetaMesh.Operation operation,

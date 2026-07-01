@@ -19,13 +19,13 @@ namespace MetaDocs
 
         public string Kind { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string ToSubjectKey { get; set; } = string.Empty;
 
         public DocumentationImportBatch DocumentationImportBatch { get; set; } = null!;
 
         public DocumentationSource DocumentationSource { get; set; } = null!;
+
+        public DocumentationRelationship? PreviousRelationship { get; set; }
 
     }
 }

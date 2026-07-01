@@ -21,8 +21,6 @@ namespace MetaDocs
 
         public string IncludeInstances { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string ReviewStatus { get; set; } = string.Empty;
 
         public string? SummaryProperty { get; set; }

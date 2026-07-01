@@ -41,10 +41,6 @@
       <Description>Optional parent subject id.</Description>
       <Name>parent</Name>
     </Parameter>
-    <Parameter Id="param-author-page-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional page ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
-    </Parameter>
     <Parameter Id="param-author-page-option-slot" ValueShapeId="shape-text">
       <Description>Optional narrative slot. Default: Summary.</Description>
       <Name>slot</Name>
@@ -77,10 +73,6 @@
     <Parameter Id="param-import-cli-option-group" ValueShapeId="shape-text">
       <Description>Optional rendered group name, for example meta-bi.</Description>
       <Name>group</Name>
-    </Parameter>
-    <Parameter Id="param-import-cli-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional application ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
     </Parameter>
     <Parameter Id="param-import-cli-option-source-id" ValueShapeId="shape-text">
       <Description>Optional stable documentation source id.</Description>
@@ -121,10 +113,6 @@
       <Description>Optional source display name.</Description>
       <Name>display-name</Name>
     </Parameter>
-    <Parameter Id="param-import-workspace-model-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional root subject ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
-    </Parameter>
     <Parameter Id="param-import-workspace-instances-option-source-workspace" ValueShapeId="shape-path">
       <Description>Source Meta workspace whose allowed instances should be documented.</Description>
       <IsRequired>true</IsRequired>
@@ -146,10 +134,6 @@
     <Parameter Id="param-import-workspace-instances-option-display-name" ValueShapeId="shape-text">
       <Description>Optional source display name.</Description>
       <Name>display-name</Name>
-    </Parameter>
-    <Parameter Id="param-import-workspace-instances-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional root subject ordering number. Default: 200.</Description>
-      <Name>ordinal</Name>
     </Parameter>
     <Parameter Id="param-include-instance-entity-option-workspace" ValueShapeId="shape-path">
       <Description>Existing MetaDocs workspace to update in place.</Description>
@@ -173,10 +157,6 @@
       <Description>Optional property used only as the imported instance summary.</Description>
       <Name>summary-property</Name>
     </Parameter>
-    <Parameter Id="param-include-instance-entity-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional policy ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
-    </Parameter>
     <Parameter Id="param-include-instance-property-option-workspace" ValueShapeId="shape-path">
       <Description>Existing MetaDocs workspace to update in place.</Description>
       <IsRequired>true</IsRequired>
@@ -196,10 +176,6 @@
       <Description>Optional model documentation source id this policy applies to. Omit for a global policy.</Description>
       <Name>source-id</Name>
     </Parameter>
-    <Parameter Id="param-include-instance-property-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional policy ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
-    </Parameter>
     <Parameter Id="param-include-instance-relationship-option-workspace" ValueShapeId="shape-path">
       <Description>Existing MetaDocs workspace to update in place.</Description>
       <IsRequired>true</IsRequired>
@@ -218,10 +194,6 @@
     <Parameter Id="param-include-instance-relationship-option-source-id" ValueShapeId="shape-text">
       <Description>Optional model documentation source id this policy applies to. Omit for a global policy.</Description>
       <Name>source-id</Name>
-    </Parameter>
-    <Parameter Id="param-include-instance-relationship-option-ordinal" ValueShapeId="shape-text">
-      <Description>Optional policy ordering number. Default: 100.</Description>
-      <Name>ordinal</Name>
     </Parameter>
     <Parameter Id="param-merge-option-include" ValueShapeId="shape-path">
       <Description>MetaDocs workspace to include. Repeat for many workspaces.</Description>

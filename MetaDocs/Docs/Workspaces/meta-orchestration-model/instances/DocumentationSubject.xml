@@ -2,1656 +2,1551 @@
 <MetaDocs>
   <DocumentationSubjectList>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:workspace" DocumentationSourceId="source:workspace-model:meta-orchestration">
-      <DisplayName>MetaOrchestration model</DisplayName>
-      <DisplayPath>MetaOrchestration model</DisplayPath>
+      <DisplayName>MetaOrchestration</DisplayName>
+      <DisplayPath>MetaOrchestration</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:workspace</Key>
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaOrchestration\Workspaces\MetaOrchestration</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Ordinal>240</Ordinal>
       <Status>New</Status>
       <Summary>Metadata workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:model:metaorchestration" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>MetaOrchestration</DisplayName>
-      <DisplayPath>MetaOrchestration model.MetaOrchestration</DisplayPath>
+      <DisplayPath>MetaOrchestration.MetaOrchestration</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:model:metaorchestration</Key>
       <Kind>Model</Kind>
       <NativeId>MetaOrchestration</NativeId>
       <NativeKind>GenericModel</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:workspace</ParentKey>
       <Status>New</Status>
       <Summary>Model MetaOrchestration.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dataobject</Key>
       <Kind>Entity</Kind>
       <NativeId>DataObject</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity DataObject.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:property:normalizedkey" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>NormalizedKey</DisplayName>
-      <DisplayPath>MetaOrchestration model.DataObject.NormalizedKey</DisplayPath>
+      <DisplayPath>MetaOrchestration.DataObject.NormalizedKey</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dataobject:property:normalizedkey</Key>
       <Kind>Property</Kind>
       <NativeId>NormalizedKey</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dataobject:property:normalizedkey">
       <DisplayName>SqlIdentifier</DisplayName>
-      <DisplayPath>MetaOrchestration model.DataObject.SqlIdentifier</DisplayPath>
+      <DisplayPath>MetaOrchestration.DataObject.SqlIdentifier</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dataobject:property:sqlidentifier</Key>
       <Kind>Property</Kind>
       <NativeId>SqlIdentifier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.DataObject.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.DataObject.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dataobject:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dataobject">
       <DisplayName>DependencyIssue</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue</Key>
       <Kind>Entity</Kind>
       <NativeId>DependencyIssue</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity DependencyIssue.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksautomaticrunplanning" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>BlocksAutomaticRunPlanning</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.BlocksAutomaticRunPlanning</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.BlocksAutomaticRunPlanning</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksautomaticrunplanning</Key>
       <Kind>Property</Kind>
       <NativeId>BlocksAutomaticRunPlanning</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksautomaticrunplanning">
       <DisplayName>BlocksDag</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.BlocksDag</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.BlocksDag</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag</Key>
       <Kind>Property</Kind>
       <NativeId>BlocksDag</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:code" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:code" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag">
       <DisplayName>Code</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.Code</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.Code</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:code</Key>
       <Kind>Property</Kind>
       <NativeId>Code</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:code">
       <DisplayName>IssueDomain</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.IssueDomain</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.IssueDomain</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain</Key>
       <Kind>Property</Kind>
       <NativeId>IssueDomain</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:message" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:message" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain">
       <DisplayName>Message</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.Message</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.Message</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:message</Key>
       <Kind>Property</Kind>
       <NativeId>Message</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:severity" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:severity" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:message">
       <DisplayName>Severity</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.Severity</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.Severity</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:property:severity</Key>
       <Kind>Property</Kind>
       <NativeId>Severity</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:dataobject-dataobject">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssue.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssue.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue">
       <DisplayName>DependencyIssuePipeline</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssuePipeline</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssuePipeline</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</Key>
       <Kind>Entity</Kind>
       <NativeId>DependencyIssuePipeline</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity DependencyIssuePipeline.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:property:role" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Role</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssuePipeline.Role</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssuePipeline.Role</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:property:role</Key>
       <Kind>Property</Kind>
       <NativeId>Role</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyIssue</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssuePipeline.DependencyIssue</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssuePipeline.DependencyIssue</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:dependencyissue-dependencyissue</Key>
       <Kind>Relationship</Kind>
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DependencyIssue.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:dependencyissue-dependencyissue">
       <DisplayName>PipelineReference</DisplayName>
-      <DisplayPath>MetaOrchestration model.DependencyIssuePipeline.PipelineReference</DisplayPath>
+      <DisplayPath>MetaOrchestration.DependencyIssuePipeline.PipelineReference</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:pipelinereference-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline">
       <DisplayName>LockCompatibilityPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</Key>
       <Kind>Entity</Kind>
       <NativeId>LockCompatibilityPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity LockCompatibilityPolicy.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lefteffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>LeftEffect</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.LeftEffect</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.LeftEffect</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lefteffect</Key>
       <Kind>Property</Kind>
       <NativeId>LeftEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lefteffect">
       <DisplayName>LockBehavior</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.LockBehavior</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.LockBehavior</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior</Key>
       <Kind>Property</Kind>
       <NativeId>LockBehavior</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior">
       <DisplayName>PolicyKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.PolicyKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.PolicyKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind</Key>
       <Kind>Property</Kind>
       <NativeId>PolicyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason">
       <DisplayName>RightEffect</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.RightEffect</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.RightEffect</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect</Key>
       <Kind>Property</Kind>
       <NativeId>RightEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect">
       <DisplayName>Status</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.Status</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.Status</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:status</Key>
       <Kind>Property</Kind>
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dataobject-dataobject">
       <DisplayName>DependencyIssue</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.DependencyIssue</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.DependencyIssue</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue</Key>
       <Kind>Relationship</Kind>
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to DependencyIssue.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.LockCompatibilityPolicy.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.LockCompatibilityPolicy.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy">
       <DisplayName>ObjectAccess</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess</Key>
       <Kind>Entity</Kind>
       <NativeId>ObjectAccess</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity ObjectAccess.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:accesskind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.AccessKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.AccessKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:property:accesskind</Key>
       <Kind>Property</Kind>
       <NativeId>AccessKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:accesskind">
       <DisplayName>AccessRole</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.AccessRole</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.AccessRole</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole</Key>
       <Kind>Property</Kind>
       <NativeId>AccessRole</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole">
       <DisplayName>OperationKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.OperationKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.OperationKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind</Key>
       <Kind>Property</Kind>
       <NativeId>OperationKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.Ordinal</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:dataobject-dataobject">
       <DisplayName>TaskAccessProfile</DisplayName>
-      <DisplayPath>MetaOrchestration model.ObjectAccess.TaskAccessProfile</DisplayPath>
+      <DisplayPath>MetaOrchestration.ObjectAccess.TaskAccessProfile</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:objectaccess:relationship:taskaccessprofile-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan</Key>
       <Kind>Entity</Kind>
       <NativeId>OrchestrationPlan</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity OrchestrationPlan.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:dagstatus" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DagStatus</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan.DagStatus</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan.DagStatus</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan:property:dagstatus</Key>
       <Kind>Property</Kind>
       <NativeId>DagStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:dagstatus">
       <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan.Description</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan.Description</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description</Key>
       <Kind>Property</Kind>
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description">
       <DisplayName>DeterminismStatus</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan.DeterminismStatus</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan.DeterminismStatus</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus</Key>
       <Kind>Property</Kind>
       <NativeId>DeterminismStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan.Name</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan.Name</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:synchronizationstatus" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:synchronizationstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name">
       <DisplayName>SynchronizationStatus</DisplayName>
-      <DisplayPath>MetaOrchestration model.OrchestrationPlan.SynchronizationStatus</DisplayPath>
+      <DisplayPath>MetaOrchestration.OrchestrationPlan.SynchronizationStatus</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:orchestrationplan:property:synchronizationstatus</Key>
       <Kind>Property</Kind>
       <NativeId>SynchronizationStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan">
       <DisplayName>PipelineDependency</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency</Key>
       <Kind>Entity</Kind>
       <NativeId>PipelineDependency</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity PipelineDependency.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:dependencykind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency.DependencyKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency.DependencyKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency:property:dependencykind</Key>
       <Kind>Property</Kind>
       <NativeId>DependencyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:dependencykind">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency.Predecessor</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency.Predecessor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>Predecessor:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:successor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:successor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference">
       <DisplayName>Successor</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineDependency.Successor</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineDependency.Successor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:successor-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>Successor:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency">
       <DisplayName>PipelineObjectAccess</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineObjectAccess</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineObjectAccess</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</Key>
       <Kind>Entity</Kind>
       <NativeId>PipelineObjectAccess</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity PipelineObjectAccess.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:accesskind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineObjectAccess.AccessKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineObjectAccess.AccessKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:accesskind</Key>
       <Kind>Property</Kind>
       <NativeId>AccessKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:accesskind">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineObjectAccess.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineObjectAccess.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineObjectAccess.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineObjectAccess.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:dataobject-dataobject">
       <DisplayName>PipelineReference</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineObjectAccess.PipelineReference</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineObjectAccess.PipelineReference</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:pipelinereference-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess">
       <DisplayName>PipelineReference</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineReference</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineReference</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinereference</Key>
       <Kind>Entity</Kind>
       <NativeId>PipelineReference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity PipelineReference.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:metapipelinepipelineid" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>MetaPipelinePipelineId</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineReference.MetaPipelinePipelineId</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineReference.MetaPipelinePipelineId</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinereference:property:metapipelinepipelineid</Key>
       <Kind>Property</Kind>
       <NativeId>MetaPipelinePipelineId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference:property:metapipelinepipelineid">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineReference.Name</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineReference.Name</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinereference:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:pipelineworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:pipelineworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference:property:name">
       <DisplayName>PipelineWorkspacePath</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineReference.PipelineWorkspacePath</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineReference.PipelineWorkspacePath</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinereference:property:pipelineworkspacepath</Key>
       <Kind>Property</Kind>
       <NativeId>PipelineWorkspacePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.PipelineReference.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.PipelineReference.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:pipelinereference:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference">
       <DisplayName>PlannedTask</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask</Key>
       <Kind>Entity</Kind>
       <NativeId>PlannedTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity PlannedTask.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask.Ordinal</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:property:ordinal">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PipelineReference</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask.PipelineReference</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask.PipelineReference</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask:relationship:pipelinereference-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:pipelinereference-pipelinereference">
       <DisplayName>RunPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask.RunPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask.RunPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>RunPlan:RunPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RunPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan">
       <DisplayName>TaskAccessProfile</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTask.TaskAccessProfile</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTask.TaskAccessProfile</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtask:relationship:taskaccessprofile-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask">
       <DisplayName>PlannedTaskLock</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock</Key>
       <Kind>Entity</Kind>
       <NativeId>PlannedTaskLock</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity PlannedTaskLock.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:lockmode" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>LockMode</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.LockMode</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.LockMode</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:property:lockmode</Key>
       <Kind>Property</Kind>
       <NativeId>LockMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:lockmode">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:dataobject-dataobject">
       <DisplayName>LockCompatibilityPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.LockCompatibilityPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.LockCompatibilityPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy</Key>
       <Kind>Relationship</Kind>
       <NativeId>LockCompatibilityPolicy:LockCompatibilityPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to LockCompatibilityPolicy.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy">
       <DisplayName>PlannedTask</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.PlannedTask</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.PlannedTask</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask</Key>
       <Kind>Relationship</Kind>
       <NativeId>PlannedTask:PlannedTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PlannedTask.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:taskobjecteffect-taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:taskobjecteffect-taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask">
       <DisplayName>TaskObjectEffect</DisplayName>
-      <DisplayPath>MetaOrchestration model.PlannedTaskLock.TaskObjectEffect</DisplayPath>
+      <DisplayPath>MetaOrchestration.PlannedTaskLock.TaskObjectEffect</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:taskobjecteffect-taskobjecteffect</Key>
       <Kind>Relationship</Kind>
       <NativeId>TaskObjectEffect:TaskObjectEffect</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskObjectEffect.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock">
       <DisplayName>RetryPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy</Key>
       <Kind>Entity</Kind>
       <NativeId>RetryPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity RetryPolicy.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:backoffmultiplier" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>BackoffMultiplier</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.BackoffMultiplier</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.BackoffMultiplier</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:backoffmultiplier</Key>
       <Kind>Property</Kind>
       <NativeId>BackoffMultiplier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:backoffmultiplier">
       <DisplayName>InitialDelayMilliseconds</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.InitialDelayMilliseconds</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.InitialDelayMilliseconds</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds</Key>
       <Kind>Property</Kind>
       <NativeId>InitialDelayMilliseconds</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds">
       <DisplayName>MaxAttempts</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.MaxAttempts</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.MaxAttempts</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts</Key>
       <Kind>Property</Kind>
       <NativeId>MaxAttempts</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts">
       <DisplayName>MaxDelayMilliseconds</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.MaxDelayMilliseconds</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.MaxDelayMilliseconds</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds</Key>
       <Kind>Property</Kind>
       <NativeId>MaxDelayMilliseconds</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.Name</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.Name</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:name">
       <DisplayName>PolicyKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.PolicyKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.PolicyKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind</Key>
       <Kind>Property</Kind>
       <NativeId>PolicyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason">
       <DisplayName>RetryReadOnlyTasksByDefault</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.RetryReadOnlyTasksByDefault</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.RetryReadOnlyTasksByDefault</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault</Key>
       <Kind>Property</Kind>
       <NativeId>RetryReadOnlyTasksByDefault</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault">
       <DisplayName>RetryWriteTasksByDefault</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.RetryWriteTasksByDefault</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.RetryWriteTasksByDefault</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault</Key>
       <Kind>Property</Kind>
       <NativeId>RetryWriteTasksByDefault</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault">
       <DisplayName>Status</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.Status</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.Status</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:property:status</Key>
       <Kind>Property</Kind>
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicy.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicy.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicy:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy">
       <DisplayName>RetryPolicyFailureClass</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicyFailureClass</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicyFailureClass</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</Key>
       <Kind>Entity</Kind>
       <NativeId>RetryPolicyFailureClass</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>013</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity RetryPolicyFailureClass.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:failureclass" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>FailureClass</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicyFailureClass.FailureClass</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicyFailureClass.FailureClass</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:failureclass</Key>
       <Kind>Property</Kind>
       <NativeId>FailureClass</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:failureclass">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicyFailureClass.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicyFailureClass.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:retrybehavior" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:retrybehavior" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason">
       <DisplayName>RetryBehavior</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicyFailureClass.RetryBehavior</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicyFailureClass.RetryBehavior</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:retrybehavior</Key>
       <Kind>Property</Kind>
       <NativeId>RetryBehavior</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:relationship:retrypolicy-retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>RetryPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.RetryPolicyFailureClass.RetryPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.RetryPolicyFailureClass.RetryPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:relationship:retrypolicy-retrypolicy</Key>
       <Kind>Relationship</Kind>
       <NativeId>RetryPolicy:RetryPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RetryPolicy.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass">
       <DisplayName>RunPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplan</Key>
       <Kind>Entity</Kind>
       <NativeId>RunPlan</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>014</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity RunPlan.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlan.Name</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlan.Name</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplan:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan:property:name">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlan.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlan.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplan:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:runplanstatus" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:runplanstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan:property:reason">
       <DisplayName>RunPlanStatus</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlan.RunPlanStatus</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlan.RunPlanStatus</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplan:property:runplanstatus</Key>
       <Kind>Property</Kind>
       <NativeId>RunPlanStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlan.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlan.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplan:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan">
       <DisplayName>RunPlanRetryPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlanRetryPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlanRetryPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</Key>
       <Kind>Entity</Kind>
       <NativeId>RunPlanRetryPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>015</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity RunPlanRetryPolicy.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:policyrole" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PolicyRole</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlanRetryPolicy.PolicyRole</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlanRetryPolicy.PolicyRole</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:policyrole</Key>
       <Kind>Property</Kind>
       <NativeId>PolicyRole</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:policyrole">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlanRetryPolicy.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlanRetryPolicy.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:retrypolicy-retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>RetryPolicy</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlanRetryPolicy.RetryPolicy</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlanRetryPolicy.RetryPolicy</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:retrypolicy-retrypolicy</Key>
       <Kind>Relationship</Kind>
       <NativeId>RetryPolicy:RetryPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RetryPolicy.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:retrypolicy-retrypolicy">
       <DisplayName>RunPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.RunPlanRetryPolicy.RunPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.RunPlanRetryPolicy.RunPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:runplan-runplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>RunPlan:RunPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RunPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy">
       <DisplayName>TaskAccessProfile</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile</Key>
       <Kind>Entity</Kind>
       <NativeId>TaskAccessProfile</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>016</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:bindingworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration">
+      <DisplayName>BindingWorkspacePath</DisplayName>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.BindingWorkspacePath</DisplayPath>
+      <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:bindingworkspacepath</Key>
+      <Kind>Property</Kind>
+      <NativeId>BindingWorkspacePath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:bindingworkspacepath">
       <DisplayName>MetaPipelinePipelineTaskId</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.MetaPipelinePipelineTaskId</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.MetaPipelinePipelineTaskId</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid</Key>
       <Kind>Property</Kind>
       <NativeId>MetaPipelinePipelineTaskId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.Ordinal</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal">
       <DisplayName>StatementKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.StatementKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.StatementKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind</Key>
       <Kind>Property</Kind>
       <NativeId>StatementKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind">
+      <DisplayName>TaskKind</DisplayName>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TaskKind</DisplayPath>
+      <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskkind</Key>
+      <Kind>Property</Kind>
+      <NativeId>TaskKind</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
+      <Status>New</Status>
+      <Summary>Required string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskkind">
       <DisplayName>TaskName</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.TaskName</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TaskName</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname</Key>
       <Kind>Property</Kind>
       <NativeId>TaskName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname">
       <DisplayName>TransformBindingId</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.TransformBindingId</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TransformBindingId</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid</Key>
       <Kind>Property</Kind>
       <NativeId>TransformBindingId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid">
       <DisplayName>TransformScriptId</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.TransformScriptId</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TransformScriptId</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid</Key>
       <Kind>Property</Kind>
       <NativeId>TransformScriptId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid">
       <DisplayName>TransformScriptName</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.TransformScriptName</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TransformScriptName</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname</Key>
       <Kind>Property</Kind>
       <NativeId>TransformScriptName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Summary>Optional string property.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname">
+      <DisplayName>TransformWorkspacePath</DisplayName>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.TransformWorkspacePath</DisplayPath>
+      <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformworkspacepath</Key>
+      <Kind>Property</Kind>
+      <NativeId>TransformWorkspacePath</NativeId>
+      <NativeKind>GenericProperty</NativeKind>
+      <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
+      <Status>New</Status>
+      <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PipelineReference</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskAccessProfile.PipelineReference</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskAccessProfile.PipelineReference</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskaccessprofile:relationship:pipelinereference-pipelinereference</Key>
       <Kind>Relationship</Kind>
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to PipelineReference.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile">
       <DisplayName>TaskDependency</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency</Key>
       <Kind>Entity</Kind>
       <NativeId>TaskDependency</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>017</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity TaskDependency.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencycondition" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyCondition</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.DependencyCondition</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.DependencyCondition</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencycondition</Key>
       <Kind>Property</Kind>
       <NativeId>DependencyCondition</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencycondition">
       <DisplayName>DependencyKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.DependencyKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.DependencyKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind</Key>
       <Kind>Property</Kind>
       <NativeId>DependencyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:dataobject-dataobject">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.Predecessor</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.Predecessor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>Predecessor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile">
       <DisplayName>Successor</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskDependency.Successor</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskDependency.Successor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskdependency:relationship:successor-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>Successor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency">
       <DisplayName>TaskObjectEffect</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect</Key>
       <Kind>Entity</Kind>
       <NativeId>TaskObjectEffect</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>018</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity TaskObjectEffect.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accessdirection" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessDirection</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.AccessDirection</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.AccessDirection</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accessdirection</Key>
       <Kind>Property</Kind>
       <NativeId>AccessDirection</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accessdirection">
       <DisplayName>AccessPurpose</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.AccessPurpose</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.AccessPurpose</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose</Key>
       <Kind>Property</Kind>
       <NativeId>AccessPurpose</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose">
       <DisplayName>CreatesDataDependency</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.CreatesDataDependency</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.CreatesDataDependency</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency</Key>
       <Kind>Property</Kind>
       <NativeId>CreatesDataDependency</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency">
       <DisplayName>IsPublishedProducer</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.IsPublishedProducer</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.IsPublishedProducer</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer</Key>
       <Kind>Property</Kind>
       <NativeId>IsPublishedProducer</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer">
       <DisplayName>LockMode</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.LockMode</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.LockMode</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode</Key>
       <Kind>Property</Kind>
       <NativeId>LockMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason">
       <DisplayName>RequiresSynchronization</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.RequiresSynchronization</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.RequiresSynchronization</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization</Key>
       <Kind>Property</Kind>
       <NativeId>RequiresSynchronization</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:writeeffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:writeeffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization">
       <DisplayName>WriteEffect</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.WriteEffect</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.WriteEffect</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:writeeffect</Key>
       <Kind>Property</Kind>
       <NativeId>WriteEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:dataobject-dataobject">
       <DisplayName>TaskAccessProfile</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskObjectEffect.TaskAccessProfile</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskObjectEffect.TaskAccessProfile</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:taskaccessprofile-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect">
       <DisplayName>TaskOrderingResolution</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution</Key>
       <Kind>Entity</Kind>
       <NativeId>TaskOrderingResolution</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>019</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
       <Status>New</Status>
       <Summary>Entity TaskOrderingResolution.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:dependencycondition" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyCondition</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.DependencyCondition</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.DependencyCondition</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:dependencycondition</Key>
       <Kind>Property</Kind>
       <NativeId>DependencyCondition</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:dependencycondition">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.Name</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.Name</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name">
       <DisplayName>Reason</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.Reason</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.Reason</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason</Key>
       <Kind>Property</Kind>
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason">
       <DisplayName>ResolutionKind</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.ResolutionKind</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.ResolutionKind</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind</Key>
       <Kind>Property</Kind>
       <NativeId>ResolutionKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind">
       <DisplayName>Status</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.Status</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.Status</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:status</Key>
       <Kind>Property</Kind>
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.DataObject</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.DataObject</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dataobject-dataobject</Key>
       <Kind>Relationship</Kind>
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to DataObject.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dataobject-dataobject">
       <DisplayName>DependencyIssue</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.DependencyIssue</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.DependencyIssue</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue</Key>
       <Kind>Relationship</Kind>
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Optional relationship to DependencyIssue.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue">
       <DisplayName>OrchestrationPlan</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.OrchestrationPlan</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.OrchestrationPlan</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan</Key>
       <Kind>Relationship</Kind>
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to OrchestrationPlan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.Predecessor</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.Predecessor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>Predecessor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1004</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration">
+    <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile">
       <DisplayName>Successor</DisplayName>
-      <DisplayPath>MetaOrchestration model.TaskOrderingResolution.Successor</DisplayPath>
+      <DisplayPath>MetaOrchestration.TaskOrderingResolution.Successor</DisplayPath>
       <Key>source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:successor-taskaccessprofile</Key>
       <Kind>Relationship</Kind>
       <NativeId>Successor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1005</Ordinal>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to TaskAccessProfile.</Summary>

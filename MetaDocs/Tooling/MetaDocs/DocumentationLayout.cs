@@ -19,9 +19,9 @@ namespace MetaDocs
 
         public string Name { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
+
+        public DocumentationLayout? PreviousLayout { get; set; }
 
     }
 }

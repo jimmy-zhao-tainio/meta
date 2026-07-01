@@ -172,6 +172,8 @@ public sealed class MetaDocsSuiteMerger
             clone.DocumentationEntityImportSpec = maps.EntityImportSpecs[row.DocumentationEntityImportSpec];
             AddById(target.DocumentationRelationshipImportSpecList, row, clone, maps.RelationshipImportSpecs, item => item.Id);
         }
+
+        ApplyPreviousRelationships(source, maps);
     }
 
     private static T AddById<T>(
@@ -240,7 +242,6 @@ public sealed class MetaDocsSuiteMerger
             DisplayPath = row.DisplayPath,
             Summary = row.Summary,
             ParentKey = row.ParentKey,
-            Ordinal = row.Ordinal,
             Status = row.Status,
         };
 
@@ -278,7 +279,6 @@ public sealed class MetaDocsSuiteMerger
             Origin = row.Origin,
             LastReviewedImportBatchId = row.LastReviewedImportBatchId,
             ReviewStatus = row.ReviewStatus,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationRelationship CloneRelationship(DocumentationRelationship row) =>
@@ -288,7 +288,6 @@ public sealed class MetaDocsSuiteMerger
             FromSubjectKey = row.FromSubjectKey,
             Kind = row.Kind,
             ToSubjectKey = row.ToSubjectKey,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationView CloneView(DocumentationView row) =>
@@ -299,7 +298,6 @@ public sealed class MetaDocsSuiteMerger
             Kind = row.Kind,
             Title = row.Title,
             Summary = row.Summary,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationViewNode CloneViewNode(DocumentationViewNode row) =>
@@ -310,7 +308,6 @@ public sealed class MetaDocsSuiteMerger
             SubjectKey = row.SubjectKey,
             Selection = row.Selection,
             Title = row.Title,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationTheme CloneTheme(DocumentationTheme row) =>
@@ -330,7 +327,6 @@ public sealed class MetaDocsSuiteMerger
             Kind = row.Kind,
             Html = row.Html,
             SourceUrl = row.SourceUrl,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationTemplateRegion CloneTemplateRegion(DocumentationTemplateRegion row) =>
@@ -339,7 +335,6 @@ public sealed class MetaDocsSuiteMerger
             Id = row.Id,
             Name = row.Name,
             RegionKind = row.RegionKind,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationThemeAsset CloneThemeAsset(DocumentationThemeAsset row) =>
@@ -352,7 +347,6 @@ public sealed class MetaDocsSuiteMerger
             Href = row.Href,
             Content = row.Content,
             Hash = row.Hash,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationLayout CloneLayout(DocumentationLayout row) =>
@@ -361,7 +355,6 @@ public sealed class MetaDocsSuiteMerger
             Id = row.Id,
             Name = row.Name,
             LayoutKind = row.LayoutKind,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationComponentTemplate CloneComponentTemplate(DocumentationComponentTemplate row) =>
@@ -371,7 +364,6 @@ public sealed class MetaDocsSuiteMerger
             Name = row.Name,
             ComponentKind = row.ComponentKind,
             TemplateText = row.TemplateText,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationInstanceImportSpec CloneInstanceImportSpec(DocumentationInstanceImportSpec row) =>
@@ -381,7 +373,6 @@ public sealed class MetaDocsSuiteMerger
             Name = row.Name,
             IncludeInstances = row.IncludeInstances,
             SafetyStatus = row.SafetyStatus,
-            Ordinal = row.Ordinal,
         };
 
     private static DocumentationEntityImportSpec CloneEntityImportSpec(DocumentationEntityImportSpec row) =>
@@ -392,7 +383,6 @@ public sealed class MetaDocsSuiteMerger
             IncludeInstances = row.IncludeInstances,
             DisplayNameProperty = row.DisplayNameProperty,
             SummaryProperty = row.SummaryProperty,
-            Ordinal = row.Ordinal,
             ReviewStatus = row.ReviewStatus,
         };
 
@@ -402,7 +392,6 @@ public sealed class MetaDocsSuiteMerger
             Id = row.Id,
             PropertyName = row.PropertyName,
             Include = row.Include,
-            Ordinal = row.Ordinal,
             ReviewStatus = row.ReviewStatus,
         };
 
@@ -412,9 +401,80 @@ public sealed class MetaDocsSuiteMerger
             Id = row.Id,
             RelationshipSelector = row.RelationshipSelector,
             Include = row.Include,
-            Ordinal = row.Ordinal,
             ReviewStatus = row.ReviewStatus,
         };
+
+    private static void ApplyPreviousRelationships(MetaDocsModel source, MergeMaps maps)
+    {
+        ApplyPrevious(
+            source.DocumentationSubjectList,
+            maps.Subjects,
+            static row => row.PreviousSubject,
+            static (row, previous) => row.PreviousSubject = previous);
+        ApplyPrevious(
+            source.DocumentationNarrativeList,
+            maps.Narratives,
+            static row => row.PreviousNarrative,
+            static (row, previous) => row.PreviousNarrative = previous);
+        ApplyPrevious(
+            source.DocumentationRelationshipList,
+            maps.Relationships,
+            static row => row.PreviousRelationship,
+            static (row, previous) => row.PreviousRelationship = previous);
+        ApplyPrevious(
+            source.DocumentationTemplateList,
+            maps.Templates,
+            static row => row.PreviousTemplate,
+            static (row, previous) => row.PreviousTemplate = previous);
+        ApplyPrevious(
+            source.DocumentationTemplateRegionList,
+            maps.TemplateRegions,
+            static row => row.PreviousRegion,
+            static (row, previous) => row.PreviousRegion = previous);
+        ApplyPrevious(
+            source.DocumentationThemeAssetList,
+            maps.ThemeAssets,
+            static row => row.PreviousAsset,
+            static (row, previous) => row.PreviousAsset = previous);
+        ApplyPrevious(
+            source.DocumentationLayoutList,
+            maps.Layouts,
+            static row => row.PreviousLayout,
+            static (row, previous) => row.PreviousLayout = previous);
+        ApplyPrevious(
+            source.DocumentationComponentTemplateList,
+            maps.ComponentTemplates,
+            static row => row.PreviousComponent,
+            static (row, previous) => row.PreviousComponent = previous);
+        ApplyPrevious(
+            source.DocumentationViewNodeList,
+            maps.ViewNodes,
+            static row => row.PreviousNode,
+            static (row, previous) => row.PreviousNode = previous);
+    }
+
+    private static void ApplyPrevious<T>(
+        IEnumerable<T> sourceRows,
+        IReadOnlyDictionary<T, T> map,
+        Func<T, T?> previous,
+        Action<T, T?> assign)
+        where T : class
+    {
+        foreach (var sourceRow in sourceRows)
+        {
+            if (!map.TryGetValue(sourceRow, out var targetRow))
+            {
+                continue;
+            }
+
+            var sourcePrevious = previous(sourceRow);
+            assign(
+                targetRow,
+                sourcePrevious is not null && map.TryGetValue(sourcePrevious, out var targetPrevious)
+                    ? targetPrevious
+                    : null);
+        }
+    }
 
     private sealed class MergeMaps
     {

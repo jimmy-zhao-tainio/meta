@@ -50,8 +50,7 @@ public sealed class MetaDocsRuntimeTests
             "docs:home",
             "meta + meta-bi",
             "Model-first documentation for meta and meta-bi.",
-            "MetaDocs stores authored prose beside refreshable generated facts.",
-            Ordinal: 10);
+            "MetaDocs stores authored prose beside refreshable generated facts.");
 
         var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
         new MetaDocsAuthoringService().UpsertPage(
@@ -102,14 +101,12 @@ public sealed class MetaDocsRuntimeTests
                         "Authored option when.",
                         ".\\Schema")
                 ]),
-            groupName: "meta-bi",
-            ordinal: 20);
+            groupName: "meta-bi");
 
         importer.ImportApplication(
             model,
             CreateBindingApp("Bind transforms after help text changed."),
-            groupName: "meta-bi",
-            ordinal: 20);
+            groupName: "meta-bi");
 
         var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
         Assert.Equal("source:cli:meta-transform-binding:app", application.Id);
@@ -146,6 +143,28 @@ public sealed class MetaDocsRuntimeTests
             row.NativeId == "inspect");
         Assert.DoesNotContain(model.DocumentationFactList, row =>
             row.SubjectKey.Contains("inspect", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Fact]
+    public void ImportApplication_SameFingerprintReusesImportBatch()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        var importer = new MetaDocsCliImporter();
+
+        importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
+        var source = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+        var batch = Assert.Single(model.DocumentationImportBatchList);
+        var importedAt = source.ImportedAt;
+
+        importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
+
+        var reimportedSource = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+        var reimportedBatch = Assert.Single(model.DocumentationImportBatchList);
+        Assert.Equal(batch.Id, reimportedBatch.Id);
+        Assert.Equal(importedAt, reimportedSource.ImportedAt);
+        Assert.All(
+            model.DocumentationFactList.Where(row => ReferenceEquals(row.DocumentationSource, reimportedSource)),
+            fact => Assert.Equal(batch.Id, fact.DocumentationImportBatch.Id));
     }
 
     [Fact]
@@ -261,7 +280,6 @@ public sealed class MetaDocsRuntimeTests
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
-            Ordinal = "040",
         });
         var markdownPath = WriteBindingCommandMarkdown();
 
@@ -314,8 +332,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
 
         var workspace = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Workspace");
         Assert.Equal("Sample docs", workspace.DisplayName);
@@ -364,8 +381,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
         var customer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Entity" &&
             row.DisplayName == "Customer");
@@ -380,7 +396,6 @@ public sealed class MetaDocsRuntimeTests
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
-            Ordinal = "900",
         });
 
         WriteSampleModel(sourceWorkspace, includeEmail: false);
@@ -388,8 +403,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
 
         customer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Entity" &&
@@ -501,8 +515,7 @@ public sealed class MetaDocsRuntimeTests
                 "docs:getting-started",
                 "Getting started",
                 "Old authored spine.",
-                "Old authored spine.",
-                Ordinal: 10));
+                "Old authored spine."));
 
         MetaDocsPublicReferenceViewBuilder.EnsurePublicReferenceView(model);
 
@@ -545,7 +558,6 @@ public sealed class MetaDocsRuntimeTests
             Kind = "CliCommand",
             DisplayName = "Left",
             DisplayPath = "Same.Display",
-            Ordinal = "010",
             Status = "Current",
         };
         var right = new DocumentationSubject
@@ -556,7 +568,6 @@ public sealed class MetaDocsRuntimeTests
             Kind = "CliCommand",
             DisplayName = "Right",
             DisplayPath = "Same.Display",
-            Ordinal = "020",
             Status = "Current",
         };
         model.DocumentationSourceList.Add(source);
@@ -586,7 +597,6 @@ public sealed class MetaDocsRuntimeTests
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "NeedsReview",
-            Ordinal = "010",
         });
         model.DocumentationRelationshipList.Add(new DocumentationRelationship
         {
@@ -596,14 +606,12 @@ public sealed class MetaDocsRuntimeTests
             FromSubjectKey = left.Id,
             ToSubjectKey = "subject:missing",
             Kind = "References",
-            Ordinal = "010",
         });
         model.DocumentationViewList.Add(new DocumentationView
         {
             Id = "view:default",
             Name = "Default",
             Kind = "Site",
-            Ordinal = "010",
         });
         model.DocumentationViewNodeList.Add(new DocumentationViewNode
         {
@@ -611,7 +619,6 @@ public sealed class MetaDocsRuntimeTests
             DocumentationView = model.DocumentationViewList.Single(),
             SubjectKey = "subject:missing",
             Title = "Missing",
-            Ordinal = "010",
         });
 
         var result = new MetaDocsValidationService().Validate(model);
@@ -657,8 +664,7 @@ public sealed class MetaDocsRuntimeTests
                 "docs:what-is-meta",
                 "What is Meta?",
                 "Old guide page.",
-                "Old guide page.",
-                Ordinal: 10));
+                "Old guide page."));
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
 
         var result = new MetaDocsValidationService().Validate(model);
@@ -769,7 +775,6 @@ public sealed class MetaDocsRuntimeTests
             Name = "Sample",
             IncludeInstances = "include",
             SafetyStatus = "Approved",
-            Ordinal = "010",
         };
         var entity = new DocumentationEntityImportSpec
         {
@@ -780,7 +785,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayNameProperty = "Name",
             SummaryProperty = "Description",
             ReviewStatus = "Current",
-            Ordinal = "010",
         };
         model.DocumentationSourceList.Add(source);
         model.DocumentationInstanceImportSpecList.Add(root);
@@ -792,7 +796,6 @@ public sealed class MetaDocsRuntimeTests
             PropertyName = "Name",
             Include = "include",
             ReviewStatus = "Current",
-            Ordinal = "010",
         });
         model.DocumentationRelationshipImportSpecList.Add(new DocumentationRelationshipImportSpec
         {
@@ -801,7 +804,6 @@ public sealed class MetaDocsRuntimeTests
             RelationshipSelector = "Order",
             Include = "include",
             ReviewStatus = "Current",
-            Ordinal = "010",
         });
 
         policy = new MetaDocsInstanceImportPolicy(model);
@@ -938,7 +940,6 @@ public sealed class MetaDocsRuntimeTests
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
-            Ordinal = "900",
         });
 
         WriteSampleInstances(sourceWorkspace, includeSecondCustomer: false);
@@ -966,8 +967,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
         var editor = new MetaDocsInstanceImportPolicyEditor();
         editor.IncludeEntity(model, "Customer", "source:workspace-model:sample");
         editor.IncludeProperty(model, "Customer", "MissingProperty", "source:workspace-model:sample");
@@ -988,8 +988,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
         var editor = new MetaDocsInstanceImportPolicyEditor();
         editor.IncludeEntity(model, "Customer", "source:workspace-model:sample", displayNameProperty: "Name");
         editor.IncludeProperty(model, "Customer", "Name", "source:workspace-model:sample");
@@ -1065,8 +1064,8 @@ public sealed class MetaDocsRuntimeTests
     {
         var model = MetaDocsModel.CreateEmpty();
         var importer = new MetaDocsCliImporter();
-        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta", ordinal: 10);
-        importer.ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi", ordinal: 20);
+        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
+        importer.ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
@@ -1120,7 +1119,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayName = "sample",
             DisplayPath = "sample",
             Summary = "Sample CLI.",
-            Ordinal = "010",
             Status = "Current",
         };
         var parent = new DocumentationSubject
@@ -1133,7 +1131,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayPath = "sample parent",
             Summary = "Parent command.",
             ParentKey = app.Id,
-            Ordinal = "010",
             Status = "Current",
         };
         var child = new DocumentationSubject
@@ -1146,7 +1143,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayPath = "sample parent child",
             Summary = "Child command.",
             ParentKey = parent.Id,
-            Ordinal = "010",
             Status = "Current",
         };
         model.DocumentationSubjectList.Add(app);
@@ -1201,8 +1197,7 @@ public sealed class MetaDocsRuntimeTests
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs",
-            30);
+            "Sample docs");
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
@@ -1244,7 +1239,7 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_ConsumesModeledShellTemplateAndThemeAsset()
     {
         var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), groupName: "meta", ordinal: 10);
+        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), groupName: "meta");
         var template = Assert.Single(model.DocumentationTemplateList, row => row.Kind == "SiteShell");
         template.Html = "MODELED {{title}} {{css}} {{navigation}} {{content}} {{script}}";
         var css = Assert.Single(model.DocumentationThemeAssetList, row => row.AssetKind == "Css");
@@ -1279,7 +1274,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayPath = $"{application.DisplayPath}.SourceFingerprint",
             Summary = "Internal refresh fingerprint.",
             Status = "Current",
-            Ordinal = "999",
         };
         model.DocumentationSubjectList.Add(hiddenProperty);
         model.DocumentationFactList.Add(new DocumentationFact
@@ -1489,7 +1483,6 @@ public sealed class MetaDocsRuntimeTests
             DisplayPath = $"{modelName} model",
             Summary = $"Model {modelName}.",
             Status = "Current",
-            Ordinal = "010",
         });
     }
 

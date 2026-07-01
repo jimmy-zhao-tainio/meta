@@ -17,11 +17,11 @@ namespace MetaDocs
 
         public string Name { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string RegionKind { get; set; } = string.Empty;
 
         public DocumentationTemplate DocumentationTemplate { get; set; } = null!;
+
+        public DocumentationTemplateRegion? PreviousRegion { get; set; }
 
     }
 }

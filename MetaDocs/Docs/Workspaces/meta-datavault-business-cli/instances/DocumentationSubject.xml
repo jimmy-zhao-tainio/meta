@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-datavault-business</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>220</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge" DocumentationSourceId="source:cli:meta-datavault-business">
       <DisplayName>meta-datavault-business add-bridge</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-bridge</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessBridge row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -30,66 +28,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge:option:description">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge --hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge:option:hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge">
       <DisplayName>meta-datavault-business add-bridge-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-bridge-hub</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessBridgeHub row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:bridge" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -99,78 +91,71 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-bridge</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessBridge id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:bridge">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub --hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub:option:hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:id">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:ordinal">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub --role-name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub:option:role-name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-role-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub:option:role-name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-hub --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-hub:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-hub-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-hub">
       <DisplayName>meta-datavault-business add-bridge-link</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-bridge-link</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessBridgeLink row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:bridge" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -180,78 +165,71 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-bridge</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessBridge id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link:option:bridge">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link:option:id">
       <DisplayName>--link</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link --link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link:option:link</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-link</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessLink id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link:option:link">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link:option:ordinal">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link --role-name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link:option:role-name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-role-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-bridge-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link:option:role-name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-bridge-link --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-bridge-link:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-bridge-link-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-bridge-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-bridge-link">
       <DisplayName>meta-datavault-business add-hierarchical-link</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hierarchical-link</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHierarchicalLink row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:child-hub" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -261,78 +239,71 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-child-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:description" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:child-hub">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link --description</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:description</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:parent-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:parent-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:name">
       <DisplayName>--parent-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link --parent-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:parent-hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-parent-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:parent-hub">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link">
       <DisplayName>meta-datavault-business add-hierarchical-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hierarchical-link-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHierarchicalLinkSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -342,66 +313,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:hierarchical-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:hierarchical-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:description">
       <DisplayName>--hierarchical-link</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite --hierarchical-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:hierarchical-link</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-hierarchical-link</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHierarchicalLink id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:hierarchical-link">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite">
       <DisplayName>meta-datavault-business add-hierarchical-link-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hierarchical-link-satellite-attribute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHierarchicalLinkSatelliteAttribute row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -411,113 +376,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:hierarchical-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:hierarchical-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:data-type-id">
       <DisplayName>--hierarchical-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --hierarchical-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:hierarchical-link-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-hierarchical-link-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHierarchicalLinkSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:hierarchical-link-satellite">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:precision">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hierarchical-link-satellite-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hierarchical-link-satellite-attribute-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hierarchical-link-satellite-attribute">
       <DisplayName>meta-datavault-business add-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hub</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHub row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -527,54 +482,49 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hub --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hub --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hub --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub">
       <DisplayName>meta-datavault-business add-hub-key-part</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hub-key-part</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHubKeyPart row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -584,113 +534,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:data-type-id">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:precision">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-key-part --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-key-part:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-key-part-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-key-part">
       <DisplayName>meta-datavault-business add-hub-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hub-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHubSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -700,66 +640,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:description">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite --hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite:option:hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite">
       <DisplayName>meta-datavault-business add-hub-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-hub-satellite-attribute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessHubSatelliteAttribute row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -769,113 +703,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:data-type-id">
       <DisplayName>--hub-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --hub-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:hub-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-hub-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHubSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:hub-satellite">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:precision">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-hub-satellite-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-hub-satellite-attribute-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-hub-satellite-attribute">
       <DisplayName>meta-datavault-business add-link</DisplayName>
       <DisplayPath>meta-datavault-business add-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-link</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessLink row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -885,54 +809,49 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-link --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-link --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-link --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link">
       <DisplayName>meta-datavault-business add-link-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-link-hub</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessLinkHub row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -942,78 +861,71 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub:option:id">
       <DisplayName>--link</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub --link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub:option:link</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-link</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessLink id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub:option:link">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub:option:ordinal">
       <DisplayName>--role-name</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub --role-name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub:option:role-name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-role-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub:option:role-name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-link-hub --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-hub:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-hub-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-hub</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-hub">
       <DisplayName>meta-datavault-business add-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-link-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>013</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessLinkSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1023,66 +935,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite:option:id">
       <DisplayName>--link</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite --link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite:option:link</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-link</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessLink id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite:option:link">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite">
       <DisplayName>meta-datavault-business add-link-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-link-satellite-attribute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>014</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessLinkSatelliteAttribute row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1092,113 +998,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:data-type-id">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:length">
       <DisplayName>--link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:link-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-link-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessLinkSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:link-satellite">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:precision">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-link-satellite-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-link-satellite-attribute-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-link-satellite-attribute">
       <DisplayName>meta-datavault-business add-point-in-time</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-point-in-time</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>015</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessPointInTime row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1208,66 +1104,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time:option:description">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time --hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time:option:hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time">
       <DisplayName>meta-datavault-business add-point-in-time-hub-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-hub-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-point-in-time-hub-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>016</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessPointInTimeHubSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:hub-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1277,67 +1167,61 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub-satellite-hub-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHubSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:hub-satellite">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-hub-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:id">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-hub-satellite --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub-satellite-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:ordinal">
       <DisplayName>--point-in-time</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-hub-satellite --point-in-time</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:point-in-time</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub-satellite-point-in-time</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessPointInTime id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:point-in-time">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-hub-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-hub-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-hub-satellite">
       <DisplayName>meta-datavault-business add-point-in-time-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-point-in-time-link-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>017</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessPointInTimeLinkSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1347,67 +1231,61 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-link-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:id">
       <DisplayName>--link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-link-satellite --link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:link-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-link-satellite-link-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessLinkSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:link-satellite">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-link-satellite --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-link-satellite-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:ordinal">
       <DisplayName>--point-in-time</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-link-satellite --point-in-time</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:point-in-time</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-link-satellite-point-in-time</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessPointInTime id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:point-in-time">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-link-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-link-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-link-satellite">
       <DisplayName>meta-datavault-business add-point-in-time-stamp</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-point-in-time-stamp</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>018</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessPointInTimeStamp row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1417,113 +1295,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:data-type-id">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:point-in-time" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:ordinal">
       <DisplayName>--point-in-time</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --point-in-time</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:point-in-time</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-point-in-time</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessPointInTime id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:point-in-time">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:precision">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-point-in-time-stamp --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-point-in-time-stamp-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-point-in-time-stamp</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-point-in-time-stamp">
       <DisplayName>meta-datavault-business add-reference</DisplayName>
       <DisplayPath>meta-datavault-business add-reference</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-reference</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>019</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessReference row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1533,54 +1401,49 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-reference --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-reference --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-reference --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference">
       <DisplayName>meta-datavault-business add-reference-key-part</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-reference-key-part</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>020</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessReferenceKeyPart row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1590,113 +1453,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:data-type-id">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:reference" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:reference" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:precision">
       <DisplayName>--reference</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --reference</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:reference</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-reference</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessReference id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:reference">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-key-part --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-key-part:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-key-part-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-key-part</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-key-part">
       <DisplayName>meta-datavault-business add-reference-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-reference-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>021</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessReferenceSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1706,66 +1559,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:reference" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:reference" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:name">
       <DisplayName>--reference</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite --reference</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite:option:reference</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-reference</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessReference id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite:option:reference">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite">
       <DisplayName>meta-datavault-business add-reference-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-reference-satellite-attribute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>022</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessReferenceSatelliteAttribute row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1775,113 +1622,103 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:data-type-id">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:reference-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:reference-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:precision">
       <DisplayName>--reference-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --reference-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:reference-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-reference-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessReferenceSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:reference-satellite">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-reference-satellite-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-reference-satellite-attribute-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-reference-satellite-attribute">
       <DisplayName>meta-datavault-business add-same-as-link</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-same-as-link</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>023</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessSameAsLink row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1891,78 +1728,71 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:equivalent-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:equivalent-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link:option:description">
       <DisplayName>--equivalent-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link --equivalent-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link:option:equivalent-hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-equivalent-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link:option:equivalent-hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:primary-hub" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:primary-hub" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link:option:name">
       <DisplayName>--primary-hub</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link --primary-hub</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link:option:primary-hub</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-primary-hub</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessHub id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link:option:primary-hub">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link">
       <DisplayName>meta-datavault-business add-same-as-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-same-as-link-satellite</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>024</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessSameAsLinkSatellite row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:description" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -1972,66 +1802,60 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-description</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:description">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:same-as-link" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:same-as-link" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:name">
       <DisplayName>--same-as-link</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite --same-as-link</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:same-as-link</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-same-as-link</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessSameAsLink id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:same-as-link">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite">
       <DisplayName>meta-datavault-business add-same-as-link-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-add-business-same-as-link-satellite-attribute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>025</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Add a BusinessSameAsLinkSatelliteAttribute row.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -2041,125 +1865,114 @@
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-data-type-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:data-type-id">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --id</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:id</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:length" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:id">
       <DisplayName>--length</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --length</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:length</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-length</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional length datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:length">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --name</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:name</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-name</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --ordinal</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:ordinal</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-ordinal</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:precision" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:ordinal">
       <DisplayName>--precision</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --precision</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:precision</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-precision</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional precision datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:same-as-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:same-as-link-satellite" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:precision">
       <DisplayName>--same-as-link-satellite</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --same-as-link-satellite</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:same-as-link-satellite</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-same-as-link-satellite</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>BusinessSameAsLinkSatellite id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:scale" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:same-as-link-satellite">
       <DisplayName>--scale</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --scale</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:scale</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-scale</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Optional scale datatype facet authored as metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:scale">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-business add-same-as-link-satellite-attribute --workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>option-business-same-as-link-satellite-attribute-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:help" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:help" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:add-same-as-link-satellite-attribute">
       <DisplayName>meta-datavault-business help</DisplayName>
       <DisplayPath>meta-datavault-business help</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>026</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:new-workspace" DocumentationSourceId="source:cli:meta-datavault-business">
+    <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:new-workspace" DocumentationSourceId="source:cli:meta-datavault-business" PreviousSubjectId="source:cli:meta-datavault-business:app:command:help">
       <DisplayName>meta-datavault-business new-workspace</DisplayName>
       <DisplayPath>meta-datavault-business new-workspace</DisplayPath>
       <Key>source:cli:meta-datavault-business:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>027</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a MetaBusinessDataVault workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-datavault-business:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-datavault-business">
@@ -2169,9 +1982,8 @@
       <Kind>CliArgument</Kind>
       <NativeId>arg-new-workspace-path</NativeId>
       <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-datavault-business:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

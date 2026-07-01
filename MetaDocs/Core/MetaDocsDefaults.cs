@@ -55,33 +55,33 @@ public static class MetaDocsDefaults
                 Kind = "SiteShell",
                 Html = DefaultShellTemplate,
                 SourceUrl = "modeled",
-                Ordinal = "010",
             };
             model.DocumentationTemplateList.Add(template);
 
-            model.DocumentationTemplateRegionList.Add(new DocumentationTemplateRegion
+            var navigationRegion = new DocumentationTemplateRegion
             {
                 Id = "template:metametabi-static:shell:region:navigation",
                 DocumentationTemplate = template,
                 Name = "navigation",
                 RegionKind = "Navigation",
-                Ordinal = "010",
-            });
-            model.DocumentationTemplateRegionList.Add(new DocumentationTemplateRegion
+            };
+            model.DocumentationTemplateRegionList.Add(navigationRegion);
+            var contentRegion = new DocumentationTemplateRegion
             {
                 Id = "template:metametabi-static:shell:region:content",
                 DocumentationTemplate = template,
                 Name = "content",
                 RegionKind = "Content",
-                Ordinal = "020",
-            });
+                PreviousRegion = navigationRegion,
+            };
+            model.DocumentationTemplateRegionList.Add(contentRegion);
             model.DocumentationTemplateRegionList.Add(new DocumentationTemplateRegion
             {
                 Id = "template:metametabi-static:shell:region:script",
                 DocumentationTemplate = template,
                 Name = "script",
                 RegionKind = "Script",
-                Ordinal = "030",
+                PreviousRegion = contentRegion,
             });
         }
 
@@ -94,7 +94,6 @@ public static class MetaDocsDefaults
                 DocumentationTheme = theme,
                 Name = "reference",
                 LayoutKind = "Reference",
-                Ordinal = "010",
             });
         }
 
@@ -108,14 +107,14 @@ public static class MetaDocsDefaults
                 Name = "subject",
                 ComponentKind = "Subject",
                 TemplateText = "Subject rows render from DocumentationSubject, DocumentationFact, and DocumentationNarrative.",
-                Ordinal = "010",
             });
         }
 
+        DocumentationThemeAsset? cssAsset = null;
         if (!model.DocumentationThemeAssetList.Any(row =>
                 string.Equals(row.Id, "theme:metametabi-static:asset:css", StringComparison.OrdinalIgnoreCase)))
         {
-            model.DocumentationThemeAssetList.Add(new DocumentationThemeAsset
+            cssAsset = new DocumentationThemeAsset
             {
                 Id = "theme:metametabi-static:asset:css",
                 DocumentationTheme = theme,
@@ -125,8 +124,13 @@ public static class MetaDocsDefaults
                 Href = string.Empty,
                 Content = DefaultCss,
                 Hash = string.Empty,
-                Ordinal = "010",
-            });
+            };
+            model.DocumentationThemeAssetList.Add(cssAsset);
+        }
+        else
+        {
+            cssAsset = model.DocumentationThemeAssetList.First(row =>
+                string.Equals(row.Id, "theme:metametabi-static:asset:css", StringComparison.OrdinalIgnoreCase));
         }
 
         if (!model.DocumentationThemeAssetList.Any(row =>
@@ -142,7 +146,7 @@ public static class MetaDocsDefaults
                 Href = MetametabiBrandMarkHref,
                 Content = MetametabiBrandMarkSvg,
                 Hash = "metametabi.com-inline-nav-svg-20260608",
-                Ordinal = "020",
+                PreviousAsset = cssAsset,
             });
         }
 
@@ -165,7 +169,6 @@ public static class MetaDocsDefaults
             Kind = "Site",
             Title = "meta + meta-bi reference",
             Summary = "Command-line and model references for the current public MetaDocs suite.",
-            Ordinal = "010",
         };
         model.DocumentationViewList.Add(view);
         return view;

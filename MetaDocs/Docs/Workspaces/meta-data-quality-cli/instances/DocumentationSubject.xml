@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-data-quality</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>170</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
       <DisplayName>meta-data-quality from-transform-workspace</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-from-transform-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create generated DQ views from a full MetaTransformScript workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace" DocumentationSourceId="source:cli:meta-data-quality">
@@ -30,57 +28,52 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-from-transform-workspace-binding-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaTransformBinding workspace used to scan only validated scripts.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:binding-workspace">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-data-quality from-transform-workspace --new-workspace</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-from-transform-workspace-new-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Directory where the generated MetaDataQuality workspace will be created.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:new-workspace">
       <DisplayName>--transform-workspace</DisplayName>
       <DisplayPath>meta-data-quality from-transform-workspace --transform-workspace</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-from-transform-workspace-transform-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:from-transform-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaTransformScript workspace to analyze.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:help" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:help" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace">
       <DisplayName>meta-data-quality help</DisplayName>
       <DisplayPath>meta-data-quality help</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:help">
       <DisplayName>meta-data-quality inspect</DisplayName>
       <DisplayPath>meta-data-quality inspect</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:inspect</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-inspect</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Review the generated DQ pack and optional adjustments.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids" DocumentationSourceId="source:cli:meta-data-quality">
@@ -90,57 +83,52 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-inspect-show-candidate-ids</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Include candidate ids in adjustment output. Implies --show-cases.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:show-cases" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:show-cases" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:inspect:option:show-candidate-ids">
       <DisplayName>--show-cases</DisplayName>
       <DisplayPath>meta-data-quality inspect --show-cases</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:inspect:option:show-cases</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-inspect-show-cases</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show candidate adjustment cases.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:top-cases" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:top-cases" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:inspect:option:show-cases">
       <DisplayName>--top-cases</DisplayName>
       <DisplayPath>meta-data-quality inspect --top-cases</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:inspect:option:top-cases</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-inspect-top-cases</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show up to n candidate cases. Implies --show-cases.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:workspace" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:inspect:option:workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:inspect:option:top-cases">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-data-quality inspect --workspace</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:inspect:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-inspect-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:inspect</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaDataQuality workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:inspect">
       <DisplayName>meta-data-quality promote</DisplayName>
       <DisplayPath>meta-data-quality promote</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:promote</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-promote</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Promote generated DQ candidates for SQL output.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:all" DocumentationSourceId="source:cli:meta-data-quality">
@@ -150,33 +138,30 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-promote-all</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Promote every generated data-quality candidate.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:candidate-id" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:candidate-id" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:promote:option:all">
       <DisplayName>--candidate-id</DisplayName>
       <DisplayPath>meta-data-quality promote --candidate-id</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:promote:option:candidate-id</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-promote-candidate-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Promote one generated candidate. May be provided more than once.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:workspace" DocumentationSourceId="source:cli:meta-data-quality">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:promote:option:candidate-id">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-data-quality promote --workspace</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:promote:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-promote-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaDataQuality workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:parameter-group:selection" DocumentationSourceId="source:cli:meta-data-quality">
@@ -186,9 +171,8 @@
       <Kind>CliParameterGroup</Kind>
       <NativeId>group-promote-selection</NativeId>
       <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Choose either all candidates or one or more candidate ids.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

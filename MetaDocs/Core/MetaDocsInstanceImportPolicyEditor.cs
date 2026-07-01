@@ -9,8 +9,7 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         string entityName,
         string sourceId = "",
         string displayNameProperty = "",
-        string summaryProperty = "",
-        int ordinal = 100)
+        string summaryProperty = "")
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(entityName);
@@ -38,7 +37,6 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         entity.SummaryProperty = !string.IsNullOrWhiteSpace(summaryProperty)
             ? summaryProperty.Trim()
             : entity.SummaryProperty;
-        entity.Ordinal = ordinal.ToString("000");
         entity.ReviewStatus = "Current";
         return entity;
     }
@@ -47,14 +45,13 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         MetaDocsModel model,
         string entityName,
         string propertyName,
-        string sourceId = "",
-        int ordinal = 100)
+        string sourceId = "")
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(entityName);
         ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
 
-        var entity = IncludeEntity(model, entityName, sourceId, ordinal: ordinal);
+        var entity = IncludeEntity(model, entityName, sourceId);
         var specId = $"{entity.Id}:property:{MetaDocsImportSession.NormalizeKey(propertyName)}";
         var spec = model.DocumentationPropertyImportSpecList.FirstOrDefault(row =>
             string.Equals(row.Id, specId, StringComparison.OrdinalIgnoreCase))
@@ -71,7 +68,6 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         spec.DocumentationEntityImportSpec = entity;
         spec.PropertyName = propertyName.Trim();
         spec.Include = "include";
-        spec.Ordinal = ordinal.ToString("000");
         spec.ReviewStatus = "Current";
         return spec;
     }
@@ -80,14 +76,13 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         MetaDocsModel model,
         string entityName,
         string relationshipSelector,
-        string sourceId = "",
-        int ordinal = 100)
+        string sourceId = "")
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(entityName);
         ArgumentException.ThrowIfNullOrWhiteSpace(relationshipSelector);
 
-        var entity = IncludeEntity(model, entityName, sourceId, ordinal: ordinal);
+        var entity = IncludeEntity(model, entityName, sourceId);
         var specId = $"{entity.Id}:relationship:{MetaDocsImportSession.NormalizeKey(relationshipSelector)}";
         var spec = model.DocumentationRelationshipImportSpecList.FirstOrDefault(row =>
             string.Equals(row.Id, specId, StringComparison.OrdinalIgnoreCase))
@@ -104,7 +99,6 @@ public sealed class MetaDocsInstanceImportPolicyEditor
         spec.DocumentationEntityImportSpec = entity;
         spec.RelationshipSelector = relationshipSelector.Trim();
         spec.Include = "include";
-        spec.Ordinal = ordinal.ToString("000");
         spec.ReviewStatus = "Current";
         return spec;
     }
@@ -133,7 +127,6 @@ public sealed class MetaDocsInstanceImportPolicyEditor
             : $"Instance documentation policy for {normalizedSourceId}";
         root.IncludeInstances = "include";
         root.SafetyStatus = "Approved";
-        root.Ordinal = "010";
         root.DocumentationSource = string.IsNullOrWhiteSpace(normalizedSourceId)
             ? null
             : EnsureSource(model, normalizedSourceId);

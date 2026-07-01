@@ -4,11 +4,11 @@
       <PropertyList>
         <Property name="ComponentKind" />
         <Property name="Name" />
-        <Property name="Ordinal" />
         <Property name="TemplateText" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationComponentTemplate" role="PreviousComponent" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationEntityImportSpec">
@@ -16,7 +16,6 @@
         <Property name="DisplayNameProperty" isRequired="false" />
         <Property name="EntityName" />
         <Property name="IncludeInstances" />
-        <Property name="Ordinal" />
         <Property name="ReviewStatus" />
         <Property name="SummaryProperty" isRequired="false" />
       </PropertyList>
@@ -56,7 +55,6 @@
       <PropertyList>
         <Property name="IncludeInstances" />
         <Property name="Name" />
-        <Property name="Ordinal" />
         <Property name="SafetyStatus" />
       </PropertyList>
       <RelationshipList>
@@ -67,10 +65,10 @@
       <PropertyList>
         <Property name="LayoutKind" />
         <Property name="Name" />
-        <Property name="Ordinal" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationLayout" role="PreviousLayout" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationNarrative">
@@ -78,7 +76,6 @@
         <Property name="Body" isRequired="false" />
         <Property name="BodyFormat" />
         <Property name="LastReviewedImportBatchId" isRequired="false" />
-        <Property name="Ordinal" />
         <Property name="Origin" />
         <Property name="ReviewStatus" />
         <Property name="Slot" />
@@ -87,12 +84,12 @@
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationSubject" />
+        <Relationship entity="DocumentationNarrative" role="PreviousNarrative" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationPropertyImportSpec">
       <PropertyList>
         <Property name="Include" />
-        <Property name="Ordinal" />
         <Property name="PropertyName" />
         <Property name="ReviewStatus" />
       </PropertyList>
@@ -104,18 +101,17 @@
       <PropertyList>
         <Property name="FromSubjectKey" />
         <Property name="Kind" />
-        <Property name="Ordinal" />
         <Property name="ToSubjectKey" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationImportBatch" />
         <Relationship entity="DocumentationSource" />
+        <Relationship entity="DocumentationRelationship" role="PreviousRelationship" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationRelationshipImportSpec">
       <PropertyList>
         <Property name="Include" />
-        <Property name="Ordinal" />
         <Property name="RelationshipSelector" />
         <Property name="ReviewStatus" />
       </PropertyList>
@@ -145,13 +141,13 @@
         <Property name="Kind" />
         <Property name="NativeId" isRequired="false" />
         <Property name="NativeKind" isRequired="false" />
-        <Property name="Ordinal" />
         <Property name="ParentKey" isRequired="false" />
         <Property name="Status" />
         <Property name="Summary" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationSource" />
+        <Relationship entity="DocumentationSubject" role="PreviousSubject" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationSubjectAlias">
@@ -169,21 +165,21 @@
         <Property name="Html" isRequired="false" />
         <Property name="Kind" />
         <Property name="Name" />
-        <Property name="Ordinal" />
         <Property name="SourceUrl" isRequired="false" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationTemplate" role="PreviousTemplate" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationTemplateRegion">
       <PropertyList>
         <Property name="Name" />
-        <Property name="Ordinal" />
         <Property name="RegionKind" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationTemplate" />
+        <Relationship entity="DocumentationTemplateRegion" role="PreviousRegion" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationTheme">
@@ -201,24 +197,22 @@
         <Property name="Href" isRequired="false" />
         <Property name="MediaType" isRequired="false" />
         <Property name="Name" />
-        <Property name="Ordinal" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationThemeAsset" role="PreviousAsset" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationView">
       <PropertyList>
         <Property name="Kind" />
         <Property name="Name" />
-        <Property name="Ordinal" />
         <Property name="Summary" isRequired="false" />
         <Property name="Title" isRequired="false" />
       </PropertyList>
     </Entity>
     <Entity name="DocumentationViewNode">
       <PropertyList>
-        <Property name="Ordinal" />
         <Property name="ParentNodeId" isRequired="false" />
         <Property name="Selection" isRequired="false" />
         <Property name="SubjectKey" isRequired="false" />
@@ -226,6 +220,7 @@
       </PropertyList>
       <RelationshipList>
         <Relationship entity="DocumentationView" />
+        <Relationship entity="DocumentationViewNode" role="PreviousNode" isRequired="false" />
       </RelationshipList>
     </Entity>
     <Entity name="DocumentationWorkspace">

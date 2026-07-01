@@ -2,153 +2,293 @@
 <MetaMesh>
   <OperationStepList>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta" OperationId="operation:regenerate-public-docs">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta.path} --workspace {workspace:docs-meta-cli.path} --group meta --ordinal 10 --source-id source:cli:meta</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta.path} --new-workspace {workspace:docs-meta-cli.path} --group meta --source-id source:cli:meta</Arguments>
       <Description>Import the meta CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-cli" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-cli.path} --workspace {workspace:docs-meta-cli-cli.path} --group meta --ordinal 20 --source-id source:cli:meta-cli</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-cli.path} --new-workspace {workspace:docs-meta-cli-cli.path} --group meta --source-id source:cli:meta-cli</Arguments>
       <Description>Import the meta-cli CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-cli</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-docs" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-cli">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-docs.path} --workspace {workspace:docs-meta-docs-cli.path} --group meta --ordinal 30 --source-id source:cli:meta-docs</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-docs.path} --new-workspace {workspace:docs-meta-docs-cli.path} --group meta --source-id source:cli:meta-docs</Arguments>
       <Description>Import the meta-docs CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-docs</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-mesh" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-docs">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-mesh.path} --workspace {workspace:docs-meta-mesh-cli.path} --group meta --ordinal 40 --source-id source:cli:meta-mesh</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-mesh.path} --new-workspace {workspace:docs-meta-mesh-cli.path} --group meta --source-id source:cli:meta-mesh</Arguments>
       <Description>Import the meta-mesh CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-mesh</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-weave" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-mesh">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-weave.path} --workspace {workspace:docs-meta-weave-cli.path} --group meta --ordinal 50 --source-id source:cli:meta-weave</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-weave.path} --new-workspace {workspace:docs-meta-weave-cli.path} --group meta --source-id source:cli:meta-weave</Arguments>
       <Description>Import the meta-weave CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-weave</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-schema" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-weave">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-schema.path} --workspace {workspace:docs-meta-schema-cli.path} --group meta-bi --ordinal 110 --source-id source:cli:meta-schema</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-schema.path} --new-workspace {workspace:docs-meta-schema-cli.path} --group meta-bi --source-id source:cli:meta-schema</Arguments>
       <Description>Import the meta-schema CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-schema</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-type" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-schema">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-type.path} --workspace {workspace:docs-meta-data-type-cli.path} --group meta-bi --ordinal 120 --source-id source:cli:meta-data-type</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-type.path} --new-workspace {workspace:docs-meta-data-type-cli.path} --group meta-bi --source-id source:cli:meta-data-type</Arguments>
       <Description>Import the meta-data-type CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-data-type</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-type-conversion" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-type">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-type-conversion.path} --workspace {workspace:docs-meta-data-type-conversion-cli.path} --group meta-bi --ordinal 130 --source-id source:cli:meta-data-type-conversion</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-type-conversion.path} --new-workspace {workspace:docs-meta-data-type-conversion-cli.path} --group meta-bi --source-id source:cli:meta-data-type-conversion</Arguments>
       <Description>Import the meta-data-type-conversion CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-data-type-conversion</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-sql" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-type-conversion">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-sql.path} --workspace {workspace:docs-meta-sql-cli.path} --group meta-bi --ordinal 140 --source-id source:cli:meta-sql</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-sql.path} --new-workspace {workspace:docs-meta-sql-cli.path} --group meta-bi --source-id source:cli:meta-sql</Arguments>
       <Description>Import the meta-sql CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-sql</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-transform-script" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-sql">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-transform-script.path} --workspace {workspace:docs-meta-transform-script-cli.path} --group meta-bi --ordinal 150 --source-id source:cli:meta-transform-script</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-transform-script.path} --new-workspace {workspace:docs-meta-transform-script-cli.path} --group meta-bi --source-id source:cli:meta-transform-script</Arguments>
       <Description>Import the meta-transform-script CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-transform-script</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-transform-binding" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-transform-script">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-transform-binding.path} --workspace {workspace:docs-meta-transform-binding-cli.path} --group meta-bi --ordinal 160 --source-id source:cli:meta-transform-binding</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-transform-binding.path} --new-workspace {workspace:docs-meta-transform-binding-cli.path} --group meta-bi --source-id source:cli:meta-transform-binding</Arguments>
       <Description>Import the meta-transform-binding CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-transform-binding</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-quality" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-transform-binding">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-quality.path} --workspace {workspace:docs-meta-data-quality-cli.path} --group meta-bi --ordinal 170 --source-id source:cli:meta-data-quality</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-quality.path} --new-workspace {workspace:docs-meta-data-quality-cli.path} --group meta-bi --source-id source:cli:meta-data-quality</Arguments>
       <Description>Import the meta-data-quality CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-data-quality</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-convert" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-quality">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-convert.path} --workspace {workspace:docs-meta-convert-cli.path} --group meta-bi --ordinal 180 --source-id source:cli:meta-convert</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-convert.path} --new-workspace {workspace:docs-meta-convert-cli.path} --group meta-bi --source-id source:cli:meta-convert</Arguments>
       <Description>Import the meta-convert CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-convert</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-analytics" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-convert">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-analytics.path} --workspace {workspace:docs-meta-analytics-cli.path} --group meta-bi --ordinal 190 --source-id source:cli:meta-analytics</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-analytics.path} --new-workspace {workspace:docs-meta-analytics-cli.path} --group meta-bi --source-id source:cli:meta-analytics</Arguments>
       <Description>Import the meta-analytics CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-analytics</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-warehouse" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-analytics">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-warehouse.path} --workspace {workspace:docs-meta-data-warehouse-cli.path} --group meta-bi --ordinal 200 --source-id source:cli:meta-data-warehouse</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-data-warehouse.path} --new-workspace {workspace:docs-meta-data-warehouse-cli.path} --group meta-bi --source-id source:cli:meta-data-warehouse</Arguments>
       <Description>Import the meta-data-warehouse CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-data-warehouse</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-datavault-raw" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-warehouse">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-datavault-raw.path} --workspace {workspace:docs-meta-datavault-raw-cli.path} --group meta-bi --ordinal 210 --source-id source:cli:meta-datavault-raw</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-datavault-raw.path} --new-workspace {workspace:docs-meta-datavault-raw-cli.path} --group meta-bi --source-id source:cli:meta-datavault-raw</Arguments>
       <Description>Import the meta-datavault-raw CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-datavault-raw</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-datavault-business" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-datavault-raw">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-datavault-business.path} --workspace {workspace:docs-meta-datavault-business-cli.path} --group meta-bi --ordinal 220 --source-id source:cli:meta-datavault-business</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-datavault-business.path} --new-workspace {workspace:docs-meta-datavault-business-cli.path} --group meta-bi --source-id source:cli:meta-datavault-business</Arguments>
       <Description>Import the meta-datavault-business CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-datavault-business</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-pipeline" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-datavault-business">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-pipeline.path} --workspace {workspace:docs-meta-pipeline-cli.path} --group meta-bi --ordinal 230 --source-id source:cli:meta-pipeline</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-pipeline.path} --new-workspace {workspace:docs-meta-pipeline-cli.path} --group meta-bi --source-id source:cli:meta-pipeline</Arguments>
       <Description>Import the meta-pipeline CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-pipeline</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-orchestration" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-pipeline">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-orchestration.path} --workspace {workspace:docs-meta-orchestration-cli.path} --group meta-bi --ordinal 240 --source-id source:cli:meta-orchestration</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-orchestration.path} --new-workspace {workspace:docs-meta-orchestration-cli.path} --group meta-bi --source-id source:cli:meta-orchestration</Arguments>
       <Description>Import the meta-orchestration CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-orchestration</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-tabular" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-orchestration">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-tabular.path} --workspace {workspace:docs-meta-tabular-cli.path} --group meta-bi --ordinal 250 --source-id source:cli:meta-tabular</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-tabular.path} --new-workspace {workspace:docs-meta-tabular-cli.path} --group meta-bi --source-id source:cli:meta-tabular</Arguments>
       <Description>Import the meta-tabular CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-tabular</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-multi-dimensional" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-tabular">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-multi-dimensional.path} --workspace {workspace:docs-meta-multi-dimensional-cli.path} --group meta-bi --ordinal 260 --source-id source:cli:meta-multi-dimensional</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-multi-dimensional.path} --new-workspace {workspace:docs-meta-multi-dimensional-cli.path} --group meta-bi --source-id source:cli:meta-multi-dimensional</Arguments>
       <Description>Import the meta-multi-dimensional CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-multi-dimensional</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
-    <OperationStep Id="operation-step:regenerate-public-docs:merge-public-suite" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-multi-dimensional">
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-analytics-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-multi-dimensional">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-analytics.path} --new-workspace {workspace:docs-meta-analytics-model.path} --source-id source:workspace-model:meta-analytics</Arguments>
+      <Description>Import the meta-analytics model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-analytics-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-business-data-vault-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-analytics-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-business-data-vault.path} --new-workspace {workspace:docs-meta-business-data-vault-model.path} --source-id source:workspace-model:meta-business-data-vault</Arguments>
+      <Description>Import the meta-business-data-vault model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-business-data-vault-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-quality-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-business-data-vault-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-quality.path} --new-workspace {workspace:docs-meta-data-quality-model.path} --source-id source:workspace-model:meta-data-quality</Arguments>
+      <Description>Import the meta-data-quality model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-quality-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-type-conversion-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-quality-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-type-conversion.path} --new-workspace {workspace:docs-meta-data-type-conversion-model.path} --source-id source:workspace-model:meta-data-type-conversion</Arguments>
+      <Description>Import the meta-data-type-conversion model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-type-conversion-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-type-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-type-conversion-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-type.path} --new-workspace {workspace:docs-meta-data-type-model.path} --source-id source:workspace-model:meta-data-type</Arguments>
+      <Description>Import the meta-data-type model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-type-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-vault-implementation-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-type-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-vault-implementation.path} --new-workspace {workspace:docs-meta-data-vault-implementation-model.path} --source-id source:workspace-model:meta-data-vault-implementation</Arguments>
+      <Description>Import the meta-data-vault-implementation model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-vault-implementation-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-warehouse-implementation-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-vault-implementation-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-warehouse-implementation.path} --new-workspace {workspace:docs-meta-data-warehouse-implementation-model.path} --source-id source:workspace-model:meta-data-warehouse-implementation</Arguments>
+      <Description>Import the meta-data-warehouse-implementation model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-warehouse-implementation-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-data-warehouse-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-warehouse-implementation-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-data-warehouse.path} --new-workspace {workspace:docs-meta-data-warehouse-model.path} --source-id source:workspace-model:meta-data-warehouse</Arguments>
+      <Description>Import the meta-data-warehouse model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-data-warehouse-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-docs-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-data-warehouse-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-docs.path} --new-workspace {workspace:docs-meta-docs-model.path} --source-id source:workspace-model:meta-docs</Arguments>
+      <Description>Import the meta-docs model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-docs-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-multi-dimensional-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-docs-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-multi-dimensional.path} --new-workspace {workspace:docs-meta-multi-dimensional-model.path} --source-id source:workspace-model:meta-multi-dimensional</Arguments>
+      <Description>Import the meta-multi-dimensional model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-multi-dimensional-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-orchestration-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-multi-dimensional-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-orchestration.path} --new-workspace {workspace:docs-meta-orchestration-model.path} --source-id source:workspace-model:meta-orchestration</Arguments>
+      <Description>Import the meta-orchestration model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-orchestration-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-pipeline-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-orchestration-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-pipeline.path} --new-workspace {workspace:docs-meta-pipeline-model.path} --source-id source:workspace-model:meta-pipeline</Arguments>
+      <Description>Import the meta-pipeline model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-pipeline-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-raw-data-vault-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-pipeline-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-raw-data-vault.path} --new-workspace {workspace:docs-meta-raw-data-vault-model.path} --source-id source:workspace-model:meta-raw-data-vault</Arguments>
+      <Description>Import the meta-raw-data-vault model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-raw-data-vault-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-schema-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-raw-data-vault-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-schema.path} --new-workspace {workspace:docs-meta-schema-model.path} --source-id source:workspace-model:meta-schema</Arguments>
+      <Description>Import the meta-schema model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-schema-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-sql-deploy-manifest-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-schema-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-sql-deploy-manifest.path} --new-workspace {workspace:docs-meta-sql-deploy-manifest-model.path} --source-id source:workspace-model:meta-sql-deploy-manifest</Arguments>
+      <Description>Import the meta-sql-deploy-manifest model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-sql-deploy-manifest-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-sql-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-sql-deploy-manifest-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-sql.path} --new-workspace {workspace:docs-meta-sql-model.path} --source-id source:workspace-model:meta-sql</Arguments>
+      <Description>Import the meta-sql model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-sql-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-tabular-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-sql-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-tabular.path} --new-workspace {workspace:docs-meta-tabular-model.path} --source-id source:workspace-model:meta-tabular</Arguments>
+      <Description>Import the meta-tabular model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-tabular-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-transform-binding-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-tabular-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-transform-binding.path} --new-workspace {workspace:docs-meta-transform-binding-model.path} --source-id source:workspace-model:meta-transform-binding</Arguments>
+      <Description>Import the meta-transform-binding model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-transform-binding-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-transform-script-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-transform-binding-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-transform-script.path} --new-workspace {workspace:docs-meta-transform-script-model.path} --source-id source:workspace-model:meta-transform-script</Arguments>
+      <Description>Import the meta-transform-script model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-transform-script-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-meta-weave-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-transform-script-model">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-weave.path} --new-workspace {workspace:docs-meta-weave-model.path} --source-id source:workspace-model:meta-weave</Arguments>
+      <Description>Import the meta-weave model docs workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-meta-weave-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:merge-public-suite" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-weave-model">
       <Arguments>merge --include {workspace:docs-meta-analytics-cli.path} --include {workspace:docs-meta-analytics-model.path} --include {workspace:docs-meta-business-data-vault-model.path} --include {workspace:docs-meta-cli.path} --include {workspace:docs-meta-cli-cli.path} --include {workspace:docs-meta-convert-cli.path} --include {workspace:docs-meta-data-quality-cli.path} --include {workspace:docs-meta-data-quality-model.path} --include {workspace:docs-meta-data-type-cli.path} --include {workspace:docs-meta-data-type-conversion-cli.path} --include {workspace:docs-meta-data-type-conversion-model.path} --include {workspace:docs-meta-data-type-model.path} --include {workspace:docs-meta-datavault-business-cli.path} --include {workspace:docs-meta-data-vault-implementation-model.path} --include {workspace:docs-meta-datavault-raw-cli.path} --include {workspace:docs-meta-data-warehouse-cli.path} --include {workspace:docs-meta-data-warehouse-implementation-model.path} --include {workspace:docs-meta-data-warehouse-model.path} --include {workspace:docs-meta-docs-cli.path} --include {workspace:docs-meta-docs-model.path} --include {workspace:docs-meta-mesh-cli.path} --include {workspace:docs-meta-multi-dimensional-cli.path} --include {workspace:docs-meta-multi-dimensional-model.path} --include {workspace:docs-meta-orchestration-cli.path} --include {workspace:docs-meta-orchestration-model.path} --include {workspace:docs-meta-pipeline-cli.path} --include {workspace:docs-meta-pipeline-model.path} --include {workspace:docs-meta-raw-data-vault-model.path} --include {workspace:docs-meta-schema-cli.path} --include {workspace:docs-meta-schema-model.path} --include {workspace:docs-meta-sql-cli.path} --include {workspace:docs-meta-sql-deploy-manifest-model.path} --include {workspace:docs-meta-sql-model.path} --include {workspace:docs-meta-tabular-cli.path} --include {workspace:docs-meta-tabular-model.path} --include {workspace:docs-meta-transform-binding-cli.path} --include {workspace:docs-meta-transform-binding-model.path} --include {workspace:docs-meta-transform-script-cli.path} --include {workspace:docs-meta-transform-script-model.path} --include {workspace:docs-meta-weave-cli.path} --include {workspace:docs-meta-weave-model.path} --workspace {workspace:docs-suite.path}</Arguments>
       <Description>Merge public MetaDocs source workspaces into the suite workspace.</Description>
       <Executable>meta-docs.exe</Executable>

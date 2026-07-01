@@ -525,6 +525,9 @@ namespace MetaDocs
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
+                        case "PreviousComponentId":
+                            relationships.PreviousComponentId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationComponentTemplate'.");
                     }
@@ -550,9 +553,6 @@ namespace MetaDocs
                         break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "TemplateText":
                         row.TemplateText = reader.ReadElementContentAsString();
@@ -594,10 +594,22 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationThemeId);
                 builder.Append('"');
+                if (row.PreviousComponent != null)
+                {
+                    var previousComponentId = RequireIdentity(row.PreviousComponent?.Id, $"Relationship 'DocumentationComponentTemplate.PreviousComponentId' on row 'DocumentationComponentTemplate:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationComponentTemplateListById.TryGetValue(previousComponentId, out var previousComponentCanonical) || !ReferenceEquals(previousComponentCanonical, row.PreviousComponent))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationComponentTemplate.PreviousComponentId' on row 'DocumentationComponentTemplate:{row.Id}' references an object that is not the canonical row for Id '{previousComponentId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousComponentId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousComponentId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "ComponentKind", RequireText(row.ComponentKind, $"Entity 'DocumentationComponentTemplate' row '{row.Id}' is missing required property 'ComponentKind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationComponentTemplate' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationComponentTemplate' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.TemplateText))
                 {
                     AppendElement(builder, "TemplateText", row.TemplateText!, "      ");
@@ -682,9 +694,6 @@ namespace MetaDocs
                     case "IncludeInstances":
                         row.IncludeInstances = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "ReviewStatus":
                         row.ReviewStatus = reader.ReadElementContentAsString();
                         break;
@@ -735,7 +744,6 @@ namespace MetaDocs
                 }
                 AppendElement(builder, "EntityName", RequireText(row.EntityName, $"Entity 'DocumentationEntityImportSpec' row '{row.Id}' is missing required property 'EntityName'."), "      ");
                 AppendElement(builder, "IncludeInstances", RequireText(row.IncludeInstances, $"Entity 'DocumentationEntityImportSpec' row '{row.Id}' is missing required property 'IncludeInstances'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationEntityImportSpec' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationEntityImportSpec' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.SummaryProperty))
                 {
@@ -1119,9 +1127,6 @@ namespace MetaDocs
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "SafetyStatus":
                         row.SafetyStatus = reader.ReadElementContentAsString();
                         break;
@@ -1168,7 +1173,6 @@ namespace MetaDocs
                 builder.Append(">\n");
                 AppendElement(builder, "IncludeInstances", RequireText(row.IncludeInstances, $"Entity 'DocumentationInstanceImportSpec' row '{row.Id}' is missing required property 'IncludeInstances'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationInstanceImportSpec' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationInstanceImportSpec' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "SafetyStatus", RequireText(row.SafetyStatus, $"Entity 'DocumentationInstanceImportSpec' row '{row.Id}' is missing required property 'SafetyStatus'."), "      ");
                 builder.Append("    </DocumentationInstanceImportSpec>\n");
             }
@@ -1221,6 +1225,9 @@ namespace MetaDocs
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
+                        case "PreviousLayoutId":
+                            relationships.PreviousLayoutId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationLayout'.");
                     }
@@ -1246,9 +1253,6 @@ namespace MetaDocs
                         break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationLayout'.");
@@ -1287,10 +1291,22 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationThemeId);
                 builder.Append('"');
+                if (row.PreviousLayout != null)
+                {
+                    var previousLayoutId = RequireIdentity(row.PreviousLayout?.Id, $"Relationship 'DocumentationLayout.PreviousLayoutId' on row 'DocumentationLayout:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationLayoutListById.TryGetValue(previousLayoutId, out var previousLayoutCanonical) || !ReferenceEquals(previousLayoutCanonical, row.PreviousLayout))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationLayout.PreviousLayoutId' on row 'DocumentationLayout:{row.Id}' references an object that is not the canonical row for Id '{previousLayoutId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousLayoutId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousLayoutId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "LayoutKind", RequireText(row.LayoutKind, $"Entity 'DocumentationLayout' row '{row.Id}' is missing required property 'LayoutKind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationLayout' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationLayout' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 builder.Append("    </DocumentationLayout>\n");
             }
             builder.Append("  </DocumentationLayoutList>\n");
@@ -1342,6 +1358,9 @@ namespace MetaDocs
                         case "DocumentationSubjectId":
                             relationships.DocumentationSubjectId = reader.Value;
                             break;
+                        case "PreviousNarrativeId":
+                            relationships.PreviousNarrativeId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationNarrative'.");
                     }
@@ -1370,9 +1389,6 @@ namespace MetaDocs
                         break;
                     case "LastReviewedImportBatchId":
                         row.LastReviewedImportBatchId = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "Origin":
                         row.Origin = reader.ReadElementContentAsString();
@@ -1426,6 +1442,19 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSubjectId);
                 builder.Append('"');
+                if (row.PreviousNarrative != null)
+                {
+                    var previousNarrativeId = RequireIdentity(row.PreviousNarrative?.Id, $"Relationship 'DocumentationNarrative.PreviousNarrativeId' on row 'DocumentationNarrative:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationNarrativeListById.TryGetValue(previousNarrativeId, out var previousNarrativeCanonical) || !ReferenceEquals(previousNarrativeCanonical, row.PreviousNarrative))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationNarrative.PreviousNarrativeId' on row 'DocumentationNarrative:{row.Id}' references an object that is not the canonical row for Id '{previousNarrativeId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousNarrativeId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousNarrativeId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 if (!string.IsNullOrWhiteSpace(row.Body))
                 {
@@ -1436,7 +1465,6 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "LastReviewedImportBatchId", row.LastReviewedImportBatchId!, "      ");
                 }
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "Origin", RequireText(row.Origin, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'Origin'."), "      ");
                 AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
                 AppendElement(builder, "Slot", RequireText(row.Slot, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'Slot'."), "      ");
@@ -1519,9 +1547,6 @@ namespace MetaDocs
                     case "Include":
                         row.Include = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "PropertyName":
                         row.PropertyName = reader.ReadElementContentAsString();
                         break;
@@ -1567,7 +1592,6 @@ namespace MetaDocs
                 builder.Append('"');
                 builder.Append(">\n");
                 AppendElement(builder, "Include", RequireText(row.Include, $"Entity 'DocumentationPropertyImportSpec' row '{row.Id}' is missing required property 'Include'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationPropertyImportSpec' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "PropertyName", RequireText(row.PropertyName, $"Entity 'DocumentationPropertyImportSpec' row '{row.Id}' is missing required property 'PropertyName'."), "      ");
                 AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationPropertyImportSpec' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
                 builder.Append("    </DocumentationPropertyImportSpec>\n");
@@ -1624,6 +1648,9 @@ namespace MetaDocs
                         case "DocumentationSourceId":
                             relationships.DocumentationSourceId = reader.Value;
                             break;
+                        case "PreviousRelationshipId":
+                            relationships.PreviousRelationshipId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationRelationship'.");
                     }
@@ -1649,9 +1676,6 @@ namespace MetaDocs
                         break;
                     case "Kind":
                         row.Kind = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "ToSubjectKey":
                         row.ToSubjectKey = reader.ReadElementContentAsString();
@@ -1703,10 +1727,22 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSourceId);
                 builder.Append('"');
+                if (row.PreviousRelationship != null)
+                {
+                    var previousRelationshipId = RequireIdentity(row.PreviousRelationship?.Id, $"Relationship 'DocumentationRelationship.PreviousRelationshipId' on row 'DocumentationRelationship:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationRelationshipListById.TryGetValue(previousRelationshipId, out var previousRelationshipCanonical) || !ReferenceEquals(previousRelationshipCanonical, row.PreviousRelationship))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationRelationship.PreviousRelationshipId' on row 'DocumentationRelationship:{row.Id}' references an object that is not the canonical row for Id '{previousRelationshipId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousRelationshipId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousRelationshipId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "FromSubjectKey", RequireText(row.FromSubjectKey, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'FromSubjectKey'."), "      ");
                 AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'Kind'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "ToSubjectKey", RequireText(row.ToSubjectKey, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'ToSubjectKey'."), "      ");
                 builder.Append("    </DocumentationRelationship>\n");
             }
@@ -1782,9 +1818,6 @@ namespace MetaDocs
                     case "Include":
                         row.Include = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "RelationshipSelector":
                         row.RelationshipSelector = reader.ReadElementContentAsString();
                         break;
@@ -1830,7 +1863,6 @@ namespace MetaDocs
                 builder.Append('"');
                 builder.Append(">\n");
                 AppendElement(builder, "Include", RequireText(row.Include, $"Entity 'DocumentationRelationshipImportSpec' row '{row.Id}' is missing required property 'Include'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationRelationshipImportSpec' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "RelationshipSelector", RequireText(row.RelationshipSelector, $"Entity 'DocumentationRelationshipImportSpec' row '{row.Id}' is missing required property 'RelationshipSelector'."), "      ");
                 AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationRelationshipImportSpec' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
                 builder.Append("    </DocumentationRelationshipImportSpec>\n");
@@ -2036,6 +2068,9 @@ namespace MetaDocs
                         case "DocumentationSourceId":
                             relationships.DocumentationSourceId = reader.Value;
                             break;
+                        case "PreviousSubjectId":
+                            relationships.PreviousSubjectId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationSubject'.");
                     }
@@ -2073,9 +2108,6 @@ namespace MetaDocs
                         break;
                     case "NativeKind":
                         row.NativeKind = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "ParentKey":
                         row.ParentKey = reader.ReadElementContentAsString();
@@ -2123,6 +2155,19 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSourceId);
                 builder.Append('"');
+                if (row.PreviousSubject != null)
+                {
+                    var previousSubjectId = RequireIdentity(row.PreviousSubject?.Id, $"Relationship 'DocumentationSubject.PreviousSubjectId' on row 'DocumentationSubject:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationSubjectListById.TryGetValue(previousSubjectId, out var previousSubjectCanonical) || !ReferenceEquals(previousSubjectCanonical, row.PreviousSubject))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationSubject.PreviousSubjectId' on row 'DocumentationSubject:{row.Id}' references an object that is not the canonical row for Id '{previousSubjectId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousSubjectId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousSubjectId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "DisplayName", RequireText(row.DisplayName, $"Entity 'DocumentationSubject' row '{row.Id}' is missing required property 'DisplayName'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.DisplayPath))
@@ -2139,7 +2184,6 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "NativeKind", row.NativeKind!, "      ");
                 }
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationSubject' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.ParentKey))
                 {
                     AppendElement(builder, "ParentKey", row.ParentKey!, "      ");
@@ -2324,6 +2368,9 @@ namespace MetaDocs
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
+                        case "PreviousTemplateId":
+                            relationships.PreviousTemplateId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationTemplate'.");
                     }
@@ -2352,9 +2399,6 @@ namespace MetaDocs
                         break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "SourceUrl":
                         row.SourceUrl = reader.ReadElementContentAsString();
@@ -2396,6 +2440,19 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationThemeId);
                 builder.Append('"');
+                if (row.PreviousTemplate != null)
+                {
+                    var previousTemplateId = RequireIdentity(row.PreviousTemplate?.Id, $"Relationship 'DocumentationTemplate.PreviousTemplateId' on row 'DocumentationTemplate:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationTemplateListById.TryGetValue(previousTemplateId, out var previousTemplateCanonical) || !ReferenceEquals(previousTemplateCanonical, row.PreviousTemplate))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationTemplate.PreviousTemplateId' on row 'DocumentationTemplate:{row.Id}' references an object that is not the canonical row for Id '{previousTemplateId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousTemplateId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousTemplateId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 if (!string.IsNullOrWhiteSpace(row.Html))
                 {
@@ -2403,7 +2460,6 @@ namespace MetaDocs
                 }
                 AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationTemplate' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplate' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationTemplate' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.SourceUrl))
                 {
                     AppendElement(builder, "SourceUrl", row.SourceUrl!, "      ");
@@ -2459,6 +2515,9 @@ namespace MetaDocs
                         case "DocumentationTemplateId":
                             relationships.DocumentationTemplateId = reader.Value;
                             break;
+                        case "PreviousRegionId":
+                            relationships.PreviousRegionId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationTemplateRegion'.");
                     }
@@ -2481,9 +2540,6 @@ namespace MetaDocs
                 {
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
                         break;
                     case "RegionKind":
                         row.RegionKind = reader.ReadElementContentAsString();
@@ -2525,9 +2581,21 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationTemplateId);
                 builder.Append('"');
+                if (row.PreviousRegion != null)
+                {
+                    var previousRegionId = RequireIdentity(row.PreviousRegion?.Id, $"Relationship 'DocumentationTemplateRegion.PreviousRegionId' on row 'DocumentationTemplateRegion:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationTemplateRegionListById.TryGetValue(previousRegionId, out var previousRegionCanonical) || !ReferenceEquals(previousRegionCanonical, row.PreviousRegion))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationTemplateRegion.PreviousRegionId' on row 'DocumentationTemplateRegion:{row.Id}' references an object that is not the canonical row for Id '{previousRegionId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousRegionId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousRegionId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplateRegion' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationTemplateRegion' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 AppendElement(builder, "RegionKind", RequireText(row.RegionKind, $"Entity 'DocumentationTemplateRegion' row '{row.Id}' is missing required property 'RegionKind'."), "      ");
                 builder.Append("    </DocumentationTemplateRegion>\n");
             }
@@ -2691,6 +2759,9 @@ namespace MetaDocs
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
+                        case "PreviousAssetId":
+                            relationships.PreviousAssetId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationThemeAsset'.");
                     }
@@ -2729,9 +2800,6 @@ namespace MetaDocs
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationThemeAsset'.");
                 }
@@ -2769,6 +2837,19 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationThemeId);
                 builder.Append('"');
+                if (row.PreviousAsset != null)
+                {
+                    var previousAssetId = RequireIdentity(row.PreviousAsset?.Id, $"Relationship 'DocumentationThemeAsset.PreviousAssetId' on row 'DocumentationThemeAsset:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationThemeAssetListById.TryGetValue(previousAssetId, out var previousAssetCanonical) || !ReferenceEquals(previousAssetCanonical, row.PreviousAsset))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationThemeAsset.PreviousAssetId' on row 'DocumentationThemeAsset:{row.Id}' references an object that is not the canonical row for Id '{previousAssetId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousAssetId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousAssetId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
                 AppendElement(builder, "AssetKind", RequireText(row.AssetKind, $"Entity 'DocumentationThemeAsset' row '{row.Id}' is missing required property 'AssetKind'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Content))
@@ -2788,7 +2869,6 @@ namespace MetaDocs
                     AppendElement(builder, "MediaType", row.MediaType!, "      ");
                 }
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationThemeAsset' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationThemeAsset' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 builder.Append("    </DocumentationThemeAsset>\n");
             }
             builder.Append("  </DocumentationThemeAssetList>\n");
@@ -2861,9 +2941,6 @@ namespace MetaDocs
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "Summary":
                         row.Summary = reader.ReadElementContentAsString();
                         break;
@@ -2899,7 +2976,6 @@ namespace MetaDocs
                 builder.Append(">\n");
                 AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationView' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationView' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationView' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Summary))
                 {
                     AppendElement(builder, "Summary", row.Summary!, "      ");
@@ -2959,6 +3035,9 @@ namespace MetaDocs
                         case "DocumentationViewId":
                             relationships.DocumentationViewId = reader.Value;
                             break;
+                        case "PreviousNodeId":
+                            relationships.PreviousNodeId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationViewNode'.");
                     }
@@ -2979,9 +3058,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "Ordinal":
-                        row.Ordinal = reader.ReadElementContentAsString();
-                        break;
                     case "ParentNodeId":
                         row.ParentNodeId = reader.ReadElementContentAsString();
                         break;
@@ -3031,8 +3107,20 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationViewId);
                 builder.Append('"');
+                if (row.PreviousNode != null)
+                {
+                    var previousNodeId = RequireIdentity(row.PreviousNode?.Id, $"Relationship 'DocumentationViewNode.PreviousNodeId' on row 'DocumentationViewNode:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationViewNodeListById.TryGetValue(previousNodeId, out var previousNodeCanonical) || !ReferenceEquals(previousNodeCanonical, row.PreviousNode))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationViewNode.PreviousNodeId' on row 'DocumentationViewNode:{row.Id}' references an object that is not the canonical row for Id '{previousNodeId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousNodeId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousNodeId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
-                AppendElement(builder, "Ordinal", RequireText(row.Ordinal, $"Entity 'DocumentationViewNode' row '{row.Id}' is missing required property 'Ordinal'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.ParentNodeId))
                 {
                     AppendElement(builder, "ParentNodeId", row.ParentNodeId!, "      ");
@@ -3165,6 +3253,7 @@ namespace MetaDocs
         {
             public DocumentationComponentTemplate Row { get; set; } = null!;
             public string DocumentationThemeId { get; set; } = string.Empty;
+            public string PreviousComponentId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationEntityImportSpecRelationships
@@ -3197,12 +3286,14 @@ namespace MetaDocs
         {
             public DocumentationLayout Row { get; set; } = null!;
             public string DocumentationThemeId { get; set; } = string.Empty;
+            public string PreviousLayoutId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationNarrativeRelationships
         {
             public DocumentationNarrative Row { get; set; } = null!;
             public string DocumentationSubjectId { get; set; } = string.Empty;
+            public string PreviousNarrativeId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationPropertyImportSpecRelationships
@@ -3216,6 +3307,7 @@ namespace MetaDocs
             public DocumentationRelationship Row { get; set; } = null!;
             public string DocumentationImportBatchId { get; set; } = string.Empty;
             public string DocumentationSourceId { get; set; } = string.Empty;
+            public string PreviousRelationshipId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationRelationshipImportSpecRelationships
@@ -3234,6 +3326,7 @@ namespace MetaDocs
         {
             public DocumentationSubject Row { get; set; } = null!;
             public string DocumentationSourceId { get; set; } = string.Empty;
+            public string PreviousSubjectId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationSubjectAliasRelationships
@@ -3246,24 +3339,28 @@ namespace MetaDocs
         {
             public DocumentationTemplate Row { get; set; } = null!;
             public string DocumentationThemeId { get; set; } = string.Empty;
+            public string PreviousTemplateId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationTemplateRegionRelationships
         {
             public DocumentationTemplateRegion Row { get; set; } = null!;
             public string DocumentationTemplateId { get; set; } = string.Empty;
+            public string PreviousRegionId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationThemeAssetRelationships
         {
             public DocumentationThemeAsset Row { get; set; } = null!;
             public string DocumentationThemeId { get; set; } = string.Empty;
+            public string PreviousAssetId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationViewNodeRelationships
         {
             public DocumentationViewNode Row { get; set; } = null!;
             public string DocumentationViewId { get; set; } = string.Empty;
+            public string PreviousNodeId { get; set; } = string.Empty;
         }
 
         private sealed class RelationshipBuffers
@@ -3297,6 +3394,18 @@ namespace MetaDocs
                     "DocumentationComponentTemplate",
                     relationship.Row.Id,
                     "DocumentationThemeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationComponentTemplateRelationships ?? Enumerable.Empty<DocumentationComponentTemplateRelationships>())
+            {
+                relationship.Row.PreviousComponent = string.IsNullOrWhiteSpace(relationship.PreviousComponentId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationComponentTemplateListById,
+                        relationship.PreviousComponentId,
+                        "DocumentationComponentTemplate",
+                        relationship.Row.Id,
+                        "PreviousComponentId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationEntityImportSpecRelationships ?? Enumerable.Empty<DocumentationEntityImportSpecRelationships>())
@@ -3371,6 +3480,18 @@ namespace MetaDocs
                     "DocumentationThemeId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationLayoutRelationships ?? Enumerable.Empty<DocumentationLayoutRelationships>())
+            {
+                relationship.Row.PreviousLayout = string.IsNullOrWhiteSpace(relationship.PreviousLayoutId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationLayoutListById,
+                        relationship.PreviousLayoutId,
+                        "DocumentationLayout",
+                        relationship.Row.Id,
+                        "PreviousLayoutId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationNarrativeRelationships ?? Enumerable.Empty<DocumentationNarrativeRelationships>())
             {
                 relationship.Row.DocumentationSubject = RequireTarget(
@@ -3379,6 +3500,18 @@ namespace MetaDocs
                     "DocumentationNarrative",
                     relationship.Row.Id,
                     "DocumentationSubjectId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationNarrativeRelationships ?? Enumerable.Empty<DocumentationNarrativeRelationships>())
+            {
+                relationship.Row.PreviousNarrative = string.IsNullOrWhiteSpace(relationship.PreviousNarrativeId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationNarrativeListById,
+                        relationship.PreviousNarrativeId,
+                        "DocumentationNarrative",
+                        relationship.Row.Id,
+                        "PreviousNarrativeId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationPropertyImportSpecRelationships ?? Enumerable.Empty<DocumentationPropertyImportSpecRelationships>())
@@ -3409,6 +3542,18 @@ namespace MetaDocs
                     "DocumentationRelationship",
                     relationship.Row.Id,
                     "DocumentationSourceId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
+            {
+                relationship.Row.PreviousRelationship = string.IsNullOrWhiteSpace(relationship.PreviousRelationshipId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationRelationshipListById,
+                        relationship.PreviousRelationshipId,
+                        "DocumentationRelationship",
+                        relationship.Row.Id,
+                        "PreviousRelationshipId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationRelationshipImportSpecRelationships ?? Enumerable.Empty<DocumentationRelationshipImportSpecRelationships>())
@@ -3443,6 +3588,18 @@ namespace MetaDocs
                     "DocumentationSourceId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationSubjectRelationships ?? Enumerable.Empty<DocumentationSubjectRelationships>())
+            {
+                relationship.Row.PreviousSubject = string.IsNullOrWhiteSpace(relationship.PreviousSubjectId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationSubjectListById,
+                        relationship.PreviousSubjectId,
+                        "DocumentationSubject",
+                        relationship.Row.Id,
+                        "PreviousSubjectId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationSubjectAliasRelationships ?? Enumerable.Empty<DocumentationSubjectAliasRelationships>())
             {
                 relationship.Row.DocumentationSubject = RequireTarget(
@@ -3463,6 +3620,18 @@ namespace MetaDocs
                     "DocumentationThemeId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationTemplateRelationships ?? Enumerable.Empty<DocumentationTemplateRelationships>())
+            {
+                relationship.Row.PreviousTemplate = string.IsNullOrWhiteSpace(relationship.PreviousTemplateId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationTemplateListById,
+                        relationship.PreviousTemplateId,
+                        "DocumentationTemplate",
+                        relationship.Row.Id,
+                        "PreviousTemplateId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationTemplateRegionRelationships ?? Enumerable.Empty<DocumentationTemplateRegionRelationships>())
             {
                 relationship.Row.DocumentationTemplate = RequireTarget(
@@ -3471,6 +3640,18 @@ namespace MetaDocs
                     "DocumentationTemplateRegion",
                     relationship.Row.Id,
                     "DocumentationTemplateId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationTemplateRegionRelationships ?? Enumerable.Empty<DocumentationTemplateRegionRelationships>())
+            {
+                relationship.Row.PreviousRegion = string.IsNullOrWhiteSpace(relationship.PreviousRegionId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationTemplateRegionListById,
+                        relationship.PreviousRegionId,
+                        "DocumentationTemplateRegion",
+                        relationship.Row.Id,
+                        "PreviousRegionId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationThemeAssetRelationships ?? Enumerable.Empty<DocumentationThemeAssetRelationships>())
@@ -3483,6 +3664,18 @@ namespace MetaDocs
                     "DocumentationThemeId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationThemeAssetRelationships ?? Enumerable.Empty<DocumentationThemeAssetRelationships>())
+            {
+                relationship.Row.PreviousAsset = string.IsNullOrWhiteSpace(relationship.PreviousAssetId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationThemeAssetListById,
+                        relationship.PreviousAssetId,
+                        "DocumentationThemeAsset",
+                        relationship.Row.Id,
+                        "PreviousAssetId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationViewNodeRelationships ?? Enumerable.Empty<DocumentationViewNodeRelationships>())
             {
                 relationship.Row.DocumentationView = RequireTarget(
@@ -3491,6 +3684,18 @@ namespace MetaDocs
                     "DocumentationViewNode",
                     relationship.Row.Id,
                     "DocumentationViewId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationViewNodeRelationships ?? Enumerable.Empty<DocumentationViewNodeRelationships>())
+            {
+                relationship.Row.PreviousNode = string.IsNullOrWhiteSpace(relationship.PreviousNodeId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationViewNodeListById,
+                        relationship.PreviousNodeId,
+                        "DocumentationViewNode",
+                        relationship.Row.Id,
+                        "PreviousNodeId");
             }
 
         }
@@ -3979,9 +4184,9 @@ namespace MetaDocs
                 "Id",
                 "ComponentKind",
                 "Name",
-                "Ordinal",
                 "TemplateText",
-                "DocumentationTheme"))
+                "DocumentationTheme",
+                "PreviousComponent"))
             {
                 return true;
             }
@@ -3991,7 +4196,6 @@ namespace MetaDocs
                 "DisplayNameProperty",
                 "EntityName",
                 "IncludeInstances",
-                "Ordinal",
                 "ReviewStatus",
                 "SummaryProperty",
                 "DocumentationInstanceImportSpec"))
@@ -4031,7 +4235,6 @@ namespace MetaDocs
                 "Id",
                 "IncludeInstances",
                 "Name",
-                "Ordinal",
                 "SafetyStatus",
                 "DocumentationSource"))
             {
@@ -4042,8 +4245,8 @@ namespace MetaDocs
                 "Id",
                 "LayoutKind",
                 "Name",
-                "Ordinal",
-                "DocumentationTheme"))
+                "DocumentationTheme",
+                "PreviousLayout"))
             {
                 return true;
             }
@@ -4053,13 +4256,13 @@ namespace MetaDocs
                 "Body",
                 "BodyFormat",
                 "LastReviewedImportBatchId",
-                "Ordinal",
                 "Origin",
                 "ReviewStatus",
                 "Slot",
                 "SubjectKey",
                 "Title",
-                "DocumentationSubject"))
+                "DocumentationSubject",
+                "PreviousNarrative"))
             {
                 return true;
             }
@@ -4067,7 +4270,6 @@ namespace MetaDocs
             if (HasUnexpectedProperties(typeof(DocumentationPropertyImportSpec),
                 "Id",
                 "Include",
-                "Ordinal",
                 "PropertyName",
                 "ReviewStatus",
                 "DocumentationEntityImportSpec"))
@@ -4079,10 +4281,10 @@ namespace MetaDocs
                 "Id",
                 "FromSubjectKey",
                 "Kind",
-                "Ordinal",
                 "ToSubjectKey",
                 "DocumentationImportBatch",
-                "DocumentationSource"))
+                "DocumentationSource",
+                "PreviousRelationship"))
             {
                 return true;
             }
@@ -4090,7 +4292,6 @@ namespace MetaDocs
             if (HasUnexpectedProperties(typeof(DocumentationRelationshipImportSpec),
                 "Id",
                 "Include",
-                "Ordinal",
                 "RelationshipSelector",
                 "ReviewStatus",
                 "DocumentationEntityImportSpec"))
@@ -4120,11 +4321,11 @@ namespace MetaDocs
                 "Kind",
                 "NativeId",
                 "NativeKind",
-                "Ordinal",
                 "ParentKey",
                 "Status",
                 "Summary",
-                "DocumentationSource"))
+                "DocumentationSource",
+                "PreviousSubject"))
             {
                 return true;
             }
@@ -4144,9 +4345,9 @@ namespace MetaDocs
                 "Html",
                 "Kind",
                 "Name",
-                "Ordinal",
                 "SourceUrl",
-                "DocumentationTheme"))
+                "DocumentationTheme",
+                "PreviousTemplate"))
             {
                 return true;
             }
@@ -4154,9 +4355,9 @@ namespace MetaDocs
             if (HasUnexpectedProperties(typeof(DocumentationTemplateRegion),
                 "Id",
                 "Name",
-                "Ordinal",
                 "RegionKind",
-                "DocumentationTemplate"))
+                "DocumentationTemplate",
+                "PreviousRegion"))
             {
                 return true;
             }
@@ -4178,8 +4379,8 @@ namespace MetaDocs
                 "Href",
                 "MediaType",
                 "Name",
-                "Ordinal",
-                "DocumentationTheme"))
+                "DocumentationTheme",
+                "PreviousAsset"))
             {
                 return true;
             }
@@ -4188,7 +4389,6 @@ namespace MetaDocs
                 "Id",
                 "Kind",
                 "Name",
-                "Ordinal",
                 "Summary",
                 "Title"))
             {
@@ -4197,12 +4397,12 @@ namespace MetaDocs
 
             if (HasUnexpectedProperties(typeof(DocumentationViewNode),
                 "Id",
-                "Ordinal",
                 "ParentNodeId",
                 "Selection",
                 "SubjectKey",
                 "Title",
-                "DocumentationView"))
+                "DocumentationView",
+                "PreviousNode"))
             {
                 return true;
             }

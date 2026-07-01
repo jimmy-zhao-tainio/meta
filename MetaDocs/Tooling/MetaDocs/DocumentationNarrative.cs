@@ -21,8 +21,6 @@ namespace MetaDocs
 
         public string? LastReviewedImportBatchId { get; set; }
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string Origin { get; set; } = string.Empty;
 
         public string ReviewStatus { get; set; } = string.Empty;
@@ -34,6 +32,8 @@ namespace MetaDocs
         public string? Title { get; set; }
 
         public DocumentationSubject DocumentationSubject { get; set; } = null!;
+
+        public DocumentationNarrative? PreviousNarrative { get; set; }
 
     }
 }

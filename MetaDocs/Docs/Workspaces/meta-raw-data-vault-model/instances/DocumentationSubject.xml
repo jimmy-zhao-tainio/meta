@@ -2,804 +2,737 @@
 <MetaDocs>
   <DocumentationSubjectList>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:workspace" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
-      <DisplayName>MetaRawDataVault model</DisplayName>
-      <DisplayPath>MetaRawDataVault model</DisplayPath>
+      <DisplayName>MetaRawDataVault</DisplayName>
+      <DisplayPath>MetaRawDataVault</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:workspace</Key>
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataVault\Workspaces\MetaRawDataVault</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Ordinal>180</Ordinal>
       <Status>New</Status>
       <Summary>Metadata workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>MetaRawDataVault</DisplayName>
-      <DisplayPath>MetaRawDataVault model.MetaRawDataVault</DisplayPath>
+      <DisplayPath>MetaRawDataVault.MetaRawDataVault</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</Key>
       <Kind>Model</Kind>
       <NativeId>MetaRawDataVault</NativeId>
       <NativeKind>GenericModel</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:workspace</ParentKey>
       <Status>New</Status>
       <Summary>Model MetaRawDataVault.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawHub</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHub</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhub</Key>
       <Kind>Entity</Kind>
       <NativeId>RawHub</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawHub.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHub.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHub.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhub:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhub</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHub.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHub.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhub:relationship:sourcetable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhub</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhub">
       <DisplayName>RawHubKeyPart</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubKeyPart</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart</Key>
       <Kind>Entity</Kind>
       <NativeId>RawHubKeyPart</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawHubKeyPart.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubKeyPart.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:name">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubKeyPart.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawHub</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubKeyPart.RawHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart.RawHub</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawHub:RawHub</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawHub.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubKeyPart.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:sourcefield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart">
       <DisplayName>RawHubSatellite</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatellite</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatellite</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite</Key>
       <Kind>Entity</Kind>
       <NativeId>RawHubSatellite</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawHubSatellite.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatellite.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatellite.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:satellitekind" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:satellitekind" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:name">
       <DisplayName>SatelliteKind</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatellite.SatelliteKind</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatellite.SatelliteKind</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:property:satellitekind</Key>
       <Kind>Property</Kind>
       <NativeId>SatelliteKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawHub</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatellite.RawHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatellite.RawHub</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:rawhub-rawhub</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawHub:RawHub</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawHub.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:rawhub-rawhub">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatellite.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatellite.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:sourcetable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite">
       <DisplayName>RawHubSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatelliteAttribute</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute</Key>
       <Kind>Entity</Kind>
       <NativeId>RawHubSatelliteAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawHubSatelliteAttribute.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatelliteAttribute.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:name">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatelliteAttribute.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawHubSatellite</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatelliteAttribute.RawHubSatellite</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.RawHubSatellite</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawHubSatellite:RawHubSatellite</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawHubSatellite.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawHubSatelliteAttribute.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:sourcefield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute">
       <DisplayName>RawLink</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLink</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLink</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlink</Key>
       <Kind>Entity</Kind>
       <NativeId>RawLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawLink.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink:property:linkkind" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>LinkKind</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLink.LinkKind</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLink.LinkKind</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlink:property:linkkind</Key>
       <Kind>Property</Kind>
       <NativeId>LinkKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlink</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlink:property:linkkind">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLink.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLink.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlink:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlink</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink:relationship:sourcetablerelationship-sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLink.SourceTableRelationship</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLink.SourceTableRelationship</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlink:relationship:sourcetablerelationship-sourcetablerelationship</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTableRelationship:SourceTableRelationship</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlink</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTableRelationship.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlink">
       <DisplayName>RawLinkHub</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkHub</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub</Key>
       <Kind>Entity</Kind>
       <NativeId>RawLinkHub</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawLinkHub.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkHub.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkHub.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:rolename" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:rolename" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:ordinal">
       <DisplayName>RoleName</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkHub.RoleName</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkHub.RoleName</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:rolename</Key>
       <Kind>Property</Kind>
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawHub</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkHub.RawHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkHub.RawHub</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawhub-rawhub</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawHub:RawHub</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawHub.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawlink-rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawlink-rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawhub-rawhub">
       <DisplayName>RawLink</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkHub.RawLink</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkHub.RawLink</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawlink-rawlink</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawLink:RawLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinkhub</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawLink.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub">
       <DisplayName>RawLinkSatellite</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatellite</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatellite</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite</Key>
       <Kind>Entity</Kind>
       <NativeId>RawLinkSatellite</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawLinkSatellite.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatellite.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatellite.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:satellitekind" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:satellitekind" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:name">
       <DisplayName>SatelliteKind</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatellite.SatelliteKind</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatellite.SatelliteKind</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:property:satellitekind</Key>
       <Kind>Property</Kind>
       <NativeId>SatelliteKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:rawlink-rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawLink</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatellite.RawLink</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatellite.RawLink</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:rawlink-rawlink</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawLink:RawLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawLink.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:rawlink-rawlink">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatellite.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatellite.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:sourcetable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite">
       <DisplayName>RawLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatelliteAttribute</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute</Key>
       <Kind>Entity</Kind>
       <NativeId>RawLinkSatelliteAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity RawLinkSatelliteAttribute.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatelliteAttribute.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:name">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatelliteAttribute.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>RawLinkSatellite</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatelliteAttribute.RawLinkSatellite</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.RawLinkSatellite</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite</Key>
       <Kind>Relationship</Kind>
       <NativeId>RawLinkSatellite:RawLinkSatellite</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to RawLinkSatellite.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.RawLinkSatelliteAttribute.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:sourcefield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceField</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceField.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField.DataTypeId</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField.DataTypeId</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:datatypeid</Key>
       <Kind>Property</Kind>
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefield</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:datatypeid">
       <DisplayName>IsNullable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField.IsNullable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField.IsNullable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable</Key>
       <Kind>Property</Kind>
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefield</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefield</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefield</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceField.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceField.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefield:relationship:sourcetable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefield</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield">
       <DisplayName>SourceFieldDataTypeDetail</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceFieldDataTypeDetail</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceFieldDataTypeDetail</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>010</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceFieldDataTypeDetail.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceFieldDataTypeDetail.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceFieldDataTypeDetail.Value</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.Value</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:value</Key>
       <Kind>Property</Kind>
       <NativeId>Value</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceFieldDataTypeDetail.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:relationship:sourcefield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail">
       <DisplayName>SourceSchema</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSchema</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSchema</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourceschema</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceSchema</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>011</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceSchema.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSchema.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSchema.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourceschema:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourceschema</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema:relationship:sourcesystem-sourcesystem" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceSystem</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSchema.SourceSystem</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSchema.SourceSystem</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourceschema:relationship:sourcesystem-sourcesystem</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceSystem:SourceSystem</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourceschema</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceSystem.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourceschema">
       <DisplayName>SourceSystem</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSystem</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSystem</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcesystem</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceSystem</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>012</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceSystem.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:description" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSystem.Description</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSystem.Description</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:description</Key>
       <Kind>Property</Kind>
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcesystem</ParentKey>
       <Status>New</Status>
       <Summary>Optional string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:description">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceSystem.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceSystem.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcesystem</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetable</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>013</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceTable.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTable.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTable.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetable:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetable</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable:relationship:sourceschema-sourceschema" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceSchema</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTable.SourceSchema</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTable.SourceSchema</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetable:relationship:sourceschema-sourceschema</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceSchema:SourceSchema</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetable</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceSchema.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetable">
       <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationship</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationship</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceTableRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>014</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceTableRelationship.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationship.Name</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationship.Name</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:property:name</Key>
       <Kind>Property</Kind>
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationship.SourceTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationship.SourceTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:sourcetable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:targettable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:targettable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:sourcetable-sourcetable">
       <DisplayName>TargetTable</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationship.TargetTable</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationship.TargetTable</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:targettable-sourcetable</Key>
       <Kind>Relationship</Kind>
       <NativeId>TargetTable:SourceTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship">
       <DisplayName>SourceTableRelationshipField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationshipField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield</Key>
       <Kind>Entity</Kind>
       <NativeId>SourceTableRelationshipField</NativeId>
       <NativeKind>GenericEntity</NativeKind>
-      <Ordinal>015</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</ParentKey>
       <Status>New</Status>
       <Summary>Entity SourceTableRelationshipField.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationshipField.Ordinal</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.Ordinal</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:property:ordinal</Key>
       <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield</ParentKey>
       <Status>New</Status>
       <Summary>Required string property.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
       <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationshipField.SourceField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.SourceField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcefield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1001</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcefield-sourcefield">
       <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationshipField.SourceTableRelationship</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.SourceTableRelationship</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship</Key>
       <Kind>Relationship</Kind>
       <NativeId>SourceTableRelationship:SourceTableRelationship</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1002</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceTableRelationship.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:targetfield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:targetfield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship">
       <DisplayName>TargetField</DisplayName>
-      <DisplayPath>MetaRawDataVault model.SourceTableRelationshipField.TargetField</DisplayPath>
+      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.TargetField</DisplayPath>
       <Key>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:targetfield-sourcefield</Key>
       <Kind>Relationship</Kind>
       <NativeId>TargetField:SourceField</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
-      <Ordinal>1003</Ordinal>
       <ParentKey>source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield</ParentKey>
       <Status>New</Status>
       <Summary>Required relationship to SourceField.</Summary>

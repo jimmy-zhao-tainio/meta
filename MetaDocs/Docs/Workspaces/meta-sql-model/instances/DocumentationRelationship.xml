@@ -1,538 +1,449 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationRelationshipList>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:workspace:relationship:containsmodel:source-workspace-model-meta-sql-model-metasql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:workspace:relationship:containsmodel:source-workspace-model-meta-sql-model-metasql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:workspace</FromSubjectKey>
       <Kind>ContainsModel</Kind>
-      <Ordinal>010</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:model:metasql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:database</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:database:relationship:containsproperty:source-workspace-model-meta-sql-entity-database-property-collation" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:database:relationship:containsproperty:source-workspace-model-meta-sql-entity-database-property-collation" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:database</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:database:property:collation</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:database:relationship:containsproperty:source-workspace-model-meta-sql-entity-database-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:database:relationship:containsproperty:source-workspace-model-meta-sql-entity-database-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:database:relationship:containsproperty:source-workspace-model-meta-sql-entity-database-property-collation">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:database</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:database:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-database">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsproperty:source-workspace-model-meta-sql-entity-foreignkey-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsproperty:source-workspace-model-meta-sql-entity-foreignkey-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkey</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkey:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkey-relationship-sourcetable-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkey-relationship-sourcetable-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkey</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkey-relationship-targettable-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkey-relationship-targettable-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:foreignkey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkey-relationship-sourcetable-table">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkey</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkeycolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkeycolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkey">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-foreignkeycolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-foreignkeycolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:property:ordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-foreignkey-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-foreignkey-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey:relationship:referencesentity:source-workspace-model-meta-sql-entity-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey:relationship:referencesentity:source-workspace-model-meta-sql-entity-foreignkey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-sourcecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-sourcecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-foreignkey-foreignkey">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-targetcolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-targetcolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-foreignkeycolumn-relationship-sourcecolumn-tablecolumn">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-function" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-function" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-foreignkeycolumn">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>004</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function:property:definitionsql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-definitionsql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function:property:deployordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-functionkind" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-functionkind" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-deployordinal">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function:property:functionkind</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:function:relationship:containsproperty:source-workspace-model-meta-sql-entity-function-property-functionkind">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>004</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsrelationship:source-workspace-model-meta-sql-entity-function-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:containsrelationship:source-workspace-model-meta-sql-entity-function-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:function:relationship:schema-schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:function:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:function:relationship:schema-schema</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-function">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>005</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-filtersql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-filtersql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index:property:filtersql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isclustered" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isclustered" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-filtersql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index:property:isclustered</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isunique" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isunique" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isclustered">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index:property:isunique</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:index:relationship:containsproperty:source-workspace-model-meta-sql-entity-index-property-isunique">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>004</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsrelationship:source-workspace-model-meta-sql-entity-index-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:containsrelationship:source-workspace-model-meta-sql-entity-index-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index:relationship:table-table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:index:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:index:relationship:table-table</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-indexcolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-indexcolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-index">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>006</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isdescending" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isdescending" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:property:isdescending</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isincluded" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isincluded" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isdescending">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:property:isincluded</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-indexcolumn-property-isincluded">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:property:ordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-indexcolumn-relationship-index-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-indexcolumn-relationship-index-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index:relationship:referencesentity:source-workspace-model-meta-sql-entity-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index:relationship:referencesentity:source-workspace-model-meta-sql-entity-index" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:index</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-indexcolumn-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-indexcolumn-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:indexcolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-indexcolumn-relationship-index-index">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-indexcolumn">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>007</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykey-property-isclustered" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykey-property-isclustered" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykey</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykey:property:isclustered</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykey-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykey-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:primarykey:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykey-property-isclustered">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykey</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykey:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykey-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykey-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykey</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykey:relationship:table-table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykey:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykey:relationship:table-table</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykeycolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykeycolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykey">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>008</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykeycolumn-property-isdescending" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykeycolumn-property-isdescending" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:property:isdescending</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykeycolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykeycolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-primarykeycolumn-property-isdescending">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:property:ordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykeycolumn-relationship-primarykey-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykeycolumn-relationship-primarykey-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey:relationship:referencesentity:source-workspace-model-meta-sql-entity-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey:relationship:referencesentity:source-workspace-model-meta-sql-entity-primarykey" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykey</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykeycolumn-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykeycolumn-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-primarykeycolumn-relationship-primarykey-primarykey">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-primarykeycolumn">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>009</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:containsproperty:source-workspace-model-meta-sql-entity-schema-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:containsproperty:source-workspace-model-meta-sql-entity-schema-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:schema</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:containsrelationship:source-workspace-model-meta-sql-entity-schema-relationship-database-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:containsrelationship:source-workspace-model-meta-sql-entity-schema-relationship-database-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:schema</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema:relationship:database-database</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:database-database:relationship:referencesentity:source-workspace-model-meta-sql-entity-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:schema:relationship:database-database:relationship:referencesentity:source-workspace-model-meta-sql-entity-database" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:schema:relationship:database-database</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:database</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-storedprocedure" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-storedprocedure" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-schema">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>010</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure:property:definitionsql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-definitionsql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure:property:deployordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsproperty:source-workspace-model-meta-sql-entity-storedprocedure-property-deployordinal">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsrelationship:source-workspace-model-meta-sql-entity-storedprocedure-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:containsrelationship:source-workspace-model-meta-sql-entity-storedprocedure-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-storedprocedure">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>011</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:containsproperty:source-workspace-model-meta-sql-entity-table-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:containsproperty:source-workspace-model-meta-sql-entity-table-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:table</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:containsrelationship:source-workspace-model-meta-sql-entity-table-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:containsrelationship:source-workspace-model-meta-sql-entity-table-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:table</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table:relationship:schema-schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:table:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:table:relationship:schema-schema</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-table">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>012</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-defaultexpressionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-defaultexpressionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:defaultexpressionsql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-expressionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-expressionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-defaultexpressionsql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:expressionsql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityincrement" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityincrement" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-expressionsql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:identityincrement</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityseed" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityseed" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityincrement">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>004</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:identityseed</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isidentity" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isidentity" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-identityseed">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>005</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:isidentity</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isnullable" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isnullable" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isidentity">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>006</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:isnullable</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-metadatatypeid" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-metadatatypeid" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-isnullable">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>007</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:metadatatypeid</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-metadatatypeid">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>008</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-ordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumn-property-name">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>009</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:property:ordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-tablecolumn-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:containsrelationship:source-workspace-model-meta-sql-entity-tablecolumn-relationship-table-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table:relationship:referencesentity:source-workspace-model-meta-sql-entity-table" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:table</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumn">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>013</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-property-value" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-property-value" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsproperty:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-property-name">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:value</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsrelationship:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:containsrelationship:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail-relationship-tablecolumn-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn:relationship:referencesentity:source-workspace-model-meta-sql-entity-tablecolumn" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:tablecolumn</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-view" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-view" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:model:metasql:relationship:containsentity:source-workspace-model-meta-sql-entity-tablecolumndatatypedetail">
       <FromSubjectKey>source:workspace-model:meta-sql:model:metasql</FromSubjectKey>
       <Kind>ContainsEntity</Kind>
-      <Ordinal>014</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:view</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-definitionsql" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:view</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:view:property:definitionsql</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-deployordinal" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-definitionsql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:view</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>002</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:view:property:deployordinal</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-name" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql" PreviousRelationshipId="source:workspace-model:meta-sql:entity:view:relationship:containsproperty:source-workspace-model-meta-sql-entity-view-property-deployordinal">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:view</FromSubjectKey>
       <Kind>ContainsProperty</Kind>
-      <Ordinal>003</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:view:property:name</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsrelationship:source-workspace-model-meta-sql-entity-view-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:containsrelationship:source-workspace-model-meta-sql-entity-view-relationship-schema-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:view</FromSubjectKey>
       <Kind>ContainsRelationship</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:view:relationship:schema-schema</ToSubjectKey>
     </DocumentationRelationship>
-    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260610050950904" DocumentationSourceId="source:workspace-model:meta-sql">
+    <DocumentationRelationship Id="source:workspace-model:meta-sql:entity:view:relationship:schema-schema:relationship:referencesentity:source-workspace-model-meta-sql-entity-schema" DocumentationImportBatchId="source:workspace-model:meta-sql:batch:20260701172707985" DocumentationSourceId="source:workspace-model:meta-sql">
       <FromSubjectKey>source:workspace-model:meta-sql:entity:view:relationship:schema-schema</FromSubjectKey>
       <Kind>ReferencesEntity</Kind>
-      <Ordinal>001</Ordinal>
       <ToSubjectKey>source:workspace-model:meta-sql:entity:schema</ToSubjectKey>
     </DocumentationRelationship>
   </DocumentationRelationshipList>

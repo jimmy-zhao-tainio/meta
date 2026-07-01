@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-sql</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>140</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy" DocumentationSourceId="source:cli:meta-sql">
       <DisplayName>meta-sql deploy</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-deploy</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Apply a deploy manifest after source and live fingerprint validation.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
@@ -30,45 +28,41 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-connection-env</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:manifest-workspace" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:manifest-workspace" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy:option:connection-env">
       <DisplayName>--manifest-workspace</DisplayName>
       <DisplayPath>meta-sql deploy --manifest-workspace</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy:option:manifest-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-manifest-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Deploy manifest workspace created by deploy-plan.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:source-workspace" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy:option:source-workspace" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy:option:manifest-workspace">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-sql deploy --source-workspace</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy:option:source-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-source-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source MetaSql workspace used to create the manifest.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy">
       <DisplayName>meta-sql deploy-plan</DisplayName>
       <DisplayPath>meta-sql deploy-plan</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-deploy-plan</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a deploy manifest from a source MetaSql workspace and a live SQL Server database.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approval-file" DocumentationSourceId="source:cli:meta-sql">
@@ -78,93 +72,85 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-approval-file</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>JSON file containing destructive approvals.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approval-file">
       <DisplayName>--approve-drop-column</DisplayName>
       <DisplayPath>meta-sql deploy-plan --approve-drop-column</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-approve-drop-column</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Approve one exact destructive column drop in the form schema.table.column.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-column">
       <DisplayName>--approve-drop-table</DisplayName>
       <DisplayPath>meta-sql deploy-plan --approve-drop-table</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-approve-drop-table</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Approve one exact destructive table drop in the form schema.table.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-drop-table">
       <DisplayName>--approve-truncate-column</DisplayName>
       <DisplayPath>meta-sql deploy-plan --approve-truncate-column</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-approve-truncate-column</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Approve one exact destructive column truncation in the form schema.table.column.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:connection-env" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:approve-truncate-column">
       <DisplayName>--connection-env</DisplayName>
       <DisplayPath>meta-sql deploy-plan --connection-env</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:connection-env</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-connection-env</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:out" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:out" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:connection-env">
       <DisplayName>--out</DisplayName>
       <DisplayPath>meta-sql deploy-plan --out</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:out</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-out</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Directory where the deploy manifest workspace will be written.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:out">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-sql deploy-plan --source-workspace</DisplayPath>
       <Key>source:cli:meta-sql:app:command:deploy-plan:option:source-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-deploy-plan-source-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:deploy-plan</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source MetaSql workspace to compare with the live database.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan">
       <DisplayName>meta-sql execute</DisplayName>
       <DisplayPath>meta-sql execute</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-execute</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Execute a SQL Server file or query for demo, bootstrap, and verification scripts.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
@@ -174,69 +160,63 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-connection-env</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:file" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:file" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute:option:connection-env">
       <DisplayName>--file</DisplayName>
       <DisplayPath>meta-sql execute --file</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute:option:file</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-file</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Execute SQL from a file. Mutually exclusive with --query.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:query" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:query" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute:option:file">
       <DisplayName>--query</DisplayName>
       <DisplayPath>meta-sql execute --query</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute:option:query</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-query</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Execute inline SQL. Mutually exclusive with --file.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:quiet" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:quiet" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute:option:query">
       <DisplayName>--quiet</DisplayName>
       <DisplayPath>meta-sql execute --quiet</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute:option:quiet</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-quiet</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Suppress result-set and success output.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:timeout-seconds" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:timeout-seconds" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute:option:quiet">
       <DisplayName>--timeout-seconds</DisplayName>
       <DisplayPath>meta-sql execute --timeout-seconds</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute:option:timeout-seconds</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-timeout-seconds</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Command timeout for each SQL batch. 0 or omitted means no timeout.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:var" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:option:var" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute:option:timeout-seconds">
       <DisplayName>--var</DisplayName>
       <DisplayPath>meta-sql execute --var</DisplayPath>
       <Key>source:cli:meta-sql:app:command:execute:option:var</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-execute-var</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Replace one SQLCMD-style $(NAME) token before execution.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:execute:parameter-group:sql-input" DocumentationSourceId="source:cli:meta-sql">
@@ -246,21 +226,19 @@
       <Kind>CliParameterGroup</Kind>
       <NativeId>group-execute-sql-input</NativeId>
       <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:execute</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Choose one SQL input source.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:execute">
       <DisplayName>meta-sql extract sqlserver</DisplayName>
       <DisplayPath>meta-sql extract sqlserver</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-extract-sqlserver</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract SQL Server database objects into a MetaSql workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:allow-empty" DocumentationSourceId="source:cli:meta-sql">
@@ -270,117 +248,107 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-allow-empty</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create an empty database/schema workspace when no tables or modules match.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:allow-empty">
       <DisplayName>--connection-env</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --connection-env</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-connection-env</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:connection-env">
       <DisplayName>--include-functions</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --include-functions</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-include-functions</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract function modules. If any include switch is provided, only selected object kinds are extracted.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-functions">
       <DisplayName>--include-stored-procedures</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --include-stored-procedures</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-include-stored-procedures</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract stored procedure modules. If any include switch is provided, only selected object kinds are extracted.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-stored-procedures">
       <DisplayName>--include-tables</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --include-tables</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-include-tables</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract tables, columns, keys, and indexes. If no include switch is provided, all object kinds are extracted.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-tables">
       <DisplayName>--include-views</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --include-views</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:include-views</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-include-views</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>006</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract view modules. If any include switch is provided, only selected object kinds are extracted.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --new-workspace</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-new-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>007</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Directory where the MetaSql workspace will be created.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace">
       <DisplayName>--schema</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --schema</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:schema</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-schema</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>008</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract only one SQL Server schema.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:table" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:table" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:schema">
       <DisplayName>--table</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --table</DisplayPath>
       <Key>source:cli:meta-sql:app:command:extract-sqlserver:option:table</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-table</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>009</Ordinal>
       <ParentKey>source:cli:meta-sql:app:command:extract-sqlserver</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Extract only one table. SQL module extraction is skipped when a table filter is used.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:help" DocumentationSourceId="source:cli:meta-sql">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:help" DocumentationSourceId="source:cli:meta-sql" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver">
       <DisplayName>meta-sql help</DisplayName>
       <DisplayPath>meta-sql help</DisplayPath>
       <Key>source:cli:meta-sql:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>005</Ordinal>
       <ParentKey>source:cli:meta-sql:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

@@ -15,8 +15,6 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string? ParentNodeId { get; set; }
 
         public string? Selection { get; set; }
@@ -26,6 +24,8 @@ namespace MetaDocs
         public string Title { get; set; } = string.Empty;
 
         public DocumentationView DocumentationView { get; set; } = null!;
+
+        public DocumentationViewNode? PreviousNode { get; set; }
 
     }
 }

@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-data-type-conversion</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>130</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:check" DocumentationSourceId="source:cli:meta-data-type-conversion">
       <DisplayName>meta-data-type-conversion check</DisplayName>
@@ -18,9 +17,8 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-check</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Validate sanctioned type mappings.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
@@ -30,33 +28,30 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-check-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app:command:check</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaDataTypeConversion workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:help" DocumentationSourceId="source:cli:meta-data-type-conversion">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:help" DocumentationSourceId="source:cli:meta-data-type-conversion" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:check">
       <DisplayName>meta-data-type-conversion help</DisplayName>
       <DisplayPath>meta-data-type-conversion help</DisplayPath>
       <Key>source:cli:meta-data-type-conversion:app:command:help</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type-conversion" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:help">
       <DisplayName>meta-data-type-conversion new-workspace</DisplayName>
       <DisplayPath>meta-data-type-conversion new-workspace</DisplayPath>
       <Key>source:cli:meta-data-type-conversion:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a seeded MetaDataTypeConversion workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-data-type-conversion">
@@ -66,21 +61,19 @@
       <Kind>CliArgument</Kind>
       <NativeId>pos-new-workspace-path</NativeId>
       <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Directory where the sanctioned workspace will be created.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve" DocumentationSourceId="source:cli:meta-data-type-conversion">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve" DocumentationSourceId="source:cli:meta-data-type-conversion" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:new-workspace">
       <DisplayName>meta-data-type-conversion resolve</DisplayName>
       <DisplayPath>meta-data-type-conversion resolve</DisplayPath>
       <Key>source:cli:meta-data-type-conversion:app:command:resolve</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-resolve</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>004</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Resolve one source data type id through the sanctioned mappings.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type" DocumentationSourceId="source:cli:meta-data-type-conversion">
@@ -90,33 +83,30 @@
       <Kind>CliOption</Kind>
       <NativeId>opt-resolve-source-data-type</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Source data type id to resolve.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system" DocumentationSourceId="source:cli:meta-data-type-conversion">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system" DocumentationSourceId="source:cli:meta-data-type-conversion" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type">
       <DisplayName>--target-data-type-system</DisplayName>
       <DisplayPath>meta-data-type-conversion resolve --target-data-type-system</DisplayPath>
       <Key>source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-resolve-target-data-type-system</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Target data type system when the source type has mappings to several target systems.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace" DocumentationSourceId="source:cli:meta-data-type-conversion">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace" DocumentationSourceId="source:cli:meta-data-type-conversion" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-data-type-conversion resolve --workspace</DisplayPath>
       <Key>source:cli:meta-data-type-conversion:app:command:resolve:option:workspace</Key>
       <Kind>CliOption</Kind>
       <NativeId>opt-resolve-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
-      <Ordinal>003</Ordinal>
       <ParentKey>source:cli:meta-data-type-conversion:app:command:resolve</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>MetaDataTypeConversion workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

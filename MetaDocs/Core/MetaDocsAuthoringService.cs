@@ -60,7 +60,7 @@ public sealed class MetaDocsAuthoringService
         subject.DisplayPath = string.IsNullOrWhiteSpace(page.DisplayPath) ? page.Title.Trim() : page.DisplayPath.Trim();
         subject.Summary = page.Summary?.Trim() ?? string.Empty;
         subject.ParentKey = page.ParentKey?.Trim() ?? string.Empty;
-        subject.Ordinal = page.Ordinal.ToString("000");
+        subject.PreviousSubject = null;
         subject.Status = "Current";
 
         UpsertNarrative(model, subject, page);
@@ -71,7 +71,8 @@ public sealed class MetaDocsAuthoringService
     private static void UpsertNarrative(MetaDocsModel model, DocumentationSubject subject, MetaDocsAuthoredPage page)
     {
         var slot = string.IsNullOrWhiteSpace(page.Slot) ? "Summary" : page.Slot.Trim();
-        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}:{page.NarrativeOrdinal:000}";
+        var title = string.IsNullOrWhiteSpace(page.NarrativeTitle) ? page.Title.Trim() : page.NarrativeTitle.Trim();
+        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}:{MetaDocsImportSession.NormalizeKey(title)}";
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
@@ -86,13 +87,13 @@ public sealed class MetaDocsAuthoringService
         narrative.DocumentationSubject = subject;
         narrative.SubjectKey = subject.Id;
         narrative.Slot = slot;
-        narrative.Title = string.IsNullOrWhiteSpace(page.NarrativeTitle) ? page.Title.Trim() : page.NarrativeTitle.Trim();
+        narrative.Title = title;
         narrative.Body = page.Body?.Trim() ?? string.Empty;
         narrative.BodyFormat = "PlainText";
         narrative.Origin = "Authored";
         narrative.LastReviewedImportBatchId = string.Empty;
         narrative.ReviewStatus = string.IsNullOrWhiteSpace(narrative.Body) ? "NeedsAuthoring" : "Current";
-        narrative.Ordinal = page.NarrativeOrdinal.ToString("000");
+        narrative.PreviousNarrative = null;
     }
 
     private static void EnsureViewNode(MetaDocsModel model, DocumentationSubject subject, MetaDocsAuthoredPage page)
@@ -117,7 +118,7 @@ public sealed class MetaDocsAuthoringService
             ? string.Empty
             : $"view:default:node:{MetaDocsImportSession.NormalizeKey(page.ParentKey)}";
         node.Selection = string.Empty;
-        node.Ordinal = page.Ordinal.ToString("000");
+        node.PreviousNode = null;
     }
 }
 
@@ -129,9 +130,7 @@ public sealed record MetaDocsAuthoredPage(
     string Kind = "Guide",
     string DisplayPath = "",
     string ParentKey = "",
-    int Ordinal = 100,
     string Slot = "Summary",
     string NarrativeTitle = "",
-    int NarrativeOrdinal = 10,
     string SourceId = "source:authored:metametabi-docs",
     string SourceDisplayName = "Authored MetaDocs pages");

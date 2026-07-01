@@ -19,11 +19,11 @@ namespace MetaDocs
 
         public string Name { get; set; } = string.Empty;
 
-        public string Ordinal { get; set; } = string.Empty;
-
         public string? TemplateText { get; set; }
 
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
+
+        public DocumentationComponentTemplate? PreviousComponent { get; set; }
 
     }
 }

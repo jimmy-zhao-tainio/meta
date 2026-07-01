@@ -8,8 +8,7 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-data-type</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Ordinal>120</Ordinal>
-      <Status>Current</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type:app:command:help" DocumentationSourceId="source:cli:meta-data-type">
       <DisplayName>meta-data-type help</DisplayName>
@@ -18,21 +17,19 @@
       <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type">
+    <DocumentationSubject Id="source:cli:meta-data-type:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type" PreviousSubjectId="source:cli:meta-data-type:app:command:help">
       <DisplayName>meta-data-type new-workspace</DisplayName>
       <DisplayPath>meta-data-type new-workspace</DisplayPath>
       <Key>source:cli:meta-data-type:app:command:new-workspace</Key>
       <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <Ordinal>002</Ordinal>
       <ParentKey>source:cli:meta-data-type:app</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Create a MetaDataType workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-type:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-data-type">
@@ -42,9 +39,8 @@
       <Kind>CliArgument</Kind>
       <NativeId>arg-new-workspace-path</NativeId>
       <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <Ordinal>001</Ordinal>
       <ParentKey>source:cli:meta-data-type:app:command:new-workspace</ParentKey>
-      <Status>Current</Status>
+      <Status>New</Status>
       <Summary>Directory where the sanctioned workspace will be created.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>

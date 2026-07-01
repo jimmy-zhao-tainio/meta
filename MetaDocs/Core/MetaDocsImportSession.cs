@@ -33,7 +33,6 @@ public sealed class MetaDocsImportSession
         MetaDocsDefaults.EnsureDefaultTheme(model);
         MetaDocsDefaults.EnsureDefaultView(model);
 
-        var importedAt = DateTimeOffset.UtcNow.ToString("O");
         source = model.DocumentationSourceList.FirstOrDefault(row =>
             string.Equals(row.Id, sourceId, StringComparison.OrdinalIgnoreCase))
             ?? new DocumentationSource
@@ -46,6 +45,14 @@ public sealed class MetaDocsImportSession
             model.DocumentationSourceList.Add(source);
         }
 
+        var existingBatch = model.DocumentationImportBatchList
+            .Where(row =>
+                ReferenceEquals(row.DocumentationSource, source) &&
+                string.Equals(row.SourceFingerprint ?? string.Empty, sourceFingerprint, StringComparison.Ordinal))
+            .OrderByDescending(static row => row.ImportedAt, StringComparer.Ordinal)
+            .FirstOrDefault();
+        var importedAt = existingBatch?.ImportedAt ?? DateTimeOffset.UtcNow.ToString("O");
+
         source.Kind = sourceKind;
         source.DisplayName = displayName;
         source.Locator = locator;
@@ -54,7 +61,7 @@ public sealed class MetaDocsImportSession
         source.ImportedAt = importedAt;
         source.Status = "Current";
 
-        batch = new DocumentationImportBatch
+        batch = existingBatch ?? new DocumentationImportBatch
         {
             Id = $"{source.Id}:batch:{DateTimeOffset.UtcNow:yyyyMMddHHmmssfff}",
             DocumentationSource = source,
@@ -64,7 +71,16 @@ public sealed class MetaDocsImportSession
             ImportedAt = importedAt,
             Status = "Current",
         };
-        model.DocumentationImportBatchList.Add(batch);
+        batch.DocumentationSource = source;
+        batch.ImporterId = importerId;
+        batch.ImporterVersion = importerVersion;
+        batch.SourceFingerprint = sourceFingerprint;
+        batch.ImportedAt = importedAt;
+        batch.Status = "Current";
+        if (!model.DocumentationImportBatchList.Contains(batch))
+        {
+            model.DocumentationImportBatchList.Add(batch);
+        }
     }
 
     public DocumentationSource Source => source;
@@ -80,7 +96,7 @@ public sealed class MetaDocsImportSession
         string displayPath,
         string summary,
         string parentKey,
-        int ordinal)
+        DocumentationSubject? previousSubject = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
         ArgumentException.ThrowIfNullOrWhiteSpace(kind);
@@ -112,7 +128,7 @@ public sealed class MetaDocsImportSession
         subject.DisplayPath = displayPath;
         subject.Summary = summary;
         subject.ParentKey = parentKey;
-        subject.Ordinal = ordinal.ToString("000");
+        subject.PreviousSubject = previousSubject;
         subject.Status = status;
         touchedSubjects.Add(subject.Id);
 
@@ -174,14 +190,14 @@ public sealed class MetaDocsImportSession
         string title,
         string body,
         string origin,
-        int ordinal,
+        DocumentationNarrative? previousNarrative = null,
         bool preserveExisting = true)
     {
         ArgumentNullException.ThrowIfNull(subject);
         ArgumentException.ThrowIfNullOrWhiteSpace(slot);
         ArgumentException.ThrowIfNullOrWhiteSpace(origin);
 
-        var id = $"{subject.Id}:narrative:{NormalizeKey(slot)}:{ordinal:000}";
+        var id = $"{subject.Id}:narrative:{NormalizeKey(slot)}:{NormalizeKey(string.IsNullOrWhiteSpace(title) ? slot : title)}";
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
@@ -198,7 +214,7 @@ public sealed class MetaDocsImportSession
                 Origin = origin,
                 LastReviewedImportBatchId = batch.Id,
                 ReviewStatus = string.IsNullOrWhiteSpace(body) ? "NeedsAuthoring" : "Current",
-                Ordinal = ordinal.ToString("000"),
+                PreviousNarrative = previousNarrative,
             };
             model.DocumentationNarrativeList.Add(narrative);
             return narrative;
@@ -207,7 +223,7 @@ public sealed class MetaDocsImportSession
         narrative.DocumentationSubject = subject;
         narrative.SubjectKey = subject.Id;
         narrative.LastReviewedImportBatchId = batch.Id;
-        narrative.Ordinal = ordinal.ToString("000");
+        narrative.PreviousNarrative = previousNarrative;
         if (!preserveExisting ||
             string.Equals(narrative.Origin, "Generated", StringComparison.OrdinalIgnoreCase) ||
             string.IsNullOrWhiteSpace(narrative.Body))
@@ -227,7 +243,7 @@ public sealed class MetaDocsImportSession
         string fromSubjectKey,
         string kind,
         string toSubjectKey,
-        int ordinal)
+        DocumentationRelationship? previousRelationship = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(fromSubjectKey);
         ArgumentException.ThrowIfNullOrWhiteSpace(kind);
@@ -250,7 +266,7 @@ public sealed class MetaDocsImportSession
         relationship.FromSubjectKey = fromSubjectKey;
         relationship.Kind = kind;
         relationship.ToSubjectKey = toSubjectKey;
-        relationship.Ordinal = ordinal.ToString("000");
+        relationship.PreviousRelationship = previousRelationship;
         touchedRelationships.Add(relationship.Id);
         return relationship;
     }
@@ -258,7 +274,7 @@ public sealed class MetaDocsImportSession
     public DocumentationViewNode EnsureViewNode(
         DocumentationSubject subject,
         string title,
-        int ordinal,
+        DocumentationViewNode? previousNode = null,
         string parentNodeId = "")
     {
         var view = MetaDocsDefaults.EnsureDefaultView(model);
@@ -279,7 +295,7 @@ public sealed class MetaDocsImportSession
         node.ParentNodeId = parentNodeId;
         node.SubjectKey = subject.Id;
         node.Selection = string.Empty;
-        node.Ordinal = ordinal.ToString("000");
+        node.PreviousNode = previousNode;
         return node;
     }
 

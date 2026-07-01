@@ -25,6 +25,7 @@ public static class MetaDocsPublicReferenceViewBuilder
             .ThenBy(item => item.Subject.DisplayName, StringComparer.OrdinalIgnoreCase)
             .ToArray();
 
+        DocumentationViewNode? previousFamilyNode = null;
         foreach (var familyGroup in classified.GroupBy(item => item.Classification.ProductFamily).OrderBy(group => group.Key))
         {
             var familyKey = MetaDocsPublicReferenceClassifier.ProductFamilyKey(familyGroup.Key);
@@ -36,8 +37,10 @@ public static class MetaDocsPublicReferenceViewBuilder
                 null,
                 $"ProductFamily:{familyKey}",
                 MetaDocsPublicReferenceClassifier.FormatProductFamily(familyGroup.Key),
-                ((int)familyGroup.Key + 1) * 100);
+                previousFamilyNode);
+            previousFamilyNode = familyNode;
 
+            DocumentationViewNode? previousSurfaceNode = null;
             foreach (var surfaceGroup in familyGroup.GroupBy(item => item.Classification.Surface).OrderBy(group => group.Key))
             {
                 var surfaceKey = MetaDocsPublicReferenceClassifier.ReferenceSurfaceKey(surfaceGroup.Key);
@@ -49,12 +52,13 @@ public static class MetaDocsPublicReferenceViewBuilder
                     null,
                     $"ReferenceSurface:{familyKey}:{surfaceKey}",
                     MetaDocsPublicReferenceClassifier.FormatReferenceSurface(surfaceGroup.Key),
-                    ((int)surfaceGroup.Key + 1) * 100);
+                    previousSurfaceNode);
+                previousSurfaceNode = surfaceNode;
 
-                var ordinal = 10;
+                DocumentationViewNode? previousSubjectNode = null;
                 foreach (var item in surfaceGroup)
                 {
-                    AddNode(
+                    previousSubjectNode = AddNode(
                         model,
                         view,
                         $"{surfaceNode.Id}:subject:{MetaDocsImportSession.NormalizeKey(item.Subject.Id)}",
@@ -62,8 +66,7 @@ public static class MetaDocsPublicReferenceViewBuilder
                         item.Subject.Id,
                         $"PublicReference:{familyKey}:{surfaceKey}",
                         item.Subject.DisplayName,
-                        ordinal);
-                    ordinal += 10;
+                        previousSubjectNode);
                 }
             }
         }
@@ -85,7 +88,7 @@ public static class MetaDocsPublicReferenceViewBuilder
         string? subjectKey,
         string selection,
         string title,
-        int ordinal)
+        DocumentationViewNode? previousNode)
     {
         var node = new DocumentationViewNode
         {
@@ -95,7 +98,7 @@ public static class MetaDocsPublicReferenceViewBuilder
             SubjectKey = subjectKey,
             Selection = selection,
             Title = title,
-            Ordinal = ordinal.ToString("000"),
+            PreviousNode = previousNode,
         };
         model.DocumentationViewNodeList.Add(node);
         return node;
