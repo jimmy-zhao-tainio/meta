@@ -532,6 +532,9 @@ namespace MetaMesh
                     case "Executable":
                         row.Executable = reader.ReadElementContentAsString();
                         break;
+                    case "ExpectedExitCode":
+                        row.ExpectedExitCode = reader.ReadElementContentAsString();
+                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -598,6 +601,10 @@ namespace MetaMesh
                     AppendElement(builder, "Description", row.Description!, "      ");
                 }
                 AppendElement(builder, "Executable", RequireText(row.Executable, $"Entity 'OperationStep' row '{row.Id}' is missing required property 'Executable'."), "      ");
+                if (!string.IsNullOrWhiteSpace(row.ExpectedExitCode))
+                {
+                    AppendElement(builder, "ExpectedExitCode", row.ExpectedExitCode!, "      ");
+                }
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'OperationStep' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.WorkingDirectory))
                 {
@@ -980,6 +987,7 @@ namespace MetaMesh
                 "Arguments",
                 "Description",
                 "Executable",
+                "ExpectedExitCode",
                 "Name",
                 "WorkingDirectory",
                 "Operation",

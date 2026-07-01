@@ -110,7 +110,7 @@
       <Status>New</Status>
       <Summary>Executable or script command to run.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:executable">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-mesh add-step --name</DisplayPath>
       <Key>source:cli:meta-mesh:app:command:add-step:option:name</Key>
@@ -494,6 +494,17 @@
       <ParentKey>source:cli:meta-mesh:app:command:workspaces</ParentKey>
       <Status>New</Status>
       <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:executable">
+      <DisplayName>--expected-exit-code</DisplayName>
+      <DisplayPath>meta-mesh add-step --expected-exit-code</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:add-step:option:expected-exit-code</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-step-expected-exit-code</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <Status>New</Status>
+      <Summary>Exit code that marks the step as successful. Defaults to 0.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

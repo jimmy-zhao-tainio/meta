@@ -4278,13 +4278,13 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <span class="command-name">meta-mesh add-step</span>
                 <span class="command-summary-text">Add one executable step to an operation.</span>
               </span>
-              <span class="command-counts">8 options / 0 examples</span>
+              <span class="command-counts">9 options / 0 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--description &lt;value&gt;] --executable &lt;path&gt; --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--description &lt;value&gt;] --executable &lt;path&gt; [--expected-exit-code &lt;value&gt;] --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4307,6 +4307,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                       <td class="opt">--executable &lt;path&gt;</td>
                       <td>Executable or script command to run.</td>
                       <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--expected-exit-code &lt;value&gt;</td>
+                      <td>Exit code that marks the step as successful. Defaults to 0.</td>
+                      <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>

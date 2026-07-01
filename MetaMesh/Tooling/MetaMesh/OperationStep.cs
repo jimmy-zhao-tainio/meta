@@ -21,6 +21,8 @@ namespace MetaMesh
 
         public string Executable { get; set; } = string.Empty;
 
+        public string? ExpectedExitCode { get; set; }
+
         public string Name { get; set; } = string.Empty;
 
         public string? WorkingDirectory { get; set; }

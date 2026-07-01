@@ -19,6 +19,7 @@ public sealed record MetaMeshOperationStepSummary(
     string Executable,
     string Arguments,
     string WorkingDirectory,
+    int ExpectedExitCode,
     string Description);
 
 public sealed record MetaMeshOperationSummary(
@@ -29,7 +30,8 @@ public sealed record MetaMeshOperationSummary(
 public sealed record MetaMeshValidationStepSummary(
     string Name,
     string Command,
-    string WorkingDirectory);
+    string WorkingDirectory,
+    int ExpectedExitCode);
 
 public sealed record MetaMeshValidationResult(
     string OperationName,
@@ -47,14 +49,18 @@ public sealed record MetaMeshRunStepResult(
     string Name,
     string Command,
     string WorkingDirectory,
+    int ExpectedExitCode,
     int ExitCode,
-    string Output);
+    string Output)
+{
+    public bool Succeeded => ExitCode == ExpectedExitCode;
+}
 
 public sealed record MetaMeshRunResult(
     string OperationName,
     IReadOnlyList<MetaMeshRunStepResult> Steps)
 {
-    public bool Succeeded => Steps.All(static step => step.ExitCode == 0);
+    public bool Succeeded => Steps.All(static step => step.Succeeded);
 }
 
 public sealed record MetaMeshRunStepStart(

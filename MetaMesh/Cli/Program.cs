@@ -152,14 +152,31 @@ internal static class Program
             invocation.Required("operation"),
             invocation.Required("name"),
             invocation.Required("executable"),
-            invocation.Optional("arguments"),
+            ResolveStepArguments(invocation),
             invocation.Optional("working-directory"),
             invocation.Optional("previous-step"),
+            invocation.Optional("expected-exit-code"),
             invocation.Optional("description"));
         model.SaveToXmlWorkspace(workspacePath);
 
         Presenter.WriteOk();
         WriteOperations(new[] { summary });
+    }
+
+    private static string? ResolveStepArguments(MetaCliInvocation invocation)
+    {
+        var inlineArguments = invocation.Optional("arguments");
+        if (!invocation.Flag("arguments-stdin"))
+        {
+            return inlineArguments;
+        }
+
+        if (!string.IsNullOrWhiteSpace(inlineArguments))
+        {
+            throw new MetaCliExitException(2, "Use either --arguments or --arguments-stdin, not both.");
+        }
+
+        return Console.In.ReadToEnd().TrimEnd('\r', '\n');
     }
 
     private static void RunOperation(MetaCliInvocation invocation, MetaMeshModel model)
@@ -327,6 +344,11 @@ internal static class Program
             {
                 Presenter.WriteInfo($"     {step.Description}");
             }
+
+            if (step.ExpectedExitCode != 0)
+            {
+                Presenter.WriteInfo($"     expects exit code {step.ExpectedExitCode}");
+            }
         }
     }
 
@@ -373,6 +395,11 @@ internal static class Program
                     {
                         Presenter.WriteInfo($"        working-directory: {step.WorkingDirectory}");
                     }
+
+                    if (step.ExpectedExitCode != 0)
+                    {
+                        Presenter.WriteInfo($"        expects exit code {step.ExpectedExitCode}");
+                    }
                 }
             }
         }
@@ -409,7 +436,7 @@ internal static class Program
 
         public void StepCompleted(MetaMeshRunStepResult step)
         {
-            progress.StepCompleted(step.Name, step.ExitCode == 0);
+            progress.StepCompleted(step.Name, step.Succeeded);
         }
     }
 
@@ -420,7 +447,7 @@ internal static class Program
 
     private static void WriteFailedStepOutput(MetaMeshRunResult result)
     {
-        var failed = result.Steps.FirstOrDefault(static step => step.ExitCode != 0);
+        var failed = result.Steps.FirstOrDefault(static step => !step.Succeeded);
         if (failed is null)
         {
             return;

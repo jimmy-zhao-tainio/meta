@@ -47,7 +47,7 @@ public sealed class MetaDocsImportSession
 
         var existingBatch = model.DocumentationImportBatchList
             .Where(row =>
-                ReferenceEquals(row.DocumentationSource, source) &&
+                IsSource(row.DocumentationSource) &&
                 string.Equals(row.SourceFingerprint ?? string.Empty, sourceFingerprint, StringComparison.Ordinal))
             .OrderByDescending(static row => row.ImportedAt, StringComparer.Ordinal)
             .FirstOrDefault();
@@ -104,11 +104,11 @@ public sealed class MetaDocsImportSession
 
         var existing = model.DocumentationSubjectList.FirstOrDefault(row =>
             string.Equals(row.Id, key, StringComparison.OrdinalIgnoreCase));
+        var hasChanged = existing is not null &&
+                         HasSubjectChanged(existing, kind, nativeKind, nativeId, displayName, displayPath, summary, parentKey);
         var status = existing is null
             ? "New"
-            : HasSubjectChanged(existing, kind, nativeKind, nativeId, displayName, displayPath, summary, parentKey)
-                ? "Changed"
-                : "Current";
+            : ResolveExistingStatus(existing.Status, hasChanged);
         var subject = existing ?? new DocumentationSubject
         {
             Id = key,
@@ -155,12 +155,12 @@ public sealed class MetaDocsImportSession
         var id = $"{subject.Id}:fact:{NormalizeKey(kind)}:{NormalizeKey(name)}";
         var existing = model.DocumentationFactList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+        var hasChanged = existing is not null &&
+                         (!string.Equals(existing.Value ?? string.Empty, value ?? string.Empty, StringComparison.Ordinal) ||
+                          !string.Equals(existing.ValueKind, valueKind, StringComparison.Ordinal));
         var status = existing is null
             ? "New"
-            : string.Equals(existing.Value ?? string.Empty, value ?? string.Empty, StringComparison.Ordinal) &&
-              string.Equals(existing.ValueKind, valueKind, StringComparison.Ordinal)
-                ? "Current"
-                : "Changed";
+            : ResolveExistingStatus(existing.Status, hasChanged);
         var fact = existing ?? new DocumentationFact
         {
             Id = id,
@@ -313,14 +313,14 @@ public sealed class MetaDocsImportSession
     private void MarkUntouchedSourceRowsMissing()
     {
         foreach (var subject in model.DocumentationSubjectList.Where(row =>
-                     ReferenceEquals(row.DocumentationSource, source) &&
+                     IsSource(row.DocumentationSource) &&
                      !touchedSubjects.Contains(row.Id)))
         {
             subject.Status = "MissingFromSource";
         }
 
         foreach (var fact in model.DocumentationFactList.Where(row =>
-                     ReferenceEquals(row.DocumentationSource, source) &&
+                     IsSource(row.DocumentationSource) &&
                      !touchedFacts.Contains(row.Id)))
         {
             fact.Status = "MissingFromSource";
@@ -330,16 +330,16 @@ public sealed class MetaDocsImportSession
     private void PruneUntouchedSourceRows()
     {
         var staleSubjectIds = model.DocumentationSubjectList
-            .Where(row => ReferenceEquals(row.DocumentationSource, source) &&
+            .Where(row => IsSource(row.DocumentationSource) &&
                           !touchedSubjects.Contains(row.Id))
             .Select(row => row.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         model.DocumentationFactList.RemoveAll(row =>
-            ReferenceEquals(row.DocumentationSource, source) &&
+            IsSource(row.DocumentationSource) &&
             (!touchedFacts.Contains(row.Id) || staleSubjectIds.Contains(row.SubjectKey ?? string.Empty)));
         model.DocumentationRelationshipList.RemoveAll(row =>
-            ReferenceEquals(row.DocumentationSource, source) &&
+            IsSource(row.DocumentationSource) &&
             (!touchedRelationships.Contains(row.Id) ||
              staleSubjectIds.Contains(row.FromSubjectKey ?? string.Empty) ||
              staleSubjectIds.Contains(row.ToSubjectKey ?? string.Empty)));
@@ -353,6 +353,24 @@ public sealed class MetaDocsImportSession
             staleSubjectIds.Contains(row.SubjectKey ?? string.Empty));
         model.DocumentationSubjectList.RemoveAll(row =>
             staleSubjectIds.Contains(row.Id));
+    }
+
+    private bool IsSource(DocumentationSource candidate) =>
+        string.Equals(candidate.Id, source.Id, StringComparison.OrdinalIgnoreCase);
+
+    private static string ResolveExistingStatus(string? currentStatus, bool hasChanged)
+    {
+        if (hasChanged)
+        {
+            return "Changed";
+        }
+
+        if (string.Equals(currentStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Current";
+        }
+
+        return string.IsNullOrWhiteSpace(currentStatus) ? "Current" : currentStatus;
     }
 
     private void EnsureAlias(DocumentationSubject subject, string aliasKey, string reason)

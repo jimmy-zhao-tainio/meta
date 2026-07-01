@@ -168,6 +168,48 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void ImportApplication_SameFingerprintReusesImportBatchAfterWorkspaceReload()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-import-reload-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var model = MetaDocsModel.CreateEmpty();
+            var importer = new MetaDocsCliImporter();
+
+            importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
+            var batch = Assert.Single(model.DocumentationImportBatchList);
+            var importedAt = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace").ImportedAt;
+            model.SaveToXmlWorkspace(root);
+
+            var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
+            var subjectStatuses = reloaded.DocumentationSubjectList.ToDictionary(row => row.Id, row => row.Status);
+            var factStatuses = reloaded.DocumentationFactList.ToDictionary(row => row.Id, row => row.Status);
+            importer.ImportApplication(reloaded, CreateBindingApp("Bind transforms."));
+
+            var reimportedSource = Assert.Single(reloaded.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+            var reimportedBatch = Assert.Single(reloaded.DocumentationImportBatchList);
+            Assert.Equal(batch.Id, reimportedBatch.Id);
+            Assert.Equal(importedAt, reimportedSource.ImportedAt);
+            Assert.All(
+                reloaded.DocumentationFactList.Where(row => row.DocumentationSource.Id == reimportedSource.Id),
+                fact => Assert.Equal(batch.Id, fact.DocumentationImportBatch.Id));
+            Assert.All(
+                reloaded.DocumentationSubjectList.Where(row => subjectStatuses.ContainsKey(row.Id)),
+                subject => Assert.Equal(subjectStatuses[subject.Id], subject.Status));
+            Assert.All(
+                reloaded.DocumentationFactList.Where(row => factStatuses.ContainsKey(row.Id)),
+                fact => Assert.Equal(factStatuses[fact.Id], fact.Status));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
     public void ImportApplication_CapturesAllowedValuesAndParameterGroups()
     {
         var model = MetaDocsModel.CreateEmpty();

@@ -68,6 +68,10 @@
       <Description>Arguments passed to the executable.</Description>
       <Name>arguments</Name>
     </Parameter>
+    <Parameter Id="param-step-arguments-stdin" ValueShapeId="shape-flag">
+      <Description>Read executable arguments from standard input.</Description>
+      <Name>arguments-stdin</Name>
+    </Parameter>
     <Parameter Id="param-step-working-directory" ValueShapeId="shape-path">
       <Description>Working directory, absolute or relative to the mesh root.</Description>
       <Name>working-directory</Name>
@@ -75,6 +79,10 @@
     <Parameter Id="param-step-previous-step" ValueShapeId="shape-text">
       <Description>Previous step by step name.</Description>
       <Name>previous-step</Name>
+    </Parameter>
+    <Parameter Id="param-step-expected-exit-code" ValueShapeId="shape-text">
+      <Description>Exit code that marks the step as successful. Defaults to 0.</Description>
+      <Name>expected-exit-code</Name>
     </Parameter>
     <Parameter Id="param-step-description" ValueShapeId="shape-text">
       <Description>Step description.</Description>

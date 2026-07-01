@@ -114,6 +114,7 @@ public sealed class MetaMeshWorkspaceService
         string? arguments,
         string? workingDirectory,
         string? previousStepName,
+        string? expectedExitCode,
         string? description)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -140,6 +141,7 @@ public sealed class MetaMeshWorkspaceService
             Executable = normalizedExecutable,
             Arguments = NormalizeOptional(arguments),
             WorkingDirectory = NormalizeOptional(workingDirectory),
+            ExpectedExitCode = NormalizeExpectedExitCode(expectedExitCode),
             PreviousStep = previousStep,
             Description = NormalizeOptional(description)
         };
@@ -174,10 +176,10 @@ public sealed class MetaMeshWorkspaceService
                 step.Name,
                 FormatCommand(step.Executable, step.Arguments),
                 step.WorkingDirectory));
-            var result = RunProcess(step.Name, step.Executable, step.Arguments, step.WorkingDirectory);
+            var result = RunProcess(step.Name, step.Executable, step.Arguments, step.WorkingDirectory, step.ExpectedExitCode);
             observer?.StepCompleted(result);
             stepResults.Add(result);
-            if (result.ExitCode != 0)
+            if (!result.Succeeded)
             {
                 break;
             }
@@ -205,7 +207,8 @@ public sealed class MetaMeshWorkspaceService
                 .Select(static step => new MetaMeshValidationStepSummary(
                     step.Name,
                     FormatCommand(step.Executable, step.Arguments),
-                    step.WorkingDirectory))
+                    step.WorkingDirectory,
+                    step.ExpectedExitCode))
                 .ToArray());
     }
 
@@ -251,7 +254,12 @@ public sealed class MetaMeshWorkspaceService
 
             var resolvedExecutable = ResolveExecutable(executable, workingDirectory)
                                      ?? throw new InvalidOperationException($"Executable '{executable}' for step '{step.Name}' was not found.");
-            plannedSteps.Add(new MetaMeshPlannedStep(step.Name, resolvedExecutable, arguments, workingDirectory));
+            plannedSteps.Add(new MetaMeshPlannedStep(
+                step.Name,
+                resolvedExecutable,
+                arguments,
+                workingDirectory,
+                ParseExpectedExitCode(step.ExpectedExitCode, step.Name)));
         }
 
         return new MetaMeshRunPlan(plannedSteps);
@@ -261,7 +269,8 @@ public sealed class MetaMeshWorkspaceService
         string stepName,
         string executable,
         string arguments,
-        string workingDirectory)
+        string workingDirectory,
+        int expectedExitCode)
     {
         var startInfo = new ProcessStartInfo
         {
@@ -285,6 +294,7 @@ public sealed class MetaMeshWorkspaceService
             stepName,
             FormatCommand(executable, arguments),
             workingDirectory,
+            expectedExitCode,
             process.ExitCode,
             output);
     }
@@ -305,6 +315,7 @@ public sealed class MetaMeshWorkspaceService
                     item.Executable,
                     item.Arguments ?? string.Empty,
                     item.WorkingDirectory ?? string.Empty,
+                    ParseExpectedExitCode(item.ExpectedExitCode, item.Name),
                     item.Description ?? string.Empty))
                 .ToArray());
     }
@@ -873,6 +884,37 @@ public sealed class MetaMeshWorkspaceService
     private static string? NormalizeOptional(string? value) =>
         string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
+    private static string? NormalizeExpectedExitCode(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return null;
+        }
+
+        var trimmed = value.Trim();
+        if (!int.TryParse(trimmed, out var exitCode) || exitCode < 0)
+        {
+            throw new ArgumentException($"Expected exit code '{trimmed}' is not a non-negative integer.");
+        }
+
+        return exitCode.ToString(System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    private static int ParseExpectedExitCode(string? value, string stepName)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return 0;
+        }
+
+        if (int.TryParse(value.Trim(), out var exitCode) && exitCode >= 0)
+        {
+            return exitCode;
+        }
+
+        throw new InvalidOperationException($"Step '{stepName}' has invalid expected exit code '{value}'.");
+    }
+
     private static string NormalizeToken(string value)
     {
         var output = new char[value.Length];
@@ -908,5 +950,6 @@ public sealed class MetaMeshWorkspaceService
         string Name,
         string Executable,
         string Arguments,
-        string WorkingDirectory);
+        string WorkingDirectory,
+        int ExpectedExitCode);
 }

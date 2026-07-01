@@ -33,6 +33,8 @@ public sealed class MetaMeshCliTests
         Assert.Contains("--operation <value>", result.Output);
         Assert.Contains("--executable <path>", result.Output);
         Assert.Contains("--arguments <arguments>", result.Output);
+        Assert.Contains("--arguments-stdin", result.Output);
+        Assert.Contains("--expected-exit-code <value>", result.Output);
     }
 
     [Fact]
@@ -126,6 +128,68 @@ public sealed class MetaMeshCliTests
             Assert.Contains(model.WorkspaceList, item => item.Name == "docs" && item.ModelName == "MetaDocs");
             Assert.Contains(model.OperationList, item => item.Name == "refresh-docs");
             Assert.Contains(model.OperationStepList, item => item.Name == "echo" && item.Executable == "cmd.exe");
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void AddStep_CanReadArgumentsFromStandardInput()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-stdin-arguments", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        const string childArguments = "/c echo \"hello quoted child cli\"";
+        try
+        {
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name stdin-arguments").ExitCode);
+
+            var add = RunCli(
+                $"add-step --workspace \"{meshPath}\" --operation stdin-arguments --name echo --executable cmd.exe --arguments-stdin",
+                standardInput: childArguments + Environment.NewLine);
+
+            Assert.Equal(0, add.ExitCode);
+
+            var steps = RunCli($"steps --workspace \"{meshPath}\" --operation stdin-arguments");
+            Assert.Equal(0, steps.ExitCode);
+            Assert.Contains("cmd.exe " + childArguments, steps.Output);
+
+            var model = global::MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(meshPath, searchUpward: false);
+            Assert.Equal(childArguments, Assert.Single(model.OperationStepList).Arguments);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Run_TreatsModeledExpectedExitCodeAsSuccess()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-expected-exit", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        try
+        {
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name expected-exit").ExitCode);
+            Assert.Equal(
+                0,
+                RunCli($"add-step --workspace \"{meshPath}\" --operation expected-exit --name expected-four --executable cmd.exe --arguments \"/c exit 4\" --expected-exit-code 4").ExitCode);
+
+            var steps = RunCli($"steps --workspace \"{meshPath}\" --operation expected-exit");
+            Assert.Equal(0, steps.ExitCode);
+            Assert.Contains("expects exit code 4", steps.Output);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation expected-exit");
+            Assert.Equal(0, run.ExitCode);
+            Assert.Contains("1 step completed.", run.Output);
+            Assert.DoesNotContain("Failed step", run.Output);
+
+            var model = global::MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(meshPath, searchUpward: false);
+            Assert.Equal("4", Assert.Single(model.OperationStepList).ExpectedExitCode);
         }
         finally
         {
@@ -311,7 +375,10 @@ public sealed class MetaMeshCliTests
         }
     }
 
-    private static (int ExitCode, string Output) RunCli(string arguments, string? workingDirectory = null)
+    private static (int ExitCode, string Output) RunCli(
+        string arguments,
+        string? workingDirectory = null,
+        string? standardInput = null)
     {
         var repoRoot = FindRepositoryRoot();
         var cliPath = Path.Combine(repoRoot, "MetaMesh", "Cli", "bin", "Debug", "net8.0", "meta-mesh.exe");
@@ -327,12 +394,19 @@ public sealed class MetaMeshCliTests
             WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
+            RedirectStandardInput = true,
             UseShellExecute = false,
             CreateNoWindow = true,
         };
 
         using var process = Process.Start(startInfo)
                             ?? throw new InvalidOperationException("Could not start meta-mesh CLI process.");
+        if (standardInput is not null)
+        {
+            process.StandardInput.Write(standardInput);
+        }
+
+        process.StandardInput.Close();
         var stdoutTask = process.StandardOutput.ReadToEndAsync();
         var stderrTask = process.StandardError.ReadToEndAsync();
 
