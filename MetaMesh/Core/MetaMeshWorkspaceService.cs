@@ -38,6 +38,7 @@ public sealed class MetaMeshWorkspaceService
                 .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
                 .Select(item => ToWorkspaceSummary(item, fullMeshWorkspacePath, resolvedRootPath))
                 .ToArray(),
+            CollectWorkspaceIssues(model, resolvedRootPath),
             model.OperationList
                 .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
                 .Select(operation => ToOperationSummary(model, operation))
@@ -196,16 +197,16 @@ public sealed class MetaMeshWorkspaceService
         RequireDirectoryReadable(meshWorkspacePath, "MetaMesh workspace");
         RequireDirectory(resolvedRootPath, "Mesh root");
 
-        foreach (var workspacePath in workspaceTokens)
-        {
-            RequireWorkspaceDirectory(workspacePath.Value, $"Workspace '{workspacePath.Key}'");
-            RequireDirectoryReadable(workspacePath.Value, $"Workspace '{workspacePath.Key}'");
-        }
-
         var steps = OrderOperationSteps(model, operation, strict: true);
         if (steps.Count == 0)
         {
             throw new InvalidOperationException($"Operation '{operation.Name}' has no steps.");
+        }
+
+        var workspaceIssues = CollectOperationWorkspaceIssues(model, steps, resolvedRootPath);
+        if (workspaceIssues.Count > 0)
+        {
+            throw new MetaMeshWorkspaceIssueException(workspaceIssues);
         }
 
         var plannedSteps = new List<MetaMeshPlannedStep>();
@@ -296,6 +297,105 @@ public sealed class MetaMeshWorkspaceService
             ResolveWorkspacePath(workspace, resolvedRootPath),
             workspace.ModelName ?? string.Empty,
             workspace.Description ?? string.Empty);
+    }
+
+    private static IReadOnlyList<MetaMeshWorkspaceIssue> CollectWorkspaceIssues(
+        MetaMesh.MetaMeshModel model,
+        string resolvedRootPath)
+    {
+        var issues = new List<MetaMeshWorkspaceIssue>();
+        foreach (var workspace in model.WorkspaceList.OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase))
+        {
+            var resolvedPath = ResolveWorkspacePath(workspace, resolvedRootPath);
+            var reason = GetWorkspaceIssueReason(resolvedPath);
+            if (reason is null)
+            {
+                continue;
+            }
+
+            issues.Add(new MetaMeshWorkspaceIssue(
+                workspace.Name,
+                workspace.Path,
+                resolvedPath,
+                workspace.ModelName ?? string.Empty,
+                reason));
+        }
+
+        return issues;
+    }
+
+    private static string? GetWorkspaceIssueReason(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            return "directory does not exist";
+        }
+
+        try
+        {
+            Directory.EnumerateFileSystemEntries(path).FirstOrDefault();
+        }
+        catch (Exception exception) when (exception is UnauthorizedAccessException or IOException)
+        {
+            return "directory is not readable";
+        }
+
+        return File.Exists(Path.Combine(path, "workspace.xml"))
+            ? null
+            : "workspace.xml is missing";
+    }
+
+    private static IReadOnlyList<MetaMeshWorkspaceIssue> CollectOperationWorkspaceIssues(
+        MetaMesh.MetaMeshModel model,
+        IReadOnlyList<MetaMesh.OperationStep> steps,
+        string resolvedRootPath)
+    {
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var step in steps)
+        {
+            AddWorkspaceTokenNames(names, step.Executable);
+            AddWorkspaceTokenNames(names, step.WorkingDirectory);
+        }
+
+        var issues = new List<MetaMeshWorkspaceIssue>();
+        foreach (var name in names.OrderBy(static item => item, StringComparer.OrdinalIgnoreCase))
+        {
+            var workspace = model.WorkspaceList.FirstOrDefault(item =>
+                string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
+            if (workspace is null)
+            {
+                continue;
+            }
+
+            var resolvedPath = ResolveWorkspacePath(workspace, resolvedRootPath);
+            var reason = GetWorkspaceIssueReason(resolvedPath);
+            if (reason is null)
+            {
+                continue;
+            }
+
+            issues.Add(new MetaMeshWorkspaceIssue(
+                workspace.Name,
+                workspace.Path,
+                resolvedPath,
+                workspace.ModelName ?? string.Empty,
+                reason));
+        }
+
+        return issues;
+    }
+
+    private static void AddWorkspaceTokenNames(HashSet<string> names, string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return;
+        }
+
+        foreach (var name in FindWorkspacePathTokens(value))
+        {
+            names.Add(name);
+        }
     }
 
     private static IReadOnlyList<MetaMesh.OperationStep> OrderOperationSteps(
@@ -493,7 +593,7 @@ public sealed class MetaMeshWorkspaceService
             result = ReplaceOrdinalIgnoreCase(
                 result,
                 "{env:" + environmentVariable + "}",
-                Environment.GetEnvironmentVariable(environmentVariable) ?? string.Empty);
+                environmentVariable);
         }
 
         return result;

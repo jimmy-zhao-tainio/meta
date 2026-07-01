@@ -7,6 +7,13 @@ public sealed record MetaMeshWorkspaceSummary(
     string ModelName,
     string Description);
 
+public sealed record MetaMeshWorkspaceIssue(
+    string Name,
+    string Path,
+    string ResolvedPath,
+    string ModelName,
+    string Reason);
+
 public sealed record MetaMeshOperationStepSummary(
     string Name,
     string Executable,
@@ -24,6 +31,7 @@ public sealed record MetaMeshShowResult(
     string RootPath,
     string ResolvedRootPath,
     IReadOnlyList<MetaMeshWorkspaceSummary> Workspaces,
+    IReadOnlyList<MetaMeshWorkspaceIssue> WorkspaceIssues,
     IReadOnlyList<MetaMeshOperationSummary> Operations);
 
 public sealed record MetaMeshRunStepResult(
@@ -52,4 +60,15 @@ public interface IMetaMeshRunObserver
     void StepStarted(MetaMeshRunStepStart step);
 
     void StepCompleted(MetaMeshRunStepResult step);
+}
+
+public sealed class MetaMeshWorkspaceIssueException : InvalidOperationException
+{
+    public MetaMeshWorkspaceIssueException(IReadOnlyList<MetaMeshWorkspaceIssue> issues)
+        : base("Operation uses missing or invalid workspaces.")
+    {
+        Issues = issues;
+    }
+
+    public IReadOnlyList<MetaMeshWorkspaceIssue> Issues { get; }
 }

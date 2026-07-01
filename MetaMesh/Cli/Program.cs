@@ -127,6 +127,12 @@ internal static class Program
 
             WriteRunSummary(result);
         }
+        catch (MetaMeshWorkspaceIssueException exception)
+        {
+            progress?.Complete(failed: true);
+            WriteWorkspaceIssues(exception.Issues);
+            throw new MetaCliExitException(2, exception.Message);
+        }
         catch
         {
             progress?.Complete(failed: true);
@@ -150,16 +156,19 @@ internal static class Program
             ("Root", result.RootPath),
             ("ResolvedRoot", result.ResolvedRootPath),
             ("Workspaces", result.Workspaces.Count.ToString()),
+            ("MissingWorkspaces", result.WorkspaceIssues.Count.ToString()),
             ("Operations", result.Operations.Count.ToString()),
         });
 
         if (verbose)
         {
             WriteWorkspaces(result.Workspaces);
+            WriteWorkspaceIssues(result.WorkspaceIssues);
             WriteOperations(result.Operations, verbose: true);
             return;
         }
 
+        WriteWorkspaceIssues(result.WorkspaceIssues);
         WriteOperations(result.Operations, verbose: false);
         Presenter.WriteInfo("Use --verbose to list workspace paths and step commands.");
     }
@@ -187,6 +196,28 @@ internal static class Program
             {
                 Presenter.WriteInfo($"    description: {workspace.Description}");
             }
+        }
+    }
+
+    private static void WriteWorkspaceIssues(IReadOnlyList<MetaMeshWorkspaceIssue> issues)
+    {
+        if (issues.Count == 0)
+        {
+            return;
+        }
+
+        Presenter.WriteInfo("Missing workspaces:");
+        foreach (var issue in issues)
+        {
+            Presenter.WriteInfo($"  {issue.Name}");
+            if (!string.IsNullOrWhiteSpace(issue.ModelName))
+            {
+                Presenter.WriteInfo($"    model: {issue.ModelName}");
+            }
+
+            Presenter.WriteInfo($"    path: {issue.Path}");
+            Presenter.WriteInfo($"    resolved: {issue.ResolvedPath}");
+            Presenter.WriteInfo($"    reason: {issue.Reason}");
         }
     }
 

@@ -160,6 +160,99 @@ public sealed class MetaMeshCliTests
     }
 
     [Fact]
+    public void Run_EnvironmentTokensValidateAndExpandToVariableName()
+    {
+        const string variableName = "METAMESH_TEST_ENV_NAME";
+        const string secretValue = "metamesh-secret-value";
+        var previousValue = Environment.GetEnvironmentVariable(variableName);
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-env-name", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        try
+        {
+            Environment.SetEnvironmentVariable(variableName, secretValue);
+
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name env").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation env --name echo --executable cmd.exe --arguments \"/c echo {{env:{variableName}}}\"").ExitCode);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation env");
+
+            Assert.Equal(0, run.ExitCode);
+            Assert.Contains(variableName, run.Output);
+            Assert.DoesNotContain(secretValue, run.Output);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(variableName, previousValue);
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Show_ReportsAllMissingDeclaredWorkspaces_AndRunAllowsUnusedMissingWorkspaces()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-missing-workspaces", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        var markerPath = Path.Combine(meshPath, "marker.txt");
+        try
+        {
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path MissingDocs --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name pipeline --path MissingPipeline --model MetaPipeline").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
+
+            var show = RunCli($"show --workspace \"{meshPath}\"");
+
+            Assert.Equal(0, show.ExitCode);
+            Assert.Contains("MissingWorkspaces: 2", show.Output);
+            Assert.Contains("Missing workspaces:", show.Output);
+            Assert.Contains("docs", show.Output);
+            Assert.Contains("pipeline", show.Output);
+            Assert.Contains("directory does not exist", show.Output);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
+
+            Assert.Equal(0, run.ExitCode);
+            Assert.Contains("1 step completed.", run.Output);
+            Assert.True(File.Exists(markerPath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Run_PreflightsMissingWorkspaceUsedAsWorkingDirectory()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-missing-operation-workspace", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        var markerPath = Path.Combine(meshPath, "marker.txt");
+        try
+        {
+            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path MissingDocs --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing-workspace --executable cmd.exe --arguments \"/c echo unreachable\" --working-directory \"{{workspace:docs.path}}\" --previous-step touch").ExitCode);
+
+            var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
+
+            Assert.NotEqual(0, run.ExitCode);
+            Assert.Contains("Missing workspaces:", run.Output);
+            Assert.Contains("docs", run.Output);
+            Assert.Contains("Operation uses missing or invalid workspaces.", run.Output);
+            Assert.False(File.Exists(markerPath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
     public void Show_DefaultsWorkspaceToCurrentDirectory()
     {
         var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-cwd", Guid.NewGuid().ToString("N"));
