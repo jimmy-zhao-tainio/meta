@@ -159,6 +159,13 @@ public static class MetaDocsDefaults
             string.Equals(row.Id, "view:default", StringComparison.OrdinalIgnoreCase));
         if (view is not null)
         {
+            if (string.Equals(view.Title, "meta + meta-bi reference", StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(view.Summary, "Command-line and model references for the current public MetaDocs suite.", StringComparison.OrdinalIgnoreCase))
+            {
+                view.Title = "Contents";
+                view.Summary = "Documentation subjects in this workspace.";
+            }
+
             return view;
         }
 
@@ -167,8 +174,8 @@ public static class MetaDocsDefaults
             Id = "view:default",
             Name = "Default",
             Kind = "Site",
-            Title = "meta + meta-bi reference",
-            Summary = "Command-line and model references for the current public MetaDocs suite.",
+            Title = "Contents",
+            Summary = "Documentation subjects in this workspace.",
         };
         model.DocumentationViewList.Add(view);
         return view;

@@ -45,6 +45,7 @@ public sealed class MetaCliRuntime<TModel>
     private bool useDefaultHelp;
     private TextWriter? helpOutput;
     private TextWriter? helpError;
+    private MetaCliHelpOptions? helpOptions;
     private MetaCliRuntimeFailureHandler? failureHandler;
     private MetaCliModel model = MetaCliModel.CreateEmpty();
 
@@ -65,11 +66,15 @@ public sealed class MetaCliRuntime<TModel>
         this.setExitCode = setExitCode ?? (code => Environment.ExitCode = code);
     }
 
-    public MetaCliRuntime<TModel> UseDefaultHelp(TextWriter? output = null, TextWriter? error = null)
+    public MetaCliRuntime<TModel> UseDefaultHelp(
+        TextWriter? output = null,
+        TextWriter? error = null,
+        MetaCliHelpOptions? options = null)
     {
         useDefaultHelp = true;
         helpOutput = output;
         helpError = error;
+        helpOptions = options;
         return this;
     }
 
@@ -135,7 +140,7 @@ public sealed class MetaCliRuntime<TModel>
 
         if (useDefaultHelp)
         {
-            var help = new MetaCliHelpService(helpOutput, helpError ?? error);
+            var help = new MetaCliHelpService(helpOutput, helpError ?? error, helpOptions);
             if (help.TryWriteHelp(model, applicationId, arguments, out var helpExitCode))
             {
                 setExitCode(helpExitCode);

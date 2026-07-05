@@ -37,6 +37,81 @@
     <OptionToken Id="token-author-page-source-name" OptionId="option-author-page-source-name">
       <Token>--source-name</Token>
     </OptionToken>
+    <OptionToken Id="token-show-workspace" OptionId="option-show-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-contents-workspace" OptionId="option-contents-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-contents-view" OptionId="option-contents-view">
+      <Token>--view</Token>
+    </OptionToken>
+    <OptionToken Id="token-contents-depth" OptionId="option-contents-depth">
+      <Token>--depth</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-workspace" OptionId="option-read-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-subject" OptionId="option-read-subject">
+      <Token>--subject</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-model" OptionId="option-read-model">
+      <Token>--model</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-cli" OptionId="option-read-cli">
+      <Token>--cli</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-command" OptionId="option-read-command">
+      <Token>--command</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-option" OptionId="option-read-option">
+      <Token>--option</Token>
+    </OptionToken>
+    <OptionToken Id="token-read-slot" OptionId="option-read-slot">
+      <Token>--slot</Token>
+    </OptionToken>
+    <OptionToken Id="token-search-workspace" OptionId="option-search-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-search-kind" OptionId="option-search-kind">
+      <Token>--kind</Token>
+    </OptionToken>
+    <OptionToken Id="token-search-limit" OptionId="option-search-limit">
+      <Token>--limit</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-workspace" OptionId="option-update-description-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-subject" OptionId="option-update-description-subject">
+      <Token>--subject</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-model" OptionId="option-update-description-model">
+      <Token>--model</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-cli" OptionId="option-update-description-cli">
+      <Token>--cli</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-command" OptionId="option-update-description-command">
+      <Token>--command</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-option" OptionId="option-update-description-option">
+      <Token>--option</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-slot" OptionId="option-update-description-slot">
+      <Token>--slot</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-title" OptionId="option-update-description-title">
+      <Token>--title</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-body" OptionId="option-update-description-body">
+      <Token>--body</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-body-stdin" OptionId="option-update-description-body-stdin">
+      <Token>--body-stdin</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-description-body-format" OptionId="option-update-description-body-format">
+      <Token>--body-format</Token>
+    </OptionToken>
     <OptionToken Id="token-import-cli-source-workspace" OptionId="option-import-cli-source-workspace">
       <Token>--source-workspace</Token>
     </OptionToken>
@@ -53,15 +128,6 @@
       <Token>--group</Token>
     </OptionToken>
     <OptionToken Id="token-import-cli-source-id" OptionId="option-import-cli-source-id">
-      <Token>--source-id</Token>
-    </OptionToken>
-    <OptionToken Id="token-import-command-prose-workspace" OptionId="option-import-command-prose-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-import-command-prose-source-root" OptionId="option-import-command-prose-source-root">
-      <Token>--source-root</Token>
-    </OptionToken>
-    <OptionToken Id="token-import-command-prose-source-id" OptionId="option-import-command-prose-source-id">
       <Token>--source-id</Token>
     </OptionToken>
     <OptionToken Id="token-import-workspace-model-source-workspace" OptionId="option-import-workspace-model-source-workspace">
@@ -145,8 +211,8 @@
     <OptionToken Id="token-validate-warnings-as-errors" OptionId="option-validate-warnings-as-errors">
       <Token>--warnings-as-errors</Token>
     </OptionToken>
-    <OptionToken Id="token-validate-include-prose-diagnostics" OptionId="option-validate-include-prose-diagnostics">
-      <Token>--include-prose-diagnostics</Token>
+    <OptionToken Id="token-validate-include-description-diagnostics" OptionId="option-validate-include-description-diagnostics">
+      <Token>--include-description-diagnostics</Token>
     </OptionToken>
     <OptionToken Id="token-render-site-workspace" OptionId="option-render-site-workspace">
       <Token>--workspace</Token>

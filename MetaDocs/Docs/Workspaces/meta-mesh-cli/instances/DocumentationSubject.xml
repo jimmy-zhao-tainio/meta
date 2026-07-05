@@ -8,8 +8,8 @@
       <Kind>CliApplication</Kind>
       <NativeId>app-meta-mesh</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
-      <Status>New</Status>
-      <Summary>Author and run declared workspace operations.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh makes repository workflows explicit: it names the workspaces involved, orders the executable steps, validates the inputs, and runs the operation from a model that engineers and agents can inspect.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
       <DisplayName>--workspace</DisplayName>
@@ -88,7 +88,7 @@
       <Status>New</Status>
       <Summary>Arguments passed to the executable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:description" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:description" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-mesh add-step --description</DisplayPath>
       <Key>source:cli:meta-mesh:app:command:add-step:option:description</Key>
@@ -505,6 +505,17 @@
       <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
       <Status>New</Status>
       <Summary>Exit code that marks the step as successful. Defaults to 0.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments">
+      <DisplayName>--arguments-stdin</DisplayName>
+      <DisplayPath>meta-mesh add-step --arguments-stdin</DisplayPath>
+      <Key>source:cli:meta-mesh:app:command:add-step:option:arguments-stdin</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-step-arguments-stdin</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <Status>New</Status>
+      <Summary>Read executable arguments from standard input.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

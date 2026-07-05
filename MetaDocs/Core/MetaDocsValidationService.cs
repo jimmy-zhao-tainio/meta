@@ -27,8 +27,8 @@ public sealed class MetaDocsValidationService
         CheckNarrativeReferences(model, diagnostics, subjectIds);
         CheckRelationships(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckViews(model, diagnostics, subjectsById);
-        CheckNarrativeReviewState(model, diagnostics, options.IncludeProseDiagnostics);
-        if (options.IncludeProseDiagnostics)
+        CheckNarrativeReviewState(model, diagnostics, options.IncludeDescriptionDiagnostics);
+        if (options.IncludeDescriptionDiagnostics)
         {
             CheckMissingExpectedNarratives(model, diagnostics);
         }
@@ -37,7 +37,7 @@ public sealed class MetaDocsValidationService
         CheckImportSpecs(model, diagnostics, sourceIds);
         CheckInstancePolicies(model, diagnostics);
         CheckInstanceDocs(model, diagnostics, subjectIds);
-        CheckCliReference(model, diagnostics, options.IncludeProseDiagnostics);
+        CheckCliReference(model, diagnostics, options.IncludeDescriptionDiagnostics);
         CheckPublicReferenceView(model, diagnostics);
 
         return new MetaDocsValidationResult(diagnostics);
@@ -216,7 +216,7 @@ public sealed class MetaDocsValidationService
     private static void CheckNarrativeReviewState(
         MetaDocsModel model,
         ICollection<MetaDocsDiagnostic> diagnostics,
-        bool includeProseDiagnostics)
+        bool includeDescriptionDiagnostics)
     {
         var subjectsById = model.DocumentationSubjectList
             .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
@@ -224,7 +224,7 @@ public sealed class MetaDocsValidationService
 
         foreach (var narrative in model.DocumentationNarrativeList)
         {
-            if (includeProseDiagnostics &&
+            if (includeDescriptionDiagnostics &&
                 (string.Equals(narrative.ReviewStatus, "NeedsReview", StringComparison.OrdinalIgnoreCase) ||
                  string.Equals(narrative.ReviewStatus, "NeedsAuthoring", StringComparison.OrdinalIgnoreCase)))
             {
@@ -493,7 +493,7 @@ public sealed class MetaDocsValidationService
     private static void CheckCliReference(
         MetaDocsModel model,
         ICollection<MetaDocsDiagnostic> diagnostics,
-        bool includeProseDiagnostics)
+        bool includeDescriptionDiagnostics)
     {
         var activeSubjects = model.DocumentationSubjectList
             .Where(IsActive)
@@ -577,12 +577,12 @@ public sealed class MetaDocsValidationService
                     command.Id));
             }
 
-            if (includeProseDiagnostics && !HasAuthoredOrImportedNarrative(model, command.Id))
+            if (includeDescriptionDiagnostics && !HasAuthoredOrImportedNarrative(model, command.Id))
             {
                 diagnostics.Add(Info(
                     "MDOC030",
-                    "CliCommandProseMissing",
-                    $"CLI command '{command.Id}' has no authored or imported command prose.",
+                    "CliCommandDescriptionMissing",
+                    $"CLI command '{command.Id}' has no authored or imported command description.",
                     command.Id));
             }
         }
@@ -632,6 +632,19 @@ public sealed class MetaDocsValidationService
         var view = model.DocumentationViewList.FirstOrDefault(row =>
             string.Equals(row.Id, "view:default", StringComparison.OrdinalIgnoreCase));
         if (view is null)
+        {
+            return;
+        }
+
+        if (!IsPublicReferenceView(view))
+        {
+            return;
+        }
+
+        var publicReferenceSubjects = model.DocumentationSubjectList
+            .Where(subject => MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out _))
+            .ToArray();
+        if (publicReferenceSubjects.Length == 0)
         {
             return;
         }
@@ -704,8 +717,7 @@ public sealed class MetaDocsValidationService
             }
         }
 
-        foreach (var subject in model.DocumentationSubjectList.Where(subject =>
-                     MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out _)))
+        foreach (var subject in publicReferenceSubjects)
         {
             if (!publicSubjectIds.Contains(subject.Id))
             {
@@ -764,6 +776,15 @@ public sealed class MetaDocsValidationService
         !string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsPublicReferenceView(DocumentationView view) =>
+        string.Equals(view.Kind, "PublicReference", StringComparison.OrdinalIgnoreCase) ||
+        ContainsReferenceMarker(view.Title) ||
+        ContainsReferenceMarker(view.Summary);
+
+    private static bool ContainsReferenceMarker(string? value) =>
+        !string.IsNullOrWhiteSpace(value) &&
+        value.Contains("reference", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsIncluded(string? value)
     {
@@ -908,7 +929,7 @@ public sealed class MetaDocsValidationOptions
 {
     public static MetaDocsValidationOptions Default { get; } = new();
 
-    public bool IncludeProseDiagnostics { get; init; }
+    public bool IncludeDescriptionDiagnostics { get; init; }
 }
 
 public sealed record MetaDocsDiagnostic(

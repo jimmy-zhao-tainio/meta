@@ -11,15 +11,35 @@
       <Name>author-page</Name>
       <Token>author-page</Token>
     </Command>
+    <Command Id="cmd-show" ApplicationId="app-meta-docs">
+      <Description>Show workspace contents and useful next commands.</Description>
+      <Name>show</Name>
+      <Token>show</Token>
+    </Command>
+    <Command Id="cmd-contents" ApplicationId="app-meta-docs">
+      <Description>List the documentation contents as a navigable tree.</Description>
+      <Name>contents</Name>
+      <Token>contents</Token>
+    </Command>
+    <Command Id="cmd-read" ApplicationId="app-meta-docs">
+      <Description>Read one documentation subject.</Description>
+      <Name>read</Name>
+      <Token>read</Token>
+    </Command>
+    <Command Id="cmd-search" ApplicationId="app-meta-docs">
+      <Description>Search documentation subjects, descriptions, and details.</Description>
+      <Name>search</Name>
+      <Token>search</Token>
+    </Command>
+    <Command Id="cmd-update-description" ApplicationId="app-meta-docs">
+      <Description>Add or update an authored description for an existing documentation subject.</Description>
+      <Name>update-description</Name>
+      <Token>update-description</Token>
+    </Command>
     <Command Id="cmd-import-cli" ApplicationId="app-meta-docs">
       <Description>Import an authored MetaCli workspace into a MetaDocs workspace.</Description>
       <Name>import-cli</Name>
       <Token>import-cli</Token>
-    </Command>
-    <Command Id="cmd-import-command-prose" ApplicationId="app-meta-docs">
-      <Description>Import command-oriented markdown prose into existing CLI documentation subjects.</Description>
-      <Name>import-command-prose</Name>
-      <Token>import-command-prose</Token>
     </Command>
     <Command Id="cmd-import-workspace-model" ApplicationId="app-meta-docs">
       <Description>Import generic model documentation from a Meta workspace.</Description>

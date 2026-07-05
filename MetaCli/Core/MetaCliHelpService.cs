@@ -4,11 +4,16 @@ public sealed class MetaCliHelpService
 {
     private readonly TextWriter output;
     private readonly TextWriter error;
+    private readonly MetaCliHelpOptions options;
 
-    public MetaCliHelpService(TextWriter? output = null, TextWriter? error = null)
+    public MetaCliHelpService(
+        TextWriter? output = null,
+        TextWriter? error = null,
+        MetaCliHelpOptions? options = null)
     {
         this.output = output ?? Console.Out;
         this.error = error ?? Console.Error;
+        this.options = options ?? new MetaCliHelpOptions();
     }
 
     public bool TryWriteHelp(
@@ -133,7 +138,10 @@ public sealed class MetaCliHelpService
             output.WriteLine();
         }
 
-        output.WriteLine($"Next: {executableName} help <command>");
+        var next = string.IsNullOrWhiteSpace(options.ApplicationNextCommand)
+            ? $"{executableName} help <command>"
+            : options.ApplicationNextCommand.Trim();
+        output.WriteLine($"Next: {next}");
     }
 
     public void WriteCommandGroupHelp(

@@ -288,7 +288,28 @@
       <Name>import-meta-weave-model</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
-    <OperationStep Id="operation-step:regenerate-public-docs:merge-public-suite" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-weave-model">
+    <OperationStep Id="operation-step:regenerate-public-docs:validate-metametabi-authored" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-weave-model">
+      <Arguments>validate --workspace {workspace:docs-metametabi-authored.path}</Arguments>
+      <Description>Validate the authored MetaDocs prose workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>validate-metametabi-authored</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:import-metametabi-safe-instance-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:validate-metametabi-authored">
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-docs.path} --workspace {workspace:docs-metametabi-safe-instances.path} --source-id source:workspace-model:meta-docs</Arguments>
+      <Description>Import MetaDocs model reference rows used by the safe instance documentation policy.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>import-metametabi-safe-instance-model</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:validate-metametabi-safe-instances" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-metametabi-safe-instance-model">
+      <Arguments>validate --workspace {workspace:docs-metametabi-safe-instances.path}</Arguments>
+      <Description>Validate the opt-in MetaDocs instance documentation workspace.</Description>
+      <Executable>meta-docs.exe</Executable>
+      <Name>validate-metametabi-safe-instances</Name>
+      <WorkingDirectory>{mesh.root}</WorkingDirectory>
+    </OperationStep>
+    <OperationStep Id="operation-step:regenerate-public-docs:merge-public-suite" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:validate-metametabi-safe-instances">
       <Arguments>merge --include {workspace:docs-meta-analytics-cli.path} --include {workspace:docs-meta-analytics-model.path} --include {workspace:docs-meta-business-data-vault-model.path} --include {workspace:docs-meta-cli.path} --include {workspace:docs-meta-cli-cli.path} --include {workspace:docs-meta-convert-cli.path} --include {workspace:docs-meta-data-quality-cli.path} --include {workspace:docs-meta-data-quality-model.path} --include {workspace:docs-meta-data-type-cli.path} --include {workspace:docs-meta-data-type-conversion-cli.path} --include {workspace:docs-meta-data-type-conversion-model.path} --include {workspace:docs-meta-data-type-model.path} --include {workspace:docs-meta-datavault-business-cli.path} --include {workspace:docs-meta-data-vault-implementation-model.path} --include {workspace:docs-meta-datavault-raw-cli.path} --include {workspace:docs-meta-data-warehouse-cli.path} --include {workspace:docs-meta-data-warehouse-implementation-model.path} --include {workspace:docs-meta-data-warehouse-model.path} --include {workspace:docs-meta-docs-cli.path} --include {workspace:docs-meta-docs-model.path} --include {workspace:docs-meta-mesh-cli.path} --include {workspace:docs-meta-multi-dimensional-cli.path} --include {workspace:docs-meta-multi-dimensional-model.path} --include {workspace:docs-meta-orchestration-cli.path} --include {workspace:docs-meta-orchestration-model.path} --include {workspace:docs-meta-pipeline-cli.path} --include {workspace:docs-meta-pipeline-model.path} --include {workspace:docs-meta-raw-data-vault-model.path} --include {workspace:docs-meta-schema-cli.path} --include {workspace:docs-meta-schema-model.path} --include {workspace:docs-meta-sql-cli.path} --include {workspace:docs-meta-sql-deploy-manifest-model.path} --include {workspace:docs-meta-sql-model.path} --include {workspace:docs-meta-tabular-cli.path} --include {workspace:docs-meta-tabular-model.path} --include {workspace:docs-meta-transform-binding-cli.path} --include {workspace:docs-meta-transform-binding-model.path} --include {workspace:docs-meta-transform-script-cli.path} --include {workspace:docs-meta-transform-script-model.path} --include {workspace:docs-meta-weave-cli.path} --include {workspace:docs-meta-weave-model.path} --workspace {workspace:docs-suite.path}</Arguments>
       <Description>Merge public MetaDocs source workspaces into the suite workspace.</Description>
       <Executable>meta-docs.exe</Executable>

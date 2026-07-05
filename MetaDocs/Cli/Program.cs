@@ -26,10 +26,14 @@ internal static class Program
                 CommandWorkspacePath,
                 ApplicationId,
                 setExitCode: code => exitCode = code)
-            .UseDefaultHelp()
+            .UseDefaultHelp(options: new MetaCliHelpOptions("meta-docs show"))
             .Bind("exec-author-page", RunAuthorPage)
+            .Bind("exec-show", RunShow)
+            .Bind("exec-contents", RunContents)
+            .Bind("exec-read", RunRead)
+            .Bind("exec-search", RunSearch)
+            .Bind("exec-update-description", RunUpdateDescription)
             .Bind("exec-import-cli", RunImportCli)
-            .Bind("exec-import-command-prose", RunImportCommandProse)
             .Bind("exec-import-workspace-model", RunImportWorkspaceModel)
             .Bind("exec-import-workspace-instances", RunImportWorkspaceInstances)
             .Bind("exec-include-instance-entity", RunIncludeInstanceEntity)
@@ -74,6 +78,100 @@ internal static class Program
         }
     }
 
+    private static void RunShow(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var overview = new MetaDocsNavigationService().Describe(model);
+            Presenter.WriteInfo(FormatOverview(workspace, overview));
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot show MetaDocs workspace. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunContents(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var contents = new MetaDocsNavigationService().Contents(
+                model,
+                Optional(invocation, "view"),
+                ParseDepth(Optional(invocation, "depth")));
+            Presenter.WriteInfo(FormatContents(contents));
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot list MetaDocs contents. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunRead(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var result = new MetaDocsQueryService().Read(
+                model,
+                SubjectSelector(invocation),
+                Optional(invocation, "slot"));
+            Presenter.WriteInfo(MetaDocsQueryService.FormatReadResult(result));
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot read documentation. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunSearch(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        var query = invocation.Required("query");
+        try
+        {
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var matches = new MetaDocsQueryService().Search(
+                model,
+                query,
+                Optional(invocation, "kind"),
+                ParseLimit(Optional(invocation, "limit")));
+            Presenter.WriteInfo(MetaDocsQueryService.FormatSearchResults(query, matches));
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot search documentation. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunUpdateDescription(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var body = ReadBody(invocation);
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var narrative = new MetaDocsQueryService().UpsertDescription(
+                model,
+                SubjectSelector(invocation),
+                Optional(invocation, "slot", "Summary"),
+                Optional(invocation, "title"),
+                body,
+                Optional(invocation, "body-format", "PlainText"));
+            model.SaveToXmlWorkspace(workspace);
+            Presenter.WriteInfo($"Updated description: {narrative.SubjectKey} ({narrative.Slot}).");
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot update documentation description. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
     private static void RunImportCli(MetaCliInvocation invocation)
     {
         var workspace = RequireOneWorkspaceTarget(invocation);
@@ -95,26 +193,6 @@ internal static class Program
         catch (Exception exception) when (exception is not MetaCliExitException)
         {
             throw new InvalidOperationException($"Cannot import CLI documentation. Source workspace: {Path.GetFullPath(sourceWorkspace)}. {exception.Message}", exception);
-        }
-    }
-
-    private static void RunImportCommandProse(MetaCliInvocation invocation)
-    {
-        var workspace = invocation.Required("workspace");
-        var sourceRoot = invocation.Required("source-root");
-        try
-        {
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var result = new MetaDocsMarkdownCommandProseImporter().ImportCommandProseAsync(
-                model,
-                sourceRoot,
-                Optional(invocation, "source-id")).GetAwaiter().GetResult();
-            model.SaveToXmlWorkspace(workspace);
-            Presenter.WriteInfo($"Imported command prose from {result.SourceFileCount} markdown file(s): {result.MatchedApplicationCount} app(s), {result.MatchedCommandCount} command(s), {result.ImportedNarrativeCount} narrative(s).");
-        }
-        catch (Exception exception) when (exception is not MetaCliExitException)
-        {
-            throw new InvalidOperationException($"Cannot import command prose. Workspace: {Path.GetFullPath(workspace)}. SourceRoot: {Path.GetFullPath(sourceRoot)}. {exception.Message}", exception);
         }
     }
 
@@ -142,7 +220,7 @@ internal static class Program
 
     private static void RunImportWorkspaceInstances(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         var sourceWorkspace = invocation.Required("source-workspace");
         try
         {
@@ -164,7 +242,7 @@ internal static class Program
 
     private static void RunIncludeInstanceEntity(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         try
         {
             var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
@@ -185,7 +263,7 @@ internal static class Program
 
     private static void RunIncludeInstanceProperty(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         try
         {
             var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
@@ -205,7 +283,7 @@ internal static class Program
 
     private static void RunIncludeInstanceRelationship(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         try
         {
             var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
@@ -225,7 +303,7 @@ internal static class Program
 
     private static void RunMerge(MetaCliInvocation invocation)
     {
-        var outputWorkspace = invocation.Required("workspace");
+        var outputWorkspace = WorkspaceOrCurrent(invocation);
         try
         {
             var models = new List<MetaDocsModel>();
@@ -246,7 +324,7 @@ internal static class Program
 
     private static void RunRenderSite(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         var outputDirectory = invocation.Required("out");
         try
         {
@@ -267,7 +345,7 @@ internal static class Program
 
     private static void RunValidate(MetaCliInvocation invocation)
     {
-        var workspace = invocation.Required("workspace");
+        var workspace = WorkspaceOrCurrent(invocation);
         try
         {
             var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
@@ -275,7 +353,7 @@ internal static class Program
                 model,
                 new MetaDocsValidationOptions
                 {
-                    IncludeProseDiagnostics = invocation.Flag("include-prose-diagnostics"),
+                    IncludeDescriptionDiagnostics = invocation.Flag("include-description-diagnostics"),
                 });
             PrintValidationResult(result);
             if (result.HasErrors(invocation.Flag("warnings-as-errors")))
@@ -303,19 +381,179 @@ internal static class Program
     {
         var workspace = Optional(invocation, "workspace");
         var newWorkspace = Optional(invocation, "new-workspace");
-        if (string.IsNullOrWhiteSpace(workspace) == string.IsNullOrWhiteSpace(newWorkspace))
+        if (!string.IsNullOrWhiteSpace(workspace) && !string.IsNullOrWhiteSpace(newWorkspace))
         {
-            throw new MetaCliExitException(2, "Provide exactly one of --workspace <path> or --new-workspace <path>.");
+            throw new MetaCliExitException(2, "Provide only one of --workspace <path> or --new-workspace <path>.");
+        }
+
+        if (string.IsNullOrWhiteSpace(workspace) && string.IsNullOrWhiteSpace(newWorkspace))
+        {
+            workspace = Directory.GetCurrentDirectory();
         }
 
         return (workspace, newWorkspace, string.IsNullOrWhiteSpace(workspace) ? newWorkspace : workspace);
     }
+
+    private static string WorkspaceOrCurrent(MetaCliInvocation invocation) =>
+        Optional(invocation, "workspace", Directory.GetCurrentDirectory());
 
     private static string Optional(MetaCliInvocation invocation, string parameter, string defaultValue = "")
     {
         var value = invocation.Optional(parameter);
         return string.IsNullOrWhiteSpace(value) ? defaultValue : value;
     }
+
+    private static MetaDocsSubjectSelector SubjectSelector(MetaCliInvocation invocation) =>
+        new(
+            Optional(invocation, "subject"),
+            Optional(invocation, "model"),
+            Optional(invocation, "cli"),
+            Optional(invocation, "command"),
+            Optional(invocation, "option"));
+
+    private static string ReadBody(MetaCliInvocation invocation)
+    {
+        var inlineBody = Optional(invocation, "body");
+        var stdin = invocation.Flag("body-stdin");
+        if (!string.IsNullOrWhiteSpace(inlineBody) && stdin)
+        {
+            throw new MetaCliExitException(2, "Use either --body <text> or --body-stdin, not both.");
+        }
+
+        if (stdin)
+        {
+            return Console.In.ReadToEnd();
+        }
+
+        if (string.IsNullOrWhiteSpace(inlineBody))
+        {
+            throw new MetaCliExitException(2, "Provide --body <text> or --body-stdin.");
+        }
+
+        return inlineBody;
+    }
+
+    private static int ParseLimit(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return 25;
+        }
+
+        if (int.TryParse(value, out var limit) && limit > 0)
+        {
+            return limit;
+        }
+
+        throw new MetaCliExitException(2, "--limit must be a positive integer.");
+    }
+
+    private static int ParseDepth(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return 4;
+        }
+
+        if (int.TryParse(value, out var depth) && depth > 0)
+        {
+            return depth;
+        }
+
+        throw new MetaCliExitException(2, "--depth must be a positive integer.");
+    }
+
+    private static string FormatOverview(string workspace, MetaDocsWorkspaceOverview overview)
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine("MetaDocs workspace");
+        builder.AppendLine(Path.GetFullPath(workspace));
+        builder.AppendLine();
+
+        builder.AppendLine("Open");
+        builder.AppendLine("  meta-docs contents --depth 4");
+        builder.AppendLine("  meta-docs search <text>");
+        var firstCli = FindFirstVisibleSubject(overview.Contents.Nodes, "CliApplication") ??
+            overview.ReadTargets.FirstOrDefault(static target =>
+            string.Equals(target.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase));
+        if (firstCli is not null)
+        {
+            builder.AppendLine($"  meta-docs read --cli {QuoteArgument(firstCli.Name)}");
+        }
+
+        var firstModel = FindFirstVisibleSubject(overview.Contents.Nodes, "Model") ??
+            overview.ReadTargets.FirstOrDefault(static target =>
+            string.Equals(target.Kind, "Model", StringComparison.OrdinalIgnoreCase));
+        if (firstModel is not null)
+        {
+            builder.AppendLine($"  meta-docs read --model {QuoteArgument(firstModel.Name)}");
+        }
+
+        if (overview.Contents.Nodes.Count != 0)
+        {
+            builder.AppendLine();
+            builder.AppendLine(overview.Contents.Title);
+            foreach (var node in overview.Contents.Nodes)
+            {
+                AppendContentNode(builder, node, 1);
+            }
+        }
+
+        return builder.ToString().TrimEnd();
+    }
+
+    private static string FormatContents(MetaDocsContentsResult contents)
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine(contents.Title);
+        foreach (var node in contents.Nodes)
+        {
+            AppendContentNode(builder, node, 0);
+        }
+
+        return builder.ToString().TrimEnd();
+    }
+
+    private static void AppendContentNode(StringBuilder builder, MetaDocsContentNode node, int depth)
+    {
+        builder.Append(new string(' ', depth * 2));
+        builder.AppendLine(node.Title);
+        foreach (var child in node.Children)
+        {
+            AppendContentNode(builder, child, depth + 1);
+        }
+
+        if (node.HasMoreChildren)
+        {
+            builder.Append(new string(' ', (depth + 1) * 2));
+            builder.AppendLine("...");
+        }
+    }
+
+    private static MetaDocsReadTarget? FindFirstVisibleSubject(IReadOnlyList<MetaDocsContentNode> nodes, string kind)
+    {
+        foreach (var node in nodes)
+        {
+            if (node.Subject is not null &&
+                string.Equals(node.Subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+            {
+                return new MetaDocsReadTarget(node.Subject.Kind ?? string.Empty, node.Subject.DisplayName);
+            }
+
+            var child = FindFirstVisibleSubject(node.Children, kind);
+            if (child is not null)
+            {
+                return child;
+            }
+        }
+
+        return null;
+    }
+
+    private static string QuoteArgument(string value) =>
+        value.Any(char.IsWhiteSpace) || value.Length == 0
+            ? $"\"{value.Replace("\"", "\\\"", StringComparison.Ordinal)}\""
+            : value;
 
     private static void WriteThemeAssets(MetaDocsModel model, string outputDirectory)
     {

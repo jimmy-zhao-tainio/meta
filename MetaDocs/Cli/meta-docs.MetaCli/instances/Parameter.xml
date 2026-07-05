@@ -53,6 +53,111 @@
       <Description>Optional authored documentation source display name.</Description>
       <Name>source-name</Name>
     </Parameter>
+    <Parameter Id="param-show-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to show. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-contents-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to list. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-contents-option-view" ValueShapeId="shape-text">
+      <Description>Optional documentation view id, name, or title.</Description>
+      <Name>view</Name>
+    </Parameter>
+    <Parameter Id="param-contents-option-depth" ValueShapeId="shape-text">
+      <Description>Maximum tree depth. Default: 4.</Description>
+      <Name>depth</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to read. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-subject" ValueShapeId="shape-text">
+      <Description>Documentation subject id or key.</Description>
+      <Name>subject</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-model" ValueShapeId="shape-text">
+      <Description>Model name.</Description>
+      <Name>model</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-cli" ValueShapeId="shape-text">
+      <Description>CLI application name.</Description>
+      <Name>cli</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-command" ValueShapeId="shape-text">
+      <Description>CLI command name or path.</Description>
+      <Name>command</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-option" ValueShapeId="shape-token">
+      <Description>CLI option token.</Description>
+      <Name>option</Name>
+    </Parameter>
+    <Parameter Id="param-read-option-slot" ValueShapeId="shape-text">
+      <Description>Optional description slot filter.</Description>
+      <Name>slot</Name>
+    </Parameter>
+    <Parameter Id="param-search-positional-query" ValueShapeId="shape-query">
+      <Description>Search text.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>query</Name>
+    </Parameter>
+    <Parameter Id="param-search-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to search. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-search-option-kind" ValueShapeId="shape-text">
+      <Description>Optional subject kind filter.</Description>
+      <Name>kind</Name>
+    </Parameter>
+    <Parameter Id="param-search-option-limit" ValueShapeId="shape-text">
+      <Description>Maximum number of matches. Default: 25.</Description>
+      <Name>limit</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to update. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-subject" ValueShapeId="shape-text">
+      <Description>Documentation subject id or key.</Description>
+      <Name>subject</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-model" ValueShapeId="shape-text">
+      <Description>Model name.</Description>
+      <Name>model</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-cli" ValueShapeId="shape-text">
+      <Description>CLI application name.</Description>
+      <Name>cli</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-command" ValueShapeId="shape-text">
+      <Description>CLI command name or path.</Description>
+      <Name>command</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-option" ValueShapeId="shape-token">
+      <Description>CLI option token.</Description>
+      <Name>option</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-slot" ValueShapeId="shape-text">
+      <Description>Description slot to add or update. Default: Summary.</Description>
+      <Name>slot</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-title" ValueShapeId="shape-text">
+      <Description>Optional description title. Defaults to the slot.</Description>
+      <Name>title</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-body" ValueShapeId="shape-text">
+      <Description>Authored description body.</Description>
+      <Name>body</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-body-stdin" ValueShapeId="shape-flag">
+      <Description>Read authored description body from standard input.</Description>
+      <Name>body-stdin</Name>
+    </Parameter>
+    <Parameter Id="param-update-description-option-body-format" ValueShapeId="shape-text">
+      <Description>Body format. Default: PlainText.</Description>
+      <Name>body-format</Name>
+    </Parameter>
     <Parameter Id="param-import-cli-option-source-workspace" ValueShapeId="shape-path">
       <Description>Source MetaCli workspace to document.</Description>
       <IsRequired>true</IsRequired>
@@ -76,20 +181,6 @@
     </Parameter>
     <Parameter Id="param-import-cli-option-source-id" ValueShapeId="shape-text">
       <Description>Optional stable documentation source id.</Description>
-      <Name>source-id</Name>
-    </Parameter>
-    <Parameter Id="param-import-command-prose-option-workspace" ValueShapeId="shape-path">
-      <Description>Existing MetaDocs workspace that already contains imported CLI subjects.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-import-command-prose-option-source-root" ValueShapeId="shape-path">
-      <Description>Markdown file or directory to scan for command prose.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>source-root</Name>
-    </Parameter>
-    <Parameter Id="param-import-command-prose-option-source-id" ValueShapeId="shape-text">
-      <Description>Optional stable documentation source id for imported markdown prose.</Description>
       <Name>source-id</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-model-option-source-workspace" ValueShapeId="shape-path">
@@ -119,8 +210,7 @@
       <Name>source-workspace</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-instances-option-workspace" ValueShapeId="shape-path">
-      <Description>Existing MetaDocs workspace to update in place.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-instances-option-source-id" ValueShapeId="shape-text">
@@ -136,8 +226,7 @@
       <Name>display-name</Name>
     </Parameter>
     <Parameter Id="param-include-instance-entity-option-workspace" ValueShapeId="shape-path">
-      <Description>Existing MetaDocs workspace to update in place.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-include-instance-entity-option-entity" ValueShapeId="shape-text">
@@ -158,8 +247,7 @@
       <Name>summary-property</Name>
     </Parameter>
     <Parameter Id="param-include-instance-property-option-workspace" ValueShapeId="shape-path">
-      <Description>Existing MetaDocs workspace to update in place.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-include-instance-property-option-entity" ValueShapeId="shape-text">
@@ -177,8 +265,7 @@
       <Name>source-id</Name>
     </Parameter>
     <Parameter Id="param-include-instance-relationship-option-workspace" ValueShapeId="shape-path">
-      <Description>Existing MetaDocs workspace to update in place.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-include-instance-relationship-option-entity" ValueShapeId="shape-text">
@@ -202,26 +289,23 @@
       <Name>include</Name>
     </Parameter>
     <Parameter Id="param-merge-option-workspace" ValueShapeId="shape-path">
-      <Description>Suite workspace to write.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>Suite workspace to write. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-validate-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to validate.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>MetaDocs workspace to validate. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-validate-option-warnings-as-errors" ValueShapeId="shape-flag">
       <Description>Treat warnings as failing diagnostics.</Description>
       <Name>warnings-as-errors</Name>
     </Parameter>
-    <Parameter Id="param-validate-option-include-prose-diagnostics" ValueShapeId="shape-flag">
-      <Description>Include prose authoring diagnostics.</Description>
-      <Name>include-prose-diagnostics</Name>
+    <Parameter Id="param-validate-option-include-description-diagnostics" ValueShapeId="shape-flag">
+      <Description>Include description authoring diagnostics.</Description>
+      <Name>include-description-diagnostics</Name>
     </Parameter>
     <Parameter Id="param-render-site-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to render.</Description>
-      <IsRequired>true</IsRequired>
+      <Description>MetaDocs workspace to render. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-render-site-option-out" ValueShapeId="shape-path">

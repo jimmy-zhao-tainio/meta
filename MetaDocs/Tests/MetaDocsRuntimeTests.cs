@@ -22,8 +22,16 @@ public sealed class MetaDocsRuntimeTests
         var appHelp = RunCli("help");
         Assert.Equal(0, appHelp.ExitCode);
         Assert.Contains("meta-docs <command> [options]", appHelp.Output);
+        Assert.Contains("contents", appHelp.Output);
         Assert.Contains("import-cli", appHelp.Output);
+        Assert.Contains("read", appHelp.Output);
         Assert.Contains("render-site", appHelp.Output);
+        Assert.Contains("search", appHelp.Output);
+        Assert.Contains("show", appHelp.Output);
+        Assert.Contains("update-description", appHelp.Output);
+        Assert.DoesNotContain("update-prose", appHelp.Output);
+        Assert.Contains("Next: meta-docs show", appHelp.Output);
+        Assert.DoesNotContain("import-command-prose", appHelp.Output);
 
         var commandHelp = RunCli("help import-cli");
         Assert.Equal(0, commandHelp.ExitCode);
@@ -31,15 +39,101 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("--source-workspace <path>", commandHelp.Output);
         Assert.Contains("--new-workspace <path>", commandHelp.Output);
 
+        var searchHelp = RunCli("help search");
+        Assert.Equal(0, searchHelp.ExitCode);
+        Assert.Contains("meta-docs search <query>", searchHelp.Output);
+
+        var contentsHelp = RunCli("help contents");
+        Assert.Equal(0, contentsHelp.ExitCode);
+        Assert.Contains("meta-docs contents", contentsHelp.Output);
+
         var source = File.ReadAllText(Path.Combine(repoRoot, "MetaDocs", "Cli", "Program.cs"));
         Assert.Contains("MetaCliRuntime<MetaDocsModel>", source);
-        Assert.Contains(".UseDefaultHelp()", source);
+        Assert.Contains(".UseDefaultHelp", source);
+        Assert.Contains("meta-docs show", source);
+        Assert.DoesNotContain("RunImportCommandProse", source);
+        Assert.DoesNotContain("MetaDocsMarkdownCommandProseImporter", source);
         Assert.DoesNotContain("ParseAuthorPageArgs", source);
         Assert.DoesNotContain("ReadStringOption", source);
         Assert.DoesNotContain("CliAppDefinition", source);
         Assert.DoesNotContain("CliCommandDefinition", source);
         Assert.DoesNotContain("CliOptionDefinition", source);
         Assert.DoesNotContain("CliHelpRenderer", source);
+    }
+
+    [Fact]
+    public void Cli_ReadSearchAndUpdateDescriptionDefaultWorkspaceToCurrentDirectory()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-read-search-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var model = MetaDocsModel.CreateEmpty();
+            new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+            AddModelSubject(model, "MetaDocs");
+            model.SaveToXmlWorkspace(root);
+
+            var show = RunCli("show", root);
+            Assert.Equal(0, show.ExitCode);
+            Assert.Contains("MetaDocs workspace", show.Output);
+            Assert.Contains("Open", show.Output);
+            Assert.Contains("meta-docs contents --depth 4", show.Output);
+            Assert.Contains("meta-docs read --cli meta-transform-binding", show.Output);
+            Assert.Contains("meta-docs read --model MetaDocs", show.Output);
+            Assert.DoesNotContain("Coverage", show.Output);
+
+            var contents = RunCli("contents --depth 3", root);
+            Assert.Equal(0, contents.ExitCode);
+            Assert.Contains("meta-transform-binding", contents.Output);
+            Assert.Contains("bind", contents.Output);
+            Assert.Contains("--source-schema", contents.Output);
+
+            var modelRead = RunCli("read --model MetaDocs", root);
+            Assert.Equal(0, modelRead.ExitCode);
+            Assert.Contains("MetaDocs", modelRead.Output);
+            Assert.Contains("Model", modelRead.Output);
+
+            var read = RunCli("read --cli meta-transform-binding --command bind", root);
+            Assert.Equal(0, read.ExitCode);
+            Assert.Contains("meta-transform-binding bind", read.Output);
+            Assert.Contains("CLI command", read.Output);
+            Assert.Contains("Description", read.Output);
+            Assert.DoesNotContain("Prose:", read.Output);
+            Assert.DoesNotContain("kind CliCommand", read.Output);
+            Assert.DoesNotContain("source:cli:meta-transform-binding:app:command:bind", read.Output);
+            Assert.Equal(1, CountOccurrences(read.Output, "Bind transforms."));
+
+            var search = RunCli("search --source-schema --limit 5", root);
+            Assert.Equal(0, search.ExitCode);
+            Assert.Contains("Search \"--source-schema\"", search.Output);
+            Assert.Contains("--source-schema", search.Output);
+            Assert.Contains("meta-docs read --cli meta-transform-binding --command bind --option --source-schema", search.Output);
+            Assert.DoesNotContain("kind CliOption", search.Output);
+            Assert.DoesNotContain("source:cli:meta-transform-binding:app:command:bind:option:source-schema", search.Output);
+
+            var update = RunCli(
+                "update-description --cli meta-transform-binding --command bind --option --source-schema --slot Usage --title Usage --body-stdin",
+                root,
+                "Use this when the binding command should read a source schema workspace.");
+            Assert.Equal(0, update.ExitCode);
+            Assert.Contains("Updated description:", update.Output);
+
+            var optionRead = RunCli("read --cli meta-transform-binding --command bind --option --source-schema --slot Usage", root);
+            Assert.Equal(0, optionRead.ExitCode);
+            Assert.Contains("Use this when the binding command should read a source schema workspace.", optionRead.Output);
+
+            var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
+            Assert.Contains(reloaded.DocumentationNarrativeList, row =>
+                row.SubjectKey == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
+                row.Slot == "Usage" &&
+                row.Origin == "Authored");
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
     }
 
     [Fact]
@@ -50,12 +144,12 @@ public sealed class MetaDocsRuntimeTests
             "docs:home",
             "meta + meta-bi",
             "Model-first documentation for meta and meta-bi.",
-            "MetaDocs stores authored prose beside refreshable generated facts.");
+            "MetaDocs stores authored descriptions beside refreshable generated facts.");
 
         var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
         new MetaDocsAuthoringService().UpsertPage(
             model,
-            page with { Body = "Updated authored prose.", Summary = "Updated summary." });
+            page with { Body = "Updated authored description.", Summary = "Updated summary." });
 
         subject = Assert.Single(model.DocumentationSubjectList, row => row.Id == "docs:home");
         Assert.Equal("Guide", subject.Kind);
@@ -65,7 +159,7 @@ public sealed class MetaDocsRuntimeTests
         var narrative = Assert.Single(model.DocumentationNarrativeList, row =>
             row.SubjectKey == subject.Id &&
             row.Origin == "Authored");
-        Assert.Equal("Updated authored prose.", narrative.Body);
+        Assert.Equal("Updated authored description.", narrative.Body);
         Assert.Equal("Current", narrative.ReviewStatus);
 
         Assert.Contains(model.DocumentationViewNodeList, row =>
@@ -306,65 +400,6 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public async Task ImportCommandProse_MapsMarkdownToCliSubjectsAndPreservesAuthoredNarratives()
-    {
-        var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."));
-        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
-        model.DocumentationNarrativeList.Add(new DocumentationNarrative
-        {
-            Id = $"{command.Id}:narrative:guidance:040",
-            DocumentationSubject = command,
-            SubjectKey = command.Id,
-            Slot = "Guidance",
-            Title = "Guidance",
-            Body = "Authored binding guidance.",
-            BodyFormat = "PlainText",
-            Origin = "Authored",
-            ReviewStatus = "Current",
-        });
-        var markdownPath = WriteBindingCommandMarkdown();
-
-        var result = await new MetaDocsMarkdownCommandProseImporter().ImportCommandProseAsync(
-            model,
-            markdownPath,
-            "source:markdown:test");
-        await new MetaDocsMarkdownCommandProseImporter().ImportCommandProseAsync(
-            model,
-            markdownPath,
-            "source:markdown:test");
-
-        Assert.Equal(1, result.SourceFileCount);
-        Assert.Equal(1, result.MatchedApplicationCount);
-        Assert.Equal(1, result.MatchedCommandCount);
-        var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
-        Assert.Contains("binding contract layer", FindNarrative(model, application, "Summary").Body);
-        Assert.Equal("ImportedMarkdown", FindNarrative(model, application, "Summary").Origin);
-        Assert.Equal("Authored binding guidance.", FindNarrative(model, command, "Guidance").Body);
-
-        var example = FindNarrative(model, command, "Example");
-        Assert.Equal("ImportedMarkdown", example.Origin);
-        Assert.Contains("meta-transform-binding bind", example.Body);
-        Assert.DoesNotContain("Samples\\Demos", FindNarrative(model, command, "Guidance").Body, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == command.Id &&
-            row.Slot == "Reference");
-
-        var option = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "CliOption" &&
-            row.DisplayName == "--source-schema");
-        var optionUsage = FindNarrative(model, option, "Usage");
-        Assert.Equal("ImportedMarkdown", optionUsage.Origin);
-        Assert.Contains("--source-schema", optionUsage.Body);
-        Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == command.Id &&
-            row.Slot == "Guidance");
-        Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == command.Id &&
-            row.Slot == "Example");
-    }
-
-    [Fact]
     public async Task ImportWorkspaceModel_CreatesModelEntityPropertyAndRelationshipSubjects()
     {
         var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true);
@@ -434,7 +469,7 @@ public sealed class MetaDocsRuntimeTests
             SubjectKey = customer.Id,
             Slot = "Summary",
             Title = "Summary",
-            Body = "Authored customer prose.",
+            Body = "Authored customer description.",
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
@@ -451,7 +486,7 @@ public sealed class MetaDocsRuntimeTests
             row.Kind == "Entity" &&
             row.DisplayName == "Customer");
         Assert.Equal("1", FindFact(model, customer, "Model", "PropertyCount").Value);
-        Assert.Equal("Authored customer prose.", Assert.Single(model.DocumentationNarrativeList, row =>
+        Assert.Equal("Authored customer description.", Assert.Single(model.DocumentationNarrativeList, row =>
             row.SubjectKey == customer.Id &&
             row.Origin == "Authored").Body);
 
@@ -675,10 +710,10 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC011" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.True(result.HasErrors());
 
-        var resultWithProseDiagnostics = new MetaDocsValidationService().Validate(
+        var resultWithDescriptionDiagnostics = new MetaDocsValidationService().Validate(
             model,
-            new MetaDocsValidationOptions { IncludeProseDiagnostics = true });
-        Assert.Contains(resultWithProseDiagnostics.Diagnostics, diagnostic =>
+            new MetaDocsValidationOptions { IncludeDescriptionDiagnostics = true });
+        Assert.Contains(resultWithDescriptionDiagnostics.Diagnostics, diagnostic =>
             diagnostic.Id == "MDOC008" &&
             diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
     }
@@ -697,6 +732,39 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void Validate_DoesNotTreatGuideOnlyDefaultViewAsPublicReferenceView()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        new MetaDocsAuthoringService().UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "docs:home",
+                "Home",
+                "Authored guide.",
+                "Authored guide."));
+
+        var result = new MetaDocsValidationService().Validate(model);
+
+        Assert.DoesNotContain(result.Diagnostics, diagnostic =>
+            diagnostic.Id is "MDOC031" or "MDOC032" or "MDOC033" or "MDOC035");
+    }
+
+    [Fact]
+    public void Validate_DoesNotTreatLegacyDefaultViewAsPublicReferenceView()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+        var view = Assert.Single(model.DocumentationViewList, row => row.Id == "view:default");
+        view.Title = "Command surface.";
+        view.Summary = "Modeled documentation for metadata-shaped things.";
+
+        var result = new MetaDocsValidationService().Validate(model);
+
+        Assert.DoesNotContain(result.Diagnostics, diagnostic =>
+            diagnostic.Id is "MDOC031" or "MDOC032" or "MDOC033" or "MDOC035");
+    }
+
+    [Fact]
     public void Validate_FlagsPublicViewPolicyIssues()
     {
         var model = MetaDocsModel.CreateEmpty();
@@ -708,6 +776,8 @@ public sealed class MetaDocsRuntimeTests
                 "Old guide page.",
                 "Old guide page."));
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+        var view = Assert.Single(model.DocumentationViewList, row => row.Id == "view:default");
+        view.Kind = "PublicReference";
 
         var result = new MetaDocsValidationService().Validate(model);
 
@@ -785,10 +855,10 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC036" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
         Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC030");
 
-        var resultWithProseDiagnostics = new MetaDocsValidationService().Validate(
+        var resultWithDescriptionDiagnostics = new MetaDocsValidationService().Validate(
             model,
-            new MetaDocsValidationOptions { IncludeProseDiagnostics = true });
-        Assert.Contains(resultWithProseDiagnostics.Diagnostics, diagnostic =>
+            new MetaDocsValidationOptions { IncludeDescriptionDiagnostics = true });
+        Assert.Contains(resultWithDescriptionDiagnostics.Diagnostics, diagnostic =>
             diagnostic.Id == "MDOC030" &&
             diagnostic.Severity == MetaDocsDiagnosticSeverity.Info);
     }
@@ -978,7 +1048,7 @@ public sealed class MetaDocsRuntimeTests
             SubjectKey = ada.Id,
             Slot = "Summary",
             Title = "Summary",
-            Body = "Authored Ada prose.",
+            Body = "Authored Ada description.",
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
@@ -993,7 +1063,7 @@ public sealed class MetaDocsRuntimeTests
             displayName: "Sample docs");
 
         ada = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-1");
-        Assert.Equal("Authored Ada prose.", Assert.Single(model.DocumentationNarrativeList, row =>
+        Assert.Equal("Authored Ada description.", Assert.Single(model.DocumentationNarrativeList, row =>
             row.SubjectKey == ada.Id &&
             row.Origin == "Authored").Body);
         var bob = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-2");
@@ -1295,14 +1365,23 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public async Task RenderSite_RendersCliReferenceWithMarkdownProseOptionsExamplesAndNoPublicConfessions()
+    public void RenderSite_RendersCliReferenceWithAuthoredDescriptionOptionsExamplesAndNoPublicConfessions()
     {
         var model = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
-        await new MetaDocsMarkdownCommandProseImporter().ImportCommandProseAsync(
-            model,
-            WriteBindingCommandMarkdown(),
-            "source:markdown:test");
+        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
+        model.DocumentationNarrativeList.Add(new DocumentationNarrative
+        {
+            Id = $"{command.Id}:narrative:example:authored",
+            DocumentationSubject = command,
+            SubjectKey = command.Id,
+            Slot = "Example",
+            Title = "Example",
+            Body = "meta-transform-binding bind --transform-workspace TransformWS --source-schema SchemaWS --target-schema SchemaWS",
+            BodyFormat = "PlainText",
+            Origin = "Authored",
+            ReviewStatus = "Current",
+        });
         var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
         var hiddenProperty = new DocumentationSubject
         {
@@ -1411,7 +1490,10 @@ public sealed class MetaDocsRuntimeTests
         Assert.DoesNotContain("requestAnimationFrame", html, StringComparison.Ordinal);
     }
 
-    private static (int ExitCode, string Output) RunCli(string arguments)
+    private static (int ExitCode, string Output) RunCli(
+        string arguments,
+        string? workingDirectory = null,
+        string? standardInput = null)
     {
         var repoRoot = FindRepositoryRoot();
         var cliPath = Path.Combine(repoRoot, "MetaDocs", "Cli", "bin", "Debug", "net8.0", "meta-docs.exe");
@@ -1424,9 +1506,10 @@ public sealed class MetaDocsRuntimeTests
         {
             FileName = cliPath,
             Arguments = arguments,
-            WorkingDirectory = repoRoot,
+            WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
+            RedirectStandardInput = standardInput is not null,
             UseShellExecute = false,
             CreateNoWindow = true,
         };
@@ -1435,6 +1518,11 @@ public sealed class MetaDocsRuntimeTests
                             ?? throw new InvalidOperationException("Could not start meta-docs process.");
         var stdoutTask = process.StandardOutput.ReadToEndAsync();
         var stderrTask = process.StandardError.ReadToEndAsync();
+        if (standardInput is not null)
+        {
+            process.StandardInput.Write(standardInput);
+            process.StandardInput.Close();
+        }
 
         using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(2));
         try
@@ -1557,43 +1645,6 @@ public sealed class MetaDocsRuntimeTests
         }
 
         return root;
-    }
-
-    private static string WriteBindingCommandMarkdown()
-    {
-        var root = Path.Combine(Path.GetTempPath(), "metadocs-command-prose-" + Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(root);
-        var path = Path.Combine(root, "README.md");
-        File.WriteAllText(
-            path,
-            """
-            ### meta-transform-binding
-
-            `MetaTransformBinding` is the binding contract layer on top of `MetaTransformScript`.
-
-            Purpose:
-            - bind all transform scripts in a transform workspace into an explicit binding workspace
-            - validate source and target contracts against explicit schema workspaces in the same command
-
-            Command surface:
-            - `meta-transform-binding bind --transform-workspace <path> --source-schema <path> --target-schema <path> --execute-system <name> --new-workspace <path>`
-
-            Behavior summary:
-            - `bind` reads the target SQL identifier from view or mutation transform metadata
-            - `--source-schema` can be provided more than once when a corpus has several source schema workspaces
-            - scale proof is included in `Samples\Demos\MetaTransformScriptTpcDsCliIntegration\run.cmd`
-
-            Examples:
-
-            ```cmd
-            meta-transform-binding bind --transform-workspace .\TransformWS --source-schema .\SourceSchemaWS --target-schema .\TargetSchemaWS --execute-system WarehouseDb --new-workspace .\BindingWS
-            ```
-
-            See also:
-            - `Samples\Demos\MetaTransformBindingCliIntegration\run.cmd`
-            - `Samples\Demos\MetaTransformBindingCliIntegration\README.md`
-            """);
-        return path;
     }
 
     private static void WriteSampleModel(string root, bool includeEmail)
@@ -1819,6 +1870,19 @@ public sealed class MetaDocsRuntimeTests
 
     private static string NormalizeTestId(string value) =>
         MetaDocsImportSession.NormalizeKey(value);
+
+    private static int CountOccurrences(string value, string text)
+    {
+        var count = 0;
+        var index = 0;
+        while ((index = value.IndexOf(text, index, StringComparison.Ordinal)) >= 0)
+        {
+            count++;
+            index += text.Length;
+        }
+
+        return count;
+    }
 
     private sealed record TestCliCommand(
         string Name,

@@ -153,7 +153,7 @@
       <Status>New</Status>
       <Summary>Promote one generated candidate. May be provided more than once.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:promote:option:candidate-id">
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:workspace" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:promote:option:candidate-kind">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-data-quality promote --workspace</DisplayPath>
       <Key>source:cli:meta-data-quality:app:command:promote:option:workspace</Key>
@@ -172,8 +172,19 @@
       <NativeId>group-promote-selection</NativeId>
       <NativeKind>MetaCli.ParameterGroup</NativeKind>
       <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
+      <Status>Changed</Status>
+      <Summary>Choose all candidates, explicit candidate ids, or candidate families.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-quality:app:command:promote:option:candidate-kind" DocumentationSourceId="source:cli:meta-data-quality" PreviousSubjectId="source:cli:meta-data-quality:app:command:promote:option:candidate-id">
+      <DisplayName>--candidate-kind</DisplayName>
+      <DisplayPath>meta-data-quality promote --candidate-kind</DisplayPath>
+      <Key>source:cli:meta-data-quality:app:command:promote:option:candidate-kind</Key>
+      <Kind>CliOption</Kind>
+      <NativeId>opt-promote-candidate-kind</NativeId>
+      <NativeKind>MetaCli.Option</NativeKind>
+      <ParentKey>source:cli:meta-data-quality:app:command:promote</ParentKey>
       <Status>New</Status>
-      <Summary>Choose either all candidates or one or more candidate ids.</Summary>
+      <Summary>Promote generated candidates of one candidate family. May be provided more than once.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>
