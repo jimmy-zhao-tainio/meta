@@ -41,22 +41,6 @@ public sealed class MetaDocsQueryService
         return ResolveCliOption(model, command, selector.Option);
     }
 
-    public MetaDocsReadResult Read(MetaDocsModel model, MetaDocsSubjectSelector selector, string slot = "")
-    {
-        var subject = ResolveSubject(model, selector);
-        var narratives = OrderedNarratives(model, subject)
-            .Where(narrative => string.IsNullOrWhiteSpace(slot) || string.Equals(narrative.Slot, slot, StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-        var facts = model.DocumentationFactList
-            .Where(IsCurrent)
-            .Where(fact => string.Equals(fact.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(fact => fact.Kind, StringComparer.OrdinalIgnoreCase)
-            .ThenBy(fact => fact.Name, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-
-        return new MetaDocsReadResult(subject, narratives, facts);
-    }
-
     public IReadOnlyList<MetaDocsSearchMatch> Search(
         MetaDocsModel model,
         string query,
@@ -183,63 +167,6 @@ public sealed class MetaDocsQueryService
         return narrative;
     }
 
-    public static string FormatReadResult(MetaDocsReadResult result)
-    {
-        var builder = new StringBuilder();
-        builder.AppendLine(result.Subject.DisplayName);
-        builder.AppendLine($"  {DisplayKind(result.Subject.Kind)}");
-        if (!string.IsNullOrWhiteSpace(result.Subject.DisplayPath) &&
-            !string.Equals(result.Subject.DisplayPath, result.Subject.DisplayName, StringComparison.Ordinal))
-        {
-            builder.AppendLine($"  path {result.Subject.DisplayPath}");
-        }
-
-        var summaryNarrative = result.Narratives.FirstOrDefault(static narrative =>
-            string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase));
-        var description = FirstNonEmpty(summaryNarrative?.Body, result.Subject.Summary);
-
-        if (!string.IsNullOrWhiteSpace(description))
-        {
-            builder.AppendLine();
-            builder.AppendLine("Description");
-            builder.AppendLine(description.Trim());
-        }
-
-        var remainingNarratives = result.Narratives
-            .Where(narrative => !IsSummaryNarrative(narrative) || !SameText(narrative.Body, description))
-            .ToArray();
-        if (remainingNarratives.Length != 0)
-        {
-            foreach (var narrative in result.Narratives)
-            {
-                if (IsSummaryNarrative(narrative) && SameText(narrative.Body, description))
-                {
-                    continue;
-                }
-
-                if (!string.IsNullOrWhiteSpace(narrative.Body))
-                {
-                    builder.AppendLine();
-                    builder.AppendLine($"{narrative.Slot}{TitleSuffix(narrative)}");
-                    builder.AppendLine(narrative.Body.Trim());
-                }
-            }
-        }
-
-        var details = FormatDetails(result.Facts);
-        if (details.Count != 0)
-        {
-            builder.AppendLine();
-            builder.AppendLine("Details");
-            foreach (var detail in details)
-            {
-                builder.AppendLine($"  {detail}");
-            }
-        }
-
-        return builder.ToString().TrimEnd();
-    }
-
     public static string FormatSearchResults(string query, IReadOnlyList<MetaDocsSearchMatch> matches)
     {
         var builder = new StringBuilder();
@@ -250,10 +177,10 @@ public sealed class MetaDocsQueryService
             builder.AppendLine();
             builder.AppendLine(match.Subject.DisplayName);
             builder.AppendLine($"  {DisplayKind(match.Subject.Kind)}");
-            var readCommand = BuildReadCommand(match.Subject);
-            if (!string.IsNullOrWhiteSpace(readCommand))
+            var browseCommand = BuildBrowseCommand(match.Subject);
+            if (!string.IsNullOrWhiteSpace(browseCommand))
             {
-                builder.AppendLine($"  {readCommand}");
+                builder.AppendLine($"  open: {browseCommand}");
             }
 
             if (!string.Equals(match.MatchKind, "subject", StringComparison.OrdinalIgnoreCase) &&
@@ -449,30 +376,45 @@ public sealed class MetaDocsQueryService
     private static int SearchRank(DocumentationSubject subject, string query)
     {
         var trimmed = query.Trim();
+        var textRank = 3;
         if (EqualsText(subject.DisplayName, trimmed) ||
             EqualsText(subject.DisplayPath, trimmed) ||
             EqualsText(subject.NativeId, trimmed) ||
             EqualsText(subject.Key, trimmed))
         {
-            return 0;
+            textRank = 0;
         }
-
-        if (StartsWithText(subject.DisplayName, trimmed) ||
-            StartsWithText(subject.DisplayPath, trimmed) ||
-            StartsWithText(subject.NativeId, trimmed))
+        else if (StartsWithText(subject.DisplayName, trimmed) ||
+                 StartsWithText(subject.DisplayPath, trimmed) ||
+                 StartsWithText(subject.NativeId, trimmed))
         {
-            return 1;
+            textRank = 1;
         }
-
-        if (ContainsText(subject.DisplayName, trimmed) ||
-            ContainsText(subject.DisplayPath, trimmed) ||
-            ContainsText(subject.NativeId, trimmed))
+        else if (ContainsText(subject.DisplayName, trimmed) ||
+                 ContainsText(subject.DisplayPath, trimmed) ||
+                 ContainsText(subject.NativeId, trimmed))
         {
-            return 2;
+            textRank = 2;
         }
 
-        return 3;
+        return SubjectKindRank(subject.Kind) + textRank;
     }
+
+    private static int SubjectKindRank(string? kind) =>
+        kind?.Trim() switch
+        {
+            "CliApplication" => 0,
+            "CliCommand" => 0,
+            "CliOption" => 10,
+            "Model" => 20,
+            "Entity" => 20,
+            "CliArgument" => 30,
+            "CliParameterGroup" => 30,
+            "CliAllowedValue" => 30,
+            "Property" => 50,
+            "Relationship" => 50,
+            _ => 70,
+        };
 
     private static bool EqualsText(string? value, string query) =>
         string.Equals(value?.Trim(), query, StringComparison.OrdinalIgnoreCase);
@@ -529,17 +471,6 @@ public sealed class MetaDocsQueryService
     private static string NormalizeWhitespace(string value) =>
         string.Join(" ", value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n').Select(static line => line.Trim()).Where(static line => line.Length > 0));
 
-    private static string TitleSuffix(DocumentationNarrative narrative) =>
-        string.IsNullOrWhiteSpace(narrative.Title) || string.Equals(narrative.Title, narrative.Slot, StringComparison.OrdinalIgnoreCase)
-            ? string.Empty
-            : $" - {narrative.Title}";
-
-    private static bool IsSummaryNarrative(DocumentationNarrative narrative) =>
-        string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase);
-
-    private static bool SameText(string? left, string? right) =>
-        string.Equals(left?.Trim(), right?.Trim(), StringComparison.Ordinal);
-
     private static string DisplayKind(string? kind) =>
         kind?.Trim() switch
         {
@@ -580,98 +511,39 @@ public sealed class MetaDocsQueryService
             _ => matchKind,
         };
 
-    private static IReadOnlyList<string> FormatDetails(IReadOnlyList<DocumentationFact> facts)
-    {
-        var details = new List<string>();
-        foreach (var fact in facts)
-        {
-            if (string.IsNullOrWhiteSpace(fact.Value))
-            {
-                continue;
-            }
-
-            if (IsZeroCountFact(fact))
-            {
-                continue;
-            }
-
-            var label = DetailLabel(fact);
-            if (string.IsNullOrWhiteSpace(label))
-            {
-                continue;
-            }
-
-            details.Add($"{label} {fact.Value}");
-        }
-
-        return details;
-    }
-
-    private static bool IsZeroCountFact(DocumentationFact fact) =>
-        string.Equals(fact.Kind, "Cli", StringComparison.OrdinalIgnoreCase) &&
-        fact.Name?.EndsWith("Count", StringComparison.OrdinalIgnoreCase) == true &&
-        string.Equals(fact.Value?.Trim(), "0", StringComparison.Ordinal);
-
-    private static string DetailLabel(DocumentationFact fact)
-    {
-        if (string.Equals(fact.Kind, "Usage", StringComparison.OrdinalIgnoreCase))
-        {
-            return "usage";
-        }
-
-        if (!string.Equals(fact.Kind, "Cli", StringComparison.OrdinalIgnoreCase))
-        {
-            return string.Empty;
-        }
-
-        return fact.Name switch
-        {
-            "ExecutableName" => "executable",
-            "GroupName" => "group",
-            "CommandCount" => "commands",
-            "ApplicationOptionCount" => "application options",
-            "OptionCount" => "options",
-            "PositionalCount" => "positionals",
-            "ParameterGroupCount" => "parameter groups",
-            "Syntax" => "syntax",
-            "ValueShape" => "value",
-            "AllowedValues" => "allowed values",
-            "Required" => "required",
-            "Repeatable" => "repeatable",
-            "DefaultValue" => "default",
-            "Aliases" => "aliases",
-            "ExampleValue" => "example",
-            _ => string.Empty,
-        };
-    }
-
-    private static string BuildReadCommand(DocumentationSubject subject)
+    private static string BuildBrowseCommand(DocumentationSubject subject)
     {
         if (string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase))
         {
-            return $"meta-docs read --cli {Quote(subject.DisplayName)}";
+            return $"meta-docs browse cli/{subject.DisplayName}";
         }
 
         if (string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase))
         {
-            return $"meta-docs read --model {Quote(subject.DisplayName)}";
+            return $"meta-docs browse model/{subject.DisplayName}";
+        }
+
+        if (string.Equals(subject.Kind, "Entity", StringComparison.OrdinalIgnoreCase) &&
+            TrySplitModelEntityPath(subject, out var model, out var entity))
+        {
+            return $"meta-docs browse model/{model}/{entity}";
         }
 
         if (string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase) &&
             TrySplitCliPath(subject.DisplayName, out var cli, out var command))
         {
-            return $"meta-docs read --cli {Quote(cli)} --command {Quote(command)}";
+            return $"meta-docs browse cli/{cli}/{command.Replace(' ', '/')}";
         }
 
         if (string.Equals(subject.Kind, "CliOption", StringComparison.OrdinalIgnoreCase) &&
-            TrySplitOptionPath(subject, out cli, out command, out var option))
+            TrySplitOptionPath(subject, out cli, out command, out _))
         {
             return string.IsNullOrWhiteSpace(command)
-                ? $"meta-docs read --cli {Quote(cli)} --option {Quote(option)}"
-                : $"meta-docs read --cli {Quote(cli)} --command {Quote(command)} --option {Quote(option)}";
+                ? $"meta-docs browse cli/{cli}"
+                : $"meta-docs browse cli/{cli}/{command.Replace(' ', '/')}";
         }
 
-        return $"meta-docs read --subject {Quote(subject.Id)}";
+        return string.Empty;
     }
 
     private static bool TrySplitOptionPath(DocumentationSubject subject, out string cli, out string command, out string option)
@@ -714,10 +586,21 @@ public sealed class MetaDocsQueryService
         return true;
     }
 
-    private static string Quote(string value) =>
-        value.Any(char.IsWhiteSpace) || value.Length == 0
-            ? $"\"{value.Replace("\"", "\\\"", StringComparison.Ordinal)}\""
-            : value;
+    private static bool TrySplitModelEntityPath(DocumentationSubject subject, out string model, out string entity)
+    {
+        var path = FirstNonEmpty(subject.DisplayPath, subject.DisplayName).Trim();
+        var dot = path.IndexOf('.');
+        if (dot <= 0 || dot >= path.Length - 1)
+        {
+            model = string.Empty;
+            entity = string.Empty;
+            return false;
+        }
+
+        model = path[..dot];
+        entity = path[(dot + 1)..];
+        return !string.IsNullOrWhiteSpace(model) && !string.IsNullOrWhiteSpace(entity);
+    }
 
     private static bool IsCurrent(DocumentationSubject subject) =>
         !string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
@@ -744,11 +627,6 @@ public sealed record MetaDocsSubjectSelector(
     string Cli = "",
     string Command = "",
     string Option = "");
-
-public sealed record MetaDocsReadResult(
-    DocumentationSubject Subject,
-    IReadOnlyList<DocumentationNarrative> Narratives,
-    IReadOnlyList<DocumentationFact> Facts);
 
 public sealed record MetaDocsSearchMatch(
     DocumentationSubject Subject,

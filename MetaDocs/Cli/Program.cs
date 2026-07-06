@@ -26,11 +26,10 @@ internal static class Program
                 CommandWorkspacePath,
                 ApplicationId,
                 setExitCode: code => exitCode = code)
-            .UseDefaultHelp(options: new MetaCliHelpOptions("meta-docs show"))
+            .UseDefaultHelp(options: new MetaCliHelpOptions("meta-docs browse"))
             .Bind("exec-author-page", RunAuthorPage)
-            .Bind("exec-show", RunShow)
+            .Bind("exec-browse", RunBrowse)
             .Bind("exec-contents", RunContents)
-            .Bind("exec-read", RunRead)
             .Bind("exec-search", RunSearch)
             .Bind("exec-update-description", RunUpdateDescription)
             .Bind("exec-import-cli", RunImportCli)
@@ -78,27 +77,35 @@ internal static class Program
         }
     }
 
-    private static void RunShow(MetaCliInvocation invocation)
+    private static void RunBrowse(MetaCliInvocation invocation)
     {
-        var workspace = WorkspaceOrCurrent(invocation);
+        var workspace = WorkspaceOrDiscovered(invocation);
         try
         {
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var overview = new MetaDocsNavigationService().Describe(model);
-            Presenter.WriteInfo(FormatOverview(workspace, overview));
+            var model = LoadMetaDocsWorkspace(workspace);
+            var result = new MetaDocsBrowseService().Browse(model, Optional(invocation, "path"));
+            Presenter.WriteInfo(result.Text);
+            if (!result.Succeeded)
+            {
+                throw new MetaCliExitException(2);
+            }
         }
-        catch (Exception exception) when (exception is not MetaCliExitException)
+        catch (MetaCliExitException)
         {
-            throw new InvalidOperationException($"Cannot show MetaDocs workspace. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+            throw;
+        }
+        catch (Exception exception)
+        {
+            throw new InvalidOperationException($"Cannot browse documentation. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
         }
     }
 
     private static void RunContents(MetaCliInvocation invocation)
     {
-        var workspace = WorkspaceOrCurrent(invocation);
+        var workspace = WorkspaceOrDiscovered(invocation);
         try
         {
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var model = LoadMetaDocsWorkspace(workspace);
             var contents = new MetaDocsNavigationService().Contents(
                 model,
                 Optional(invocation, "view"),
@@ -111,31 +118,19 @@ internal static class Program
         }
     }
 
-    private static void RunRead(MetaCliInvocation invocation)
-    {
-        var workspace = WorkspaceOrCurrent(invocation);
-        try
-        {
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var result = new MetaDocsQueryService().Read(
-                model,
-                SubjectSelector(invocation),
-                Optional(invocation, "slot"));
-            Presenter.WriteInfo(MetaDocsQueryService.FormatReadResult(result));
-        }
-        catch (Exception exception) when (exception is not MetaCliExitException)
-        {
-            throw new InvalidOperationException($"Cannot read documentation. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
-        }
-    }
-
     private static void RunSearch(MetaCliInvocation invocation)
     {
-        var workspace = WorkspaceOrCurrent(invocation);
-        var query = invocation.Required("query");
+        var query = Optional(invocation, "query");
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            Presenter.WriteInfo(FormatMissingSearchQuery());
+            throw new MetaCliExitException(2);
+        }
+
+        var workspace = WorkspaceOrDiscovered(invocation);
         try
         {
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var model = LoadMetaDocsWorkspace(workspace);
             var matches = new MetaDocsQueryService().Search(
                 model,
                 query,
@@ -397,6 +392,35 @@ internal static class Program
     private static string WorkspaceOrCurrent(MetaCliInvocation invocation) =>
         Optional(invocation, "workspace", Directory.GetCurrentDirectory());
 
+    private static string WorkspaceOrDiscovered(MetaCliInvocation invocation)
+    {
+        var workspace = Optional(invocation, "workspace");
+        if (!string.IsNullOrWhiteSpace(workspace))
+        {
+            return workspace;
+        }
+
+        var current = Directory.GetCurrentDirectory();
+        if (File.Exists(Path.Combine(current, "workspace.xml")))
+        {
+            return current;
+        }
+
+        return TryFindDefaultDocsWorkspace(current, out var discovered)
+            ? discovered
+            : current;
+    }
+
+    private static MetaDocsModel LoadMetaDocsWorkspace(string workspace)
+    {
+        if (!File.Exists(Path.Combine(workspace, "workspace.xml")))
+        {
+            throw new InvalidOperationException(MissingWorkspaceMessage(workspace));
+        }
+
+        return MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+    }
+
     private static string Optional(MetaCliInvocation invocation, string parameter, string defaultValue = "")
     {
         var value = invocation.Optional(parameter);
@@ -463,45 +487,6 @@ internal static class Program
         throw new MetaCliExitException(2, "--depth must be a positive integer.");
     }
 
-    private static string FormatOverview(string workspace, MetaDocsWorkspaceOverview overview)
-    {
-        var builder = new StringBuilder();
-        builder.AppendLine("MetaDocs workspace");
-        builder.AppendLine(Path.GetFullPath(workspace));
-        builder.AppendLine();
-
-        builder.AppendLine("Open");
-        builder.AppendLine("  meta-docs contents --depth 4");
-        builder.AppendLine("  meta-docs search <text>");
-        var firstCli = FindFirstVisibleSubject(overview.Contents.Nodes, "CliApplication") ??
-            overview.ReadTargets.FirstOrDefault(static target =>
-            string.Equals(target.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase));
-        if (firstCli is not null)
-        {
-            builder.AppendLine($"  meta-docs read --cli {QuoteArgument(firstCli.Name)}");
-        }
-
-        var firstModel = FindFirstVisibleSubject(overview.Contents.Nodes, "Model") ??
-            overview.ReadTargets.FirstOrDefault(static target =>
-            string.Equals(target.Kind, "Model", StringComparison.OrdinalIgnoreCase));
-        if (firstModel is not null)
-        {
-            builder.AppendLine($"  meta-docs read --model {QuoteArgument(firstModel.Name)}");
-        }
-
-        if (overview.Contents.Nodes.Count != 0)
-        {
-            builder.AppendLine();
-            builder.AppendLine(overview.Contents.Title);
-            foreach (var node in overview.Contents.Nodes)
-            {
-                AppendContentNode(builder, node, 1);
-            }
-        }
-
-        return builder.ToString().TrimEnd();
-    }
-
     private static string FormatContents(MetaDocsContentsResult contents)
     {
         var builder = new StringBuilder();
@@ -530,30 +515,79 @@ internal static class Program
         }
     }
 
-    private static MetaDocsReadTarget? FindFirstVisibleSubject(IReadOnlyList<MetaDocsContentNode> nodes, string kind)
-    {
-        foreach (var node in nodes)
-        {
-            if (node.Subject is not null &&
-                string.Equals(node.Subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
-            {
-                return new MetaDocsReadTarget(node.Subject.Kind ?? string.Empty, node.Subject.DisplayName);
-            }
-
-            var child = FindFirstVisibleSubject(node.Children, kind);
-            if (child is not null)
-            {
-                return child;
-            }
-        }
-
-        return null;
-    }
-
     private static string QuoteArgument(string value) =>
         value.Any(char.IsWhiteSpace) || value.Length == 0
             ? $"\"{value.Replace("\"", "\\\"", StringComparison.Ordinal)}\""
             : value;
+
+    private static string DisplayPath(string path)
+    {
+        var fullPath = Path.GetFullPath(path);
+        var current = Directory.GetCurrentDirectory();
+        var relative = Path.GetRelativePath(current, fullPath);
+        return relative.StartsWith("..", StringComparison.Ordinal) || Path.IsPathRooted(relative)
+            ? fullPath
+            : relative;
+    }
+
+    private static bool TryFindDefaultDocsWorkspace(string current, out string workspace)
+    {
+        foreach (var candidate in new[]
+                 {
+                     Path.Combine(current, "MetaDocs", "Docs", "SuiteWorkspace"),
+                     Path.Combine(current, "Docs", "SuiteWorkspace"),
+                 })
+        {
+            if (File.Exists(Path.Combine(candidate, "workspace.xml")))
+            {
+                workspace = candidate;
+                return true;
+            }
+        }
+
+        workspace = string.Empty;
+        return false;
+    }
+
+    private static string MissingWorkspaceMessage(string workspace)
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine("Current directory is not a MetaDocs workspace.");
+        builder.AppendLine($"Workspace: {Path.GetFullPath(workspace)}");
+
+        if (TryFindDefaultDocsWorkspace(Directory.GetCurrentDirectory(), out var discovered))
+        {
+            var relative = DisplayPath(discovered);
+            builder.AppendLine();
+            builder.AppendLine("Found a docs workspace:");
+            builder.AppendLine($"  {relative}");
+            builder.AppendLine();
+            builder.AppendLine("Try:");
+            builder.AppendLine($"  meta-docs browse --workspace {QuoteArgument(relative)}");
+            builder.AppendLine($"  cd {QuoteArgument(relative)}");
+            builder.AppendLine("  meta-docs browse");
+        }
+        else
+        {
+            builder.AppendLine();
+            builder.AppendLine("Try:");
+            builder.AppendLine("  cd <MetaDocs workspace>");
+            builder.AppendLine("  meta-docs browse");
+        }
+
+        return builder.ToString().TrimEnd();
+    }
+
+    private static string FormatMissingSearchQuery() =>
+        """
+        Search needs text.
+
+        Try:
+          meta-docs search meta-sql
+          meta-docs search deploy
+          meta-docs search DocumentationSubject
+          meta-docs browse
+        """;
 
     private static void WriteThemeAssets(MetaDocsModel model, string outputDirectory)
     {

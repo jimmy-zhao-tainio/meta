@@ -3496,7 +3496,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
-              <p>16 commands exposed by meta-docs.</p>
+              <p>15 commands exposed by meta-docs.</p>
             </div>
             <div class="card-body">
               <table>
@@ -3505,6 +3505,10 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   <tr>
                     <td class="cmd">meta-docs author-page</td>
                     <td>Add or update an authored documentation page in a MetaDocs workspace.</td>
+                  </tr>
+                  <tr>
+                    <td class="cmd">meta-docs browse</td>
+                    <td>Browse documentation by path.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-docs contents</td>
@@ -3543,20 +3547,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <td>Merge multiple MetaDocs workspaces into a suite workspace.</td>
                   </tr>
                   <tr>
-                    <td class="cmd">meta-docs read</td>
-                    <td>Read one documentation subject.</td>
-                  </tr>
-                  <tr>
                     <td class="cmd">meta-docs render-site</td>
                     <td>Render a MetaDocs workspace as a static documentation site.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-docs search</td>
                     <td>Search documentation subjects, descriptions, and details.</td>
-                  </tr>
-                  <tr>
-                    <td class="cmd">meta-docs show</td>
-                    <td>Show workspace contents and useful next commands.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta-docs update-description</td>
@@ -3659,6 +3655,38 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>Existing MetaDocs workspace to update in place.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-docs browse</span>
+                <span class="command-summary-text">Browse documentation by path.</span>
+              </span>
+              <span class="command-counts">1 option / 0 examples</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-docs browse &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td>MetaDocs workspace to browse. Defaults to the current directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4102,74 +4130,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
-                <span class="command-name">meta-docs read</span>
-                <span class="command-summary-text">Read one documentation subject.</span>
-              </span>
-              <span class="command-counts">7 options / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs read [--cli &lt;value&gt;] [--command &lt;value&gt;] [--model &lt;value&gt;] [--option &lt;token&gt;] [--slot &lt;value&gt;] [--subject &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--cli &lt;value&gt;</td>
-                      <td>CLI application name.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--command &lt;value&gt;</td>
-                      <td>CLI command name or path.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--model &lt;value&gt;</td>
-                      <td>Model name.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--option &lt;token&gt;</td>
-                      <td>CLI option token.</td>
-                      <td>&lt;token&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--slot &lt;value&gt;</td>
-                      <td>Optional description slot filter.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--subject &lt;value&gt;</td>
-                      <td>Documentation subject id or key.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaDocs workspace to read. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
                 <span class="command-name">meta-docs render-site</span>
                 <span class="command-summary-text">Render a MetaDocs workspace as a static documentation site.</span>
               </span>
@@ -4239,38 +4199,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     <tr>
                       <td class="opt">--workspace &lt;path&gt;</td>
                       <td>MetaDocs workspace to search. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-docs show</span>
-                <span class="command-summary-text">Show workspace contents and useful next commands.</span>
-              </span>
-              <span class="command-counts">1 option / 0 examples</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs show [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaDocs workspace to show. Defaults to the current directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>

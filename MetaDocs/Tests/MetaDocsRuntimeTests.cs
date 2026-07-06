@@ -22,16 +22,22 @@ public sealed class MetaDocsRuntimeTests
         var appHelp = RunCli("help");
         Assert.Equal(0, appHelp.ExitCode);
         Assert.Contains("meta-docs <command> [options]", appHelp.Output);
+        Assert.Contains("browse", appHelp.Output);
         Assert.Contains("contents", appHelp.Output);
         Assert.Contains("import-cli", appHelp.Output);
-        Assert.Contains("read", appHelp.Output);
         Assert.Contains("render-site", appHelp.Output);
         Assert.Contains("search", appHelp.Output);
-        Assert.Contains("show", appHelp.Output);
         Assert.Contains("update-description", appHelp.Output);
+        Assert.DoesNotContain("meta-docs read", appHelp.Output);
+        Assert.DoesNotContain("meta-docs show", appHelp.Output);
         Assert.DoesNotContain("update-prose", appHelp.Output);
-        Assert.Contains("Next: meta-docs show", appHelp.Output);
+        Assert.Contains("Next: meta-docs browse", appHelp.Output);
         Assert.DoesNotContain("import-command-prose", appHelp.Output);
+
+        var rootBrowse = RunCli("browse");
+        Assert.Equal(0, rootBrowse.ExitCode);
+        AssertBrowseHasNoRouteNoise(rootBrowse.Output);
+        Assert.Contains("meta-docs browse cli", rootBrowse.Output);
 
         var commandHelp = RunCli("help import-cli");
         Assert.Equal(0, commandHelp.ExitCode);
@@ -41,16 +47,20 @@ public sealed class MetaDocsRuntimeTests
 
         var searchHelp = RunCli("help search");
         Assert.Equal(0, searchHelp.ExitCode);
-        Assert.Contains("meta-docs search <query>", searchHelp.Output);
+        Assert.Contains("meta-docs search [<query>]", searchHelp.Output);
 
         var contentsHelp = RunCli("help contents");
         Assert.Equal(0, contentsHelp.ExitCode);
         Assert.Contains("meta-docs contents", contentsHelp.Output);
 
+        var browseHelp = RunCli("help browse");
+        Assert.Equal(0, browseHelp.ExitCode);
+        Assert.Contains("meta-docs browse", browseHelp.Output);
+
         var source = File.ReadAllText(Path.Combine(repoRoot, "MetaDocs", "Cli", "Program.cs"));
         Assert.Contains("MetaCliRuntime<MetaDocsModel>", source);
         Assert.Contains(".UseDefaultHelp", source);
-        Assert.Contains("meta-docs show", source);
+        Assert.Contains("meta-docs browse", source);
         Assert.DoesNotContain("RunImportCommandProse", source);
         Assert.DoesNotContain("MetaDocsMarkdownCommandProseImporter", source);
         Assert.DoesNotContain("ParseAuthorPageArgs", source);
@@ -62,9 +72,9 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void Cli_ReadSearchAndUpdateDescriptionDefaultWorkspaceToCurrentDirectory()
+    public void Cli_BrowseSearchAndUpdateDescriptionDefaultWorkspaceToCurrentDirectory()
     {
-        var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-read-search-" + Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-browse-search-" + Guid.NewGuid().ToString("N"));
         try
         {
             var model = MetaDocsModel.CreateEmpty();
@@ -72,14 +82,15 @@ public sealed class MetaDocsRuntimeTests
             AddModelSubject(model, "MetaDocs");
             model.SaveToXmlWorkspace(root);
 
-            var show = RunCli("show", root);
-            Assert.Equal(0, show.ExitCode);
-            Assert.Contains("MetaDocs workspace", show.Output);
-            Assert.Contains("Open", show.Output);
-            Assert.Contains("meta-docs contents --depth 4", show.Output);
-            Assert.Contains("meta-docs read --cli meta-transform-binding", show.Output);
-            Assert.Contains("meta-docs read --model MetaDocs", show.Output);
-            Assert.DoesNotContain("Coverage", show.Output);
+            var rootBrowse = RunCli("browse", root);
+            Assert.Equal(0, rootBrowse.ExitCode);
+            Assert.Contains("meta-docs browse cli", rootBrowse.Output);
+            Assert.Contains("meta-docs browse model", rootBrowse.Output);
+            Assert.DoesNotContain("Coverage", rootBrowse.Output);
+
+            var cliBrowse = RunCli("browse cli", root);
+            Assert.Equal(0, cliBrowse.ExitCode);
+            Assert.Contains("meta-docs browse cli/meta-transform-binding", cliBrowse.Output);
 
             var contents = RunCli("contents --depth 3", root);
             Assert.Equal(0, contents.ExitCode);
@@ -87,45 +98,168 @@ public sealed class MetaDocsRuntimeTests
             Assert.Contains("bind", contents.Output);
             Assert.Contains("--source-schema", contents.Output);
 
-            var modelRead = RunCli("read --model MetaDocs", root);
-            Assert.Equal(0, modelRead.ExitCode);
-            Assert.Contains("MetaDocs", modelRead.Output);
-            Assert.Contains("Model", modelRead.Output);
+            var modelBrowse = RunCli("browse model/MetaDocs", root);
+            Assert.Equal(0, modelBrowse.ExitCode);
+            Assert.Contains("MetaDocs", modelBrowse.Output);
 
-            var read = RunCli("read --cli meta-transform-binding --command bind", root);
-            Assert.Equal(0, read.ExitCode);
-            Assert.Contains("meta-transform-binding bind", read.Output);
-            Assert.Contains("CLI command", read.Output);
-            Assert.Contains("Description", read.Output);
-            Assert.DoesNotContain("Prose:", read.Output);
-            Assert.DoesNotContain("kind CliCommand", read.Output);
-            Assert.DoesNotContain("source:cli:meta-transform-binding:app:command:bind", read.Output);
-            Assert.Equal(1, CountOccurrences(read.Output, "Bind transforms."));
+            var commandBrowse = RunCli("browse cli/meta-transform-binding/bind", root);
+            Assert.Equal(0, commandBrowse.ExitCode);
+            Assert.Contains("Bind transforms.", commandBrowse.Output);
+            Assert.DoesNotContain("Prose:", commandBrowse.Output);
+            Assert.DoesNotContain("kind CliCommand", commandBrowse.Output);
+            Assert.DoesNotContain("source:cli:meta-transform-binding:app:command:bind", commandBrowse.Output);
 
             var search = RunCli("search --source-schema --limit 5", root);
             Assert.Equal(0, search.ExitCode);
             Assert.Contains("Search \"--source-schema\"", search.Output);
             Assert.Contains("--source-schema", search.Output);
-            Assert.Contains("meta-docs read --cli meta-transform-binding --command bind --option --source-schema", search.Output);
+            Assert.Contains("open: meta-docs browse cli/meta-transform-binding/bind", search.Output);
+            Assert.DoesNotContain("meta-docs read", search.Output);
             Assert.DoesNotContain("kind CliOption", search.Output);
             Assert.DoesNotContain("source:cli:meta-transform-binding:app:command:bind:option:source-schema", search.Output);
 
             var update = RunCli(
-                "update-description --cli meta-transform-binding --command bind --option --source-schema --slot Usage --title Usage --body-stdin",
+                "update-description --cli meta-transform-binding --command bind --option --source-schema --body-stdin",
                 root,
                 "Use this when the binding command should read a source schema workspace.");
             Assert.Equal(0, update.ExitCode);
             Assert.Contains("Updated description:", update.Output);
 
-            var optionRead = RunCli("read --cli meta-transform-binding --command bind --option --source-schema --slot Usage", root);
-            Assert.Equal(0, optionRead.ExitCode);
-            Assert.Contains("Use this when the binding command should read a source schema workspace.", optionRead.Output);
+            var updatedBrowse = RunCli("browse cli/meta-transform-binding/bind", root);
+            Assert.Equal(0, updatedBrowse.ExitCode);
+            Assert.Contains("Use this when the binding command should read a source schema workspace.", updatedBrowse.Output);
 
             var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
             Assert.Contains(reloaded.DocumentationNarrativeList, row =>
                 row.SubjectKey == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
-                row.Slot == "Usage" &&
+                row.Slot == "Summary" &&
                 row.Origin == "Authored");
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Cli_BrowseNavigatesDocumentationScreensAndRecoversFromWrongGuesses()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-browse-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var repoRoot = FindRepositoryRoot();
+            var model = MetaDocsModel.CreateEmpty();
+            new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), groupName: "meta-bi");
+            await new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
+                model,
+                Path.Combine(repoRoot, "MetaDocs", "Workspace"),
+                "source:workspace-model:meta-docs",
+                "MetaDocs");
+            AddLowLevelDeployProperty(model);
+            model.SaveToXmlWorkspace(root);
+
+            var rootBrowse = RunCli("browse", root);
+            Assert.Equal(0, rootBrowse.ExitCode);
+            Assert.StartsWith("MetaDocs", rootBrowse.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(rootBrowse.Output);
+            Assert.Contains("meta-docs browse cli", rootBrowse.Output);
+            Assert.Contains("meta-docs browse model", rootBrowse.Output);
+
+            var cliIndex = RunCli("browse cli", root);
+            Assert.Equal(0, cliIndex.ExitCode);
+            Assert.StartsWith("CLI tools", cliIndex.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(cliIndex.Output);
+            Assert.Contains("meta-sql", cliIndex.Output);
+            Assert.Contains("open: meta-docs browse cli/meta-sql", cliIndex.Output);
+
+            var cliApp = RunCli("browse cli/meta-sql", root);
+            Assert.Equal(0, cliApp.ExitCode);
+            Assert.StartsWith("SQL workspace extraction, deploy planning, and execution tooling.", cliApp.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(cliApp.Output);
+            AssertDoesNotStartWithSelectedRoute(cliApp.Output, "meta-sql");
+            Assert.DoesNotContain("meta-sql is a command-line tool", cliApp.Output, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Commands:", cliApp.Output);
+            Assert.Contains("deploy", cliApp.Output);
+            Assert.Contains("open: meta-docs browse cli/meta-sql/deploy", cliApp.Output);
+            Assert.DoesNotContain("commands 4", cliApp.Output, StringComparison.OrdinalIgnoreCase);
+
+            var deploy = RunCli("browse cli/meta-sql/deploy", root);
+            Assert.Equal(0, deploy.ExitCode);
+            Assert.StartsWith("Apply a deploy manifest after source and live fingerprint validation.", deploy.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(deploy.Output);
+            AssertDoesNotStartWithSelectedRoute(deploy.Output, "meta-sql deploy");
+            Assert.Contains("Usage:", deploy.Output);
+            Assert.Contains("meta-sql deploy", deploy.Output);
+            Assert.Contains("--connection-env <value>", deploy.Output);
+            Assert.Contains("--manifest-workspace <path>", deploy.Output);
+            Assert.Contains("--source-workspace <path>", deploy.Output);
+            Assert.Contains("Options:", deploy.Output);
+            Assert.Contains("--connection-env <value>", deploy.Output);
+            Assert.Contains("Environment variable containing the SQL Server connection string.", deploy.Output);
+            Assert.Contains("Up:", deploy.Output);
+
+            var extract = RunCli("browse cli/meta-sql/extract/sqlserver", root);
+            Assert.Equal(0, extract.ExitCode);
+            Assert.StartsWith("Extract SQL Server database objects into a MetaSql workspace.", extract.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(extract.Output);
+            AssertDoesNotStartWithSelectedRoute(extract.Output, "meta-sql extract sqlserver");
+
+            var unknownCommand = RunCli("browse cli/meta-sql/diff", root);
+            Assert.NotEqual(0, unknownCommand.ExitCode);
+            Assert.Contains("Could not find command 'diff' under CLI application 'meta-sql'.", unknownCommand.Output);
+            Assert.Contains("Available commands:", unknownCommand.Output);
+            Assert.Contains("open: meta-docs browse cli/meta-sql/deploy", unknownCommand.Output);
+            Assert.Contains("meta-docs search diff", unknownCommand.Output);
+
+            var unknownCli = RunCli("browse cli/meta-sq", root);
+            Assert.NotEqual(0, unknownCli.ExitCode);
+            Assert.Contains("Could not find CLI application 'meta-sq'.", unknownCli.Output);
+            Assert.Contains("meta-sql", unknownCli.Output);
+            Assert.Contains("meta-docs browse cli", unknownCli.Output);
+
+            var modelIndex = RunCli("browse model", root);
+            Assert.Equal(0, modelIndex.ExitCode);
+            Assert.StartsWith("Models", modelIndex.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(modelIndex.Output);
+            Assert.Contains("open: meta-docs browse model/MetaDocs", modelIndex.Output);
+
+            var modelPage = RunCli("browse model/MetaDocs", root);
+            Assert.Equal(0, modelPage.ExitCode);
+            Assert.StartsWith("Entities:", modelPage.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(modelPage.Output);
+            AssertDoesNotStartWithSelectedRoute(modelPage.Output, "MetaDocs");
+            Assert.DoesNotContain("MetaDocs is a workspace model", modelPage.Output, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Entities:", modelPage.Output);
+            Assert.Contains("DocumentationSubject", modelPage.Output);
+            Assert.Contains("open: meta-docs browse model/MetaDocs/DocumentationSubject", modelPage.Output);
+
+            var entityPage = RunCli("browse model/MetaDocs/DocumentationSubject", root);
+            Assert.Equal(0, entityPage.ExitCode);
+            Assert.StartsWith("Properties:", entityPage.Output, StringComparison.Ordinal);
+            AssertBrowseHasNoRouteNoise(entityPage.Output);
+            AssertDoesNotStartWithSelectedRoute(entityPage.Output, "DocumentationSubject");
+            Assert.DoesNotContain("DocumentationSubject is an entity", entityPage.Output, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Properties:", entityPage.Output);
+            Assert.Contains("Relationships:", entityPage.Output);
+            Assert.Contains("Up:", entityPage.Output);
+
+            var search = RunCli("search deploy --limit 20", root);
+            Assert.Equal(0, search.ExitCode);
+            Assert.Contains("open: meta-docs browse cli/meta-sql/deploy", search.Output);
+            Assert.DoesNotContain("meta-docs read", search.Output);
+            var commandIndex = search.Output.IndexOf("meta-sql deploy", StringComparison.Ordinal);
+            var propertyIndex = search.Output.IndexOf("DeployOrdinal", StringComparison.Ordinal);
+            Assert.True(commandIndex >= 0);
+            Assert.True(propertyIndex >= 0);
+            Assert.True(commandIndex < propertyIndex);
+
+            var emptySearch = RunCli("search", root);
+            Assert.NotEqual(0, emptySearch.ExitCode);
+            Assert.Contains("Search needs text.", emptySearch.Output);
+            Assert.Contains("meta-docs browse", emptySearch.Output);
         }
         finally
         {
@@ -1539,6 +1673,18 @@ public sealed class MetaDocsRuntimeTests
         return (process.ExitCode, stdoutTask.GetAwaiter().GetResult() + stderrTask.GetAwaiter().GetResult());
     }
 
+    private static void AssertBrowseHasNoRouteNoise(string output)
+    {
+        Assert.DoesNotContain("Path:", output, StringComparison.Ordinal);
+        Assert.DoesNotContain("MetaDocs >", output, StringComparison.Ordinal);
+    }
+
+    private static void AssertDoesNotStartWithSelectedRoute(string output, string route)
+    {
+        var firstLine = output.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n')[0];
+        Assert.False(string.Equals(route, firstLine, StringComparison.OrdinalIgnoreCase));
+    }
+
     private static string FindRepositoryRoot()
     {
         var directory = AppContext.BaseDirectory;
@@ -1612,6 +1758,31 @@ public sealed class MetaDocsRuntimeTests
             DisplayName = modelName,
             DisplayPath = $"{modelName} model",
             Summary = $"Model {modelName}.",
+            Status = "Current",
+        });
+    }
+
+    private static void AddLowLevelDeployProperty(MetaDocsModel model)
+    {
+        var source = new DocumentationSource
+        {
+            Id = "source:test:low-level-search",
+            DisplayName = "Low-level search test",
+            Kind = "WorkspaceModel",
+            Status = "Current",
+        };
+        model.DocumentationSourceList.Add(source);
+        model.DocumentationSubjectList.Add(new DocumentationSubject
+        {
+            Id = "source:test:low-level-search:property:deployordinal",
+            DocumentationSource = source,
+            Key = "source:test:low-level-search:property:deployordinal",
+            Kind = "Property",
+            NativeKind = "GenericProperty",
+            NativeId = "DeployOrdinal",
+            DisplayName = "DeployOrdinal",
+            DisplayPath = "MetaSql.DeployOrdinal",
+            Summary = "Low-level deploy property used for search ranking coverage.",
             Status = "Current",
         });
     }
@@ -1722,6 +1893,26 @@ public sealed class MetaDocsRuntimeTests
                 "validate",
                 "Validate documentation workspace.",
                 new TestCliOption("--workspace", "<path>", "Source schema workspace.")));
+
+    private static MetaCliModel CreateMetaSqlApp() =>
+        CreateCliApp(
+            "meta-sql",
+            "SQL workspace extraction, deploy planning, and execution tooling.",
+            new TestCliCommand(
+                "deploy",
+                "Apply a deploy manifest after source and live fingerprint validation.",
+                new TestCliOption("--connection-env", "<value>", "Environment variable containing the SQL Server connection string."),
+                new TestCliOption("--manifest-workspace", "<path>", "Deploy manifest workspace created by deploy-plan."),
+                new TestCliOption("--source-workspace", "<path>", "Source MetaSql workspace used to create the manifest.")),
+            new TestCliCommand(
+                "deploy-plan",
+                "Create a deploy manifest from a source MetaSql workspace and a live SQL Server database."),
+            new TestCliCommand(
+                "execute",
+                "Execute a SQL Server file or query for demo, bootstrap, and verification scripts."),
+            new TestCliCommand(
+                "extract sqlserver",
+                "Extract SQL Server database objects into a MetaSql workspace."));
 
     private static MetaCliModel CreateSimpleApp(string name) =>
         CreateCliApp(
@@ -1870,19 +2061,6 @@ public sealed class MetaDocsRuntimeTests
 
     private static string NormalizeTestId(string value) =>
         MetaDocsImportSession.NormalizeKey(value);
-
-    private static int CountOccurrences(string value, string text)
-    {
-        var count = 0;
-        var index = 0;
-        while ((index = value.IndexOf(text, index, StringComparison.Ordinal)) >= 0)
-        {
-            count++;
-            index += text.Length;
-        }
-
-        return count;
-    }
 
     private sealed record TestCliCommand(
         string Name,

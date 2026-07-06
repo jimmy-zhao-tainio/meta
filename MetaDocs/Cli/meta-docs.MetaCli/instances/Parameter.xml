@@ -53,8 +53,12 @@
       <Description>Optional authored documentation source display name.</Description>
       <Name>source-name</Name>
     </Parameter>
-    <Parameter Id="param-show-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to show. Defaults to the current directory.</Description>
+    <Parameter Id="param-browse-positional-path" ValueShapeId="shape-query">
+      <Description>Documentation path to browse, for example cli/meta-sql/deploy.</Description>
+      <Name>path</Name>
+    </Parameter>
+    <Parameter Id="param-browse-option-workspace" ValueShapeId="shape-path">
+      <Description>MetaDocs workspace to browse. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-contents-option-workspace" ValueShapeId="shape-path">
@@ -69,37 +73,8 @@
       <Description>Maximum tree depth. Default: 4.</Description>
       <Name>depth</Name>
     </Parameter>
-    <Parameter Id="param-read-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to read. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-subject" ValueShapeId="shape-text">
-      <Description>Documentation subject id or key.</Description>
-      <Name>subject</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-model" ValueShapeId="shape-text">
-      <Description>Model name.</Description>
-      <Name>model</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-cli" ValueShapeId="shape-text">
-      <Description>CLI application name.</Description>
-      <Name>cli</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-command" ValueShapeId="shape-text">
-      <Description>CLI command name or path.</Description>
-      <Name>command</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-option" ValueShapeId="shape-token">
-      <Description>CLI option token.</Description>
-      <Name>option</Name>
-    </Parameter>
-    <Parameter Id="param-read-option-slot" ValueShapeId="shape-text">
-      <Description>Optional description slot filter.</Description>
-      <Name>slot</Name>
-    </Parameter>
     <Parameter Id="param-search-positional-query" ValueShapeId="shape-query">
       <Description>Search text.</Description>
-      <IsRequired>true</IsRequired>
       <Name>query</Name>
     </Parameter>
     <Parameter Id="param-search-option-workspace" ValueShapeId="shape-path">
