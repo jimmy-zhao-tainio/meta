@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaAnalytics\Workspaces\MetaAnalytics</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:model:metaanalytics" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>MetaAnalytics</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaAnalytics</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaAnalytics.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AggregationBehavior</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>AggregationBehavior</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AggregationBehavior.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description">
       <DisplayName>Function</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Function</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Measure</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>Measure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>AnalyticsModel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>DefaultCulture</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>DefaultCulture</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture">
       <DisplayName>Description</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description">
       <DisplayName>Name</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel">
       <DisplayName>Attribute</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>Attribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>DataCategory</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>DataCategory</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datacategory">
       <DisplayName>DataTypeId</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:description">
       <DisplayName>Expression</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expression">
       <DisplayName>ExpressionLanguage</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>ExpressionLanguage</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage">
       <DisplayName>FormatString</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>FormatString</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ishidden">
       <DisplayName>IsKey</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>IsKey</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:iskey">
       <DisplayName>IsNullable</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:isnullable">
       <DisplayName>Kind</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>Kind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:kind">
       <DisplayName>Name</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ordinal">
       <DisplayName>SourceName</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:sourcename">
       <DisplayName>SummarizeBy</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>SummarizeBy</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Table</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute">
       <DisplayName>AttributePermission</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>AttributePermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AttributePermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:property:description">
       <DisplayName>MetadataPermission</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>MetadataPermission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Attribute</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>Attribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute">
       <DisplayName>SecurityRole</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission">
       <DisplayName>AttributeRelationship</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>AttributeRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AttributeRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:property:description">
       <DisplayName>RelationshipType</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>RelationshipType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>ChildAttribute</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>ChildAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute">
       <DisplayName>ParentAttribute</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>ParentAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship">
       <DisplayName>AttributeTranslation</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>AttributeTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AttributeTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Caption</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Attribute</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Attribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute">
       <DisplayName>Culture</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
       <DisplayName>Culture</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>Culture</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture:property:description">
       <DisplayName>Name</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture">
       <DisplayName>DataSource</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>DataSource</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>ConnectionReference</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>ConnectionReference</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference">
       <DisplayName>Description</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:description">
       <DisplayName>Name</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:provider" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:name">
       <DisplayName>Provider</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>Provider</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:provider">
       <DisplayName>SourceKind</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>SourceKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource">
       <DisplayName>Hierarchy</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>Hierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Hierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder">
       <DisplayName>IsHidden</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden">
       <DisplayName>Kind</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>Kind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:kind">
       <DisplayName>Name</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Table</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy">
       <DisplayName>HierarchyLevel</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>HierarchyLevel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity HierarchyLevel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Name</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Attribute</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>Attribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute">
       <DisplayName>Hierarchy</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>Hierarchy:Hierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Hierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel">
       <DisplayName>HierarchyTranslation</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>HierarchyTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity HierarchyTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Caption</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Culture</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture">
       <DisplayName>Hierarchy</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>Hierarchy:Hierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Hierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
       <DisplayName>Measure</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>Measure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>DataTypeId</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:displayfolder">
       <DisplayName>FormatString</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>FormatString</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:ishidden">
       <DisplayName>Name</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>SourceAttribute</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>SourceAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute">
       <DisplayName>Table</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure">
       <DisplayName>MeasureTranslation</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>MeasureTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MeasureTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Caption</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Culture</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture">
       <DisplayName>Measure</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>Measure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
       <DisplayName>Perspective</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>Perspective</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective:property:description">
       <DisplayName>Name</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective">
       <DisplayName>PerspectiveAttribute</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>PerspectiveAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Attribute</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>Attribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute">
       <DisplayName>Perspective</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute">
       <DisplayName>PerspectiveHierarchy</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>PerspectiveHierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Hierarchy</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>Hierarchy:Hierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Hierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy">
       <DisplayName>Perspective</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy">
       <DisplayName>PerspectiveMeasure</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>PerspectiveMeasure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Measure</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>Measure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure">
       <DisplayName>Perspective</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure">
       <DisplayName>PerspectiveTable</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>PerspectiveTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Perspective</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective">
       <DisplayName>Table</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable">
       <DisplayName>PerspectiveTranslation</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>PerspectiveTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Caption</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Culture</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture">
       <DisplayName>Perspective</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation">
       <DisplayName>Relationship</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>Relationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Relationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Cardinality</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>Cardinality</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:cardinality">
       <DisplayName>CrossFilterDirection</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>CrossFilterDirection</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection">
       <DisplayName>Description</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:description">
       <DisplayName>IsActive</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>IsActive</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isactive">
       <DisplayName>IsRequired</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isrequired">
       <DisplayName>Name</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:name">
       <DisplayName>RelationshipKind</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>RelationshipKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:rolename" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind">
       <DisplayName>RoleName</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>FromAttribute</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>FromAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute">
       <DisplayName>FromTable</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>FromTable:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table">
       <DisplayName>GranularityAttribute</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>GranularityAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute">
       <DisplayName>IntermediateTable</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>IntermediateTable:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table">
       <DisplayName>ToAttribute</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>ToAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute">
       <DisplayName>ToTable</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>ToTable:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship">
       <DisplayName>RoleFilter</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>RoleFilter</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RoleFilter.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:description">
       <DisplayName>Expression</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:expression">
       <DisplayName>ExpressionLanguage</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>ExpressionLanguage</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>SecurityRole</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole">
       <DisplayName>Table</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
       <DisplayName>RoleMember</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>RoleMember</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RoleMember.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>MemberKind</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>MemberKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind">
       <DisplayName>MemberName</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>MemberName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>SecurityRole</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember">
       <DisplayName>SecurityRole</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>SecurityRole</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:description">
       <DisplayName>Name</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:name">
       <DisplayName>Permission</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>Permission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole">
       <DisplayName>SortByAttribute</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>SortByAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SortByAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>SortAttribute</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>SortAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute">
       <DisplayName>SourceAttribute</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>SourceAttribute:Attribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Attribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
       <DisplayName>Table</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>Table</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>DataCategory</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>DataCategory</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:datacategory">
       <DisplayName>Description</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -1559,8 +1418,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:displayfolder">
       <DisplayName>IsHidden</DisplayName>
@@ -1570,8 +1428,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:ishidden">
       <DisplayName>Kind</DisplayName>
@@ -1581,8 +1438,7 @@
       <NativeId>Kind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:kind">
       <DisplayName>Name</DisplayName>
@@ -1592,8 +1448,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>AnalyticsModel</DisplayName>
@@ -1603,8 +1458,7 @@
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AnalyticsModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table">
       <DisplayName>TablePermission</DisplayName>
@@ -1614,8 +1468,7 @@
       <NativeId>TablePermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TablePermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Description</DisplayName>
@@ -1625,8 +1478,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:property:description">
       <DisplayName>MetadataPermission</DisplayName>
@@ -1636,8 +1488,7 @@
       <NativeId>MetadataPermission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>SecurityRole</DisplayName>
@@ -1647,8 +1498,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole">
       <DisplayName>Table</DisplayName>
@@ -1658,8 +1508,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission">
       <DisplayName>TableTranslation</DisplayName>
@@ -1669,8 +1518,7 @@
       <NativeId>TableTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Caption</DisplayName>
@@ -1680,8 +1528,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1691,8 +1538,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
       <DisplayName>Culture</DisplayName>
@@ -1702,8 +1548,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture">
       <DisplayName>Table</DisplayName>
@@ -1713,8 +1558,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

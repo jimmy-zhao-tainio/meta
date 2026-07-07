@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataType\Workspace</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:model:metadatatype" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>MetaDataType</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaDataType</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaDataType.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>DataType</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>DataType</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataType.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:category" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>Category</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Category</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:description" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:category">
       <DisplayName>Description</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:description">
       <DisplayName>IsCanonical</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>IsCanonical</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical">
       <DisplayName>Name</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>DataTypeSystem</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>DataTypeSystem:DataTypeSystem</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataTypeSystem.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype">
       <DisplayName>DataTypeSystem</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>DataTypeSystem</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataTypeSystem.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:description" DocumentationSourceId="source:workspace-model:meta-data-type">
       <DisplayName>Description</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem:property:description">
       <DisplayName>Name</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

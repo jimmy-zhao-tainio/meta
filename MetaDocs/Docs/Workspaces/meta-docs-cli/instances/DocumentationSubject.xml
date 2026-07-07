@@ -9,7 +9,7 @@
       <NativeId>app-meta-docs</NativeId>
       <NativeKind>MetaCli.Application</NativeKind>
       <Status>Changed</Status>
-      <Summary>Author, inspect, merge, validate, and render modeled documentation workspaces.</Summary>
+      <Summary>Author, browse, merge, validate, and render modeled documentation workspaces for the meta and meta-bi suite.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>meta-docs author-page</DisplayName>
@@ -173,8 +173,8 @@
       <NativeId>exec-import-cli</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Import an authored MetaCli workspace into a MetaDocs workspace.</Summary>
+      <Status>Changed</Status>
+      <Summary>Refresh CLI reference documentation from a MetaCli workspace while preserving authored descriptions.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:application" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--application</DisplayName>
@@ -206,8 +206,8 @@
       <NativeId>option-import-cli-new-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>New</Status>
-      <Summary>New MetaDocs workspace to create.</Summary>
+      <Status>Changed</Status>
+      <Summary>New MetaDocs source workspace to create.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:source-id" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:new-workspace">
       <DisplayName>--source-id</DisplayName>
@@ -217,8 +217,8 @@
       <NativeId>option-import-cli-source-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional stable documentation source id.</Summary>
+      <Status>Changed</Status>
+      <Summary>Stable documentation source id. Keep it fixed so authored descriptions stay attached.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:source-workspace" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:source-id">
       <DisplayName>--source-workspace</DisplayName>
@@ -228,8 +228,8 @@
       <NativeId>option-import-cli-source-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>New</Status>
-      <Summary>Source MetaCli workspace to document.</Summary>
+      <Status>Changed</Status>
+      <Summary>Source MetaCli workspace to refresh reference documentation from.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:source-workspace">
       <DisplayName>--workspace</DisplayName>
@@ -239,8 +239,8 @@
       <NativeId>option-import-cli-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-cli</ParentKey>
-      <Status>New</Status>
-      <Summary>Existing MetaDocs workspace to update in place.</Summary>
+      <Status>Changed</Status>
+      <Summary>Existing MetaDocs source workspace to refresh in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-instances" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli">
       <DisplayName>meta-docs import-workspace-instances</DisplayName>
@@ -316,8 +316,8 @@
       <NativeId>exec-import-workspace-model</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Import generic model documentation from a Meta workspace.</Summary>
+      <Status>Changed</Status>
+      <Summary>Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:display-name" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--display-name</DisplayName>
@@ -338,8 +338,8 @@
       <NativeId>option-import-workspace-model-new-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
-      <Status>New</Status>
-      <Summary>New MetaDocs workspace to create.</Summary>
+      <Status>Changed</Status>
+      <Summary>New MetaDocs source workspace to create.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:source-id" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace">
       <DisplayName>--source-id</DisplayName>
@@ -349,8 +349,8 @@
       <NativeId>option-import-workspace-model-source-id</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional stable documentation source id.</Summary>
+      <Status>Changed</Status>
+      <Summary>Stable documentation source id. Keep it fixed so authored descriptions stay attached.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:source-workspace" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:source-id">
       <DisplayName>--source-workspace</DisplayName>
@@ -360,8 +360,8 @@
       <NativeId>option-import-workspace-model-source-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
-      <Status>New</Status>
-      <Summary>Source Meta workspace whose model should be documented.</Summary>
+      <Status>Changed</Status>
+      <Summary>Source Meta workspace to refresh model reference documentation from.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:source-workspace">
       <DisplayName>--workspace</DisplayName>
@@ -371,8 +371,8 @@
       <NativeId>option-import-workspace-model-workspace</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:import-workspace-model</ParentKey>
-      <Status>New</Status>
-      <Summary>Existing MetaDocs workspace to update in place.</Summary>
+      <Status>Changed</Status>
+      <Summary>Existing MetaDocs source workspace to refresh in place.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-entity" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model">
       <DisplayName>meta-docs include-instance-entity</DisplayName>
@@ -558,8 +558,8 @@
       <NativeId>exec-merge</NativeId>
       <NativeKind>MetaCli.ExecutableCommand</NativeKind>
       <ParentKey>source:cli:meta-docs:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Merge multiple MetaDocs workspaces into a suite workspace.</Summary>
+      <Status>Changed</Status>
+      <Summary>Rebuild a suite workspace from source MetaDocs workspaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:include" DocumentationSourceId="source:cli:meta-docs">
       <DisplayName>--include</DisplayName>
@@ -569,8 +569,8 @@
       <NativeId>option-merge-include</NativeId>
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:merge</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaDocs workspace to include. Repeat for many workspaces.</Summary>
+      <Status>Changed</Status>
+      <Summary>Source MetaDocs workspace to include. Repeat for many workspaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:include">
       <DisplayName>--workspace</DisplayName>
@@ -581,7 +581,7 @@
       <NativeKind>MetaCli.Option</NativeKind>
       <ParentKey>source:cli:meta-docs:app:command:merge</ParentKey>
       <Status>Changed</Status>
-      <Summary>Suite workspace to write. Defaults to the current directory.</Summary>
+      <Summary>Suite workspace to rebuild. Defaults to the current directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site" DocumentationSourceId="source:cli:meta-docs" PreviousSubjectId="source:cli:meta-docs:app:command:merge">
       <DisplayName>meta-docs render-site</DisplayName>

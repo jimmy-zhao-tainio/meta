@@ -48,7 +48,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             workspace.WorkspaceRootPath,
             normalizedDisplayName,
             normalizedDisplayName,
-            "Metadata workspace.",
+            string.Empty,
             string.Empty,
             null);
         session.UpsertFact(workspaceSubject, "Workspace", "RootPath", workspace.WorkspaceRootPath);
@@ -62,7 +62,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             modelName,
             modelName,
             $"{normalizedDisplayName}.{modelName}",
-            $"Model {modelName}.",
+            string.Empty,
             workspaceSubject.Id,
             null);
         session.UpsertFact(modelSubject, "Model", "Name", modelName);
@@ -108,7 +108,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             entity.Name,
             entity.Name,
             $"{sourceDisplayName}.{entity.Name}",
-            $"Entity {entity.Name}.",
+            string.Empty,
             modelSubject.Id,
             previousEntity);
         session.UpsertFact(subject, "Model", "Name", entity.Name);
@@ -178,7 +178,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             property.Name,
             property.Name,
             $"{sourceDisplayName}.{entity.Name}.{property.Name}",
-            $"{(property.IsNullable ? "Optional" : "Required")} {property.DataType} property.",
+            string.Empty,
             entitySubject.Id,
             previousProperty);
         session.UpsertFact(subject, "Model", "Name", property.Name);
@@ -211,7 +211,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             selector,
             relationship.GetNavigationName(),
             $"{sourceDisplayName}.{entity.Name}.{relationship.GetNavigationName()}",
-            $"{(relationship.IsNullable ? "Optional" : "Required")} relationship to {relationship.Entity}.",
+            string.Empty,
             entitySubject.Id,
             previousRelationshipSubject);
         session.UpsertFact(subject, "Model", "TargetEntity", relationship.Entity);

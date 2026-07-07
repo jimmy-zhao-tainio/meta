@@ -32,12 +32,12 @@
       <Token>update-description</Token>
     </Command>
     <Command Id="cmd-import-cli" ApplicationId="app-meta-docs">
-      <Description>Import an authored MetaCli workspace into a MetaDocs workspace.</Description>
+      <Description>Refresh CLI reference documentation from a MetaCli workspace while preserving authored descriptions.</Description>
       <Name>import-cli</Name>
       <Token>import-cli</Token>
     </Command>
     <Command Id="cmd-import-workspace-model" ApplicationId="app-meta-docs">
-      <Description>Import generic model documentation from a Meta workspace.</Description>
+      <Description>Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</Description>
       <Name>import-workspace-model</Name>
       <Token>import-workspace-model</Token>
     </Command>
@@ -62,7 +62,7 @@
       <Token>include-instance-relationship</Token>
     </Command>
     <Command Id="cmd-merge" ApplicationId="app-meta-docs">
-      <Description>Merge multiple MetaDocs workspaces into a suite workspace.</Description>
+      <Description>Rebuild a suite workspace from source MetaDocs workspaces.</Description>
       <Name>merge</Name>
       <Token>merge</Token>
     </Command>

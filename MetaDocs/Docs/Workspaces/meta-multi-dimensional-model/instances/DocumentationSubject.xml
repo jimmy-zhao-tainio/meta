@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaMultiDimensional\Workspaces\MetaMultiDimensional</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:model:metamultidimensional" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MetaMultiDimensional</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaMultiDimensional</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaMultiDimensional.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>ActionTranslation</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>ActionTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ActionTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:cubeaction-cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>CubeAction</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>CubeAction:CubeAction</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CubeAction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:actiontranslation:relationship:cubeaction-cubeaction">
       <DisplayName>Culture</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:actiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:actiontranslation">
       <DisplayName>AttributeRelationship</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>AttributeRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AttributeRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:property:description">
       <DisplayName>RelationshipType</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>RelationshipType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:childattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>ChildAttribute</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>ChildAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:parentattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributerelationship:relationship:childattribute-dimensionattribute">
       <DisplayName>ParentAttribute</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>ParentAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributerelationship">
       <DisplayName>AttributeTranslation</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>AttributeTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AttributeTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributetranslation:relationship:culture-culture">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:attributetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:attributetranslation">
       <DisplayName>CellPermission</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>CellPermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CellPermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cellpermission:property:description">
       <DisplayName>Expression</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cellpermission:relationship:cube-cube">
       <DisplayName>SecurityRole</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cellpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cellpermission">
       <DisplayName>Cube</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>Cube</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:defaultmeasurename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>DefaultMeasureName</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>DefaultMeasureName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cube:property:defaultmeasurename">
       <DisplayName>Description</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cube:property:description">
       <DisplayName>Name</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cube:property:name">
       <DisplayName>ProcessingMode</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>ProcessingMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cube:property:processingmode">
       <DisplayName>StorageMode</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>StorageMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cube:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cube</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cube">
       <DisplayName>CubeAction</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>CubeAction</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CubeAction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:actiontype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>ActionType</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>ActionType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:actiontype">
       <DisplayName>Caption</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:caption">
       <DisplayName>Description</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:description">
       <DisplayName>Expression</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:expression">
       <DisplayName>Name</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:target" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:name">
       <DisplayName>Target</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>Target</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:targetkind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction:property:target">
       <DisplayName>TargetKind</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>TargetKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubeaction:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubeaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubeaction">
       <DisplayName>CubeDimension</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>CubeDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CubeDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:description">
       <DisplayName>Name</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubedimension:property:name">
       <DisplayName>RoleName</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubedimension:relationship:cube-cube">
       <DisplayName>Dimension</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubedimension">
       <DisplayName>CubeTranslation</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>CubeTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CubeTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubetranslation:relationship:cube-cube">
       <DisplayName>Culture</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:cubetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:cubetranslation">
       <DisplayName>Culture</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>Culture</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:languageid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:culture:property:description">
       <DisplayName>LanguageId</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>LanguageId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:culture:property:languageid">
       <DisplayName>Name</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:culture:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:culture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:culture">
       <DisplayName>Dimension</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>Dimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:dimensiontype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:description">
       <DisplayName>DimensionType</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>DimensionType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:dimensiontype">
       <DisplayName>Name</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processinggroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:name">
       <DisplayName>ProcessingGroup</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>ProcessingGroup</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processinggroup">
       <DisplayName>ProcessingMode</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>ProcessingMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:processingmode">
       <DisplayName>SourceName</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension:property:sourcename">
       <DisplayName>StorageMode</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>StorageMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimension:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimension">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>DimensionAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyenabled" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>AttributeHierarchyEnabled</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>AttributeHierarchyEnabled</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyvisible" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyenabled">
       <DisplayName>AttributeHierarchyVisible</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>AttributeHierarchyVisible</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:attributehierarchyvisible">
       <DisplayName>DataTypeId</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:description">
       <DisplayName>IsKey</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>IsKey</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:iskey">
       <DisplayName>Name</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:ordinal">
       <DisplayName>SourceName</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:usage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:property:sourcename">
       <DisplayName>Usage</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>Usage</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Dimension</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionattribute">
       <DisplayName>DimensionHierarchy</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>DimensionHierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:hierarchytype" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:description">
       <DisplayName>HierarchyType</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>HierarchyType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:property:hierarchytype">
       <DisplayName>Name</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Dimension</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchy">
       <DisplayName>DimensionHierarchyLevel</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>DimensionHierarchyLevel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionHierarchyLevel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Name</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>DimensionHierarchy</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>DimensionHierarchy:DimensionHierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionhierarchylevel">
       <DisplayName>DimensionPermission</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>DimensionPermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionPermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:allowedsetexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>AllowedSetExpression</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>AllowedSetExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:defaultmemberexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:allowedsetexpression">
       <DisplayName>DefaultMemberExpression</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>DefaultMemberExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:deniedsetexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:defaultmemberexpression">
       <DisplayName>DeniedSetExpression</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>DeniedSetExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:deniedsetexpression">
       <DisplayName>Description</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:visualtotals" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:property:description">
       <DisplayName>VisualTotals</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>VisualTotals</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>Dimension</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission:relationship:dimension-dimension">
       <DisplayName>SecurityRole</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionpermission">
       <DisplayName>DimensionTranslation</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>DimensionTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation:relationship:culture-culture">
       <DisplayName>Dimension</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensiontranslation">
       <DisplayName>DimensionUsage</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>DimensionUsage</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionUsage.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:isrequired" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:description">
       <DisplayName>IsRequired</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:rolename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:isrequired">
       <DisplayName>RoleName</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:usagekind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:property:rolename">
       <DisplayName>UsageKind</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>UsageKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:cubedimension-cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>CubeDimension</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>CubeDimension:CubeDimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CubeDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:granularityattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:cubedimension-cubedimension">
       <DisplayName>GranularityAttribute</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>GranularityAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:intermediatemeasuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:granularityattribute-dimensionattribute">
       <DisplayName>IntermediateMeasureGroup</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>IntermediateMeasureGroup:MeasureGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage:relationship:intermediatemeasuregroup-measuregroup">
       <DisplayName>MeasureGroup</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>MeasureGroup:MeasureGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:dimensionusage</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:dimensionusage">
       <DisplayName>Kpi</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>Kpi</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Kpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:goalexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:description">
       <DisplayName>GoalExpression</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>GoalExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:goalexpression">
       <DisplayName>Name</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:name">
       <DisplayName>StatusExpression</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>StatusExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusgraphic" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusexpression">
       <DisplayName>StatusGraphic</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>StatusGraphic</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:statusgraphic">
       <DisplayName>TrendExpression</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>TrendExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendgraphic" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendexpression">
       <DisplayName>TrendGraphic</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>TrendGraphic</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:property:valueexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:property:trendgraphic">
       <DisplayName>ValueExpression</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>ValueExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:associatedmeasure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>AssociatedMeasure</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>AssociatedMeasure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi:relationship:associatedmeasure-measure">
       <DisplayName>Cube</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpi">
       <DisplayName>KpiTranslation</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>KpiTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity KpiTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:kpi-kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpitranslation:relationship:culture-culture">
       <DisplayName>Kpi</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>Kpi:Kpi</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:kpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Kpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:kpitranslation">
       <DisplayName>MdxCalculation</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>MdxCalculation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MdxCalculation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:calculationkind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>CalculationKind</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>CalculationKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:calculationkind">
       <DisplayName>Description</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:displayfolder">
       <DisplayName>Expression</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:expression">
       <DisplayName>Name</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:solveorder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:property:name">
       <DisplayName>SolveOrder</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>SolveOrder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:mdxcalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:mdxcalculation">
       <DisplayName>Measure</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>Measure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:aggregatefunction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>AggregateFunction</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>AggregateFunction</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:aggregatefunction">
       <DisplayName>DataTypeId</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:displayfolder">
       <DisplayName>FormatString</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>FormatString</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:formatstring">
       <DisplayName>Name</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure:property:name">
       <DisplayName>SourceName</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measure:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MeasureGroup</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>MeasureGroup:MeasureGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measure">
       <DisplayName>MeasureGroup</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>MeasureGroup</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -1559,8 +1418,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:description">
       <DisplayName>Name</DisplayName>
@@ -1570,8 +1428,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:name">
       <DisplayName>ProcessingMode</DisplayName>
@@ -1581,8 +1438,7 @@
       <NativeId>ProcessingMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:sourcename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:processingmode">
       <DisplayName>SourceName</DisplayName>
@@ -1592,8 +1448,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuregroup:property:sourcename">
       <DisplayName>StorageMode</DisplayName>
@@ -1603,8 +1458,7 @@
       <NativeId>StorageMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuregroup:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -1614,8 +1468,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuregroup">
       <DisplayName>MeasureTranslation</DisplayName>
@@ -1625,8 +1478,7 @@
       <NativeId>MeasureTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MeasureTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -1636,8 +1488,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1647,8 +1498,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -1658,8 +1508,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuretranslation:relationship:culture-culture">
       <DisplayName>Measure</DisplayName>
@@ -1669,8 +1518,7 @@
       <NativeId>Measure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:measuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:measuretranslation">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -1680,8 +1528,7 @@
       <NativeId>MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:collation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Collation</DisplayName>
@@ -1691,8 +1538,7 @@
       <NativeId>Collation</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:defaultlanguage" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:collation">
       <DisplayName>DefaultLanguage</DisplayName>
@@ -1702,8 +1548,7 @@
       <NativeId>DefaultLanguage</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:defaultlanguage">
       <DisplayName>Description</DisplayName>
@@ -1713,8 +1558,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase:property:description">
       <DisplayName>Name</DisplayName>
@@ -1724,8 +1568,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatabase">
       <DisplayName>MultiDimensionalDataSource</DisplayName>
@@ -1735,8 +1578,7 @@
       <NativeId>MultiDimensionalDataSource</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MultiDimensionalDataSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>ConnectionReference</DisplayName>
@@ -1746,8 +1588,7 @@
       <NativeId>ConnectionReference</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:connectionreference">
       <DisplayName>Description</DisplayName>
@@ -1757,8 +1598,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:description">
       <DisplayName>Name</DisplayName>
@@ -1768,8 +1608,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:provider" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:name">
       <DisplayName>Provider</DisplayName>
@@ -1779,8 +1618,7 @@
       <NativeId>Provider</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:property:provider">
       <DisplayName>SourceKind</DisplayName>
@@ -1790,8 +1628,7 @@
       <NativeId>SourceKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -1801,8 +1638,7 @@
       <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:multidimensionaldatasource">
       <DisplayName>NamedSet</DisplayName>
@@ -1812,8 +1648,7 @@
       <NativeId>NamedSet</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity NamedSet.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -1823,8 +1658,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedset:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -1834,8 +1668,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:expression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedset:property:displayfolder">
       <DisplayName>Expression</DisplayName>
@@ -1845,8 +1678,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedset:property:expression">
       <DisplayName>Name</DisplayName>
@@ -1856,8 +1688,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedset:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -1867,8 +1698,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedset">
       <DisplayName>NamedSetTranslation</DisplayName>
@@ -1878,8 +1708,7 @@
       <NativeId>NamedSetTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity NamedSetTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -1889,8 +1718,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1900,8 +1728,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -1911,8 +1738,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:namedset-namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation:relationship:culture-culture">
       <DisplayName>NamedSet</DisplayName>
@@ -1922,8 +1748,7 @@
       <NativeId>NamedSet:NamedSet</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:namedsettranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to NamedSet.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:namedsettranslation">
       <DisplayName>Partition</DisplayName>
@@ -1933,8 +1758,7 @@
       <NativeId>Partition</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Partition.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -1944,8 +1768,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:description">
       <DisplayName>Name</DisplayName>
@@ -1955,8 +1778,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:ordinal" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -1966,8 +1788,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:processingmode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:ordinal">
       <DisplayName>ProcessingMode</DisplayName>
@@ -1977,8 +1798,7 @@
       <NativeId>ProcessingMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:sliceexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:processingmode">
       <DisplayName>SliceExpression</DisplayName>
@@ -1988,8 +1808,7 @@
       <NativeId>SliceExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:sourceexpression" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:sliceexpression">
       <DisplayName>SourceExpression</DisplayName>
@@ -1999,8 +1818,7 @@
       <NativeId>SourceExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:property:storagemode" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:property:sourceexpression">
       <DisplayName>StorageMode</DisplayName>
@@ -2010,8 +1828,7 @@
       <NativeId>StorageMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MeasureGroup</DisplayName>
@@ -2021,8 +1838,7 @@
       <NativeId>MeasureGroup:MeasureGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:partition:relationship:multidimensionaldatasource-multidimensionaldatasource" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition:relationship:measuregroup-measuregroup">
       <DisplayName>MultiDimensionalDataSource</DisplayName>
@@ -2032,8 +1848,7 @@
       <NativeId>MultiDimensionalDataSource:MultiDimensionalDataSource</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:partition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to MultiDimensionalDataSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:partition">
       <DisplayName>Perspective</DisplayName>
@@ -2043,8 +1858,7 @@
       <NativeId>Perspective</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:defaultmeasurename" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>DefaultMeasureName</DisplayName>
@@ -2054,8 +1868,7 @@
       <NativeId>DefaultMeasureName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspective:property:defaultmeasurename">
       <DisplayName>Description</DisplayName>
@@ -2065,8 +1878,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspective:property:description">
       <DisplayName>Name</DisplayName>
@@ -2076,8 +1888,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspective:relationship:cube-cube" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Cube</DisplayName>
@@ -2087,8 +1898,7 @@
       <NativeId>Cube:Cube</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Cube.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspective">
       <DisplayName>PerspectiveAction</DisplayName>
@@ -2098,8 +1908,7 @@
       <NativeId>PerspectiveAction</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveAction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:cubeaction-cubeaction" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>CubeAction</DisplayName>
@@ -2109,8 +1918,7 @@
       <NativeId>CubeAction:CubeAction</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CubeAction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction:relationship:cubeaction-cubeaction">
       <DisplayName>Perspective</DisplayName>
@@ -2120,8 +1928,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectiveaction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectiveaction">
       <DisplayName>PerspectiveCalculation</DisplayName>
@@ -2131,8 +1938,7 @@
       <NativeId>PerspectiveCalculation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveCalculation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:mdxcalculation-mdxcalculation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MdxCalculation</DisplayName>
@@ -2142,8 +1948,7 @@
       <NativeId>MdxCalculation:MdxCalculation</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MdxCalculation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation:relationship:mdxcalculation-mdxcalculation">
       <DisplayName>Perspective</DisplayName>
@@ -2153,8 +1958,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivecalculation">
       <DisplayName>PerspectiveDimension</DisplayName>
@@ -2164,8 +1968,7 @@
       <NativeId>PerspectiveDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:cubedimension-cubedimension" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>CubeDimension</DisplayName>
@@ -2175,8 +1978,7 @@
       <NativeId>CubeDimension:CubeDimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CubeDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension:relationship:cubedimension-cubedimension">
       <DisplayName>Perspective</DisplayName>
@@ -2186,8 +1988,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivedimension">
       <DisplayName>PerspectiveKpi</DisplayName>
@@ -2197,8 +1998,7 @@
       <NativeId>PerspectiveKpi</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveKpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:kpi-kpi" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Kpi</DisplayName>
@@ -2208,8 +2008,7 @@
       <NativeId>Kpi:Kpi</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Kpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi:relationship:kpi-kpi">
       <DisplayName>Perspective</DisplayName>
@@ -2219,8 +2018,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivekpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivekpi">
       <DisplayName>PerspectiveMeasure</DisplayName>
@@ -2230,8 +2028,7 @@
       <NativeId>PerspectiveMeasure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Measure</DisplayName>
@@ -2241,8 +2038,7 @@
       <NativeId>Measure:Measure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Measure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure:relationship:measure-measure">
       <DisplayName>Perspective</DisplayName>
@@ -2252,8 +2048,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasure">
       <DisplayName>PerspectiveMeasureGroup</DisplayName>
@@ -2263,8 +2058,7 @@
       <NativeId>PerspectiveMeasureGroup</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveMeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:measuregroup-measuregroup" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MeasureGroup</DisplayName>
@@ -2274,8 +2068,7 @@
       <NativeId>MeasureGroup:MeasureGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MeasureGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup:relationship:measuregroup-measuregroup">
       <DisplayName>Perspective</DisplayName>
@@ -2285,8 +2078,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivemeasuregroup">
       <DisplayName>PerspectiveNamedSet</DisplayName>
@@ -2296,8 +2088,7 @@
       <NativeId>PerspectiveNamedSet</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveNamedSet.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:namedset-namedset" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>NamedSet</DisplayName>
@@ -2307,8 +2098,7 @@
       <NativeId>NamedSet:NamedSet</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to NamedSet.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset:relationship:namedset-namedset">
       <DisplayName>Perspective</DisplayName>
@@ -2318,8 +2108,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivenamedset">
       <DisplayName>PerspectiveTranslation</DisplayName>
@@ -2329,8 +2118,7 @@
       <NativeId>PerspectiveTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PerspectiveTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Caption</DisplayName>
@@ -2340,8 +2128,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -2351,8 +2138,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Culture</DisplayName>
@@ -2362,8 +2148,7 @@
       <NativeId>Culture:Culture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Culture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation:relationship:culture-culture">
       <DisplayName>Perspective</DisplayName>
@@ -2373,8 +2158,7 @@
       <NativeId>Perspective:Perspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Perspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:perspectivetranslation">
       <DisplayName>RoleMember</DisplayName>
@@ -2384,8 +2168,7 @@
       <NativeId>RoleMember</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RoleMember.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MemberName</DisplayName>
@@ -2395,8 +2178,7 @@
       <NativeId>MemberName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membersid" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:rolemember:property:membername">
       <DisplayName>MemberSid</DisplayName>
@@ -2406,8 +2188,7 @@
       <NativeId>MemberSid</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>SecurityRole</DisplayName>
@@ -2417,8 +2198,7 @@
       <NativeId>SecurityRole:SecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:rolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:rolemember">
       <DisplayName>SecurityRole</DisplayName>
@@ -2428,8 +2208,7 @@
       <NativeId>SecurityRole</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>Description</DisplayName>
@@ -2439,8 +2218,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:description">
       <DisplayName>Name</DisplayName>
@@ -2450,8 +2228,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-multi-dimensional" PreviousSubjectId="source:workspace-model:meta-multi-dimensional:entity:securityrole:property:name">
       <DisplayName>Permission</DisplayName>
@@ -2461,8 +2238,7 @@
       <NativeId>Permission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-multi-dimensional:entity:securityrole:relationship:multidimensionaldatabase-multidimensionaldatabase" DocumentationSourceId="source:workspace-model:meta-multi-dimensional">
       <DisplayName>MultiDimensionalDatabase</DisplayName>
@@ -2472,8 +2248,7 @@
       <NativeId>MultiDimensionalDatabase:MultiDimensionalDatabase</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-multi-dimensional:entity:securityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to MultiDimensionalDatabase.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

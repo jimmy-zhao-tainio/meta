@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSql\DeployManifest\Workspace</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>MetaSqlDeployManifest</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaSqlDeployManifest</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaSqlDeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>AddForeignKey</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>AddForeignKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddForeignKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceForeignKeyId</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>SourceForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey">
       <DisplayName>AddFunction</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>AddFunction</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddFunction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceFunctionId</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>SourceFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction">
       <DisplayName>AddIndex</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>AddIndex</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddIndex.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceIndexId</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>SourceIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addindex">
       <DisplayName>AddPrimaryKey</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>AddPrimaryKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddPrimaryKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>SourcePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey">
       <DisplayName>AddSchema</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>AddSchema</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddSchema.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:property:sourceschemaid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceSchemaId</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>SourceSchemaId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addschema">
       <DisplayName>AddStoredProcedure</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>AddStoredProcedure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddStoredProcedure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceStoredProcedureId</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>SourceStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure">
       <DisplayName>AddTable</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>AddTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceTableId</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>SourceTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtable">
       <DisplayName>AddTableColumn</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>AddTableColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddTableColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceTableColumnId</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>SourceTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn">
       <DisplayName>AddView</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>AddView</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AddView.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>SourceViewId</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>SourceViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addview">
       <DisplayName>AlterTableColumn</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>AlterTableColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AlterTableColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveTableColumnId</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>LiveTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>SourceTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn">
       <DisplayName>BlockForeignKeyDifference</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>BlockForeignKeyDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockForeignKeyDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary">
       <DisplayName>LiveForeignKeyId</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>LiveForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid">
       <DisplayName>SourceForeignKeyId</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>SourceForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference">
       <DisplayName>BlockFunctionDifference</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>BlockFunctionDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockFunctionDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary">
       <DisplayName>LiveFunctionId</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>LiveFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid">
       <DisplayName>SourceFunctionId</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>SourceFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference">
       <DisplayName>BlockIndexDifference</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>BlockIndexDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockIndexDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary">
       <DisplayName>LiveIndexId</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>LiveIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid">
       <DisplayName>SourceIndexId</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>SourceIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference">
       <DisplayName>BlockPrimaryKeyDifference</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>BlockPrimaryKeyDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockPrimaryKeyDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary">
       <DisplayName>LivePrimaryKeyId</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>LivePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>SourcePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference">
       <DisplayName>BlockStoredProcedureDifference</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>BlockStoredProcedureDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockStoredProcedureDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary">
       <DisplayName>LiveStoredProcedureId</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>LiveStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid">
       <DisplayName>SourceStoredProcedureId</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>SourceStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference">
       <DisplayName>BlockTableColumnDifference</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>BlockTableColumnDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockTableColumnDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary">
       <DisplayName>LiveTableColumnId</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>LiveTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>SourceTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference">
       <DisplayName>BlockTableDifference</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>BlockTableDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockTableDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary">
       <DisplayName>LiveTableId</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>LiveTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid">
       <DisplayName>SourceTableId</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>SourceTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference">
       <DisplayName>BlockViewDifference</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>BlockViewDifference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BlockViewDifference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DifferenceSummary</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>DifferenceSummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary">
       <DisplayName>LiveViewId</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>LiveViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid">
       <DisplayName>SourceViewId</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>SourceViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference">
       <DisplayName>DeployManifest</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>DeployManifest</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>CreatedUtc</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>CreatedUtc</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc">
       <DisplayName>ExpectedLiveDatabasePresence</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>ExpectedLiveDatabasePresence</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence">
       <DisplayName>LiveInstanceFingerprint</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>LiveInstanceFingerprint</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint">
       <DisplayName>Name</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name">
       <DisplayName>SourceInstanceFingerprint</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>SourceInstanceFingerprint</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:targetdescription" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint">
       <DisplayName>TargetDescription</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>TargetDescription</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest">
       <DisplayName>DropForeignKey</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>DropForeignKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropForeignKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveForeignKeyId</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>LiveForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey">
       <DisplayName>DropFunction</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>DropFunction</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropFunction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveFunctionId</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>LiveFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction">
       <DisplayName>DropIndex</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>DropIndex</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropIndex.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveIndexId</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>LiveIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex">
       <DisplayName>DropPrimaryKey</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>DropPrimaryKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropPrimaryKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LivePrimaryKeyId</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>LivePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey">
       <DisplayName>DropStoredProcedure</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>DropStoredProcedure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropStoredProcedure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveStoredProcedureId</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>LiveStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure">
       <DisplayName>DropTable</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>DropTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveTableId</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>LiveTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptable">
       <DisplayName>DropTableColumn</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>DropTableColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropTableColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveTableColumnId</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>LiveTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn">
       <DisplayName>DropView</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>DropView</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DropView.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveViewId</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>LiveViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropview">
       <DisplayName>ReplaceForeignKey</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>ReplaceForeignKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplaceForeignKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveForeignKeyId</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>LiveForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid">
       <DisplayName>SourceForeignKeyId</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>SourceForeignKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey">
       <DisplayName>ReplaceFunction</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>ReplaceFunction</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplaceFunction.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveFunctionId</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>LiveFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid">
       <DisplayName>SourceFunctionId</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>SourceFunctionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction">
       <DisplayName>ReplaceIndex</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>ReplaceIndex</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplaceIndex.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveIndexId</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>LiveIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid">
       <DisplayName>SourceIndexId</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>SourceIndexId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex">
       <DisplayName>ReplacePrimaryKey</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>ReplacePrimaryKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplacePrimaryKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LivePrimaryKeyId</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>LivePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>SourcePrimaryKeyId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey">
       <DisplayName>ReplaceStoredProcedure</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>ReplaceStoredProcedure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplaceStoredProcedure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveStoredProcedureId</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>LiveStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid">
       <DisplayName>SourceStoredProcedureId</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>SourceStoredProcedureId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure">
       <DisplayName>ReplaceView</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>ReplaceView</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ReplaceView.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveViewId</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>LiveViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid">
       <DisplayName>SourceViewId</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>SourceViewId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview">
       <DisplayName>TruncateTableColumnData</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>TruncateTableColumnData</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TruncateTableColumnData.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>LiveTableColumnId</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>LiveTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>SourceTableColumnId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
       <DisplayName>DeployManifest</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>DeployManifest:DeployManifest</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DeployManifest.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaTabular\Workspaces\MetaTabular</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:model:metatabular" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>MetaTabular</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaTabular</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaTabular.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCalculationGroup</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>TabularCalculationGroup</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularCalculationGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:description">
       <DisplayName>Name</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:precedence" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:property:name">
       <DisplayName>Precedence</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>Precedence</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationgroup:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationgroup">
       <DisplayName>TabularCalculationItem</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>TabularCalculationItem</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularCalculationItem.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:description">
       <DisplayName>Expression</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:formatstringexpression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:expression">
       <DisplayName>FormatStringExpression</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>FormatStringExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:formatstringexpression">
       <DisplayName>Name</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationitem:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcalculationitem:relationship:tabularcalculationgroup-tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCalculationGroup</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>TabularCalculationGroup:TabularCalculationGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcalculationitem</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCalculationGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcalculationitem">
       <DisplayName>TabularColumn</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>TabularColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datacategory" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>DataCategory</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>DataCategory</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datacategory">
       <DisplayName>DataTypeId</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:description">
       <DisplayName>Expression</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:formatstring" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:expression">
       <DisplayName>FormatString</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>FormatString</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:iskey" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ishidden">
       <DisplayName>IsKey</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>IsKey</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:isnullable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:iskey">
       <DisplayName>IsNullable</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:isnullable">
       <DisplayName>Name</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:sourcename" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:ordinal">
       <DisplayName>SourceName</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>SourceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn:property:sourcename">
       <DisplayName>SummarizeBy</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>SummarizeBy</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumn:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularTable</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumn">
       <DisplayName>TabularColumnPermission</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>TabularColumnPermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularColumnPermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>MetadataPermission</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>MetadataPermission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularColumn</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>TabularColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumnpermission:relationship:tabularcolumn-tabularcolumn">
       <DisplayName>TabularSecurityRole</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumnpermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularSecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumnpermission">
       <DisplayName>TabularColumnTranslation</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>TabularColumnTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularColumnTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Caption</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularColumn</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>TabularColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumntranslation:relationship:tabularcolumn-tabularcolumn">
       <DisplayName>TabularCulture</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularcolumntranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularcolumntranslation">
       <DisplayName>TabularCulture</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>TabularCulture</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Name</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularculture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularculture:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularculture</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularculture">
       <DisplayName>TabularDataSource</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>TabularDataSource</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularDataSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>ConnectionReference</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>ConnectionReference</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulardatasource:property:connectionreference">
       <DisplayName>Description</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulardatasource:property:description">
       <DisplayName>Name</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:property:provider" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulardatasource:property:name">
       <DisplayName>Provider</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>Provider</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulardatasource:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulardatasource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulardatasource">
       <DisplayName>TabularHierarchy</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>TabularHierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:displayfolder">
       <DisplayName>IsHidden</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchy:property:ishidden">
       <DisplayName>Name</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchy:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularTable</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchy">
       <DisplayName>TabularHierarchyLevel</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>TabularHierarchyLevel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularHierarchyLevel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Name</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularColumn</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>TabularColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchylevel:relationship:tabularcolumn-tabularcolumn">
       <DisplayName>TabularHierarchy</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchylevel">
       <DisplayName>TabularHierarchyTranslation</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>TabularHierarchyTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularHierarchyTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Caption</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCulture</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation:relationship:tabularculture-tabularculture">
       <DisplayName>TabularHierarchy</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularhierarchytranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularhierarchytranslation">
       <DisplayName>TabularKpi</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>TabularKpi</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularKpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusexpression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:property:description">
       <DisplayName>StatusExpression</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>StatusExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusgraphic" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusexpression">
       <DisplayName>StatusGraphic</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>StatusGraphic</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:targetexpression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:property:statusgraphic">
       <DisplayName>TargetExpression</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>TargetExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:trendexpression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:property:targetexpression">
       <DisplayName>TrendExpression</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>TrendExpression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:property:trendgraphic" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:property:trendexpression">
       <DisplayName>TrendGraphic</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>TrendGraphic</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:relationship:basemeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>BaseMeasure</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>BaseMeasure:TabularMeasure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpi:relationship:targetmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi:relationship:basemeasure-tabularmeasure">
       <DisplayName>TargetMeasure</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>TargetMeasure:TabularMeasure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to TabularMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpi">
       <DisplayName>TabularKpiTranslation</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>TabularKpiTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularKpiTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCulture</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularkpi-tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpitranslation:relationship:tabularculture-tabularculture">
       <DisplayName>TabularKpi</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>TabularKpi:TabularKpi</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularkpitranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularKpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularkpitranslation">
       <DisplayName>TabularMeasure</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>TabularMeasure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure:property:description">
       <DisplayName>DisplayFolder</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>DisplayFolder</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure:property:displayfolder">
       <DisplayName>Expression</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure:property:expression">
       <DisplayName>FormatString</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>FormatString</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure:property:ishidden">
       <DisplayName>Name</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasure:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularTable</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasure">
       <DisplayName>TabularMeasureTranslation</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>TabularMeasureTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularMeasureTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Caption</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCulture</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation:relationship:tabularculture-tabularculture">
       <DisplayName>TabularMeasure</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>TabularMeasure:TabularMeasure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmeasuretranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmeasuretranslation">
       <DisplayName>TabularModel</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>TabularModel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:collation" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Collation</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>Collation</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:compatibilitylevel" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel:property:collation">
       <DisplayName>CompatibilityLevel</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>CompatibilityLevel</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel:property:compatibilitylevel">
       <DisplayName>DefaultCulture</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>DefaultCulture</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultdataview" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultculture">
       <DisplayName>DefaultDataView</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>DefaultDataView</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel:property:defaultdataview">
       <DisplayName>Description</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularmodel:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel:property:description">
       <DisplayName>Name</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularmodel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularmodel">
       <DisplayName>TabularPartition</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>TabularPartition</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPartition.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition:property:description">
       <DisplayName>Expression</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:mode" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition:property:expression">
       <DisplayName>Mode</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>Mode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition:property:mode">
       <DisplayName>Name</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:property:ordinal" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulardatasource-tabulardatasource" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularDataSource</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>TabularDataSource:TabularDataSource</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to TabularDataSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition:relationship:tabulardatasource-tabulardatasource">
       <DisplayName>TabularTable</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularpartition</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularpartition">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>TabularPerspective</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspective:property:description">
       <DisplayName>Name</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspective:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspective</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspective">
       <DisplayName>TabularPerspectiveCalculationGroup</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>TabularPerspectiveCalculationGroup</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveCalculationGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularcalculationgroup-tabularcalculationgroup" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCalculationGroup</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>TabularCalculationGroup:TabularCalculationGroup</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCalculationGroup.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup:relationship:tabularcalculationgroup-tabularcalculationgroup">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivecalculationgroup">
       <DisplayName>TabularPerspectiveColumn</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>TabularPerspectiveColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularColumn</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>TabularColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn:relationship:tabularcolumn-tabularcolumn">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivecolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivecolumn">
       <DisplayName>TabularPerspectiveHierarchy</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>TabularPerspectiveHierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularhierarchy-tabularhierarchy" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularHierarchy</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>TabularHierarchy:TabularHierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy:relationship:tabularhierarchy-tabularhierarchy">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivehierarchy">
       <DisplayName>TabularPerspectiveKpi</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>TabularPerspectiveKpi</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveKpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularkpi-tabularkpi" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularKpi</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>TabularKpi:TabularKpi</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivekpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularKpi.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivekpi:relationship:tabularkpi-tabularkpi">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivekpi</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivekpi">
       <DisplayName>TabularPerspectiveMeasure</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>TabularPerspectiveMeasure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularmeasure-tabularmeasure" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularMeasure</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>TabularMeasure:TabularMeasure</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure:relationship:tabularmeasure-tabularmeasure">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivemeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivemeasure">
       <DisplayName>TabularPerspectiveTable</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>TabularPerspectiveTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivetable:relationship:tabularperspective-tabularperspective">
       <DisplayName>TabularTable</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivetable">
       <DisplayName>TabularPerspectiveTranslation</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>TabularPerspectiveTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularPerspectiveTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Caption</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCulture</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularperspective-tabularperspective" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation:relationship:tabularculture-tabularculture">
       <DisplayName>TabularPerspective</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>TabularPerspective:TabularPerspective</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularperspectivetranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularPerspective.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularperspectivetranslation">
       <DisplayName>TabularRelationship</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>TabularRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Cardinality</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>Cardinality</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:property:cardinality">
       <DisplayName>CrossFilterDirection</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>CrossFilterDirection</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:property:crossfilterdirection">
       <DisplayName>IsActive</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>IsActive</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isactive">
       <DisplayName>IsRequired</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:property:isrequired">
       <DisplayName>Name</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>FromColumn</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>FromColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromtable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromcolumn-tabularcolumn">
       <DisplayName>FromTable</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>FromTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:tocolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:fromtable-tabulartable">
       <DisplayName>ToColumn</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>ToColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:totable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship:relationship:tocolumn-tabularcolumn">
       <DisplayName>ToTable</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>ToTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrelationship">
       <DisplayName>TabularRoleFilter</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>TabularRoleFilter</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularRoleFilter.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Expression</DisplayName>
@@ -1559,8 +1418,7 @@
       <NativeId>Expression</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularSecurityRole</DisplayName>
@@ -1570,8 +1428,7 @@
       <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularSecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrolefilter:relationship:tabularsecurityrole-tabularsecurityrole">
       <DisplayName>TabularTable</DisplayName>
@@ -1581,8 +1438,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolefilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrolefilter">
       <DisplayName>TabularRoleMember</DisplayName>
@@ -1592,8 +1448,7 @@
       <NativeId>TabularRoleMember</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularRoleMember.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:property:memberid" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>MemberId</DisplayName>
@@ -1603,8 +1458,7 @@
       <NativeId>MemberId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrolemember:property:memberid">
       <DisplayName>MemberName</DisplayName>
@@ -1614,8 +1468,7 @@
       <NativeId>MemberName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularrolemember:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularSecurityRole</DisplayName>
@@ -1625,8 +1478,7 @@
       <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularrolemember</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularSecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularrolemember">
       <DisplayName>TabularSecurityRole</DisplayName>
@@ -1636,8 +1488,7 @@
       <NativeId>TabularSecurityRole</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularSecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:description" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Description</DisplayName>
@@ -1647,8 +1498,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:description">
       <DisplayName>Name</DisplayName>
@@ -1658,8 +1508,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularsecurityrole:property:name">
       <DisplayName>Permission</DisplayName>
@@ -1669,8 +1518,7 @@
       <NativeId>Permission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsecurityrole:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -1680,8 +1528,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsecurityrole</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularsecurityrole">
       <DisplayName>TabularSortByColumn</DisplayName>
@@ -1691,8 +1538,7 @@
       <NativeId>TabularSortByColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularSortByColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sortcolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>SortColumn</DisplayName>
@@ -1702,8 +1548,7 @@
       <NativeId>SortColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsortbycolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sourcecolumn-tabularcolumn" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularsortbycolumn:relationship:sortcolumn-tabularcolumn">
       <DisplayName>SourceColumn</DisplayName>
@@ -1713,8 +1558,7 @@
       <NativeId>SourceColumn:TabularColumn</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabularsortbycolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabularsortbycolumn">
       <DisplayName>TabularTable</DisplayName>
@@ -1724,8 +1568,7 @@
       <NativeId>TabularTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:datacategory" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>DataCategory</DisplayName>
@@ -1735,8 +1578,7 @@
       <NativeId>DataCategory</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartable:property:datacategory">
       <DisplayName>Description</DisplayName>
@@ -1746,8 +1588,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:ishidden" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartable:property:description">
       <DisplayName>IsHidden</DisplayName>
@@ -1757,8 +1598,7 @@
       <NativeId>IsHidden</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:property:name" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartable:property:ishidden">
       <DisplayName>Name</DisplayName>
@@ -1768,8 +1608,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartable:relationship:tabularmodel-tabularmodel" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularModel</DisplayName>
@@ -1779,8 +1618,7 @@
       <NativeId>TabularModel:TabularModel</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularModel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartable">
       <DisplayName>TabularTablePermission</DisplayName>
@@ -1790,8 +1628,7 @@
       <NativeId>TabularTablePermission</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularTablePermission.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>MetadataPermission</DisplayName>
@@ -1801,8 +1638,7 @@
       <NativeId>MetadataPermission</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabularsecurityrole-tabularsecurityrole" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularSecurityRole</DisplayName>
@@ -1812,8 +1648,7 @@
       <NativeId>TabularSecurityRole:TabularSecurityRole</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularSecurityRole.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartablepermission:relationship:tabularsecurityrole-tabularsecurityrole">
       <DisplayName>TabularTable</DisplayName>
@@ -1823,8 +1658,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartablepermission</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartablepermission">
       <DisplayName>TabularTableTranslation</DisplayName>
@@ -1834,8 +1668,7 @@
       <NativeId>TabularTableTranslation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:model:metatabular</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TabularTableTranslation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>Caption</DisplayName>
@@ -1845,8 +1678,7 @@
       <NativeId>Caption</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartabletranslation:property:caption">
       <DisplayName>Description</DisplayName>
@@ -1856,8 +1688,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabularculture-tabularculture" DocumentationSourceId="source:workspace-model:meta-tabular">
       <DisplayName>TabularCulture</DisplayName>
@@ -1867,8 +1698,7 @@
       <NativeId>TabularCulture:TabularCulture</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularCulture.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabulartable-tabulartable" DocumentationSourceId="source:workspace-model:meta-tabular" PreviousSubjectId="source:workspace-model:meta-tabular:entity:tabulartabletranslation:relationship:tabularculture-tabularculture">
       <DisplayName>TabularTable</DisplayName>
@@ -1878,8 +1708,7 @@
       <NativeId>TabularTable:TabularTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-tabular:entity:tabulartabletranslation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TabularTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

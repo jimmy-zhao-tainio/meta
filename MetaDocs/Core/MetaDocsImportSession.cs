@@ -104,8 +104,9 @@ public sealed class MetaDocsImportSession
 
         var existing = model.DocumentationSubjectList.FirstOrDefault(row =>
             string.Equals(row.Id, key, StringComparison.OrdinalIgnoreCase));
+        var resolvedSummary = ResolveSubjectSummary(existing, kind, displayName, summary);
         var hasChanged = existing is not null &&
-                         HasSubjectChanged(existing, kind, nativeKind, nativeId, displayName, displayPath, summary, parentKey);
+                         HasSubjectChanged(existing, kind, nativeKind, nativeId, displayName, displayPath, resolvedSummary, parentKey);
         var status = existing is null
             ? "New"
             : ResolveExistingStatus(existing.Status, hasChanged);
@@ -126,7 +127,7 @@ public sealed class MetaDocsImportSession
         subject.NativeId = nativeId;
         subject.DisplayName = displayName;
         subject.DisplayPath = displayPath;
-        subject.Summary = summary;
+        subject.Summary = resolvedSummary;
         subject.ParentKey = parentKey;
         subject.PreviousSubject = previousSubject;
         subject.Status = status;
@@ -371,6 +372,53 @@ public sealed class MetaDocsImportSession
         }
 
         return string.IsNullOrWhiteSpace(currentStatus) ? "Current" : currentStatus;
+    }
+
+    private static string ResolveSubjectSummary(
+        DocumentationSubject? existing,
+        string kind,
+        string displayName,
+        string importedSummary)
+    {
+        if (!string.IsNullOrWhiteSpace(importedSummary))
+        {
+            return importedSummary;
+        }
+
+        if (existing is null)
+        {
+            return string.Empty;
+        }
+
+        var existingSummary = existing.Summary ?? string.Empty;
+        return IsGeneratedPlaceholderSummary(kind, displayName, existingSummary)
+            ? string.Empty
+            : existingSummary;
+    }
+
+    private static bool IsGeneratedPlaceholderSummary(string kind, string displayName, string summary)
+    {
+        var text = summary.Trim();
+        if (string.IsNullOrWhiteSpace(text) ||
+            string.Equals(text, "Metadata workspace.", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(text, $"Model {displayName}.", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(text, $"Entity {displayName}.", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        if (string.Equals(kind, "Property", StringComparison.OrdinalIgnoreCase) &&
+            (text.StartsWith("Required ", StringComparison.OrdinalIgnoreCase) ||
+             text.StartsWith("Optional ", StringComparison.OrdinalIgnoreCase)) &&
+            text.EndsWith(" property.", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        return string.Equals(kind, "Relationship", StringComparison.OrdinalIgnoreCase) &&
+               (text.StartsWith("Required relationship to ", StringComparison.OrdinalIgnoreCase) ||
+                text.StartsWith("Optional relationship to ", StringComparison.OrdinalIgnoreCase)) &&
+               text.EndsWith(".", StringComparison.OrdinalIgnoreCase);
     }
 
     private void EnsureAlias(DocumentationSubject subject, string aliasKey, string reason)

@@ -183,7 +183,7 @@ internal static class Program
                 sourceId: Optional(invocation, "source-id"));
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             var commandCount = CountCurrentChildren(model, application, "CliCommand");
-            Presenter.WriteInfo($"Imported {application.DisplayName}: {commandCount} command(s).");
+            Presenter.WriteInfo($"Refreshed CLI docs: {application.DisplayName} ({commandCount} command(s)).");
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
         {
@@ -204,8 +204,9 @@ internal static class Program
                 Optional(invocation, "source-id"),
                 Optional(invocation, "display-name")).GetAwaiter().GetResult();
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
-            var entityCount = CountCurrentChildren(model, FindModelSubject(model, root) ?? root, "Entity");
-            Presenter.WriteInfo($"Imported {root.DisplayName}: {entityCount} entity subject(s).");
+            var modelSubject = FindModelSubject(model, root) ?? root;
+            var entityCount = CountCurrentChildren(model, modelSubject, "Entity");
+            Presenter.WriteInfo($"Refreshed model docs: {modelSubject.DisplayName} ({entityCount} entity subject(s)).");
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
         {
@@ -309,7 +310,8 @@ internal static class Program
 
             var merged = new MetaDocsSuiteMerger().MergeIntoNew(models);
             merged.SaveToXmlWorkspace(outputWorkspace);
-            Presenter.WriteInfo($"Merged {models.Count} workspace(s): {merged.DocumentationSourceList.Count} source(s).");
+            Presenter.WriteInfo($"Rebuilt suite workspace: {Path.GetFullPath(outputWorkspace)}");
+            Presenter.WriteInfo($"Included {models.Count} source workspace(s), {merged.DocumentationSourceList.Count} documentation source(s).");
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
         {

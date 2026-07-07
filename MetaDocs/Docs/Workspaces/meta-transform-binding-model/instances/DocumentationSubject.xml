@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaTransform\Binding\Workspaces\MetaTransformBinding</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:model:metatransformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaTransformBinding</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaTransformBinding</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaTransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Column</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>Column</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Column.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Name</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Rowset</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>Rowset:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column">
       <DisplayName>ColumnReference</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>ColumnReference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ColumnReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:property:metatransformscriptcolumnreferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaTransformScriptColumnReferenceId</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>MetaTransformScriptColumnReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Column</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Column:Column</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Column.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column">
       <DisplayName>TableSource</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>TableSource:TableSource</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TableSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource">
       <DisplayName>TransformBinding</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
       <DisplayName>OutputRowset</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>OutputRowset</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity OutputRowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Rowset</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>Rowset:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:outputrowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset">
       <DisplayName>TransformBinding</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:outputrowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset">
       <DisplayName>Rowset</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>Rowset</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>DerivationKind</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>DerivationKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind">
       <DisplayName>Name</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:name">
       <DisplayName>SqlIdentifier</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>SqlIdentifier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>TransformBinding</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset">
       <DisplayName>SourceTarget</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>SourceTarget</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SourceTarget.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>InputRole</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>InputRole</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole">
       <DisplayName>Ordinal</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Source</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>Source:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:target-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset">
       <DisplayName>Target</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>Target:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
       <DisplayName>TableSource</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>TableSource</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableSource.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>ExposedName</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>ExposedName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:metatransformscripttablereferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname">
       <DisplayName>MetaTransformScriptTableReferenceId</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>MetaTransformScriptTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Rowset</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>Rowset:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset">
       <DisplayName>TransformBinding</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
       <DisplayName>TransformBinding</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>TransformBinding</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaTransformScriptTransformScriptId</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>MetaTransformScriptTransformScriptId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid">
       <DisplayName>TransformScriptName</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>TransformScriptName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding">
       <DisplayName>TransformBindingTarget</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>TransformBindingTarget</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TransformBindingTarget.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>SqlIdentifier</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>SqlIdentifier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbindingtarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>TransformBinding</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbindingtarget</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
       <DisplayName>Validation</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>Validation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Validation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>TransformBinding</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>TransformBinding:TransformBinding</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBinding.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validation">
       <DisplayName>ValidationSourceColumnLink</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>ValidationSourceColumnLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationSourceColumnLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaSchemaFieldId</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>MetaSchemaFieldId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Column</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Column:Column</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Column.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:validationsourcerowsetlink-validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column">
       <DisplayName>ValidationSourceRowsetLink</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>ValidationSourceRowsetLink:ValidationSourceRowsetLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationSourceRowsetLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink">
       <DisplayName>ValidationSourceRowsetLink</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>ValidationSourceRowsetLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationSourceRowsetLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaSchemaTableId</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>MetaSchemaTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Rowset</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>Rowset:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset">
       <DisplayName>Validation</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>Validation:Validation</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Validation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>ValidationTargetColumnLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetColumnLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaSchemaFieldId</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>MetaSchemaFieldId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Column</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Column:Column</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Column.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationTargetRowsetLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink">
       <DisplayName>ValidationTargetColumnTypeExact</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>ValidationTargetColumnTypeExact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetColumnTypeExact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>SourceMetaDataTypeId</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>SourceMetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>TargetMetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationTargetColumnLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
       <DisplayName>ValidationTargetColumnTypeNotClassified</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>ValidationTargetColumnTypeNotClassified</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetColumnTypeNotClassified.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>TargetMetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationTargetColumnLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
       <DisplayName>ValidationTargetColumnTypeSanctionedConversion</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>ValidationTargetColumnTypeSanctionedConversion</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetColumnTypeSanctionedConversion.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>SourceMetaDataTypeId</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>SourceMetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>TargetMetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationTargetColumnLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion">
       <DisplayName>ValidationTargetIgnoredColumn</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>ValidationTargetIgnoredColumn</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetIgnoredColumn.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaSchemaFieldId</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>MetaSchemaFieldId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ValidationTargetRowsetLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>ValidationTargetRowsetLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ValidationTargetRowsetLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>MetaSchemaTableId</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>MetaSchemaTableId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
       <DisplayName>Rowset</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>Rowset:Rowset</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Rowset.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset">
       <DisplayName>TransformBindingTarget</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>TransformBindingTarget:TransformBindingTarget</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TransformBindingTarget.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget">
       <DisplayName>Validation</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>Validation:Validation</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Validation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

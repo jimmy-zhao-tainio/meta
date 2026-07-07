@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataTypeConversion\Workspace</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
       <DisplayName>MetaDataTypeConversion</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaDataTypeConversion</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaDataTypeConversion.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
       <DisplayName>ConversionImplementation</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>ConversionImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ConversionImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
       <DisplayName>Description</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:name" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description">
       <DisplayName>Name</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation">
       <DisplayName>DataTypeMapping</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>DataTypeMapping</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataTypeMapping.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
       <DisplayName>Notes</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>Notes</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes">
       <DisplayName>SourceDataTypeId</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>SourceDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:targetdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid">
       <DisplayName>TargetDataTypeId</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>TargetDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:relationship:conversionimplementation-conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
       <DisplayName>ConversionImplementation</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>ConversionImplementation:ConversionImplementation</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to ConversionImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

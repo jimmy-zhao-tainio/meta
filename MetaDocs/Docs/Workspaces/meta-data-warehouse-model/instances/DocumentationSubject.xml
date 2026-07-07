@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataWarehouse\Workspaces\MetaDataWarehouse</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:model:metadatawarehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>MetaDataWarehouse</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaDataWarehouse</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaDataWarehouse.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>AccumulatingSnapshotFact</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>AccumulatingSnapshotFact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AccumulatingSnapshotFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotfact">
       <DisplayName>AccumulatingSnapshotMilestone</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>AccumulatingSnapshotMilestone</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AccumulatingSnapshotMilestone.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:daterolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DateRoleName</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>DateRoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:daterolename">
       <DisplayName>Description</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:description">
       <DisplayName>Name</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone:relationship:accumulatingsnapshotfact-accumulatingsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>AccumulatingSnapshotFact</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>AccumulatingSnapshotFact:AccumulatingSnapshotFact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to AccumulatingSnapshotFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:accumulatingsnapshotmilestone">
       <DisplayName>AggregateFact</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>AggregateFact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AggregateFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>AggregatedFact</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>AggregatedFact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:sourcefact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:aggregatefact:relationship:aggregatedfact-fact">
       <DisplayName>SourceFact</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>SourceFact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:aggregatefact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:aggregatefact">
       <DisplayName>BridgeParticipant</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>BridgeParticipant</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BridgeParticipant.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>IsRequired</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:isrequired">
       <DisplayName>Ordinal</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:property:ordinal">
       <DisplayName>RoleName</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>BridgeTable</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>BridgeTable:BridgeTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to BridgeTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant:relationship:bridgetable-bridgetable">
       <DisplayName>Dimension</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeparticipant</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeparticipant">
       <DisplayName>BridgeTable</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>BridgeTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BridgeTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgetable:property:description">
       <DisplayName>Name</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgetable:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Warehouse</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>Warehouse:Warehouse</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Warehouse.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgetable">
       <DisplayName>BridgeWeight</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>BridgeWeight</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BridgeWeight.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DataTypeId</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeweight:property:description">
       <DisplayName>Name</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:bridgeweight:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>BridgeTable</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>BridgeTable:BridgeTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:bridgeweight</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to BridgeTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:bridgeweight">
       <DisplayName>ConformedDimension</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>ConformedDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ConformedDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:conformancename" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>ConformanceName</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>ConformanceName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:conformeddimension:property:conformancename">
       <DisplayName>Description</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:conformeddimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:conformeddimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:conformeddimension">
       <DisplayName>DegenerateDimension</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>DegenerateDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DegenerateDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DataTypeId</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:description">
       <DisplayName>Name</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:degeneratedimension:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:degeneratedimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:degeneratedimension">
       <DisplayName>Dimension</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>Dimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimension:property:description">
       <DisplayName>Name</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimension:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Warehouse</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>Warehouse:Warehouse</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Warehouse.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimension">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>DimensionAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DataTypeId</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:description">
       <DisplayName>IsNullable</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:isnullable">
       <DisplayName>Name</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionattribute:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionattribute">
       <DisplayName>DimensionBusinessKey</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>DimensionBusinessKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionBusinessKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:property:description">
       <DisplayName>Name</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskey">
       <DisplayName>DimensionBusinessKeyPart</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>DimensionBusinessKeyPart</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionBusinessKeyPart.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Ordinal</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionbusinesskey-dimensionbusinesskey" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>DimensionBusinessKey</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>DimensionBusinessKey:DimensionBusinessKey</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionBusinessKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionbusinesskeypart">
       <DisplayName>DimensionHierarchy</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>DimensionHierarchy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:property:description">
       <DisplayName>Name</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchy">
       <DisplayName>DimensionHierarchyLevel</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>DimensionHierarchyLevel</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionHierarchyLevel.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Name</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionhierarchy-dimensionhierarchy" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>DimensionHierarchy</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>DimensionHierarchy:DimensionHierarchy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionHierarchy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:dimensionhierarchylevel">
       <DisplayName>Fact</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>Fact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:fact:property:description">
       <DisplayName>Name</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:fact:relationship:warehouse-warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Warehouse</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>Warehouse:Warehouse</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:fact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Warehouse.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:fact">
       <DisplayName>FactBridge</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>FactBridge</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactBridge.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factbridge:property:description">
       <DisplayName>Ordinal</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factbridge:property:ordinal">
       <DisplayName>RoleName</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>BridgeTable</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>BridgeTable:BridgeTable</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to BridgeTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factbridge:relationship:bridgetable-bridgetable">
       <DisplayName>Fact</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factbridge</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factbridge">
       <DisplayName>FactDimension</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>FactDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factdimension:property:description">
       <DisplayName>IsRequired</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factdimension:property:isrequired">
       <DisplayName>Ordinal</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factdimension:property:ordinal">
       <DisplayName>RoleName</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factdimension:relationship:dimension-dimension">
       <DisplayName>Fact</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factdimension">
       <DisplayName>FactGrain</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>FactGrain</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactGrain.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factgrain:property:description">
       <DisplayName>Name</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factgrain:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factgrain</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factgrain">
       <DisplayName>FactlessFact</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>FactlessFact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactlessFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factlessfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factlessfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factlessfact">
       <DisplayName>FactMeasure</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>FactMeasure</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactMeasure.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DataTypeId</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:datatypeid">
       <DisplayName>Description</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:description">
       <DisplayName>IsNullable</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:isnullable">
       <DisplayName>Name</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factmeasure:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:factmeasure:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:factmeasure</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:factmeasure">
       <DisplayName>JunkDimension</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>JunkDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JunkDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:junkdimension">
       <DisplayName>JunkDimensionComponent</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>JunkDimensionComponent</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JunkDimensionComponent.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:property:description">
       <DisplayName>Ordinal</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:junkdimension-junkdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>JunkDimension</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>JunkDimension:JunkDimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JunkDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:junkdimensioncomponent">
       <DisplayName>MiniDimension</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>MiniDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MiniDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:minidimension:property:description">
       <DisplayName>RoleName</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>ProfileDimension</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>ProfileDimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:sourcedimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:minidimension:relationship:profiledimension-dimension">
       <DisplayName>SourceDimension</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>SourceDimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:minidimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:minidimension">
       <DisplayName>OutriggerDimension</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>OutriggerDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity OutriggerDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:isrequired" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:description">
       <DisplayName>IsRequired</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>IsRequired</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:isrequired">
       <DisplayName>Ordinal</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:rolename" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:property:ordinal">
       <DisplayName>RoleName</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>RoleName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>ChildDimension</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>ChildDimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:parentdimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:outriggerdimension:relationship:childdimension-dimension">
       <DisplayName>ParentDimension</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>ParentDimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:outriggerdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:outriggerdimension">
       <DisplayName>PeriodicSnapshotFact</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>PeriodicSnapshotFact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PeriodicSnapshotFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:periodname" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:property:description">
       <DisplayName>PeriodName</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>PeriodName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:periodicsnapshotfact">
       <DisplayName>SlowlyChangingDimension</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>SlowlyChangingDimension</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SlowlyChangingDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:property:description">
       <DisplayName>Name</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension:relationship:dimension-dimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Dimension</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>Dimension:Dimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Dimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:slowlychangingdimension">
       <DisplayName>TransactionFact</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>TransactionFact</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TransactionFact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:transactionfact:relationship:fact-fact" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Fact</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>Fact:Fact</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:transactionfact</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Fact.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:transactionfact">
       <DisplayName>Type1DimensionAttribute</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>Type1DimensionAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Type1DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>SlowlyChangingDimension</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>SlowlyChangingDimension:SlowlyChangingDimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SlowlyChangingDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:type1dimensionattribute">
       <DisplayName>Type2DimensionAttribute</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>Type2DimensionAttribute</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Type2DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>DimensionAttribute</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>DimensionAttribute:DimensionAttribute</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DimensionAttribute.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:slowlychangingdimension-slowlychangingdimension" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute:relationship:dimensionattribute-dimensionattribute">
       <DisplayName>SlowlyChangingDimension</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>SlowlyChangingDimension:SlowlyChangingDimension</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to SlowlyChangingDimension.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:type2dimensionattribute">
       <DisplayName>Warehouse</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>Warehouse</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Warehouse.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse:property:description" DocumentationSourceId="source:workspace-model:meta-data-warehouse">
       <DisplayName>Description</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse:entity:warehouse:property:name" DocumentationSourceId="source:workspace-model:meta-data-warehouse" PreviousSubjectId="source:workspace-model:meta-data-warehouse:entity:warehouse:property:description">
       <DisplayName>Name</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse:entity:warehouse</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

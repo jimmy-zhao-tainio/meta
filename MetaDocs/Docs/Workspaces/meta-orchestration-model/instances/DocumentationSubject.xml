@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaOrchestration\Workspaces\MetaOrchestration</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:model:metaorchestration" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>MetaOrchestration</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaOrchestration</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaOrchestration.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>DataObject</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:property:normalizedkey" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>NormalizedKey</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>NormalizedKey</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dataobject:property:normalizedkey">
       <DisplayName>SqlIdentifier</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>SqlIdentifier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dataobject:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dataobject</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dataobject">
       <DisplayName>DependencyIssue</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>DependencyIssue</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DependencyIssue.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksautomaticrunplanning" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>BlocksAutomaticRunPlanning</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>BlocksAutomaticRunPlanning</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksautomaticrunplanning">
       <DisplayName>BlocksDag</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>BlocksDag</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:code" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:blocksdag">
       <DisplayName>Code</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Code</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:code">
       <DisplayName>IssueDomain</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>IssueDomain</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:message" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:issuedomain">
       <DisplayName>Message</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>Message</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:property:severity" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:property:message">
       <DisplayName>Severity</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>Severity</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue:relationship:dataobject-dataobject">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissue</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissue">
       <DisplayName>DependencyIssuePipeline</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>DependencyIssuePipeline</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DependencyIssuePipeline.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:property:role" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Role</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>Role</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyIssue</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DependencyIssue.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline:relationship:dependencyissue-dependencyissue">
       <DisplayName>PipelineReference</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:dependencyissuepipeline</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:dependencyissuepipeline">
       <DisplayName>LockCompatibilityPolicy</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>LockCompatibilityPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity LockCompatibilityPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lefteffect" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>LeftEffect</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>LeftEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lefteffect">
       <DisplayName>LockBehavior</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>LockBehavior</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:lockbehavior">
       <DisplayName>PolicyKind</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>PolicyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:policykind">
       <DisplayName>Reason</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:reason">
       <DisplayName>RightEffect</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>RightEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:property:righteffect">
       <DisplayName>Status</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dataobject-dataobject">
       <DisplayName>DependencyIssue</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DependencyIssue.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy:relationship:dependencyissue-dependencyissue">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:lockcompatibilitypolicy">
       <DisplayName>ObjectAccess</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>ObjectAccess</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ObjectAccess.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:accesskind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessKind</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>AccessKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:accesskind">
       <DisplayName>AccessRole</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>AccessRole</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:accessrole">
       <DisplayName>OperationKind</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>OperationKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:operationkind">
       <DisplayName>Ordinal</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:property:ordinal">
       <DisplayName>Reason</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess:relationship:dataobject-dataobject">
       <DisplayName>TaskAccessProfile</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:objectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:objectaccess">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>OrchestrationPlan</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:dagstatus" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DagStatus</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>DagStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:dagstatus">
       <DisplayName>Description</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:description">
       <DisplayName>DeterminismStatus</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>DeterminismStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:determinismstatus">
       <DisplayName>Name</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:synchronizationstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan:property:name">
       <DisplayName>SynchronizationStatus</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>SynchronizationStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:orchestrationplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:orchestrationplan">
       <DisplayName>PipelineDependency</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>PipelineDependency</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PipelineDependency.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:dependencykind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyKind</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>DependencyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:property:dependencykind">
       <DisplayName>Reason</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Predecessor:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:successor-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency:relationship:predecessor-pipelinereference">
       <DisplayName>Successor</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>Successor:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinedependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinedependency">
       <DisplayName>PipelineObjectAccess</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>PipelineObjectAccess</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PipelineObjectAccess.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:accesskind" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessKind</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>AccessKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:property:accesskind">
       <DisplayName>Reason</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess:relationship:dataobject-dataobject">
       <DisplayName>PipelineReference</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelineobjectaccess</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelineobjectaccess">
       <DisplayName>PipelineReference</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>PipelineReference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:metapipelinepipelineid" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>MetaPipelinePipelineId</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>MetaPipelinePipelineId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference:property:metapipelinepipelineid">
       <DisplayName>Name</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:property:pipelineworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference:property:name">
       <DisplayName>PipelineWorkspacePath</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>PipelineWorkspacePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:pipelinereference:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:pipelinereference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:pipelinereference">
       <DisplayName>PlannedTask</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>PlannedTask</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PlannedTask.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Ordinal</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:property:ordinal">
       <DisplayName>Reason</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PipelineReference</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:pipelinereference-pipelinereference">
       <DisplayName>RunPlan</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>RunPlan:RunPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to RunPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask:relationship:runplan-runplan">
       <DisplayName>TaskAccessProfile</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtask</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtask">
       <DisplayName>PlannedTaskLock</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>PlannedTaskLock</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PlannedTaskLock.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:lockmode" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>LockMode</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>LockMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:property:lockmode">
       <DisplayName>Reason</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:dataobject-dataobject">
       <DisplayName>LockCompatibilityPolicy</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>LockCompatibilityPolicy:LockCompatibilityPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to LockCompatibilityPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:lockcompatibilitypolicy-lockcompatibilitypolicy">
       <DisplayName>PlannedTask</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>PlannedTask:PlannedTask</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PlannedTask.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:taskobjecteffect-taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock:relationship:plannedtask-plannedtask">
       <DisplayName>TaskObjectEffect</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>TaskObjectEffect:TaskObjectEffect</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:plannedtasklock</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskObjectEffect.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:plannedtasklock">
       <DisplayName>RetryPolicy</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>RetryPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RetryPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:backoffmultiplier" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>BackoffMultiplier</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>BackoffMultiplier</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:backoffmultiplier">
       <DisplayName>InitialDelayMilliseconds</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>InitialDelayMilliseconds</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:initialdelaymilliseconds">
       <DisplayName>MaxAttempts</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>MaxAttempts</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxattempts">
       <DisplayName>MaxDelayMilliseconds</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>MaxDelayMilliseconds</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:maxdelaymilliseconds">
       <DisplayName>Name</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:name">
       <DisplayName>PolicyKind</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>PolicyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:policykind">
       <DisplayName>Reason</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:reason">
       <DisplayName>RetryReadOnlyTasksByDefault</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>RetryReadOnlyTasksByDefault</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retryreadonlytasksbydefault">
       <DisplayName>RetryWriteTasksByDefault</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>RetryWriteTasksByDefault</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy:property:retrywritetasksbydefault">
       <DisplayName>Status</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicy:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicy">
       <DisplayName>RetryPolicyFailureClass</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>RetryPolicyFailureClass</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RetryPolicyFailureClass.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:failureclass" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>FailureClass</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>FailureClass</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:failureclass">
       <DisplayName>Reason</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:retrybehavior" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:property:reason">
       <DisplayName>RetryBehavior</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>RetryBehavior</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass:relationship:retrypolicy-retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>RetryPolicy</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>RetryPolicy:RetryPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to RetryPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:retrypolicyfailureclass">
       <DisplayName>RunPlan</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>RunPlan</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RunPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>Name</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan:property:name">
       <DisplayName>Reason</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:property:runplanstatus" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan:property:reason">
       <DisplayName>RunPlanStatus</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>RunPlanStatus</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplan:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplan">
       <DisplayName>RunPlanRetryPolicy</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>RunPlanRetryPolicy</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity RunPlanRetryPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:policyrole" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PolicyRole</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>PolicyRole</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:property:policyrole">
       <DisplayName>Reason</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:retrypolicy-retrypolicy" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>RetryPolicy</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>RetryPolicy:RetryPolicy</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to RetryPolicy.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:runplan-runplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy:relationship:retrypolicy-retrypolicy">
       <DisplayName>RunPlan</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>RunPlan:RunPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:runplanretrypolicy</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to RunPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:runplanretrypolicy">
       <DisplayName>TaskAccessProfile</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>TaskAccessProfile</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:bindingworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>BindingWorkspacePath</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>BindingWorkspacePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:bindingworkspacepath">
       <DisplayName>MetaPipelinePipelineTaskId</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>MetaPipelinePipelineTaskId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:metapipelinepipelinetaskid">
       <DisplayName>Ordinal</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:ordinal">
       <DisplayName>StatementKind</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>StatementKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:statementkind">
       <DisplayName>TaskKind</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>TaskKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskkind">
       <DisplayName>TaskName</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>TaskName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:taskname">
       <DisplayName>TransformBindingId</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>TransformBindingId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformbindingid">
       <DisplayName>TransformScriptId</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>TransformScriptId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptid">
       <DisplayName>TransformScriptName</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>TransformScriptName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformworkspacepath" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile:property:transformscriptname">
       <DisplayName>TransformWorkspacePath</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>TransformWorkspacePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskaccessprofile:relationship:pipelinereference-pipelinereference" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>PipelineReference</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>PipelineReference:PipelineReference</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskaccessprofile</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to PipelineReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskaccessprofile">
       <DisplayName>TaskDependency</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>TaskDependency</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TaskDependency.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencycondition" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyCondition</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>DependencyCondition</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencycondition">
       <DisplayName>DependencyKind</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>DependencyKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:property:dependencykind">
       <DisplayName>Reason</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:dataobject-dataobject">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>Predecessor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency:relationship:predecessor-taskaccessprofile">
       <DisplayName>Successor</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>Successor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskdependency</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskdependency">
       <DisplayName>TaskObjectEffect</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>TaskObjectEffect</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TaskObjectEffect.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accessdirection" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>AccessDirection</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>AccessDirection</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accessdirection">
       <DisplayName>AccessPurpose</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>AccessPurpose</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:accesspurpose">
       <DisplayName>CreatesDataDependency</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>CreatesDataDependency</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:createsdatadependency">
       <DisplayName>IsPublishedProducer</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>IsPublishedProducer</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:ispublishedproducer">
       <DisplayName>LockMode</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>LockMode</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:lockmode">
       <DisplayName>Reason</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:reason">
       <DisplayName>RequiresSynchronization</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>RequiresSynchronization</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:writeeffect" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:property:requiressynchronization">
       <DisplayName>WriteEffect</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>WriteEffect</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:taskaccessprofile-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect:relationship:dataobject-dataobject">
       <DisplayName>TaskAccessProfile</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>TaskAccessProfile:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskobjecteffect</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskobjecteffect">
       <DisplayName>TaskOrderingResolution</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>TaskOrderingResolution</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:model:metaorchestration</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TaskOrderingResolution.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:dependencycondition" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DependencyCondition</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>DependencyCondition</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:dependencycondition">
       <DisplayName>Name</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:name">
       <DisplayName>Reason</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>Reason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:reason">
       <DisplayName>ResolutionKind</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>ResolutionKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:status" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:property:resolutionkind">
       <DisplayName>Status</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dataobject-dataobject" DocumentationSourceId="source:workspace-model:meta-orchestration">
       <DisplayName>DataObject</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>DataObject:DataObject</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DataObject.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dataobject-dataobject">
       <DisplayName>DependencyIssue</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>DependencyIssue:DependencyIssue</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to DependencyIssue.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:dependencyissue-dependencyissue">
       <DisplayName>OrchestrationPlan</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>OrchestrationPlan:OrchestrationPlan</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to OrchestrationPlan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:orchestrationplan-orchestrationplan">
       <DisplayName>Predecessor</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>Predecessor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:successor-taskaccessprofile" DocumentationSourceId="source:workspace-model:meta-orchestration" PreviousSubjectId="source:workspace-model:meta-orchestration:entity:taskorderingresolution:relationship:predecessor-taskaccessprofile">
       <DisplayName>Successor</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>Successor:TaskAccessProfile</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-orchestration:entity:taskorderingresolution</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TaskAccessProfile.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

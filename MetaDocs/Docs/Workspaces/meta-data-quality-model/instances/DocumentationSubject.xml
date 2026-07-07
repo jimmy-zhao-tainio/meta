@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataQuality\Workspaces\MetaDataQuality</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:model:metadataquality" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>MetaDataQuality</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaDataQuality</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaDataQuality.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusColumnEquivalence</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>CorpusColumnEquivalence</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CorpusColumnEquivalence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalsideacolumnname" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CanonicalSideAColumnName</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>CanonicalSideAColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalsidebcolumnname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalsideacolumnname">
       <DisplayName>CanonicalSideBColumnName</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>CanonicalSideBColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalundirectedsignature" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalsidebcolumnname">
       <DisplayName>CanonicalUndirectedSignature</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>CanonicalUndirectedSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:occurrencecount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:canonicalundirectedsignature">
       <DisplayName>OccurrenceCount</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>OccurrenceCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:transformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence:property:occurrencecount">
       <DisplayName>TransformCount</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>TransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalence">
       <DisplayName>CorpusColumnEquivalenceOccurrenceLink</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>CorpusColumnEquivalenceOccurrenceLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CorpusColumnEquivalenceOccurrenceLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink:relationship:corpuscolumnequivalence-corpuscolumnequivalence" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusColumnEquivalence</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>CorpusColumnEquivalence:CorpusColumnEquivalence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusColumnEquivalence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink:relationship:joinpatternoccurrence-joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink:relationship:corpuscolumnequivalence-corpuscolumnequivalence">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>JoinPatternOccurrence:JoinPatternOccurrence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpuscolumnequivalenceoccurrencelink">
       <DisplayName>CorpusRelationship</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>CorpusRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CorpusRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalsideaobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CanonicalSideAObjectName</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>CanonicalSideAObjectName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalsidebobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalsideaobjectname">
       <DisplayName>CanonicalSideBObjectName</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>CanonicalSideBObjectName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalundirectedsignature" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalsidebobjectname">
       <DisplayName>CanonicalUndirectedSignature</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>CanonicalUndirectedSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:occurrencecount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:canonicalundirectedsignature">
       <DisplayName>OccurrenceCount</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>OccurrenceCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:transformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationship:property:occurrencecount">
       <DisplayName>TransformCount</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>TransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationship">
       <DisplayName>CorpusRelationshipPattern</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:canonicalkeypartsetsignature" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CanonicalKeyPartSetSignature</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>CanonicalKeyPartSetSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:isdominant" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:canonicalkeypartsetsignature">
       <DisplayName>IsDominant</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>IsDominant</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:keypartcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:isdominant">
       <DisplayName>KeyPartCount</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>KeyPartCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:occurrencecount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:keypartcount">
       <DisplayName>OccurrenceCount</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>OccurrenceCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:occurrenceratio" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:occurrencecount">
       <DisplayName>OccurrenceRatio</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>OccurrenceRatio</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:representativedirectionalsignature" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:occurrenceratio">
       <DisplayName>RepresentativeDirectionalSignature</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>RepresentativeDirectionalSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:transformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:property:representativedirectionalsignature">
       <DisplayName>TransformCount</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>TransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern:relationship:corpusrelationship-corpusrelationship" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusRelationship</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>CorpusRelationship:CorpusRelationship</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippattern">
       <DisplayName>CorpusRelationshipPatternOccurrenceLink</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>CorpusRelationshipPatternOccurrenceLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity CorpusRelationshipPatternOccurrenceLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink:relationship:corpusrelationshippattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusRelationshipPattern</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>CorpusRelationshipPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink:relationship:joinpatternoccurrence-joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink:relationship:corpusrelationshippattern-corpusrelationshippattern">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>JoinPatternOccurrence:JoinPatternOccurrence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:corpusrelationshippatternoccurrencelink">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>DataQualityCandidate</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:assumptions" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>Assumptions</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>Assumptions</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidate</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:name" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:assumptions">
       <DisplayName>Name</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidate</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:rationale" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:name">
       <DisplayName>Rationale</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>Rationale</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidate</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:sqltemplate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:rationale">
       <DisplayName>SqlTemplate</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>SqlTemplate</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidate</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:status" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidate:property:sqltemplate">
       <DisplayName>Status</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>Status</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidate</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidate">
       <DisplayName>DataQualityCandidateEvidence</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>DataQualityCandidateEvidence</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataQualityCandidateEvidence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:confidenceband" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>ConfidenceBand</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>ConfidenceBand</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:confidencereason" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:confidenceband">
       <DisplayName>ConfidenceReason</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>ConfidenceReason</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:consensusratio" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:confidencereason">
       <DisplayName>ConsensusRatio</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>ConsensusRatio</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctrelationshippatterncount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:consensusratio">
       <DisplayName>DistinctRelationshipPatternCount</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>DistinctRelationshipPatternCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctsourceobjectcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctrelationshippatterncount">
       <DisplayName>DistinctSourceObjectCount</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>DistinctSourceObjectCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctsourcetransformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctsourceobjectcount">
       <DisplayName>DistinctSourceTransformCount</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>DistinctSourceTransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distincttransformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distinctsourcetransformcount">
       <DisplayName>DistinctTransformCount</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>DistinctTransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:effectivetransformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:distincttransformcount">
       <DisplayName>EffectiveTransformCount</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>EffectiveTransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencediversitysummary" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:effectivetransformcount">
       <DisplayName>EvidenceDiversitySummary</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>EvidenceDiversitySummary</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencequality" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencediversitysummary">
       <DisplayName>EvidenceQuality</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>EvidenceQuality</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencetype" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencequality">
       <DisplayName>EvidenceType</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>EvidenceType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:explanation" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:evidencetype">
       <DisplayName>Explanation</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>Explanation</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:occurrencecount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:explanation">
       <DisplayName>OccurrenceCount</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>OccurrenceCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:outlierratio" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:occurrencecount">
       <DisplayName>OutlierRatio</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>OutlierRatio</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:transformcount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:property:outlierratio">
       <DisplayName>TransformCount</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>TransformCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:relationship:corpusrelationship-corpusrelationship" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusRelationship</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>CorpusRelationship:CorpusRelationship</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:relationship:corpusrelationshippattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:relationship:corpusrelationship-corpusrelationship">
       <DisplayName>CorpusRelationshipPattern</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>CorpusRelationshipPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence:relationship:corpusrelationshippattern-corpusrelationshippattern">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidateevidence">
       <DisplayName>DataQualityCandidateJoinPatternLink</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>DataQualityCandidateJoinPatternLink</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DataQualityCandidateJoinPatternLink.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink:relationship:joinpattern-joinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>JoinPattern</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>JoinPattern:JoinPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:filterpredicateobservation" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:dataqualitycandidatejoinpatternlink">
       <DisplayName>FilterPredicateObservation</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>FilterPredicateObservation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FilterPredicateObservation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:property:baseobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>BaseObjectName</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>BaseObjectName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:filterpredicateobservation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:property:predicatedisplay" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:property:baseobjectname">
       <DisplayName>PredicateDisplay</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>PredicateDisplay</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:filterpredicateobservation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:property:predicatesignature" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:property:predicatedisplay">
       <DisplayName>PredicateSignature</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>PredicateSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:filterpredicateobservation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:filterpredicateobservation:relationship:joinpatternoccurrence-joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>JoinPatternOccurrence:JoinPatternOccurrence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:filterpredicateobservation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:filterpredicateobservation">
       <DisplayName>ImpliedForeignKeyMissingReference</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>ImpliedForeignKeyMissingReference</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ImpliedForeignKeyMissingReference.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedforeignkeymissingreference">
       <DisplayName>ImpliedJoinFanoutRisk</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>ImpliedJoinFanoutRisk</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ImpliedJoinFanoutRisk.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedjoinfanoutrisk">
       <DisplayName>ImpliedOutputDuplicateRisk</DisplayName>
@@ -756,8 +688,7 @@
       <NativeId>ImpliedOutputDuplicateRisk</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ImpliedOutputDuplicateRisk.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -767,8 +698,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -778,8 +708,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:impliedoutputduplicaterisk">
       <DisplayName>ImpliedUniqueKeyViolation</DisplayName>
@@ -789,8 +718,7 @@
       <NativeId>ImpliedUniqueKeyViolation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity ImpliedUniqueKeyViolation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -800,8 +728,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -811,8 +738,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:incompletecompositejoin" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:implieduniquekeyviolation">
       <DisplayName>IncompleteCompositeJoin</DisplayName>
@@ -822,8 +748,7 @@
       <NativeId>IncompleteCompositeJoin</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity IncompleteCompositeJoin.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:incompletecompositejoin:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -833,8 +758,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:incompletecompositejoin</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:incompletecompositejoin:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:incompletecompositejoin:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -844,8 +768,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:incompletecompositejoin</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:incompletecompositejoin:relationship:outlierpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:incompletecompositejoin:relationship:dominantpattern-corpusrelationshippattern">
       <DisplayName>OutlierPattern</DisplayName>
@@ -855,8 +778,7 @@
       <NativeId>OutlierPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:incompletecompositejoin</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:incompletecompositejoin">
       <DisplayName>InnerJoinAgainstUsuallyOptionalRelationship</DisplayName>
@@ -866,8 +788,7 @@
       <NativeId>InnerJoinAgainstUsuallyOptionalRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity InnerJoinAgainstUsuallyOptionalRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship:relationship:corpusrelationshippattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusRelationshipPattern</DisplayName>
@@ -877,8 +798,7 @@
       <NativeId>CorpusRelationshipPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship:relationship:corpusrelationshippattern-corpusrelationshippattern">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -888,8 +808,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:innerjoinagainstusuallyoptionalrelationship">
       <DisplayName>JoinMultiplicityExplosion</DisplayName>
@@ -899,8 +818,7 @@
       <NativeId>JoinMultiplicityExplosion</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinMultiplicityExplosion.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion:property:equalitypredicatecount" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>EqualityPredicateCount</DisplayName>
@@ -910,8 +828,7 @@
       <NativeId>EqualityPredicateCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -921,8 +838,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinorphan" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinmultiplicityexplosion">
       <DisplayName>JoinOrphan</DisplayName>
@@ -932,8 +848,7 @@
       <NativeId>JoinOrphan</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinOrphan.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinorphan:property:equalitypredicatecount" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>EqualityPredicateCount</DisplayName>
@@ -943,8 +858,7 @@
       <NativeId>EqualityPredicateCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinorphan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinorphan:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -954,8 +868,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinorphan</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinorphan">
       <DisplayName>JoinPattern</DisplayName>
@@ -965,8 +878,7 @@
       <NativeId>JoinPattern</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpattern:property:canonicalsignature" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CanonicalSignature</DisplayName>
@@ -976,8 +888,7 @@
       <NativeId>CanonicalSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpattern:property:containsequalitypredicate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpattern:property:canonicalsignature">
       <DisplayName>ContainsEqualityPredicate</DisplayName>
@@ -987,8 +898,7 @@
       <NativeId>ContainsEqualityPredicate</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpattern:property:equalitypredicatecount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpattern:property:containsequalitypredicate">
       <DisplayName>EqualityPredicateCount</DisplayName>
@@ -998,8 +908,7 @@
       <NativeId>EqualityPredicateCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpattern:property:qualifiedjointype" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpattern:property:equalitypredicatecount">
       <DisplayName>QualifiedJoinType</DisplayName>
@@ -1009,8 +918,7 @@
       <NativeId>QualifiedJoinType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpattern">
       <DisplayName>JoinPatternKeyPart</DisplayName>
@@ -1020,8 +928,7 @@
       <NativeId>JoinPatternKeyPart</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinPatternKeyPart.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:booleancomparisonexpressionid" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>BooleanComparisonExpressionId</DisplayName>
@@ -1031,8 +938,7 @@
       <NativeId>BooleanComparisonExpressionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstexpressiondisplay" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:booleancomparisonexpressionid">
       <DisplayName>FirstExpressionDisplay</DisplayName>
@@ -1042,8 +948,7 @@
       <NativeId>FirstExpressionDisplay</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstexpressionid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstexpressiondisplay">
       <DisplayName>FirstExpressionId</DisplayName>
@@ -1053,8 +958,7 @@
       <NativeId>FirstExpressionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputcolumnname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstexpressionid">
       <DisplayName>FirstJoinInputColumnName</DisplayName>
@@ -1064,8 +968,7 @@
       <NativeId>FirstJoinInputColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputcolumnname">
       <DisplayName>Ordinal</DisplayName>
@@ -1075,8 +978,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondexpressiondisplay" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:ordinal">
       <DisplayName>SecondExpressionDisplay</DisplayName>
@@ -1086,8 +988,7 @@
       <NativeId>SecondExpressionDisplay</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondexpressionid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondexpressiondisplay">
       <DisplayName>SecondExpressionId</DisplayName>
@@ -1097,8 +998,7 @@
       <NativeId>SecondExpressionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondjoininputcolumnname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondexpressionid">
       <DisplayName>SecondJoinInputColumnName</DisplayName>
@@ -1108,8 +1008,7 @@
       <NativeId>SecondJoinInputColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:relationship:joinpattern-joinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>JoinPattern</DisplayName>
@@ -1119,8 +1018,7 @@
       <NativeId>JoinPattern:JoinPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternkeypart</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -1130,8 +1028,7 @@
       <NativeId>JoinPatternOccurrence</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:cteid" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CteId</DisplayName>
@@ -1141,8 +1038,7 @@
       <NativeId>CteId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:ctename" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:cteid">
       <DisplayName>CteName</DisplayName>
@@ -1152,8 +1048,7 @@
       <NativeId>CteName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:firsttablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:ctename">
       <DisplayName>FirstTableReferenceId</DisplayName>
@@ -1163,8 +1058,7 @@
       <NativeId>FirstTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:jointablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:firsttablereferenceid">
       <DisplayName>JoinTableReferenceId</DisplayName>
@@ -1174,8 +1068,7 @@
       <NativeId>JoinTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:qualifiedjoinid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:jointablereferenceid">
       <DisplayName>QualifiedJoinId</DisplayName>
@@ -1185,8 +1078,7 @@
       <NativeId>QualifiedJoinId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:queryexpressionid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:qualifiedjoinid">
       <DisplayName>QueryExpressionId</DisplayName>
@@ -1196,8 +1088,7 @@
       <NativeId>QueryExpressionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:queryspecificationid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:queryexpressionid">
       <DisplayName>QuerySpecificationId</DisplayName>
@@ -1207,8 +1098,7 @@
       <NativeId>QuerySpecificationId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:scopepath" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:queryspecificationid">
       <DisplayName>ScopePath</DisplayName>
@@ -1218,8 +1108,7 @@
       <NativeId>ScopePath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:searchconditionbooleanexpressionid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:scopepath">
       <DisplayName>SearchConditionBooleanExpressionId</DisplayName>
@@ -1229,8 +1118,7 @@
       <NativeId>SearchConditionBooleanExpressionId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:secondtablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:searchconditionbooleanexpressionid">
       <DisplayName>SecondTableReferenceId</DisplayName>
@@ -1240,8 +1128,7 @@
       <NativeId>SecondTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:transformscriptid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:secondtablereferenceid">
       <DisplayName>TransformScriptId</DisplayName>
@@ -1251,8 +1138,7 @@
       <NativeId>TransformScriptId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:property:transformscriptid">
       <DisplayName>TransformScriptName</DisplayName>
@@ -1262,8 +1148,7 @@
       <NativeId>TransformScriptName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence:relationship:joinpattern-joinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>JoinPattern</DisplayName>
@@ -1273,8 +1158,7 @@
       <NativeId>JoinPattern:JoinPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence">
       <DisplayName>JoinPatternOccurrenceBaseTable</DisplayName>
@@ -1284,8 +1168,7 @@
       <NativeId>JoinPatternOccurrenceBaseTable</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinPatternOccurrenceBaseTable.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:basenamedtablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>BaseNamedTableReferenceId</DisplayName>
@@ -1295,8 +1178,7 @@
       <NativeId>BaseNamedTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:baseobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:basenamedtablereferenceid">
       <DisplayName>BaseObjectName</DisplayName>
@@ -1306,8 +1188,7 @@
       <NativeId>BaseObjectName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:baseschemaobjectnameid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:baseobjectname">
       <DisplayName>BaseSchemaObjectNameId</DisplayName>
@@ -1317,8 +1198,7 @@
       <NativeId>BaseSchemaObjectNameId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:basetablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:baseschemaobjectnameid">
       <DisplayName>BaseTableReferenceId</DisplayName>
@@ -1328,8 +1208,7 @@
       <NativeId>BaseTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:joininputtablereferenceid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:basetablereferenceid">
       <DisplayName>JoinInputTableReferenceId</DisplayName>
@@ -1339,8 +1218,7 @@
       <NativeId>JoinInputTableReferenceId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolutiondepth" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:joininputtablereferenceid">
       <DisplayName>ResolutionDepth</DisplayName>
@@ -1350,8 +1228,7 @@
       <NativeId>ResolutionDepth</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolutionpath" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolutiondepth">
       <DisplayName>ResolutionPath</DisplayName>
@@ -1361,8 +1238,7 @@
       <NativeId>ResolutionPath</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolvedincteid" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolutionpath">
       <DisplayName>ResolvedInCteId</DisplayName>
@@ -1372,8 +1248,7 @@
       <NativeId>ResolvedInCteId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolvedinctename" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:property:resolvedincteid">
       <DisplayName>ResolvedInCteName</DisplayName>
@@ -1383,8 +1258,7 @@
       <NativeId>ResolvedInCteName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable:relationship:joinpatternoccurrence-joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -1394,8 +1268,7 @@
       <NativeId>JoinPatternOccurrence:JoinPatternOccurrence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencebasetable">
       <DisplayName>JoinPatternOccurrenceSignal</DisplayName>
@@ -1405,8 +1278,7 @@
       <NativeId>JoinPatternOccurrenceSignal</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity JoinPatternOccurrenceSignal.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:property:explanation" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>Explanation</DisplayName>
@@ -1416,8 +1288,7 @@
       <NativeId>Explanation</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:property:signalkind" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:property:explanation">
       <DisplayName>SignalKind</DisplayName>
@@ -1427,8 +1298,7 @@
       <NativeId>SignalKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:property:sourcecandidatekind" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:property:signalkind">
       <DisplayName>SourceCandidateKind</DisplayName>
@@ -1438,8 +1308,7 @@
       <NativeId>SourceCandidateKind</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal:relationship:joinpatternoccurrence-joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>JoinPatternOccurrence</DisplayName>
@@ -1449,8 +1318,7 @@
       <NativeId>JoinPatternOccurrence:JoinPatternOccurrence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to JoinPatternOccurrence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternoccurrencesignal">
       <DisplayName>LeftJoinAgainstUsuallyMandatoryRelationship</DisplayName>
@@ -1460,8 +1328,7 @@
       <NativeId>LeftJoinAgainstUsuallyMandatoryRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity LeftJoinAgainstUsuallyMandatoryRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship:relationship:corpusrelationshippattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>CorpusRelationshipPattern</DisplayName>
@@ -1471,8 +1338,7 @@
       <NativeId>CorpusRelationshipPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship:relationship:corpusrelationshippattern-corpusrelationshippattern">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1482,8 +1348,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:leftjoinagainstusuallymandatoryrelationship">
       <DisplayName>MinorityColumnEquivalence</DisplayName>
@@ -1493,8 +1358,7 @@
       <NativeId>MinorityColumnEquivalence</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MinorityColumnEquivalence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1504,8 +1368,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence:relationship:dominantequivalence-corpuscolumnequivalence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantEquivalence</DisplayName>
@@ -1515,8 +1378,7 @@
       <NativeId>DominantEquivalence:CorpusColumnEquivalence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusColumnEquivalence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence:relationship:outlierequivalence-corpuscolumnequivalence" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence:relationship:dominantequivalence-corpuscolumnequivalence">
       <DisplayName>OutlierEquivalence</DisplayName>
@@ -1526,8 +1388,7 @@
       <NativeId>OutlierEquivalence:CorpusColumnEquivalence</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusColumnEquivalence.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minorityjoinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minoritycolumnequivalence">
       <DisplayName>MinorityJoinPattern</DisplayName>
@@ -1537,8 +1398,7 @@
       <NativeId>MinorityJoinPattern</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MinorityJoinPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minorityjoinpattern:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1548,8 +1408,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minorityjoinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minorityjoinpattern:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minorityjoinpattern:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -1559,8 +1418,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minorityjoinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:minorityjoinpattern:relationship:outlierpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minorityjoinpattern:relationship:dominantpattern-corpusrelationshippattern">
       <DisplayName>OutlierPattern</DisplayName>
@@ -1570,8 +1428,7 @@
       <NativeId>OutlierPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:minorityjoinpattern</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:minorityjoinpattern">
       <DisplayName>MissingCommonFilter</DisplayName>
@@ -1581,8 +1438,7 @@
       <NativeId>MissingCommonFilter</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity MissingCommonFilter.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:property:baseobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>BaseObjectName</DisplayName>
@@ -1592,8 +1448,7 @@
       <NativeId>BaseObjectName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:property:commonpredicatedisplay" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:missingcommonfilter:property:baseobjectname">
       <DisplayName>CommonPredicateDisplay</DisplayName>
@@ -1603,8 +1458,7 @@
       <NativeId>CommonPredicateDisplay</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:property:commonpredicatesignature" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:missingcommonfilter:property:commonpredicatedisplay">
       <DisplayName>CommonPredicateSignature</DisplayName>
@@ -1614,8 +1468,7 @@
       <NativeId>CommonPredicateSignature</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1625,8 +1478,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:missingcommonfilter:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -1636,8 +1488,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:missingcommonfilter:relationship:outlierpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:missingcommonfilter:relationship:dominantpattern-corpusrelationshippattern">
       <DisplayName>OutlierPattern</DisplayName>
@@ -1647,8 +1498,7 @@
       <NativeId>OutlierPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:missingcommonfilter</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:missingcommonfilter">
       <DisplayName>OuterJoinNullExpansion</DisplayName>
@@ -1658,8 +1508,7 @@
       <NativeId>OuterJoinNullExpansion</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity OuterJoinNullExpansion.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion:property:outerjoincount" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>OuterJoinCount</DisplayName>
@@ -1669,8 +1518,7 @@
       <NativeId>OuterJoinCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1680,8 +1528,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outputduplicaterisk" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:outerjoinnullexpansion">
       <DisplayName>OutputDuplicateRisk</DisplayName>
@@ -1691,8 +1538,7 @@
       <NativeId>OutputDuplicateRisk</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity OutputDuplicateRisk.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:property:hasdistinct" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>HasDistinct</DisplayName>
@@ -1702,8 +1548,7 @@
       <NativeId>HasDistinct</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:property:hasgroupby" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:property:hasdistinct">
       <DisplayName>HasGroupBy</DisplayName>
@@ -1713,8 +1558,7 @@
       <NativeId>HasGroupBy</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:property:qualifiedjoincount" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:property:hasgroupby">
       <DisplayName>QualifiedJoinCount</DisplayName>
@@ -1724,8 +1568,7 @@
       <NativeId>QualifiedJoinCount</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:outputduplicaterisk:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1735,8 +1578,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:outputduplicaterisk</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:outputduplicaterisk">
       <DisplayName>SuspiciousExtraJoinPredicate</DisplayName>
@@ -1746,8 +1588,7 @@
       <NativeId>SuspiciousExtraJoinPredicate</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:model:metadataquality</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SuspiciousExtraJoinPredicate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate:relationship:dataqualitycandidate-dataqualitycandidate" DocumentationSourceId="source:workspace-model:meta-data-quality">
       <DisplayName>DataQualityCandidate</DisplayName>
@@ -1757,8 +1598,7 @@
       <NativeId>DataQualityCandidate:DataQualityCandidate</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to DataQualityCandidate.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate:relationship:dominantpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate:relationship:dataqualitycandidate-dataqualitycandidate">
       <DisplayName>DominantPattern</DisplayName>
@@ -1768,8 +1608,7 @@
       <NativeId>DominantPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate:relationship:outlierpattern-corpusrelationshippattern" DocumentationSourceId="source:workspace-model:meta-data-quality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate:relationship:dominantpattern-corpusrelationshippattern">
       <DisplayName>OutlierPattern</DisplayName>
@@ -1779,8 +1618,7 @@
       <NativeId>OutlierPattern:CorpusRelationshipPattern</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-data-quality:entity:suspiciousextrajoinpredicate</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to CorpusRelationshipPattern.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

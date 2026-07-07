@@ -42,8 +42,20 @@ public sealed class MetaDocsRuntimeTests
         var commandHelp = RunCli("help import-cli");
         Assert.Equal(0, commandHelp.ExitCode);
         Assert.Contains("meta-docs import-cli", commandHelp.Output);
+        Assert.Contains("Refresh CLI reference documentation", commandHelp.Output);
+        Assert.Contains("authored descriptions", commandHelp.Output);
         Assert.Contains("--source-workspace <path>", commandHelp.Output);
         Assert.Contains("--new-workspace <path>", commandHelp.Output);
+
+        var modelImportHelp = RunCli("help import-workspace-model");
+        Assert.Equal(0, modelImportHelp.ExitCode);
+        Assert.Contains("Refresh model reference documentation", modelImportHelp.Output);
+        Assert.Contains("authored descriptions", modelImportHelp.Output);
+
+        var mergeHelp = RunCli("help merge");
+        Assert.Equal(0, mergeHelp.ExitCode);
+        Assert.Contains("Rebuild a suite workspace", mergeHelp.Output);
+        Assert.Contains("Suite workspace to rebuild", mergeHelp.Output);
 
         var searchHelp = RunCli("help search");
         Assert.Equal(0, searchHelp.ExitCode);
@@ -145,6 +157,67 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void Cli_ImportRefreshMergePreservesAuthoredModelDescriptions()
+    {
+        var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true);
+        var docsWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-source-docs-" + Guid.NewGuid().ToString("N"));
+        var suiteWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-suite-" + Guid.NewGuid().ToString("N"));
+        var siteOutput = Path.Combine(Path.GetTempPath(), "metadocs-site-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var import = RunCli(
+                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --new-workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs");
+            Assert.Equal(0, import.ExitCode);
+            Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", import.Output);
+
+            var update = RunCli(
+                $"update-description --workspace {QuoteArgument(docsWorkspace)} --model SampleModel --body-stdin",
+                standardInput: "SampleModel turns source metadata into browsable documentation.");
+            Assert.Equal(0, update.ExitCode);
+            Assert.Contains("Updated description:", update.Output);
+
+            WriteSampleModel(sourceWorkspace, includeEmail: false);
+            var refresh = RunCli(
+                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs");
+            Assert.Equal(0, refresh.ExitCode);
+            Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", refresh.Output);
+
+            var refreshedDocs = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var modelSubject = Assert.Single(refreshedDocs.DocumentationSubjectList, row =>
+                row.Kind == "Model" &&
+                row.DisplayName == "SampleModel");
+            Assert.True(string.IsNullOrEmpty(modelSubject.Summary));
+            Assert.Equal("SampleModel turns source metadata into browsable documentation.", FindNarrative(refreshedDocs, modelSubject, "Summary").Body);
+            var email = Assert.Single(refreshedDocs.DocumentationSubjectList, row =>
+                row.Kind == "Property" &&
+                row.DisplayName == "Email");
+            Assert.Equal("MissingFromSource", email.Status);
+
+            var merge = RunCli(
+                $"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
+            Assert.Equal(0, merge.ExitCode);
+            Assert.Contains("Rebuilt suite workspace:", merge.Output);
+            Assert.Contains("Included 1 source workspace(s), 1 documentation source(s).", merge.Output);
+
+            var browse = RunCli($"browse --workspace {QuoteArgument(suiteWorkspace)} model/SampleModel");
+            Assert.Equal(0, browse.ExitCode);
+            Assert.StartsWith("SampleModel turns source metadata into browsable documentation.", browse.Output, StringComparison.Ordinal);
+
+            var render = RunCli($"render-site --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(siteOutput)}");
+            Assert.Equal(0, render.ExitCode);
+            var html = File.ReadAllText(Path.Combine(siteOutput, "docs.html"));
+            Assert.Contains("SampleModel turns source metadata into browsable documentation.", html, StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(sourceWorkspace);
+            DeleteDirectoryIfExists(docsWorkspace);
+            DeleteDirectoryIfExists(suiteWorkspace);
+            DeleteDirectoryIfExists(siteOutput);
+        }
+    }
+
+    [Fact]
     public async Task Cli_BrowseNavigatesDocumentationScreensAndRecoversFromWrongGuesses()
     {
         var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-browse-" + Guid.NewGuid().ToString("N"));
@@ -232,7 +305,6 @@ public sealed class MetaDocsRuntimeTests
             AssertBrowseHasNoRouteNoise(modelPage.Output);
             AssertDoesNotStartWithSelectedRoute(modelPage.Output, "MetaDocs");
             Assert.DoesNotContain("MetaDocs is a workspace model", modelPage.Output, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("Entities:", modelPage.Output);
             Assert.Contains("DocumentationSubject", modelPage.Output);
             Assert.Contains("open: meta-docs browse model/MetaDocs/DocumentationSubject", modelPage.Output);
 
@@ -557,28 +629,34 @@ public sealed class MetaDocsRuntimeTests
                 Assert.NotNull(fact.SourceFingerprint);
                 Assert.Equal(64, fact.SourceFingerprint.Length);
             });
+
         var modelSubject = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Model");
         Assert.Equal("SampleModel", modelSubject.DisplayName);
+        Assert.Equal(string.Empty, modelSubject.Summary);
         Assert.Equal("2", FindFact(model, modelSubject, "Model", "EntityCount").Value);
 
         var customer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Entity" &&
             row.DisplayName == "Customer");
+        Assert.Equal(string.Empty, customer.Summary);
         Assert.Equal("2", FindFact(model, customer, "Model", "PropertyCount").Value);
 
         var email = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Property" &&
             row.DisplayName == "Email");
+        Assert.Equal(string.Empty, email.Summary);
         Assert.Equal("True", FindFact(model, email, "Model", "Nullable").Value);
 
         var orderCustomer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Relationship" &&
             row.DisplayName == "Customer");
+        Assert.Equal(string.Empty, orderCustomer.Summary);
         Assert.Equal("Customer", FindFact(model, orderCustomer, "Model", "TargetEntity").Value);
         Assert.Contains(model.DocumentationRelationshipList, row =>
             row.FromSubjectKey == orderCustomer.Id &&
             row.Kind == "ReferencesEntity" &&
             row.ToSubjectKey == customer.Id);
+        Assert.Empty(model.DocumentationNarrativeList);
     }
 
     [Fact]
@@ -596,6 +674,7 @@ public sealed class MetaDocsRuntimeTests
         var customer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Entity" &&
             row.DisplayName == "Customer");
+        customer.Summary = "Stored customer summary.";
         model.DocumentationNarrativeList.Add(new DocumentationNarrative
         {
             Id = $"{customer.Id}:narrative:summary:900",
@@ -619,6 +698,7 @@ public sealed class MetaDocsRuntimeTests
         customer = Assert.Single(model.DocumentationSubjectList, row =>
             row.Kind == "Entity" &&
             row.DisplayName == "Customer");
+        Assert.Equal("Stored customer summary.", customer.Summary);
         Assert.Equal("1", FindFact(model, customer, "Model", "PropertyCount").Value);
         Assert.Equal("Authored customer description.", Assert.Single(model.DocumentationNarrativeList, row =>
             row.SubjectKey == customer.Id &&
@@ -1671,6 +1751,17 @@ public sealed class MetaDocsRuntimeTests
         }
 
         return (process.ExitCode, stdoutTask.GetAwaiter().GetResult() + stderrTask.GetAwaiter().GetResult());
+    }
+
+    private static string QuoteArgument(string value) =>
+        "\"" + value.Replace("\"", "\\\"", StringComparison.Ordinal) + "\"";
+
+    private static void DeleteDirectoryIfExists(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            Directory.Delete(path, recursive: true);
+        }
     }
 
     private static void AssertBrowseHasNoRouteNoise(string output)

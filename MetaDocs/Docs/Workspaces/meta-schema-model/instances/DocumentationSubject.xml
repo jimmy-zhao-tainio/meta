@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSchema\Workspaces\MetaSchema</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:model:metaschema" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>MetaSchema</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaSchema</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaSchema.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Field</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>Field</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Field.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityincrement" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>IdentityIncrement</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>IdentityIncrement</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityseed" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityincrement">
       <DisplayName>IdentitySeed</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>IdentitySeed</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isidentity" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityseed">
       <DisplayName>IsIdentity</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>IsIdentity</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isnullable" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isidentity">
       <DisplayName>IsNullable</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:metadatatypeid" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isnullable">
       <DisplayName>MetaDataTypeId</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>MetaDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:metadatatypeid">
       <DisplayName>Name</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Table</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field">
       <DisplayName>FieldDataTypeDetail</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>FieldDataTypeDetail</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FieldDataTypeDetail.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Name</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>Value</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Field</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>Field:Field</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Field.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail">
       <DisplayName>Schema</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>Schema</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Schema.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Name</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:schema</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:relationship:system-system" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>System</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>System:System</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:schema</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to System.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:schema">
       <DisplayName>System</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>System</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity System.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:description" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Description</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>Description</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:system</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:system:property:description">
       <DisplayName>Name</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:system</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:system">
       <DisplayName>Table</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>Table</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Name</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:objecttype" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:table:property:name">
       <DisplayName>ObjectType</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>ObjectType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Schema</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>Schema:Schema</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Schema.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:table">
       <DisplayName>TableKey</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>TableKey</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:keytype" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>KeyType</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>KeyType</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey:property:keytype">
       <DisplayName>Name</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Table</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>Table:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey">
       <DisplayName>TableKeyField</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>TableKeyField</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableKeyField.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>FieldName</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>FieldName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname">
       <DisplayName>Ordinal</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Field</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>Field:Field</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Field.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:tablekey-tablekey" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field">
       <DisplayName>TableKey</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>TableKey:TableKey</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TableKey.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield">
       <DisplayName>TableRelationship</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>TableRelationship</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Name</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>Name</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>SourceTable</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>SourceTable:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:targettable-table" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table">
       <DisplayName>TargetTable</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>TargetTable:Table</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Table.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship">
       <DisplayName>TableRelationshipField</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>TableRelationshipField</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity TableRelationshipField.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>Ordinal</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field" DocumentationSourceId="source:workspace-model:meta-schema">
       <DisplayName>SourceField</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>SourceField:Field</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Field.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field">
       <DisplayName>TableRelationship</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>TableRelationship:TableRelationship</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to TableRelationship.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:targetfield-field" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship">
       <DisplayName>TargetField</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>TargetField:Field</NativeId>
       <NativeKind>GenericRelationship</NativeKind>
       <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
-      <Status>New</Status>
-      <Summary>Required relationship to Field.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

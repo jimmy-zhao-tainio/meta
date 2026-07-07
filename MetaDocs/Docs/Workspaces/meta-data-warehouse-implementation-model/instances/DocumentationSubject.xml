@@ -8,8 +8,7 @@
       <Kind>Workspace</Kind>
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataWarehouse\Workspaces\MetaDataWarehouseImplementation</NativeId>
       <NativeKind>Workspace</NativeKind>
-      <Status>New</Status>
-      <Summary>Metadata workspace.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>MetaDataWarehouseImplementation</DisplayName>
@@ -19,8 +18,7 @@
       <NativeId>MetaDataWarehouseImplementation</NativeId>
       <NativeKind>GenericModel</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model MetaDataWarehouseImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>AccumulatingSnapshotFactTableImplementation</DisplayName>
@@ -30,8 +28,7 @@
       <NativeId>AccumulatingSnapshotFactTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AccumulatingSnapshotFactTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>MilestoneDateColumnPattern</DisplayName>
@@ -41,8 +38,7 @@
       <NativeId>MilestoneDateColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatedatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation:property:milestonedatecolumnpattern">
       <DisplayName>MilestoneDateDataTypeId</DisplayName>
@@ -52,8 +48,7 @@
       <NativeId>MilestoneDateDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:accumulatingsnapshotfacttableimplementation">
       <DisplayName>AggregateFactTableImplementation</DisplayName>
@@ -63,8 +58,7 @@
       <NativeId>AggregateFactTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity AggregateFactTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>SchemaName</DisplayName>
@@ -74,8 +68,7 @@
       <NativeId>SchemaName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:sourcefactforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:schemaname">
       <DisplayName>SourceFactForeignKeyNamePattern</DisplayName>
@@ -85,8 +78,7 @@
       <NativeId>SourceFactForeignKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation:property:sourcefactforeignkeynamepattern">
       <DisplayName>TableNamePattern</DisplayName>
@@ -96,8 +88,7 @@
       <NativeId>TableNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:aggregatefacttableimplementation">
       <DisplayName>BridgeTableImplementation</DisplayName>
@@ -107,8 +98,7 @@
       <NativeId>BridgeTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity BridgeTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>ParticipantForeignKeyNamePattern</DisplayName>
@@ -118,8 +108,7 @@
       <NativeId>ParticipantForeignKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantkeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantforeignkeynamepattern">
       <DisplayName>ParticipantKeyColumnPattern</DisplayName>
@@ -129,8 +118,7 @@
       <NativeId>ParticipantKeyColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:participantkeycolumnpattern">
       <DisplayName>PrimaryKeyNamePattern</DisplayName>
@@ -140,8 +128,7 @@
       <NativeId>PrimaryKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:primarykeynamepattern">
       <DisplayName>SchemaName</DisplayName>
@@ -151,8 +138,7 @@
       <NativeId>SchemaName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:schemaname">
       <DisplayName>TableNamePattern</DisplayName>
@@ -162,8 +148,7 @@
       <NativeId>TableNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:tablenamepattern">
       <DisplayName>WeightColumnName</DisplayName>
@@ -173,8 +158,7 @@
       <NativeId>WeightColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation:property:weightcolumnname">
       <DisplayName>WeightDataTypeId</DisplayName>
@@ -184,8 +168,7 @@
       <NativeId>WeightDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:bridgetableimplementation">
       <DisplayName>DimensionTableImplementation</DisplayName>
@@ -195,8 +178,7 @@
       <NativeId>DimensionTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity DimensionTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:attributecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>AttributeColumnPattern</DisplayName>
@@ -206,8 +188,7 @@
       <NativeId>AttributeColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:businesskeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:attributecolumnpattern">
       <DisplayName>BusinessKeyColumnPattern</DisplayName>
@@ -217,8 +198,7 @@
       <NativeId>BusinessKeyColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:businesskeycolumnpattern">
       <DisplayName>PrimaryKeyNamePattern</DisplayName>
@@ -228,8 +208,7 @@
       <NativeId>PrimaryKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:primarykeynamepattern">
       <DisplayName>SchemaName</DisplayName>
@@ -239,8 +218,7 @@
       <NativeId>SchemaName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeycolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:schemaname">
       <DisplayName>SurrogateKeyColumnName</DisplayName>
@@ -250,8 +228,7 @@
       <NativeId>SurrogateKeyColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeydatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeycolumnname">
       <DisplayName>SurrogateKeyDataTypeId</DisplayName>
@@ -261,8 +238,7 @@
       <NativeId>SurrogateKeyDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation:property:surrogatekeydatatypeid">
       <DisplayName>TableNamePattern</DisplayName>
@@ -272,8 +248,7 @@
       <NativeId>TableNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:dimensiontableimplementation">
       <DisplayName>FactTableImplementation</DisplayName>
@@ -283,8 +258,7 @@
       <NativeId>FactTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity FactTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:degeneratedimensioncolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>DegenerateDimensionColumnPattern</DisplayName>
@@ -294,8 +268,7 @@
       <NativeId>DegenerateDimensionColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionforeignkeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:degeneratedimensioncolumnpattern">
       <DisplayName>DimensionForeignKeyNamePattern</DisplayName>
@@ -305,8 +278,7 @@
       <NativeId>DimensionForeignKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionkeycolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionforeignkeynamepattern">
       <DisplayName>DimensionKeyColumnPattern</DisplayName>
@@ -316,8 +288,7 @@
       <NativeId>DimensionKeyColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:measurecolumnpattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:dimensionkeycolumnpattern">
       <DisplayName>MeasureColumnPattern</DisplayName>
@@ -327,8 +298,7 @@
       <NativeId>MeasureColumnPattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:primarykeynamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:measurecolumnpattern">
       <DisplayName>PrimaryKeyNamePattern</DisplayName>
@@ -338,8 +308,7 @@
       <NativeId>PrimaryKeyNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:schemaname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:primarykeynamepattern">
       <DisplayName>SchemaName</DisplayName>
@@ -349,8 +318,7 @@
       <NativeId>SchemaName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:tablenamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation:property:schemaname">
       <DisplayName>TableNamePattern</DisplayName>
@@ -360,8 +328,7 @@
       <NativeId>TableNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:facttableimplementation">
       <DisplayName>IndexImplementation</DisplayName>
@@ -371,8 +338,7 @@
       <NativeId>IndexImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity IndexImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestobridgetables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>AppliesToBridgeTables</DisplayName>
@@ -382,8 +348,7 @@
       <NativeId>AppliesToBridgeTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestodimensiontables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestobridgetables">
       <DisplayName>AppliesToDimensionTables</DisplayName>
@@ -393,8 +358,7 @@
       <NativeId>AppliesToDimensionTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestofacttables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestodimensiontables">
       <DisplayName>AppliesToFactTables</DisplayName>
@@ -404,8 +368,7 @@
       <NativeId>AppliesToFactTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:columnnamepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:appliestofacttables">
       <DisplayName>ColumnNamePattern</DisplayName>
@@ -415,8 +378,7 @@
       <NativeId>ColumnNamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:filtersql" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:columnnamepattern">
       <DisplayName>FilterSql</DisplayName>
@@ -426,8 +388,7 @@
       <NativeId>FilterSql</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isclustered" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:filtersql">
       <DisplayName>IsClustered</DisplayName>
@@ -437,8 +398,7 @@
       <NativeId>IsClustered</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isunique" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isclustered">
       <DisplayName>IsUnique</DisplayName>
@@ -448,8 +408,7 @@
       <NativeId>IsUnique</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:namepattern" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:isunique">
       <DisplayName>NamePattern</DisplayName>
@@ -459,8 +418,7 @@
       <NativeId>NamePattern</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation:property:namepattern">
       <DisplayName>Ordinal</DisplayName>
@@ -470,8 +428,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:indeximplementation">
       <DisplayName>PeriodicSnapshotFactTableImplementation</DisplayName>
@@ -481,8 +438,7 @@
       <NativeId>PeriodicSnapshotFactTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PeriodicSnapshotFactTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:perioddatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>PeriodDataTypeId</DisplayName>
@@ -492,8 +448,7 @@
       <NativeId>PeriodDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodendcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:perioddatatypeid">
       <DisplayName>PeriodEndColumnName</DisplayName>
@@ -503,8 +458,7 @@
       <NativeId>PeriodEndColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodstartcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation:property:periodendcolumnname">
       <DisplayName>PeriodStartColumnName</DisplayName>
@@ -514,8 +468,7 @@
       <NativeId>PeriodStartColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:periodicsnapshotfacttableimplementation">
       <DisplayName>PlatformColumnImplementation</DisplayName>
@@ -525,8 +478,7 @@
       <NativeId>PlatformColumnImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity PlatformColumnImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestobridgetables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>AppliesToBridgeTables</DisplayName>
@@ -536,8 +488,7 @@
       <NativeId>AppliesToBridgeTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestodimensiontables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestobridgetables">
       <DisplayName>AppliesToDimensionTables</DisplayName>
@@ -547,8 +498,7 @@
       <NativeId>AppliesToDimensionTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestofacttables" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestodimensiontables">
       <DisplayName>AppliesToFactTables</DisplayName>
@@ -558,8 +508,7 @@
       <NativeId>AppliesToFactTables</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:columnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:appliestofacttables">
       <DisplayName>ColumnName</DisplayName>
@@ -569,8 +518,7 @@
       <NativeId>ColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:columnname">
       <DisplayName>DataTypeId</DisplayName>
@@ -580,8 +528,7 @@
       <NativeId>DataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:defaultexpressionsql" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:datatypeid">
       <DisplayName>DefaultExpressionSql</DisplayName>
@@ -591,8 +538,7 @@
       <NativeId>DefaultExpressionSql</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:isnullable" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:defaultexpressionsql">
       <DisplayName>IsNullable</DisplayName>
@@ -602,8 +548,7 @@
       <NativeId>IsNullable</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:length" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:isnullable">
       <DisplayName>Length</DisplayName>
@@ -613,8 +558,7 @@
       <NativeId>Length</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:length">
       <DisplayName>Ordinal</DisplayName>
@@ -624,8 +568,7 @@
       <NativeId>Ordinal</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:precision" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:ordinal">
       <DisplayName>Precision</DisplayName>
@@ -635,8 +578,7 @@
       <NativeId>Precision</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:scale" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation:property:precision">
       <DisplayName>Scale</DisplayName>
@@ -646,8 +588,7 @@
       <NativeId>Scale</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:platformcolumnimplementation">
       <DisplayName>SlowlyChangingDimensionTableImplementation</DisplayName>
@@ -657,8 +598,7 @@
       <NativeId>SlowlyChangingDimensionTableImplementation</NativeId>
       <NativeKind>GenericEntity</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Entity SlowlyChangingDimensionTableImplementation.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation">
       <DisplayName>CurrentFlagColumnName</DisplayName>
@@ -668,8 +608,7 @@
       <NativeId>CurrentFlagColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagcolumnname">
       <DisplayName>CurrentFlagDataTypeId</DisplayName>
@@ -679,8 +618,7 @@
       <NativeId>CurrentFlagDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:currentflagdatatypeid">
       <DisplayName>EffectiveFromColumnName</DisplayName>
@@ -690,8 +628,7 @@
       <NativeId>EffectiveFromColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromcolumnname">
       <DisplayName>EffectiveFromDataTypeId</DisplayName>
@@ -701,8 +638,7 @@
       <NativeId>EffectiveFromDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetocolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivefromdatatypeid">
       <DisplayName>EffectiveToColumnName</DisplayName>
@@ -712,8 +648,7 @@
       <NativeId>EffectiveToColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetodatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetocolumnname">
       <DisplayName>EffectiveToDataTypeId</DisplayName>
@@ -723,8 +658,7 @@
       <NativeId>EffectiveToDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Required string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffcolumnname" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:effectivetodatatypeid">
       <DisplayName>HashDiffColumnName</DisplayName>
@@ -734,8 +668,7 @@
       <NativeId>HashDiffColumnName</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-warehouse-implementation" PreviousSubjectId="source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation:property:hashdiffcolumnname">
       <DisplayName>HashDiffDataTypeId</DisplayName>
@@ -745,8 +678,7 @@
       <NativeId>HashDiffDataTypeId</NativeId>
       <NativeKind>GenericProperty</NativeKind>
       <ParentKey>source:workspace-model:meta-data-warehouse-implementation:entity:slowlychangingdimensiontableimplementation</ParentKey>
-      <Status>New</Status>
-      <Summary>Optional string property.</Summary>
+      <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>
