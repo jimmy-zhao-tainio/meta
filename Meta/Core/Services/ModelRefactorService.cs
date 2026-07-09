@@ -13,7 +13,7 @@ public readonly record struct PropertyToRelationshipRefactorOptions(
     string LookupPropertyName,
     string Role,
     bool DropSourceProperty,
-    bool RequireSourceReuse = true);
+    bool RequireSourceReuse = false);
 
 public readonly record struct PropertyToRelationshipRefactorResult(
     int RowsRewritten,
@@ -400,7 +400,8 @@ public sealed class ModelRefactorService : IModelRefactorService
             usesImplicitTargetId ? "Id" : targetLookupProperty!.Name,
             options.Role,
             options.DropSourceProperty,
-            options.RequireSourceReuse);
+            options.RequireSourceReuse,
+            allowExistingRelationship: true);
         if (relationshipAssessment.Status != LookupCandidateStatus.Eligible)
         {
             var blockerMessage = string.Join(" ", relationshipAssessment.Blockers);
@@ -418,7 +419,11 @@ public sealed class ModelRefactorService : IModelRefactorService
         {
             Entity = targetEntity.Name,
             Role = options.Role,
+            IsNullable = sourceProperty.IsNullable,
         };
+        var existingRelationship = sourceEntity.Relationships.FirstOrDefault(item =>
+            string.Equals(item.Entity, relationship.Entity, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(item.GetRoleOrDefault(), relationship.GetRoleOrDefault(), StringComparison.OrdinalIgnoreCase));
         var relationshipUsageName = relationship.GetColumnName();
         var targetLookupMap = BuildTargetLookupMap(
             workspace.Instance.GetOrCreateEntityRecords(targetEntity.Name)
@@ -435,16 +440,34 @@ public sealed class ModelRefactorService : IModelRefactorService
         foreach (var sourceRow in sourceRows)
         {
             if (!sourceRow.Values.TryGetValue(sourceProperty.Name, out var sourceLookupValue) ||
-                string.IsNullOrEmpty(sourceLookupValue))
+                string.IsNullOrWhiteSpace(sourceLookupValue))
             {
-                throw new InvalidOperationException(
-                    $"Source contains null/blank; required relationship cannot be created. ({sourceEntity.Name}.{sourceProperty.Name}, Id={sourceRow.Id})");
+                if (!sourceProperty.IsNullable)
+                {
+                    throw new InvalidOperationException(
+                        $"Source contains null/blank; required relationship cannot be created. ({sourceEntity.Name}.{sourceProperty.Name}, Id={sourceRow.Id})");
+                }
+
+                if (options.DropSourceProperty)
+                {
+                    sourceRow.Values.Remove(sourceProperty.Name);
+                }
+
+                continue;
             }
 
             if (!targetLookupMap.TryGetValue(sourceLookupValue, out var targetId))
             {
                 throw new InvalidOperationException(
                     $"Source values not fully resolvable against target key. Unmatched value: {sourceLookupValue}.");
+            }
+
+            if (sourceRow.RelationshipIds.TryGetValue(relationshipUsageName, out var existingRelationshipId) &&
+                !string.IsNullOrWhiteSpace(existingRelationshipId) &&
+                !string.Equals(existingRelationshipId, targetId, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    $"Existing relationship value conflicts with source value. ({sourceEntity.Name}.{relationshipUsageName}, Id={sourceRow.Id})");
             }
 
             sourceRow.RelationshipIds[relationshipUsageName] = targetId;
@@ -454,11 +477,19 @@ public sealed class ModelRefactorService : IModelRefactorService
             }
         }
 
-        sourceEntity.Relationships.Add(new GenericRelationship
+        if (existingRelationship == null)
         {
-            Entity = targetEntity.Name,
-            Role = options.Role,
-        });
+            sourceEntity.Relationships.Add(new GenericRelationship
+            {
+                Entity = targetEntity.Name,
+                Role = options.Role,
+                IsNullable = sourceProperty.IsNullable,
+            });
+        }
+        else
+        {
+            existingRelationship.IsNullable = sourceProperty.IsNullable;
+        }
 
         if (options.DropSourceProperty)
         {

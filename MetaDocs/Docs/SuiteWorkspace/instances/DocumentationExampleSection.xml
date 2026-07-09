@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleSectionList>
+    <DocumentationExampleSection Id="example:meta:model-suggest-promote-relationships:overview" DocumentationExampleId="example:meta:model-suggest-promote-relationships">
+      <Body>After landing CSV files as scalar Id fields, inspect deterministic relationship suggestions and promote exact Id-to-Id references into modeled relationships.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-cli:create-command-surface:overview" DocumentationExampleId="example:meta-cli:create-command-surface">
+      <Body>Start with a MetaCli workspace, add a command, mark it executable, then add the options the runtime should parse and document.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-docs:browse-suite:overview" DocumentationExampleId="example:meta-docs:browse-suite">
+      <Body>Use browse from a MetaDocs workspace to navigate CLI and model pages without remembering subject ids.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-docs:import-cli-refresh:overview" DocumentationExampleId="example:meta-docs:import-cli-refresh">
+      <Body>Refresh CLI reference rows from a MetaCli workspace. Keep the source id stable so authored descriptions and examples remain attached across future imports, and attach the imported application to a modeled parent subject.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-docs:render-public-site:overview" DocumentationExampleId="example:meta-docs:render-public-site">
+      <Body>Render a merged MetaDocs suite workspace into the static public reference page. The generated docs.html is disposable output; the authored source workspaces remain the durable documentation source.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-mesh:add-step-stdin:overview" DocumentationExampleId="example:meta-mesh:add-step-stdin">
+      <Body>Use --arguments-stdin when the child command has quoting-heavy arguments. The step remains modeled, while the argument text stays exactly as the child CLI expects it.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-mesh:run-docs-operation:overview" DocumentationExampleId="example:meta-mesh:run-docs-operation">
+      <Body>Run a modeled operation from its mesh workspace. The documentation mesh imports source workspaces, rebuilds the suite workspace, validates it, and renders the static site.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-weave:bind-and-materialize:overview" DocumentationExampleId="example:meta-weave:bind-and-materialize">
+      <Body>Reference source and target model workspaces, author explicit property bindings, validate them, then materialize a new workspace from the weave.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+  </DocumentationExampleSectionList>
+</MetaDocs>

@@ -28,6 +28,9 @@
     <OptionToken Id="token-author-page-parent" OptionId="option-author-page-parent">
       <Token>--parent</Token>
     </OptionToken>
+    <OptionToken Id="token-author-page-view-root" OptionId="option-author-page-view-root">
+      <Token>--view-root</Token>
+    </OptionToken>
     <OptionToken Id="token-author-page-slot" OptionId="option-author-page-slot">
       <Token>--slot</Token>
     </OptionToken>
@@ -103,8 +106,8 @@
     <OptionToken Id="token-import-cli-application" OptionId="option-import-cli-application">
       <Token>--application</Token>
     </OptionToken>
-    <OptionToken Id="token-import-cli-group" OptionId="option-import-cli-group">
-      <Token>--group</Token>
+    <OptionToken Id="token-import-cli-parent-subject" OptionId="option-import-cli-parent-subject">
+      <Token>--parent-subject</Token>
     </OptionToken>
     <OptionToken Id="token-import-cli-source-id" OptionId="option-import-cli-source-id">
       <Token>--source-id</Token>
@@ -120,6 +123,9 @@
     </OptionToken>
     <OptionToken Id="token-import-workspace-model-source-id" OptionId="option-import-workspace-model-source-id">
       <Token>--source-id</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-workspace-model-parent-subject" OptionId="option-import-workspace-model-parent-subject">
+      <Token>--parent-subject</Token>
     </OptionToken>
     <OptionToken Id="token-import-workspace-model-display-name" OptionId="option-import-workspace-model-display-name">
       <Token>--display-name</Token>
@@ -198,6 +204,96 @@
     </OptionToken>
     <OptionToken Id="token-render-site-out" OptionId="option-render-site-out">
       <Token>--out</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-workspace" OptionId="option-add-example-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-subject" OptionId="option-add-example-subject">
+      <Token>--subject</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-model" OptionId="option-add-example-model">
+      <Token>--model</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-cli" OptionId="option-add-example-cli">
+      <Token>--cli</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-command" OptionId="option-add-example-command">
+      <Token>--command</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-option" OptionId="option-add-example-option">
+      <Token>--option</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-id" OptionId="option-add-example-id">
+      <Token>--id</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-title" OptionId="option-add-example-title">
+      <Token>--title</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-summary" OptionId="option-add-example-summary">
+      <Token>--summary</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-id" OptionId="option-add-example-section-id">
+      <Token>--section-id</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-body" OptionId="option-add-example-body">
+      <Token>--body</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-body-stdin" OptionId="option-add-example-body-stdin">
+      <Token>--body-stdin</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-body-format" OptionId="option-add-example-body-format">
+      <Token>--body-format</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-previous-example" OptionId="option-add-example-previous-example">
+      <Token>--previous-example</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-workspace" OptionId="option-add-example-section-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-example" OptionId="option-add-example-section-example">
+      <Token>--example</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-title" OptionId="option-add-example-section-title">
+      <Token>--title</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-body" OptionId="option-add-example-section-body">
+      <Token>--body</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-body-stdin" OptionId="option-add-example-section-body-stdin">
+      <Token>--body-stdin</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-body-format" OptionId="option-add-example-section-body-format">
+      <Token>--body-format</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-previous-section" OptionId="option-add-example-section-previous-section">
+      <Token>--previous-section</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-workspace" OptionId="option-add-example-code-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-section" OptionId="option-add-example-code-section">
+      <Token>--section</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-id" OptionId="option-add-example-code-id">
+      <Token>--id</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-title" OptionId="option-add-example-code-title">
+      <Token>--title</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-language" OptionId="option-add-example-code-language">
+      <Token>--language</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-code" OptionId="option-add-example-code-code">
+      <Token>--code</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-code-stdin" OptionId="option-add-example-code-code-stdin">
+      <Token>--code-stdin</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-code-previous-code" OptionId="option-add-example-code-previous-code">
+      <Token>--previous-code</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-example-section-row-id" OptionId="option-add-example-section-row-id">
+      <Token>--id</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

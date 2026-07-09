@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="public:meta:models" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh">
+      <DisplayName>Mesh</DisplayName>
+      <DisplayPath>MetaMesh.Mesh</DisplayPath>
+      <NativeId>Mesh</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh:property:description" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:mesh">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMesh.Mesh.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh:property:name" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:mesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:mesh:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMesh.Mesh.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh:property:rootpath" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:mesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:mesh:property:name">
+      <DisplayName>RootPath</DisplayName>
+      <DisplayPath>MetaMesh.Mesh.RootPath</DisplayPath>
+      <NativeId>RootPath</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operation" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:mesh">
+      <DisplayName>Operation</DisplayName>
+      <DisplayPath>MetaMesh.Operation</DisplayPath>
+      <NativeId>Operation</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operation:property:description" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operation">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMesh.Operation.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operation:property:name" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operation" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operation:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMesh.Operation.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operation:relationship:mesh-mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:operation">
+      <DisplayName>Mesh</DisplayName>
+      <DisplayPath>MetaMesh.Operation.Mesh</DisplayPath>
+      <NativeId>Mesh:Mesh</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operation">
+      <DisplayName>OperationStep</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep</DisplayPath>
+      <NativeId>OperationStep</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:arguments" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+      <DisplayName>Arguments</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.Arguments</DisplayPath>
+      <NativeId>Arguments</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:description" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:property:arguments">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:executable" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:property:description">
+      <DisplayName>Executable</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.Executable</DisplayPath>
+      <NativeId>Executable</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:expectedexitcode" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:property:executable">
+      <DisplayName>ExpectedExitCode</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.ExpectedExitCode</DisplayPath>
+      <NativeId>ExpectedExitCode</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:name" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:property:expectedexitcode">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:property:workingdirectory" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:property:name">
+      <DisplayName>WorkingDirectory</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.WorkingDirectory</DisplayPath>
+      <NativeId>WorkingDirectory</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:relationship:operation-operation" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+      <DisplayName>Operation</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.Operation</DisplayPath>
+      <NativeId>Operation:Operation</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:operationstep:relationship:previousstep-operationstep" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:operationstep" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep:relationship:operation-operation">
+      <DisplayName>PreviousStep</DisplayName>
+      <DisplayPath>MetaMesh.OperationStep.PreviousStep</DisplayPath>
+      <NativeId>PreviousStep:OperationStep</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.Workspace</DisplayPath>
+      <NativeId>Workspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:description" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaMesh.Workspace.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:modelname" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace:property:description">
+      <DisplayName>ModelName</DisplayName>
+      <DisplayPath>MetaMesh.Workspace.ModelName</DisplayPath>
+      <NativeId>ModelName</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:name" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace:property:modelname">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaMesh.Workspace.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace:property:name">
+      <DisplayName>Path</DisplayName>
+      <DisplayPath>MetaMesh.Workspace.Path</DisplayPath>
+      <NativeId>Path</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:relationship:mesh-mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace">
+      <DisplayName>Mesh</DisplayName>
+      <DisplayPath>MetaMesh.Workspace.Mesh</DisplayPath>
+      <NativeId>Mesh:Mesh</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:model:metamesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta:models">
+      <DisplayName>MetaMesh</DisplayName>
+      <DisplayPath>MetaMesh.MetaMesh</DisplayPath>
+      <NativeId>MetaMesh</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaMesh</DisplayName>
+      <DisplayPath>MetaMesh</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta\MetaMesh\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

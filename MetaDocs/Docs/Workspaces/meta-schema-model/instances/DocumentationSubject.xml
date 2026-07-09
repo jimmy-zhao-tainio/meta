@@ -1,433 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:workspace" DocumentationSourceId="source:workspace-model:meta-schema">
-      <DisplayName>MetaSchema</DisplayName>
-      <DisplayPath>MetaSchema</DisplayPath>
-      <Key>source:workspace-model:meta-schema:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSchema\Workspaces\MetaSchema</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:model:metaschema" DocumentationSourceId="source:workspace-model:meta-schema">
-      <DisplayName>MetaSchema</DisplayName>
-      <DisplayPath>MetaSchema.MetaSchema</DisplayPath>
-      <Key>source:workspace-model:meta-schema:model:metaschema</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaSchema</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema">
       <DisplayName>Field</DisplayName>
       <DisplayPath>MetaSchema.Field</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field</Key>
-      <Kind>Entity</Kind>
       <NativeId>Field</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityincrement" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityincrement" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field">
       <DisplayName>IdentityIncrement</DisplayName>
       <DisplayPath>MetaSchema.Field.IdentityIncrement</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:identityincrement</Key>
-      <Kind>Property</Kind>
       <NativeId>IdentityIncrement</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityseed" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityincrement">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:identityseed" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityincrement">
       <DisplayName>IdentitySeed</DisplayName>
       <DisplayPath>MetaSchema.Field.IdentitySeed</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:identityseed</Key>
-      <Kind>Property</Kind>
       <NativeId>IdentitySeed</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isidentity" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityseed">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isidentity" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:identityseed">
       <DisplayName>IsIdentity</DisplayName>
       <DisplayPath>MetaSchema.Field.IsIdentity</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:isidentity</Key>
-      <Kind>Property</Kind>
       <NativeId>IsIdentity</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isnullable" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isidentity">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:isnullable" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isidentity">
       <DisplayName>IsNullable</DisplayName>
       <DisplayPath>MetaSchema.Field.IsNullable</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:isnullable</Key>
-      <Kind>Property</Kind>
       <NativeId>IsNullable</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:metadatatypeid" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isnullable">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:metadatatypeid" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:isnullable">
       <DisplayName>MetaDataTypeId</DisplayName>
       <DisplayPath>MetaSchema.Field.MetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:metadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:metadatatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:metadatatypeid">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.Field.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:field" PreviousSubjectId="source:workspace-model:meta-schema:entity:field:property:name">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaSchema.Field.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:field:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:field">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaSchema.Field.Table</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:field:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:field</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:field">
       <DisplayName>FieldDataTypeDetail</DisplayName>
       <DisplayPath>MetaSchema.FieldDataTypeDetail</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:fielddatatypedetail</Key>
-      <Kind>Entity</Kind>
       <NativeId>FieldDataTypeDetail</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.FieldDataTypeDetail.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
       <DisplayPath>MetaSchema.FieldDataTypeDetail.Value</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:fielddatatypedetail:property:value</Key>
-      <Kind>Property</Kind>
       <NativeId>Value</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:fielddatatypedetail:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail">
       <DisplayName>Field</DisplayName>
       <DisplayPath>MetaSchema.FieldDataTypeDetail.Field</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:fielddatatypedetail:relationship:field-field</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Field:Field</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:fielddatatypedetail</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:fielddatatypedetail">
       <DisplayName>Schema</DisplayName>
       <DisplayPath>MetaSchema.Schema</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:schema</Key>
-      <Kind>Entity</Kind>
       <NativeId>Schema</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:schema">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.Schema.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:schema:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:schema</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:relationship:system-system" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:schema:relationship:system-system" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:schema">
       <DisplayName>System</DisplayName>
       <DisplayPath>MetaSchema.Schema.System</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:schema:relationship:system-system</Key>
-      <Kind>Relationship</Kind>
       <NativeId>System:System</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:schema</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:schema">
       <DisplayName>System</DisplayName>
       <DisplayPath>MetaSchema.System</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:system</Key>
-      <Kind>Entity</Kind>
       <NativeId>System</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:description" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:description" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:system">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaSchema.System.Description</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:system:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:system</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:system:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:system:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:system" PreviousSubjectId="source:workspace-model:meta-schema:entity:system:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.System.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:system:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:system</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:system">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:system">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaSchema.Table</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:table</Key>
-      <Kind>Entity</Kind>
       <NativeId>Table</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:table">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.Table.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:table:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:objecttype" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:table:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:property:objecttype" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:table" PreviousSubjectId="source:workspace-model:meta-schema:entity:table:property:name">
       <DisplayName>ObjectType</DisplayName>
       <DisplayPath>MetaSchema.Table.ObjectType</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:table:property:objecttype</Key>
-      <Kind>Property</Kind>
       <NativeId>ObjectType</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:table:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:table">
       <DisplayName>Schema</DisplayName>
       <DisplayPath>MetaSchema.Table.Schema</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:table:relationship:schema-schema</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Schema:Schema</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:table</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:table">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:table">
       <DisplayName>TableKey</DisplayName>
       <DisplayPath>MetaSchema.TableKey</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekey</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:keytype" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:keytype" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekey">
       <DisplayName>KeyType</DisplayName>
       <DisplayPath>MetaSchema.TableKey.KeyType</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekey:property:keytype</Key>
-      <Kind>Property</Kind>
       <NativeId>KeyType</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:name" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey:property:keytype">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekey" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey:property:keytype">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.TableKey.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekey:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekey:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekey">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaSchema.TableKey.Table</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekey:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekey">
       <DisplayName>TableKeyField</DisplayName>
       <DisplayPath>MetaSchema.TableKeyField</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekeyfield</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableKeyField</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield">
       <DisplayName>FieldName</DisplayName>
       <DisplayPath>MetaSchema.TableKeyField.FieldName</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname</Key>
-      <Kind>Property</Kind>
       <NativeId>FieldName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:property:fieldname">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaSchema.TableKeyField.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekeyfield:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield">
       <DisplayName>Field</DisplayName>
       <DisplayPath>MetaSchema.TableKeyField.Field</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Field:Field</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:tablekey-tablekey" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:tablekey-tablekey" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield:relationship:field-field">
       <DisplayName>TableKey</DisplayName>
       <DisplayPath>MetaSchema.TableKeyField.TableKey</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablekeyfield:relationship:tablekey-tablekey</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TableKey:TableKey</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablekeyfield</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablekeyfield">
       <DisplayName>TableRelationship</DisplayName>
       <DisplayPath>MetaSchema.TableRelationship</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationship</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableRelationship</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:property:name" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:property:name" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationship">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSchema.TableRelationship.Name</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationship:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationship">
       <DisplayName>SourceTable</DisplayName>
       <DisplayPath>MetaSchema.TableRelationship.SourceTable</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SourceTable:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:targettable-table" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationship:relationship:targettable-table" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationship" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship:relationship:sourcetable-table">
       <DisplayName>TargetTable</DisplayName>
       <DisplayPath>MetaSchema.TableRelationship.TargetTable</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationship:relationship:targettable-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TargetTable:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-schema:model:metaschema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationship">
       <DisplayName>TableRelationshipField</DisplayName>
       <DisplayPath>MetaSchema.TableRelationshipField</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationshipfield</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableRelationshipField</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:model:metaschema</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaSchema.TableRelationshipField.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationshipfield:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field" DocumentationSourceId="source:workspace-model:meta-schema">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield">
       <DisplayName>SourceField</DisplayName>
       <DisplayPath>MetaSchema.TableRelationshipField.SourceField</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SourceField:Field</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:sourcefield-field">
       <DisplayName>TableRelationship</DisplayName>
       <DisplayPath>MetaSchema.TableRelationshipField.TableRelationship</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TableRelationship:TableRelationship</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:targetfield-field" DocumentationSourceId="source:workspace-model:meta-schema" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship">
+    <DocumentationSubject Id="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:targetfield-field" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield" PreviousSubjectId="source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:tablerelationship-tablerelationship">
       <DisplayName>TargetField</DisplayName>
       <DisplayPath>MetaSchema.TableRelationshipField.TargetField</DisplayPath>
-      <Key>source:workspace-model:meta-schema:entity:tablerelationshipfield:relationship:targetfield-field</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TargetField:Field</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-schema:entity:tablerelationshipfield</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-schema:model:metaschema" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaSchema</DisplayName>
+      <DisplayPath>MetaSchema.MetaSchema</DisplayPath>
+      <NativeId>MetaSchema</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-schema:workspace" DocumentationSourceId="source:workspace-model:meta-schema" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaSchema</DisplayName>
+      <DisplayPath>MetaSchema</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSchema\Workspaces\MetaSchema</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

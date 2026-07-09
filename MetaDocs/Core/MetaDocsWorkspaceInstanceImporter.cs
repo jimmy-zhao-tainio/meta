@@ -60,7 +60,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             normalizedDisplayName + " instances",
             $"{normalizedDisplayName}.Instances",
             "Selected workspace instances.",
-            string.Empty,
+            null,
             null);
         session.UpsertFact(root, "InstanceImport", "IncludedEntityCount", includedEntities.Length.ToString(), "Number");
         session.EnsureViewNode(root, root.DisplayName);
@@ -78,7 +78,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             }
 
             var entitySubject = FindModelEntitySubject(model, normalizedModelSourceId, entity.Name);
-            var parentKey = entitySubject?.Id ?? root.Id;
+            var parentSubject = entitySubject ?? root;
             var orderedRecords = records
                 .OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
@@ -93,7 +93,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
                     normalizedDisplayName,
                     entity,
                     record,
-                    parentKey,
+                    parentSubject,
                     previousInstance);
                 instanceSubjects[(entity.Name, record.Id)] = subject;
                 previousInstance = subject;
@@ -135,7 +135,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             }
         }
 
-        session.Complete();
+        session.Complete(pruneMissingFromSource: true);
         return new MetaDocsWorkspaceInstanceImportResult(
             root,
             importedInstances,
@@ -151,7 +151,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         string sourceDisplayName,
         GenericEntity entity,
         GenericRecord record,
-        string parentKey,
+        DocumentationSubject parentSubject,
         DocumentationSubject? previousInstance)
     {
         var entitySpec = policy.FindEntitySpec(entity.Name, modelSourceId);
@@ -173,9 +173,9 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             entity.Name,
             record.Id,
             displayName,
-            $"{sourceDisplayName}.{entity.Name}.{displayName}",
+            ResolveRecordDisplayPath(record, sourceDisplayName, entity.Name, displayName),
             summary,
-            parentKey,
+            parentSubject,
             previousInstance);
         session.UpsertFact(subject, "Instance", "EntityName", entity.Name);
         session.UpsertFact(subject, "Instance", "NativeId", record.Id);
@@ -342,6 +342,18 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         return record.Values.TryGetValue(propertyName, out var value)
             ? value
             : string.Empty;
+    }
+
+    private static string ResolveRecordDisplayPath(
+        GenericRecord record,
+        string sourceDisplayName,
+        string entityName,
+        string displayName)
+    {
+        var sourcePath = ResolveRecordText(record, "DisplayPath");
+        return string.IsNullOrWhiteSpace(sourcePath)
+            ? $"{sourceDisplayName}.{entityName}.{displayName}"
+            : $"{sourceDisplayName}.{sourcePath}";
     }
 
     private static string InferValueKind(string? dataType, string value)

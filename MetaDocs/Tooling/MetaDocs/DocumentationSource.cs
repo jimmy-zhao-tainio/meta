@@ -21,13 +21,13 @@ namespace MetaDocs
 
         public string? ImporterId { get; set; }
 
-        public string Kind { get; set; } = string.Empty;
-
         public string? Locator { get; set; }
 
         public string? SourceFingerprint { get; set; }
 
         public string Status { get; set; } = string.Empty;
+
+        public DocumentationSourceType DocumentationSourceType { get; set; } = null!;
 
         public DocumentationWorkspace? DocumentationWorkspace { get; set; }
 

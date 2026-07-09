@@ -27,8 +27,6 @@ namespace MetaDocs
 
         public string Slot { get; set; } = string.Empty;
 
-        public string SubjectKey { get; set; } = string.Empty;
-
         public string? Title { get; set; }
 
         public DocumentationSubject DocumentationSubject { get; set; } = null!;

@@ -1,113 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:workspace" DocumentationSourceId="source:workspace-model:meta-data-type">
-      <DisplayName>MetaDataType</DisplayName>
-      <DisplayPath>MetaDataType</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataType\Workspace</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:model:metadatatype" DocumentationSourceId="source:workspace-model:meta-data-type">
-      <DisplayName>MetaDataType</DisplayName>
-      <DisplayPath>MetaDataType.MetaDataType</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:model:metadatatype</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaDataType</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-type:model:metadatatype">
       <DisplayName>DataType</DisplayName>
       <DisplayPath>MetaDataType.DataType</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype</Key>
-      <Kind>Entity</Kind>
       <NativeId>DataType</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:category" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:category" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatype">
       <DisplayName>Category</DisplayName>
       <DisplayPath>MetaDataType.DataType.Category</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype:property:category</Key>
-      <Kind>Property</Kind>
       <NativeId>Category</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:description" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:category">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:description" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatype" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:category">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaDataType.DataType.Description</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatype" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:description">
       <DisplayName>IsCanonical</DisplayName>
       <DisplayPath>MetaDataType.DataType.IsCanonical</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype:property:iscanonical</Key>
-      <Kind>Property</Kind>
       <NativeId>IsCanonical</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatype" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype:property:iscanonical">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaDataType.DataType.Name</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatype">
       <DisplayName>DataTypeSystem</DisplayName>
       <DisplayPath>MetaDataType.DataType.DataTypeSystem</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatype:relationship:datatypesystem-datatypesystem</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DataTypeSystem:DataTypeSystem</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatype</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-type:model:metadatatype" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatype">
       <DisplayName>DataTypeSystem</DisplayName>
       <DisplayPath>MetaDataType.DataTypeSystem</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatypesystem</Key>
-      <Kind>Entity</Kind>
       <NativeId>DataTypeSystem</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:model:metadatatype</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:description" DocumentationSourceId="source:workspace-model:meta-data-type">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:description" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaDataType.DataTypeSystem.Description</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatypesystem:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:entity:datatypesystem:property:name" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem" PreviousSubjectId="source:workspace-model:meta-data-type:entity:datatypesystem:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaDataType.DataTypeSystem.Name</DisplayPath>
-      <Key>source:workspace-model:meta-data-type:entity:datatypesystem:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type:entity:datatypesystem</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:model:metadatatype" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaDataType</DisplayName>
+      <DisplayPath>MetaDataType.MetaDataType</DisplayPath>
+      <NativeId>MetaDataType</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-type:workspace" DocumentationSourceId="source:workspace-model:meta-data-type" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaDataType</DisplayName>
+      <DisplayPath>MetaDataType</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataType\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

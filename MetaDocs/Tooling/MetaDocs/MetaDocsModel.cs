@@ -28,15 +28,27 @@ namespace MetaDocs
 
         public List<DocumentationComponentTemplate> DocumentationComponentTemplateList { get; set; } = new();
 
+        public List<DocumentationComponentTemplateType> DocumentationComponentTemplateTypeList { get; set; } = new();
+
         public List<DocumentationEntityImportSpec> DocumentationEntityImportSpecList { get; set; } = new();
 
+        public List<DocumentationExample> DocumentationExampleList { get; set; } = new();
+
+        public List<DocumentationExampleCode> DocumentationExampleCodeList { get; set; } = new();
+
+        public List<DocumentationExampleSection> DocumentationExampleSectionList { get; set; } = new();
+
         public List<DocumentationFact> DocumentationFactList { get; set; } = new();
+
+        public List<DocumentationFactType> DocumentationFactTypeList { get; set; } = new();
 
         public List<DocumentationImportBatch> DocumentationImportBatchList { get; set; } = new();
 
         public List<DocumentationInstanceImportSpec> DocumentationInstanceImportSpecList { get; set; } = new();
 
         public List<DocumentationLayout> DocumentationLayoutList { get; set; } = new();
+
+        public List<DocumentationLayoutType> DocumentationLayoutTypeList { get; set; } = new();
 
         public List<DocumentationNarrative> DocumentationNarrativeList { get; set; } = new();
 
@@ -46,25 +58,43 @@ namespace MetaDocs
 
         public List<DocumentationRelationshipImportSpec> DocumentationRelationshipImportSpecList { get; set; } = new();
 
+        public List<DocumentationRelationshipType> DocumentationRelationshipTypeList { get; set; } = new();
+
         public List<DocumentationSource> DocumentationSourceList { get; set; } = new();
+
+        public List<DocumentationSourceType> DocumentationSourceTypeList { get; set; } = new();
 
         public List<DocumentationSubject> DocumentationSubjectList { get; set; } = new();
 
         public List<DocumentationSubjectAlias> DocumentationSubjectAliasList { get; set; } = new();
 
+        public List<DocumentationSubjectType> DocumentationSubjectTypeList { get; set; } = new();
+
         public List<DocumentationTemplate> DocumentationTemplateList { get; set; } = new();
 
         public List<DocumentationTemplateRegion> DocumentationTemplateRegionList { get; set; } = new();
+
+        public List<DocumentationTemplateRegionType> DocumentationTemplateRegionTypeList { get; set; } = new();
+
+        public List<DocumentationTemplateType> DocumentationTemplateTypeList { get; set; } = new();
 
         public List<DocumentationTheme> DocumentationThemeList { get; set; } = new();
 
         public List<DocumentationThemeAsset> DocumentationThemeAssetList { get; set; } = new();
 
+        public List<DocumentationThemeAssetType> DocumentationThemeAssetTypeList { get; set; } = new();
+
+        public List<DocumentationValueType> DocumentationValueTypeList { get; set; } = new();
+
         public List<DocumentationView> DocumentationViewList { get; set; } = new();
 
         public List<DocumentationViewNode> DocumentationViewNodeList { get; set; } = new();
 
+        public List<DocumentationViewType> DocumentationViewTypeList { get; set; } = new();
+
         public List<DocumentationWorkspace> DocumentationWorkspaceList { get; set; } = new();
+
+        public List<DocumentationWorkspaceType> DocumentationWorkspaceTypeList { get; set; } = new();
 
         public static MetaDocsModel LoadFromXmlWorkspace(
             string workspacePath,
@@ -134,6 +164,7 @@ namespace MetaDocs
 
             var loadIndexes = new LoadIndexes(model);
             ResolveRelationshipGroup1(loadIndexes, relationshipBuffers);
+            ResolveRelationshipGroup2(loadIndexes, relationshipBuffers);
             return model;
         }
 
@@ -156,6 +187,7 @@ namespace MetaDocs
             Directory.CreateDirectory(instanceDirectoryPath);
             var expectedShardPaths = BuildExpectedShardPaths(instanceDirectoryPath);
             SaveShardGroup1(model, instanceDirectoryPath, saveIndexes);
+            SaveShardGroup2(model, instanceDirectoryPath, saveIndexes);
             foreach (var shardPath in Directory.GetFiles(instanceDirectoryPath, "*.xml")
                          .OrderBy(Path.GetFileName, StringComparer.OrdinalIgnoreCase)
                          .ThenBy(path => path, StringComparer.Ordinal))
@@ -180,6 +212,17 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationComponentTemplateShardPath, SerializeDocumentationComponentTemplateShard(model, saveIndexes));
             }
 
+            model.DocumentationComponentTemplateTypeList ??= new List<DocumentationComponentTemplateType>();
+            var documentationComponentTemplateTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationComponentTemplateType.xml");
+            if (model.DocumentationComponentTemplateTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationComponentTemplateTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationComponentTemplateTypeShardPath, SerializeDocumentationComponentTemplateTypeShard(model, saveIndexes));
+            }
+
             model.DocumentationEntityImportSpecList ??= new List<DocumentationEntityImportSpec>();
             var documentationEntityImportSpecShardPath = Path.Combine(instanceDirectoryPath, "DocumentationEntityImportSpec.xml");
             if (model.DocumentationEntityImportSpecList.Count == 0)
@@ -191,6 +234,39 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationEntityImportSpecShardPath, SerializeDocumentationEntityImportSpecShard(model, saveIndexes));
             }
 
+            model.DocumentationExampleList ??= new List<DocumentationExample>();
+            var documentationExampleShardPath = Path.Combine(instanceDirectoryPath, "DocumentationExample.xml");
+            if (model.DocumentationExampleList.Count == 0)
+            {
+                DeleteIfExists(documentationExampleShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationExampleShardPath, SerializeDocumentationExampleShard(model, saveIndexes));
+            }
+
+            model.DocumentationExampleCodeList ??= new List<DocumentationExampleCode>();
+            var documentationExampleCodeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationExampleCode.xml");
+            if (model.DocumentationExampleCodeList.Count == 0)
+            {
+                DeleteIfExists(documentationExampleCodeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationExampleCodeShardPath, SerializeDocumentationExampleCodeShard(model, saveIndexes));
+            }
+
+            model.DocumentationExampleSectionList ??= new List<DocumentationExampleSection>();
+            var documentationExampleSectionShardPath = Path.Combine(instanceDirectoryPath, "DocumentationExampleSection.xml");
+            if (model.DocumentationExampleSectionList.Count == 0)
+            {
+                DeleteIfExists(documentationExampleSectionShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationExampleSectionShardPath, SerializeDocumentationExampleSectionShard(model, saveIndexes));
+            }
+
             model.DocumentationFactList ??= new List<DocumentationFact>();
             var documentationFactShardPath = Path.Combine(instanceDirectoryPath, "DocumentationFact.xml");
             if (model.DocumentationFactList.Count == 0)
@@ -200,6 +276,17 @@ namespace MetaDocs
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationFactShardPath, SerializeDocumentationFactShard(model, saveIndexes));
+            }
+
+            model.DocumentationFactTypeList ??= new List<DocumentationFactType>();
+            var documentationFactTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationFactType.xml");
+            if (model.DocumentationFactTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationFactTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationFactTypeShardPath, SerializeDocumentationFactTypeShard(model, saveIndexes));
             }
 
             model.DocumentationImportBatchList ??= new List<DocumentationImportBatch>();
@@ -233,6 +320,17 @@ namespace MetaDocs
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationLayoutShardPath, SerializeDocumentationLayoutShard(model, saveIndexes));
+            }
+
+            model.DocumentationLayoutTypeList ??= new List<DocumentationLayoutType>();
+            var documentationLayoutTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationLayoutType.xml");
+            if (model.DocumentationLayoutTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationLayoutTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationLayoutTypeShardPath, SerializeDocumentationLayoutTypeShard(model, saveIndexes));
             }
 
             model.DocumentationNarrativeList ??= new List<DocumentationNarrative>();
@@ -279,6 +377,17 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationRelationshipImportSpecShardPath, SerializeDocumentationRelationshipImportSpecShard(model, saveIndexes));
             }
 
+            model.DocumentationRelationshipTypeList ??= new List<DocumentationRelationshipType>();
+            var documentationRelationshipTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationRelationshipType.xml");
+            if (model.DocumentationRelationshipTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationRelationshipTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationRelationshipTypeShardPath, SerializeDocumentationRelationshipTypeShard(model, saveIndexes));
+            }
+
             model.DocumentationSourceList ??= new List<DocumentationSource>();
             var documentationSourceShardPath = Path.Combine(instanceDirectoryPath, "DocumentationSource.xml");
             if (model.DocumentationSourceList.Count == 0)
@@ -288,6 +397,17 @@ namespace MetaDocs
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationSourceShardPath, SerializeDocumentationSourceShard(model, saveIndexes));
+            }
+
+            model.DocumentationSourceTypeList ??= new List<DocumentationSourceType>();
+            var documentationSourceTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationSourceType.xml");
+            if (model.DocumentationSourceTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationSourceTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationSourceTypeShardPath, SerializeDocumentationSourceTypeShard(model, saveIndexes));
             }
 
             model.DocumentationSubjectList ??= new List<DocumentationSubject>();
@@ -312,6 +432,17 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationSubjectAliasShardPath, SerializeDocumentationSubjectAliasShard(model, saveIndexes));
             }
 
+            model.DocumentationSubjectTypeList ??= new List<DocumentationSubjectType>();
+            var documentationSubjectTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationSubjectType.xml");
+            if (model.DocumentationSubjectTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationSubjectTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationSubjectTypeShardPath, SerializeDocumentationSubjectTypeShard(model, saveIndexes));
+            }
+
             model.DocumentationTemplateList ??= new List<DocumentationTemplate>();
             var documentationTemplateShardPath = Path.Combine(instanceDirectoryPath, "DocumentationTemplate.xml");
             if (model.DocumentationTemplateList.Count == 0)
@@ -332,6 +463,28 @@ namespace MetaDocs
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationTemplateRegionShardPath, SerializeDocumentationTemplateRegionShard(model, saveIndexes));
+            }
+
+            model.DocumentationTemplateRegionTypeList ??= new List<DocumentationTemplateRegionType>();
+            var documentationTemplateRegionTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationTemplateRegionType.xml");
+            if (model.DocumentationTemplateRegionTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationTemplateRegionTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationTemplateRegionTypeShardPath, SerializeDocumentationTemplateRegionTypeShard(model, saveIndexes));
+            }
+
+            model.DocumentationTemplateTypeList ??= new List<DocumentationTemplateType>();
+            var documentationTemplateTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationTemplateType.xml");
+            if (model.DocumentationTemplateTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationTemplateTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationTemplateTypeShardPath, SerializeDocumentationTemplateTypeShard(model, saveIndexes));
             }
 
             model.DocumentationThemeList ??= new List<DocumentationTheme>();
@@ -356,6 +509,28 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationThemeAssetShardPath, SerializeDocumentationThemeAssetShard(model, saveIndexes));
             }
 
+            model.DocumentationThemeAssetTypeList ??= new List<DocumentationThemeAssetType>();
+            var documentationThemeAssetTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationThemeAssetType.xml");
+            if (model.DocumentationThemeAssetTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationThemeAssetTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationThemeAssetTypeShardPath, SerializeDocumentationThemeAssetTypeShard(model, saveIndexes));
+            }
+
+            model.DocumentationValueTypeList ??= new List<DocumentationValueType>();
+            var documentationValueTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationValueType.xml");
+            if (model.DocumentationValueTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationValueTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationValueTypeShardPath, SerializeDocumentationValueTypeShard(model, saveIndexes));
+            }
+
             model.DocumentationViewList ??= new List<DocumentationView>();
             var documentationViewShardPath = Path.Combine(instanceDirectoryPath, "DocumentationView.xml");
             if (model.DocumentationViewList.Count == 0)
@@ -378,6 +553,21 @@ namespace MetaDocs
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationViewNodeShardPath, SerializeDocumentationViewNodeShard(model, saveIndexes));
             }
 
+        }
+
+        private static void SaveShardGroup2(MetaDocsModel model, string instanceDirectoryPath, SaveIndexes saveIndexes)
+        {
+            model.DocumentationViewTypeList ??= new List<DocumentationViewType>();
+            var documentationViewTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationViewType.xml");
+            if (model.DocumentationViewTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationViewTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationViewTypeShardPath, SerializeDocumentationViewTypeShard(model, saveIndexes));
+            }
+
             model.DocumentationWorkspaceList ??= new List<DocumentationWorkspace>();
             var documentationWorkspaceShardPath = Path.Combine(instanceDirectoryPath, "DocumentationWorkspace.xml");
             if (model.DocumentationWorkspaceList.Count == 0)
@@ -387,6 +577,17 @@ namespace MetaDocs
             else
             {
                 TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationWorkspaceShardPath, SerializeDocumentationWorkspaceShard(model, saveIndexes));
+            }
+
+            model.DocumentationWorkspaceTypeList ??= new List<DocumentationWorkspaceType>();
+            var documentationWorkspaceTypeShardPath = Path.Combine(instanceDirectoryPath, "DocumentationWorkspaceType.xml");
+            if (model.DocumentationWorkspaceTypeList.Count == 0)
+            {
+                DeleteIfExists(documentationWorkspaceTypeShardPath);
+            }
+            else
+            {
+                TypedWorkspaceXmlSerializer.WriteBytesIfChanged(documentationWorkspaceTypeShardPath, SerializeDocumentationWorkspaceTypeShard(model, saveIndexes));
             }
 
         }
@@ -416,11 +617,26 @@ namespace MetaDocs
                     case "DocumentationComponentTemplateList":
                         LoadDocumentationComponentTemplateList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationComponentTemplateTypeList":
+                        LoadDocumentationComponentTemplateTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationEntityImportSpecList":
                         LoadDocumentationEntityImportSpecList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationExampleList":
+                        LoadDocumentationExampleList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationExampleCodeList":
+                        LoadDocumentationExampleCodeList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationExampleSectionList":
+                        LoadDocumentationExampleSectionList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationFactList":
                         LoadDocumentationFactList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationFactTypeList":
+                        LoadDocumentationFactTypeList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationImportBatchList":
                         LoadDocumentationImportBatchList(model, reader, loadState, relationshipBuffers);
@@ -430,6 +646,9 @@ namespace MetaDocs
                         break;
                     case "DocumentationLayoutList":
                         LoadDocumentationLayoutList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationLayoutTypeList":
+                        LoadDocumentationLayoutTypeList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationNarrativeList":
                         LoadDocumentationNarrativeList(model, reader, loadState, relationshipBuffers);
@@ -443,8 +662,14 @@ namespace MetaDocs
                     case "DocumentationRelationshipImportSpecList":
                         LoadDocumentationRelationshipImportSpecList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationRelationshipTypeList":
+                        LoadDocumentationRelationshipTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationSourceList":
                         LoadDocumentationSourceList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationSourceTypeList":
+                        LoadDocumentationSourceTypeList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationSubjectList":
                         LoadDocumentationSubjectList(model, reader, loadState, relationshipBuffers);
@@ -452,11 +677,20 @@ namespace MetaDocs
                     case "DocumentationSubjectAliasList":
                         LoadDocumentationSubjectAliasList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationSubjectTypeList":
+                        LoadDocumentationSubjectTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationTemplateList":
                         LoadDocumentationTemplateList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationTemplateRegionList":
                         LoadDocumentationTemplateRegionList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationTemplateRegionTypeList":
+                        LoadDocumentationTemplateRegionTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationTemplateTypeList":
+                        LoadDocumentationTemplateTypeList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationThemeList":
                         LoadDocumentationThemeList(model, reader, loadState, relationshipBuffers);
@@ -464,14 +698,26 @@ namespace MetaDocs
                     case "DocumentationThemeAssetList":
                         LoadDocumentationThemeAssetList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationThemeAssetTypeList":
+                        LoadDocumentationThemeAssetTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationValueTypeList":
+                        LoadDocumentationValueTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationViewList":
                         LoadDocumentationViewList(model, reader, loadState, relationshipBuffers);
                         break;
                     case "DocumentationViewNodeList":
                         LoadDocumentationViewNodeList(model, reader, loadState, relationshipBuffers);
                         break;
+                    case "DocumentationViewTypeList":
+                        LoadDocumentationViewTypeList(model, reader, loadState, relationshipBuffers);
+                        break;
                     case "DocumentationWorkspaceList":
                         LoadDocumentationWorkspaceList(model, reader, loadState, relationshipBuffers);
+                        break;
+                    case "DocumentationWorkspaceTypeList":
+                        LoadDocumentationWorkspaceTypeList(model, reader, loadState, relationshipBuffers);
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in '{shardPath}'.");
@@ -522,6 +768,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationComponentTemplateTypeId":
+                            relationships.DocumentationComponentTemplateTypeId = reader.Value;
+                            break;
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
@@ -548,9 +797,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "ComponentKind":
-                        row.ComponentKind = reader.ReadElementContentAsString();
-                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -584,6 +830,16 @@ namespace MetaDocs
                 builder.Append("    <DocumentationComponentTemplate Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationComponentTemplateTypeId = RequireIdentity(row.DocumentationComponentTemplateType?.Id, $"Relationship 'DocumentationComponentTemplate.DocumentationComponentTemplateTypeId' on row 'DocumentationComponentTemplate:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationComponentTemplateTypeListById.TryGetValue(documentationComponentTemplateTypeId, out var documentationComponentTemplateTypeCanonical) || !ReferenceEquals(documentationComponentTemplateTypeCanonical, row.DocumentationComponentTemplateType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationComponentTemplate.DocumentationComponentTemplateTypeId' on row 'DocumentationComponentTemplate:{row.Id}' references an object that is not the canonical row for Id '{documentationComponentTemplateTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationComponentTemplateTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationComponentTemplateTypeId);
+                builder.Append('"');
                 var documentationThemeId = RequireIdentity(row.DocumentationTheme?.Id, $"Relationship 'DocumentationComponentTemplate.DocumentationThemeId' on row 'DocumentationComponentTemplate:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationThemeListById.TryGetValue(documentationThemeId, out var documentationThemeCanonical) || !ReferenceEquals(documentationThemeCanonical, row.DocumentationTheme))
                 {
@@ -608,7 +864,6 @@ namespace MetaDocs
                     builder.Append('"');
                 }
                 builder.Append(">\n");
-                AppendElement(builder, "ComponentKind", RequireText(row.ComponentKind, $"Entity 'DocumentationComponentTemplate' row '{row.Id}' is missing required property 'ComponentKind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationComponentTemplate' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.TemplateText))
                 {
@@ -617,6 +872,110 @@ namespace MetaDocs
                 builder.Append("    </DocumentationComponentTemplate>\n");
             }
             builder.Append("  </DocumentationComponentTemplateList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationComponentTemplateTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationComponentTemplateTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationComponentTemplateTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationComponentTemplateType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationComponentTemplateTypeList'.");
+                }
+                var row = ReadDocumentationComponentTemplateType(reader, relationshipBuffers);
+                loadState.AddDocumentationComponentTemplateTypeId(row.Id);
+                model.DocumentationComponentTemplateTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationComponentTemplateType ReadDocumentationComponentTemplateType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationComponentTemplateType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationComponentTemplateType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationComponentTemplateType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationComponentTemplateType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationComponentTemplateType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationComponentTemplateTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationComponentTemplateTypeList>\n");
+            foreach (var row in model.DocumentationComponentTemplateTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationComponentTemplateType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationComponentTemplateType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationComponentTemplateType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationComponentTemplateType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationComponentTemplateType>\n");
+            }
+            builder.Append("  </DocumentationComponentTemplateTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -756,6 +1115,436 @@ namespace MetaDocs
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
+        private static void LoadDocumentationExampleList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExampleList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationExampleList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationExample", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationExampleList'.");
+                }
+                var row = ReadDocumentationExample(reader, relationshipBuffers);
+                loadState.AddDocumentationExampleId(row.Id);
+                model.DocumentationExampleList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationExample ReadDocumentationExample(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationExample();
+            var relationships = new DocumentationExampleRelationships { Row = row };
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        case "DocumentationSubjectId":
+                            relationships.DocumentationSubjectId = reader.Value;
+                            break;
+                        case "PreviousExampleId":
+                            relationships.PreviousExampleId = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationExample'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExample");
+                (relationshipBuffers.DocumentationExampleRelationships ??= new List<DocumentationExampleRelationships>()).Add(relationships);
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationExample");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Origin":
+                        row.Origin = reader.ReadElementContentAsString();
+                        break;
+                    case "ReviewStatus":
+                        row.ReviewStatus = reader.ReadElementContentAsString();
+                        break;
+                    case "Summary":
+                        row.Summary = reader.ReadElementContentAsString();
+                        break;
+                    case "Title":
+                        row.Title = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationExample'.");
+                }
+            }
+            reader.ReadEndElement();
+            (relationshipBuffers.DocumentationExampleRelationships ??= new List<DocumentationExampleRelationships>()).Add(relationships);
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationExampleShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationExampleList>\n");
+            foreach (var row in model.DocumentationExampleList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExample' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationExample' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationExample Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var documentationSubjectId = RequireIdentity(row.DocumentationSubject?.Id, $"Relationship 'DocumentationExample.DocumentationSubjectId' on row 'DocumentationExample:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationSubjectListById.TryGetValue(documentationSubjectId, out var documentationSubjectCanonical) || !ReferenceEquals(documentationSubjectCanonical, row.DocumentationSubject))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationExample.DocumentationSubjectId' on row 'DocumentationExample:{row.Id}' references an object that is not the canonical row for Id '{documentationSubjectId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationSubjectId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationSubjectId);
+                builder.Append('"');
+                if (row.PreviousExample != null)
+                {
+                    var previousExampleId = RequireIdentity(row.PreviousExample?.Id, $"Relationship 'DocumentationExample.PreviousExampleId' on row 'DocumentationExample:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationExampleListById.TryGetValue(previousExampleId, out var previousExampleCanonical) || !ReferenceEquals(previousExampleCanonical, row.PreviousExample))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationExample.PreviousExampleId' on row 'DocumentationExample:{row.Id}' references an object that is not the canonical row for Id '{previousExampleId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousExampleId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousExampleId);
+                    builder.Append('"');
+                }
+                builder.Append(">\n");
+                AppendElement(builder, "Origin", RequireText(row.Origin, $"Entity 'DocumentationExample' row '{row.Id}' is missing required property 'Origin'."), "      ");
+                AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationExample' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
+                if (!string.IsNullOrWhiteSpace(row.Summary))
+                {
+                    AppendElement(builder, "Summary", row.Summary!, "      ");
+                }
+                AppendElement(builder, "Title", RequireText(row.Title, $"Entity 'DocumentationExample' row '{row.Id}' is missing required property 'Title'."), "      ");
+                builder.Append("    </DocumentationExample>\n");
+            }
+            builder.Append("  </DocumentationExampleList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationExampleCodeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExampleCodeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationExampleCodeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationExampleCode", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationExampleCodeList'.");
+                }
+                var row = ReadDocumentationExampleCode(reader, relationshipBuffers);
+                loadState.AddDocumentationExampleCodeId(row.Id);
+                model.DocumentationExampleCodeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationExampleCode ReadDocumentationExampleCode(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationExampleCode();
+            var relationships = new DocumentationExampleCodeRelationships { Row = row };
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        case "DocumentationExampleSectionId":
+                            relationships.DocumentationExampleSectionId = reader.Value;
+                            break;
+                        case "PreviousCodeId":
+                            relationships.PreviousCodeId = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationExampleCode'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExampleCode");
+                (relationshipBuffers.DocumentationExampleCodeRelationships ??= new List<DocumentationExampleCodeRelationships>()).Add(relationships);
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationExampleCode");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Code":
+                        row.Code = reader.ReadElementContentAsString();
+                        break;
+                    case "Language":
+                        row.Language = reader.ReadElementContentAsString();
+                        break;
+                    case "Title":
+                        row.Title = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationExampleCode'.");
+                }
+            }
+            reader.ReadEndElement();
+            (relationshipBuffers.DocumentationExampleCodeRelationships ??= new List<DocumentationExampleCodeRelationships>()).Add(relationships);
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationExampleCodeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationExampleCodeList>\n");
+            foreach (var row in model.DocumentationExampleCodeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExampleCode' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationExampleCode' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationExampleCode Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var documentationExampleSectionId = RequireIdentity(row.DocumentationExampleSection?.Id, $"Relationship 'DocumentationExampleCode.DocumentationExampleSectionId' on row 'DocumentationExampleCode:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationExampleSectionListById.TryGetValue(documentationExampleSectionId, out var documentationExampleSectionCanonical) || !ReferenceEquals(documentationExampleSectionCanonical, row.DocumentationExampleSection))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationExampleCode.DocumentationExampleSectionId' on row 'DocumentationExampleCode:{row.Id}' references an object that is not the canonical row for Id '{documentationExampleSectionId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationExampleSectionId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationExampleSectionId);
+                builder.Append('"');
+                if (row.PreviousCode != null)
+                {
+                    var previousCodeId = RequireIdentity(row.PreviousCode?.Id, $"Relationship 'DocumentationExampleCode.PreviousCodeId' on row 'DocumentationExampleCode:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationExampleCodeListById.TryGetValue(previousCodeId, out var previousCodeCanonical) || !ReferenceEquals(previousCodeCanonical, row.PreviousCode))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationExampleCode.PreviousCodeId' on row 'DocumentationExampleCode:{row.Id}' references an object that is not the canonical row for Id '{previousCodeId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousCodeId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousCodeId);
+                    builder.Append('"');
+                }
+                builder.Append(">\n");
+                AppendElement(builder, "Code", RequireText(row.Code, $"Entity 'DocumentationExampleCode' row '{row.Id}' is missing required property 'Code'."), "      ");
+                if (!string.IsNullOrWhiteSpace(row.Language))
+                {
+                    AppendElement(builder, "Language", row.Language!, "      ");
+                }
+                if (!string.IsNullOrWhiteSpace(row.Title))
+                {
+                    AppendElement(builder, "Title", row.Title!, "      ");
+                }
+                builder.Append("    </DocumentationExampleCode>\n");
+            }
+            builder.Append("  </DocumentationExampleCodeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationExampleSectionList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExampleSectionList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationExampleSectionList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationExampleSection", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationExampleSectionList'.");
+                }
+                var row = ReadDocumentationExampleSection(reader, relationshipBuffers);
+                loadState.AddDocumentationExampleSectionId(row.Id);
+                model.DocumentationExampleSectionList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationExampleSection ReadDocumentationExampleSection(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationExampleSection();
+            var relationships = new DocumentationExampleSectionRelationships { Row = row };
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        case "DocumentationExampleId":
+                            relationships.DocumentationExampleId = reader.Value;
+                            break;
+                        case "PreviousSectionId":
+                            relationships.PreviousSectionId = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationExampleSection'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationExampleSection");
+                (relationshipBuffers.DocumentationExampleSectionRelationships ??= new List<DocumentationExampleSectionRelationships>()).Add(relationships);
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationExampleSection");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Body":
+                        row.Body = reader.ReadElementContentAsString();
+                        break;
+                    case "BodyFormat":
+                        row.BodyFormat = reader.ReadElementContentAsString();
+                        break;
+                    case "Title":
+                        row.Title = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationExampleSection'.");
+                }
+            }
+            reader.ReadEndElement();
+            (relationshipBuffers.DocumentationExampleSectionRelationships ??= new List<DocumentationExampleSectionRelationships>()).Add(relationships);
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationExampleSectionShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationExampleSectionList>\n");
+            foreach (var row in model.DocumentationExampleSectionList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExampleSection' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationExampleSection' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationExampleSection Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var documentationExampleId = RequireIdentity(row.DocumentationExample?.Id, $"Relationship 'DocumentationExampleSection.DocumentationExampleId' on row 'DocumentationExampleSection:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationExampleListById.TryGetValue(documentationExampleId, out var documentationExampleCanonical) || !ReferenceEquals(documentationExampleCanonical, row.DocumentationExample))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationExampleSection.DocumentationExampleId' on row 'DocumentationExampleSection:{row.Id}' references an object that is not the canonical row for Id '{documentationExampleId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationExampleId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationExampleId);
+                builder.Append('"');
+                if (row.PreviousSection != null)
+                {
+                    var previousSectionId = RequireIdentity(row.PreviousSection?.Id, $"Relationship 'DocumentationExampleSection.PreviousSectionId' on row 'DocumentationExampleSection:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationExampleSectionListById.TryGetValue(previousSectionId, out var previousSectionCanonical) || !ReferenceEquals(previousSectionCanonical, row.PreviousSection))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationExampleSection.PreviousSectionId' on row 'DocumentationExampleSection:{row.Id}' references an object that is not the canonical row for Id '{previousSectionId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("PreviousSectionId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, previousSectionId);
+                    builder.Append('"');
+                }
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Body))
+                {
+                    AppendElement(builder, "Body", row.Body!, "      ");
+                }
+                AppendElement(builder, "BodyFormat", RequireText(row.BodyFormat, $"Entity 'DocumentationExampleSection' row '{row.Id}' is missing required property 'BodyFormat'."), "      ");
+                if (!string.IsNullOrWhiteSpace(row.Title))
+                {
+                    AppendElement(builder, "Title", row.Title!, "      ");
+                }
+                builder.Append("    </DocumentationExampleSection>\n");
+            }
+            builder.Append("  </DocumentationExampleSectionList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
         private static void LoadDocumentationFactList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
@@ -797,6 +1586,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationFactTypeId":
+                            relationships.DocumentationFactTypeId = reader.Value;
+                            break;
                         case "DocumentationImportBatchId":
                             relationships.DocumentationImportBatchId = reader.Value;
                             break;
@@ -805,6 +1597,9 @@ namespace MetaDocs
                             break;
                         case "DocumentationSubjectId":
                             relationships.DocumentationSubjectId = reader.Value;
+                            break;
+                        case "DocumentationValueTypeId":
+                            relationships.DocumentationValueTypeId = reader.Value;
                             break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationFact'.");
@@ -826,9 +1621,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -838,14 +1630,8 @@ namespace MetaDocs
                     case "Status":
                         row.Status = reader.ReadElementContentAsString();
                         break;
-                    case "SubjectKey":
-                        row.SubjectKey = reader.ReadElementContentAsString();
-                        break;
                     case "Value":
                         row.Value = reader.ReadElementContentAsString();
-                        break;
-                    case "ValueKind":
-                        row.ValueKind = reader.ReadElementContentAsString();
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationFact'.");
@@ -873,6 +1659,16 @@ namespace MetaDocs
                 }
                 builder.Append("    <DocumentationFact Id=\"");
                 AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                var documentationFactTypeId = RequireIdentity(row.DocumentationFactType?.Id, $"Relationship 'DocumentationFact.DocumentationFactTypeId' on row 'DocumentationFact:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationFactTypeListById.TryGetValue(documentationFactTypeId, out var documentationFactTypeCanonical) || !ReferenceEquals(documentationFactTypeCanonical, row.DocumentationFactType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationFact.DocumentationFactTypeId' on row 'DocumentationFact:{row.Id}' references an object that is not the canonical row for Id '{documentationFactTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationFactTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationFactTypeId);
                 builder.Append('"');
                 var documentationImportBatchId = RequireIdentity(row.DocumentationImportBatch?.Id, $"Relationship 'DocumentationFact.DocumentationImportBatchId' on row 'DocumentationFact:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationImportBatchListById.TryGetValue(documentationImportBatchId, out var documentationImportBatchCanonical) || !ReferenceEquals(documentationImportBatchCanonical, row.DocumentationImportBatch))
@@ -904,23 +1700,134 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSubjectId);
                 builder.Append('"');
+                var documentationValueTypeId = RequireIdentity(row.DocumentationValueType?.Id, $"Relationship 'DocumentationFact.DocumentationValueTypeId' on row 'DocumentationFact:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationValueTypeListById.TryGetValue(documentationValueTypeId, out var documentationValueTypeCanonical) || !ReferenceEquals(documentationValueTypeCanonical, row.DocumentationValueType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationFact.DocumentationValueTypeId' on row 'DocumentationFact:{row.Id}' references an object that is not the canonical row for Id '{documentationValueTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationValueTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationValueTypeId);
+                builder.Append('"');
                 builder.Append(">\n");
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationFact' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationFact' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.SourceFingerprint))
                 {
                     AppendElement(builder, "SourceFingerprint", row.SourceFingerprint!, "      ");
                 }
                 AppendElement(builder, "Status", RequireText(row.Status, $"Entity 'DocumentationFact' row '{row.Id}' is missing required property 'Status'."), "      ");
-                AppendElement(builder, "SubjectKey", RequireText(row.SubjectKey, $"Entity 'DocumentationFact' row '{row.Id}' is missing required property 'SubjectKey'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Value))
                 {
                     AppendElement(builder, "Value", row.Value!, "      ");
                 }
-                AppendElement(builder, "ValueKind", RequireText(row.ValueKind, $"Entity 'DocumentationFact' row '{row.Id}' is missing required property 'ValueKind'."), "      ");
                 builder.Append("    </DocumentationFact>\n");
             }
             builder.Append("  </DocumentationFactList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationFactTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationFactTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationFactTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationFactType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationFactTypeList'.");
+                }
+                var row = ReadDocumentationFactType(reader, relationshipBuffers);
+                loadState.AddDocumentationFactTypeId(row.Id);
+                model.DocumentationFactTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationFactType ReadDocumentationFactType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationFactType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationFactType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationFactType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationFactType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationFactType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationFactTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationFactTypeList>\n");
+            foreach (var row in model.DocumentationFactTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationFactType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationFactType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationFactType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationFactType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationFactType>\n");
+            }
+            builder.Append("  </DocumentationFactTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -1222,6 +2129,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationLayoutTypeId":
+                            relationships.DocumentationLayoutTypeId = reader.Value;
+                            break;
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
@@ -1248,9 +2158,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "LayoutKind":
-                        row.LayoutKind = reader.ReadElementContentAsString();
-                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -1281,6 +2188,16 @@ namespace MetaDocs
                 builder.Append("    <DocumentationLayout Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationLayoutTypeId = RequireIdentity(row.DocumentationLayoutType?.Id, $"Relationship 'DocumentationLayout.DocumentationLayoutTypeId' on row 'DocumentationLayout:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationLayoutTypeListById.TryGetValue(documentationLayoutTypeId, out var documentationLayoutTypeCanonical) || !ReferenceEquals(documentationLayoutTypeCanonical, row.DocumentationLayoutType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationLayout.DocumentationLayoutTypeId' on row 'DocumentationLayout:{row.Id}' references an object that is not the canonical row for Id '{documentationLayoutTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationLayoutTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationLayoutTypeId);
+                builder.Append('"');
                 var documentationThemeId = RequireIdentity(row.DocumentationTheme?.Id, $"Relationship 'DocumentationLayout.DocumentationThemeId' on row 'DocumentationLayout:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationThemeListById.TryGetValue(documentationThemeId, out var documentationThemeCanonical) || !ReferenceEquals(documentationThemeCanonical, row.DocumentationTheme))
                 {
@@ -1305,11 +2222,114 @@ namespace MetaDocs
                     builder.Append('"');
                 }
                 builder.Append(">\n");
-                AppendElement(builder, "LayoutKind", RequireText(row.LayoutKind, $"Entity 'DocumentationLayout' row '{row.Id}' is missing required property 'LayoutKind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationLayout' row '{row.Id}' is missing required property 'Name'."), "      ");
                 builder.Append("    </DocumentationLayout>\n");
             }
             builder.Append("  </DocumentationLayoutList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationLayoutTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationLayoutTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationLayoutTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationLayoutType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationLayoutTypeList'.");
+                }
+                var row = ReadDocumentationLayoutType(reader, relationshipBuffers);
+                loadState.AddDocumentationLayoutTypeId(row.Id);
+                model.DocumentationLayoutTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationLayoutType ReadDocumentationLayoutType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationLayoutType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationLayoutType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationLayoutType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationLayoutType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationLayoutType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationLayoutTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationLayoutTypeList>\n");
+            foreach (var row in model.DocumentationLayoutTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationLayoutType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationLayoutType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationLayoutType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationLayoutType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationLayoutType>\n");
+            }
+            builder.Append("  </DocumentationLayoutTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -1399,9 +2419,6 @@ namespace MetaDocs
                     case "Slot":
                         row.Slot = reader.ReadElementContentAsString();
                         break;
-                    case "SubjectKey":
-                        row.SubjectKey = reader.ReadElementContentAsString();
-                        break;
                     case "Title":
                         row.Title = reader.ReadElementContentAsString();
                         break;
@@ -1468,7 +2485,6 @@ namespace MetaDocs
                 AppendElement(builder, "Origin", RequireText(row.Origin, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'Origin'."), "      ");
                 AppendElement(builder, "ReviewStatus", RequireText(row.ReviewStatus, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'ReviewStatus'."), "      ");
                 AppendElement(builder, "Slot", RequireText(row.Slot, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'Slot'."), "      ");
-                AppendElement(builder, "SubjectKey", RequireText(row.SubjectKey, $"Entity 'DocumentationNarrative' row '{row.Id}' is missing required property 'SubjectKey'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Title))
                 {
                     AppendElement(builder, "Title", row.Title!, "      ");
@@ -1645,11 +2661,20 @@ namespace MetaDocs
                         case "DocumentationImportBatchId":
                             relationships.DocumentationImportBatchId = reader.Value;
                             break;
+                        case "DocumentationRelationshipTypeId":
+                            relationships.DocumentationRelationshipTypeId = reader.Value;
+                            break;
                         case "DocumentationSourceId":
                             relationships.DocumentationSourceId = reader.Value;
                             break;
+                        case "FromSubjectId":
+                            relationships.FromSubjectId = reader.Value;
+                            break;
                         case "PreviousRelationshipId":
                             relationships.PreviousRelationshipId = reader.Value;
+                            break;
+                        case "ToSubjectId":
+                            relationships.ToSubjectId = reader.Value;
                             break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationRelationship'.");
@@ -1671,15 +2696,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "FromSubjectKey":
-                        row.FromSubjectKey = reader.ReadElementContentAsString();
-                        break;
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
-                    case "ToSubjectKey":
-                        row.ToSubjectKey = reader.ReadElementContentAsString();
-                        break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationRelationship'.");
                 }
@@ -1717,6 +2733,16 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationImportBatchId);
                 builder.Append('"');
+                var documentationRelationshipTypeId = RequireIdentity(row.DocumentationRelationshipType?.Id, $"Relationship 'DocumentationRelationship.DocumentationRelationshipTypeId' on row 'DocumentationRelationship:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationRelationshipTypeListById.TryGetValue(documentationRelationshipTypeId, out var documentationRelationshipTypeCanonical) || !ReferenceEquals(documentationRelationshipTypeCanonical, row.DocumentationRelationshipType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationRelationship.DocumentationRelationshipTypeId' on row 'DocumentationRelationship:{row.Id}' references an object that is not the canonical row for Id '{documentationRelationshipTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationRelationshipTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationRelationshipTypeId);
+                builder.Append('"');
                 var documentationSourceId = RequireIdentity(row.DocumentationSource?.Id, $"Relationship 'DocumentationRelationship.DocumentationSourceId' on row 'DocumentationRelationship:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationSourceListById.TryGetValue(documentationSourceId, out var documentationSourceCanonical) || !ReferenceEquals(documentationSourceCanonical, row.DocumentationSource))
                 {
@@ -1726,6 +2752,16 @@ namespace MetaDocs
                 builder.Append("DocumentationSourceId");
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSourceId);
+                builder.Append('"');
+                var fromSubjectId = RequireIdentity(row.FromSubject?.Id, $"Relationship 'DocumentationRelationship.FromSubjectId' on row 'DocumentationRelationship:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationSubjectListById.TryGetValue(fromSubjectId, out var fromSubjectCanonical) || !ReferenceEquals(fromSubjectCanonical, row.FromSubject))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationRelationship.FromSubjectId' on row 'DocumentationRelationship:{row.Id}' references an object that is not the canonical row for Id '{fromSubjectId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("FromSubjectId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, fromSubjectId);
                 builder.Append('"');
                 if (row.PreviousRelationship != null)
                 {
@@ -1740,10 +2776,17 @@ namespace MetaDocs
                     AppendXmlAttribute(builder, previousRelationshipId);
                     builder.Append('"');
                 }
+                var toSubjectId = RequireIdentity(row.ToSubject?.Id, $"Relationship 'DocumentationRelationship.ToSubjectId' on row 'DocumentationRelationship:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationSubjectListById.TryGetValue(toSubjectId, out var toSubjectCanonical) || !ReferenceEquals(toSubjectCanonical, row.ToSubject))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationRelationship.ToSubjectId' on row 'DocumentationRelationship:{row.Id}' references an object that is not the canonical row for Id '{toSubjectId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("ToSubjectId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, toSubjectId);
+                builder.Append('"');
                 builder.Append(">\n");
-                AppendElement(builder, "FromSubjectKey", RequireText(row.FromSubjectKey, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'FromSubjectKey'."), "      ");
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'Kind'."), "      ");
-                AppendElement(builder, "ToSubjectKey", RequireText(row.ToSubjectKey, $"Entity 'DocumentationRelationship' row '{row.Id}' is missing required property 'ToSubjectKey'."), "      ");
                 builder.Append("    </DocumentationRelationship>\n");
             }
             builder.Append("  </DocumentationRelationshipList>\n");
@@ -1872,6 +2915,110 @@ namespace MetaDocs
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
+        private static void LoadDocumentationRelationshipTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationRelationshipTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationRelationshipTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationRelationshipType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationRelationshipTypeList'.");
+                }
+                var row = ReadDocumentationRelationshipType(reader, relationshipBuffers);
+                loadState.AddDocumentationRelationshipTypeId(row.Id);
+                model.DocumentationRelationshipTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationRelationshipType ReadDocumentationRelationshipType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationRelationshipType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationRelationshipType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationRelationshipType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationRelationshipType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationRelationshipType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationRelationshipTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationRelationshipTypeList>\n");
+            foreach (var row in model.DocumentationRelationshipTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationRelationshipType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationRelationshipType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationRelationshipType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationRelationshipType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationRelationshipType>\n");
+            }
+            builder.Append("  </DocumentationRelationshipTypeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
         private static void LoadDocumentationSourceList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
         {
             if (reader.IsEmptyElement)
@@ -1913,6 +3060,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationSourceTypeId":
+                            relationships.DocumentationSourceTypeId = reader.Value;
+                            break;
                         case "DocumentationWorkspaceId":
                             relationships.DocumentationWorkspaceId = reader.Value;
                             break;
@@ -1944,9 +3094,6 @@ namespace MetaDocs
                         break;
                     case "ImporterId":
                         row.ImporterId = reader.ReadElementContentAsString();
-                        break;
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
                         break;
                     case "Locator":
                         row.Locator = reader.ReadElementContentAsString();
@@ -1984,6 +3131,16 @@ namespace MetaDocs
                 builder.Append("    <DocumentationSource Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationSourceTypeId = RequireIdentity(row.DocumentationSourceType?.Id, $"Relationship 'DocumentationSource.DocumentationSourceTypeId' on row 'DocumentationSource:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationSourceTypeListById.TryGetValue(documentationSourceTypeId, out var documentationSourceTypeCanonical) || !ReferenceEquals(documentationSourceTypeCanonical, row.DocumentationSourceType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationSource.DocumentationSourceTypeId' on row 'DocumentationSource:{row.Id}' references an object that is not the canonical row for Id '{documentationSourceTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationSourceTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationSourceTypeId);
+                builder.Append('"');
                 if (row.DocumentationWorkspace != null)
                 {
                     var documentationWorkspaceId = RequireIdentity(row.DocumentationWorkspace?.Id, $"Relationship 'DocumentationSource.DocumentationWorkspaceId' on row 'DocumentationSource:{row.Id}' is empty.");
@@ -2007,7 +3164,6 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "ImporterId", row.ImporterId!, "      ");
                 }
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationSource' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Locator))
                 {
                     AppendElement(builder, "Locator", row.Locator!, "      ");
@@ -2020,6 +3176,110 @@ namespace MetaDocs
                 builder.Append("    </DocumentationSource>\n");
             }
             builder.Append("  </DocumentationSourceList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationSourceTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationSourceTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationSourceTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationSourceType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationSourceTypeList'.");
+                }
+                var row = ReadDocumentationSourceType(reader, relationshipBuffers);
+                loadState.AddDocumentationSourceTypeId(row.Id);
+                model.DocumentationSourceTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationSourceType ReadDocumentationSourceType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationSourceType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationSourceType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationSourceType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationSourceType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationSourceType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationSourceTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationSourceTypeList>\n");
+            foreach (var row in model.DocumentationSourceTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSourceType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationSourceType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationSourceType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationSourceType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationSourceType>\n");
+            }
+            builder.Append("  </DocumentationSourceTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -2068,6 +3328,12 @@ namespace MetaDocs
                         case "DocumentationSourceId":
                             relationships.DocumentationSourceId = reader.Value;
                             break;
+                        case "DocumentationSubjectTypeId":
+                            relationships.DocumentationSubjectTypeId = reader.Value;
+                            break;
+                        case "ParentSubjectId":
+                            relationships.ParentSubjectId = reader.Value;
+                            break;
                         case "PreviousSubjectId":
                             relationships.PreviousSubjectId = reader.Value;
                             break;
@@ -2097,20 +3363,11 @@ namespace MetaDocs
                     case "DisplayPath":
                         row.DisplayPath = reader.ReadElementContentAsString();
                         break;
-                    case "Key":
-                        row.Key = reader.ReadElementContentAsString();
-                        break;
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
                     case "NativeId":
                         row.NativeId = reader.ReadElementContentAsString();
                         break;
-                    case "NativeKind":
-                        row.NativeKind = reader.ReadElementContentAsString();
-                        break;
-                    case "ParentKey":
-                        row.ParentKey = reader.ReadElementContentAsString();
+                    case "SourceTypeName":
+                        row.SourceTypeName = reader.ReadElementContentAsString();
                         break;
                     case "Status":
                         row.Status = reader.ReadElementContentAsString();
@@ -2155,6 +3412,29 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationSourceId);
                 builder.Append('"');
+                var documentationSubjectTypeId = RequireIdentity(row.DocumentationSubjectType?.Id, $"Relationship 'DocumentationSubject.DocumentationSubjectTypeId' on row 'DocumentationSubject:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationSubjectTypeListById.TryGetValue(documentationSubjectTypeId, out var documentationSubjectTypeCanonical) || !ReferenceEquals(documentationSubjectTypeCanonical, row.DocumentationSubjectType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationSubject.DocumentationSubjectTypeId' on row 'DocumentationSubject:{row.Id}' references an object that is not the canonical row for Id '{documentationSubjectTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationSubjectTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationSubjectTypeId);
+                builder.Append('"');
+                if (row.ParentSubject != null)
+                {
+                    var parentSubjectId = RequireIdentity(row.ParentSubject?.Id, $"Relationship 'DocumentationSubject.ParentSubjectId' on row 'DocumentationSubject:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationSubjectListById.TryGetValue(parentSubjectId, out var parentSubjectCanonical) || !ReferenceEquals(parentSubjectCanonical, row.ParentSubject))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationSubject.ParentSubjectId' on row 'DocumentationSubject:{row.Id}' references an object that is not the canonical row for Id '{parentSubjectId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("ParentSubjectId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, parentSubjectId);
+                    builder.Append('"');
+                }
                 if (row.PreviousSubject != null)
                 {
                     var previousSubjectId = RequireIdentity(row.PreviousSubject?.Id, $"Relationship 'DocumentationSubject.PreviousSubjectId' on row 'DocumentationSubject:{row.Id}' is empty.");
@@ -2174,19 +3454,13 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "DisplayPath", row.DisplayPath!, "      ");
                 }
-                AppendElement(builder, "Key", RequireText(row.Key, $"Entity 'DocumentationSubject' row '{row.Id}' is missing required property 'Key'."), "      ");
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationSubject' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.NativeId))
                 {
                     AppendElement(builder, "NativeId", row.NativeId!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.NativeKind))
+                if (!string.IsNullOrWhiteSpace(row.SourceTypeName))
                 {
-                    AppendElement(builder, "NativeKind", row.NativeKind!, "      ");
-                }
-                if (!string.IsNullOrWhiteSpace(row.ParentKey))
-                {
-                    AppendElement(builder, "ParentKey", row.ParentKey!, "      ");
+                    AppendElement(builder, "SourceTypeName", row.SourceTypeName!, "      ");
                 }
                 AppendElement(builder, "Status", RequireText(row.Status, $"Entity 'DocumentationSubject' row '{row.Id}' is missing required property 'Status'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Summary))
@@ -2264,14 +3538,11 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "AliasKey":
-                        row.AliasKey = reader.ReadElementContentAsString();
+                    case "Alias":
+                        row.Alias = reader.ReadElementContentAsString();
                         break;
                     case "Reason":
                         row.Reason = reader.ReadElementContentAsString();
-                        break;
-                    case "SubjectKey":
-                        row.SubjectKey = reader.ReadElementContentAsString();
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationSubjectAlias'.");
@@ -2311,15 +3582,118 @@ namespace MetaDocs
                 AppendXmlAttribute(builder, documentationSubjectId);
                 builder.Append('"');
                 builder.Append(">\n");
-                AppendElement(builder, "AliasKey", RequireText(row.AliasKey, $"Entity 'DocumentationSubjectAlias' row '{row.Id}' is missing required property 'AliasKey'."), "      ");
+                AppendElement(builder, "Alias", RequireText(row.Alias, $"Entity 'DocumentationSubjectAlias' row '{row.Id}' is missing required property 'Alias'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Reason))
                 {
                     AppendElement(builder, "Reason", row.Reason!, "      ");
                 }
-                AppendElement(builder, "SubjectKey", RequireText(row.SubjectKey, $"Entity 'DocumentationSubjectAlias' row '{row.Id}' is missing required property 'SubjectKey'."), "      ");
                 builder.Append("    </DocumentationSubjectAlias>\n");
             }
             builder.Append("  </DocumentationSubjectAliasList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationSubjectTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationSubjectTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationSubjectTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationSubjectType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationSubjectTypeList'.");
+                }
+                var row = ReadDocumentationSubjectType(reader, relationshipBuffers);
+                loadState.AddDocumentationSubjectTypeId(row.Id);
+                model.DocumentationSubjectTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationSubjectType ReadDocumentationSubjectType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationSubjectType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationSubjectType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationSubjectType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationSubjectType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationSubjectType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationSubjectTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationSubjectTypeList>\n");
+            foreach (var row in model.DocumentationSubjectTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSubjectType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationSubjectType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationSubjectType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationSubjectType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationSubjectType>\n");
+            }
+            builder.Append("  </DocumentationSubjectTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -2365,6 +3739,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationTemplateTypeId":
+                            relationships.DocumentationTemplateTypeId = reader.Value;
+                            break;
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
@@ -2393,9 +3770,6 @@ namespace MetaDocs
                 {
                     case "Html":
                         row.Html = reader.ReadElementContentAsString();
-                        break;
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
                         break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
@@ -2430,6 +3804,16 @@ namespace MetaDocs
                 builder.Append("    <DocumentationTemplate Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationTemplateTypeId = RequireIdentity(row.DocumentationTemplateType?.Id, $"Relationship 'DocumentationTemplate.DocumentationTemplateTypeId' on row 'DocumentationTemplate:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationTemplateTypeListById.TryGetValue(documentationTemplateTypeId, out var documentationTemplateTypeCanonical) || !ReferenceEquals(documentationTemplateTypeCanonical, row.DocumentationTemplateType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationTemplate.DocumentationTemplateTypeId' on row 'DocumentationTemplate:{row.Id}' references an object that is not the canonical row for Id '{documentationTemplateTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationTemplateTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationTemplateTypeId);
+                builder.Append('"');
                 var documentationThemeId = RequireIdentity(row.DocumentationTheme?.Id, $"Relationship 'DocumentationTemplate.DocumentationThemeId' on row 'DocumentationTemplate:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationThemeListById.TryGetValue(documentationThemeId, out var documentationThemeCanonical) || !ReferenceEquals(documentationThemeCanonical, row.DocumentationTheme))
                 {
@@ -2458,7 +3842,6 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "Html", row.Html!, "      ");
                 }
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationTemplate' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplate' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.SourceUrl))
                 {
@@ -2515,6 +3898,9 @@ namespace MetaDocs
                         case "DocumentationTemplateId":
                             relationships.DocumentationTemplateId = reader.Value;
                             break;
+                        case "DocumentationTemplateRegionTypeId":
+                            relationships.DocumentationTemplateRegionTypeId = reader.Value;
+                            break;
                         case "PreviousRegionId":
                             relationships.PreviousRegionId = reader.Value;
                             break;
@@ -2540,9 +3926,6 @@ namespace MetaDocs
                 {
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
-                        break;
-                    case "RegionKind":
-                        row.RegionKind = reader.ReadElementContentAsString();
                         break;
                     default:
                         throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationTemplateRegion'.");
@@ -2581,6 +3964,16 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, documentationTemplateId);
                 builder.Append('"');
+                var documentationTemplateRegionTypeId = RequireIdentity(row.DocumentationTemplateRegionType?.Id, $"Relationship 'DocumentationTemplateRegion.DocumentationTemplateRegionTypeId' on row 'DocumentationTemplateRegion:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationTemplateRegionTypeListById.TryGetValue(documentationTemplateRegionTypeId, out var documentationTemplateRegionTypeCanonical) || !ReferenceEquals(documentationTemplateRegionTypeCanonical, row.DocumentationTemplateRegionType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationTemplateRegion.DocumentationTemplateRegionTypeId' on row 'DocumentationTemplateRegion:{row.Id}' references an object that is not the canonical row for Id '{documentationTemplateRegionTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationTemplateRegionTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationTemplateRegionTypeId);
+                builder.Append('"');
                 if (row.PreviousRegion != null)
                 {
                     var previousRegionId = RequireIdentity(row.PreviousRegion?.Id, $"Relationship 'DocumentationTemplateRegion.PreviousRegionId' on row 'DocumentationTemplateRegion:{row.Id}' is empty.");
@@ -2596,10 +3989,217 @@ namespace MetaDocs
                 }
                 builder.Append(">\n");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplateRegion' row '{row.Id}' is missing required property 'Name'."), "      ");
-                AppendElement(builder, "RegionKind", RequireText(row.RegionKind, $"Entity 'DocumentationTemplateRegion' row '{row.Id}' is missing required property 'RegionKind'."), "      ");
                 builder.Append("    </DocumentationTemplateRegion>\n");
             }
             builder.Append("  </DocumentationTemplateRegionList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationTemplateRegionTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationTemplateRegionTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationTemplateRegionTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationTemplateRegionType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationTemplateRegionTypeList'.");
+                }
+                var row = ReadDocumentationTemplateRegionType(reader, relationshipBuffers);
+                loadState.AddDocumentationTemplateRegionTypeId(row.Id);
+                model.DocumentationTemplateRegionTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationTemplateRegionType ReadDocumentationTemplateRegionType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationTemplateRegionType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationTemplateRegionType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationTemplateRegionType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationTemplateRegionType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationTemplateRegionType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationTemplateRegionTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationTemplateRegionTypeList>\n");
+            foreach (var row in model.DocumentationTemplateRegionTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplateRegionType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationTemplateRegionType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationTemplateRegionType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplateRegionType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationTemplateRegionType>\n");
+            }
+            builder.Append("  </DocumentationTemplateRegionTypeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationTemplateTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationTemplateTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationTemplateTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationTemplateType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationTemplateTypeList'.");
+                }
+                var row = ReadDocumentationTemplateType(reader, relationshipBuffers);
+                loadState.AddDocumentationTemplateTypeId(row.Id);
+                model.DocumentationTemplateTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationTemplateType ReadDocumentationTemplateType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationTemplateType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationTemplateType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationTemplateType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationTemplateType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationTemplateType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationTemplateTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationTemplateTypeList>\n");
+            foreach (var row in model.DocumentationTemplateTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplateType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationTemplateType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationTemplateType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationTemplateType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationTemplateType>\n");
+            }
+            builder.Append("  </DocumentationTemplateTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -2756,6 +4356,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationThemeAssetTypeId":
+                            relationships.DocumentationThemeAssetTypeId = reader.Value;
+                            break;
                         case "DocumentationThemeId":
                             relationships.DocumentationThemeId = reader.Value;
                             break;
@@ -2782,9 +4385,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "AssetKind":
-                        row.AssetKind = reader.ReadElementContentAsString();
-                        break;
                     case "Content":
                         row.Content = reader.ReadElementContentAsString();
                         break;
@@ -2827,6 +4427,16 @@ namespace MetaDocs
                 builder.Append("    <DocumentationThemeAsset Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationThemeAssetTypeId = RequireIdentity(row.DocumentationThemeAssetType?.Id, $"Relationship 'DocumentationThemeAsset.DocumentationThemeAssetTypeId' on row 'DocumentationThemeAsset:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationThemeAssetTypeListById.TryGetValue(documentationThemeAssetTypeId, out var documentationThemeAssetTypeCanonical) || !ReferenceEquals(documentationThemeAssetTypeCanonical, row.DocumentationThemeAssetType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationThemeAsset.DocumentationThemeAssetTypeId' on row 'DocumentationThemeAsset:{row.Id}' references an object that is not the canonical row for Id '{documentationThemeAssetTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationThemeAssetTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationThemeAssetTypeId);
+                builder.Append('"');
                 var documentationThemeId = RequireIdentity(row.DocumentationTheme?.Id, $"Relationship 'DocumentationThemeAsset.DocumentationThemeId' on row 'DocumentationThemeAsset:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationThemeListById.TryGetValue(documentationThemeId, out var documentationThemeCanonical) || !ReferenceEquals(documentationThemeCanonical, row.DocumentationTheme))
                 {
@@ -2851,7 +4461,6 @@ namespace MetaDocs
                     builder.Append('"');
                 }
                 builder.Append(">\n");
-                AppendElement(builder, "AssetKind", RequireText(row.AssetKind, $"Entity 'DocumentationThemeAsset' row '{row.Id}' is missing required property 'AssetKind'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Content))
                 {
                     AppendElement(builder, "Content", row.Content!, "      ");
@@ -2872,6 +4481,214 @@ namespace MetaDocs
                 builder.Append("    </DocumentationThemeAsset>\n");
             }
             builder.Append("  </DocumentationThemeAssetList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationThemeAssetTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationThemeAssetTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationThemeAssetTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationThemeAssetType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationThemeAssetTypeList'.");
+                }
+                var row = ReadDocumentationThemeAssetType(reader, relationshipBuffers);
+                loadState.AddDocumentationThemeAssetTypeId(row.Id);
+                model.DocumentationThemeAssetTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationThemeAssetType ReadDocumentationThemeAssetType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationThemeAssetType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationThemeAssetType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationThemeAssetType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationThemeAssetType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationThemeAssetType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationThemeAssetTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationThemeAssetTypeList>\n");
+            foreach (var row in model.DocumentationThemeAssetTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationThemeAssetType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationThemeAssetType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationThemeAssetType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationThemeAssetType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationThemeAssetType>\n");
+            }
+            builder.Append("  </DocumentationThemeAssetTypeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationValueTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationValueTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationValueTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationValueType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationValueTypeList'.");
+                }
+                var row = ReadDocumentationValueType(reader, relationshipBuffers);
+                loadState.AddDocumentationValueTypeId(row.Id);
+                model.DocumentationValueTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationValueType ReadDocumentationValueType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationValueType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationValueType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationValueType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationValueType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationValueType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationValueTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationValueTypeList>\n");
+            foreach (var row in model.DocumentationValueTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationValueType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationValueType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationValueType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationValueType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationValueType>\n");
+            }
+            builder.Append("  </DocumentationValueTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -2902,6 +4719,7 @@ namespace MetaDocs
         private static DocumentationView ReadDocumentationView(XmlReader reader, RelationshipBuffers relationshipBuffers)
         {
             var row = new DocumentationView();
+            var relationships = new DocumentationViewRelationships { Row = row };
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -2916,6 +4734,12 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationViewTypeId":
+                            relationships.DocumentationViewTypeId = reader.Value;
+                            break;
+                        case "RootSubjectId":
+                            relationships.RootSubjectId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationView'.");
                     }
@@ -2927,6 +4751,7 @@ namespace MetaDocs
             if (reader.IsEmptyElement)
             {
                 reader.ReadStartElement("DocumentationView");
+                (relationshipBuffers.DocumentationViewRelationships ??= new List<DocumentationViewRelationships>()).Add(relationships);
                 return row;
             }
 
@@ -2935,9 +4760,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -2952,6 +4774,7 @@ namespace MetaDocs
                 }
             }
             reader.ReadEndElement();
+            (relationshipBuffers.DocumentationViewRelationships ??= new List<DocumentationViewRelationships>()).Add(relationships);
             return row;
         }
 
@@ -2973,8 +4796,30 @@ namespace MetaDocs
                 builder.Append("    <DocumentationView Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationViewTypeId = RequireIdentity(row.DocumentationViewType?.Id, $"Relationship 'DocumentationView.DocumentationViewTypeId' on row 'DocumentationView:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationViewTypeListById.TryGetValue(documentationViewTypeId, out var documentationViewTypeCanonical) || !ReferenceEquals(documentationViewTypeCanonical, row.DocumentationViewType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationView.DocumentationViewTypeId' on row 'DocumentationView:{row.Id}' references an object that is not the canonical row for Id '{documentationViewTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationViewTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationViewTypeId);
+                builder.Append('"');
+                if (row.RootSubject != null)
+                {
+                    var rootSubjectId = RequireIdentity(row.RootSubject?.Id, $"Relationship 'DocumentationView.RootSubjectId' on row 'DocumentationView:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationSubjectListById.TryGetValue(rootSubjectId, out var rootSubjectCanonical) || !ReferenceEquals(rootSubjectCanonical, row.RootSubject))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationView.RootSubjectId' on row 'DocumentationView:{row.Id}' references an object that is not the canonical row for Id '{rootSubjectId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("RootSubjectId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, rootSubjectId);
+                    builder.Append('"');
+                }
                 builder.Append(">\n");
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationView' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationView' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Summary))
                 {
@@ -3032,6 +4877,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationSubjectId":
+                            relationships.DocumentationSubjectId = reader.Value;
+                            break;
                         case "DocumentationViewId":
                             relationships.DocumentationViewId = reader.Value;
                             break;
@@ -3064,9 +4912,6 @@ namespace MetaDocs
                     case "Selection":
                         row.Selection = reader.ReadElementContentAsString();
                         break;
-                    case "SubjectKey":
-                        row.SubjectKey = reader.ReadElementContentAsString();
-                        break;
                     case "Title":
                         row.Title = reader.ReadElementContentAsString();
                         break;
@@ -3097,6 +4942,19 @@ namespace MetaDocs
                 builder.Append("    <DocumentationViewNode Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                if (row.DocumentationSubject != null)
+                {
+                    var documentationSubjectId = RequireIdentity(row.DocumentationSubject?.Id, $"Relationship 'DocumentationViewNode.DocumentationSubjectId' on row 'DocumentationViewNode:{row.Id}' is empty.");
+                    if (!saveIndexes.DocumentationSubjectListById.TryGetValue(documentationSubjectId, out var documentationSubjectCanonical) || !ReferenceEquals(documentationSubjectCanonical, row.DocumentationSubject))
+                    {
+                        throw new InvalidOperationException($"Relationship 'DocumentationViewNode.DocumentationSubjectId' on row 'DocumentationViewNode:{row.Id}' references an object that is not the canonical row for Id '{documentationSubjectId}'.");
+                    }
+                    builder.Append(' ');
+                    builder.Append("DocumentationSubjectId");
+                    builder.Append("=\"");
+                    AppendXmlAttribute(builder, documentationSubjectId);
+                    builder.Append('"');
+                }
                 var documentationViewId = RequireIdentity(row.DocumentationView?.Id, $"Relationship 'DocumentationViewNode.DocumentationViewId' on row 'DocumentationViewNode:{row.Id}' is empty.");
                 if (!saveIndexes.DocumentationViewListById.TryGetValue(documentationViewId, out var documentationViewCanonical) || !ReferenceEquals(documentationViewCanonical, row.DocumentationView))
                 {
@@ -3129,14 +4987,114 @@ namespace MetaDocs
                 {
                     AppendElement(builder, "Selection", row.Selection!, "      ");
                 }
-                if (!string.IsNullOrWhiteSpace(row.SubjectKey))
-                {
-                    AppendElement(builder, "SubjectKey", row.SubjectKey!, "      ");
-                }
                 AppendElement(builder, "Title", RequireText(row.Title, $"Entity 'DocumentationViewNode' row '{row.Id}' is missing required property 'Title'."), "      ");
                 builder.Append("    </DocumentationViewNode>\n");
             }
             builder.Append("  </DocumentationViewNodeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
+        private static void LoadDocumentationViewTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationViewTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationViewTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationViewType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationViewTypeList'.");
+                }
+                var row = ReadDocumentationViewType(reader, relationshipBuffers);
+                loadState.AddDocumentationViewTypeId(row.Id);
+                model.DocumentationViewTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationViewType ReadDocumentationViewType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationViewType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationViewType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationViewType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationViewType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationViewType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationViewTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationViewTypeList>\n");
+            foreach (var row in model.DocumentationViewTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationViewType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationViewType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationViewType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationViewType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationViewType>\n");
+            }
+            builder.Append("  </DocumentationViewTypeList>\n");
             builder.Append("</MetaDocs>\n");
             return Utf8NoBom.GetBytes(builder.ToString());
         }
@@ -3167,6 +5125,7 @@ namespace MetaDocs
         private static DocumentationWorkspace ReadDocumentationWorkspace(XmlReader reader, RelationshipBuffers relationshipBuffers)
         {
             var row = new DocumentationWorkspace();
+            var relationships = new DocumentationWorkspaceRelationships { Row = row };
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -3181,6 +5140,9 @@ namespace MetaDocs
                         case "Id":
                             row.Id = reader.Value;
                             break;
+                        case "DocumentationWorkspaceTypeId":
+                            relationships.DocumentationWorkspaceTypeId = reader.Value;
+                            break;
                         default:
                             throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationWorkspace'.");
                     }
@@ -3192,6 +5154,7 @@ namespace MetaDocs
             if (reader.IsEmptyElement)
             {
                 reader.ReadStartElement("DocumentationWorkspace");
+                (relationshipBuffers.DocumentationWorkspaceRelationships ??= new List<DocumentationWorkspaceRelationships>()).Add(relationships);
                 return row;
             }
 
@@ -3200,9 +5163,6 @@ namespace MetaDocs
             {
                 switch (reader.LocalName)
                 {
-                    case "Kind":
-                        row.Kind = reader.ReadElementContentAsString();
-                        break;
                     case "Name":
                         row.Name = reader.ReadElementContentAsString();
                         break;
@@ -3214,6 +5174,7 @@ namespace MetaDocs
                 }
             }
             reader.ReadEndElement();
+            (relationshipBuffers.DocumentationWorkspaceRelationships ??= new List<DocumentationWorkspaceRelationships>()).Add(relationships);
             return row;
         }
 
@@ -3235,8 +5196,17 @@ namespace MetaDocs
                 builder.Append("    <DocumentationWorkspace Id=\"");
                 AppendXmlAttribute(builder, rowId);
                 builder.Append('"');
+                var documentationWorkspaceTypeId = RequireIdentity(row.DocumentationWorkspaceType?.Id, $"Relationship 'DocumentationWorkspace.DocumentationWorkspaceTypeId' on row 'DocumentationWorkspace:{row.Id}' is empty.");
+                if (!saveIndexes.DocumentationWorkspaceTypeListById.TryGetValue(documentationWorkspaceTypeId, out var documentationWorkspaceTypeCanonical) || !ReferenceEquals(documentationWorkspaceTypeCanonical, row.DocumentationWorkspaceType))
+                {
+                    throw new InvalidOperationException($"Relationship 'DocumentationWorkspace.DocumentationWorkspaceTypeId' on row 'DocumentationWorkspace:{row.Id}' references an object that is not the canonical row for Id '{documentationWorkspaceTypeId}'.");
+                }
+                builder.Append(' ');
+                builder.Append("DocumentationWorkspaceTypeId");
+                builder.Append("=\"");
+                AppendXmlAttribute(builder, documentationWorkspaceTypeId);
+                builder.Append('"');
                 builder.Append(">\n");
-                AppendElement(builder, "Kind", RequireText(row.Kind, $"Entity 'DocumentationWorkspace' row '{row.Id}' is missing required property 'Kind'."), "      ");
                 AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationWorkspace' row '{row.Id}' is missing required property 'Name'."), "      ");
                 if (!string.IsNullOrWhiteSpace(row.Summary))
                 {
@@ -3249,9 +5219,114 @@ namespace MetaDocs
             return Utf8NoBom.GetBytes(builder.ToString());
         }
 
+        private static void LoadDocumentationWorkspaceTypeList(MetaDocsModel model, XmlReader reader, LoadState loadState, RelationshipBuffers relationshipBuffers)
+        {
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationWorkspaceTypeList");
+                return;
+            }
+
+            reader.ReadStartElement("DocumentationWorkspaceTypeList");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                if (!string.Equals(reader.LocalName, "DocumentationWorkspaceType", StringComparison.Ordinal))
+                {
+                    throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' in 'DocumentationWorkspaceTypeList'.");
+                }
+                var row = ReadDocumentationWorkspaceType(reader, relationshipBuffers);
+                loadState.AddDocumentationWorkspaceTypeId(row.Id);
+                model.DocumentationWorkspaceTypeList.Add(row);
+                reader.MoveToContent();
+            }
+            reader.ReadEndElement();
+        }
+
+        private static DocumentationWorkspaceType ReadDocumentationWorkspaceType(XmlReader reader, RelationshipBuffers relationshipBuffers)
+        {
+            var row = new DocumentationWorkspaceType();
+            if (reader.HasAttributes)
+            {
+                while (reader.MoveToNextAttribute())
+                {
+                    if (IsNamespaceDeclaration(reader))
+                    {
+                        continue;
+                    }
+
+                    switch (reader.LocalName)
+                    {
+                        case "Id":
+                            row.Id = reader.Value;
+                            break;
+                        default:
+                            throw new InvalidDataException($"Unknown XML attribute '{reader.LocalName}' on 'DocumentationWorkspaceType'.");
+                    }
+                }
+
+                reader.MoveToElement();
+            }
+
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement("DocumentationWorkspaceType");
+                return row;
+            }
+
+            reader.ReadStartElement("DocumentationWorkspaceType");
+            while (reader.NodeType == XmlNodeType.Element)
+            {
+                switch (reader.LocalName)
+                {
+                    case "Description":
+                        row.Description = reader.ReadElementContentAsString();
+                        break;
+                    case "Name":
+                        row.Name = reader.ReadElementContentAsString();
+                        break;
+                    default:
+                        throw new InvalidDataException($"Unknown XML element '{reader.LocalName}' on 'DocumentationWorkspaceType'.");
+                }
+            }
+            reader.ReadEndElement();
+            return row;
+        }
+
+        private static byte[] SerializeDocumentationWorkspaceTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
+        {
+            var builder = new StringBuilder();
+            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            builder.Append("<MetaDocs>\n");
+            builder.Append("  <DocumentationWorkspaceTypeList>\n");
+            foreach (var row in model.DocumentationWorkspaceTypeList)
+            {
+                ArgumentNullException.ThrowIfNull(row);
+                var rowId = RequireIdentity(row.Id, "Entity 'DocumentationWorkspaceType' contains a row with empty Id.");
+                if (!rowIds.Add(rowId))
+                {
+                    throw new InvalidOperationException($"Entity 'DocumentationWorkspaceType' contains duplicate Id '{rowId}'.");
+                }
+                builder.Append("    <DocumentationWorkspaceType Id=\"");
+                AppendXmlAttribute(builder, rowId);
+                builder.Append('"');
+                builder.Append(">\n");
+                if (!string.IsNullOrWhiteSpace(row.Description))
+                {
+                    AppendElement(builder, "Description", row.Description!, "      ");
+                }
+                AppendElement(builder, "Name", RequireText(row.Name, $"Entity 'DocumentationWorkspaceType' row '{row.Id}' is missing required property 'Name'."), "      ");
+                builder.Append("    </DocumentationWorkspaceType>\n");
+            }
+            builder.Append("  </DocumentationWorkspaceTypeList>\n");
+            builder.Append("</MetaDocs>\n");
+            return Utf8NoBom.GetBytes(builder.ToString());
+        }
+
         private sealed class DocumentationComponentTemplateRelationships
         {
             public DocumentationComponentTemplate Row { get; set; } = null!;
+            public string DocumentationComponentTemplateTypeId { get; set; } = string.Empty;
             public string DocumentationThemeId { get; set; } = string.Empty;
             public string PreviousComponentId { get; set; } = string.Empty;
         }
@@ -3262,12 +5337,35 @@ namespace MetaDocs
             public string DocumentationInstanceImportSpecId { get; set; } = string.Empty;
         }
 
+        private sealed class DocumentationExampleRelationships
+        {
+            public DocumentationExample Row { get; set; } = null!;
+            public string DocumentationSubjectId { get; set; } = string.Empty;
+            public string PreviousExampleId { get; set; } = string.Empty;
+        }
+
+        private sealed class DocumentationExampleCodeRelationships
+        {
+            public DocumentationExampleCode Row { get; set; } = null!;
+            public string DocumentationExampleSectionId { get; set; } = string.Empty;
+            public string PreviousCodeId { get; set; } = string.Empty;
+        }
+
+        private sealed class DocumentationExampleSectionRelationships
+        {
+            public DocumentationExampleSection Row { get; set; } = null!;
+            public string DocumentationExampleId { get; set; } = string.Empty;
+            public string PreviousSectionId { get; set; } = string.Empty;
+        }
+
         private sealed class DocumentationFactRelationships
         {
             public DocumentationFact Row { get; set; } = null!;
+            public string DocumentationFactTypeId { get; set; } = string.Empty;
             public string DocumentationImportBatchId { get; set; } = string.Empty;
             public string DocumentationSourceId { get; set; } = string.Empty;
             public string DocumentationSubjectId { get; set; } = string.Empty;
+            public string DocumentationValueTypeId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationImportBatchRelationships
@@ -3285,6 +5383,7 @@ namespace MetaDocs
         private sealed class DocumentationLayoutRelationships
         {
             public DocumentationLayout Row { get; set; } = null!;
+            public string DocumentationLayoutTypeId { get; set; } = string.Empty;
             public string DocumentationThemeId { get; set; } = string.Empty;
             public string PreviousLayoutId { get; set; } = string.Empty;
         }
@@ -3306,8 +5405,11 @@ namespace MetaDocs
         {
             public DocumentationRelationship Row { get; set; } = null!;
             public string DocumentationImportBatchId { get; set; } = string.Empty;
+            public string DocumentationRelationshipTypeId { get; set; } = string.Empty;
             public string DocumentationSourceId { get; set; } = string.Empty;
+            public string FromSubjectId { get; set; } = string.Empty;
             public string PreviousRelationshipId { get; set; } = string.Empty;
+            public string ToSubjectId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationRelationshipImportSpecRelationships
@@ -3319,6 +5421,7 @@ namespace MetaDocs
         private sealed class DocumentationSourceRelationships
         {
             public DocumentationSource Row { get; set; } = null!;
+            public string DocumentationSourceTypeId { get; set; } = string.Empty;
             public string DocumentationWorkspaceId { get; set; } = string.Empty;
         }
 
@@ -3326,6 +5429,8 @@ namespace MetaDocs
         {
             public DocumentationSubject Row { get; set; } = null!;
             public string DocumentationSourceId { get; set; } = string.Empty;
+            public string DocumentationSubjectTypeId { get; set; } = string.Empty;
+            public string ParentSubjectId { get; set; } = string.Empty;
             public string PreviousSubjectId { get; set; } = string.Empty;
         }
 
@@ -3338,6 +5443,7 @@ namespace MetaDocs
         private sealed class DocumentationTemplateRelationships
         {
             public DocumentationTemplate Row { get; set; } = null!;
+            public string DocumentationTemplateTypeId { get; set; } = string.Empty;
             public string DocumentationThemeId { get; set; } = string.Empty;
             public string PreviousTemplateId { get; set; } = string.Empty;
         }
@@ -3346,27 +5452,46 @@ namespace MetaDocs
         {
             public DocumentationTemplateRegion Row { get; set; } = null!;
             public string DocumentationTemplateId { get; set; } = string.Empty;
+            public string DocumentationTemplateRegionTypeId { get; set; } = string.Empty;
             public string PreviousRegionId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationThemeAssetRelationships
         {
             public DocumentationThemeAsset Row { get; set; } = null!;
+            public string DocumentationThemeAssetTypeId { get; set; } = string.Empty;
             public string DocumentationThemeId { get; set; } = string.Empty;
             public string PreviousAssetId { get; set; } = string.Empty;
+        }
+
+        private sealed class DocumentationViewRelationships
+        {
+            public DocumentationView Row { get; set; } = null!;
+            public string DocumentationViewTypeId { get; set; } = string.Empty;
+            public string RootSubjectId { get; set; } = string.Empty;
         }
 
         private sealed class DocumentationViewNodeRelationships
         {
             public DocumentationViewNode Row { get; set; } = null!;
+            public string DocumentationSubjectId { get; set; } = string.Empty;
             public string DocumentationViewId { get; set; } = string.Empty;
             public string PreviousNodeId { get; set; } = string.Empty;
+        }
+
+        private sealed class DocumentationWorkspaceRelationships
+        {
+            public DocumentationWorkspace Row { get; set; } = null!;
+            public string DocumentationWorkspaceTypeId { get; set; } = string.Empty;
         }
 
         private sealed class RelationshipBuffers
         {
             public List<DocumentationComponentTemplateRelationships>? DocumentationComponentTemplateRelationships { get; set; }
             public List<DocumentationEntityImportSpecRelationships>? DocumentationEntityImportSpecRelationships { get; set; }
+            public List<DocumentationExampleRelationships>? DocumentationExampleRelationships { get; set; }
+            public List<DocumentationExampleCodeRelationships>? DocumentationExampleCodeRelationships { get; set; }
+            public List<DocumentationExampleSectionRelationships>? DocumentationExampleSectionRelationships { get; set; }
             public List<DocumentationFactRelationships>? DocumentationFactRelationships { get; set; }
             public List<DocumentationImportBatchRelationships>? DocumentationImportBatchRelationships { get; set; }
             public List<DocumentationInstanceImportSpecRelationships>? DocumentationInstanceImportSpecRelationships { get; set; }
@@ -3381,11 +5506,23 @@ namespace MetaDocs
             public List<DocumentationTemplateRelationships>? DocumentationTemplateRelationships { get; set; }
             public List<DocumentationTemplateRegionRelationships>? DocumentationTemplateRegionRelationships { get; set; }
             public List<DocumentationThemeAssetRelationships>? DocumentationThemeAssetRelationships { get; set; }
+            public List<DocumentationViewRelationships>? DocumentationViewRelationships { get; set; }
             public List<DocumentationViewNodeRelationships>? DocumentationViewNodeRelationships { get; set; }
+            public List<DocumentationWorkspaceRelationships>? DocumentationWorkspaceRelationships { get; set; }
         }
 
         private static void ResolveRelationshipGroup1(LoadIndexes loadIndexes, RelationshipBuffers relationshipBuffers)
         {
+            foreach (var relationship in relationshipBuffers.DocumentationComponentTemplateRelationships ?? Enumerable.Empty<DocumentationComponentTemplateRelationships>())
+            {
+                relationship.Row.DocumentationComponentTemplateType = RequireTarget(
+                    loadIndexes.DocumentationComponentTemplateTypeListById,
+                    relationship.DocumentationComponentTemplateTypeId,
+                    "DocumentationComponentTemplate",
+                    relationship.Row.Id,
+                    "DocumentationComponentTemplateTypeId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationComponentTemplateRelationships ?? Enumerable.Empty<DocumentationComponentTemplateRelationships>())
             {
                 relationship.Row.DocumentationTheme = RequireTarget(
@@ -3418,6 +5555,82 @@ namespace MetaDocs
                     "DocumentationInstanceImportSpecId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationExampleRelationships ?? Enumerable.Empty<DocumentationExampleRelationships>())
+            {
+                relationship.Row.DocumentationSubject = RequireTarget(
+                    loadIndexes.DocumentationSubjectListById,
+                    relationship.DocumentationSubjectId,
+                    "DocumentationExample",
+                    relationship.Row.Id,
+                    "DocumentationSubjectId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationExampleRelationships ?? Enumerable.Empty<DocumentationExampleRelationships>())
+            {
+                relationship.Row.PreviousExample = string.IsNullOrWhiteSpace(relationship.PreviousExampleId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationExampleListById,
+                        relationship.PreviousExampleId,
+                        "DocumentationExample",
+                        relationship.Row.Id,
+                        "PreviousExampleId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationExampleCodeRelationships ?? Enumerable.Empty<DocumentationExampleCodeRelationships>())
+            {
+                relationship.Row.DocumentationExampleSection = RequireTarget(
+                    loadIndexes.DocumentationExampleSectionListById,
+                    relationship.DocumentationExampleSectionId,
+                    "DocumentationExampleCode",
+                    relationship.Row.Id,
+                    "DocumentationExampleSectionId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationExampleCodeRelationships ?? Enumerable.Empty<DocumentationExampleCodeRelationships>())
+            {
+                relationship.Row.PreviousCode = string.IsNullOrWhiteSpace(relationship.PreviousCodeId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationExampleCodeListById,
+                        relationship.PreviousCodeId,
+                        "DocumentationExampleCode",
+                        relationship.Row.Id,
+                        "PreviousCodeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationExampleSectionRelationships ?? Enumerable.Empty<DocumentationExampleSectionRelationships>())
+            {
+                relationship.Row.DocumentationExample = RequireTarget(
+                    loadIndexes.DocumentationExampleListById,
+                    relationship.DocumentationExampleId,
+                    "DocumentationExampleSection",
+                    relationship.Row.Id,
+                    "DocumentationExampleId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationExampleSectionRelationships ?? Enumerable.Empty<DocumentationExampleSectionRelationships>())
+            {
+                relationship.Row.PreviousSection = string.IsNullOrWhiteSpace(relationship.PreviousSectionId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationExampleSectionListById,
+                        relationship.PreviousSectionId,
+                        "DocumentationExampleSection",
+                        relationship.Row.Id,
+                        "PreviousSectionId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationFactRelationships ?? Enumerable.Empty<DocumentationFactRelationships>())
+            {
+                relationship.Row.DocumentationFactType = RequireTarget(
+                    loadIndexes.DocumentationFactTypeListById,
+                    relationship.DocumentationFactTypeId,
+                    "DocumentationFact",
+                    relationship.Row.Id,
+                    "DocumentationFactTypeId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationFactRelationships ?? Enumerable.Empty<DocumentationFactRelationships>())
             {
                 relationship.Row.DocumentationImportBatch = RequireTarget(
@@ -3448,6 +5661,16 @@ namespace MetaDocs
                     "DocumentationSubjectId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationFactRelationships ?? Enumerable.Empty<DocumentationFactRelationships>())
+            {
+                relationship.Row.DocumentationValueType = RequireTarget(
+                    loadIndexes.DocumentationValueTypeListById,
+                    relationship.DocumentationValueTypeId,
+                    "DocumentationFact",
+                    relationship.Row.Id,
+                    "DocumentationValueTypeId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationImportBatchRelationships ?? Enumerable.Empty<DocumentationImportBatchRelationships>())
             {
                 relationship.Row.DocumentationSource = RequireTarget(
@@ -3468,6 +5691,16 @@ namespace MetaDocs
                         "DocumentationInstanceImportSpec",
                         relationship.Row.Id,
                         "DocumentationSourceId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationLayoutRelationships ?? Enumerable.Empty<DocumentationLayoutRelationships>())
+            {
+                relationship.Row.DocumentationLayoutType = RequireTarget(
+                    loadIndexes.DocumentationLayoutTypeListById,
+                    relationship.DocumentationLayoutTypeId,
+                    "DocumentationLayout",
+                    relationship.Row.Id,
+                    "DocumentationLayoutTypeId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationLayoutRelationships ?? Enumerable.Empty<DocumentationLayoutRelationships>())
@@ -3536,12 +5769,32 @@ namespace MetaDocs
 
             foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
             {
+                relationship.Row.DocumentationRelationshipType = RequireTarget(
+                    loadIndexes.DocumentationRelationshipTypeListById,
+                    relationship.DocumentationRelationshipTypeId,
+                    "DocumentationRelationship",
+                    relationship.Row.Id,
+                    "DocumentationRelationshipTypeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
+            {
                 relationship.Row.DocumentationSource = RequireTarget(
                     loadIndexes.DocumentationSourceListById,
                     relationship.DocumentationSourceId,
                     "DocumentationRelationship",
                     relationship.Row.Id,
                     "DocumentationSourceId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
+            {
+                relationship.Row.FromSubject = RequireTarget(
+                    loadIndexes.DocumentationSubjectListById,
+                    relationship.FromSubjectId,
+                    "DocumentationRelationship",
+                    relationship.Row.Id,
+                    "FromSubjectId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
@@ -3556,6 +5809,16 @@ namespace MetaDocs
                         "PreviousRelationshipId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationRelationshipRelationships ?? Enumerable.Empty<DocumentationRelationshipRelationships>())
+            {
+                relationship.Row.ToSubject = RequireTarget(
+                    loadIndexes.DocumentationSubjectListById,
+                    relationship.ToSubjectId,
+                    "DocumentationRelationship",
+                    relationship.Row.Id,
+                    "ToSubjectId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationRelationshipImportSpecRelationships ?? Enumerable.Empty<DocumentationRelationshipImportSpecRelationships>())
             {
                 relationship.Row.DocumentationEntityImportSpec = RequireTarget(
@@ -3564,6 +5827,16 @@ namespace MetaDocs
                     "DocumentationRelationshipImportSpec",
                     relationship.Row.Id,
                     "DocumentationEntityImportSpecId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationSourceRelationships ?? Enumerable.Empty<DocumentationSourceRelationships>())
+            {
+                relationship.Row.DocumentationSourceType = RequireTarget(
+                    loadIndexes.DocumentationSourceTypeListById,
+                    relationship.DocumentationSourceTypeId,
+                    "DocumentationSource",
+                    relationship.Row.Id,
+                    "DocumentationSourceTypeId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationSourceRelationships ?? Enumerable.Empty<DocumentationSourceRelationships>())
@@ -3578,6 +5851,10 @@ namespace MetaDocs
                         "DocumentationWorkspaceId");
             }
 
+        }
+
+        private static void ResolveRelationshipGroup2(LoadIndexes loadIndexes, RelationshipBuffers relationshipBuffers)
+        {
             foreach (var relationship in relationshipBuffers.DocumentationSubjectRelationships ?? Enumerable.Empty<DocumentationSubjectRelationships>())
             {
                 relationship.Row.DocumentationSource = RequireTarget(
@@ -3586,6 +5863,28 @@ namespace MetaDocs
                     "DocumentationSubject",
                     relationship.Row.Id,
                     "DocumentationSourceId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationSubjectRelationships ?? Enumerable.Empty<DocumentationSubjectRelationships>())
+            {
+                relationship.Row.DocumentationSubjectType = RequireTarget(
+                    loadIndexes.DocumentationSubjectTypeListById,
+                    relationship.DocumentationSubjectTypeId,
+                    "DocumentationSubject",
+                    relationship.Row.Id,
+                    "DocumentationSubjectTypeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationSubjectRelationships ?? Enumerable.Empty<DocumentationSubjectRelationships>())
+            {
+                relationship.Row.ParentSubject = string.IsNullOrWhiteSpace(relationship.ParentSubjectId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationSubjectListById,
+                        relationship.ParentSubjectId,
+                        "DocumentationSubject",
+                        relationship.Row.Id,
+                        "ParentSubjectId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationSubjectRelationships ?? Enumerable.Empty<DocumentationSubjectRelationships>())
@@ -3608,6 +5907,16 @@ namespace MetaDocs
                     "DocumentationSubjectAlias",
                     relationship.Row.Id,
                     "DocumentationSubjectId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationTemplateRelationships ?? Enumerable.Empty<DocumentationTemplateRelationships>())
+            {
+                relationship.Row.DocumentationTemplateType = RequireTarget(
+                    loadIndexes.DocumentationTemplateTypeListById,
+                    relationship.DocumentationTemplateTypeId,
+                    "DocumentationTemplate",
+                    relationship.Row.Id,
+                    "DocumentationTemplateTypeId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationTemplateRelationships ?? Enumerable.Empty<DocumentationTemplateRelationships>())
@@ -3644,6 +5953,16 @@ namespace MetaDocs
 
             foreach (var relationship in relationshipBuffers.DocumentationTemplateRegionRelationships ?? Enumerable.Empty<DocumentationTemplateRegionRelationships>())
             {
+                relationship.Row.DocumentationTemplateRegionType = RequireTarget(
+                    loadIndexes.DocumentationTemplateRegionTypeListById,
+                    relationship.DocumentationTemplateRegionTypeId,
+                    "DocumentationTemplateRegion",
+                    relationship.Row.Id,
+                    "DocumentationTemplateRegionTypeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationTemplateRegionRelationships ?? Enumerable.Empty<DocumentationTemplateRegionRelationships>())
+            {
                 relationship.Row.PreviousRegion = string.IsNullOrWhiteSpace(relationship.PreviousRegionId)
                     ? null
                     : RequireTarget(
@@ -3652,6 +5971,16 @@ namespace MetaDocs
                         "DocumentationTemplateRegion",
                         relationship.Row.Id,
                         "PreviousRegionId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationThemeAssetRelationships ?? Enumerable.Empty<DocumentationThemeAssetRelationships>())
+            {
+                relationship.Row.DocumentationThemeAssetType = RequireTarget(
+                    loadIndexes.DocumentationThemeAssetTypeListById,
+                    relationship.DocumentationThemeAssetTypeId,
+                    "DocumentationThemeAsset",
+                    relationship.Row.Id,
+                    "DocumentationThemeAssetTypeId");
             }
 
             foreach (var relationship in relationshipBuffers.DocumentationThemeAssetRelationships ?? Enumerable.Empty<DocumentationThemeAssetRelationships>())
@@ -3676,6 +6005,40 @@ namespace MetaDocs
                         "PreviousAssetId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationViewRelationships ?? Enumerable.Empty<DocumentationViewRelationships>())
+            {
+                relationship.Row.DocumentationViewType = RequireTarget(
+                    loadIndexes.DocumentationViewTypeListById,
+                    relationship.DocumentationViewTypeId,
+                    "DocumentationView",
+                    relationship.Row.Id,
+                    "DocumentationViewTypeId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationViewRelationships ?? Enumerable.Empty<DocumentationViewRelationships>())
+            {
+                relationship.Row.RootSubject = string.IsNullOrWhiteSpace(relationship.RootSubjectId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationSubjectListById,
+                        relationship.RootSubjectId,
+                        "DocumentationView",
+                        relationship.Row.Id,
+                        "RootSubjectId");
+            }
+
+            foreach (var relationship in relationshipBuffers.DocumentationViewNodeRelationships ?? Enumerable.Empty<DocumentationViewNodeRelationships>())
+            {
+                relationship.Row.DocumentationSubject = string.IsNullOrWhiteSpace(relationship.DocumentationSubjectId)
+                    ? null
+                    : RequireTarget(
+                        loadIndexes.DocumentationSubjectListById,
+                        relationship.DocumentationSubjectId,
+                        "DocumentationViewNode",
+                        relationship.Row.Id,
+                        "DocumentationSubjectId");
+            }
+
             foreach (var relationship in relationshipBuffers.DocumentationViewNodeRelationships ?? Enumerable.Empty<DocumentationViewNodeRelationships>())
             {
                 relationship.Row.DocumentationView = RequireTarget(
@@ -3698,30 +6061,55 @@ namespace MetaDocs
                         "PreviousNodeId");
             }
 
+            foreach (var relationship in relationshipBuffers.DocumentationWorkspaceRelationships ?? Enumerable.Empty<DocumentationWorkspaceRelationships>())
+            {
+                relationship.Row.DocumentationWorkspaceType = RequireTarget(
+                    loadIndexes.DocumentationWorkspaceTypeListById,
+                    relationship.DocumentationWorkspaceTypeId,
+                    "DocumentationWorkspace",
+                    relationship.Row.Id,
+                    "DocumentationWorkspaceTypeId");
+            }
+
         }
 
         private static readonly string[] ShardFileNames =
         {
             "DocumentationComponentTemplate.xml",
+            "DocumentationComponentTemplateType.xml",
             "DocumentationEntityImportSpec.xml",
+            "DocumentationExample.xml",
+            "DocumentationExampleCode.xml",
+            "DocumentationExampleSection.xml",
             "DocumentationFact.xml",
+            "DocumentationFactType.xml",
             "DocumentationImportBatch.xml",
             "DocumentationInstanceImportSpec.xml",
             "DocumentationLayout.xml",
+            "DocumentationLayoutType.xml",
             "DocumentationNarrative.xml",
             "DocumentationPropertyImportSpec.xml",
             "DocumentationRelationship.xml",
             "DocumentationRelationshipImportSpec.xml",
+            "DocumentationRelationshipType.xml",
             "DocumentationSource.xml",
+            "DocumentationSourceType.xml",
             "DocumentationSubject.xml",
             "DocumentationSubjectAlias.xml",
+            "DocumentationSubjectType.xml",
             "DocumentationTemplate.xml",
             "DocumentationTemplateRegion.xml",
+            "DocumentationTemplateRegionType.xml",
+            "DocumentationTemplateType.xml",
             "DocumentationTheme.xml",
             "DocumentationThemeAsset.xml",
+            "DocumentationThemeAssetType.xml",
+            "DocumentationValueType.xml",
             "DocumentationView.xml",
             "DocumentationViewNode.xml",
+            "DocumentationViewType.xml",
             "DocumentationWorkspace.xml",
+            "DocumentationWorkspaceType.xml",
         };
 
         private static HashSet<string> BuildExpectedShardPaths(string instanceDirectoryPath)
@@ -3749,6 +6137,18 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationComponentTemplateTypeIds;
+
+            public void AddDocumentationComponentTemplateTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationComponentTemplateType' contains a row with empty Id.");
+                documentationComponentTemplateTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationComponentTemplateTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationComponentTemplateType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationEntityImportSpecIds;
 
             public void AddDocumentationEntityImportSpecId(string? id)
@@ -3761,6 +6161,42 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationExampleIds;
+
+            public void AddDocumentationExampleId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationExample' contains a row with empty Id.");
+                documentationExampleIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationExampleIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationExample' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationExampleCodeIds;
+
+            public void AddDocumentationExampleCodeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationExampleCode' contains a row with empty Id.");
+                documentationExampleCodeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationExampleCodeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationExampleCode' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationExampleSectionIds;
+
+            public void AddDocumentationExampleSectionId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationExampleSection' contains a row with empty Id.");
+                documentationExampleSectionIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationExampleSectionIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationExampleSection' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationFactIds;
 
             public void AddDocumentationFactId(string? id)
@@ -3770,6 +6206,18 @@ namespace MetaDocs
                 if (!documentationFactIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationFact' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationFactTypeIds;
+
+            public void AddDocumentationFactTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationFactType' contains a row with empty Id.");
+                documentationFactTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationFactTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationFactType' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3806,6 +6254,18 @@ namespace MetaDocs
                 if (!documentationLayoutIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationLayout' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationLayoutTypeIds;
+
+            public void AddDocumentationLayoutTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationLayoutType' contains a row with empty Id.");
+                documentationLayoutTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationLayoutTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationLayoutType' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3857,6 +6317,18 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationRelationshipTypeIds;
+
+            public void AddDocumentationRelationshipTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationRelationshipType' contains a row with empty Id.");
+                documentationRelationshipTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationRelationshipTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationRelationshipType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationSourceIds;
 
             public void AddDocumentationSourceId(string? id)
@@ -3866,6 +6338,18 @@ namespace MetaDocs
                 if (!documentationSourceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSource' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationSourceTypeIds;
+
+            public void AddDocumentationSourceTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationSourceType' contains a row with empty Id.");
+                documentationSourceTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationSourceTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationSourceType' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3893,6 +6377,18 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationSubjectTypeIds;
+
+            public void AddDocumentationSubjectTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationSubjectType' contains a row with empty Id.");
+                documentationSubjectTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationSubjectTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationSubjectType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationTemplateIds;
 
             public void AddDocumentationTemplateId(string? id)
@@ -3914,6 +6410,30 @@ namespace MetaDocs
                 if (!documentationTemplateRegionIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTemplateRegion' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationTemplateRegionTypeIds;
+
+            public void AddDocumentationTemplateRegionTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplateRegionType' contains a row with empty Id.");
+                documentationTemplateRegionTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationTemplateRegionTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationTemplateRegionType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationTemplateTypeIds;
+
+            public void AddDocumentationTemplateTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplateType' contains a row with empty Id.");
+                documentationTemplateTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationTemplateTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationTemplateType' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3941,6 +6461,30 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationThemeAssetTypeIds;
+
+            public void AddDocumentationThemeAssetTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationThemeAssetType' contains a row with empty Id.");
+                documentationThemeAssetTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationThemeAssetTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationThemeAssetType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationValueTypeIds;
+
+            public void AddDocumentationValueTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationValueType' contains a row with empty Id.");
+                documentationValueTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationValueTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationValueType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationViewIds;
 
             public void AddDocumentationViewId(string? id)
@@ -3965,6 +6509,18 @@ namespace MetaDocs
                 }
             }
 
+            private HashSet<string>? documentationViewTypeIds;
+
+            public void AddDocumentationViewTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationViewType' contains a row with empty Id.");
+                documentationViewTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationViewTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationViewType' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
             private HashSet<string>? documentationWorkspaceIds;
 
             public void AddDocumentationWorkspaceId(string? id)
@@ -3974,6 +6530,18 @@ namespace MetaDocs
                 if (!documentationWorkspaceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationWorkspace' contains duplicate Id '{normalizedId}'.");
+                }
+            }
+
+            private HashSet<string>? documentationWorkspaceTypeIds;
+
+            public void AddDocumentationWorkspaceTypeId(string? id)
+            {
+                var normalizedId = RequireIdentity(id, "Entity 'DocumentationWorkspaceType' contains a row with empty Id.");
+                documentationWorkspaceTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                if (!documentationWorkspaceTypeIds.Add(normalizedId))
+                {
+                    throw new InvalidDataException($"Entity 'DocumentationWorkspaceType' contains duplicate Id '{normalizedId}'.");
                 }
             }
 
@@ -3992,13 +6560,33 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationComponentTemplate> DocumentationComponentTemplateListById => documentationComponentTemplateListById ??= BuildById(model.DocumentationComponentTemplateList, row => row.Id, "DocumentationComponentTemplate");
 
+            private Dictionary<string, DocumentationComponentTemplateType>? documentationComponentTemplateTypeListById;
+
+            public Dictionary<string, DocumentationComponentTemplateType> DocumentationComponentTemplateTypeListById => documentationComponentTemplateTypeListById ??= BuildById(model.DocumentationComponentTemplateTypeList, row => row.Id, "DocumentationComponentTemplateType");
+
             private Dictionary<string, DocumentationEntityImportSpec>? documentationEntityImportSpecListById;
 
             public Dictionary<string, DocumentationEntityImportSpec> DocumentationEntityImportSpecListById => documentationEntityImportSpecListById ??= BuildById(model.DocumentationEntityImportSpecList, row => row.Id, "DocumentationEntityImportSpec");
 
+            private Dictionary<string, DocumentationExample>? documentationExampleListById;
+
+            public Dictionary<string, DocumentationExample> DocumentationExampleListById => documentationExampleListById ??= BuildById(model.DocumentationExampleList, row => row.Id, "DocumentationExample");
+
+            private Dictionary<string, DocumentationExampleCode>? documentationExampleCodeListById;
+
+            public Dictionary<string, DocumentationExampleCode> DocumentationExampleCodeListById => documentationExampleCodeListById ??= BuildById(model.DocumentationExampleCodeList, row => row.Id, "DocumentationExampleCode");
+
+            private Dictionary<string, DocumentationExampleSection>? documentationExampleSectionListById;
+
+            public Dictionary<string, DocumentationExampleSection> DocumentationExampleSectionListById => documentationExampleSectionListById ??= BuildById(model.DocumentationExampleSectionList, row => row.Id, "DocumentationExampleSection");
+
             private Dictionary<string, DocumentationFact>? documentationFactListById;
 
             public Dictionary<string, DocumentationFact> DocumentationFactListById => documentationFactListById ??= BuildById(model.DocumentationFactList, row => row.Id, "DocumentationFact");
+
+            private Dictionary<string, DocumentationFactType>? documentationFactTypeListById;
+
+            public Dictionary<string, DocumentationFactType> DocumentationFactTypeListById => documentationFactTypeListById ??= BuildById(model.DocumentationFactTypeList, row => row.Id, "DocumentationFactType");
 
             private Dictionary<string, DocumentationImportBatch>? documentationImportBatchListById;
 
@@ -4011,6 +6599,10 @@ namespace MetaDocs
             private Dictionary<string, DocumentationLayout>? documentationLayoutListById;
 
             public Dictionary<string, DocumentationLayout> DocumentationLayoutListById => documentationLayoutListById ??= BuildById(model.DocumentationLayoutList, row => row.Id, "DocumentationLayout");
+
+            private Dictionary<string, DocumentationLayoutType>? documentationLayoutTypeListById;
+
+            public Dictionary<string, DocumentationLayoutType> DocumentationLayoutTypeListById => documentationLayoutTypeListById ??= BuildById(model.DocumentationLayoutTypeList, row => row.Id, "DocumentationLayoutType");
 
             private Dictionary<string, DocumentationNarrative>? documentationNarrativeListById;
 
@@ -4028,9 +6620,17 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationRelationshipImportSpec> DocumentationRelationshipImportSpecListById => documentationRelationshipImportSpecListById ??= BuildById(model.DocumentationRelationshipImportSpecList, row => row.Id, "DocumentationRelationshipImportSpec");
 
+            private Dictionary<string, DocumentationRelationshipType>? documentationRelationshipTypeListById;
+
+            public Dictionary<string, DocumentationRelationshipType> DocumentationRelationshipTypeListById => documentationRelationshipTypeListById ??= BuildById(model.DocumentationRelationshipTypeList, row => row.Id, "DocumentationRelationshipType");
+
             private Dictionary<string, DocumentationSource>? documentationSourceListById;
 
             public Dictionary<string, DocumentationSource> DocumentationSourceListById => documentationSourceListById ??= BuildById(model.DocumentationSourceList, row => row.Id, "DocumentationSource");
+
+            private Dictionary<string, DocumentationSourceType>? documentationSourceTypeListById;
+
+            public Dictionary<string, DocumentationSourceType> DocumentationSourceTypeListById => documentationSourceTypeListById ??= BuildById(model.DocumentationSourceTypeList, row => row.Id, "DocumentationSourceType");
 
             private Dictionary<string, DocumentationSubject>? documentationSubjectListById;
 
@@ -4040,6 +6640,10 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationSubjectAlias> DocumentationSubjectAliasListById => documentationSubjectAliasListById ??= BuildById(model.DocumentationSubjectAliasList, row => row.Id, "DocumentationSubjectAlias");
 
+            private Dictionary<string, DocumentationSubjectType>? documentationSubjectTypeListById;
+
+            public Dictionary<string, DocumentationSubjectType> DocumentationSubjectTypeListById => documentationSubjectTypeListById ??= BuildById(model.DocumentationSubjectTypeList, row => row.Id, "DocumentationSubjectType");
+
             private Dictionary<string, DocumentationTemplate>? documentationTemplateListById;
 
             public Dictionary<string, DocumentationTemplate> DocumentationTemplateListById => documentationTemplateListById ??= BuildById(model.DocumentationTemplateList, row => row.Id, "DocumentationTemplate");
@@ -4047,6 +6651,14 @@ namespace MetaDocs
             private Dictionary<string, DocumentationTemplateRegion>? documentationTemplateRegionListById;
 
             public Dictionary<string, DocumentationTemplateRegion> DocumentationTemplateRegionListById => documentationTemplateRegionListById ??= BuildById(model.DocumentationTemplateRegionList, row => row.Id, "DocumentationTemplateRegion");
+
+            private Dictionary<string, DocumentationTemplateRegionType>? documentationTemplateRegionTypeListById;
+
+            public Dictionary<string, DocumentationTemplateRegionType> DocumentationTemplateRegionTypeListById => documentationTemplateRegionTypeListById ??= BuildById(model.DocumentationTemplateRegionTypeList, row => row.Id, "DocumentationTemplateRegionType");
+
+            private Dictionary<string, DocumentationTemplateType>? documentationTemplateTypeListById;
+
+            public Dictionary<string, DocumentationTemplateType> DocumentationTemplateTypeListById => documentationTemplateTypeListById ??= BuildById(model.DocumentationTemplateTypeList, row => row.Id, "DocumentationTemplateType");
 
             private Dictionary<string, DocumentationTheme>? documentationThemeListById;
 
@@ -4056,6 +6668,14 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationThemeAsset> DocumentationThemeAssetListById => documentationThemeAssetListById ??= BuildById(model.DocumentationThemeAssetList, row => row.Id, "DocumentationThemeAsset");
 
+            private Dictionary<string, DocumentationThemeAssetType>? documentationThemeAssetTypeListById;
+
+            public Dictionary<string, DocumentationThemeAssetType> DocumentationThemeAssetTypeListById => documentationThemeAssetTypeListById ??= BuildById(model.DocumentationThemeAssetTypeList, row => row.Id, "DocumentationThemeAssetType");
+
+            private Dictionary<string, DocumentationValueType>? documentationValueTypeListById;
+
+            public Dictionary<string, DocumentationValueType> DocumentationValueTypeListById => documentationValueTypeListById ??= BuildById(model.DocumentationValueTypeList, row => row.Id, "DocumentationValueType");
+
             private Dictionary<string, DocumentationView>? documentationViewListById;
 
             public Dictionary<string, DocumentationView> DocumentationViewListById => documentationViewListById ??= BuildById(model.DocumentationViewList, row => row.Id, "DocumentationView");
@@ -4064,9 +6684,17 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationViewNode> DocumentationViewNodeListById => documentationViewNodeListById ??= BuildById(model.DocumentationViewNodeList, row => row.Id, "DocumentationViewNode");
 
+            private Dictionary<string, DocumentationViewType>? documentationViewTypeListById;
+
+            public Dictionary<string, DocumentationViewType> DocumentationViewTypeListById => documentationViewTypeListById ??= BuildById(model.DocumentationViewTypeList, row => row.Id, "DocumentationViewType");
+
             private Dictionary<string, DocumentationWorkspace>? documentationWorkspaceListById;
 
             public Dictionary<string, DocumentationWorkspace> DocumentationWorkspaceListById => documentationWorkspaceListById ??= BuildById(model.DocumentationWorkspaceList, row => row.Id, "DocumentationWorkspace");
+
+            private Dictionary<string, DocumentationWorkspaceType>? documentationWorkspaceTypeListById;
+
+            public Dictionary<string, DocumentationWorkspaceType> DocumentationWorkspaceTypeListById => documentationWorkspaceTypeListById ??= BuildById(model.DocumentationWorkspaceTypeList, row => row.Id, "DocumentationWorkspaceType");
 
         }
 
@@ -4083,13 +6711,33 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationComponentTemplate> DocumentationComponentTemplateListById => documentationComponentTemplateListById ??= BuildById(model.DocumentationComponentTemplateList, row => row.Id, "DocumentationComponentTemplate");
 
+            private Dictionary<string, DocumentationComponentTemplateType>? documentationComponentTemplateTypeListById;
+
+            public Dictionary<string, DocumentationComponentTemplateType> DocumentationComponentTemplateTypeListById => documentationComponentTemplateTypeListById ??= BuildById(model.DocumentationComponentTemplateTypeList, row => row.Id, "DocumentationComponentTemplateType");
+
             private Dictionary<string, DocumentationEntityImportSpec>? documentationEntityImportSpecListById;
 
             public Dictionary<string, DocumentationEntityImportSpec> DocumentationEntityImportSpecListById => documentationEntityImportSpecListById ??= BuildById(model.DocumentationEntityImportSpecList, row => row.Id, "DocumentationEntityImportSpec");
 
+            private Dictionary<string, DocumentationExample>? documentationExampleListById;
+
+            public Dictionary<string, DocumentationExample> DocumentationExampleListById => documentationExampleListById ??= BuildById(model.DocumentationExampleList, row => row.Id, "DocumentationExample");
+
+            private Dictionary<string, DocumentationExampleCode>? documentationExampleCodeListById;
+
+            public Dictionary<string, DocumentationExampleCode> DocumentationExampleCodeListById => documentationExampleCodeListById ??= BuildById(model.DocumentationExampleCodeList, row => row.Id, "DocumentationExampleCode");
+
+            private Dictionary<string, DocumentationExampleSection>? documentationExampleSectionListById;
+
+            public Dictionary<string, DocumentationExampleSection> DocumentationExampleSectionListById => documentationExampleSectionListById ??= BuildById(model.DocumentationExampleSectionList, row => row.Id, "DocumentationExampleSection");
+
             private Dictionary<string, DocumentationFact>? documentationFactListById;
 
             public Dictionary<string, DocumentationFact> DocumentationFactListById => documentationFactListById ??= BuildById(model.DocumentationFactList, row => row.Id, "DocumentationFact");
+
+            private Dictionary<string, DocumentationFactType>? documentationFactTypeListById;
+
+            public Dictionary<string, DocumentationFactType> DocumentationFactTypeListById => documentationFactTypeListById ??= BuildById(model.DocumentationFactTypeList, row => row.Id, "DocumentationFactType");
 
             private Dictionary<string, DocumentationImportBatch>? documentationImportBatchListById;
 
@@ -4102,6 +6750,10 @@ namespace MetaDocs
             private Dictionary<string, DocumentationLayout>? documentationLayoutListById;
 
             public Dictionary<string, DocumentationLayout> DocumentationLayoutListById => documentationLayoutListById ??= BuildById(model.DocumentationLayoutList, row => row.Id, "DocumentationLayout");
+
+            private Dictionary<string, DocumentationLayoutType>? documentationLayoutTypeListById;
+
+            public Dictionary<string, DocumentationLayoutType> DocumentationLayoutTypeListById => documentationLayoutTypeListById ??= BuildById(model.DocumentationLayoutTypeList, row => row.Id, "DocumentationLayoutType");
 
             private Dictionary<string, DocumentationNarrative>? documentationNarrativeListById;
 
@@ -4119,9 +6771,17 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationRelationshipImportSpec> DocumentationRelationshipImportSpecListById => documentationRelationshipImportSpecListById ??= BuildById(model.DocumentationRelationshipImportSpecList, row => row.Id, "DocumentationRelationshipImportSpec");
 
+            private Dictionary<string, DocumentationRelationshipType>? documentationRelationshipTypeListById;
+
+            public Dictionary<string, DocumentationRelationshipType> DocumentationRelationshipTypeListById => documentationRelationshipTypeListById ??= BuildById(model.DocumentationRelationshipTypeList, row => row.Id, "DocumentationRelationshipType");
+
             private Dictionary<string, DocumentationSource>? documentationSourceListById;
 
             public Dictionary<string, DocumentationSource> DocumentationSourceListById => documentationSourceListById ??= BuildById(model.DocumentationSourceList, row => row.Id, "DocumentationSource");
+
+            private Dictionary<string, DocumentationSourceType>? documentationSourceTypeListById;
+
+            public Dictionary<string, DocumentationSourceType> DocumentationSourceTypeListById => documentationSourceTypeListById ??= BuildById(model.DocumentationSourceTypeList, row => row.Id, "DocumentationSourceType");
 
             private Dictionary<string, DocumentationSubject>? documentationSubjectListById;
 
@@ -4131,6 +6791,10 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationSubjectAlias> DocumentationSubjectAliasListById => documentationSubjectAliasListById ??= BuildById(model.DocumentationSubjectAliasList, row => row.Id, "DocumentationSubjectAlias");
 
+            private Dictionary<string, DocumentationSubjectType>? documentationSubjectTypeListById;
+
+            public Dictionary<string, DocumentationSubjectType> DocumentationSubjectTypeListById => documentationSubjectTypeListById ??= BuildById(model.DocumentationSubjectTypeList, row => row.Id, "DocumentationSubjectType");
+
             private Dictionary<string, DocumentationTemplate>? documentationTemplateListById;
 
             public Dictionary<string, DocumentationTemplate> DocumentationTemplateListById => documentationTemplateListById ??= BuildById(model.DocumentationTemplateList, row => row.Id, "DocumentationTemplate");
@@ -4138,6 +6802,14 @@ namespace MetaDocs
             private Dictionary<string, DocumentationTemplateRegion>? documentationTemplateRegionListById;
 
             public Dictionary<string, DocumentationTemplateRegion> DocumentationTemplateRegionListById => documentationTemplateRegionListById ??= BuildById(model.DocumentationTemplateRegionList, row => row.Id, "DocumentationTemplateRegion");
+
+            private Dictionary<string, DocumentationTemplateRegionType>? documentationTemplateRegionTypeListById;
+
+            public Dictionary<string, DocumentationTemplateRegionType> DocumentationTemplateRegionTypeListById => documentationTemplateRegionTypeListById ??= BuildById(model.DocumentationTemplateRegionTypeList, row => row.Id, "DocumentationTemplateRegionType");
+
+            private Dictionary<string, DocumentationTemplateType>? documentationTemplateTypeListById;
+
+            public Dictionary<string, DocumentationTemplateType> DocumentationTemplateTypeListById => documentationTemplateTypeListById ??= BuildById(model.DocumentationTemplateTypeList, row => row.Id, "DocumentationTemplateType");
 
             private Dictionary<string, DocumentationTheme>? documentationThemeListById;
 
@@ -4147,6 +6819,14 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationThemeAsset> DocumentationThemeAssetListById => documentationThemeAssetListById ??= BuildById(model.DocumentationThemeAssetList, row => row.Id, "DocumentationThemeAsset");
 
+            private Dictionary<string, DocumentationThemeAssetType>? documentationThemeAssetTypeListById;
+
+            public Dictionary<string, DocumentationThemeAssetType> DocumentationThemeAssetTypeListById => documentationThemeAssetTypeListById ??= BuildById(model.DocumentationThemeAssetTypeList, row => row.Id, "DocumentationThemeAssetType");
+
+            private Dictionary<string, DocumentationValueType>? documentationValueTypeListById;
+
+            public Dictionary<string, DocumentationValueType> DocumentationValueTypeListById => documentationValueTypeListById ??= BuildById(model.DocumentationValueTypeList, row => row.Id, "DocumentationValueType");
+
             private Dictionary<string, DocumentationView>? documentationViewListById;
 
             public Dictionary<string, DocumentationView> DocumentationViewListById => documentationViewListById ??= BuildById(model.DocumentationViewList, row => row.Id, "DocumentationView");
@@ -4155,9 +6835,17 @@ namespace MetaDocs
 
             public Dictionary<string, DocumentationViewNode> DocumentationViewNodeListById => documentationViewNodeListById ??= BuildById(model.DocumentationViewNodeList, row => row.Id, "DocumentationViewNode");
 
+            private Dictionary<string, DocumentationViewType>? documentationViewTypeListById;
+
+            public Dictionary<string, DocumentationViewType> DocumentationViewTypeListById => documentationViewTypeListById ??= BuildById(model.DocumentationViewTypeList, row => row.Id, "DocumentationViewType");
+
             private Dictionary<string, DocumentationWorkspace>? documentationWorkspaceListById;
 
             public Dictionary<string, DocumentationWorkspace> DocumentationWorkspaceListById => documentationWorkspaceListById ??= BuildById(model.DocumentationWorkspaceList, row => row.Id, "DocumentationWorkspace");
+
+            private Dictionary<string, DocumentationWorkspaceType>? documentationWorkspaceTypeListById;
+
+            public Dictionary<string, DocumentationWorkspaceType> DocumentationWorkspaceTypeListById => documentationWorkspaceTypeListById ??= BuildById(model.DocumentationWorkspaceTypeList, row => row.Id, "DocumentationWorkspaceType");
 
         }
 
@@ -4174,6 +6862,10 @@ namespace MetaDocs
             {
                 return true;
             }
+            if (HasRuntimeExtendedEntityShapeGroup2())
+            {
+                return true;
+            }
 
             return HasUnexpectedModelLists();
         }
@@ -4182,11 +6874,19 @@ namespace MetaDocs
         {
             if (HasUnexpectedProperties(typeof(DocumentationComponentTemplate),
                 "Id",
-                "ComponentKind",
                 "Name",
                 "TemplateText",
+                "DocumentationComponentTemplateType",
                 "DocumentationTheme",
                 "PreviousComponent"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationComponentTemplateType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4203,18 +6903,59 @@ namespace MetaDocs
                 return true;
             }
 
+            if (HasUnexpectedProperties(typeof(DocumentationExample),
+                "Id",
+                "Origin",
+                "ReviewStatus",
+                "Summary",
+                "Title",
+                "DocumentationSubject",
+                "PreviousExample"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationExampleCode),
+                "Id",
+                "Code",
+                "Language",
+                "Title",
+                "DocumentationExampleSection",
+                "PreviousCode"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationExampleSection),
+                "Id",
+                "Body",
+                "BodyFormat",
+                "Title",
+                "DocumentationExample",
+                "PreviousSection"))
+            {
+                return true;
+            }
+
             if (HasUnexpectedProperties(typeof(DocumentationFact),
                 "Id",
-                "Kind",
                 "Name",
                 "SourceFingerprint",
                 "Status",
-                "SubjectKey",
                 "Value",
-                "ValueKind",
+                "DocumentationFactType",
                 "DocumentationImportBatch",
                 "DocumentationSource",
-                "DocumentationSubject"))
+                "DocumentationSubject",
+                "DocumentationValueType"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationFactType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4243,10 +6984,18 @@ namespace MetaDocs
 
             if (HasUnexpectedProperties(typeof(DocumentationLayout),
                 "Id",
-                "LayoutKind",
                 "Name",
+                "DocumentationLayoutType",
                 "DocumentationTheme",
                 "PreviousLayout"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationLayoutType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4259,7 +7008,6 @@ namespace MetaDocs
                 "Origin",
                 "ReviewStatus",
                 "Slot",
-                "SubjectKey",
                 "Title",
                 "DocumentationSubject",
                 "PreviousNarrative"))
@@ -4279,12 +7027,12 @@ namespace MetaDocs
 
             if (HasUnexpectedProperties(typeof(DocumentationRelationship),
                 "Id",
-                "FromSubjectKey",
-                "Kind",
-                "ToSubjectKey",
                 "DocumentationImportBatch",
+                "DocumentationRelationshipType",
                 "DocumentationSource",
-                "PreviousRelationship"))
+                "FromSubject",
+                "PreviousRelationship",
+                "ToSubject"))
             {
                 return true;
             }
@@ -4299,16 +7047,32 @@ namespace MetaDocs
                 return true;
             }
 
+            if (HasUnexpectedProperties(typeof(DocumentationRelationshipType),
+                "Id",
+                "Description",
+                "Name"))
+            {
+                return true;
+            }
+
             if (HasUnexpectedProperties(typeof(DocumentationSource),
                 "Id",
                 "DisplayName",
                 "ImportedAt",
                 "ImporterId",
-                "Kind",
                 "Locator",
                 "SourceFingerprint",
                 "Status",
+                "DocumentationSourceType",
                 "DocumentationWorkspace"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationSourceType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4317,14 +7081,13 @@ namespace MetaDocs
                 "Id",
                 "DisplayName",
                 "DisplayPath",
-                "Key",
-                "Kind",
                 "NativeId",
-                "NativeKind",
-                "ParentKey",
+                "SourceTypeName",
                 "Status",
                 "Summary",
                 "DocumentationSource",
+                "DocumentationSubjectType",
+                "ParentSubject",
                 "PreviousSubject"))
             {
                 return true;
@@ -4332,10 +7095,17 @@ namespace MetaDocs
 
             if (HasUnexpectedProperties(typeof(DocumentationSubjectAlias),
                 "Id",
-                "AliasKey",
+                "Alias",
                 "Reason",
-                "SubjectKey",
                 "DocumentationSubject"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationSubjectType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4343,9 +7113,9 @@ namespace MetaDocs
             if (HasUnexpectedProperties(typeof(DocumentationTemplate),
                 "Id",
                 "Html",
-                "Kind",
                 "Name",
                 "SourceUrl",
+                "DocumentationTemplateType",
                 "DocumentationTheme",
                 "PreviousTemplate"))
             {
@@ -4355,9 +7125,25 @@ namespace MetaDocs
             if (HasUnexpectedProperties(typeof(DocumentationTemplateRegion),
                 "Id",
                 "Name",
-                "RegionKind",
                 "DocumentationTemplate",
+                "DocumentationTemplateRegionType",
                 "PreviousRegion"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationTemplateRegionType),
+                "Id",
+                "Description",
+                "Name"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationTemplateType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4373,24 +7159,41 @@ namespace MetaDocs
 
             if (HasUnexpectedProperties(typeof(DocumentationThemeAsset),
                 "Id",
-                "AssetKind",
                 "Content",
                 "Hash",
                 "Href",
                 "MediaType",
                 "Name",
                 "DocumentationTheme",
+                "DocumentationThemeAssetType",
                 "PreviousAsset"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationThemeAssetType),
+                "Id",
+                "Description",
+                "Name"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationValueType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
 
             if (HasUnexpectedProperties(typeof(DocumentationView),
                 "Id",
-                "Kind",
                 "Name",
                 "Summary",
-                "Title"))
+                "Title",
+                "DocumentationViewType",
+                "RootSubject"))
             {
                 return true;
             }
@@ -4399,19 +7202,40 @@ namespace MetaDocs
                 "Id",
                 "ParentNodeId",
                 "Selection",
-                "SubjectKey",
                 "Title",
+                "DocumentationSubject",
                 "DocumentationView",
                 "PreviousNode"))
             {
                 return true;
             }
 
+            return false;
+        }
+
+        private static bool HasRuntimeExtendedEntityShapeGroup2()
+        {
+            if (HasUnexpectedProperties(typeof(DocumentationViewType),
+                "Id",
+                "Description",
+                "Name"))
+            {
+                return true;
+            }
+
             if (HasUnexpectedProperties(typeof(DocumentationWorkspace),
                 "Id",
-                "Kind",
                 "Name",
-                "Summary"))
+                "Summary",
+                "DocumentationWorkspaceType"))
+            {
+                return true;
+            }
+
+            if (HasUnexpectedProperties(typeof(DocumentationWorkspaceType),
+                "Id",
+                "Description",
+                "Name"))
             {
                 return true;
             }
@@ -4424,25 +7248,40 @@ namespace MetaDocs
             var knownLists = new HashSet<string>(StringComparer.Ordinal)
             {
                 "DocumentationComponentTemplateList",
+                "DocumentationComponentTemplateTypeList",
                 "DocumentationEntityImportSpecList",
+                "DocumentationExampleList",
+                "DocumentationExampleCodeList",
+                "DocumentationExampleSectionList",
                 "DocumentationFactList",
+                "DocumentationFactTypeList",
                 "DocumentationImportBatchList",
                 "DocumentationInstanceImportSpecList",
                 "DocumentationLayoutList",
+                "DocumentationLayoutTypeList",
                 "DocumentationNarrativeList",
                 "DocumentationPropertyImportSpecList",
                 "DocumentationRelationshipList",
                 "DocumentationRelationshipImportSpecList",
+                "DocumentationRelationshipTypeList",
                 "DocumentationSourceList",
+                "DocumentationSourceTypeList",
                 "DocumentationSubjectList",
                 "DocumentationSubjectAliasList",
+                "DocumentationSubjectTypeList",
                 "DocumentationTemplateList",
                 "DocumentationTemplateRegionList",
+                "DocumentationTemplateRegionTypeList",
+                "DocumentationTemplateTypeList",
                 "DocumentationThemeList",
                 "DocumentationThemeAssetList",
+                "DocumentationThemeAssetTypeList",
+                "DocumentationValueTypeList",
                 "DocumentationViewList",
                 "DocumentationViewNodeList",
+                "DocumentationViewTypeList",
                 "DocumentationWorkspaceList",
+                "DocumentationWorkspaceTypeList",
             };
             return typeof(MetaDocsModel).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Any(property =>

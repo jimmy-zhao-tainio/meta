@@ -1,1323 +1,935 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:workspace" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
-      <DisplayName>MetaSqlDeployManifest</DisplayName>
-      <DisplayPath>MetaSqlDeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSql\DeployManifest\Workspace</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
-      <DisplayName>MetaSqlDeployManifest</DisplayName>
-      <DisplayPath>MetaSqlDeployManifest.MetaSqlDeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaSqlDeployManifest</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest">
       <DisplayName>AddForeignKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddForeignKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddForeignKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey">
       <DisplayName>SourceForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddForeignKey.SourceForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:property:sourceforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddForeignKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addforeignkey">
       <DisplayName>AddFunction</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddFunction</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddFunction</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction">
       <DisplayName>SourceFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddFunction.SourceFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:property:sourcefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddFunction.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addfunction</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addfunction">
       <DisplayName>AddIndex</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddIndex</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddIndex</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addindex">
       <DisplayName>SourceIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddIndex.SourceIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addindex:property:sourceindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addindex">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddIndex.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addindex:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addindex</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addindex">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addindex">
       <DisplayName>AddPrimaryKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddPrimaryKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddPrimaryKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddPrimaryKey.SourcePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:property:sourceprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourcePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddPrimaryKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addprimarykey">
       <DisplayName>AddSchema</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddSchema</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddSchema</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:property:sourceschemaid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:property:sourceschemaid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addschema">
       <DisplayName>SourceSchemaId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddSchema.SourceSchemaId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addschema:property:sourceschemaid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceSchemaId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addschema">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddSchema.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addschema:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addschema</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addschema">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addschema">
       <DisplayName>AddStoredProcedure</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddStoredProcedure</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddStoredProcedure</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure">
       <DisplayName>SourceStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddStoredProcedure.SourceStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:property:sourcestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddStoredProcedure.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addstoredprocedure">
       <DisplayName>AddTable</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTable</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddTable</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtable">
       <DisplayName>SourceTableId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTable.SourceTableId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtable:property:sourcetableid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtable">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTable.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtable:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtable</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtable">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtable">
       <DisplayName>AddTableColumn</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTableColumn</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddTableColumn</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn">
       <DisplayName>SourceTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTableColumn.SourceTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:property:sourcetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddTableColumn.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addtablecolumn">
       <DisplayName>AddView</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddView</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addview</Key>
-      <Kind>Entity</Kind>
       <NativeId>AddView</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addview">
       <DisplayName>SourceViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddView.SourceViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addview:property:sourceviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addview">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AddView.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:addview:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:addview</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addview">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:addview">
       <DisplayName>AlterTableColumn</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AlterTableColumn</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</Key>
-      <Kind>Entity</Kind>
       <NativeId>AlterTableColumn</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn">
       <DisplayName>LiveTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AlterTableColumn.LiveTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AlterTableColumn.SourceTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:property:sourcetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.AlterTableColumn.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:altertablecolumn">
       <DisplayName>BlockForeignKeyDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockForeignKeyDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockForeignKeyDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockForeignKeyDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:differencesummary">
       <DisplayName>LiveForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockForeignKeyDifference.LiveForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:liveforeignkeyid">
       <DisplayName>SourceForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockForeignKeyDifference.SourceForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:property:sourceforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockForeignKeyDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockforeignkeydifference">
       <DisplayName>BlockFunctionDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockFunctionDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockFunctionDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockFunctionDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:differencesummary">
       <DisplayName>LiveFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockFunctionDifference.LiveFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:livefunctionid">
       <DisplayName>SourceFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockFunctionDifference.SourceFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:property:sourcefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockFunctionDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockfunctiondifference">
       <DisplayName>BlockIndexDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockIndexDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockIndexDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockIndexDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:differencesummary">
       <DisplayName>LiveIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockIndexDifference.LiveIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:liveindexid">
       <DisplayName>SourceIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockIndexDifference.SourceIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:property:sourceindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockIndexDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockindexdifference">
       <DisplayName>BlockPrimaryKeyDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockPrimaryKeyDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockPrimaryKeyDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockPrimaryKeyDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:differencesummary">
       <DisplayName>LivePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockPrimaryKeyDifference.LivePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LivePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:liveprimarykeyid">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockPrimaryKeyDifference.SourcePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:property:sourceprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourcePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockPrimaryKeyDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockprimarykeydifference">
       <DisplayName>BlockStoredProcedureDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockStoredProcedureDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockStoredProcedureDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockStoredProcedureDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:differencesummary">
       <DisplayName>LiveStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockStoredProcedureDifference.LiveStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:livestoredprocedureid">
       <DisplayName>SourceStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockStoredProcedureDifference.SourceStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:property:sourcestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockStoredProcedureDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockstoredproceduredifference">
       <DisplayName>BlockTableColumnDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableColumnDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockTableColumnDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableColumnDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:differencesummary">
       <DisplayName>LiveTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableColumnDifference.LiveTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableColumnDifference.SourceTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:property:sourcetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableColumnDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktablecolumndifference">
       <DisplayName>BlockTableDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockTableDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:differencesummary">
       <DisplayName>LiveTableId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableDifference.LiveTableId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:sourcetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:livetableid">
       <DisplayName>SourceTableId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableDifference.SourceTableId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:property:sourcetableid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockTableDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blocktabledifference">
       <DisplayName>BlockViewDifference</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockViewDifference</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</Key>
-      <Kind>Entity</Kind>
       <NativeId>BlockViewDifference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference">
       <DisplayName>DifferenceSummary</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockViewDifference.DifferenceSummary</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary</Key>
-      <Kind>Property</Kind>
       <NativeId>DifferenceSummary</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:differencesummary">
       <DisplayName>LiveViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockViewDifference.LiveViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:liveviewid">
       <DisplayName>SourceViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockViewDifference.SourceViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:property:sourceviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.BlockViewDifference.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:blockviewdifference">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</Key>
-      <Kind>Entity</Kind>
       <NativeId>DeployManifest</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest">
       <DisplayName>CreatedUtc</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.CreatedUtc</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc</Key>
-      <Kind>Property</Kind>
       <NativeId>CreatedUtc</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:createdutc">
       <DisplayName>ExpectedLiveDatabasePresence</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.ExpectedLiveDatabasePresence</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence</Key>
-      <Kind>Property</Kind>
       <NativeId>ExpectedLiveDatabasePresence</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:expectedlivedatabasepresence">
       <DisplayName>LiveInstanceFingerprint</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.LiveInstanceFingerprint</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveInstanceFingerprint</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:liveinstancefingerprint">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.Name</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:name">
       <DisplayName>SourceInstanceFingerprint</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.SourceInstanceFingerprint</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceInstanceFingerprint</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:targetdescription" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:targetdescription" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:sourceinstancefingerprint">
       <DisplayName>TargetDescription</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DeployManifest.TargetDescription</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest:property:targetdescription</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetDescription</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:deploymanifest">
       <DisplayName>DropForeignKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropForeignKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropForeignKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey">
       <DisplayName>LiveForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropForeignKey.LiveForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:property:liveforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropForeignKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropforeignkey">
       <DisplayName>DropFunction</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropFunction</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropFunction</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction">
       <DisplayName>LiveFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropFunction.LiveFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:property:livefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropFunction.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropfunction">
       <DisplayName>DropIndex</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropIndex</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropIndex</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex">
       <DisplayName>LiveIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropIndex.LiveIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:property:liveindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropIndex.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropindex</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropindex">
       <DisplayName>DropPrimaryKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropPrimaryKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropPrimaryKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey">
       <DisplayName>LivePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropPrimaryKey.LivePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:property:liveprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LivePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropPrimaryKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropprimarykey">
       <DisplayName>DropStoredProcedure</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropStoredProcedure</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropStoredProcedure</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure">
       <DisplayName>LiveStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropStoredProcedure.LiveStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:property:livestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropStoredProcedure.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropstoredprocedure">
       <DisplayName>DropTable</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTable</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropTable</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:property:livetableid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptable">
       <DisplayName>LiveTableId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTable.LiveTableId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptable:property:livetableid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptable">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTable.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptable:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptable</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptable">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptable">
       <DisplayName>DropTableColumn</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTableColumn</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropTableColumn</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn">
       <DisplayName>LiveTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTableColumn.LiveTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:property:livetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropTableColumn.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:droptablecolumn">
       <DisplayName>DropView</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropView</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</Key>
-      <Kind>Entity</Kind>
       <NativeId>DropView</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropview">
       <DisplayName>LiveViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropView.LiveViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropview:property:liveviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropview">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.DropView.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:dropview:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:dropview</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropview">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:dropview">
       <DisplayName>ReplaceForeignKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceForeignKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplaceForeignKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey">
       <DisplayName>LiveForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceForeignKey.LiveForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:sourceforeignkeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:liveforeignkeyid">
       <DisplayName>SourceForeignKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceForeignKey.SourceForeignKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:property:sourceforeignkeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceForeignKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceForeignKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceforeignkey">
       <DisplayName>ReplaceFunction</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceFunction</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplaceFunction</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction">
       <DisplayName>LiveFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceFunction.LiveFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:sourcefunctionid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:livefunctionid">
       <DisplayName>SourceFunctionId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceFunction.SourceFunctionId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:property:sourcefunctionid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceFunctionId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceFunction.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacefunction">
       <DisplayName>ReplaceIndex</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceIndex</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplaceIndex</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex">
       <DisplayName>LiveIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceIndex.LiveIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:sourceindexid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:liveindexid">
       <DisplayName>SourceIndexId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceIndex.SourceIndexId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:property:sourceindexid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceIndexId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceIndex.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceindex">
       <DisplayName>ReplacePrimaryKey</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplacePrimaryKey</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplacePrimaryKey</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey">
       <DisplayName>LivePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplacePrimaryKey.LivePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>LivePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:sourceprimarykeyid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:liveprimarykeyid">
       <DisplayName>SourcePrimaryKeyId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplacePrimaryKey.SourcePrimaryKeyId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:property:sourceprimarykeyid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourcePrimaryKeyId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplacePrimaryKey.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceprimarykey">
       <DisplayName>ReplaceStoredProcedure</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceStoredProcedure</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplaceStoredProcedure</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure">
       <DisplayName>LiveStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceStoredProcedure.LiveStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:sourcestoredprocedureid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:livestoredprocedureid">
       <DisplayName>SourceStoredProcedureId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceStoredProcedure.SourceStoredProcedureId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:property:sourcestoredprocedureid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceStoredProcedureId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceStoredProcedure.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replacestoredprocedure">
       <DisplayName>ReplaceView</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceView</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</Key>
-      <Kind>Entity</Kind>
       <NativeId>ReplaceView</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview">
       <DisplayName>LiveViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceView.LiveViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:sourceviewid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:liveviewid">
       <DisplayName>SourceViewId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceView.SourceViewId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:property:sourceviewid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceViewId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.ReplaceView.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:replaceview</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:replaceview">
       <DisplayName>TruncateTableColumnData</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.TruncateTableColumnData</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</Key>
-      <Kind>Entity</Kind>
       <NativeId>TruncateTableColumnData</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata">
       <DisplayName>LiveTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.TruncateTableColumnData.LiveTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>LiveTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:sourcetablecolumnid" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata" PreviousSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:livetablecolumnid">
       <DisplayName>SourceTableColumnId</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.TruncateTableColumnData.SourceTableColumnId</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:property:sourcetablecolumnid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceTableColumnId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest">
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata">
       <DisplayName>DeployManifest</DisplayName>
       <DisplayPath>MetaSqlDeployManifest.TruncateTableColumnData.DeployManifest</DisplayPath>
-      <Key>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata:relationship:deploymanifest-deploymanifest</Key>
-      <Kind>Relationship</Kind>
       <NativeId>DeployManifest:DeployManifest</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-sql-deploy-manifest:entity:truncatetablecolumndata</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaSqlDeployManifest</DisplayName>
+      <DisplayPath>MetaSqlDeployManifest.MetaSqlDeployManifest</DisplayPath>
+      <NativeId>MetaSqlDeployManifest</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-sql-deploy-manifest:workspace" DocumentationSourceId="source:workspace-model:meta-sql-deploy-manifest" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaSqlDeployManifest</DisplayName>
+      <DisplayPath>MetaSqlDeployManifest</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSql\DeployManifest\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

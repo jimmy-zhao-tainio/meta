@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationTemplateList>
-    <DocumentationTemplate Id="template:metametabi-static:shell" DocumentationThemeId="theme:metametabi-static">
+    <DocumentationTemplate Id="template:metametabi-static:shell" DocumentationTemplateTypeId="template-type:siteshell" DocumentationThemeId="theme:metametabi-static">
       <Html>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8" /&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    {{favicon}}
     &lt;title&gt;{{title}}&lt;/title&gt;
     &lt;style&gt;
 {{css}}
@@ -18,7 +19,6 @@
 {{script}}
   &lt;/body&gt;
 &lt;/html&gt;</Html>
-      <Kind>SiteShell</Kind>
       <Name>metametabi-static-shell</Name>
       <SourceUrl>modeled</SourceUrl>
     </DocumentationTemplate>

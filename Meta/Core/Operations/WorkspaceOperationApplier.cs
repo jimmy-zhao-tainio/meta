@@ -318,9 +318,10 @@ public static class WorkspaceOperationApplier
         RequireEntity(workspace.Model, relatedEntity);
         var defaultTargetId = operation.RelatedDefaultId?.Trim() ?? string.Empty;
         var relationshipRole = operation.RelatedRole?.Trim() ?? string.Empty;
+        var isNullable = operation.IsNullable ?? false;
         var sourceRows = workspace.Instance.GetOrCreateEntityRecords(entity.Name);
 
-        if (sourceRows.Count > 0 && string.IsNullOrWhiteSpace(defaultTargetId))
+        if (!isNullable && sourceRows.Count > 0 && string.IsNullOrWhiteSpace(defaultTargetId))
         {
             throw new InvalidOperationException(
                 $"Relationship '{entity.Name}.{(string.IsNullOrWhiteSpace(relationshipRole) ? relatedEntity : relationshipRole)}Id' requires --default-id because entity '{entity.Name}' has existing rows.");
@@ -340,6 +341,7 @@ public static class WorkspaceOperationApplier
         {
             Entity = relatedEntity,
             Role = relationshipRole,
+            IsNullable = isNullable,
         };
 
         var relationshipName = newRelationship.GetColumnName();
@@ -351,7 +353,7 @@ public static class WorkspaceOperationApplier
 
         entity.Relationships.Add(newRelationship);
 
-        if (sourceRows.Count > 0)
+        if (sourceRows.Count > 0 && !string.IsNullOrWhiteSpace(defaultTargetId))
         {
             foreach (var record in sourceRows)
             {

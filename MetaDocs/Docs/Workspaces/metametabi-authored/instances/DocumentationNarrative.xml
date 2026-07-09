@@ -1,77 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationNarrativeList>
-    <DocumentationNarrative Id="docs:home:narrative:summary:010" DocumentationSubjectId="docs:home">
-      <Body>Meta is model-first infrastructure for making structure explicit. These docs combine authored orientation with refreshable facts from Meta workspaces and sanctioned CLI definitions, so reference material can stay current without replacing explanation.</Body>
+    <DocumentationNarrative Id="public:meta-bi:cli:narrative:summary:cli" DocumentationSubjectId="public:meta-bi:cli">
+      <Body>Command-line tools for BI modeling, conversion, validation, and execution.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:home</SubjectKey>
-      <Title>meta + meta-bi</Title>
+      <Title>CLI</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:what-is-meta:narrative:summary:010" DocumentationSubjectId="docs:what-is-meta">
-      <Body>Meta treats workspace structure as durable metadata. A workspace carries a model, and the model defines entities, properties, relationships, and ordered instance data. XML is one deterministic working surface, while the product truth is the modeled structure that can be carried across code, SQL, XML, and future surfaces.</Body>
+    <DocumentationNarrative Id="public:meta-bi:models:narrative:summary:models" DocumentationSubjectId="public:meta-bi:models">
+      <Body>Model references for the sanctioned BI metadata workspaces.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:what-is-meta</SubjectKey>
-      <Title>What is Meta?</Title>
+      <Title>Models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:what-is-meta-bi:narrative:summary:010" DocumentationSubjectId="docs:what-is-meta-bi">
-      <Body>Meta-BI builds sanctioned BI models on top of Meta. The pilot documentation focuses on schema structure, SQL artifacts, transform scripts, transform binding, and data-quality findings.</Body>
+    <DocumentationNarrative Id="public:meta-bi:narrative:summary:meta-bi" DocumentationSubjectId="public:meta-bi">
+      <Body>BI-side models and tools built on the metadata foundation.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:what-is-meta-bi</SubjectKey>
-      <Title>What is Meta-BI?</Title>
+      <Title>Meta-BI</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:getting-started:narrative:summary:010" DocumentationSubjectId="docs:getting-started">
-      <Body>A typical docs run imports a CLI definition or a workspace model into a MetaDocs workspace, adds surrounding narrative as DocumentationNarrative rows, merges source workspaces into a suite workspace, validates references and lifecycle state, and renders a disposable docs.html. The durable source is the MetaDocs workspace data, not the generated page.</Body>
+    <DocumentationNarrative Id="public:meta:cli:narrative:summary:cli" DocumentationSubjectId="public:meta:cli">
+      <Body>Command-line tools for the core metadata foundation.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:getting-started</SubjectKey>
-      <Title>Getting started</Title>
+      <Title>CLI</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:documentation-lifecycle:narrative:summary:010" DocumentationSubjectId="docs:documentation-lifecycle">
-      <Body>MetaDocs separates generated source facts from authored narrative. Import commands update facts from CLI definitions, markdown prose, or models and mark missing source rows instead of silently deleting authored context. Suite merge combines multiple MetaDocs workspaces, validation checks references and review state, and render-site writes a static page that can be regenerated at any time.</Body>
+    <DocumentationNarrative Id="public:meta:models:narrative:summary:models" DocumentationSubjectId="public:meta:models">
+      <Body>Model references for the core metadata foundation.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:documentation-lifecycle</SubjectKey>
-      <Title>Documentation lifecycle</Title>
+      <Title>Models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:cli-reference:narrative:summary:010" DocumentationSubjectId="docs:cli-reference">
-      <Body>CLI pages combine structured command definitions with authored and imported prose. Use them to understand command purpose, required inputs, options, examples, and expected behavior.</Body>
+    <DocumentationNarrative Id="public:meta:narrative:summary:meta" DocumentationSubjectId="public:meta">
+      <Body>Foundation models and tools for authored metadata workspaces.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:cli-reference</SubjectKey>
-      <Title>CLI reference</Title>
+      <Title>Meta</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:model-reference:narrative:summary:010" DocumentationSubjectId="docs:model-reference">
-      <Body>Model reference pages are generated from selected Meta workspaces. They describe workspace, model, entity, property, and relationship structure in a form that can be refreshed as the source models change.</Body>
+    <DocumentationNarrative Id="public:reference:narrative:summary:meta-meta-bi-reference" DocumentationSubjectId="public:reference">
+      <Body>Command-line and model references for the current public MetaDocs suite.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <SubjectKey>docs:model-reference</SubjectKey>
-      <Title>Model reference</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="docs:workspace-model-docs:narrative:summary:010" DocumentationSubjectId="docs:workspace-model-docs">
-      <Body>The generic workspace importer reads a Meta workspace model and emits DocumentationSubject and DocumentationFact rows for workspaces, models, entities, properties, and relationships. Instance documentation is opt-in through modeled policy, so arbitrary data is not imported by accident.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <SubjectKey>docs:workspace-model-docs</SubjectKey>
-      <Title>Generic workspace and model docs</Title>
+      <Title>meta + meta-bi reference</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

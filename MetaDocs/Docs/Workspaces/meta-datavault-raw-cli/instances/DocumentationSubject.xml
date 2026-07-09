@@ -1,1111 +1,816 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>CLI</DisplayName>
+      <DisplayPath>CLI</DisplayPath>
+      <NativeId>public:meta-bi:cli</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta-bi:cli">
       <DisplayName>meta-datavault-raw</DisplayName>
       <DisplayPath>meta-datavault-raw</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app</Key>
-      <Kind>CliApplication</Kind>
       <NativeId>app-meta-datavault-raw</NativeId>
-      <NativeKind>MetaCli.Application</NativeKind>
+      <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Author raw Data Vault structures from source schemas, including hubs, links, satellites, and deployable SQL projections.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app">
       <DisplayName>meta-datavault-raw add-hub</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-raw-hub</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>Changed</Status>
       <Summary>Add a RawHub row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>RawHub row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:name">
-      <DisplayName>--source-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub --source-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub:option:source-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-source-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTable id for SourceTableId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:source-table">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub">
       <DisplayName>meta-datavault-raw add-hub-key-part</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-raw-hub-key-part</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add a RawHubKeyPart row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part">
       <DisplayName>--hub</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --hub</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:hub</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-hub</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawHub id for RawHubId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:hub">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:hub">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:id</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawHubKeyPart row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:id">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:name">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:ordinal</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Ordinal.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:ordinal">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:ordinal">
       <DisplayName>--source-field</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --source-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:source-field</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-source-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceField id for SourceFieldId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:source-field">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:source-field">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-key-part --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-key-part:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-key-part-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-key-part</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-key-part">
       <DisplayName>meta-datavault-raw add-hub-satellite</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-raw-hub-satellite</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add a RawHubSatellite row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--hub</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --hub</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:hub</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-hub</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>RawHub id for RawHubId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:hub">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>RawHubSatellite row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:satellite-kind" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:name">
-      <DisplayName>--satellite-kind</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --satellite-kind</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:satellite-kind</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-satellite-kind</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>SatelliteKind.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:satellite-kind">
-      <DisplayName>--source-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --source-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:source-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-source-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTable id for SourceTableId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:source-table">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-hub-satellite --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-hub-satellite-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite">
       <DisplayName>meta-datavault-raw add-hub-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-raw-hub-satellite-attribute</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add a RawHubSatelliteAttribute row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:hub-satellite" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:hub-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute">
       <DisplayName>--hub-satellite</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --hub-satellite</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:hub-satellite</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-hub-satellite</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawHubSatellite id for RawHubSatelliteId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:hub-satellite">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:hub-satellite">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:id</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawHubSatelliteAttribute row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:id">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:id">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:name">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:ordinal</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Ordinal.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:ordinal">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:ordinal">
       <DisplayName>--source-field</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --source-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:source-field</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-source-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceField id for SourceFieldId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:source-field">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:source-field">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-raw add-hub-satellite-attribute --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-hub-satellite-attribute-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute">
-      <DisplayName>meta-datavault-raw add-link</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-raw-link</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a RawLink row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link</ParentKey>
-      <Status>New</Status>
-      <Summary>RawLink row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:link-kind" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:id">
-      <DisplayName>--link-kind</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link --link-kind</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link:option:link-kind</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-link-kind</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link</ParentKey>
-      <Status>New</Status>
-      <Summary>LinkKind.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:link-kind">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:source-relationship" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:name">
-      <DisplayName>--source-relationship</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link --source-relationship</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link:option:source-relationship</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-source-relationship</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTableRelationship id for SourceTableRelationshipId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:source-relationship">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link">
-      <DisplayName>meta-datavault-raw add-link-hub</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-raw-link-hub</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a RawLinkHub row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite">
       <DisplayName>--hub</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --hub</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:hub</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-hub</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --hub</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-hub</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawHub id for RawHubId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:hub">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:hub">
       <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --id</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>RawLinkHub row id.</Summary>
+      <Summary>RawHubSatellite row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:link" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:id">
-      <DisplayName>--link</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --link</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:link</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-link</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>RawLink id for RawLinkId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:link">
-      <DisplayName>--ordinal</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:ordinal</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>Ordinal.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:ordinal">
-      <DisplayName>--role-name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --role-name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:role-name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-role-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>RoleName.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:role-name">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-hub --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-hub:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-hub-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-hub</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub">
-      <DisplayName>meta-datavault-raw add-link-satellite</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-raw-link-satellite</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a RawLinkSatellite row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>RawLinkSatellite row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:link" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:id">
-      <DisplayName>--link</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --link</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:link</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-link</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
-      <Status>New</Status>
-      <Summary>RawLink id for RawLinkId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:link">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:id">
       <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --name</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:satellite-kind" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:name">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:satellite-kind" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:name">
       <DisplayName>--satellite-kind</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --satellite-kind</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:satellite-kind</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-satellite-kind</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --satellite-kind</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-satellite-kind</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SatelliteKind.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:satellite-kind">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:satellite-kind">
       <DisplayName>--source-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --source-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:source-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-source-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --source-table</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-source-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceTable id for SourceTableId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:source-table">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite:option:source-table">
       <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-link-satellite --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-raw-link-satellite-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite</ParentKey>
+      <DisplayPath>meta-datavault-raw add-hub-satellite --workspace</DisplayPath>
+      <NativeId>option-add-raw-hub-satellite-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-hub --id</DisplayPath>
+      <NativeId>option-add-raw-hub-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>RawHub row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-hub --name</DisplayPath>
+      <NativeId>option-add-raw-hub-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:name">
+      <DisplayName>--source-table</DisplayName>
+      <DisplayPath>meta-datavault-raw add-hub --source-table</DisplayPath>
+      <NativeId>option-add-raw-hub-source-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTable id for SourceTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub:option:source-table">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-hub --workspace</DisplayPath>
+      <NativeId>option-add-raw-hub-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-hub-satellite-attribute">
+      <DisplayName>meta-datavault-raw add-link</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link</DisplayPath>
+      <NativeId>exec-add-raw-link</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a RawLink row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link">
+      <DisplayName>meta-datavault-raw add-link-hub</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub</DisplayPath>
+      <NativeId>exec-add-raw-link-hub</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a RawLinkHub row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:hub" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub">
+      <DisplayName>--hub</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --hub</DisplayPath>
+      <NativeId>option-add-raw-link-hub-hub</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>RawHub id for RawHubId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:hub">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --id</DisplayPath>
+      <NativeId>option-add-raw-link-hub-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>RawLinkHub row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:link" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:id">
+      <DisplayName>--link</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --link</DisplayPath>
+      <NativeId>option-add-raw-link-hub-link</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>RawLink id for RawLinkId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:link">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --ordinal</DisplayPath>
+      <NativeId>option-add-raw-link-hub-ordinal</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:role-name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:ordinal">
+      <DisplayName>--role-name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --role-name</DisplayPath>
+      <NativeId>option-add-raw-link-hub-role-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>RoleName.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-hub:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub:option:role-name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-hub --workspace</DisplayPath>
+      <NativeId>option-add-raw-link-hub-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-hub">
+      <DisplayName>meta-datavault-raw add-link-satellite</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-satellite</DisplayPath>
+      <NativeId>exec-add-raw-link-satellite</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a RawLinkSatellite row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite">
       <DisplayName>meta-datavault-raw add-link-satellite-attribute</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-raw-link-satellite-attribute</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add a RawLinkSatelliteAttribute row.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:id</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawLinkSatelliteAttribute row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:id">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:link-satellite" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:id">
       <DisplayName>--link-satellite</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --link-satellite</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:link-satellite</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-link-satellite</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>RawLinkSatellite id for RawLinkSatelliteId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:link-satellite">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:link-satellite">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:name">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:name">
       <DisplayName>--ordinal</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:ordinal</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Ordinal.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:ordinal">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:ordinal">
       <DisplayName>--source-field</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --source-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:source-field</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-source-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceField id for SourceFieldId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:source-field">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:source-field">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-datavault-raw add-link-satellite-attribute --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>option-add-raw-link-satellite-attribute-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute">
-      <DisplayName>meta-datavault-raw add-source-field</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-field</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceField row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--data-type-id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --data-type-id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:data-type-id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
-      <Status>New</Status>
-      <Summary>DataTypeId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:data-type-id">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite">
       <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link-satellite --id</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>SourceField row id.</Summary>
+      <Summary>RawLinkSatellite row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:id">
-      <DisplayName>--is-nullable</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --is-nullable</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-is-nullable</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:link" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:id">
+      <DisplayName>--link</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-satellite --link</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-link</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>IsNullable.</Summary>
+      <Summary>RawLink id for RawLinkId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:false" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>false</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --is-nullable value false</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:false</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>allowed-boolean-false</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable</ParentKey>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:true" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:false">
-      <DisplayName>true</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --is-nullable value true</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:true</Key>
-      <Kind>CliAllowedValue</Kind>
-      <NativeId>allowed-boolean-true</NativeId>
-      <NativeKind>MetaCli.AllowedValue</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable</ParentKey>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:link">
       <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link-satellite --name</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:name">
-      <DisplayName>--ordinal</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:ordinal</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:satellite-kind" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:name">
+      <DisplayName>--satellite-kind</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link-satellite --satellite-kind</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-satellite-kind</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Ordinal.</Summary>
+      <Summary>SatelliteKind.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:ordinal">
-      <DisplayName>--table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTable id for SourceTableId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:table">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field">
-      <DisplayName>meta-datavault-raw add-source-field-data-type-detail</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-field-data-type-detail</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceFieldDataTypeDetail row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:field" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--field</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:field</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-detail-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceField id for SourceFieldId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:field">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-detail-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceFieldDataTypeDetail row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-detail-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:value" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:name">
-      <DisplayName>--value</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --value</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:value</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-detail-value</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</ParentKey>
-      <Status>New</Status>
-      <Summary>Value.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:value">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-field-data-type-detail-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail">
-      <DisplayName>meta-datavault-raw add-source-schema</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-schema</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-schema</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-schema</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceSchema row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-schema --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-schema:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-schema-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-schema</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceSchema row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-schema --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-schema:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-schema-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-schema</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:system" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:name">
-      <DisplayName>--system</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-schema --system</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-schema:option:system</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-schema-system</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-schema</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceSystem id for SourceSystemId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:system">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-schema --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-schema:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-schema-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-schema</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema">
-      <DisplayName>meta-datavault-raw add-source-system</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-system</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-system</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-system</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceSystem row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:description" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-system --description</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-system:option:description</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-system-description</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-system</ParentKey>
-      <Status>New</Status>
-      <Summary>Description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:description">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-system --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-system:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-system-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-system</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceSystem row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-system --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-system:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-system-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-system</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:name">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-system --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-system:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-system-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-system</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system">
-      <DisplayName>meta-datavault-raw add-source-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-table</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceTable row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTable row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:schema" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:name">
-      <DisplayName>--schema</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table --schema</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table:option:schema</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-schema</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceSchema id for SourceSchemaId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:schema">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table">
-      <DisplayName>meta-datavault-raw add-source-table-relationship</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-table-relationship</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceTableRelationship row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTableRelationship row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:id">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship --name</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>Name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:name">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:satellite-kind">
       <DisplayName>--source-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship --source-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:source-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-source-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link-satellite --source-table</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-source-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceTable id for SourceTableId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:target-table" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:source-table">
-      <DisplayName>--target-table</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship --target-table</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:target-table</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-target-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceTable id for TargetTableId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:target-table">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite:option:source-table">
       <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link-satellite --workspace</DisplayPath>
+      <NativeId>option-add-raw-link-satellite-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship">
-      <DisplayName>meta-datavault-raw add-source-table-relationship-field</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-source-table-relationship-field</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add a SourceTableRelationshipField row.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:id" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link">
       <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --id</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:id</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-id</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link --id</DisplayPath>
+      <NativeId>option-add-raw-link-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>SourceTableRelationshipField row id.</Summary>
+      <Summary>RawLink row id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:id">
-      <DisplayName>--ordinal</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --ordinal</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:ordinal</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-ordinal</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:link-kind" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:id">
+      <DisplayName>--link-kind</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link --link-kind</DisplayPath>
+      <NativeId>option-add-raw-link-link-kind</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Ordinal.</Summary>
+      <Summary>LinkKind.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:relationship" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:ordinal">
-      <DisplayName>--relationship</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --relationship</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:relationship</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-relationship</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:link-kind">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link --name</DisplayPath>
+      <NativeId>option-add-raw-link-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:source-relationship" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:name">
+      <DisplayName>--source-relationship</DisplayName>
+      <DisplayPath>meta-datavault-raw add-link --source-relationship</DisplayPath>
+      <NativeId>option-add-raw-link-source-relationship</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SourceTableRelationship id for SourceTableRelationshipId.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:relationship">
-      <DisplayName>--source-field</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --source-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:source-field</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-source-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceField id for SourceFieldId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:target-field" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:source-field">
-      <DisplayName>--target-field</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --target-field</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:target-field</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-target-field</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
-      <Status>New</Status>
-      <Summary>SourceField id for TargetFieldId.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:target-field">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-link:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-link" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link:option:source-relationship">
       <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>option-add-source-table-relationship-field-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field</ParentKey>
+      <DisplayPath>meta-datavault-raw add-link --workspace</DisplayPath>
+      <NativeId>option-add-raw-link-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:help" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-link-satellite-attribute">
+      <DisplayName>meta-datavault-raw add-source-field</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field</DisplayPath>
+      <NativeId>exec-add-source-field</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceField row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field">
+      <DisplayName>meta-datavault-raw add-source-field-data-type-detail</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail</DisplayPath>
+      <NativeId>exec-add-source-field-data-type-detail</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceFieldDataTypeDetail row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail">
+      <DisplayName>--field</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --field</DisplayPath>
+      <NativeId>option-add-source-field-data-type-detail-field</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceField id for SourceFieldId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:field">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --id</DisplayPath>
+      <NativeId>option-add-source-field-data-type-detail-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceFieldDataTypeDetail row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --name</DisplayPath>
+      <NativeId>option-add-source-field-data-type-detail-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:value" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:name">
+      <DisplayName>--value</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --value</DisplayPath>
+      <NativeId>option-add-source-field-data-type-detail-value</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Value.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail:option:value">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field-data-type-detail --workspace</DisplayPath>
+      <NativeId>option-add-source-field-data-type-detail-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:data-type-id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field">
+      <DisplayName>--data-type-id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --data-type-id</DisplayPath>
+      <NativeId>option-add-source-field-data-type-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>DataTypeId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:data-type-id">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --id</DisplayPath>
+      <NativeId>option-add-source-field-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceField row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:id">
+      <DisplayName>--is-nullable</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --is-nullable</DisplayPath>
+      <NativeId>option-add-source-field-is-nullable</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>IsNullable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:false" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --is-nullable value false</DisplayPath>
+      <NativeId>allowed-boolean-false</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:true" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable:allowed-value:false">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --is-nullable value true</DisplayPath>
+      <NativeId>allowed-boolean-true</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:is-nullable">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --name</DisplayPath>
+      <NativeId>option-add-source-field-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:name">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --ordinal</DisplayPath>
+      <NativeId>option-add-source-field-ordinal</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:ordinal">
+      <DisplayName>--table</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --table</DisplayPath>
+      <NativeId>option-add-source-field-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTable id for SourceTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-field:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field:option:table">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-field --workspace</DisplayPath>
+      <NativeId>option-add-source-field-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-field-data-type-detail">
+      <DisplayName>meta-datavault-raw add-source-schema</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-schema</DisplayPath>
+      <NativeId>exec-add-source-schema</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceSchema row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-schema --id</DisplayPath>
+      <NativeId>option-add-source-schema-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceSchema row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-schema --name</DisplayPath>
+      <NativeId>option-add-source-schema-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:system" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:name">
+      <DisplayName>--system</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-schema --system</DisplayPath>
+      <NativeId>option-add-source-schema-system</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceSystem id for SourceSystemId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-schema:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema:option:system">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-schema --workspace</DisplayPath>
+      <NativeId>option-add-source-schema-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-schema">
+      <DisplayName>meta-datavault-raw add-source-system</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-system</DisplayPath>
+      <NativeId>exec-add-source-system</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceSystem row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:description" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-system --description</DisplayPath>
+      <NativeId>option-add-source-system-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:description">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-system --id</DisplayPath>
+      <NativeId>option-add-source-system-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceSystem row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-system --name</DisplayPath>
+      <NativeId>option-add-source-system-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-system:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system:option:name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-system --workspace</DisplayPath>
+      <NativeId>option-add-source-system-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-system">
+      <DisplayName>meta-datavault-raw add-source-table</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table</DisplayPath>
+      <NativeId>exec-add-source-table</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceTable row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table">
+      <DisplayName>meta-datavault-raw add-source-table-relationship</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship</DisplayPath>
+      <NativeId>exec-add-source-table-relationship</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceTableRelationship row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship">
+      <DisplayName>meta-datavault-raw add-source-table-relationship-field</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field</DisplayPath>
+      <NativeId>exec-add-source-table-relationship-field</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add a SourceTableRelationshipField row.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --id</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTableRelationshipField row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:ordinal" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:id">
+      <DisplayName>--ordinal</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --ordinal</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-ordinal</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Ordinal.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:relationship" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:ordinal">
+      <DisplayName>--relationship</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --relationship</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-relationship</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTableRelationship id for SourceTableRelationshipId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:source-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:relationship">
+      <DisplayName>--source-field</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --source-field</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-source-field</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceField id for SourceFieldId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:target-field" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:source-field">
+      <DisplayName>--target-field</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --target-field</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-target-field</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceField id for TargetFieldId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field:option:target-field">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship-field --workspace</DisplayPath>
+      <NativeId>option-add-source-table-relationship-field-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship --id</DisplayPath>
+      <NativeId>option-add-source-table-relationship-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTableRelationship row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship --name</DisplayPath>
+      <NativeId>option-add-source-table-relationship-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:source-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:name">
+      <DisplayName>--source-table</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship --source-table</DisplayPath>
+      <NativeId>option-add-source-table-relationship-source-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTable id for SourceTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:target-table" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:source-table">
+      <DisplayName>--target-table</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship --target-table</DisplayPath>
+      <NativeId>option-add-source-table-relationship-target-table</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTable id for TargetTableId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship:option:target-table">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table-relationship --workspace</DisplayPath>
+      <NativeId>option-add-source-table-relationship-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:id" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table">
+      <DisplayName>--id</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table --id</DisplayPath>
+      <NativeId>option-add-source-table-id</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceTable row id.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:name" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:id">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table --name</DisplayPath>
+      <NativeId>option-add-source-table-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:schema" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:name">
+      <DisplayName>--schema</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table --schema</DisplayPath>
+      <NativeId>option-add-source-table-schema</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>SourceSchema id for SourceSchemaId.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:add-source-table:option:workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table:option:schema">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-datavault-raw add-source-table --workspace</DisplayPath>
+      <NativeId>option-add-source-table-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:help" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:add-source-table-relationship-field">
       <DisplayName>meta-datavault-raw help</DisplayName>
       <DisplayPath>meta-datavault-raw help</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:help</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:new-workspace" DocumentationSourceId="source:cli:meta-datavault-raw" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:help">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:new-workspace" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-datavault-raw:app" PreviousSubjectId="source:cli:meta-datavault-raw:app:command:help">
       <DisplayName>meta-datavault-raw new-workspace</DisplayName>
       <DisplayPath>meta-datavault-raw new-workspace</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:new-workspace</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-new-workspace</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Create a MetaRawDataVault workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-datavault-raw">
+    <DocumentationSubject Id="source:cli:meta-datavault-raw:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-datavault-raw" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-datavault-raw:app:command:new-workspace">
       <DisplayName>&lt;path&gt;</DisplayName>
       <DisplayPath>meta-datavault-raw new-workspace &lt;path&gt;</DisplayPath>
-      <Key>source:cli:meta-datavault-raw:app:command:new-workspace:argument:path</Key>
-      <Kind>CliArgument</Kind>
       <NativeId>pos-new-workspace-path</NativeId>
-      <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <ParentKey>source:cli:meta-datavault-raw:app:command:new-workspace</ParentKey>
+      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

@@ -132,7 +132,8 @@ public static class ModelSuggestService
         string targetPropertyName,
         string? role = null,
         bool allowSourcePropertyReplacement = true,
-        bool requireSourceReuse = true)
+        bool requireSourceReuse = true,
+        bool allowExistingRelationship = false)
     {
         ArgumentNullException.ThrowIfNull(workspace);
 
@@ -185,7 +186,14 @@ public static class ModelSuggestService
                 $"Property '{targetEntityName}.{targetPropertyName}' does not exist.");
         }
 
-        return BuildLookupRelationshipSuggestion(workspace, source, target, role, allowSourcePropertyReplacement, requireSourceReuse);
+        return BuildLookupRelationshipSuggestion(
+            workspace,
+            source,
+            target,
+            role,
+            allowSourcePropertyReplacement,
+            requireSourceReuse,
+            allowExistingRelationship);
     }
 
     private static List<PropertyProfile> BuildPropertyProfiles(Workspace workspace)
@@ -542,7 +550,8 @@ public static class ModelSuggestService
                 target,
                 role,
                 allowSourcePropertyReplacement: true,
-                requireSourceReuse: true);
+                requireSourceReuse: true,
+                allowExistingRelationship: false);
             if (suggestion.Status != LookupCandidateStatus.Eligible)
             {
                 continue;
@@ -573,7 +582,8 @@ public static class ModelSuggestService
         PropertyProfile target,
         string? role,
         bool allowSourcePropertyReplacement,
-        bool requireSourceReuse)
+        bool requireSourceReuse,
+        bool allowExistingRelationship)
     {
         var model = workspace.Model ?? throw new InvalidDataException("Workspace model is missing.");
         var sourceStats = source.Stats;
@@ -593,7 +603,8 @@ public static class ModelSuggestService
                 sourceStats.PropertyName,
                 targetStats.EntityName,
                 role,
-                allowSourcePropertyReplacement),
+                allowSourcePropertyReplacement,
+                allowExistingRelationship),
             SourceShowsClearLookupReuse(sourceStats),
             requireSourceReuse);
 
@@ -663,7 +674,7 @@ public static class ModelSuggestService
             blockers.Add("Target lookup key has null/blank values.");
         }
 
-        if (source.NullCount > 0 || source.BlankStringCount > 0)
+        if (source.IsRequired && (source.NullCount > 0 || source.BlankStringCount > 0))
         {
             blockers.Add("Source contains null/blank; required relationship cannot be created.");
         }
@@ -686,7 +697,8 @@ public static class ModelSuggestService
         string sourcePropertyName,
         string targetEntityName,
         string? role,
-        bool allowSourcePropertyReplacement)
+        bool allowSourcePropertyReplacement,
+        bool allowExistingRelationship)
     {
         var relationship = new GenericRelationship
         {
@@ -699,7 +711,7 @@ public static class ModelSuggestService
         var sameEdgeExists = sourceEntity.Relationships.Any(item =>
             string.Equals(item.Entity, relationship.Entity, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(item.GetRoleOrDefault(), relationship.GetRoleOrDefault(), StringComparison.OrdinalIgnoreCase));
-        if (sameEdgeExists)
+        if (sameEdgeExists && !allowExistingRelationship)
         {
             blockers.Add($"Relationship '{sourceEntity.Name}.{relationshipUsageName}' already exists.");
         }

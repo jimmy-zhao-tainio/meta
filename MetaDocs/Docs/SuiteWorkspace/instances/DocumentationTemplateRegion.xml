@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationTemplateRegionList>
-    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:navigation" DocumentationTemplateId="template:metametabi-static:shell">
+    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:navigation" DocumentationTemplateId="template:metametabi-static:shell" DocumentationTemplateRegionTypeId="template-region-type:navigation">
       <Name>navigation</Name>
-      <RegionKind>Navigation</RegionKind>
     </DocumentationTemplateRegion>
-    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:content" DocumentationTemplateId="template:metametabi-static:shell" PreviousRegionId="template:metametabi-static:shell:region:navigation">
+    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:content" DocumentationTemplateId="template:metametabi-static:shell" DocumentationTemplateRegionTypeId="template-region-type:content" PreviousRegionId="template:metametabi-static:shell:region:navigation">
       <Name>content</Name>
-      <RegionKind>Content</RegionKind>
     </DocumentationTemplateRegion>
-    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:script" DocumentationTemplateId="template:metametabi-static:shell" PreviousRegionId="template:metametabi-static:shell:region:content">
+    <DocumentationTemplateRegion Id="template:metametabi-static:shell:region:script" DocumentationTemplateId="template:metametabi-static:shell" DocumentationTemplateRegionTypeId="template-region-type:script" PreviousRegionId="template:metametabi-static:shell:region:content">
       <Name>script</Name>
-      <RegionKind>Script</RegionKind>
     </DocumentationTemplateRegion>
   </DocumentationTemplateRegionList>
 </MetaDocs>

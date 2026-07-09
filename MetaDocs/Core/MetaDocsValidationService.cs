@@ -21,10 +21,11 @@ public sealed class MetaDocsValidationService
             .Select(batch => batch.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        CheckDuplicateSubjectKeys(model, diagnostics);
+        CheckDuplicateSubjectIds(model, diagnostics);
         CheckDuplicateDisplayPaths(model, diagnostics);
         CheckFactReferences(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckNarrativeReferences(model, diagnostics, subjectIds);
+        CheckExamples(model, diagnostics, subjectIds);
         CheckRelationships(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckViews(model, diagnostics, subjectsById);
         CheckNarrativeReviewState(model, diagnostics, options.IncludeDescriptionDiagnostics);
@@ -38,25 +39,24 @@ public sealed class MetaDocsValidationService
         CheckInstancePolicies(model, diagnostics);
         CheckInstanceDocs(model, diagnostics, subjectIds);
         CheckCliReference(model, diagnostics, options.IncludeDescriptionDiagnostics);
-        CheckPublicReferenceView(model, diagnostics);
 
         return new MetaDocsValidationResult(diagnostics);
     }
 
-    private static void CheckDuplicateSubjectKeys(
+    private static void CheckDuplicateSubjectIds(
         MetaDocsModel model,
         ICollection<MetaDocsDiagnostic> diagnostics)
     {
         foreach (var group in model.DocumentationSubjectList
-                     .Where(subject => !string.IsNullOrWhiteSpace(subject.Key))
-                     .GroupBy(subject => subject.Key, StringComparer.OrdinalIgnoreCase)
+                     .Where(subject => !string.IsNullOrWhiteSpace(subject.Id))
+                     .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
                      .Where(group => group.Count() > 1))
         {
             diagnostics.Add(Error(
                 "MDOC001",
-                "DuplicateSubjectKey",
-                $"DocumentationSubject key '{group.Key}' appears {group.Count()} times.",
-                string.Join(", ", group.Select(subject => subject.Id).OrderBy(id => id, StringComparer.OrdinalIgnoreCase))));
+                "DuplicateSubjectId",
+                $"DocumentationSubject id '{group.Key}' appears {group.Count()} times.",
+                group.Key));
         }
     }
 
@@ -87,17 +87,8 @@ public sealed class MetaDocsValidationService
     {
         foreach (var fact in model.DocumentationFactList)
         {
-            if (!subjectIds.Contains(fact.SubjectKey))
-            {
-                diagnostics.Add(Error(
-                    "MDOC003",
-                    "MissingFactSubject",
-                    $"DocumentationFact '{fact.Id}' references missing subject '{fact.SubjectKey}'.",
-                    fact.Id));
-            }
-
             if (fact.DocumentationSubject is null ||
-                !string.Equals(fact.DocumentationSubject.Id, fact.SubjectKey, StringComparison.OrdinalIgnoreCase))
+                !subjectIds.Contains(fact.DocumentationSubject.Id))
             {
                 diagnostics.Add(Error(
                     "MDOC012",
@@ -133,23 +124,132 @@ public sealed class MetaDocsValidationService
     {
         foreach (var narrative in model.DocumentationNarrativeList)
         {
-            if (!subjectIds.Contains(narrative.SubjectKey))
-            {
-                diagnostics.Add(Error(
-                    "MDOC004",
-                    "MissingNarrativeSubject",
-                    $"DocumentationNarrative '{narrative.Id}' references missing subject '{narrative.SubjectKey}'.",
-                    narrative.Id));
-            }
-
             if (narrative.DocumentationSubject is null ||
-                !string.Equals(narrative.DocumentationSubject.Id, narrative.SubjectKey, StringComparison.OrdinalIgnoreCase))
+                !subjectIds.Contains(narrative.DocumentationSubject.Id))
             {
                 diagnostics.Add(Error(
                     "MDOC004",
                     "MissingNarrativeSubject",
                     $"DocumentationNarrative '{narrative.Id}' has an inconsistent subject reference.",
                     narrative.Id));
+            }
+        }
+    }
+
+    private static void CheckExamples(
+        MetaDocsModel model,
+        ICollection<MetaDocsDiagnostic> diagnostics,
+        ISet<string> subjectIds)
+    {
+        var exampleIds = model.DocumentationExampleList
+            .Select(example => example.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var sectionIds = model.DocumentationExampleSectionList
+            .Select(section => section.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var sectionsByExample = model.DocumentationExampleSectionList
+            .Where(section => section.DocumentationExample is not null)
+            .GroupBy(section => section.DocumentationExample.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
+        var codesBySection = model.DocumentationExampleCodeList
+            .Where(code => code.DocumentationExampleSection is not null)
+            .GroupBy(code => code.DocumentationExampleSection.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
+
+        foreach (var example in model.DocumentationExampleList)
+        {
+            if (example.DocumentationSubject is null || !subjectIds.Contains(example.DocumentationSubject.Id))
+            {
+                diagnostics.Add(Error(
+                    "MDOC036",
+                    "BrokenExampleSubject",
+                    $"DocumentationExample '{example.Id}' references a missing subject.",
+                    example.Id));
+            }
+
+            if (example.PreviousExample is not null &&
+                (!exampleIds.Contains(example.PreviousExample.Id) ||
+                 !ReferenceEquals(example.PreviousExample.DocumentationSubject, example.DocumentationSubject)))
+            {
+                diagnostics.Add(Error(
+                    "MDOC037",
+                    "BrokenExampleOrder",
+                    $"DocumentationExample '{example.Id}' has a previous example outside the same subject.",
+                    example.Id));
+            }
+
+            if (!sectionsByExample.ContainsKey(example.Id))
+            {
+                diagnostics.Add(Error(
+                    "MDOC038",
+                    "EmptyDocumentationExample",
+                    $"DocumentationExample '{example.Id}' has no sections.",
+                    example.Id));
+            }
+        }
+
+        foreach (var section in model.DocumentationExampleSectionList)
+        {
+            if (section.DocumentationExample is null || !exampleIds.Contains(section.DocumentationExample.Id))
+            {
+                diagnostics.Add(Error(
+                    "MDOC039",
+                    "BrokenExampleSection",
+                    $"DocumentationExampleSection '{section.Id}' references a missing example.",
+                    section.Id));
+            }
+
+            if (section.PreviousSection is not null &&
+                (!sectionIds.Contains(section.PreviousSection.Id) ||
+                 !ReferenceEquals(section.PreviousSection.DocumentationExample, section.DocumentationExample)))
+            {
+                diagnostics.Add(Error(
+                    "MDOC040",
+                    "BrokenExampleSectionOrder",
+                    $"DocumentationExampleSection '{section.Id}' has a previous section outside the same example.",
+                    section.Id));
+            }
+
+            if (string.IsNullOrWhiteSpace(section.Body) &&
+                (!codesBySection.TryGetValue(section.Id, out var codeRows) || codeRows.Length == 0))
+            {
+                diagnostics.Add(Error(
+                    "MDOC041",
+                    "EmptyExampleSection",
+                    $"DocumentationExampleSection '{section.Id}' has neither text nor code.",
+                    section.Id));
+            }
+        }
+
+        foreach (var code in model.DocumentationExampleCodeList)
+        {
+            if (code.DocumentationExampleSection is null || !sectionIds.Contains(code.DocumentationExampleSection.Id))
+            {
+                diagnostics.Add(Error(
+                    "MDOC042",
+                    "BrokenExampleCode",
+                    $"DocumentationExampleCode '{code.Id}' references a missing example section.",
+                    code.Id));
+            }
+
+            if (code.PreviousCode is not null &&
+                (!model.DocumentationExampleCodeList.Contains(code.PreviousCode) ||
+                 !ReferenceEquals(code.PreviousCode.DocumentationExampleSection, code.DocumentationExampleSection)))
+            {
+                diagnostics.Add(Error(
+                    "MDOC043",
+                    "BrokenExampleCodeOrder",
+                    $"DocumentationExampleCode '{code.Id}' has a previous code block outside the same section.",
+                    code.Id));
+            }
+
+            if (string.IsNullOrWhiteSpace(code.Code))
+            {
+                diagnostics.Add(Error(
+                    "MDOC044",
+                    "EmptyExampleCode",
+                    $"DocumentationExampleCode '{code.Id}' has no code text.",
+                    code.Id));
             }
         }
     }
@@ -163,8 +263,10 @@ public sealed class MetaDocsValidationService
     {
         foreach (var relationship in model.DocumentationRelationshipList)
         {
-            if (!subjectIds.Contains(relationship.FromSubjectKey) ||
-                !subjectIds.Contains(relationship.ToSubjectKey))
+            if (relationship.FromSubject is null ||
+                relationship.ToSubject is null ||
+                !subjectIds.Contains(relationship.FromSubject.Id) ||
+                !subjectIds.Contains(relationship.ToSubject.Id))
             {
                 diagnostics.Add(Error(
                     "MDOC005",
@@ -190,14 +292,14 @@ public sealed class MetaDocsValidationService
         ICollection<MetaDocsDiagnostic> diagnostics,
         IReadOnlyDictionary<string, DocumentationSubject[]> subjectsById)
     {
-        foreach (var node in model.DocumentationViewNodeList.Where(node => !string.IsNullOrWhiteSpace(node.SubjectKey)))
+        foreach (var node in model.DocumentationViewNodeList.Where(node => node.DocumentationSubject is not null))
         {
-            if (!subjectsById.TryGetValue(node.SubjectKey!, out var subjects))
+            if (!subjectsById.TryGetValue(node.DocumentationSubject!.Id, out var subjects))
             {
                 diagnostics.Add(Error(
                     "MDOC006",
                     "BrokenViewNode",
-                    $"DocumentationViewNode '{node.Id}' references missing subject '{node.SubjectKey}'.",
+                    $"DocumentationViewNode '{node.Id}' references a missing subject.",
                     node.Id));
                 continue;
             }
@@ -235,7 +337,8 @@ public sealed class MetaDocsValidationService
                     narrative.Id));
             }
 
-            if (subjectsById.TryGetValue(narrative.SubjectKey, out var subject) &&
+            if (narrative.DocumentationSubject is not null &&
+                subjectsById.TryGetValue(narrative.DocumentationSubject.Id, out var subject) &&
                 (string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) ||
                  string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase)) &&
                 string.Equals(narrative.Origin, "Authored", StringComparison.OrdinalIgnoreCase) &&
@@ -258,11 +361,13 @@ public sealed class MetaDocsValidationService
             .Where(narrative =>
                 string.Equals(narrative.Origin, "Authored", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(narrative.Origin, "ImportedMarkdown", StringComparison.OrdinalIgnoreCase))
-            .Select(narrative => narrative.SubjectKey)
+            .Where(narrative => narrative.DocumentationSubject is not null)
+            .Select(narrative => narrative.DocumentationSubject.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var generatedFactSubjects = model.DocumentationFactList
             .Where(fact => !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
-            .Select(fact => fact.SubjectKey)
+            .Where(fact => fact.DocumentationSubject is not null)
+            .Select(fact => fact.DocumentationSubject.Id)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         foreach (var subject in model.DocumentationSubjectList
@@ -285,26 +390,27 @@ public sealed class MetaDocsValidationService
     {
         foreach (var alias in model.DocumentationSubjectAliasList)
         {
-            if (!subjectIds.Contains(alias.SubjectKey))
+            if (alias.DocumentationSubject is null || !subjectIds.Contains(alias.DocumentationSubject.Id))
             {
                 diagnostics.Add(Error(
                     "MDOC013",
                     "BrokenAlias",
-                    $"DocumentationSubjectAlias '{alias.Id}' references missing subject '{alias.SubjectKey}'.",
+                    $"DocumentationSubjectAlias '{alias.Id}' references a missing subject.",
                     alias.Id));
             }
         }
 
         foreach (var group in model.DocumentationSubjectAliasList
-                     .Where(alias => !string.IsNullOrWhiteSpace(alias.AliasKey))
-                     .GroupBy(alias => alias.AliasKey, StringComparer.OrdinalIgnoreCase)
-                     .Where(group => group.Select(alias => alias.SubjectKey).Distinct(StringComparer.OrdinalIgnoreCase).Count() > 1))
+                     .Where(alias => !string.IsNullOrWhiteSpace(alias.Alias))
+                     .Where(alias => alias.DocumentationSubject is not null)
+                     .GroupBy(alias => alias.Alias, StringComparer.OrdinalIgnoreCase)
+                     .Where(group => group.Select(alias => alias.DocumentationSubject.Id).Distinct(StringComparer.OrdinalIgnoreCase).Count() > 1))
         {
             diagnostics.Add(Warning(
                 "MDOC014",
                 "AmbiguousAlias",
                 $"Alias '{group.Key}' resolves to more than one subject.",
-                string.Join(", ", group.Select(alias => alias.SubjectKey).Distinct(StringComparer.OrdinalIgnoreCase))));
+                string.Join(", ", group.Select(alias => alias.DocumentationSubject.Id).Distinct(StringComparer.OrdinalIgnoreCase))));
         }
     }
 
@@ -313,7 +419,7 @@ public sealed class MetaDocsValidationService
         ICollection<MetaDocsDiagnostic> diagnostics)
     {
         if (!model.DocumentationThemeAssetList.Any(asset =>
-                string.Equals(asset.AssetKind, "Css", StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsThemeAssetType(asset, "Css") &&
                 !string.IsNullOrWhiteSpace(asset.Content)))
         {
             diagnostics.Add(Error(
@@ -324,7 +430,7 @@ public sealed class MetaDocsValidationService
         }
 
         if (!model.DocumentationTemplateList.Any(template =>
-                string.Equals(template.Kind, "SiteShell", StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsTemplateType(template, "SiteShell") &&
                 !string.IsNullOrWhiteSpace(template.Html)))
         {
             diagnostics.Add(Error(
@@ -435,10 +541,10 @@ public sealed class MetaDocsValidationService
                 StringComparer.OrdinalIgnoreCase);
 
         foreach (var subject in model.DocumentationSubjectList
-                     .Where(subject => string.Equals(subject.Kind, "Instance", StringComparison.OrdinalIgnoreCase))
+                     .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Instance"))
                      .Where(IsActive))
         {
-            var entityName = subject.NativeKind ?? string.Empty;
+            var entityName = subject.SourceTypeName ?? string.Empty;
             if (string.IsNullOrWhiteSpace(subject.DisplayName))
             {
                 diagnostics.Add(Warning(
@@ -459,12 +565,10 @@ public sealed class MetaDocsValidationService
         }
 
         foreach (var fact in model.DocumentationFactList
-                     .Where(fact => string.Equals(fact.Kind, "InstancePropertyValue", StringComparison.OrdinalIgnoreCase))
+                     .Where(fact => MetaDocsVocabulary.IsFactType(fact, "InstancePropertyValue"))
                      .Where(fact => !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase)))
         {
-            var subject = model.DocumentationSubjectList.FirstOrDefault(subject =>
-                string.Equals(subject.Id, fact.SubjectKey, StringComparison.OrdinalIgnoreCase));
-            var entityName = subject?.NativeKind ?? string.Empty;
+            var entityName = fact.DocumentationSubject?.SourceTypeName ?? string.Empty;
             if (!includedPropertiesByEntity.TryGetValue(entityName, out var properties) ||
                 !properties.Contains(fact.Name))
             {
@@ -477,9 +581,12 @@ public sealed class MetaDocsValidationService
         }
 
         foreach (var relationship in model.DocumentationRelationshipList
-                     .Where(relationship => relationship.Kind.StartsWith("InstanceRelationship:", StringComparison.OrdinalIgnoreCase)))
+                     .Where(relationship => MetaDocsVocabulary.RelationshipTypeName(relationship).StartsWith("InstanceRelationship:", StringComparison.OrdinalIgnoreCase)))
         {
-            if (!subjectIds.Contains(relationship.FromSubjectKey) || !subjectIds.Contains(relationship.ToSubjectKey))
+            if (relationship.FromSubject is null ||
+                relationship.ToSubject is null ||
+                !subjectIds.Contains(relationship.FromSubject.Id) ||
+                !subjectIds.Contains(relationship.ToSubject.Id))
             {
                 diagnostics.Add(Error(
                     "MDOC020",
@@ -498,25 +605,16 @@ public sealed class MetaDocsValidationService
         var activeSubjects = model.DocumentationSubjectList
             .Where(IsActive)
             .ToArray();
-        var activeById = activeSubjects.ToDictionary(subject => subject.Id, StringComparer.OrdinalIgnoreCase);
+        var activeById = activeSubjects
+            .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
         var activeChildrenByParent = activeSubjects
-            .Where(subject => !string.IsNullOrWhiteSpace(subject.ParentKey))
-            .GroupBy(subject => subject.ParentKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(subject => subject.ParentSubject is not null)
+            .GroupBy(subject => subject.ParentSubject!.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
 
-        foreach (var application in activeSubjects.Where(subject => string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase)))
+        foreach (var application in activeSubjects.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliApplication")))
         {
-            var groupName = GetTextFact(model, application.Id, "Cli", "GroupName");
-            if (!string.Equals(groupName, "meta", StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(groupName, "meta-bi", StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Add(Warning(
-                    "MDOC036",
-                    "CliApplicationGroupMissing",
-                    $"CLI application '{application.DisplayName}' does not declare a recognized public docs group.",
-                    application.Id));
-            }
-
             var commands = CliCommandDescendants(activeChildrenByParent, application.Id).ToArray();
             if (commands.Length == 0)
             {
@@ -540,12 +638,12 @@ public sealed class MetaDocsValidationService
             }
         }
 
-        foreach (var command in activeSubjects.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)))
+        foreach (var command in activeSubjects.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliCommand")))
         {
-            if (string.IsNullOrWhiteSpace(command.ParentKey) ||
-                !activeById.TryGetValue(command.ParentKey, out var parent) ||
-                (!string.Equals(parent.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase) &&
-                 !string.Equals(parent.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)))
+            if (command.ParentSubject is null ||
+                !activeById.TryGetValue(command.ParentSubject.Id, out var parent) ||
+                (!MetaDocsVocabulary.IsSubjectType(parent, "CliApplication") &&
+                 !MetaDocsVocabulary.IsSubjectType(parent, "CliCommand")))
             {
                 diagnostics.Add(Error(
                     "MDOC025",
@@ -566,7 +664,7 @@ public sealed class MetaDocsValidationService
 
             var optionCount = GetNumericFact(model, command.Id, "Cli", "OptionCount");
             var optionChildren = activeChildrenByParent.TryGetValue(command.Id, out var children)
-                ? children.Count(subject => string.Equals(subject.Kind, "CliOption", StringComparison.OrdinalIgnoreCase))
+                ? children.Count(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliOption"))
                 : 0;
             if (optionCount > 0 && optionChildren == 0)
             {
@@ -587,12 +685,12 @@ public sealed class MetaDocsValidationService
             }
         }
 
-        foreach (var option in activeSubjects.Where(subject => string.Equals(subject.Kind, "CliOption", StringComparison.OrdinalIgnoreCase)))
+        foreach (var option in activeSubjects.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliOption")))
         {
-            if (string.IsNullOrWhiteSpace(option.ParentKey) ||
-                !activeById.TryGetValue(option.ParentKey, out var parent) ||
-                (!string.Equals(parent.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase) &&
-                 !string.Equals(parent.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)))
+            if (option.ParentSubject is null ||
+                !activeById.TryGetValue(option.ParentSubject.Id, out var parent) ||
+                (!MetaDocsVocabulary.IsSubjectType(parent, "CliApplication") &&
+                 !MetaDocsVocabulary.IsSubjectType(parent, "CliCommand")))
             {
                 diagnostics.Add(Error(
                     "MDOC026",
@@ -612,8 +710,8 @@ public sealed class MetaDocsValidationService
             yield break;
         }
 
-        foreach (var command in MetaDocsOrdering.ByPrevious(
-                     children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+            foreach (var command in MetaDocsOrdering.ByPrevious(
+                     children.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliCommand")),
                      static subject => subject.PreviousSubject,
                      static subject => subject.DisplayName))
         {
@@ -621,111 +719,6 @@ public sealed class MetaDocsValidationService
             foreach (var descendant in CliCommandDescendants(activeChildrenByParent, command.Id))
             {
                 yield return descendant;
-            }
-        }
-    }
-
-    private static void CheckPublicReferenceView(
-        MetaDocsModel model,
-        ICollection<MetaDocsDiagnostic> diagnostics)
-    {
-        var view = model.DocumentationViewList.FirstOrDefault(row =>
-            string.Equals(row.Id, "view:default", StringComparison.OrdinalIgnoreCase));
-        if (view is null)
-        {
-            return;
-        }
-
-        if (!IsPublicReferenceView(view))
-        {
-            return;
-        }
-
-        var publicReferenceSubjects = model.DocumentationSubjectList
-            .Where(subject => MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out _))
-            .ToArray();
-        if (publicReferenceSubjects.Length == 0)
-        {
-            return;
-        }
-
-        var nodes = model.DocumentationViewNodeList
-            .Where(node => node.DocumentationView is not null &&
-                           string.Equals(node.DocumentationView.Id, view.Id, StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-        var nodesById = nodes
-            .Where(node => !string.IsNullOrWhiteSpace(node.Id))
-            .GroupBy(node => node.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
-        var subjectsById = model.DocumentationSubjectList
-            .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
-        var publicSubjectIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var group in nodes
-                     .GroupBy(node => $"{node.ParentNodeId ?? string.Empty}|{node.Title}", StringComparer.OrdinalIgnoreCase)
-                     .Where(group => group.Count() > 1))
-        {
-            diagnostics.Add(Warning(
-                "MDOC034",
-                "DuplicatePublicViewNodeTitle",
-                $"Public view contains duplicate node title '{group.First().Title}' under the same parent.",
-                string.Join(", ", group.Select(node => node.Id).OrderBy(id => id, StringComparer.OrdinalIgnoreCase))));
-        }
-
-        foreach (var node in nodes)
-        {
-            if (IsStalePublicTitle(node.Title) ||
-                string.IsNullOrWhiteSpace(node.ParentNodeId) &&
-                string.Equals(node.Title, "MetaDocs", StringComparison.OrdinalIgnoreCase))
-            {
-                diagnostics.Add(Warning(
-                    "MDOC031",
-                    "StalePublicViewNode",
-                    $"Public view node '{node.Id}' uses stale public documentation title '{node.Title}'.",
-                    node.Id));
-            }
-
-            if (string.IsNullOrWhiteSpace(node.SubjectKey))
-            {
-                continue;
-            }
-
-            if (!subjectsById.TryGetValue(node.SubjectKey!, out var subject))
-            {
-                continue;
-            }
-
-            if (!MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out var classification))
-            {
-                diagnostics.Add(Warning(
-                    "MDOC032",
-                    "NonReferenceSubjectInPublicView",
-                    $"Public view node '{node.Id}' references non-public subject '{subject.DisplayName}' of kind '{subject.Kind}'.",
-                    node.Id));
-                continue;
-            }
-
-            publicSubjectIds.Add(subject.Id);
-            if (!PublicViewParentageMatches(nodesById, node, classification))
-            {
-                diagnostics.Add(Warning(
-                    "MDOC033",
-                    "PublicReferenceMisclassified",
-                    $"Public view node '{node.Id}' is not under {MetaDocsPublicReferenceClassifier.FormatProductFamily(classification.ProductFamily)} / {MetaDocsPublicReferenceClassifier.FormatReferenceSurface(classification.Surface)}.",
-                    node.Id));
-            }
-        }
-
-        foreach (var subject in publicReferenceSubjects)
-        {
-            if (!publicSubjectIds.Contains(subject.Id))
-            {
-                diagnostics.Add(Warning(
-                    "MDOC035",
-                    "PublicReferenceSubjectMissingFromView",
-                    $"Public reference subject '{subject.DisplayName}' is not present in the default public view.",
-                    subject.Id));
             }
         }
     }
@@ -746,7 +739,7 @@ public sealed class MetaDocsValidationService
         }
 
         return model.DocumentationSubjectList.FirstOrDefault(subject =>
-            string.Equals(subject.Kind, "Entity", StringComparison.OrdinalIgnoreCase) &&
+            MetaDocsVocabulary.IsSubjectType(subject, "Entity") &&
             (string.Equals(subject.NativeId ?? string.Empty, entityName, StringComparison.OrdinalIgnoreCase) ||
              string.Equals(subject.DisplayName, entityName, StringComparison.OrdinalIgnoreCase)));
     }
@@ -756,8 +749,8 @@ public sealed class MetaDocsValidationService
         DocumentationSubject entitySubject,
         string propertyName) =>
         model.DocumentationSubjectList.FirstOrDefault(subject =>
-            string.Equals(subject.Kind, "Property", StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(subject.ParentKey ?? string.Empty, entitySubject.Id, StringComparison.OrdinalIgnoreCase) &&
+            MetaDocsVocabulary.IsSubjectType(subject, "Property") &&
+            string.Equals(subject.ParentSubject?.Id ?? string.Empty, entitySubject.Id, StringComparison.OrdinalIgnoreCase) &&
             (string.Equals(subject.NativeId ?? string.Empty, propertyName, StringComparison.OrdinalIgnoreCase) ||
              string.Equals(subject.DisplayName, propertyName, StringComparison.OrdinalIgnoreCase)));
 
@@ -766,8 +759,8 @@ public sealed class MetaDocsValidationService
         DocumentationSubject entitySubject,
         string relationshipSelector) =>
         model.DocumentationSubjectList.FirstOrDefault(subject =>
-            string.Equals(subject.Kind, "Relationship", StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(subject.ParentKey ?? string.Empty, entitySubject.Id, StringComparison.OrdinalIgnoreCase) &&
+            MetaDocsVocabulary.IsSubjectType(subject, "Relationship") &&
+            string.Equals(subject.ParentSubject?.Id ?? string.Empty, entitySubject.Id, StringComparison.OrdinalIgnoreCase) &&
             (string.Equals(subject.NativeId ?? string.Empty, relationshipSelector, StringComparison.OrdinalIgnoreCase) ||
              string.Equals(subject.DisplayName, relationshipSelector, StringComparison.OrdinalIgnoreCase) ||
              HasFact(model, subject, "Model", "ColumnName", relationshipSelector)));
@@ -776,15 +769,6 @@ public sealed class MetaDocsValidationService
         !string.Equals(subject.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(subject.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
-
-    private static bool IsPublicReferenceView(DocumentationView view) =>
-        string.Equals(view.Kind, "PublicReference", StringComparison.OrdinalIgnoreCase) ||
-        ContainsReferenceMarker(view.Title) ||
-        ContainsReferenceMarker(view.Summary);
-
-    private static bool ContainsReferenceMarker(string? value) =>
-        !string.IsNullOrWhiteSpace(value) &&
-        value.Contains("reference", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsIncluded(string? value)
     {
@@ -803,8 +787,8 @@ public sealed class MetaDocsValidationService
         string name,
         string value) =>
         model.DocumentationFactList.Any(fact =>
-            string.Equals(fact.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+            ReferenceEquals(fact.DocumentationSubject, subject) &&
+            MetaDocsVocabulary.IsFactType(fact, kind) &&
             string.Equals(fact.Name, name, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(fact.Value ?? string.Empty, value, StringComparison.OrdinalIgnoreCase));
 
@@ -813,8 +797,8 @@ public sealed class MetaDocsValidationService
         DocumentationSubject subject,
         string kind) =>
         model.DocumentationFactList.Any(fact =>
-            string.Equals(fact.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+            ReferenceEquals(fact.DocumentationSubject, subject) &&
+            MetaDocsVocabulary.IsFactType(fact, kind) &&
             !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase));
 
     private static int GetNumericFact(
@@ -825,8 +809,8 @@ public sealed class MetaDocsValidationService
     {
         var value = model.DocumentationFactList
             .Where(fact =>
-                string.Equals(fact.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(fact.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsFactType(fact, kind) &&
                 string.Equals(fact.Name, name, StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
             .Select(fact => fact.Value)
@@ -841,8 +825,8 @@ public sealed class MetaDocsValidationService
         string name) =>
         model.DocumentationFactList
             .Where(fact =>
-                string.Equals(fact.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(fact.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsFactType(fact, kind) &&
                 string.Equals(fact.Name, name, StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
             .Select(fact => fact.Value)
@@ -850,58 +834,18 @@ public sealed class MetaDocsValidationService
 
     private static bool HasAuthoredOrImportedNarrative(MetaDocsModel model, string subjectKey) =>
         model.DocumentationNarrativeList.Any(narrative =>
-            string.Equals(narrative.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(narrative.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
             !string.IsNullOrWhiteSpace(narrative.Body) &&
             (string.Equals(narrative.Origin, "Authored", StringComparison.OrdinalIgnoreCase) ||
              string.Equals(narrative.Origin, "ImportedMarkdown", StringComparison.OrdinalIgnoreCase)));
 
-    private static bool PublicViewParentageMatches(
-        IReadOnlyDictionary<string, DocumentationViewNode> nodesById,
-        DocumentationViewNode node,
-        MetaDocsPublicReferenceClassification classification)
-    {
-        var expectedSurface = MetaDocsPublicReferenceClassifier.FormatReferenceSurface(classification.Surface);
-        var expectedFamily = MetaDocsPublicReferenceClassifier.FormatProductFamily(classification.ProductFamily);
-        var hasSurface = false;
-        var hasFamily = false;
-        var current = node;
-        var guard = 0;
-        while (!string.IsNullOrWhiteSpace(current.ParentNodeId) &&
-               nodesById.TryGetValue(current.ParentNodeId!, out var parent) &&
-               guard++ < 16)
-        {
-            if (string.Equals(parent.Title, expectedSurface, StringComparison.OrdinalIgnoreCase))
-            {
-                hasSurface = true;
-            }
-
-            if (string.Equals(parent.Title, expectedFamily, StringComparison.OrdinalIgnoreCase))
-            {
-                hasFamily = true;
-            }
-
-            current = parent;
-        }
-
-        return hasSurface && hasFamily;
-    }
-
-    private static bool IsStalePublicTitle(string? title) =>
-        string.Equals(title, "What is Meta?", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "What is Meta-BI?", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "Getting started", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "Documentation lifecycle", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "Selected safe instance docs", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "Generic workspace and model docs", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(title, "Authored docs page", StringComparison.OrdinalIgnoreCase);
-
     private static bool ShouldExpectNarrative(DocumentationSubject subject) =>
-        string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(subject.Kind, "Entity", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(subject.Kind, "Concept", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(subject.Kind, "Guide", StringComparison.OrdinalIgnoreCase);
+        MetaDocsVocabulary.IsSubjectType(subject, "CliApplication") ||
+        MetaDocsVocabulary.IsSubjectType(subject, "CliCommand") ||
+        MetaDocsVocabulary.IsSubjectType(subject, "Model") ||
+        MetaDocsVocabulary.IsSubjectType(subject, "Entity") ||
+        MetaDocsVocabulary.IsSubjectType(subject, "Concept") ||
+        MetaDocsVocabulary.IsSubjectType(subject, "Guide");
 
     private static MetaDocsDiagnostic Error(string id, string code, string message, string location) =>
         new(MetaDocsDiagnosticSeverity.Error, id, code, message, location);

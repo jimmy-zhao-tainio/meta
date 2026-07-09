@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="public:meta:models" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:allowedvalue" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli">
+      <DisplayName>AllowedValue</DisplayName>
+      <DisplayPath>MetaCli.AllowedValue</DisplayPath>
+      <NativeId>AllowedValue</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:allowedvalue:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:allowedvalue">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.AllowedValue.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:allowedvalue:property:value" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:allowedvalue" PreviousSubjectId="source:workspace-model:meta-cli:entity:allowedvalue:property:description">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaCli.AllowedValue.Value</DisplayPath>
+      <NativeId>Value</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:allowedvalue:relationship:valueshape-valueshape" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:allowedvalue">
+      <DisplayName>ValueShape</DisplayName>
+      <DisplayPath>MetaCli.AllowedValue.ValueShape</DisplayPath>
+      <NativeId>ValueShape:ValueShape</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:application" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:allowedvalue">
+      <DisplayName>Application</DisplayName>
+      <DisplayPath>MetaCli.Application</DisplayPath>
+      <NativeId>Application</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:application:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:application">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.Application.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:application:property:executablename" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:application" PreviousSubjectId="source:workspace-model:meta-cli:entity:application:property:description">
+      <DisplayName>ExecutableName</DisplayName>
+      <DisplayPath>MetaCli.Application.ExecutableName</DisplayPath>
+      <NativeId>ExecutableName</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:application:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:application" PreviousSubjectId="source:workspace-model:meta-cli:entity:application:property:executablename">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.Application.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:application:property:version" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:application" PreviousSubjectId="source:workspace-model:meta-cli:entity:application:property:name">
+      <DisplayName>Version</DisplayName>
+      <DisplayPath>MetaCli.Application.Version</DisplayPath>
+      <NativeId>Version</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationdefaultcommand" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:application">
+      <DisplayName>ApplicationDefaultCommand</DisplayName>
+      <DisplayPath>MetaCli.ApplicationDefaultCommand</DisplayPath>
+      <NativeId>ApplicationDefaultCommand</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationdefaultcommand:relationship:application-application" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:applicationdefaultcommand">
+      <DisplayName>Application</DisplayName>
+      <DisplayPath>MetaCli.ApplicationDefaultCommand.Application</DisplayPath>
+      <NativeId>Application:Application</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationdefaultcommand:relationship:executablecommand-executablecommand" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:applicationdefaultcommand" PreviousSubjectId="source:workspace-model:meta-cli:entity:applicationdefaultcommand:relationship:application-application">
+      <DisplayName>ExecutableCommand</DisplayName>
+      <DisplayPath>MetaCli.ApplicationDefaultCommand.ExecutableCommand</DisplayPath>
+      <NativeId>ExecutableCommand:ExecutableCommand</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationparameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:applicationdefaultcommand">
+      <DisplayName>ApplicationParameter</DisplayName>
+      <DisplayPath>MetaCli.ApplicationParameter</DisplayPath>
+      <NativeId>ApplicationParameter</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationparameter:relationship:application-application" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:applicationparameter">
+      <DisplayName>Application</DisplayName>
+      <DisplayPath>MetaCli.ApplicationParameter.Application</DisplayPath>
+      <NativeId>Application:Application</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:applicationparameter:relationship:parameter-parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:applicationparameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:applicationparameter:relationship:application-application">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.ApplicationParameter.Parameter</DisplayPath>
+      <NativeId>Parameter:Parameter</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:applicationparameter">
+      <DisplayName>Command</DisplayName>
+      <DisplayPath>MetaCli.Command</DisplayPath>
+      <NativeId>Command</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:command">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.Command.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:command" PreviousSubjectId="source:workspace-model:meta-cli:entity:command:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.Command.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command:property:token" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:command" PreviousSubjectId="source:workspace-model:meta-cli:entity:command:property:name">
+      <DisplayName>Token</DisplayName>
+      <DisplayPath>MetaCli.Command.Token</DisplayPath>
+      <NativeId>Token</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command:relationship:application-application" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:command">
+      <DisplayName>Application</DisplayName>
+      <DisplayPath>MetaCli.Command.Application</DisplayPath>
+      <NativeId>Application:Application</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:command:relationship:parentcommand-command" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:command" PreviousSubjectId="source:workspace-model:meta-cli:entity:command:relationship:application-application">
+      <DisplayName>ParentCommand</DisplayName>
+      <DisplayPath>MetaCli.Command.ParentCommand</DisplayPath>
+      <NativeId>ParentCommand:Command</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:executablecommand" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:command">
+      <DisplayName>ExecutableCommand</DisplayName>
+      <DisplayPath>MetaCli.ExecutableCommand</DisplayPath>
+      <NativeId>ExecutableCommand</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:executablecommand:relationship:command-command" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:executablecommand">
+      <DisplayName>Command</DisplayName>
+      <DisplayPath>MetaCli.ExecutableCommand.Command</DisplayPath>
+      <NativeId>Command:Command</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:executablecommandparameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:executablecommand">
+      <DisplayName>ExecutableCommandParameter</DisplayName>
+      <DisplayPath>MetaCli.ExecutableCommandParameter</DisplayPath>
+      <NativeId>ExecutableCommandParameter</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:executablecommandparameter:relationship:executablecommand-executablecommand" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:executablecommandparameter">
+      <DisplayName>ExecutableCommand</DisplayName>
+      <DisplayPath>MetaCli.ExecutableCommandParameter.ExecutableCommand</DisplayPath>
+      <NativeId>ExecutableCommand:ExecutableCommand</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:executablecommandparameter:relationship:parameter-parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:executablecommandparameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:executablecommandparameter:relationship:executablecommand-executablecommand">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.ExecutableCommandParameter.Parameter</DisplayPath>
+      <NativeId>Parameter:Parameter</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:option" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:executablecommandparameter">
+      <DisplayName>Option</DisplayName>
+      <DisplayPath>MetaCli.Option</DisplayPath>
+      <NativeId>Option</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:option:relationship:parameter-parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:option">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.Option.Parameter</DisplayPath>
+      <NativeId>Parameter:Parameter</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:optiontoken" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:option">
+      <DisplayName>OptionToken</DisplayName>
+      <DisplayPath>MetaCli.OptionToken</DisplayPath>
+      <NativeId>OptionToken</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:optiontoken:property:token" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:optiontoken">
+      <DisplayName>Token</DisplayName>
+      <DisplayPath>MetaCli.OptionToken.Token</DisplayPath>
+      <NativeId>Token</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:optiontoken:relationship:option-option" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:optiontoken">
+      <DisplayName>Option</DisplayName>
+      <DisplayPath>MetaCli.OptionToken.Option</DisplayPath>
+      <NativeId>Option:Option</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:optiontoken:relationship:previoustoken-optiontoken" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:optiontoken" PreviousSubjectId="source:workspace-model:meta-cli:entity:optiontoken:relationship:option-option">
+      <DisplayName>PreviousToken</DisplayName>
+      <DisplayPath>MetaCli.OptionToken.PreviousToken</DisplayPath>
+      <NativeId>PreviousToken:OptionToken</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:optiontoken">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.Parameter</DisplayPath>
+      <NativeId>Parameter</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:property:defaultvalue" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter">
+      <DisplayName>DefaultValue</DisplayName>
+      <DisplayPath>MetaCli.Parameter.DefaultValue</DisplayPath>
+      <NativeId>DefaultValue</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:parameter:property:defaultvalue">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.Parameter.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:property:isrepeatable" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:parameter:property:description">
+      <DisplayName>IsRepeatable</DisplayName>
+      <DisplayPath>MetaCli.Parameter.IsRepeatable</DisplayPath>
+      <NativeId>IsRepeatable</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:property:isrequired" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:parameter:property:isrepeatable">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaCli.Parameter.IsRequired</DisplayPath>
+      <NativeId>IsRequired</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter" PreviousSubjectId="source:workspace-model:meta-cli:entity:parameter:property:isrequired">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.Parameter.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parameter:relationship:valueshape-valueshape" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:parameter">
+      <DisplayName>ValueShape</DisplayName>
+      <DisplayPath>MetaCli.Parameter.ValueShape</DisplayPath>
+      <NativeId>ValueShape:ValueShape</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:parameter">
+      <DisplayName>ParameterGroup</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup</DisplayPath>
+      <NativeId>ParameterGroup</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup:property:allowsmultiple" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroup">
+      <DisplayName>AllowsMultiple</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup.AllowsMultiple</DisplayPath>
+      <NativeId>AllowsMultiple</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroup" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroup:property:allowsmultiple">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup:property:isrequired" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroup" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroup:property:description">
+      <DisplayName>IsRequired</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup.IsRequired</DisplayPath>
+      <NativeId>IsRequired</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroup" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroup:property:isrequired">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroup:relationship:executablecommand-executablecommand" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroup">
+      <DisplayName>ExecutableCommand</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroup.ExecutableCommand</DisplayPath>
+      <NativeId>ExecutableCommand:ExecutableCommand</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroupmember" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroup">
+      <DisplayName>ParameterGroupMember</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroupMember</DisplayPath>
+      <NativeId>ParameterGroupMember</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroupmember:relationship:parameter-parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember:relationship:parametergroup-parametergroup">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroupMember.Parameter</DisplayPath>
+      <NativeId>Parameter:Parameter</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroupmember:relationship:parametergroup-parametergroup" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember">
+      <DisplayName>ParameterGroup</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroupMember.ParameterGroup</DisplayPath>
+      <NativeId>ParameterGroup:ParameterGroup</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:parametergroupmember:relationship:previousmember-parametergroupmember" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember:relationship:parameter-parameter">
+      <DisplayName>PreviousMember</DisplayName>
+      <DisplayPath>MetaCli.ParameterGroupMember.PreviousMember</DisplayPath>
+      <NativeId>PreviousMember:ParameterGroupMember</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:positionalargument" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:parametergroupmember">
+      <DisplayName>PositionalArgument</DisplayName>
+      <DisplayPath>MetaCli.PositionalArgument</DisplayPath>
+      <NativeId>PositionalArgument</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:positionalargument:relationship:parameter-parameter" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:positionalargument">
+      <DisplayName>Parameter</DisplayName>
+      <DisplayPath>MetaCli.PositionalArgument.Parameter</DisplayPath>
+      <NativeId>Parameter:Parameter</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:positionalargument:relationship:previousargument-positionalargument" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:positionalargument" PreviousSubjectId="source:workspace-model:meta-cli:entity:positionalargument:relationship:parameter-parameter">
+      <DisplayName>PreviousArgument</DisplayName>
+      <DisplayPath>MetaCli.PositionalArgument.PreviousArgument</DisplayPath>
+      <NativeId>PreviousArgument:PositionalArgument</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valuearity" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:positionalargument">
+      <DisplayName>ValueArity</DisplayName>
+      <DisplayPath>MetaCli.ValueArity</DisplayPath>
+      <NativeId>ValueArity</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valuearity:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valuearity">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.ValueArity.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valuearity:property:maxvaluecount" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valuearity" PreviousSubjectId="source:workspace-model:meta-cli:entity:valuearity:property:description">
+      <DisplayName>MaxValueCount</DisplayName>
+      <DisplayPath>MetaCli.ValueArity.MaxValueCount</DisplayPath>
+      <NativeId>MaxValueCount</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valuearity:property:minvaluecount" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valuearity" PreviousSubjectId="source:workspace-model:meta-cli:entity:valuearity:property:maxvaluecount">
+      <DisplayName>MinValueCount</DisplayName>
+      <DisplayPath>MetaCli.ValueArity.MinValueCount</DisplayPath>
+      <NativeId>MinValueCount</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valuearity:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valuearity" PreviousSubjectId="source:workspace-model:meta-cli:entity:valuearity:property:minvaluecount">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.ValueArity.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-cli:model:metacli" PreviousSubjectId="source:workspace-model:meta-cli:entity:valuearity">
+      <DisplayName>ValueShape</DisplayName>
+      <DisplayPath>MetaCli.ValueShape</DisplayPath>
+      <NativeId>ValueShape</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape:property:allowsoptionlikevalue" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valueshape">
+      <DisplayName>AllowsOptionLikeValue</DisplayName>
+      <DisplayPath>MetaCli.ValueShape.AllowsOptionLikeValue</DisplayPath>
+      <NativeId>AllowsOptionLikeValue</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape:property:description" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valueshape" PreviousSubjectId="source:workspace-model:meta-cli:entity:valueshape:property:allowsoptionlikevalue">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaCli.ValueShape.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape:property:name" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valueshape" PreviousSubjectId="source:workspace-model:meta-cli:entity:valueshape:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaCli.ValueShape.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape:property:valuelabel" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-cli:entity:valueshape" PreviousSubjectId="source:workspace-model:meta-cli:entity:valueshape:property:name">
+      <DisplayName>ValueLabel</DisplayName>
+      <DisplayPath>MetaCli.ValueShape.ValueLabel</DisplayPath>
+      <NativeId>ValueLabel</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:entity:valueshape:relationship:valuearity-valuearity" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-cli:entity:valueshape">
+      <DisplayName>ValueArity</DisplayName>
+      <DisplayPath>MetaCli.ValueShape.ValueArity</DisplayPath>
+      <NativeId>ValueArity:ValueArity</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:model:metacli" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta:models">
+      <DisplayName>MetaCli</DisplayName>
+      <DisplayPath>MetaCli.MetaCli</DisplayPath>
+      <NativeId>MetaCli</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-cli:workspace" DocumentationSourceId="source:workspace-model:meta-cli" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaCli</DisplayName>
+      <DisplayPath>MetaCli</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta\MetaCli\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>

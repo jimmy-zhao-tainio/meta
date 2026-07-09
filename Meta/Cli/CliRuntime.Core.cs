@@ -516,13 +516,14 @@ internal sealed partial class CliRuntime
         return (true, WorkspacePath(), string.Empty);
     }
 
-    (bool Ok, string Role, string DefaultId, string WorkspacePath, string ErrorMessage)
+    (bool Ok, string Role, string DefaultId, bool Required, string WorkspacePath, string ErrorMessage)
         ReadModelAddRelationshipOptions(string[] commandArgs, int startIndex)
     {
         var role = OptionalValue("role");
         var defaultId = OptionalValue("default-id");
+        var required = !IsPresent("required") || bool.Parse(RequiredValue("required"));
         var workspacePath = WorkspacePath();
-        return (true, role, defaultId, workspacePath, string.Empty);
+        return (true, role, defaultId, required, workspacePath, string.Empty);
     }
 
     (bool Ok, string Format, string FilePath, bool UseStdin, string WorkspacePath, IReadOnlyList<string> KeyFields, bool AutoId, string ErrorMessage)

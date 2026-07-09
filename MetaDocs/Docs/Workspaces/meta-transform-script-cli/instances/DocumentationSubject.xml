@@ -1,541 +1,402 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>CLI</DisplayName>
+      <DisplayPath>CLI</DisplayPath>
+      <NativeId>public:meta-bi:cli</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta-bi:cli">
       <DisplayName>meta-transform-script</DisplayName>
       <DisplayPath>meta-transform-script</DisplayPath>
-      <Key>source:cli:meta-transform-script:app</Key>
-      <Kind>CliApplication</Kind>
       <NativeId>app-meta-transform-script</NativeId>
-      <NativeKind>MetaCli.Application</NativeKind>
+      <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Import SQL transform scripts into a structured model, export equivalent SQL, and manage transform contracts.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app">
       <DisplayName>meta-transform-script from sql-code</DisplayName>
       <DisplayPath>meta-transform-script from sql-code</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-from-sql-code</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
-      <Status>New</Status>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>Changed</Status>
       <Summary>Import SQL text.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:code" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:code" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code">
       <DisplayName>--code</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --code</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:option:code</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-code-code</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SQL text to import.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:name" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:code">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:name" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:code">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --name</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-code-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Required when SQL code is bare SELECT or mutation text without a CREATE wrapper.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:name">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:name">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --new-workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:option:new-workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-code-new-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Create a new MetaTransformScript workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:target" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:new-workspace">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --target</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:option:target</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-code-target</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Optional for CREATE VIEW imports; required for bare SELECT; not allowed for inline CREATE FUNCTION or mutation imports.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:target">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:target">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-code-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Add one script to an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code">
       <DisplayName>workspace-target</DisplayName>
       <DisplayPath>meta-transform-script from sql-code group workspace-target</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-code:parameter-group:workspace-target</Key>
-      <Kind>CliParameterGroup</Kind>
       <NativeId>group-from-sql-code-workspace-target</NativeId>
-      <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
       <Summary>Choose either a new workspace or an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code">
       <DisplayName>meta-transform-script from sql-file</DisplayName>
       <DisplayPath>meta-transform-script from sql-file</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-from-sql-file</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Import one .sql file.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --new-workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file:option:new-workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-file-new-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-file</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Create a new MetaTransformScript workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:path" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:path" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:new-workspace">
       <DisplayName>--path</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --path</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file:option:path</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-file-path</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-file</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>SQL file to import.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:target" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:path">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:path">
       <DisplayName>--target</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --target</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file:option:target</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-file-target</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-file</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Optional for CREATE VIEW imports; required for bare SELECT; not allowed for inline CREATE FUNCTION or mutation imports.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:target">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:target">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-file-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-file</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Add one script to an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file">
       <DisplayName>workspace-target</DisplayName>
       <DisplayPath>meta-transform-script from sql-file group workspace-target</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-file:parameter-group:workspace-target</Key>
-      <Kind>CliParameterGroup</Kind>
       <NativeId>group-from-sql-file-workspace-target</NativeId>
-      <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-file</ParentKey>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
       <Summary>Choose either a new workspace or an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file">
       <DisplayName>meta-transform-script from sql-files</DisplayName>
       <DisplayPath>meta-transform-script from sql-files</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-from-sql-files</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Import many .sql files from an explicit manifest.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
       <DisplayName>--manifest</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --manifest</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:option:manifest</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-files-manifest</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>TSV manifest with a Path column and optional Target column.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --new-workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:option:new-workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-files-new-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Create a new MetaTransformScript workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:report" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:report" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:new-workspace">
       <DisplayName>--report</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --report</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:option:report</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-files-report</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Write per-file Success/Failure rows.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:report">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:report">
       <DisplayName>--verbose</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --verbose</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:option:verbose</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-files-verbose</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Print one progress line per imported file.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-from-sql-files-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Add successful imports to an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:parameter-group:workspace-target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
       <DisplayName>workspace-target</DisplayName>
       <DisplayPath>meta-transform-script from sql-files group workspace-target</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:from-sql-files:parameter-group:workspace-target</Key>
-      <Kind>CliParameterGroup</Kind>
       <NativeId>group-from-sql-files-workspace-target</NativeId>
-      <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:from-sql-files</ParentKey>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
       <Summary>Choose either a new workspace or an existing workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:help" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:help" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
       <DisplayName>meta-transform-script help</DisplayName>
       <DisplayPath>meta-transform-script help</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:help</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:help">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:help">
       <DisplayName>meta-transform-script stored-procedure add-contract</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-stored-procedure-add-contract</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add or replace stored procedure contract metadata.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --name</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Stored procedure transform script name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name">
       <DisplayName>--notes</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --notes</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-notes</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Human note stored on the contract.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes">
       <DisplayName>--operation</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --operation</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-operation</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Declare an ordered operation: &lt;ordinal&gt;:&lt;kind&gt;:&lt;sql-id&gt;[=&lt;role&gt;].</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation">
       <DisplayName>--result-column</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --result-column</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-result-column</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Declare a result column for a named result rowset.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column">
       <DisplayName>--result-rowset</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --result-rowset</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-result-rowset</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Declare the optional result rowset.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure add-contract --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-add-contract-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-add-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to update. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract">
       <DisplayName>meta-transform-script stored-procedure remove-contract</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure remove-contract</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-remove-contract</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-stored-procedure-remove-contract</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Remove a stored procedure contract and its declared rows.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure remove-contract --name</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-remove-contract-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-remove-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Stored procedure transform script name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure remove-contract --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-remove-contract-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-remove-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to update. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract">
       <DisplayName>meta-transform-script stored-procedure view-contract</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure view-contract</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-view-contract</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-stored-procedure-view-contract</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>View stored procedure contracts.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure view-contract --name</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-view-contract-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-view-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Inspect one stored procedure transform script by name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script stored-procedure view-contract --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-stored-procedure-view-contract-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:stored-procedure-view-contract</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to inspect. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract">
       <DisplayName>meta-transform-script target-identifiers from-pattern</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-target-identifiers-from-pattern</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Derive view target identifiers from transform script names.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern">
       <DisplayName>--allow-empty</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --allow-empty</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-allow-empty</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Exit successfully even when the pattern updates no target identifiers.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty">
       <DisplayName>--dry-run</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --dry-run</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-dry-run</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Show what would change without saving the workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run">
       <DisplayName>--only-missing</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --only-missing</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-only-missing</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Skip view scripts that already have a target identifier.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing">
       <DisplayName>--source-pattern</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --source-pattern</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-source-pattern</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Pattern matched against TransformScript.Name. Tokens use {name}.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern">
       <DisplayName>--target-pattern</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --target-pattern</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-target-pattern</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Pattern rendered into TargetSqlIdentifier from captured source tokens.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern">
       <DisplayName>--verbose</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --verbose</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-verbose</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Print each target identifier update.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script target-identifiers from-pattern --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-target-identifiers-from-pattern-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:target-identifiers-from-pattern</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to update. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern">
       <DisplayName>meta-transform-script to sql-code</DisplayName>
       <DisplayPath>meta-transform-script to sql-code</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-code</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-to-sql-code</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Emit one transform script as SQL text.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code:option:name" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code:option:name" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:to-sql-code">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-transform-script to sql-code --name</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-code:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-to-sql-code-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:to-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Required when the workspace contains multiple scripts.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-code:option:name">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-code:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:to-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-code:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script to sql-code --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-code:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-to-sql-code-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:to-sql-code</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to export. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-code">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-code">
       <DisplayName>meta-transform-script to sql-path</DisplayName>
       <DisplayPath>meta-transform-script to sql-path</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-path</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-to-sql-path</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Emit SQL scripts to a file or folder.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path:option:out" DocumentationSourceId="source:cli:meta-transform-script">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path:option:out" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:to-sql-path">
       <DisplayName>--out</DisplayName>
       <DisplayPath>meta-transform-script to sql-path --out</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-path:option:out</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-to-sql-path-out</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:to-sql-path</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Output .sql file or target folder.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-path:option:out">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:to-sql-path:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:to-sql-path" PreviousSubjectId="source:cli:meta-transform-script:app:command:to-sql-path:option:out">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-transform-script to sql-path --workspace</DisplayPath>
-      <Key>source:cli:meta-transform-script:app:command:to-sql-path:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-to-sql-path-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-transform-script:app:command:to-sql-path</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to export. Defaults to the current directory.</Summary>
     </DocumentationSubject>

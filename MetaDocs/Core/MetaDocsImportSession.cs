@@ -14,7 +14,7 @@ public sealed class MetaDocsImportSession
     public MetaDocsImportSession(
         MetaDocsModel model,
         string sourceId,
-        string sourceKind,
+        string sourceType,
         string displayName,
         string locator,
         string sourceFingerprint,
@@ -23,7 +23,7 @@ public sealed class MetaDocsImportSession
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceId);
-        ArgumentException.ThrowIfNullOrWhiteSpace(sourceKind);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sourceType);
         ArgumentException.ThrowIfNullOrWhiteSpace(displayName);
         ArgumentException.ThrowIfNullOrWhiteSpace(importerId);
         ArgumentException.ThrowIfNullOrWhiteSpace(importerVersion);
@@ -53,7 +53,7 @@ public sealed class MetaDocsImportSession
             .FirstOrDefault();
         var importedAt = existingBatch?.ImportedAt ?? DateTimeOffset.UtcNow.ToString("O");
 
-        source.Kind = sourceKind;
+        source.DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, sourceType);
         source.DisplayName = displayName;
         source.Locator = locator;
         source.SourceFingerprint = sourceFingerprint;
@@ -87,32 +87,66 @@ public sealed class MetaDocsImportSession
 
     public DocumentationImportBatch Batch => batch;
 
+    public DocumentationSubject? EnsureParentSubject(string parentSubjectId)
+    {
+        if (string.IsNullOrWhiteSpace(parentSubjectId))
+        {
+            return null;
+        }
+
+        var id = parentSubjectId.Trim();
+        var existing = model.DocumentationSubjectList.FirstOrDefault(row =>
+            string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+        if (existing is not null)
+        {
+            touchedSubjects.Add(existing.Id);
+            return existing;
+        }
+
+        var subject = new DocumentationSubject
+        {
+            Id = id,
+            DocumentationSource = source,
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "ReferenceSection"),
+            SourceTypeName = "MetaDocs.ReferenceSection",
+            NativeId = id,
+            DisplayName = DisplayNameFromSubjectId(id),
+            DisplayPath = DisplayNameFromSubjectId(id),
+            Summary = string.Empty,
+            Status = "Current",
+        };
+        model.DocumentationSubjectList.Add(subject);
+        touchedSubjects.Add(subject.Id);
+        return subject;
+    }
+
     public DocumentationSubject UpsertSubject(
-        string key,
-        string kind,
-        string nativeKind,
+        string subjectId,
+        string subjectType,
+        string sourceTypeName,
         string nativeId,
         string displayName,
         string displayPath,
         string summary,
-        string parentKey,
+        DocumentationSubject? parentSubject,
         DocumentationSubject? previousSubject = null)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(key);
-        ArgumentException.ThrowIfNullOrWhiteSpace(kind);
+        ArgumentException.ThrowIfNullOrWhiteSpace(subjectId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(subjectType);
         ArgumentException.ThrowIfNullOrWhiteSpace(displayName);
 
+        var resolvedSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, subjectType);
         var existing = model.DocumentationSubjectList.FirstOrDefault(row =>
-            string.Equals(row.Id, key, StringComparison.OrdinalIgnoreCase));
-        var resolvedSummary = ResolveSubjectSummary(existing, kind, displayName, summary);
+            string.Equals(row.Id, subjectId, StringComparison.OrdinalIgnoreCase));
+        var resolvedSummary = ResolveSubjectSummary(existing, subjectType, displayName, summary);
         var hasChanged = existing is not null &&
-                         HasSubjectChanged(existing, kind, nativeKind, nativeId, displayName, displayPath, resolvedSummary, parentKey);
+                         HasSubjectChanged(existing, subjectType, sourceTypeName, nativeId, displayName, displayPath, resolvedSummary, parentSubject);
         var status = existing is null
             ? "New"
             : ResolveExistingStatus(existing.Status, hasChanged);
         var subject = existing ?? new DocumentationSubject
         {
-            Id = key,
+            Id = subjectId,
         };
         if (existing is null)
         {
@@ -121,14 +155,13 @@ public sealed class MetaDocsImportSession
 
         var previousDisplayPath = subject.DisplayPath ?? string.Empty;
         subject.DocumentationSource = source;
-        subject.Key = key;
-        subject.Kind = kind;
-        subject.NativeKind = nativeKind;
+        subject.DocumentationSubjectType = resolvedSubjectType;
+        subject.SourceTypeName = sourceTypeName;
         subject.NativeId = nativeId;
         subject.DisplayName = displayName;
         subject.DisplayPath = displayPath;
         subject.Summary = resolvedSummary;
-        subject.ParentKey = parentKey;
+        subject.ParentSubject = parentSubject;
         subject.PreviousSubject = previousSubject;
         subject.Status = status;
         touchedSubjects.Add(subject.Id);
@@ -144,21 +177,23 @@ public sealed class MetaDocsImportSession
 
     public DocumentationFact UpsertFact(
         DocumentationSubject subject,
-        string kind,
+        string factType,
         string name,
         string value,
-        string valueKind = "String")
+        string valueType = "String")
     {
         ArgumentNullException.ThrowIfNull(subject);
-        ArgumentException.ThrowIfNullOrWhiteSpace(kind);
+        ArgumentException.ThrowIfNullOrWhiteSpace(factType);
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
 
-        var id = $"{subject.Id}:fact:{NormalizeKey(kind)}:{NormalizeKey(name)}";
+        var id = $"{subject.Id}:fact:{NormalizeKey(factType)}:{NormalizeKey(name)}";
+        var resolvedFactType = MetaDocsVocabulary.EnsureFactType(model, factType);
+        var resolvedValueType = MetaDocsVocabulary.EnsureValueType(model, valueType);
         var existing = model.DocumentationFactList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
         var hasChanged = existing is not null &&
                          (!string.Equals(existing.Value ?? string.Empty, value ?? string.Empty, StringComparison.Ordinal) ||
-                          !string.Equals(existing.ValueKind, valueKind, StringComparison.Ordinal));
+                          !string.Equals(MetaDocsVocabulary.ValueTypeName(existing), valueType, StringComparison.Ordinal));
         var status = existing is null
             ? "New"
             : ResolveExistingStatus(existing.Status, hasChanged);
@@ -174,11 +209,10 @@ public sealed class MetaDocsImportSession
         fact.DocumentationSubject = subject;
         fact.DocumentationSource = source;
         fact.DocumentationImportBatch = batch;
-        fact.SubjectKey = subject.Id;
-        fact.Kind = kind;
+        fact.DocumentationFactType = resolvedFactType;
+        fact.DocumentationValueType = resolvedValueType;
         fact.Name = name;
         fact.Value = value;
-        fact.ValueKind = valueKind;
         fact.SourceFingerprint = source.SourceFingerprint;
         fact.Status = status;
         touchedFacts.Add(fact.Id);
@@ -207,7 +241,6 @@ public sealed class MetaDocsImportSession
             {
                 Id = id,
                 DocumentationSubject = subject,
-                SubjectKey = subject.Id,
                 Slot = slot,
                 Title = title,
                 Body = body,
@@ -222,7 +255,6 @@ public sealed class MetaDocsImportSession
         }
 
         narrative.DocumentationSubject = subject;
-        narrative.SubjectKey = subject.Id;
         narrative.LastReviewedImportBatchId = batch.Id;
         narrative.PreviousNarrative = previousNarrative;
         if (!preserveExisting ||
@@ -242,15 +274,21 @@ public sealed class MetaDocsImportSession
 
     public DocumentationRelationship UpsertRelationship(
         string fromSubjectKey,
-        string kind,
+        string relationshipType,
         string toSubjectKey,
         DocumentationRelationship? previousRelationship = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(fromSubjectKey);
-        ArgumentException.ThrowIfNullOrWhiteSpace(kind);
+        ArgumentException.ThrowIfNullOrWhiteSpace(relationshipType);
         ArgumentException.ThrowIfNullOrWhiteSpace(toSubjectKey);
 
-        var id = $"{fromSubjectKey}:relationship:{NormalizeKey(kind)}:{NormalizeKey(toSubjectKey)}";
+        var fromSubject = model.DocumentationSubjectList.FirstOrDefault(row =>
+            string.Equals(row.Id, fromSubjectKey, StringComparison.OrdinalIgnoreCase))
+            ?? throw new InvalidOperationException($"Relationship source subject '{fromSubjectKey}' was not found.");
+        var toSubject = model.DocumentationSubjectList.FirstOrDefault(row =>
+            string.Equals(row.Id, toSubjectKey, StringComparison.OrdinalIgnoreCase))
+            ?? throw new InvalidOperationException($"Relationship target subject '{toSubjectKey}' was not found.");
+        var id = $"{fromSubjectKey}:relationship:{NormalizeKey(relationshipType)}:{NormalizeKey(toSubjectKey)}";
         var relationship = model.DocumentationRelationshipList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase))
             ?? new DocumentationRelationship
@@ -264,9 +302,9 @@ public sealed class MetaDocsImportSession
 
         relationship.DocumentationSource = source;
         relationship.DocumentationImportBatch = batch;
-        relationship.FromSubjectKey = fromSubjectKey;
-        relationship.Kind = kind;
-        relationship.ToSubjectKey = toSubjectKey;
+        relationship.DocumentationRelationshipType = MetaDocsVocabulary.EnsureRelationshipType(model, relationshipType);
+        relationship.FromSubject = fromSubject;
+        relationship.ToSubject = toSubject;
         relationship.PreviousRelationship = previousRelationship;
         touchedRelationships.Add(relationship.Id);
         return relationship;
@@ -294,7 +332,7 @@ public sealed class MetaDocsImportSession
         node.DocumentationView = view;
         node.Title = title;
         node.ParentNodeId = parentNodeId;
-        node.SubjectKey = subject.Id;
+        node.DocumentationSubject = subject;
         node.Selection = string.Empty;
         node.PreviousNode = previousNode;
         return node;
@@ -305,10 +343,12 @@ public sealed class MetaDocsImportSession
         if (pruneMissingFromSource)
         {
             PruneUntouchedSourceRows();
+            PruneAmbiguousGeneratedAliases();
             return;
         }
 
         MarkUntouchedSourceRowsMissing();
+        PruneAmbiguousGeneratedAliases();
     }
 
     private void MarkUntouchedSourceRowsMissing()
@@ -337,23 +377,60 @@ public sealed class MetaDocsImportSession
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
         model.DocumentationFactList.RemoveAll(row =>
-            IsSource(row.DocumentationSource) &&
-            (!touchedFacts.Contains(row.Id) || staleSubjectIds.Contains(row.SubjectKey ?? string.Empty)));
+            (IsSource(row.DocumentationSource) && !touchedFacts.Contains(row.Id)) ||
+            (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
         model.DocumentationRelationshipList.RemoveAll(row =>
-            IsSource(row.DocumentationSource) &&
-            (!touchedRelationships.Contains(row.Id) ||
-             staleSubjectIds.Contains(row.FromSubjectKey ?? string.Empty) ||
-             staleSubjectIds.Contains(row.ToSubjectKey ?? string.Empty)));
+            (IsSource(row.DocumentationSource) && !touchedRelationships.Contains(row.Id)) ||
+            (row.FromSubject is not null && staleSubjectIds.Contains(row.FromSubject.Id)) ||
+            (row.ToSubject is not null && staleSubjectIds.Contains(row.ToSubject.Id)));
         model.DocumentationNarrativeList.RemoveAll(row =>
-            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty) ||
             (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
         model.DocumentationSubjectAliasList.RemoveAll(row =>
-            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty) ||
             (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
         model.DocumentationViewNodeList.RemoveAll(row =>
-            staleSubjectIds.Contains(row.SubjectKey ?? string.Empty));
+            row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id));
+        var staleExampleIds = model.DocumentationExampleList
+            .Where(row => row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id))
+            .Select(row => row.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var staleExampleSectionIds = model.DocumentationExampleSectionList
+            .Where(row => row.DocumentationExample is not null && staleExampleIds.Contains(row.DocumentationExample.Id))
+            .Select(row => row.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        model.DocumentationExampleCodeList.RemoveAll(row =>
+            row.DocumentationExampleSection is not null && staleExampleSectionIds.Contains(row.DocumentationExampleSection.Id));
+        model.DocumentationExampleSectionList.RemoveAll(row =>
+            staleExampleSectionIds.Contains(row.Id));
+        model.DocumentationExampleList.RemoveAll(row =>
+            staleExampleIds.Contains(row.Id));
         model.DocumentationSubjectList.RemoveAll(row =>
             staleSubjectIds.Contains(row.Id));
+    }
+
+    private void PruneAmbiguousGeneratedAliases()
+    {
+        var ambiguousPreviousDisplayPathAliases = model.DocumentationSubjectAliasList
+            .Where(row =>
+                string.Equals(row.Reason, "PreviousDisplayPath", StringComparison.OrdinalIgnoreCase) &&
+                row.DocumentationSubject is not null &&
+                IsSource(row.DocumentationSubject.DocumentationSource))
+            .GroupBy(row => row.Alias, StringComparer.OrdinalIgnoreCase)
+            .Where(group => group
+                .Select(row => row.DocumentationSubject?.Id ?? string.Empty)
+                .Where(id => !string.IsNullOrWhiteSpace(id))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Skip(1)
+                .Any())
+            .SelectMany(group => group)
+            .Select(row => row.Id)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        if (ambiguousPreviousDisplayPathAliases.Count == 0)
+        {
+            return;
+        }
+
+        model.DocumentationSubjectAliasList.RemoveAll(row => ambiguousPreviousDisplayPathAliases.Contains(row.Id));
     }
 
     private bool IsSource(DocumentationSource candidate) =>
@@ -434,28 +511,27 @@ public sealed class MetaDocsImportSession
         {
             Id = id,
             DocumentationSubject = subject,
-            AliasKey = aliasKey,
-            SubjectKey = subject.Id,
+            Alias = aliasKey,
             Reason = reason,
         });
     }
 
     private static bool HasSubjectChanged(
         DocumentationSubject subject,
-        string kind,
-        string nativeKind,
+        string subjectType,
+        string sourceTypeName,
         string nativeId,
         string displayName,
         string displayPath,
         string summary,
-        string parentKey) =>
-        !string.Equals(subject.Kind, kind, StringComparison.Ordinal) ||
-        !string.Equals(subject.NativeKind ?? string.Empty, nativeKind ?? string.Empty, StringComparison.Ordinal) ||
+        DocumentationSubject? parentSubject) =>
+        !string.Equals(MetaDocsVocabulary.SubjectTypeName(subject), subjectType, StringComparison.Ordinal) ||
+        !string.Equals(subject.SourceTypeName ?? string.Empty, sourceTypeName ?? string.Empty, StringComparison.Ordinal) ||
         !string.Equals(subject.NativeId ?? string.Empty, nativeId ?? string.Empty, StringComparison.Ordinal) ||
         !string.Equals(subject.DisplayName, displayName, StringComparison.Ordinal) ||
         !string.Equals(subject.DisplayPath ?? string.Empty, displayPath ?? string.Empty, StringComparison.Ordinal) ||
         !string.Equals(subject.Summary ?? string.Empty, summary ?? string.Empty, StringComparison.Ordinal) ||
-        !string.Equals(subject.ParentKey ?? string.Empty, parentKey ?? string.Empty, StringComparison.Ordinal);
+        !string.Equals(subject.ParentSubject?.Id ?? string.Empty, parentSubject?.Id ?? string.Empty, StringComparison.Ordinal);
 
     public static string NormalizeKey(string value)
     {
@@ -470,5 +546,16 @@ public sealed class MetaDocsImportSession
         }
 
         return string.IsNullOrWhiteSpace(text.Trim('-')) ? "item" : text.Trim('-');
+    }
+
+    private static string DisplayNameFromSubjectId(string id)
+    {
+        var lastSegment = id.Split(':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).LastOrDefault() ?? id;
+        return string.Equals(lastSegment, "cli", StringComparison.OrdinalIgnoreCase)
+            ? "CLI"
+            : string.Join(
+                " ",
+                lastSegment.Split('-', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    .Select(static part => char.ToUpperInvariant(part[0]) + part[1..]));
     }
 }

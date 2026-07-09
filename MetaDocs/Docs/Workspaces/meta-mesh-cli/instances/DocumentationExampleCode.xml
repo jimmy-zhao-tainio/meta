@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-mesh:add-step-stdin:command" DocumentationExampleSectionId="example:meta-mesh:add-step-stdin:overview">
+      <Code>@'
+render-site --workspace ..\SuiteWorkspace --out ..\Site
+'@ | meta-mesh add-step --operation regenerate-public-docs --name render-site --executable meta-docs --arguments-stdin --working-directory .</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-mesh:run-docs-operation:commands" DocumentationExampleSectionId="example:meta-mesh:run-docs-operation:overview">
+      <Code>cd MetaDocs\Docs\Documentation.MetaMesh
+meta-mesh validate --operation regenerate-public-docs
+meta-mesh run --operation regenerate-public-docs</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

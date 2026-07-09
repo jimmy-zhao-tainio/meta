@@ -8,12 +8,14 @@ public static class MetaDocsDefaults
         MetaDocsModel model,
         string id,
         string name,
-        string kind)
+        string workspaceType)
     {
+        var type = MetaDocsVocabulary.EnsureWorkspaceType(model, workspaceType);
         var workspace = model.DocumentationWorkspaceList.FirstOrDefault(row =>
             string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
         if (workspace is not null)
         {
+            workspace.DocumentationWorkspaceType = type;
             return workspace;
         }
 
@@ -21,7 +23,7 @@ public static class MetaDocsDefaults
         {
             Id = id,
             Name = name,
-            Kind = kind,
+            DocumentationWorkspaceType = type,
             Summary = "Documentation overlay workspace.",
         };
         model.DocumentationWorkspaceList.Add(workspace);
@@ -30,6 +32,14 @@ public static class MetaDocsDefaults
 
     public static DocumentationTheme EnsureDefaultTheme(MetaDocsModel model)
     {
+        var shellTemplateType = MetaDocsVocabulary.EnsureTemplateType(model, "SiteShell");
+        var navigationRegionType = MetaDocsVocabulary.EnsureTemplateRegionType(model, "Navigation");
+        var contentRegionType = MetaDocsVocabulary.EnsureTemplateRegionType(model, "Content");
+        var scriptRegionType = MetaDocsVocabulary.EnsureTemplateRegionType(model, "Script");
+        var referenceLayoutType = MetaDocsVocabulary.EnsureLayoutType(model, "Reference");
+        var subjectComponentType = MetaDocsVocabulary.EnsureComponentTemplateType(model, "Subject");
+        var cssAssetType = MetaDocsVocabulary.EnsureThemeAssetType(model, "Css");
+        var imageAssetType = MetaDocsVocabulary.EnsureThemeAssetType(model, "Image");
         var theme = model.DocumentationThemeList.FirstOrDefault(row =>
             string.Equals(row.Id, "theme:metametabi-static", StringComparison.OrdinalIgnoreCase));
         if (theme is null)
@@ -52,7 +62,7 @@ public static class MetaDocsDefaults
                 Id = "template:metametabi-static:shell",
                 DocumentationTheme = theme,
                 Name = "metametabi-static-shell",
-                Kind = "SiteShell",
+                DocumentationTemplateType = shellTemplateType,
                 Html = DefaultShellTemplate,
                 SourceUrl = "modeled",
             };
@@ -63,7 +73,7 @@ public static class MetaDocsDefaults
                 Id = "template:metametabi-static:shell:region:navigation",
                 DocumentationTemplate = template,
                 Name = "navigation",
-                RegionKind = "Navigation",
+                DocumentationTemplateRegionType = navigationRegionType,
             };
             model.DocumentationTemplateRegionList.Add(navigationRegion);
             var contentRegion = new DocumentationTemplateRegion
@@ -71,7 +81,7 @@ public static class MetaDocsDefaults
                 Id = "template:metametabi-static:shell:region:content",
                 DocumentationTemplate = template,
                 Name = "content",
-                RegionKind = "Content",
+                DocumentationTemplateRegionType = contentRegionType,
                 PreviousRegion = navigationRegion,
             };
             model.DocumentationTemplateRegionList.Add(contentRegion);
@@ -80,7 +90,7 @@ public static class MetaDocsDefaults
                 Id = "template:metametabi-static:shell:region:script",
                 DocumentationTemplate = template,
                 Name = "script",
-                RegionKind = "Script",
+                DocumentationTemplateRegionType = scriptRegionType,
                 PreviousRegion = contentRegion,
             });
         }
@@ -93,7 +103,7 @@ public static class MetaDocsDefaults
                 Id = "theme:metametabi-static:layout:reference",
                 DocumentationTheme = theme,
                 Name = "reference",
-                LayoutKind = "Reference",
+                DocumentationLayoutType = referenceLayoutType,
             });
         }
 
@@ -105,7 +115,7 @@ public static class MetaDocsDefaults
                 Id = "theme:metametabi-static:component:subject",
                 DocumentationTheme = theme,
                 Name = "subject",
-                ComponentKind = "Subject",
+                DocumentationComponentTemplateType = subjectComponentType,
                 TemplateText = "Subject rows render from DocumentationSubject, DocumentationFact, and DocumentationNarrative.",
             });
         }
@@ -119,7 +129,7 @@ public static class MetaDocsDefaults
                 Id = "theme:metametabi-static:asset:css",
                 DocumentationTheme = theme,
                 Name = "site.css",
-                AssetKind = "Css",
+                DocumentationThemeAssetType = cssAssetType,
                 MediaType = "text/css",
                 Href = string.Empty,
                 Content = DefaultCss,
@@ -141,7 +151,7 @@ public static class MetaDocsDefaults
                 Id = "theme:metametabi-static:asset:brand-mark",
                 DocumentationTheme = theme,
                 Name = "metametabi-mark.svg",
-                AssetKind = "Image",
+                DocumentationThemeAssetType = imageAssetType,
                 MediaType = "image/svg+xml",
                 Href = MetametabiBrandMarkHref,
                 Content = MetametabiBrandMarkSvg,
@@ -155,17 +165,12 @@ public static class MetaDocsDefaults
 
     public static DocumentationView EnsureDefaultView(MetaDocsModel model)
     {
+        var viewType = MetaDocsVocabulary.EnsureViewType(model, "Site");
         var view = model.DocumentationViewList.FirstOrDefault(row =>
             string.Equals(row.Id, "view:default", StringComparison.OrdinalIgnoreCase));
         if (view is not null)
         {
-            if (string.Equals(view.Title, "meta + meta-bi reference", StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(view.Summary, "Command-line and model references for the current public MetaDocs suite.", StringComparison.OrdinalIgnoreCase))
-            {
-                view.Title = "Contents";
-                view.Summary = "Documentation subjects in this workspace.";
-            }
-
+            view.DocumentationViewType = viewType;
             return view;
         }
 
@@ -173,7 +178,7 @@ public static class MetaDocsDefaults
         {
             Id = "view:default",
             Name = "Default",
-            Kind = "Site",
+            DocumentationViewType = viewType,
             Title = "Contents",
             Summary = "Documentation subjects in this workspace.",
         };
@@ -257,6 +262,7 @@ public static class MetaDocsDefaults
         .cli-command-card{border-color:var(--line-soft);box-shadow:none;margin-top:8px;border-radius:9px}.cli-command-card summary{list-style:none}.cli-command-card summary::-webkit-details-marker{display:none}.command-summary{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border-bottom:1px solid transparent}.cli-command-card[open] .command-summary{border-bottom-color:var(--line-soft)}.command-toggle{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:#4b5563;font-family:var(--mono);font-size:12px;font-weight:600}.command-toggle::before{content:"+"}.cli-command-card[open] .command-toggle::before{content:"-"}.command-main{min-width:0;display:grid;gap:1px}.command-name{font-family:var(--mono);font-weight:600;color:var(--text);font-size:13px;line-height:1.35;overflow-wrap:anywhere}.command-summary-text{color:var(--muted);font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}.command-counts{color:var(--subtle);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
         .command-body{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:10px;padding:14px 14px 16px;overflow-x:auto}.command-body-inner{grid-column:2;min-width:0}
         .card-body{padding:14px 16px 16px;overflow-x:auto}.subsection{margin-top:18px}.subsection:first-child{margin-top:0}.subsection-title{margin:0 0 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+        .example-block{border:1px solid var(--line-soft);border-radius:9px;background:#fff;padding:12px 14px;margin:0 0 10px}.example-block h5{font-size:14px;margin:0 0 6px}.example-block h6{font-size:12px;margin:10px 0 5px;color:#374151}.example-block p{color:var(--muted);font-size:14px;margin:0 0 8px}.code-title{font-size:12px;font-weight:700;color:#374151;margin:10px 0 5px}
         table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft);padding:8px 10px}th{color:var(--subtle);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:#fbfdff}td{color:#425064}tr:last-child td{border-bottom:0}
         .cmd,.opt{font-family:var(--mono);color:#1f2937;font-weight:600;white-space:nowrap}.entity-ref-link{font-weight:600;color:#0f355f;text-decoration:none}.entity-ref-link:hover{text-decoration:underline}
         pre{margin:0 0 10px;padding:12px 14px;background:var(--code-bg);border:1px solid var(--line);border-radius:9px;overflow-x:auto;font-size:13px}.note{color:var(--muted);font-size:14px;margin:0}

@@ -33,13 +33,14 @@ public sealed class MetaDocsAuthoringService
         source.DisplayName = string.IsNullOrWhiteSpace(page.SourceDisplayName)
             ? "Authored MetaDocs pages"
             : page.SourceDisplayName.Trim();
-        source.Kind = "AuthoredDocumentation";
+        source.DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "AuthoredDocumentation");
         source.Locator = "modeled";
         source.SourceFingerprint = string.Empty;
         source.ImporterId = "MetaDocs.Authoring";
         source.ImportedAt = DateTimeOffset.UtcNow.ToString("O");
         source.Status = "Current";
 
+        var parentSubject = ResolveParentSubject(model, page.ParentSubjectId);
         var subject = model.DocumentationSubjectList.FirstOrDefault(row =>
             string.Equals(row.Id, page.Id, StringComparison.OrdinalIgnoreCase));
         if (subject is null)
@@ -52,19 +53,27 @@ public sealed class MetaDocsAuthoringService
         }
 
         subject.DocumentationSource = source;
-        subject.Key = page.Id;
-        subject.Kind = string.IsNullOrWhiteSpace(page.Kind) ? "Guide" : page.Kind.Trim();
-        subject.NativeKind = "AuthoredPage";
+        subject.DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(
+            model,
+            string.IsNullOrWhiteSpace(page.SubjectType) ? "Guide" : page.SubjectType.Trim());
+        subject.SourceTypeName = "AuthoredPage";
         subject.NativeId = page.Id;
         subject.DisplayName = page.Title.Trim();
         subject.DisplayPath = string.IsNullOrWhiteSpace(page.DisplayPath) ? page.Title.Trim() : page.DisplayPath.Trim();
         subject.Summary = page.Summary?.Trim() ?? string.Empty;
-        subject.ParentKey = page.ParentKey?.Trim() ?? string.Empty;
+        subject.ParentSubject = parentSubject;
         subject.PreviousSubject = null;
         subject.Status = "Current";
+        if (page.IsViewRoot)
+        {
+            var view = MetaDocsDefaults.EnsureDefaultView(model);
+            view.RootSubject = subject;
+            view.Title = subject.DisplayName;
+            view.Summary = subject.Summary;
+        }
 
         UpsertNarrative(model, subject, page);
-        EnsureViewNode(model, subject, page);
+        EnsureViewNode(model, subject, page, parentSubject);
         return subject;
     }
 
@@ -85,7 +94,6 @@ public sealed class MetaDocsAuthoringService
         }
 
         narrative.DocumentationSubject = subject;
-        narrative.SubjectKey = subject.Id;
         narrative.Slot = slot;
         narrative.Title = title;
         narrative.Body = page.Body?.Trim() ?? string.Empty;
@@ -96,7 +104,11 @@ public sealed class MetaDocsAuthoringService
         narrative.PreviousNarrative = null;
     }
 
-    private static void EnsureViewNode(MetaDocsModel model, DocumentationSubject subject, MetaDocsAuthoredPage page)
+    private static void EnsureViewNode(
+        MetaDocsModel model,
+        DocumentationSubject subject,
+        MetaDocsAuthoredPage page,
+        DocumentationSubject? parentSubject)
     {
         var view = MetaDocsDefaults.EnsureDefaultView(model);
         var nodeId = $"view:default:node:{MetaDocsImportSession.NormalizeKey(subject.Id)}";
@@ -112,13 +124,26 @@ public sealed class MetaDocsAuthoringService
         }
 
         node.DocumentationView = view;
-        node.SubjectKey = subject.Id;
+        node.DocumentationSubject = subject;
         node.Title = subject.DisplayName;
-        node.ParentNodeId = string.IsNullOrWhiteSpace(page.ParentKey)
+        node.ParentNodeId = parentSubject is null
             ? string.Empty
-            : $"view:default:node:{MetaDocsImportSession.NormalizeKey(page.ParentKey)}";
+            : $"view:default:node:{MetaDocsImportSession.NormalizeKey(parentSubject.Id)}";
         node.Selection = string.Empty;
         node.PreviousNode = null;
+    }
+
+    private static DocumentationSubject? ResolveParentSubject(MetaDocsModel model, string parentSubjectId)
+    {
+        if (string.IsNullOrWhiteSpace(parentSubjectId))
+        {
+            return null;
+        }
+
+        var trimmed = parentSubjectId.Trim();
+        return model.DocumentationSubjectList.FirstOrDefault(row =>
+                   string.Equals(row.Id, trimmed, StringComparison.OrdinalIgnoreCase))
+               ?? throw new InvalidOperationException($"Parent subject '{trimmed}' was not found.");
     }
 }
 
@@ -127,10 +152,11 @@ public sealed record MetaDocsAuthoredPage(
     string Title,
     string Summary,
     string Body,
-    string Kind = "Guide",
+    string SubjectType = "Guide",
     string DisplayPath = "",
-    string ParentKey = "",
+    string ParentSubjectId = "",
     string Slot = "Summary",
     string NarrativeTitle = "",
     string SourceId = "source:authored:metametabi-docs",
-    string SourceDisplayName = "Authored MetaDocs pages");
+    string SourceDisplayName = "Authored MetaDocs pages",
+    bool IsViewRoot = false);

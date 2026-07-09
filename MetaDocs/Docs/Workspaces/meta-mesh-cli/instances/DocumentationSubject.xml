@@ -1,521 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:cli:meta-mesh:app" DocumentationSourceId="source:cli:meta-mesh">
+    <DocumentationSubject Id="public:meta:cli" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>CLI</DisplayName>
+      <DisplayPath>CLI</DisplayPath>
+      <NativeId>public:meta:cli</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta:cli">
       <DisplayName>meta-mesh</DisplayName>
       <DisplayPath>meta-mesh</DisplayPath>
-      <Key>source:cli:meta-mesh:app</Key>
-      <Kind>CliApplication</Kind>
       <NativeId>app-meta-mesh</NativeId>
-      <NativeKind>MetaCli.Application</NativeKind>
+      <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>MetaMesh makes repository workflows explicit: it names the workspaces involved, orders the executable steps, validates the inputs, and runs the operation from a model that engineers and agents can inspect.</Summary>
+      <Summary>Define repository workflows as declared workspaces and executable operation steps, then validate and run them from a model.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation" DocumentationSourceId="source:cli:meta-mesh">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app">
       <DisplayName>meta-mesh add-operation</DisplayName>
       <DisplayPath>meta-mesh add-operation</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-operation</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-operation</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add one declared operation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:description" DocumentationSourceId="source:cli:meta-mesh">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-operation">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-mesh add-operation --description</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-operation:option:description</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-operation-description</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-operation</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Operation description.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation:option:description">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-operation" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation:option:description">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-mesh add-operation --name</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-operation:option:name</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-operation-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-operation</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Operation name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation:option:name">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-operation" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh add-operation --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-operation:option:workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-operation</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation">
       <DisplayName>meta-mesh add-step</DisplayName>
       <DisplayPath>meta-mesh add-step</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-add-step</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Add one executable step to an operation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:arguments" DocumentationSourceId="source:cli:meta-mesh">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:arguments" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step">
       <DisplayName>--arguments</DisplayName>
       <DisplayPath>meta-mesh add-step --arguments</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:arguments</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-step-arguments</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Arguments passed to the executable.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:description" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments">
+      <DisplayName>--arguments-stdin</DisplayName>
+      <DisplayPath>meta-mesh add-step --arguments-stdin</DisplayPath>
+      <NativeId>opt-step-arguments-stdin</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Read executable arguments from standard input.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-mesh add-step --description</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:description</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-step-description</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Step description.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:executable" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:description">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:executable" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:description">
       <DisplayName>--executable</DisplayName>
       <DisplayPath>meta-mesh add-step --executable</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:executable</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-step-executable</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Executable or script command to run.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-mesh add-step --name</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-step-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
-      <Status>New</Status>
-      <Summary>Step name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:operation" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:name">
-      <DisplayName>--operation</DisplayName>
-      <DisplayPath>meta-mesh add-step --operation</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:operation</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-step-operation</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
-      <Status>New</Status>
-      <Summary>Operation name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:previous-step" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:operation">
-      <DisplayName>--previous-step</DisplayName>
-      <DisplayPath>meta-mesh add-step --previous-step</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:previous-step</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-step-previous-step</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
-      <Status>New</Status>
-      <Summary>Previous step by step name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:working-directory" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:previous-step">
-      <DisplayName>--working-directory</DisplayName>
-      <DisplayPath>meta-mesh add-step --working-directory</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:working-directory</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-step-working-directory</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
-      <Status>New</Status>
-      <Summary>Working directory, absolute or relative to the mesh root.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:working-directory">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh add-step --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step">
-      <DisplayName>meta-mesh add-workspace</DisplayName>
-      <DisplayPath>meta-mesh add-workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-add-workspace</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Add one declared workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --description</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace:option:description</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace-description</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:model" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:description">
-      <DisplayName>--model</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --model</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace:option:model</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace-model</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Model name hosted by the workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:model">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --name</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Declared workspace name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:path" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:name">
-      <DisplayName>--path</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --path</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace:option:path</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace-path</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Workspace path, absolute or relative to the mesh root.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:path">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-workspace:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace">
-      <DisplayName>meta-mesh help</DisplayName>
-      <DisplayPath>meta-mesh help</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:help</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-help</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Show help.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh help --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:help:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:help</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:help">
-      <DisplayName>meta-mesh new-workspace</DisplayName>
-      <DisplayPath>meta-mesh new-workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-new-workspace</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Create an empty MetaMesh workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --description</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace:option:description</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-new-workspace-description</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Mesh description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:description">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --name</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace:option:name</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-new-workspace-name</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Mesh name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:root" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
-      <DisplayName>--root</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --root</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace:option:root</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-new-workspace-root</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Root path used to resolve relative workspace paths.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:root">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-mesh new-workspace &lt;path&gt;</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:new-workspace:argument:path</Key>
-      <Kind>CliArgument</Kind>
-      <NativeId>pos-new-workspace-path</NativeId>
-      <NativeKind>MetaCli.PositionalArgument</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:new-workspace</ParentKey>
-      <Status>New</Status>
-      <Summary>Empty target directory for the MetaMesh workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace">
-      <DisplayName>meta-mesh operations</DisplayName>
-      <DisplayPath>meta-mesh operations</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:operations</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-operations</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>List declared operations.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh operations --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:operations:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:operations</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:operations">
-      <DisplayName>meta-mesh run</DisplayName>
-      <DisplayPath>meta-mesh run</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:run</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-run</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Run the steps declared for one operation.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:operation" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--operation</DisplayName>
-      <DisplayPath>meta-mesh run --operation</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:run:option:operation</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-run-operation</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:run</ParentKey>
-      <Status>New</Status>
-      <Summary>Operation name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:operation">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh run --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:run:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:run</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:run">
-      <DisplayName>meta-mesh show</DisplayName>
-      <DisplayPath>meta-mesh show</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:show</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-show</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Show a compact mesh overview.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:verbose" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--verbose</DisplayName>
-      <DisplayPath>meta-mesh show --verbose</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:show:option:verbose</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-show-verbose</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:show</ParentKey>
-      <Status>New</Status>
-      <Summary>Show workspace paths and step commands.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:show:option:verbose">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh show --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:show:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:show</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:show">
-      <DisplayName>meta-mesh steps</DisplayName>
-      <DisplayPath>meta-mesh steps</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:steps</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-steps</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>List steps for one operation.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:operation" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--operation</DisplayName>
-      <DisplayPath>meta-mesh steps --operation</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:steps:option:operation</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-run-operation</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:steps</ParentKey>
-      <Status>New</Status>
-      <Summary>Operation name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:steps:option:operation">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh steps --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:steps:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:steps</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:steps">
-      <DisplayName>meta-mesh validate</DisplayName>
-      <DisplayPath>meta-mesh validate</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:validate</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-validate</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>Validate one operation before running it.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:operation" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--operation</DisplayName>
-      <DisplayPath>meta-mesh validate --operation</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:validate:option:operation</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-run-operation</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:validate</ParentKey>
-      <Status>New</Status>
-      <Summary>Operation name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:workspace" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:validate:option:operation">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh validate --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:validate:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:validate</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:validate">
-      <DisplayName>meta-mesh workspaces</DisplayName>
-      <DisplayPath>meta-mesh workspaces</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:workspaces</Key>
-      <Kind>CliCommand</Kind>
-      <NativeId>exec-workspaces</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app</ParentKey>
-      <Status>New</Status>
-      <Summary>List declared workspaces.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces:option:workspace" DocumentationSourceId="source:cli:meta-mesh">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh workspaces --workspace</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:workspaces:option:workspace</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:workspaces</ParentKey>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:executable">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:executable">
       <DisplayName>--expected-exit-code</DisplayName>
       <DisplayPath>meta-mesh add-step --expected-exit-code</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:expected-exit-code</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-step-expected-exit-code</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Exit code that marks the step as successful. Defaults to 0.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin" DocumentationSourceId="source:cli:meta-mesh" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments">
-      <DisplayName>--arguments-stdin</DisplayName>
-      <DisplayPath>meta-mesh add-step --arguments-stdin</DisplayPath>
-      <Key>source:cli:meta-mesh:app:command:add-step:option:arguments-stdin</Key>
-      <Kind>CliOption</Kind>
-      <NativeId>opt-step-arguments-stdin</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-mesh:app:command:add-step</ParentKey>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh add-step --name</DisplayPath>
+      <NativeId>opt-step-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Read executable arguments from standard input.</Summary>
+      <Summary>Step name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:name">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh add-step --operation</DisplayPath>
+      <NativeId>opt-step-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:previous-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:operation">
+      <DisplayName>--previous-step</DisplayName>
+      <DisplayPath>meta-mesh add-step --previous-step</DisplayPath>
+      <NativeId>opt-step-previous-step</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Previous step by step name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:working-directory" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:previous-step">
+      <DisplayName>--working-directory</DisplayName>
+      <DisplayPath>meta-mesh add-step --working-directory</DisplayPath>
+      <NativeId>opt-step-working-directory</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Working directory, absolute or relative to the mesh root.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:working-directory">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh add-step --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step">
+      <DisplayName>meta-mesh add-workspace</DisplayName>
+      <DisplayPath>meta-mesh add-workspace</DisplayPath>
+      <NativeId>exec-add-workspace</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Add one declared workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --description</DisplayPath>
+      <NativeId>opt-workspace-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:model" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:description">
+      <DisplayName>--model</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --model</DisplayPath>
+      <NativeId>opt-workspace-model</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Model name hosted by the workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:model">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --name</DisplayPath>
+      <NativeId>opt-workspace-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Declared workspace name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:name">
+      <DisplayName>--path</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --path</DisplayPath>
+      <NativeId>opt-workspace-path</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace path, absolute or relative to the mesh root.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:path">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+      <DisplayName>meta-mesh help</DisplayName>
+      <DisplayPath>meta-mesh help</DisplayPath>
+      <NativeId>exec-help</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Show help.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:help">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh help --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:help">
+      <DisplayName>meta-mesh new-workspace</DisplayName>
+      <DisplayPath>meta-mesh new-workspace</DisplayPath>
+      <NativeId>exec-new-workspace</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an empty MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+      <DisplayName>&lt;path&gt;</DisplayName>
+      <DisplayPath>meta-mesh new-workspace &lt;path&gt;</DisplayPath>
+      <NativeId>pos-new-workspace-path</NativeId>
+      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Empty target directory for the MetaMesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --description</DisplayPath>
+      <NativeId>opt-new-workspace-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Mesh description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:description">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --name</DisplayPath>
+      <NativeId>opt-new-workspace-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Mesh name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:root" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
+      <DisplayName>--root</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --root</DisplayPath>
+      <NativeId>opt-new-workspace-root</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Root path used to resolve relative workspace paths.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:root">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+      <DisplayName>meta-mesh operations</DisplayName>
+      <DisplayPath>meta-mesh operations</DisplayPath>
+      <NativeId>exec-operations</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>List declared operations.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:operations">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh operations --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:operations">
+      <DisplayName>meta-mesh run</DisplayName>
+      <DisplayPath>meta-mesh run</DisplayPath>
+      <NativeId>exec-run</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Run the steps declared for one operation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh run --operation</DisplayPath>
+      <NativeId>opt-run-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:operation">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh run --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:run">
+      <DisplayName>meta-mesh show</DisplayName>
+      <DisplayPath>meta-mesh show</DisplayPath>
+      <NativeId>exec-show</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Show a compact mesh overview.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:verbose" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:show">
+      <DisplayName>--verbose</DisplayName>
+      <DisplayPath>meta-mesh show --verbose</DisplayPath>
+      <NativeId>opt-show-verbose</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Show workspace paths and step commands.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:show" PreviousSubjectId="source:cli:meta-mesh:app:command:show:option:verbose">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh show --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:show">
+      <DisplayName>meta-mesh steps</DisplayName>
+      <DisplayPath>meta-mesh steps</DisplayPath>
+      <NativeId>exec-steps</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>List steps for one operation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:steps">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh steps --operation</DisplayPath>
+      <NativeId>opt-run-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:steps" PreviousSubjectId="source:cli:meta-mesh:app:command:steps:option:operation">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh steps --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:steps">
+      <DisplayName>meta-mesh validate</DisplayName>
+      <DisplayPath>meta-mesh validate</DisplayPath>
+      <NativeId>exec-validate</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Validate one operation before running it.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:validate">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh validate --operation</DisplayPath>
+      <NativeId>opt-run-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:validate" PreviousSubjectId="source:cli:meta-mesh:app:command:validate:option:operation">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh validate --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:validate">
+      <DisplayName>meta-mesh workspaces</DisplayName>
+      <DisplayPath>meta-mesh workspaces</DisplayPath>
+      <NativeId>exec-workspaces</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>List declared workspaces.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:workspaces">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh workspaces --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh --workspace</DisplayPath>
+      <NativeId>opt-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

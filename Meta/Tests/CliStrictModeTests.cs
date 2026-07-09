@@ -1963,6 +1963,55 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task ModelAddRelationship_AllowsOptionalRelationshipWithoutDefaultId_WhenSourceHasRows()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliAsync(
+                "model",
+                "add-relationship",
+                "Cube",
+                "System",
+                "--required",
+                "false",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Ok", result.CombinedOutput, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var cubeEntity = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "Cube", StringComparison.OrdinalIgnoreCase));
+            var cubeRelationships = cubeEntity
+                .Element("RelationshipList")?
+                .Elements("Relationship") ?? Enumerable.Empty<XElement>();
+            Assert.Contains(
+                cubeRelationships,
+                relationship =>
+                    string.Equals((string?)relationship.Attribute("entity"), "System", StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals((string?)relationship.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
+
+            foreach (var row in LoadEntityRows(workspaceRoot, "Cube"))
+            {
+                Assert.Null(GetFieldValue(row, "SystemId"));
+            }
+
+            var check = await RunCliAsync(
+                "check",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task ModelRefactorPropertyToRelationship_RewritesRowsAndOptionallyDropsSourceProperty()
     {
         var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
@@ -2105,6 +2154,84 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task ModelRefactorPropertyToRelationship_AllowsBlankSource_WhenSourcePropertyIsOptional()
+    {
+        var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
+        try
+        {
+            var optional = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Order",
+                "WarehouseId",
+                "--required",
+                "false",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, optional.ExitCode);
+
+            var orderPath = Path.Combine(workspaceRoot, "instances", "Order.xml");
+            var orderDocument = XDocument.Load(orderPath);
+            var firstOrder = orderDocument.Descendants("Order")
+                .First(element => string.Equals((string?)element.Attribute("Id"), "ORD-001", StringComparison.Ordinal));
+            firstOrder.Element("WarehouseId")?.SetValue(string.Empty);
+            orderDocument.Save(orderPath);
+
+            var refactor = await RunCliAsync(
+                "model",
+                "refactor",
+                "property-to-relationship",
+                "--source",
+                "Order.WarehouseId",
+                "--target",
+                "Warehouse",
+                "--lookup",
+                "Id",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, refactor.ExitCode);
+            Assert.Contains("Ok", refactor.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var orderEntity = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "Order", StringComparison.OrdinalIgnoreCase));
+            Assert.DoesNotContain(
+                orderEntity
+                    .Element("PropertyList")?
+                    .Elements("Property") ?? Enumerable.Empty<XElement>(),
+                property => string.Equals((string?)property.Attribute("name"), "WarehouseId", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(
+                orderEntity
+                    .Element("RelationshipList")?
+                    .Elements("Relationship") ?? Enumerable.Empty<XElement>(),
+                relationship =>
+                    string.Equals((string?)relationship.Attribute("entity"), "Warehouse", StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals((string?)relationship.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
+
+            var orderRows = LoadEntityRows(workspaceRoot, "Order");
+            var blankSourceRow = orderRows.Single(row => string.Equals((string?)row.Attribute("Id"), "ORD-001", StringComparison.Ordinal));
+            Assert.Null(GetFieldValue(blankSourceRow, "WarehouseId"));
+            foreach (var row in orderRows.Where(row => !string.Equals((string?)row.Attribute("Id"), "ORD-001", StringComparison.Ordinal)))
+            {
+                Assert.False(string.IsNullOrWhiteSpace((string?)row.Attribute("WarehouseId")));
+                Assert.Null(row.Element("WarehouseId"));
+            }
+
+            var check = await RunCliAsync(
+                "check",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task ModelRefactorPropertyToRelationship_FailsWhenSourceValueIsUnmatched_AndDoesNotWrite()
     {
         var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
@@ -2203,7 +2330,7 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task ModelRefactorPropertyToRelationship_FailsWhenRelationshipAlreadyExists_AndDoesNotWrite()
+    public async Task ModelRefactorPropertyToRelationship_FailsWhenExistingRelationshipValueConflicts_AndDoesNotWrite()
     {
         var workspaceRoot = await CreateTempSuggestDemoWorkspaceAsync();
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-refactor-expected", Guid.NewGuid().ToString("N"));
@@ -2229,7 +2356,7 @@ public sealed partial class CliStrictModeTests
             var orderDocument = XDocument.Load(orderPath);
             foreach (var row in orderDocument.Descendants("Order"))
             {
-                row.SetAttributeValue("WarehouseRefId", row.Element("WarehouseId")?.Value);
+                row.SetAttributeValue("WarehouseRefId", "WH-404");
             }
             orderDocument.Save(orderPath);
             CopyDirectory(workspaceRoot, expectedWorkspace);
@@ -2250,7 +2377,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("Relationship 'Order.WarehouseRefId' already exists.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Existing relationship value conflicts with source value.", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -2294,7 +2421,7 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task ModelRefactorPropertyToRelationship_PreconditionFailureRollsBackAndDoesNotWrite()
+    public async Task ModelRefactorPropertyToRelationship_FailsWhenRefactorWouldCreateCycle_AndDoesNotWrite()
     {
         var workspaceRoot = await CreateTempRefactorCycleWorkspaceAsync();
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-refactor-expected", Guid.NewGuid().ToString("N"));
@@ -2316,16 +2443,122 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains(
-                "Source does not show reuse; lookup direction is ambiguous.",
-                result.CombinedOutput,
-                StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Cycle detected from entity 'A'.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Cycle detected from entity 'B'.", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
         {
             DeleteDirectorySafe(workspaceRoot);
-            DeleteDirectorySafe(expectedWorkspace);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRefactorPropertyToRelationship_AllowsExplicitOneToOneLookup()
+    {
+        var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-refactor-one-to-one-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync("init", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-entity", "A", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-entity", "B", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-property", "A", "Code", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-property", "B", "ACode", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("insert", "A", "1", "--set", "Code=A1", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("insert", "B", "1", "--set", "ACode=A1", "--workspace", workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "refactor",
+                "property-to-relationship",
+                "--source",
+                "B.ACode",
+                "--target",
+                "A",
+                "--lookup",
+                "Code",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Ok", result.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var bEntity = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "B", StringComparison.OrdinalIgnoreCase));
+            Assert.DoesNotContain(
+                bEntity
+                    .Element("PropertyList")?
+                    .Elements("Property") ?? Enumerable.Empty<XElement>(),
+                property => string.Equals((string?)property.Attribute("name"), "ACode", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(
+                bEntity
+                    .Element("RelationshipList")?
+                    .Elements("Relationship") ?? Enumerable.Empty<XElement>(),
+                relationship => string.Equals((string?)relationship.Attribute("entity"), "A", StringComparison.OrdinalIgnoreCase));
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRefactorPropertyToRelationship_BackfillsExistingRelationship()
+    {
+        var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-refactor-existing-relationship-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync("init", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-entity", "A", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-entity", "B", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-property", "A", "Code", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-property", "B", "ACode", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("insert", "A", "1", "--set", "Code=A1", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("insert", "B", "1", "--set", "ACode=A1", "--workspace", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("model", "add-relationship", "B", "A", "--required", "false", "--workspace", workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "refactor",
+                "property-to-relationship",
+                "--source",
+                "B.ACode",
+                "--target",
+                "A",
+                "--lookup",
+                "Code",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.Contains("Ok", result.StdOut, StringComparison.Ordinal);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var bEntity = model
+                .Descendants("Entity")
+                .Single(element => string.Equals((string?)element.Attribute("name"), "B", StringComparison.OrdinalIgnoreCase));
+            Assert.Single(
+                bEntity
+                    .Element("RelationshipList")?
+                    .Elements("Relationship")
+                    .Where(relationship => string.Equals((string?)relationship.Attribute("entity"), "A", StringComparison.OrdinalIgnoreCase)) ??
+                Enumerable.Empty<XElement>());
+
+            var bRow = LoadEntityRows(workspaceRoot, "B").Single();
+            Assert.Null(GetFieldValue(bRow, "ACode"));
+            Assert.Equal("1", (string?)bRow.Attribute("AId"));
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
         }
     }
 

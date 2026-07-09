@@ -16,17 +16,17 @@ public sealed class MetaDocsNavigationService
                 model.DocumentationViewNodeList.Count(node => ReferenceEquals(node.DocumentationView, view))))
             .ToArray();
         var subjectTypes = subjects
-            .GroupBy(subject => subject.Kind ?? string.Empty, StringComparer.OrdinalIgnoreCase)
+            .GroupBy(MetaDocsVocabulary.SubjectTypeName, StringComparer.OrdinalIgnoreCase)
             .Select(group => new MetaDocsSubjectTypeCount(group.Key, group.Count()))
             .OrderByDescending(static item => item.Count)
-            .ThenBy(static item => item.Kind, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(static item => item.SubjectType, StringComparer.OrdinalIgnoreCase)
             .ToArray();
         var readTargets = subjects
-            .Where(static subject =>
-                string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase))
+            .Where(subject =>
+                MetaDocsVocabulary.IsSubjectType(subject, "CliApplication") ||
+                MetaDocsVocabulary.IsSubjectType(subject, "Model"))
             .OrderBy(static subject => FirstNonEmpty(subject.DisplayPath, subject.DisplayName, subject.Id), StringComparer.OrdinalIgnoreCase)
-            .Select(static subject => new MetaDocsReadTarget(subject.Kind ?? string.Empty, subject.DisplayName))
+            .Select(subject => new MetaDocsReadTarget(MetaDocsVocabulary.SubjectTypeName(subject), subject.DisplayName))
             .ToArray();
 
         var previewDepth = model.DocumentationViewNodeList.Count <= 10 ? 2 : 3;
@@ -51,20 +51,27 @@ public sealed class MetaDocsNavigationService
             .GroupBy(static subject => subject.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static group => group.Key, static group => group.First(), StringComparer.OrdinalIgnoreCase);
         var subjectChildrenByParent = CurrentSubjects(model)
-            .Where(static subject => !string.IsNullOrWhiteSpace(subject.ParentKey))
-            .GroupBy(static subject => subject.ParentKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(static subject => subject.ParentSubject is not null)
+            .GroupBy(static subject => subject.ParentSubject!.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static group => group.Key, static group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
 
         if (view is null)
         {
             var rootSubjects = CurrentSubjects(model)
-                .Where(static subject => string.IsNullOrWhiteSpace(subject.ParentKey))
+                .Where(static subject => subject.ParentSubject is null)
                 .ToArray();
             return new MetaDocsContentsResult(
                 "Contents",
                 OrderedSubjects(rootSubjects)
                     .Select(subject => BuildSubjectNode(subject, subjectChildrenByParent, depth, 1, string.Empty))
                     .ToArray());
+        }
+
+        if (view.RootSubject is not null)
+        {
+            return new MetaDocsContentsResult(
+                FirstNonEmpty(view.Title, view.Name, view.Id),
+                [BuildSubjectNode(view.RootSubject, subjectChildrenByParent, depth, 1, string.Empty)]);
         }
 
         var viewNodes = model.DocumentationViewNodeList
@@ -102,7 +109,9 @@ public sealed class MetaDocsNavigationService
         int maxDepth,
         int currentDepth)
     {
-        subjectsByKey.TryGetValue(node.SubjectKey ?? string.Empty, out var subject);
+        var subject = node.DocumentationSubject is not null && subjectsByKey.ContainsKey(node.DocumentationSubject.Id)
+            ? node.DocumentationSubject
+            : null;
         var title = FirstNonEmpty(node.Title, subject?.DisplayName, node.Selection, node.Id);
         var children = new List<MetaDocsContentNode>();
         var childDepth = currentDepth + 1;
@@ -247,11 +256,11 @@ public sealed record MetaDocsWorkspaceOverview(
     IReadOnlyList<MetaDocsReadTarget> ReadTargets,
     MetaDocsContentsResult Contents);
 
-public sealed record MetaDocsSubjectTypeCount(string Kind, int Count);
+public sealed record MetaDocsSubjectTypeCount(string SubjectType, int Count);
 
 public sealed record MetaDocsViewSummary(string Title, int NodeCount);
 
-public sealed record MetaDocsReadTarget(string Kind, string Name);
+public sealed record MetaDocsReadTarget(string SubjectType, string Name);
 
 public sealed record MetaDocsContentsResult(
     string Title,

@@ -76,5 +76,20 @@
       <Name>render-site</Name>
       <Token>render-site</Token>
     </Command>
+    <Command Id="cmd-add-example" ApplicationId="app-meta-docs">
+      <Description>Add or update a structured example for an existing documentation subject.</Description>
+      <Name>add-example</Name>
+      <Token>add-example</Token>
+    </Command>
+    <Command Id="cmd-add-example-section" ApplicationId="app-meta-docs">
+      <Description>Add or update a text section in a structured documentation example.</Description>
+      <Name>add-example-section</Name>
+      <Token>add-example-section</Token>
+    </Command>
+    <Command Id="cmd-add-example-code" ApplicationId="app-meta-docs">
+      <Description>Add or update a code block in a structured documentation example.</Description>
+      <Name>add-example-code</Name>
+      <Token>add-example-code</Token>
+    </Command>
   </CommandList>
 </MetaCli>

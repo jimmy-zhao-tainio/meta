@@ -15,11 +15,9 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string AliasKey { get; set; } = string.Empty;
+        public string Alias { get; set; } = string.Empty;
 
         public string? Reason { get; set; }
-
-        public string SubjectKey { get; set; } = string.Empty;
 
         public DocumentationSubject DocumentationSubject { get; set; } = null!;
 

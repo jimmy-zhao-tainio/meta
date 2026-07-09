@@ -15,9 +15,9 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string LayoutKind { get; set; } = string.Empty;
-
         public string Name { get; set; } = string.Empty;
+
+        public DocumentationLayoutType DocumentationLayoutType { get; set; } = null!;
 
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
 

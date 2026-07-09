@@ -15,6 +15,7 @@ public sealed class MetaDocsWorkspaceModelImporter
         string sourceWorkspacePath,
         string sourceId = "",
         string displayName = "",
+        string parentSubjectId = "",
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -40,6 +41,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             ComputeSourceFingerprint(workspace.Model.ComputeContractSignature()),
             "MetaDocs.WorkspaceModel",
             "1");
+        var parentSubject = session.EnsureParentSubject(parentSubjectId);
 
         var workspaceSubject = session.UpsertSubject(
             $"{normalizedSourceId}:workspace",
@@ -49,7 +51,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             normalizedDisplayName,
             normalizedDisplayName,
             string.Empty,
-            string.Empty,
+            null,
             null);
         session.UpsertFact(workspaceSubject, "Workspace", "RootPath", workspace.WorkspaceRootPath);
         session.UpsertFact(workspaceSubject, "Workspace", "ModelName", modelName);
@@ -63,7 +65,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             modelName,
             $"{normalizedDisplayName}.{modelName}",
             string.Empty,
-            workspaceSubject.Id,
+            parentSubject ?? workspaceSubject,
             null);
         session.UpsertFact(modelSubject, "Model", "Name", modelName);
         session.UpsertFact(modelSubject, "Model", "EntityCount", workspace.Model.Entities.Count.ToString(), "Number");
@@ -73,54 +75,70 @@ public sealed class MetaDocsWorkspaceModelImporter
         var entities = workspace.Model.Entities
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
+        var entitySubjects = new List<(GenericEntity Entity, DocumentationSubject Subject)>();
         DocumentationSubject? previousEntity = null;
         DocumentationRelationship? previousEntityRelationship = null;
         foreach (var entity in entities)
         {
-            (previousEntity, previousEntityRelationship) = AddEntity(
+            var subject = UpsertEntitySubject(
                 session,
                 normalizedSourceId,
                 normalizedDisplayName,
                 modelSubject,
                 entity,
-                previousEntity,
+                previousEntity);
+            session.UpsertFact(subject, "Model", "Name", entity.Name);
+            session.UpsertFact(subject, "Model", "ListName", entity.GetListName());
+            session.UpsertFact(subject, "Model", "PropertyCount", entity.Properties.Count.ToString(), "Number");
+            session.UpsertFact(subject, "Model", "RelationshipCount", entity.Relationships.Count.ToString(), "Number");
+            previousEntityRelationship = session.UpsertRelationship(
+                modelSubject.Id,
+                "ContainsEntity",
+                subject.Id,
                 previousEntityRelationship);
+            entitySubjects.Add((entity, subject));
+            previousEntity = subject;
         }
 
-        session.Complete();
-        return workspaceSubject;
+        foreach (var (entity, subject) in entitySubjects)
+        {
+            AddEntityMembers(
+                session,
+                normalizedSourceId,
+                normalizedDisplayName,
+                subject,
+                entity);
+        }
+
+        session.Complete(pruneMissingFromSource: true);
+        return modelSubject;
     }
 
-    private static (DocumentationSubject Entity, DocumentationRelationship ContainsRelationship) AddEntity(
+    private static DocumentationSubject UpsertEntitySubject(
         MetaDocsImportSession session,
         string sourceId,
         string sourceDisplayName,
         DocumentationSubject modelSubject,
         GenericEntity entity,
-        DocumentationSubject? previousEntity,
-        DocumentationRelationship? previousEntityRelationship)
-    {
-        var entityKey = BuildEntityKey(sourceId, entity.Name);
-        var subject = session.UpsertSubject(
-            entityKey,
+        DocumentationSubject? previousEntity) =>
+        session.UpsertSubject(
+            BuildEntityKey(sourceId, entity.Name),
             "Entity",
             "GenericEntity",
             entity.Name,
             entity.Name,
             $"{sourceDisplayName}.{entity.Name}",
             string.Empty,
-            modelSubject.Id,
+            modelSubject,
             previousEntity);
-        session.UpsertFact(subject, "Model", "Name", entity.Name);
-        session.UpsertFact(subject, "Model", "ListName", entity.GetListName());
-        session.UpsertFact(subject, "Model", "PropertyCount", entity.Properties.Count.ToString(), "Number");
-        session.UpsertFact(subject, "Model", "RelationshipCount", entity.Relationships.Count.ToString(), "Number");
-        var containsRelationship = session.UpsertRelationship(
-            modelSubject.Id,
-            "ContainsEntity",
-            subject.Id,
-            previousEntityRelationship);
 
+    private static void AddEntityMembers(
+        MetaDocsImportSession session,
+        string sourceId,
+        string sourceDisplayName,
+        DocumentationSubject subject,
+        GenericEntity entity)
+    {
         var properties = entity.Properties
             .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
             .ToArray();
@@ -157,8 +175,6 @@ public sealed class MetaDocsWorkspaceModelImporter
                 previousRelationshipSubject,
                 previousContainsRelationship);
         }
-
-        return (subject, containsRelationship);
     }
 
     private static (DocumentationSubject Property, DocumentationRelationship ContainsRelationship) AddProperty(
@@ -179,7 +195,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             property.Name,
             $"{sourceDisplayName}.{entity.Name}.{property.Name}",
             string.Empty,
-            entitySubject.Id,
+            entitySubject,
             previousProperty);
         session.UpsertFact(subject, "Model", "Name", property.Name);
         session.UpsertFact(subject, "Model", "DataType", string.IsNullOrWhiteSpace(property.DataType) ? "string" : property.DataType);
@@ -212,7 +228,7 @@ public sealed class MetaDocsWorkspaceModelImporter
             relationship.GetNavigationName(),
             $"{sourceDisplayName}.{entity.Name}.{relationship.GetNavigationName()}",
             string.Empty,
-            entitySubject.Id,
+            entitySubject,
             previousRelationshipSubject);
         session.UpsertFact(subject, "Model", "TargetEntity", relationship.Entity);
         session.UpsertFact(subject, "Model", "Role", relationship.Role);

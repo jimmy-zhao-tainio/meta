@@ -15,11 +15,11 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string ComponentKind { get; set; } = string.Empty;
-
         public string Name { get; set; } = string.Empty;
 
         public string? TemplateText { get; set; }
+
+        public DocumentationComponentTemplateType DocumentationComponentTemplateType { get; set; } = null!;
 
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
 

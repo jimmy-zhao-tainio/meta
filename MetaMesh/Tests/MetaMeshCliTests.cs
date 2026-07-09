@@ -72,6 +72,9 @@ public sealed class MetaMeshCliTests
 
             var step = RunCli($"add-step --workspace \"{meshPath}\" --operation refresh-docs --name echo --executable cmd.exe --arguments \"/c echo hello {{workspace:docs.path}}\"");
             Assert.Equal(0, step.ExitCode);
+            Assert.Contains("Ok", step.Output);
+            Assert.DoesNotContain("Operations:", step.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", step.Output);
 
             var show = RunCli($"show --workspace \"{meshPath}\"");
             Assert.Equal(0, show.ExitCode);

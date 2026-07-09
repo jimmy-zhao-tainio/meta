@@ -55,26 +55,48 @@ public sealed class MetaDocsQueryService
         var matchedSubjectCount = 0;
         var narrativesBySubject = model.DocumentationNarrativeList
             .Where(IsCurrent)
-            .Where(static narrative => !string.IsNullOrWhiteSpace(narrative.SubjectKey))
-            .GroupBy(static narrative => narrative.SubjectKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(static narrative => narrative.DocumentationSubject is not null)
+            .GroupBy(static narrative => narrative.DocumentationSubject.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(
                 static group => group.Key,
                 static group => group.ToArray(),
                 StringComparer.OrdinalIgnoreCase);
         var factsBySubject = model.DocumentationFactList
             .Where(IsCurrent)
-            .Where(static fact => !string.IsNullOrWhiteSpace(fact.SubjectKey))
-            .GroupBy(static fact => fact.SubjectKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(static fact => fact.DocumentationSubject is not null)
+            .GroupBy(static fact => fact.DocumentationSubject.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(
                 static group => group.Key,
                 static group => group
-                    .OrderBy(static fact => fact.Kind, StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(MetaDocsVocabulary.FactTypeName, StringComparer.OrdinalIgnoreCase)
                     .ThenBy(static fact => fact.Name, StringComparer.OrdinalIgnoreCase)
                     .ToArray(),
                 StringComparer.OrdinalIgnoreCase);
+        var examplesBySubject = model.DocumentationExampleList
+            .Where(IsCurrent)
+            .Where(static example => example.DocumentationSubject is not null)
+            .GroupBy(static example => example.DocumentationSubject.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                static group => group.Key,
+                group => OrderedExamples(group).ToArray(),
+                StringComparer.OrdinalIgnoreCase);
+        var sectionsByExample = model.DocumentationExampleSectionList
+            .Where(static section => section.DocumentationExample is not null)
+            .GroupBy(static section => section.DocumentationExample.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                static group => group.Key,
+                group => OrderedSections(group).ToArray(),
+                StringComparer.OrdinalIgnoreCase);
+        var codesBySection = model.DocumentationExampleCodeList
+            .Where(static code => code.DocumentationExampleSection is not null)
+            .GroupBy(static code => code.DocumentationExampleSection.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                static group => group.Key,
+                group => OrderedCodes(group).ToArray(),
+                StringComparer.OrdinalIgnoreCase);
         foreach (var subject in model.DocumentationSubjectList
                      .Where(IsCurrent)
-                     .Where(subject => string.IsNullOrWhiteSpace(kind) || string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+                     .Where(subject => string.IsNullOrWhiteSpace(kind) || MetaDocsVocabulary.IsSubjectType(subject, kind))
                      .OrderBy(subject => SearchRank(subject, query))
                      .ThenBy(subject => subject.DisplayPath, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase))
@@ -103,9 +125,36 @@ public sealed class MetaDocsQueryService
                         matches,
                         subject,
                         "fact",
-                        $"{fact.Kind}.{fact.Name}: {fact.Value}",
+                        $"{MetaDocsVocabulary.FactTypeName(fact)}.{fact.Name}: {fact.Value}",
                         query,
                         fact.Value);
+                }
+            }
+
+            if (examplesBySubject.TryGetValue(subject.Id, out var examples))
+            {
+                foreach (var example in examples)
+                {
+                    AddIfContains(matches, subject, "example", $"{example.Title} {example.Summary}", query);
+                    AddIfContains(matches, subject, "example", example.Summary, query);
+                    if (!sectionsByExample.TryGetValue(example.Id, out var sections))
+                    {
+                        continue;
+                    }
+
+                    foreach (var section in sections)
+                    {
+                        AddIfContains(matches, subject, "example", FirstNonEmpty(section.Title, section.Body), query, section.Body);
+                        if (!codesBySection.TryGetValue(section.Id, out var codes))
+                        {
+                            continue;
+                        }
+
+                        foreach (var code in codes)
+                        {
+                            AddIfContains(matches, subject, "example", FirstNonEmpty(code.Title, code.Code), query, code.Code);
+                        }
+                    }
                 }
             }
 
@@ -156,7 +205,6 @@ public sealed class MetaDocsQueryService
         }
 
         narrative.DocumentationSubject = subject;
-        narrative.SubjectKey = subject.Id;
         narrative.Slot = normalizedSlot;
         narrative.Title = normalizedTitle;
         narrative.Body = body.Trim();
@@ -176,7 +224,7 @@ public sealed class MetaDocsQueryService
         {
             builder.AppendLine();
             builder.AppendLine(match.Subject.DisplayName);
-            builder.AppendLine($"  {DisplayKind(match.Subject.Kind)}");
+            builder.AppendLine($"  {DisplaySubjectType(MetaDocsVocabulary.SubjectTypeName(match.Subject))}");
             var browseCommand = BuildBrowseCommand(match.Subject);
             if (!string.IsNullOrWhiteSpace(browseCommand))
             {
@@ -198,15 +246,14 @@ public sealed class MetaDocsQueryService
     {
         var key = subject.Trim();
         var direct = CurrentSubjects(model).FirstOrDefault(row =>
-            string.Equals(row.Id, key, StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(row.Key, key, StringComparison.OrdinalIgnoreCase));
+            string.Equals(row.Id, key, StringComparison.OrdinalIgnoreCase));
         if (direct is not null)
         {
             return direct;
         }
 
         var alias = model.DocumentationSubjectAliasList.FirstOrDefault(row =>
-            string.Equals(row.AliasKey, key, StringComparison.OrdinalIgnoreCase));
+            string.Equals(row.Alias, key, StringComparison.OrdinalIgnoreCase));
         if (alias?.DocumentationSubject is not null && IsCurrent(alias.DocumentationSubject))
         {
             return alias.DocumentationSubject;
@@ -218,7 +265,7 @@ public sealed class MetaDocsQueryService
     private static DocumentationSubject ResolveCliApplication(MetaDocsModel model, string cli)
     {
         var matches = CurrentSubjects(model)
-            .Where(subject => string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliApplication"))
             .Where(subject => MatchesSubjectName(subject, cli))
             .Take(2)
             .ToArray();
@@ -233,7 +280,7 @@ public sealed class MetaDocsQueryService
     private static DocumentationSubject ResolveModel(MetaDocsModel docs, string model)
     {
         var matches = CurrentSubjects(docs)
-            .Where(subject => string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Model"))
             .Where(subject => MatchesSubjectName(subject, model))
             .Take(2)
             .ToArray();
@@ -269,8 +316,8 @@ public sealed class MetaDocsQueryService
         string option)
     {
         var matches = CurrentSubjects(model)
-            .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, command.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(subject => string.Equals(subject.Kind, "CliOption", StringComparison.OrdinalIgnoreCase))
+            .Where(subject => string.Equals(subject.ParentSubject?.Id ?? string.Empty, command.Id, StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliOption"))
             .Where(subject => MatchesSubjectName(subject, option) || string.Equals(FindFact(model, subject, "Cli", "Name"), option, StringComparison.OrdinalIgnoreCase))
             .Take(2)
             .ToArray();
@@ -285,8 +332,8 @@ public sealed class MetaDocsQueryService
     private static IEnumerable<DocumentationSubject> CommandDescendants(MetaDocsModel model, DocumentationSubject root)
     {
         var childrenByParent = CurrentSubjects(model)
-            .Where(subject => !string.IsNullOrWhiteSpace(subject.ParentKey))
-            .GroupBy(subject => subject.ParentKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(subject => subject.ParentSubject is not null)
+            .GroupBy(subject => subject.ParentSubject!.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
 
         foreach (var command in Descend(root.Id))
@@ -302,7 +349,7 @@ public sealed class MetaDocsQueryService
             }
 
             foreach (var command in MetaDocsOrdering.ByPrevious(
-                         children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+                         children.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliCommand")),
                          static subject => subject.PreviousSubject,
                          static subject => subject.DisplayName))
             {
@@ -322,7 +369,6 @@ public sealed class MetaDocsQueryService
     {
         var trimmed = value.Trim();
         return string.Equals(subject.Id, trimmed, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(subject.Key, trimmed, StringComparison.OrdinalIgnoreCase) ||
                string.Equals(subject.NativeId, trimmed, StringComparison.OrdinalIgnoreCase) ||
                string.Equals(subject.DisplayName, trimmed, StringComparison.OrdinalIgnoreCase) ||
                string.Equals(subject.DisplayPath, trimmed, StringComparison.OrdinalIgnoreCase);
@@ -345,8 +391,8 @@ public sealed class MetaDocsQueryService
         model.DocumentationFactList
             .Where(IsCurrent)
             .Where(fact =>
-                string.Equals(fact.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(fact.DocumentationSubject.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsFactType(fact, kind) &&
                 string.Equals(fact.Name, name, StringComparison.OrdinalIgnoreCase))
             .Select(fact => fact.Value)
             .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
@@ -354,7 +400,7 @@ public sealed class MetaDocsQueryService
     private static IReadOnlyList<DocumentationNarrative> OrderedNarratives(MetaDocsModel model, DocumentationSubject subject) =>
         OrderedNarratives(model.DocumentationNarrativeList
             .Where(IsCurrent)
-            .Where(narrative => string.Equals(narrative.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase)));
+            .Where(narrative => ReferenceEquals(narrative.DocumentationSubject, subject)));
 
     private static IReadOnlyList<DocumentationNarrative> OrderedNarratives(IEnumerable<DocumentationNarrative> narratives) =>
         MetaDocsOrdering.ByPrevious(
@@ -363,12 +409,34 @@ public sealed class MetaDocsQueryService
                 static narrative => $"{narrative.Slot}:{narrative.Title}:{narrative.Id}")
             .ToArray();
 
+    private static IReadOnlyList<DocumentationExample> OrderedExamples(IEnumerable<DocumentationExample> examples) =>
+        MetaDocsOrdering.ByPrevious(
+                examples,
+                static example => example.PreviousExample,
+                static example => $"{example.Title}:{example.Id}")
+            .ToArray();
+
+    private static IReadOnlyList<DocumentationExampleSection> OrderedSections(IEnumerable<DocumentationExampleSection> sections) =>
+        MetaDocsOrdering.ByPrevious(
+                sections,
+                static section => section.PreviousSection,
+                static section => $"{section.Title}:{section.Id}")
+            .ToArray();
+
+    private static IReadOnlyList<DocumentationExampleCode> OrderedCodes(IEnumerable<DocumentationExampleCode> codes) =>
+        MetaDocsOrdering.ByPrevious(
+                codes,
+                static code => code.PreviousCode,
+                static code => $"{code.Title}:{code.Id}")
+            .ToArray();
+
     private static void AddSubjectMatches(List<MetaDocsSearchMatch> matches, DocumentationSubject subject, string query)
     {
         AddIfContains(matches, subject, "subject", subject.DisplayName, query);
         AddIfContains(matches, subject, "subject", subject.DisplayPath, query);
         AddIfContains(matches, subject, "summary", subject.Summary, query);
-        AddIfContains(matches, subject, "subject", subject.Kind, query);
+        AddIfContains(matches, subject, "subject", MetaDocsVocabulary.SubjectTypeName(subject), query);
+        AddIfContains(matches, subject, "subject", subject.SourceTypeName, query);
         AddIfContains(matches, subject, "subject", subject.NativeId, query);
         AddIfContains(matches, subject, "subject", subject.Id, query);
     }
@@ -379,8 +447,7 @@ public sealed class MetaDocsQueryService
         var textRank = 3;
         if (EqualsText(subject.DisplayName, trimmed) ||
             EqualsText(subject.DisplayPath, trimmed) ||
-            EqualsText(subject.NativeId, trimmed) ||
-            EqualsText(subject.Key, trimmed))
+            EqualsText(subject.NativeId, trimmed))
         {
             textRank = 0;
         }
@@ -397,11 +464,11 @@ public sealed class MetaDocsQueryService
             textRank = 2;
         }
 
-        return SubjectKindRank(subject.Kind) + textRank;
+        return SubjectTypeRank(MetaDocsVocabulary.SubjectTypeName(subject)) + textRank;
     }
 
-    private static int SubjectKindRank(string? kind) =>
-        kind?.Trim() switch
+    private static int SubjectTypeRank(string? subjectType) =>
+        subjectType?.Trim() switch
         {
             "CliApplication" => 0,
             "CliCommand" => 0,
@@ -471,8 +538,8 @@ public sealed class MetaDocsQueryService
     private static string NormalizeWhitespace(string value) =>
         string.Join(" ", value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n').Select(static line => line.Trim()).Where(static line => line.Length > 0));
 
-    private static string DisplayKind(string? kind) =>
-        kind?.Trim() switch
+    private static string DisplaySubjectType(string? subjectType) =>
+        subjectType?.Trim() switch
         {
             "CliApplication" => "CLI application",
             "CliCommand" => "CLI command",
@@ -508,34 +575,35 @@ public sealed class MetaDocsQueryService
             "summary" => "summary",
             "fact" => "detail",
             "narrative" => "description",
+            "example" => "example",
             _ => matchKind,
         };
 
     private static string BuildBrowseCommand(DocumentationSubject subject)
     {
-        if (string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase))
+        if (MetaDocsVocabulary.IsSubjectType(subject, "CliApplication"))
         {
             return $"meta-docs browse cli/{subject.DisplayName}";
         }
 
-        if (string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase))
+        if (MetaDocsVocabulary.IsSubjectType(subject, "Model"))
         {
             return $"meta-docs browse model/{subject.DisplayName}";
         }
 
-        if (string.Equals(subject.Kind, "Entity", StringComparison.OrdinalIgnoreCase) &&
+        if (MetaDocsVocabulary.IsSubjectType(subject, "Entity") &&
             TrySplitModelEntityPath(subject, out var model, out var entity))
         {
             return $"meta-docs browse model/{model}/{entity}";
         }
 
-        if (string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase) &&
+        if (MetaDocsVocabulary.IsSubjectType(subject, "CliCommand") &&
             TrySplitCliPath(subject.DisplayName, out var cli, out var command))
         {
             return $"meta-docs browse cli/{cli}/{command.Replace(' ', '/')}";
         }
 
-        if (string.Equals(subject.Kind, "CliOption", StringComparison.OrdinalIgnoreCase) &&
+        if (MetaDocsVocabulary.IsSubjectType(subject, "CliOption") &&
             TrySplitOptionPath(subject, out cli, out command, out _))
         {
             return string.IsNullOrWhiteSpace(command)
@@ -616,6 +684,11 @@ public sealed class MetaDocsQueryService
         !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsCurrent(DocumentationExample example) =>
+        !string.Equals(example.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
+        !string.Equals(example.ReviewStatus, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
+        !string.Equals(example.ReviewStatus, "Ignored", StringComparison.OrdinalIgnoreCase);
 
     private static string FirstNonEmpty(params string?[] values) =>
         values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;

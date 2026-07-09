@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-cli:create-command-surface:commands" DocumentationExampleSectionId="example:meta-cli:create-command-surface:overview">
+      <Code>meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
+meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
+meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
+meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

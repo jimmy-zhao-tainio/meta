@@ -1,103 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:workspace" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
-      <DisplayName>MetaDataTypeConversion</DisplayName>
-      <DisplayPath>MetaDataTypeConversion</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataTypeConversion\Workspace</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
-      <DisplayName>MetaDataTypeConversion</DisplayName>
-      <DisplayPath>MetaDataTypeConversion.MetaDataTypeConversion</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaDataTypeConversion</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion">
       <DisplayName>ConversionImplementation</DisplayName>
       <DisplayPath>MetaDataTypeConversion.ConversionImplementation</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation</Key>
-      <Kind>Entity</Kind>
       <NativeId>ConversionImplementation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaDataTypeConversion.ConversionImplementation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:name" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:name" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaDataTypeConversion.ConversionImplementation.Name</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:conversionimplementation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:conversionimplementation">
       <DisplayName>DataTypeMapping</DisplayName>
       <DisplayPath>MetaDataTypeConversion.DataTypeMapping</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</Key>
-      <Kind>Entity</Kind>
       <NativeId>DataTypeMapping</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping">
       <DisplayName>Notes</DisplayName>
       <DisplayPath>MetaDataTypeConversion.DataTypeMapping.Notes</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes</Key>
-      <Kind>Property</Kind>
       <NativeId>Notes</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:notes">
       <DisplayName>SourceDataTypeId</DisplayName>
       <DisplayPath>MetaDataTypeConversion.DataTypeMapping.SourceDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:targetdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:targetdatatypeid" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping" PreviousSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:sourcedatatypeid">
       <DisplayName>TargetDataTypeId</DisplayName>
       <DisplayPath>MetaDataTypeConversion.DataTypeMapping.TargetDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:datatypemapping:property:targetdatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:relationship:conversionimplementation-conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion">
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:entity:datatypemapping:relationship:conversionimplementation-conversionimplementation" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-data-type-conversion:entity:datatypemapping">
       <DisplayName>ConversionImplementation</DisplayName>
       <DisplayPath>MetaDataTypeConversion.DataTypeMapping.ConversionImplementation</DisplayPath>
-      <Key>source:workspace-model:meta-data-type-conversion:entity:datatypemapping:relationship:conversionimplementation-conversionimplementation</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ConversionImplementation:ConversionImplementation</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-data-type-conversion:entity:datatypemapping</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaDataTypeConversion</DisplayName>
+      <DisplayPath>MetaDataTypeConversion.MetaDataTypeConversion</DisplayPath>
+      <NativeId>MetaDataTypeConversion</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-type-conversion:workspace" DocumentationSourceId="source:workspace-model:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaDataTypeConversion</DisplayName>
+      <DisplayPath>MetaDataTypeConversion</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataTypeConversion\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

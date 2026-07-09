@@ -17,14 +17,16 @@ internal sealed partial class CliRuntime
             RelatedEntity = toEntity,
             RelatedRole = options.Role,
             RelatedDefaultId = options.DefaultId,
+            IsNullable = !options.Required,
         };
 
         var relationshipColumnName = (string.IsNullOrWhiteSpace(options.Role) ? toEntity : options.Role) + "Id";
+        var requiredText = options.Required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>
         {
             ("From", fromEntity),
             ("To", toEntity),
-            ("Name", relationshipColumnName),
+            ("Name", $"{relationshipColumnName} ({requiredText})"),
         };
         if (!string.IsNullOrWhiteSpace(options.DefaultId))
         {

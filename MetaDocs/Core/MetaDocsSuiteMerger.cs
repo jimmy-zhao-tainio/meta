@@ -18,7 +18,6 @@ public sealed class MetaDocsSuiteMerger
             MergeOne(suite, sourceModel);
         }
 
-        MetaDocsPublicReferenceViewBuilder.EnsurePublicReferenceView(suite);
         return suite;
     }
 
@@ -26,9 +25,71 @@ public sealed class MetaDocsSuiteMerger
     {
         var maps = new MergeMaps();
 
+        foreach (var row in source.DocumentationWorkspaceTypeList)
+        {
+            AddById(target.DocumentationWorkspaceTypeList, row, CloneWorkspaceType(row), maps.WorkspaceTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationSourceTypeList)
+        {
+            AddById(target.DocumentationSourceTypeList, row, CloneSourceType(row), maps.SourceTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationSubjectTypeList)
+        {
+            AddById(target.DocumentationSubjectTypeList, row, CloneSubjectType(row), maps.SubjectTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationFactTypeList)
+        {
+            AddById(target.DocumentationFactTypeList, row, CloneFactType(row), maps.FactTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationValueTypeList)
+        {
+            AddById(target.DocumentationValueTypeList, row, CloneValueType(row), maps.ValueTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationRelationshipTypeList)
+        {
+            AddById(target.DocumentationRelationshipTypeList, row, CloneRelationshipType(row), maps.RelationshipTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationViewTypeList)
+        {
+            AddById(target.DocumentationViewTypeList, row, CloneViewType(row), maps.ViewTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationTemplateTypeList)
+        {
+            AddById(target.DocumentationTemplateTypeList, row, CloneTemplateType(row), maps.TemplateTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationTemplateRegionTypeList)
+        {
+            AddById(target.DocumentationTemplateRegionTypeList, row, CloneTemplateRegionType(row), maps.TemplateRegionTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationThemeAssetTypeList)
+        {
+            AddById(target.DocumentationThemeAssetTypeList, row, CloneThemeAssetType(row), maps.ThemeAssetTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationLayoutTypeList)
+        {
+            AddById(target.DocumentationLayoutTypeList, row, CloneLayoutType(row), maps.LayoutTypes, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationComponentTemplateTypeList)
+        {
+            AddById(target.DocumentationComponentTemplateTypeList, row, CloneComponentTemplateType(row), maps.ComponentTemplateTypes, item => item.Id);
+        }
+
         foreach (var row in source.DocumentationWorkspaceList)
         {
-            AddById(target.DocumentationWorkspaceList, row, CloneWorkspace(row), maps.Workspaces, item => item.Id);
+            var clone = CloneWorkspace(row);
+            clone.DocumentationWorkspaceType = maps.WorkspaceTypes[row.DocumentationWorkspaceType];
+            AddById(target.DocumentationWorkspaceList, row, clone, maps.Workspaces, item => item.Id);
         }
 
         foreach (var row in source.DocumentationThemeList)
@@ -38,12 +99,15 @@ public sealed class MetaDocsSuiteMerger
 
         foreach (var row in source.DocumentationViewList)
         {
-            AddById(target.DocumentationViewList, row, CloneView(row), maps.Views, item => item.Id);
+            var clone = CloneView(row);
+            clone.DocumentationViewType = maps.ViewTypes[row.DocumentationViewType];
+            AddById(target.DocumentationViewList, row, clone, maps.Views, item => item.Id);
         }
 
         foreach (var row in source.DocumentationSourceList)
         {
             var clone = CloneSource(row);
+            clone.DocumentationSourceType = maps.SourceTypes[row.DocumentationSourceType];
             if (row.DocumentationWorkspace is not null &&
                 maps.Workspaces.TryGetValue(row.DocumentationWorkspace, out var workspace))
             {
@@ -64,6 +128,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneSubject(row);
             clone.DocumentationSource = maps.Sources[row.DocumentationSource];
+            clone.DocumentationSubjectType = maps.SubjectTypes[row.DocumentationSubjectType];
             AddById(target.DocumentationSubjectList, row, clone, maps.Subjects, item => item.Id);
         }
 
@@ -80,6 +145,8 @@ public sealed class MetaDocsSuiteMerger
             clone.DocumentationSubject = maps.Subjects[row.DocumentationSubject];
             clone.DocumentationSource = maps.Sources[row.DocumentationSource];
             clone.DocumentationImportBatch = maps.Batches[row.DocumentationImportBatch];
+            clone.DocumentationFactType = maps.FactTypes[row.DocumentationFactType];
+            clone.DocumentationValueType = maps.ValueTypes[row.DocumentationValueType];
             AddById(target.DocumentationFactList, row, clone, maps.Facts, item => item.Id);
         }
 
@@ -90,11 +157,35 @@ public sealed class MetaDocsSuiteMerger
             AddById(target.DocumentationNarrativeList, row, clone, maps.Narratives, item => item.Id);
         }
 
+        foreach (var row in source.DocumentationExampleList)
+        {
+            var clone = CloneExample(row);
+            clone.DocumentationSubject = maps.Subjects[row.DocumentationSubject];
+            AddById(target.DocumentationExampleList, row, clone, maps.Examples, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationExampleSectionList)
+        {
+            var clone = CloneExampleSection(row);
+            clone.DocumentationExample = maps.Examples[row.DocumentationExample];
+            AddById(target.DocumentationExampleSectionList, row, clone, maps.ExampleSections, item => item.Id);
+        }
+
+        foreach (var row in source.DocumentationExampleCodeList)
+        {
+            var clone = CloneExampleCode(row);
+            clone.DocumentationExampleSection = maps.ExampleSections[row.DocumentationExampleSection];
+            AddById(target.DocumentationExampleCodeList, row, clone, maps.ExampleCodes, item => item.Id);
+        }
+
         foreach (var row in source.DocumentationRelationshipList)
         {
             var clone = CloneRelationship(row);
             clone.DocumentationSource = maps.Sources[row.DocumentationSource];
             clone.DocumentationImportBatch = maps.Batches[row.DocumentationImportBatch];
+            clone.DocumentationRelationshipType = maps.RelationshipTypes[row.DocumentationRelationshipType];
+            clone.FromSubject = maps.Subjects[row.FromSubject];
+            clone.ToSubject = maps.Subjects[row.ToSubject];
             AddById(target.DocumentationRelationshipList, row, clone, maps.Relationships, item => item.Id);
         }
 
@@ -102,6 +193,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneTemplate(row);
             clone.DocumentationTheme = maps.Themes[row.DocumentationTheme];
+            clone.DocumentationTemplateType = maps.TemplateTypes[row.DocumentationTemplateType];
             AddById(target.DocumentationTemplateList, row, clone, maps.Templates, item => item.Id);
         }
 
@@ -109,6 +201,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneTemplateRegion(row);
             clone.DocumentationTemplate = maps.Templates[row.DocumentationTemplate];
+            clone.DocumentationTemplateRegionType = maps.TemplateRegionTypes[row.DocumentationTemplateRegionType];
             AddById(target.DocumentationTemplateRegionList, row, clone, maps.TemplateRegions, item => item.Id);
         }
 
@@ -116,6 +209,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneThemeAsset(row);
             clone.DocumentationTheme = maps.Themes[row.DocumentationTheme];
+            clone.DocumentationThemeAssetType = maps.ThemeAssetTypes[row.DocumentationThemeAssetType];
             AddById(target.DocumentationThemeAssetList, row, clone, maps.ThemeAssets, item => item.Id);
         }
 
@@ -123,6 +217,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneLayout(row);
             clone.DocumentationTheme = maps.Themes[row.DocumentationTheme];
+            clone.DocumentationLayoutType = maps.LayoutTypes[row.DocumentationLayoutType];
             AddById(target.DocumentationLayoutList, row, clone, maps.Layouts, item => item.Id);
         }
 
@@ -130,6 +225,7 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneComponentTemplate(row);
             clone.DocumentationTheme = maps.Themes[row.DocumentationTheme];
+            clone.DocumentationComponentTemplateType = maps.ComponentTemplateTypes[row.DocumentationComponentTemplateType];
             AddById(target.DocumentationComponentTemplateList, row, clone, maps.ComponentTemplates, item => item.Id);
         }
 
@@ -137,6 +233,11 @@ public sealed class MetaDocsSuiteMerger
         {
             var clone = CloneViewNode(row);
             clone.DocumentationView = maps.Views[row.DocumentationView];
+            if (row.DocumentationSubject is not null &&
+                maps.Subjects.TryGetValue(row.DocumentationSubject, out var viewNodeSubject))
+            {
+                clone.DocumentationSubject = viewNodeSubject;
+            }
             AddById(target.DocumentationViewNodeList, row, clone, maps.ViewNodes, item => item.Id);
         }
 
@@ -174,6 +275,7 @@ public sealed class MetaDocsSuiteMerger
         }
 
         ApplyPreviousRelationships(source, maps);
+        ApplyStructuralRelationships(source, maps);
     }
 
     private static T AddById<T>(
@@ -197,12 +299,107 @@ public sealed class MetaDocsSuiteMerger
         return clone;
     }
 
+    private static DocumentationWorkspaceType CloneWorkspaceType(DocumentationWorkspaceType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationSourceType CloneSourceType(DocumentationSourceType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationSubjectType CloneSubjectType(DocumentationSubjectType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationFactType CloneFactType(DocumentationFactType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationValueType CloneValueType(DocumentationValueType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationRelationshipType CloneRelationshipType(DocumentationRelationshipType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationViewType CloneViewType(DocumentationViewType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationTemplateType CloneTemplateType(DocumentationTemplateType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationTemplateRegionType CloneTemplateRegionType(DocumentationTemplateRegionType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationThemeAssetType CloneThemeAssetType(DocumentationThemeAssetType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationLayoutType CloneLayoutType(DocumentationLayoutType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
+    private static DocumentationComponentTemplateType CloneComponentTemplateType(DocumentationComponentTemplateType row) =>
+        new()
+        {
+            Id = row.Id,
+            Name = row.Name,
+            Description = row.Description,
+        };
+
     private static DocumentationWorkspace CloneWorkspace(DocumentationWorkspace row) =>
         new()
         {
             Id = row.Id,
             Name = row.Name,
-            Kind = row.Kind,
             Summary = row.Summary,
         };
 
@@ -213,7 +410,6 @@ public sealed class MetaDocsSuiteMerger
             DisplayName = row.DisplayName,
             ImportedAt = row.ImportedAt,
             ImporterId = row.ImporterId,
-            Kind = row.Kind,
             Locator = row.Locator,
             SourceFingerprint = row.SourceFingerprint,
             Status = row.Status,
@@ -234,14 +430,11 @@ public sealed class MetaDocsSuiteMerger
         new()
         {
             Id = row.Id,
-            Key = row.Key,
-            Kind = row.Kind,
-            NativeKind = row.NativeKind,
+            SourceTypeName = row.SourceTypeName,
             NativeId = row.NativeId,
             DisplayName = row.DisplayName,
             DisplayPath = row.DisplayPath,
             Summary = row.Summary,
-            ParentKey = row.ParentKey,
             Status = row.Status,
         };
 
@@ -249,8 +442,7 @@ public sealed class MetaDocsSuiteMerger
         new()
         {
             Id = row.Id,
-            AliasKey = row.AliasKey,
-            SubjectKey = row.SubjectKey,
+            Alias = row.Alias,
             Reason = row.Reason,
         };
 
@@ -258,11 +450,8 @@ public sealed class MetaDocsSuiteMerger
         new()
         {
             Id = row.Id,
-            SubjectKey = row.SubjectKey,
-            Kind = row.Kind,
             Name = row.Name,
             Value = row.Value,
-            ValueKind = row.ValueKind,
             SourceFingerprint = row.SourceFingerprint,
             Status = row.Status,
         };
@@ -271,7 +460,6 @@ public sealed class MetaDocsSuiteMerger
         new()
         {
             Id = row.Id,
-            SubjectKey = row.SubjectKey,
             Slot = row.Slot,
             Title = row.Title,
             Body = row.Body,
@@ -281,13 +469,38 @@ public sealed class MetaDocsSuiteMerger
             ReviewStatus = row.ReviewStatus,
         };
 
+    private static DocumentationExample CloneExample(DocumentationExample row) =>
+        new()
+        {
+            Id = row.Id,
+            Title = row.Title,
+            Summary = row.Summary,
+            Origin = row.Origin,
+            ReviewStatus = row.ReviewStatus,
+        };
+
+    private static DocumentationExampleSection CloneExampleSection(DocumentationExampleSection row) =>
+        new()
+        {
+            Id = row.Id,
+            Title = row.Title,
+            Body = row.Body,
+            BodyFormat = row.BodyFormat,
+        };
+
+    private static DocumentationExampleCode CloneExampleCode(DocumentationExampleCode row) =>
+        new()
+        {
+            Id = row.Id,
+            Title = row.Title,
+            Language = row.Language,
+            Code = row.Code,
+        };
+
     private static DocumentationRelationship CloneRelationship(DocumentationRelationship row) =>
         new()
         {
             Id = row.Id,
-            FromSubjectKey = row.FromSubjectKey,
-            Kind = row.Kind,
-            ToSubjectKey = row.ToSubjectKey,
         };
 
     private static DocumentationView CloneView(DocumentationView row) =>
@@ -295,7 +508,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            Kind = row.Kind,
             Title = row.Title,
             Summary = row.Summary,
         };
@@ -305,7 +517,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             ParentNodeId = row.ParentNodeId,
-            SubjectKey = row.SubjectKey,
             Selection = row.Selection,
             Title = row.Title,
         };
@@ -324,7 +535,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            Kind = row.Kind,
             Html = row.Html,
             SourceUrl = row.SourceUrl,
         };
@@ -334,7 +544,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            RegionKind = row.RegionKind,
         };
 
     private static DocumentationThemeAsset CloneThemeAsset(DocumentationThemeAsset row) =>
@@ -342,7 +551,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            AssetKind = row.AssetKind,
             MediaType = row.MediaType,
             Href = row.Href,
             Content = row.Content,
@@ -354,7 +562,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            LayoutKind = row.LayoutKind,
         };
 
     private static DocumentationComponentTemplate CloneComponentTemplate(DocumentationComponentTemplate row) =>
@@ -362,7 +569,6 @@ public sealed class MetaDocsSuiteMerger
         {
             Id = row.Id,
             Name = row.Name,
-            ComponentKind = row.ComponentKind,
             TemplateText = row.TemplateText,
         };
 
@@ -417,6 +623,21 @@ public sealed class MetaDocsSuiteMerger
             static row => row.PreviousNarrative,
             static (row, previous) => row.PreviousNarrative = previous);
         ApplyPrevious(
+            source.DocumentationExampleList,
+            maps.Examples,
+            static row => row.PreviousExample,
+            static (row, previous) => row.PreviousExample = previous);
+        ApplyPrevious(
+            source.DocumentationExampleSectionList,
+            maps.ExampleSections,
+            static row => row.PreviousSection,
+            static (row, previous) => row.PreviousSection = previous);
+        ApplyPrevious(
+            source.DocumentationExampleCodeList,
+            maps.ExampleCodes,
+            static row => row.PreviousCode,
+            static (row, previous) => row.PreviousCode = previous);
+        ApplyPrevious(
             source.DocumentationRelationshipList,
             maps.Relationships,
             static row => row.PreviousRelationship,
@@ -453,6 +674,41 @@ public sealed class MetaDocsSuiteMerger
             static (row, previous) => row.PreviousNode = previous);
     }
 
+    private static void ApplyStructuralRelationships(MetaDocsModel source, MergeMaps maps)
+    {
+        foreach (var sourceSubject in source.DocumentationSubjectList)
+        {
+            if (!maps.Subjects.TryGetValue(sourceSubject, out var targetSubject))
+            {
+                continue;
+            }
+
+            if (sourceSubject.ParentSubject is not null &&
+                maps.Subjects.TryGetValue(sourceSubject.ParentSubject, out var targetParent))
+            {
+                targetSubject.ParentSubject = targetParent;
+            }
+        }
+
+        foreach (var sourceView in source.DocumentationViewList)
+        {
+            if (!maps.Views.TryGetValue(sourceView, out var targetView))
+            {
+                continue;
+            }
+
+            if (sourceView.RootSubject is not null &&
+                maps.Subjects.TryGetValue(sourceView.RootSubject, out var targetRoot))
+            {
+                targetView.RootSubject = targetRoot;
+                targetView.DocumentationViewType = maps.ViewTypes[sourceView.DocumentationViewType];
+                targetView.Name = sourceView.Name;
+                targetView.Title = sourceView.Title;
+                targetView.Summary = sourceView.Summary;
+            }
+        }
+    }
+
     private static void ApplyPrevious<T>(
         IEnumerable<T> sourceRows,
         IReadOnlyDictionary<T, T> map,
@@ -478,6 +734,18 @@ public sealed class MetaDocsSuiteMerger
 
     private sealed class MergeMaps
     {
+        public Dictionary<DocumentationWorkspaceType, DocumentationWorkspaceType> WorkspaceTypes { get; } = new();
+        public Dictionary<DocumentationSourceType, DocumentationSourceType> SourceTypes { get; } = new();
+        public Dictionary<DocumentationSubjectType, DocumentationSubjectType> SubjectTypes { get; } = new();
+        public Dictionary<DocumentationFactType, DocumentationFactType> FactTypes { get; } = new();
+        public Dictionary<DocumentationValueType, DocumentationValueType> ValueTypes { get; } = new();
+        public Dictionary<DocumentationRelationshipType, DocumentationRelationshipType> RelationshipTypes { get; } = new();
+        public Dictionary<DocumentationViewType, DocumentationViewType> ViewTypes { get; } = new();
+        public Dictionary<DocumentationTemplateType, DocumentationTemplateType> TemplateTypes { get; } = new();
+        public Dictionary<DocumentationTemplateRegionType, DocumentationTemplateRegionType> TemplateRegionTypes { get; } = new();
+        public Dictionary<DocumentationThemeAssetType, DocumentationThemeAssetType> ThemeAssetTypes { get; } = new();
+        public Dictionary<DocumentationLayoutType, DocumentationLayoutType> LayoutTypes { get; } = new();
+        public Dictionary<DocumentationComponentTemplateType, DocumentationComponentTemplateType> ComponentTemplateTypes { get; } = new();
         public Dictionary<DocumentationWorkspace, DocumentationWorkspace> Workspaces { get; } = new();
         public Dictionary<DocumentationSource, DocumentationSource> Sources { get; } = new();
         public Dictionary<DocumentationImportBatch, DocumentationImportBatch> Batches { get; } = new();
@@ -485,6 +753,9 @@ public sealed class MetaDocsSuiteMerger
         public Dictionary<DocumentationSubjectAlias, DocumentationSubjectAlias> SubjectAliases { get; } = new();
         public Dictionary<DocumentationFact, DocumentationFact> Facts { get; } = new();
         public Dictionary<DocumentationNarrative, DocumentationNarrative> Narratives { get; } = new();
+        public Dictionary<DocumentationExample, DocumentationExample> Examples { get; } = new();
+        public Dictionary<DocumentationExampleSection, DocumentationExampleSection> ExampleSections { get; } = new();
+        public Dictionary<DocumentationExampleCode, DocumentationExampleCode> ExampleCodes { get; } = new();
         public Dictionary<DocumentationRelationship, DocumentationRelationship> Relationships { get; } = new();
         public Dictionary<DocumentationTheme, DocumentationTheme> Themes { get; } = new();
         public Dictionary<DocumentationTemplate, DocumentationTemplate> Templates { get; } = new();

@@ -1,1563 +1,1103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:workspace" DocumentationSourceId="source:workspace-model:meta-analytics">
-      <DisplayName>MetaAnalytics</DisplayName>
-      <DisplayPath>MetaAnalytics</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaAnalytics\Workspaces\MetaAnalytics</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:model:metaanalytics" DocumentationSourceId="source:workspace-model:meta-analytics">
-      <DisplayName>MetaAnalytics</DisplayName>
-      <DisplayPath>MetaAnalytics.MetaAnalytics</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:model:metaanalytics</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaAnalytics</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics">
       <DisplayName>AggregationBehavior</DisplayName>
       <DisplayPath>MetaAnalytics.AggregationBehavior</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior</Key>
-      <Kind>Entity</Kind>
       <NativeId>AggregationBehavior</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.AggregationBehavior.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description">
       <DisplayName>Function</DisplayName>
       <DisplayPath>MetaAnalytics.AggregationBehavior.Function</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function</Key>
-      <Kind>Property</Kind>
       <NativeId>Function</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
       <DisplayName>Measure</DisplayName>
       <DisplayPath>MetaAnalytics.AggregationBehavior.Measure</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Measure:Measure</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:aggregationbehavior</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel</Key>
-      <Kind>Entity</Kind>
       <NativeId>AnalyticsModel</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel">
       <DisplayName>DefaultCulture</DisplayName>
       <DisplayPath>MetaAnalytics.AnalyticsModel.DefaultCulture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture</Key>
-      <Kind>Property</Kind>
       <NativeId>DefaultCulture</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:defaultculture">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.AnalyticsModel.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.AnalyticsModel.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:analyticsmodel:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:analyticsmodel</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:analyticsmodel">
       <DisplayName>Attribute</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute</Key>
-      <Kind>Entity</Kind>
       <NativeId>Attribute</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute">
       <DisplayName>DataCategory</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.DataCategory</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:datacategory</Key>
-      <Kind>Property</Kind>
       <NativeId>DataCategory</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datacategory">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datacategory">
       <DisplayName>DataTypeId</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.DataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:datatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>DataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:datatypeid">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:description">
       <DisplayName>Expression</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Expression</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:expression</Key>
-      <Kind>Property</Kind>
       <NativeId>Expression</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expression">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expression">
       <DisplayName>ExpressionLanguage</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.ExpressionLanguage</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage</Key>
-      <Kind>Property</Kind>
       <NativeId>ExpressionLanguage</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage">
       <DisplayName>FormatString</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.FormatString</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:formatstring</Key>
-      <Kind>Property</Kind>
       <NativeId>FormatString</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:formatstring">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.IsHidden</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:ishidden</Key>
-      <Kind>Property</Kind>
       <NativeId>IsHidden</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ishidden">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:iskey" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ishidden">
       <DisplayName>IsKey</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.IsKey</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:iskey</Key>
-      <Kind>Property</Kind>
       <NativeId>IsKey</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:iskey">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:isnullable" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:iskey">
       <DisplayName>IsNullable</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.IsNullable</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:isnullable</Key>
-      <Kind>Property</Kind>
       <NativeId>IsNullable</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:isnullable">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:isnullable">
       <DisplayName>Kind</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Kind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:kind</Key>
-      <Kind>Property</Kind>
       <NativeId>Kind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:kind">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:kind">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:name">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ordinal">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:sourcename" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:ordinal">
       <DisplayName>SourceName</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.SourceName</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:sourcename</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:sourcename">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:summarizeby" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:sourcename">
       <DisplayName>SummarizeBy</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.SummarizeBy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:property:summarizeby</Key>
-      <Kind>Property</Kind>
       <NativeId>SummarizeBy</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attribute:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attribute</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute">
       <DisplayName>AttributePermission</DisplayName>
       <DisplayPath>MetaAnalytics.AttributePermission</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributepermission</Key>
-      <Kind>Entity</Kind>
       <NativeId>AttributePermission</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributepermission">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.AttributePermission.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributepermission:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributepermission" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:property:description">
       <DisplayName>MetadataPermission</DisplayName>
       <DisplayPath>MetaAnalytics.AttributePermission.MetadataPermission</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributepermission:property:metadatapermission</Key>
-      <Kind>Property</Kind>
       <NativeId>MetadataPermission</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributepermission">
       <DisplayName>Attribute</DisplayName>
       <DisplayPath>MetaAnalytics.AttributePermission.Attribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Attribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributepermission" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission:relationship:attribute-attribute">
       <DisplayName>SecurityRole</DisplayName>
       <DisplayPath>MetaAnalytics.AttributePermission.SecurityRole</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributepermission:relationship:securityrole-securityrole</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SecurityRole:SecurityRole</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributepermission</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributepermission">
       <DisplayName>AttributeRelationship</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeRelationship</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributerelationship</Key>
-      <Kind>Entity</Kind>
       <NativeId>AttributeRelationship</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeRelationship.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:property:description">
       <DisplayName>RelationshipType</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeRelationship.RelationshipType</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:property:relationshiptype</Key>
-      <Kind>Property</Kind>
       <NativeId>RelationshipType</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship">
       <DisplayName>ChildAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeRelationship.ChildAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ChildAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship:relationship:childattribute-attribute">
       <DisplayName>ParentAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeRelationship.ParentAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributerelationship:relationship:parentattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ParentAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributerelationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributerelationship">
       <DisplayName>AttributeTranslation</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeTranslation</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributetranslation</Key>
-      <Kind>Entity</Kind>
       <NativeId>AttributeTranslation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
       <DisplayName>Caption</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeTranslation.Caption</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:property:caption</Key>
-      <Kind>Property</Kind>
       <NativeId>Caption</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:property:caption">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeTranslation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
       <DisplayName>Attribute</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeTranslation.Attribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Attribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation:relationship:attribute-attribute">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.AttributeTranslation.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:attributetranslation:relationship:culture-culture</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Culture:Culture</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:attributetranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:culture</Key>
-      <Kind>Entity</Kind>
       <NativeId>Culture</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:culture">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Culture.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:culture:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:culture" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Culture.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:culture:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:culture">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.Culture.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:culture:relationship:analyticsmodel-analyticsmodel</Key>
-      <Kind>Relationship</Kind>
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:culture</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:culture">
       <DisplayName>DataSource</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource</Key>
-      <Kind>Entity</Kind>
       <NativeId>DataSource</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource">
       <DisplayName>ConnectionReference</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.ConnectionReference</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:property:connectionreference</Key>
-      <Kind>Property</Kind>
       <NativeId>ConnectionReference</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:connectionreference">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:provider" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:provider" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:name">
       <DisplayName>Provider</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.Provider</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:property:provider</Key>
-      <Kind>Property</Kind>
       <NativeId>Provider</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:provider">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:property:sourcekind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource:property:provider">
       <DisplayName>SourceKind</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.SourceKind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:property:sourcekind</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceKind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:datasource">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.DataSource.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:datasource:relationship:analyticsmodel-analyticsmodel</Key>
-      <Kind>Relationship</Kind>
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:datasource</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource">
       <DisplayName>Hierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy</Key>
-      <Kind>Entity</Kind>
       <NativeId>Hierarchy</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:description">
       <DisplayName>DisplayFolder</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.DisplayFolder</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder</Key>
-      <Kind>Property</Kind>
       <NativeId>DisplayFolder</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:displayfolder">
       <DisplayName>IsHidden</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.IsHidden</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden</Key>
-      <Kind>Property</Kind>
       <NativeId>IsHidden</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:ishidden">
       <DisplayName>Kind</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.Kind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:kind</Key>
-      <Kind>Property</Kind>
       <NativeId>Kind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:kind">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy:property:kind">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchy">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchy:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchy</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchy">
       <DisplayName>HierarchyLevel</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyLevel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel</Key>
-      <Kind>Entity</Kind>
       <NativeId>HierarchyLevel</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyLevel.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:property:name">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyLevel.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel">
       <DisplayName>Attribute</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyLevel.Attribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Attribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:attribute-attribute">
       <DisplayName>Hierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyLevel.Hierarchy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchylevel:relationship:hierarchy-hierarchy</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Hierarchy:Hierarchy</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchylevel</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchylevel">
       <DisplayName>HierarchyTranslation</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyTranslation</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation</Key>
-      <Kind>Entity</Kind>
       <NativeId>HierarchyTranslation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
       <DisplayName>Caption</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyTranslation.Caption</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption</Key>
-      <Kind>Property</Kind>
       <NativeId>Caption</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:property:caption">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyTranslation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyTranslation.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Culture:Culture</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:culture-culture">
       <DisplayName>Hierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.HierarchyTranslation.Hierarchy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:hierarchytranslation:relationship:hierarchy-hierarchy</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Hierarchy:Hierarchy</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:hierarchytranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
       <DisplayName>Measure</DisplayName>
       <DisplayPath>MetaAnalytics.Measure</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure</Key>
-      <Kind>Entity</Kind>
       <NativeId>Measure</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure">
       <DisplayName>DataTypeId</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.DataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:datatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>DataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:datatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:datatypeid">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:description">
       <DisplayName>DisplayFolder</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.DisplayFolder</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:displayfolder</Key>
-      <Kind>Property</Kind>
       <NativeId>DisplayFolder</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:displayfolder">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:displayfolder">
       <DisplayName>FormatString</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.FormatString</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:formatstring</Key>
-      <Kind>Property</Kind>
       <NativeId>FormatString</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:formatstring">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:formatstring">
       <DisplayName>IsHidden</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.IsHidden</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:ishidden</Key>
-      <Kind>Property</Kind>
       <NativeId>IsHidden</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:ishidden">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:property:ishidden">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure">
       <DisplayName>SourceAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.SourceAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SourceAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measure:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure">
       <DisplayName>MeasureTranslation</DisplayName>
       <DisplayPath>MetaAnalytics.MeasureTranslation</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measuretranslation</Key>
-      <Kind>Entity</Kind>
       <NativeId>MeasureTranslation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
       <DisplayName>Caption</DisplayName>
       <DisplayPath>MetaAnalytics.MeasureTranslation.Caption</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:property:caption</Key>
-      <Kind>Property</Kind>
       <NativeId>Caption</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:property:caption">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.MeasureTranslation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.MeasureTranslation.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Culture:Culture</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation:relationship:culture-culture">
       <DisplayName>Measure</DisplayName>
       <DisplayPath>MetaAnalytics.MeasureTranslation.Measure</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:measuretranslation:relationship:measure-measure</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Measure:Measure</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:measuretranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspective</Key>
-      <Kind>Entity</Kind>
       <NativeId>Perspective</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspective">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Perspective.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspective:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspective" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Perspective.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspective:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspective">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.Perspective.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspective:relationship:analyticsmodel-analyticsmodel</Key>
-      <Kind>Relationship</Kind>
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspective</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspective">
       <DisplayName>PerspectiveAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute</Key>
-      <Kind>Entity</Kind>
       <NativeId>PerspectiveAttribute</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute">
       <DisplayName>Attribute</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveAttribute.Attribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Attribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:attribute-attribute">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveAttribute.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectiveattribute:relationship:perspective-perspective</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Perspective:Perspective</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectiveattribute</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectiveattribute">
       <DisplayName>PerspectiveHierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveHierarchy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy</Key>
-      <Kind>Entity</Kind>
       <NativeId>PerspectiveHierarchy</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy">
       <DisplayName>Hierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveHierarchy.Hierarchy</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Hierarchy:Hierarchy</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:hierarchy-hierarchy">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveHierarchy.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivehierarchy:relationship:perspective-perspective</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Perspective:Perspective</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivehierarchy</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivehierarchy">
       <DisplayName>PerspectiveMeasure</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveMeasure</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure</Key>
-      <Kind>Entity</Kind>
       <NativeId>PerspectiveMeasure</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure">
       <DisplayName>Measure</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveMeasure.Measure</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Measure:Measure</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:measure-measure">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveMeasure.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivemeasure:relationship:perspective-perspective</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Perspective:Perspective</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivemeasure</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivemeasure">
       <DisplayName>PerspectiveTable</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTable</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetable</Key>
-      <Kind>Entity</Kind>
       <NativeId>PerspectiveTable</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTable.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Perspective:Perspective</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable:relationship:perspective-perspective">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTable.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetable:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetable</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetable">
       <DisplayName>PerspectiveTranslation</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTranslation</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation</Key>
-      <Kind>Entity</Kind>
       <NativeId>PerspectiveTranslation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation">
       <DisplayName>Caption</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTranslation.Caption</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption</Key>
-      <Kind>Property</Kind>
       <NativeId>Caption</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:property:caption">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTranslation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTranslation.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Culture:Culture</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:culture-culture">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.PerspectiveTranslation.Perspective</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:perspectivetranslation:relationship:perspective-perspective</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Perspective:Perspective</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:perspectivetranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:perspectivetranslation">
       <DisplayName>Relationship</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship</Key>
-      <Kind>Entity</Kind>
       <NativeId>Relationship</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:cardinality" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship">
       <DisplayName>Cardinality</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.Cardinality</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:cardinality</Key>
-      <Kind>Property</Kind>
       <NativeId>Cardinality</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:cardinality">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:cardinality">
       <DisplayName>CrossFilterDirection</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.CrossFilterDirection</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection</Key>
-      <Kind>Property</Kind>
       <NativeId>CrossFilterDirection</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:crossfilterdirection">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isactive" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:description">
       <DisplayName>IsActive</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.IsActive</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:isactive</Key>
-      <Kind>Property</Kind>
       <NativeId>IsActive</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isactive">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:isrequired" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isactive">
       <DisplayName>IsRequired</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.IsRequired</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:isrequired</Key>
-      <Kind>Property</Kind>
       <NativeId>IsRequired</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isrequired">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:isrequired">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:name">
       <DisplayName>RelationshipKind</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.RelationshipKind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind</Key>
-      <Kind>Property</Kind>
       <NativeId>RelationshipKind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:rolename" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:property:rolename" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:property:relationshipkind">
       <DisplayName>RoleName</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.RoleName</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:property:rolename</Key>
-      <Kind>Property</Kind>
       <NativeId>RoleName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship">
       <DisplayName>FromAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.FromAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>FromAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromattribute-attribute">
       <DisplayName>FromTable</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.FromTable</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>FromTable:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:fromtable-table">
       <DisplayName>GranularityAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.GranularityAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>GranularityAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:granularityattribute-attribute">
       <DisplayName>IntermediateTable</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.IntermediateTable</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>IntermediateTable:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:intermediatetable-table">
       <DisplayName>ToAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.ToAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ToAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:relationship" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship:relationship:toattribute-attribute">
       <DisplayName>ToTable</DisplayName>
       <DisplayPath>MetaAnalytics.Relationship.ToTable</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:relationship:relationship:totable-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ToTable:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:relationship</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship">
       <DisplayName>RoleFilter</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter</Key>
-      <Kind>Entity</Kind>
       <NativeId>RoleFilter</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:description">
       <DisplayName>Expression</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter.Expression</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:expression</Key>
-      <Kind>Property</Kind>
       <NativeId>Expression</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:expression">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:expression">
       <DisplayName>ExpressionLanguage</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter.ExpressionLanguage</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage</Key>
-      <Kind>Property</Kind>
       <NativeId>ExpressionLanguage</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
       <DisplayName>SecurityRole</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter.SecurityRole</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SecurityRole:SecurityRole</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.RoleFilter.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolefilter</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
       <DisplayName>RoleMember</DisplayName>
       <DisplayPath>MetaAnalytics.RoleMember</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolemember</Key>
-      <Kind>Entity</Kind>
       <NativeId>RoleMember</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolemember">
       <DisplayName>MemberKind</DisplayName>
       <DisplayPath>MetaAnalytics.RoleMember.MemberKind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolemember:property:memberkind</Key>
-      <Kind>Property</Kind>
       <NativeId>MemberKind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:property:membername" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolemember" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember:property:memberkind">
       <DisplayName>MemberName</DisplayName>
       <DisplayPath>MetaAnalytics.RoleMember.MemberName</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolemember:property:membername</Key>
-      <Kind>Property</Kind>
       <NativeId>MemberName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolemember">
       <DisplayName>SecurityRole</DisplayName>
       <DisplayPath>MetaAnalytics.RoleMember.SecurityRole</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:rolemember:relationship:securityrole-securityrole</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SecurityRole:SecurityRole</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:rolemember</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolemember">
       <DisplayName>SecurityRole</DisplayName>
       <DisplayPath>MetaAnalytics.SecurityRole</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:securityrole</Key>
-      <Kind>Entity</Kind>
       <NativeId>SecurityRole</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:securityrole">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.SecurityRole.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:securityrole" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:description">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.SecurityRole.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:property:permission" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:securityrole" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole:property:name">
       <DisplayName>Permission</DisplayName>
       <DisplayPath>MetaAnalytics.SecurityRole.Permission</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:securityrole:property:permission</Key>
-      <Kind>Property</Kind>
       <NativeId>Permission</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:securityrole">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.SecurityRole.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:securityrole:relationship:analyticsmodel-analyticsmodel</Key>
-      <Kind>Relationship</Kind>
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:securityrole</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:securityrole">
       <DisplayName>SortByAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.SortByAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute</Key>
-      <Kind>Entity</Kind>
       <NativeId>SortByAttribute</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.SortByAttribute.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
       <DisplayName>SortAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.SortByAttribute.SortAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SortAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sortattribute-attribute">
       <DisplayName>SourceAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.SortByAttribute.SourceAttribute</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:sortbyattribute:relationship:sourceattribute-attribute</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SourceAttribute:Attribute</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:sortbyattribute</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table</Key>
-      <Kind>Entity</Kind>
       <NativeId>Table</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:datacategory" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table">
       <DisplayName>DataCategory</DisplayName>
       <DisplayPath>MetaAnalytics.Table.DataCategory</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:datacategory</Key>
-      <Kind>Property</Kind>
       <NativeId>DataCategory</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:datacategory">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:datacategory">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.Table.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:displayfolder" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:description">
       <DisplayName>DisplayFolder</DisplayName>
       <DisplayPath>MetaAnalytics.Table.DisplayFolder</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:displayfolder</Key>
-      <Kind>Property</Kind>
       <NativeId>DisplayFolder</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:displayfolder">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:ishidden" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:displayfolder">
       <DisplayName>IsHidden</DisplayName>
       <DisplayPath>MetaAnalytics.Table.IsHidden</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:ishidden</Key>
-      <Kind>Property</Kind>
       <NativeId>IsHidden</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:ishidden">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:kind" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:ishidden">
       <DisplayName>Kind</DisplayName>
       <DisplayPath>MetaAnalytics.Table.Kind</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:kind</Key>
-      <Kind>Property</Kind>
       <NativeId>Kind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:kind">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:table" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table:property:kind">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaAnalytics.Table.Name</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:table">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.Table.AnalyticsModel</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:table:relationship:analyticsmodel-analyticsmodel</Key>
-      <Kind>Relationship</Kind>
       <NativeId>AnalyticsModel:AnalyticsModel</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:table</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:table">
       <DisplayName>TablePermission</DisplayName>
       <DisplayPath>MetaAnalytics.TablePermission</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tablepermission</Key>
-      <Kind>Entity</Kind>
       <NativeId>TablePermission</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:tablepermission">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.TablePermission.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tablepermission:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:property:description">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:tablepermission" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:property:description">
       <DisplayName>MetadataPermission</DisplayName>
       <DisplayPath>MetaAnalytics.TablePermission.MetadataPermission</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tablepermission:property:metadatapermission</Key>
-      <Kind>Property</Kind>
       <NativeId>MetadataPermission</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:tablepermission">
       <DisplayName>SecurityRole</DisplayName>
       <DisplayPath>MetaAnalytics.TablePermission.SecurityRole</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SecurityRole:SecurityRole</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:tablepermission" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission:relationship:securityrole-securityrole">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.TablePermission.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tablepermission:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tablepermission</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tablepermission">
       <DisplayName>TableTranslation</DisplayName>
       <DisplayPath>MetaAnalytics.TableTranslation</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tabletranslation</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableTranslation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:model:metaanalytics</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation">
       <DisplayName>Caption</DisplayName>
       <DisplayPath>MetaAnalytics.TableTranslation.Caption</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:property:caption</Key>
-      <Kind>Property</Kind>
       <NativeId>Caption</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:property:caption">
       <DisplayName>Description</DisplayName>
       <DisplayPath>MetaAnalytics.TableTranslation.Description</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:property:description</Key>
-      <Kind>Property</Kind>
       <NativeId>Description</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.TableTranslation.Culture</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Culture:Culture</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation" PreviousSubjectId="source:workspace-model:meta-analytics:entity:tabletranslation:relationship:culture-culture">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.TableTranslation.Table</DisplayPath>
-      <Key>source:workspace-model:meta-analytics:entity:tabletranslation:relationship:table-table</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Table:Table</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-analytics:entity:tabletranslation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:model:metaanalytics" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaAnalytics</DisplayName>
+      <DisplayPath>MetaAnalytics.MetaAnalytics</DisplayPath>
+      <NativeId>MetaAnalytics</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:workspace" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaAnalytics</DisplayName>
+      <DisplayPath>MetaAnalytics</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaAnalytics\Workspaces\MetaAnalytics</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

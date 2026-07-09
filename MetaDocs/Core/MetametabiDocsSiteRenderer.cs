@@ -15,13 +15,9 @@ public sealed class MetametabiDocsSiteRenderer
 
         MetaDocsDefaults.EnsureDocumentationWorkspace(model, "workspace:default", "Documentation", "SourceDocumentation");
         MetaDocsDefaults.EnsureDefaultTheme(model);
-        var view = MetaDocsPublicReferenceViewBuilder.EnsurePublicReferenceView(model);
-        var siteTitle = ResolveSiteTitle(view);
-
-        var subjectsByKey = model.DocumentationSubjectList
-            .GroupBy(subject => subject.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.First(), StringComparer.OrdinalIgnoreCase);
-        var tree = ResolveReferenceTree(model, view, subjectsByKey);
+        var view = MetaDocsDefaults.EnsureDefaultView(model);
+        var tree = ResolveReferenceTree(model, view);
+        var siteTitle = ResolveSiteTitle(view, tree.Root);
 
         return ApplyShellTemplate(
             ResolveShellTemplate(model),
@@ -35,50 +31,33 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static ReferenceTree ResolveReferenceTree(
         MetaDocsModel model,
-        DocumentationView view,
-        IReadOnlyDictionary<string, DocumentationSubject> subjectsByKey)
+        DocumentationView view)
     {
-        var subjectNodes = MetaDocsOrdering.ByPrevious(
-                model.DocumentationViewNodeList
-                    .Where(node =>
-                ReferenceEquals(node.DocumentationView, view) &&
-                !string.IsNullOrWhiteSpace(node.SubjectKey)),
-                static node => node.PreviousNode,
-                static node => node.Title)
-            .Select(node => subjectsByKey.TryGetValue(node.SubjectKey!, out var subject) &&
-                            MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out var classification)
-                ? new ClassifiedReferenceSubject(subject, classification)
-                : null)
-            .Where(static item => item is not null)
-            .Cast<ClassifiedReferenceSubject>()
-            .GroupBy(item => item.Subject.Id, StringComparer.OrdinalIgnoreCase)
-            .Select(group => group.First())
-            .ToArray();
+        var root = view.RootSubject ??
+                   model.DocumentationSubjectList
+                       .Where(IsRenderable)
+                       .Where(static subject => subject.ParentSubject is null)
+                       .OrderBy(static subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase)
+                       .FirstOrDefault()
+                   ?? throw new InvalidOperationException("The documentation view does not declare a root subject.");
 
-        var families = subjectNodes
-            .GroupBy(item => item.Classification.ProductFamily)
-            .OrderBy(group => group.Key)
-            .Select(familyGroup =>
-            {
-                var surfaces = familyGroup
-                    .GroupBy(item => item.Classification.Surface)
-                    .OrderBy(group => group.Key)
-                    .Select(surfaceGroup => new SurfaceSection(
-                        surfaceGroup.Key,
-                        MetaDocsPublicReferenceClassifier.FormatReferenceSurface(surfaceGroup.Key),
-                        surfaceGroup
-                            .OrderBy(item => item.Classification.SortKey, StringComparer.OrdinalIgnoreCase)
-                            .ThenBy(item => item.Subject.DisplayName, StringComparer.OrdinalIgnoreCase)
-                            .Select(item => item.Subject)
-                            .ToArray()))
-                    .ToArray();
-                return new FamilySection(
-                    familyGroup.Key,
-                    MetaDocsPublicReferenceClassifier.FormatProductFamily(familyGroup.Key),
-                    surfaces);
-            })
-            .ToArray();
-        return new ReferenceTree(families);
+        var childrenByParent = model.DocumentationSubjectList
+            .Where(IsRenderable)
+            .Where(static subject => subject.ParentSubject is not null)
+            .GroupBy(static subject => subject.ParentSubject!.Id, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(static group => group.Key, static group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
+
+        return new ReferenceTree(root, ChildNodes(root));
+
+        IReadOnlyList<ReferenceNode> ChildNodes(DocumentationSubject parent) =>
+            MetaDocsOrdering.ByPrevious(
+                    childrenByParent.TryGetValue(parent.Id, out var children)
+                        ? children
+                        : Array.Empty<DocumentationSubject>(),
+                    static subject => subject.PreviousSubject,
+                    static subject => FirstNonEmpty(subject.DisplayPath, subject.DisplayName, subject.Id))
+                .Select(subject => new ReferenceNode(subject, ChildNodes(subject)))
+                .ToArray();
     }
 
     private static string BuildNavigation(MetaDocsModel model)
@@ -108,19 +87,23 @@ public sealed class MetametabiDocsSiteRenderer
         AppendSidebar(builder, tree);
         builder.AppendLine("      <main class=\"viewer\" id=\"viewer\" tabindex=\"0\">");
         AppendHomePanel(builder, view, tree);
-        foreach (var family in tree.Families)
+        foreach (var family in tree.Children)
         {
-            AppendGroupPanel(builder, model, family, MetaDocsReferenceSurface.Cli);
-            AppendGroupPanel(builder, model, family, MetaDocsReferenceSurface.Models);
-
-            foreach (var subject in SubjectsFor(family, MetaDocsReferenceSurface.Cli))
+            foreach (var section in family.Children)
             {
-                AppendCliApplicationPanel(builder, model, family, subject);
-            }
+                AppendGroupPanel(builder, model, family, section);
 
-            foreach (var subject in SubjectsFor(family, MetaDocsReferenceSurface.Models))
-            {
-                AppendModelPanel(builder, model, family, subject);
+                foreach (var child in ReferenceSubjects(section))
+                {
+                    if (IsCliApplication(child.Subject))
+                    {
+                        AppendCliApplicationPanel(builder, model, family.Subject.DisplayName, section.Subject.DisplayName, child.Subject);
+                    }
+                    else if (IsModel(child.Subject))
+                    {
+                        AppendModelPanel(builder, model, family.Subject.DisplayName, section.Subject.DisplayName, child.Subject);
+                    }
+                }
             }
         }
 
@@ -133,47 +116,42 @@ public sealed class MetametabiDocsSiteRenderer
     {
         builder.AppendLine("      <aside class=\"sidebar\" aria-label=\"Reference navigation\">");
         builder.AppendLine("        <div class=\"side-kicker\">Reference</div>");
-        foreach (var family in tree.Families)
+        foreach (var family in tree.Children)
         {
             builder.Append("        <div class=\"nav-product\">")
-                .Append(Html(family.Title))
+                .Append(Html(family.Subject.DisplayName))
                 .AppendLine("</div>");
-            AppendSidebarSurface(builder, family, MetaDocsReferenceSurface.Cli);
-            AppendSidebarSurface(builder, family, MetaDocsReferenceSurface.Models);
+            foreach (var section in family.Children)
+            {
+                AppendSidebarSection(builder, section);
+            }
         }
 
         builder.AppendLine("      </aside>");
     }
 
-    private static void AppendSidebarSurface(
+    private static void AppendSidebarSection(
         StringBuilder builder,
-        FamilySection family,
-        MetaDocsReferenceSurface surface)
+        ReferenceNode section)
     {
-        var surfaceSection = Surface(family, surface);
-        if (surfaceSection is null)
-        {
-            return;
-        }
-
-        var groupPanelId = GroupPanelId(family, surface);
+        var groupPanelId = GroupPanelId(section);
         builder.Append("        <a class=\"nav-surface\" href=\"#")
             .Append(Attr(groupPanelId))
             .Append("\" data-panel-link=\"")
             .Append(Attr(groupPanelId))
             .Append("\">")
-            .Append(Html(surfaceSection.Title))
+            .Append(Html(section.Subject.DisplayName))
             .AppendLine("</a>");
         builder.AppendLine("        <ul class=\"nav-list\">");
-        foreach (var subject in surfaceSection.Subjects)
+        foreach (var child in ReferenceSubjects(section))
         {
-            var panelId = PanelId(subject, surface);
+            var panelId = PanelId(child.Subject);
             builder.Append("          <li><a class=\"nav-link\" href=\"#")
                 .Append(Attr(panelId))
                 .Append("\" data-panel-link=\"")
                 .Append(Attr(panelId))
                 .Append("\">")
-                .Append(Html(subject.DisplayName))
+                .Append(Html(child.Subject.DisplayName))
                 .AppendLine("</a></li>");
         }
 
@@ -186,18 +164,20 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("          <div class=\"hero\">");
         builder.AppendLine("            <div class=\"eyebrow\">Reference</div>");
         builder.Append("            <h1>")
-            .Append(Html(FirstNonEmpty(view.Title, view.Name, "Documentation")))
+            .Append(Html(FirstNonEmpty(tree.Root.DisplayName, view.Title, view.Name, "Documentation")))
             .AppendLine("</h1>");
         builder.Append("            <p>")
-            .Append(Html(FirstNonEmpty(view.Summary, "Modeled documentation for metadata-shaped things.")))
+            .Append(Html(FirstNonEmpty(SubjectSummary(null, tree.Root), tree.Root.Summary, view.Summary, "Modeled documentation for metadata-shaped things.")))
             .AppendLine("</p>");
         builder.AppendLine("          </div>");
 
         builder.AppendLine("          <section class=\"entry-grid\" aria-label=\"Reference entry points\">");
-        foreach (var family in tree.Families)
+        foreach (var family in tree.Children)
         {
-            AppendEntryCard(builder, family, MetaDocsReferenceSurface.Cli);
-            AppendEntryCard(builder, family, MetaDocsReferenceSurface.Models);
+            foreach (var section in family.Children)
+            {
+                AppendEntryCard(builder, family, section);
+            }
         }
 
         builder.AppendLine("          </section>");
@@ -206,30 +186,25 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static void AppendEntryCard(
         StringBuilder builder,
-        FamilySection family,
-        MetaDocsReferenceSurface surface)
+        ReferenceNode family,
+        ReferenceNode section)
     {
-        var surfaceSection = Surface(family, surface);
-        if (surfaceSection is null)
-        {
-            return;
-        }
-
-        var groupPanelId = GroupPanelId(family, surface);
+        var subjects = ReferenceSubjects(section);
+        var groupPanelId = GroupPanelId(section);
         builder.Append("            <a class=\"entry-card\" href=\"#")
             .Append(Attr(groupPanelId))
             .Append("\" data-panel-link=\"")
             .Append(Attr(groupPanelId))
             .AppendLine("\">");
         builder.Append("              <div class=\"label\">")
-            .Append(Html(family.Title))
+            .Append(Html(family.Subject.DisplayName))
             .AppendLine("</div>");
         builder.Append("              <h2>")
-            .Append(Html(surfaceSection.Title))
+            .Append(Html(section.Subject.DisplayName))
             .AppendLine("</h2>");
         builder.Append("              <p>")
-            .Append(surfaceSection.Subjects.Count)
-            .Append(surfaceSection.Subjects.Count == 1 ? " reference" : " references")
+            .Append(subjects.Count)
+            .Append(subjects.Count == 1 ? " reference" : " references")
             .AppendLine("</p>");
         builder.AppendLine("            </a>");
     }
@@ -237,16 +212,11 @@ public sealed class MetametabiDocsSiteRenderer
     private static void AppendGroupPanel(
         StringBuilder builder,
         MetaDocsModel model,
-        FamilySection family,
-        MetaDocsReferenceSurface surface)
+        ReferenceNode family,
+        ReferenceNode section)
     {
-        var surfaceSection = Surface(family, surface);
-        if (surfaceSection is null)
-        {
-            return;
-        }
-
-        var groupPanelId = GroupPanelId(family, surface);
+        var subjects = ReferenceSubjects(section);
+        var groupPanelId = GroupPanelId(section);
         builder.Append("        <section class=\"panel\" id=\"")
             .Append(Attr(groupPanelId))
             .Append("\" data-panel=\"")
@@ -254,35 +224,35 @@ public sealed class MetametabiDocsSiteRenderer
             .AppendLine("\">");
         builder.AppendLine("          <header class=\"panel-header\">");
         builder.Append("            <div class=\"breadcrumb\">")
-            .Append(Html(family.Title))
+            .Append(Html(family.Subject.DisplayName))
             .Append(" / ")
-            .Append(Html(surfaceSection.Title))
+            .Append(Html(section.Subject.DisplayName))
             .AppendLine("</div>");
         builder.Append("            <h2>")
-            .Append(Html(family.Title))
+            .Append(Html(family.Subject.DisplayName))
             .Append(' ')
-            .Append(Html(surfaceSection.Title))
+            .Append(Html(section.Subject.DisplayName))
             .AppendLine("</h2>");
         builder.Append("            <p class=\"panel-lead\">")
-            .Append(Html(GroupSummary(family, surface)))
+            .Append(Html(SubjectSummary(model, section.Subject)))
             .AppendLine("</p>");
         builder.AppendLine("          </header>");
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
         builder.Append("              <h3>")
-            .Append(surface == MetaDocsReferenceSurface.Cli ? "Command-line tools" : "Models")
+            .Append(Html(GroupItemTitle(subjects)))
             .AppendLine("</h3>");
         builder.AppendLine("              <p>Select an item from the navigation to open its reference page.</p>");
         builder.AppendLine("            </div>");
         builder.AppendLine("            <div class=\"card-body\">");
 
-        if (surface == MetaDocsReferenceSurface.Cli)
+        if (subjects.Any(child => IsCliApplication(child.Subject)))
         {
-            AppendCliGroupTable(builder, model, surfaceSection);
+            AppendCliGroupTable(builder, model, subjects);
         }
-        else
+        else if (subjects.Any(child => IsModel(child.Subject)))
         {
-            AppendModelGroupTable(builder, model, surfaceSection);
+            AppendModelGroupTable(builder, model, subjects);
         }
 
         builder.AppendLine("            </div>");
@@ -290,14 +260,15 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("        </section>");
     }
 
-    private static void AppendCliGroupTable(StringBuilder builder, MetaDocsModel model, SurfaceSection surface)
+    private static void AppendCliGroupTable(StringBuilder builder, MetaDocsModel model, IReadOnlyList<ReferenceNode> subjects)
     {
         builder.AppendLine("              <table>");
         builder.AppendLine("                <thead><tr><th>CLI</th><th>Summary</th></tr></thead>");
         builder.AppendLine("                <tbody>");
-        foreach (var subject in surface.Subjects)
+        foreach (var node in subjects.Where(node => IsCliApplication(node.Subject)))
         {
-            var panelId = PanelId(subject, MetaDocsReferenceSurface.Cli);
+            var subject = node.Subject;
+            var panelId = PanelId(subject);
             builder.AppendLine("                  <tr>");
             builder.Append("                    <td class=\"cmd\"><a href=\"#")
                 .Append(Attr(panelId))
@@ -316,14 +287,15 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("              </table>");
     }
 
-    private static void AppendModelGroupTable(StringBuilder builder, MetaDocsModel model, SurfaceSection surface)
+    private static void AppendModelGroupTable(StringBuilder builder, MetaDocsModel model, IReadOnlyList<ReferenceNode> subjects)
     {
         builder.AppendLine("              <table>");
         builder.AppendLine("                <thead><tr><th>Model</th><th>Entities</th><th>Properties</th><th>Relationships</th></tr></thead>");
         builder.AppendLine("                <tbody>");
-        foreach (var subject in surface.Subjects)
+        foreach (var node in subjects.Where(node => IsModel(node.Subject)))
         {
-            var panelId = PanelId(subject, MetaDocsReferenceSurface.Models);
+            var subject = node.Subject;
+            var panelId = PanelId(subject);
             var entities = ChildSubjects(model, subject, "Entity");
             builder.AppendLine("                  <tr>");
             builder.Append("                    <td><a href=\"#")
@@ -352,17 +324,18 @@ public sealed class MetametabiDocsSiteRenderer
     private static void AppendCliApplicationPanel(
         StringBuilder builder,
         MetaDocsModel model,
-        FamilySection family,
+        string familyTitle,
+        string sectionTitle,
         DocumentationSubject application)
     {
         var commands = CliCommandSubjects(model, application);
-        var panelId = PanelId(application, MetaDocsReferenceSurface.Cli);
+        var panelId = PanelId(application);
         builder.Append("        <section class=\"panel\" id=\"")
             .Append(Attr(panelId))
             .Append("\" data-panel=\"")
             .Append(Attr(panelId))
             .AppendLine("\">");
-        AppendPanelHeader(builder, family.Title, "CLI", application.DisplayName, SubjectSummary(model, application));
+        AppendPanelHeader(builder, familyTitle, sectionTitle, application.DisplayName, SubjectSummary(model, application));
 
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
@@ -377,6 +350,8 @@ public sealed class MetametabiDocsSiteRenderer
         AppendCommandOverviewTable(builder, model, commands);
         builder.AppendLine("            </div>");
         builder.AppendLine("          </div>");
+
+        AppendExamplesSection(builder, model, application);
 
         foreach (var command in commands)
         {
@@ -413,7 +388,7 @@ public sealed class MetametabiDocsSiteRenderer
     private static void AppendCommandCard(StringBuilder builder, MetaDocsModel model, DocumentationSubject command)
     {
         var options = ChildSubjects(model, command, "CliOption");
-        var examples = CommandExamples(model, command);
+        var examples = Examples(model, command);
         var guidance = CommandGuidance(model, command);
         var summary = SubjectSummary(model, command);
         builder.AppendLine("          <details class=\"card cli-command-card\">");
@@ -465,16 +440,7 @@ public sealed class MetametabiDocsSiteRenderer
 
         if (examples.Length > 0)
         {
-            builder.AppendLine("              <section class=\"subsection\">");
-            builder.AppendLine("                <h4 class=\"subsection-title\">Examples</h4>");
-            foreach (var example in examples)
-            {
-                builder.Append("                <pre><code>")
-                    .Append(Html(example))
-                    .AppendLine("</code></pre>");
-            }
-
-            builder.AppendLine("              </section>");
+            AppendExamplesSection(builder, model, examples, "              ");
         }
 
         builder.AppendLine("              </div>");
@@ -516,6 +482,84 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("              </section>");
     }
 
+    private static void AppendExamplesSection(
+        StringBuilder builder,
+        MetaDocsModel model,
+        DocumentationSubject subject,
+        string indent = "          ")
+    {
+        AppendExamplesSection(builder, model, Examples(model, subject), indent);
+    }
+
+    private static void AppendExamplesSection(
+        StringBuilder builder,
+        MetaDocsModel model,
+        IReadOnlyList<DocumentationExample> examples,
+        string indent)
+    {
+        if (examples.Count == 0)
+        {
+            return;
+        }
+
+        builder.Append(indent).AppendLine("<section class=\"subsection examples\">");
+        builder.Append(indent).AppendLine("  <h4 class=\"subsection-title\">Examples</h4>");
+        foreach (var example in examples)
+        {
+            builder.Append(indent).AppendLine("  <article class=\"example-block\">");
+            builder.Append(indent).Append("    <h5>")
+                .Append(Html(example.Title))
+                .AppendLine("</h5>");
+            if (!string.IsNullOrWhiteSpace(example.Summary))
+            {
+                builder.Append(indent).Append("    <p class=\"note\">")
+                    .Append(Html(example.Summary!))
+                    .AppendLine("</p>");
+            }
+
+            foreach (var section in ExampleSections(model, example))
+            {
+                if (!string.IsNullOrWhiteSpace(section.Title))
+                {
+                    builder.Append(indent).Append("    <h6>")
+                        .Append(Html(section.Title!))
+                        .AppendLine("</h6>");
+                }
+
+                if (!string.IsNullOrWhiteSpace(section.Body))
+                {
+                    builder.Append(indent).Append("    <p>")
+                        .Append(Html(section.Body!))
+                        .AppendLine("</p>");
+                }
+
+                foreach (var code in ExampleCodes(model, section))
+                {
+                    if (!string.IsNullOrWhiteSpace(code.Title))
+                    {
+                        builder.Append(indent).Append("    <div class=\"code-title\">")
+                            .Append(Html(code.Title!))
+                            .AppendLine("</div>");
+                    }
+
+                    builder.Append(indent).Append("    <pre><code");
+                    if (!string.IsNullOrWhiteSpace(code.Language))
+                    {
+                        builder.Append(" class=\"language-").Append(Attr(code.Language!)).Append('"');
+                    }
+
+                    builder.Append('>')
+                        .Append(Html(code.Code))
+                        .AppendLine("</code></pre>");
+                }
+            }
+
+            builder.Append(indent).AppendLine("  </article>");
+        }
+
+        builder.Append(indent).AppendLine("</section>");
+    }
+
     private static string OptionValueDetails(MetaDocsModel model, DocumentationSubject option)
     {
         var valueName = FindFact(model, option, "Cli", "ValueName");
@@ -533,19 +577,20 @@ public sealed class MetametabiDocsSiteRenderer
     private static void AppendModelPanel(
         StringBuilder builder,
         MetaDocsModel model,
-        FamilySection family,
+        string familyTitle,
+        string sectionTitle,
         DocumentationSubject modelSubject)
     {
         var entities = ChildSubjects(model, modelSubject, "Entity");
         var propertyCount = entities.Sum(entity => ChildSubjects(model, entity, "Property").Length);
         var relationshipCount = entities.Sum(entity => ChildSubjects(model, entity, "Relationship").Length);
-        var panelId = PanelId(modelSubject, MetaDocsReferenceSurface.Models);
+        var panelId = PanelId(modelSubject);
         builder.Append("        <section class=\"panel\" id=\"")
             .Append(Attr(panelId))
             .Append("\" data-panel=\"")
             .Append(Attr(panelId))
             .AppendLine("\">");
-        AppendPanelHeader(builder, family.Title, "Models", modelSubject.DisplayName, SubjectSummary(model, modelSubject));
+        AppendPanelHeader(builder, familyTitle, sectionTitle, modelSubject.DisplayName, SubjectSummary(model, modelSubject));
         builder.AppendLine("          <div class=\"summary-row\">");
         builder.Append("            <span class=\"pill\">")
             .Append(entities.Length)
@@ -560,6 +605,8 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(relationshipCount == 1 ? " relationship" : " relationships")
             .AppendLine("</span>");
         builder.AppendLine("          </div>");
+
+        AppendExamplesSection(builder, model, modelSubject);
 
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
@@ -691,6 +738,8 @@ public sealed class MetametabiDocsSiteRenderer
         {
             AppendReferencedByTable(builder, model, incomingReferences);
         }
+
+        AppendExamplesSection(builder, model, entity, "              ");
 
         builder.AppendLine("              </div>");
         builder.AppendLine("            </div>");
@@ -875,25 +924,47 @@ public sealed class MetametabiDocsSiteRenderer
         return builder.ToString();
     }
 
-    private static SurfaceSection? Surface(FamilySection family, MetaDocsReferenceSurface surface) =>
-        family.Surfaces.FirstOrDefault(section => section.Surface == surface);
+    private static IReadOnlyList<ReferenceNode> ReferenceSubjects(ReferenceNode section) =>
+        section.Children
+            .Where(static node => IsCliApplication(node.Subject) || IsModel(node.Subject))
+            .ToArray();
 
-    private static IReadOnlyList<DocumentationSubject> SubjectsFor(
-        FamilySection family,
-        MetaDocsReferenceSurface surface) =>
-        Surface(family, surface)?.Subjects ?? Array.Empty<DocumentationSubject>();
+    private static bool IsCliApplication(DocumentationSubject subject) =>
+        MetaDocsVocabulary.IsSubjectType(subject, "CliApplication");
 
-    private static string PanelId(DocumentationSubject subject, MetaDocsReferenceSurface surface)
+    private static bool IsModel(DocumentationSubject subject) =>
+        MetaDocsVocabulary.IsSubjectType(subject, "Model");
+
+    private static string GroupItemTitle(IReadOnlyList<ReferenceNode> subjects)
     {
-        var prefix = surface == MetaDocsReferenceSurface.Cli ? "cli" : "model";
-        var stableName = surface == MetaDocsReferenceSurface.Cli
-            ? FirstNonEmpty(subject.DisplayName, subject.NativeId, subject.Id)
-            : FirstNonEmpty(subject.DisplayName.Replace(" model", string.Empty, StringComparison.OrdinalIgnoreCase), subject.NativeId, subject.Id);
+        if (subjects.Any(static node => IsCliApplication(node.Subject)))
+        {
+            return "Command-line tools";
+        }
+
+        if (subjects.Any(static node => IsModel(node.Subject)))
+        {
+            return "Models";
+        }
+
+        return "Subjects";
+    }
+
+    private static string PanelId(DocumentationSubject subject)
+    {
+        var prefix = IsCliApplication(subject)
+            ? "cli"
+            : IsModel(subject)
+                ? "model"
+                : "subject";
+        var stableName = IsModel(subject)
+            ? FirstNonEmpty(subject.DisplayName.Replace(" model", string.Empty, StringComparison.OrdinalIgnoreCase), subject.NativeId, subject.Id)
+            : FirstNonEmpty(subject.DisplayName, subject.NativeId, subject.Id);
         return $"{prefix}-{MetaDocsImportSession.NormalizeKey(stableName)}";
     }
 
-    private static string GroupPanelId(FamilySection family, MetaDocsReferenceSurface surface) =>
-        $"group-{MetaDocsPublicReferenceClassifier.ProductFamilyKey(family.Family)}-{MetaDocsPublicReferenceClassifier.ReferenceSurfaceKey(surface)}";
+    private static string GroupPanelId(ReferenceNode section) =>
+        $"group-{MetaDocsImportSession.NormalizeKey(section.Subject.Id)}";
 
     private static string SubjectAnchorId(DocumentationSubject subject) =>
         $"subject-{MetaDocsImportSession.NormalizeKey(subject.Id)}";
@@ -913,22 +984,8 @@ public sealed class MetametabiDocsSiteRenderer
             .Append("</a>");
     }
 
-    private static string GroupSummary(FamilySection family, MetaDocsReferenceSurface surface) =>
-        (family.Family, surface) switch
-        {
-            (MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli) =>
-                "Core metadata command-line tools.",
-            (MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Models) =>
-                "Core metadata model references.",
-            (MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Cli) =>
-                "BI modeling and conversion command-line tools.",
-            (MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Models) =>
-                "BI-side sanctioned model references.",
-            _ => "Reference material.",
-        };
-
-    private static string SubjectSummary(MetaDocsModel model, DocumentationSubject subject) =>
-        ShortSummary(FirstNonEmpty(FindNarrative(model, subject, "Summary")?.Body, subject.Summary));
+    private static string SubjectSummary(MetaDocsModel? model, DocumentationSubject subject) =>
+        ShortSummary(FirstNonEmpty(model is null ? string.Empty : FindNarrative(model, subject, "Summary")?.Body, subject.Summary));
 
     private static string EntitySummary(MetaDocsModel model, DocumentationSubject entity)
     {
@@ -951,7 +1008,7 @@ public sealed class MetametabiDocsSiteRenderer
     {
         var usages = Facts(model, command)
             .Where(fact =>
-                string.Equals(fact.Kind, "Usage", StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsFactType(fact, "Usage") &&
                 !string.IsNullOrWhiteSpace(fact.Value))
             .OrderBy(fact => fact.Name, StringComparer.OrdinalIgnoreCase)
             .Select(fact => fact.Value!)
@@ -973,72 +1030,10 @@ public sealed class MetametabiDocsSiteRenderer
         }
 
         var note = Facts(model, command)
-            .Where(fact => string.Equals(fact.Kind, "Note", StringComparison.OrdinalIgnoreCase))
+            .Where(fact => MetaDocsVocabulary.IsFactType(fact, "Note"))
             .Select(fact => CleanProse(fact.Value))
             .FirstOrDefault(static text => !string.IsNullOrWhiteSpace(text));
         return ShortSummary(note);
-    }
-
-    private static string[] CommandExamples(MetaDocsModel model, DocumentationSubject command)
-    {
-        var examples = new List<string>();
-        foreach (var narrative in Narratives(model, command)
-                     .Where(narrative => string.Equals(narrative.Slot, "Example", StringComparison.OrdinalIgnoreCase)))
-        {
-            examples.AddRange(ExtractCodeBlocks(narrative.Body));
-        }
-
-        examples.AddRange(ChildSubjects(model, command, "CliArgument")
-            .Where(subject => string.Equals(subject.NativeKind, "CliExample", StringComparison.OrdinalIgnoreCase))
-            .Select(subject => FirstNonEmpty(FindFact(model, subject, "Cli", "CommandText"), subject.NativeId))
-            .Where(static example => !string.IsNullOrWhiteSpace(example)));
-        return examples
-            .Select(CleanProse)
-            .Where(static example => !string.IsNullOrWhiteSpace(example))
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToArray();
-    }
-
-    private static IEnumerable<string> ExtractCodeBlocks(string? body)
-    {
-        var text = body ?? string.Empty;
-        if (!text.Contains("```", StringComparison.Ordinal))
-        {
-            yield return text;
-            yield break;
-        }
-
-        var code = new StringBuilder();
-        var inFence = false;
-        foreach (var rawLine in text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n'))
-        {
-            var line = rawLine.TrimEnd();
-            if (line.TrimStart().StartsWith("```", StringComparison.Ordinal))
-            {
-                if (inFence)
-                {
-                    yield return code.ToString().Trim();
-                    code.Clear();
-                    inFence = false;
-                }
-                else
-                {
-                    inFence = true;
-                }
-
-                continue;
-            }
-
-            if (inFence)
-            {
-                code.AppendLine(line);
-            }
-        }
-
-        if (code.Length > 0)
-        {
-            yield return code.ToString().Trim();
-        }
     }
 
     private static string IsRequiredOption(string description) =>
@@ -1057,16 +1052,41 @@ public sealed class MetametabiDocsSiteRenderer
     private static DocumentationNarrative[] Narratives(MetaDocsModel model, DocumentationSubject subject) =>
         MetaDocsOrdering.ByPrevious(
                 model.DocumentationNarrativeList
-                    .Where(row => string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
+                    .Where(row => string.Equals(row.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
                     .Where(row => !string.IsNullOrWhiteSpace(row.Body)),
                 static row => row.PreviousNarrative,
                 static row => $"{row.Slot}:{row.Title}:{row.Id}")
             .ToArray();
 
+    private static DocumentationExample[] Examples(MetaDocsModel model, DocumentationSubject subject) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleList
+                    .Where(row => ReferenceEquals(row.DocumentationSubject, subject))
+                    .Where(row => !string.Equals(row.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase)),
+                static row => row.PreviousExample,
+                static row => $"{row.Title}:{row.Id}")
+            .ToArray();
+
+    private static DocumentationExampleSection[] ExampleSections(MetaDocsModel model, DocumentationExample example) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleSectionList
+                    .Where(row => ReferenceEquals(row.DocumentationExample, example)),
+                static row => row.PreviousSection,
+                static row => $"{row.Title}:{row.Id}")
+            .ToArray();
+
+    private static DocumentationExampleCode[] ExampleCodes(MetaDocsModel model, DocumentationExampleSection section) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleCodeList
+                    .Where(row => ReferenceEquals(row.DocumentationExampleSection, section)),
+                static row => row.PreviousCode,
+                static row => $"{row.Title}:{row.Id}")
+            .ToArray();
+
     private static DocumentationFact[] Facts(MetaDocsModel model, DocumentationSubject subject) =>
         model.DocumentationFactList
             .Where(row =>
-                string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(row.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(row.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
@@ -1076,8 +1096,8 @@ public sealed class MetametabiDocsSiteRenderer
         string kind) =>
         MetaDocsOrdering.ByPrevious(
                 model.DocumentationSubjectList
-                    .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
-                    .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+                    .Where(subject => string.Equals(subject.ParentSubject?.Id ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
+                    .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, kind))
                     .Where(IsRenderable),
                 static subject => subject.PreviousSubject,
                 static subject => subject.DisplayName)
@@ -1087,16 +1107,14 @@ public sealed class MetametabiDocsSiteRenderer
     {
         return model.DocumentationRelationshipList
             .Where(relationship =>
-                string.Equals(relationship.Kind, "ReferencesEntity", StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(relationship.ToSubjectKey, entity.Id, StringComparison.OrdinalIgnoreCase))
-            .Select(relationship => FindSubject(model, relationship.FromSubjectKey))
+                MetaDocsVocabulary.IsRelationshipType(relationship, "ReferencesEntity") &&
+                string.Equals(relationship.ToSubject?.Id, entity.Id, StringComparison.OrdinalIgnoreCase))
+            .Select(relationship => relationship.FromSubject)
             .Where(subject => subject is not null && IsRenderable(subject))
             .Cast<DocumentationSubject>()
             .Select(relationshipSubject =>
             {
-                var sourceEntity = string.IsNullOrWhiteSpace(relationshipSubject.ParentKey)
-                    ? null
-                    : FindSubject(model, relationshipSubject.ParentKey!);
+                var sourceEntity = relationshipSubject.ParentSubject;
                 return sourceEntity is null || !IsRenderable(sourceEntity)
                     ? null
                     : new EntityReference(sourceEntity, relationshipSubject);
@@ -1112,9 +1130,9 @@ public sealed class MetametabiDocsSiteRenderer
     {
         var targetKey = model.DocumentationRelationshipList
             .Where(relationship =>
-                string.Equals(relationship.Kind, "ReferencesEntity", StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(relationship.FromSubjectKey, relationshipSubject.Id, StringComparison.OrdinalIgnoreCase))
-            .Select(relationship => relationship.ToSubjectKey)
+                MetaDocsVocabulary.IsRelationshipType(relationship, "ReferencesEntity") &&
+                string.Equals(relationship.FromSubject?.Id, relationshipSubject.Id, StringComparison.OrdinalIgnoreCase))
+            .Select(relationship => relationship.ToSubject?.Id)
             .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value));
         return string.IsNullOrWhiteSpace(targetKey) ? null : FindSubject(model, targetKey!);
     }
@@ -1127,8 +1145,8 @@ public sealed class MetametabiDocsSiteRenderer
     {
         var childrenByParent = model.DocumentationSubjectList
             .Where(IsRenderable)
-            .Where(subject => !string.IsNullOrWhiteSpace(subject.ParentKey))
-            .GroupBy(subject => subject.ParentKey!, StringComparer.OrdinalIgnoreCase)
+            .Where(subject => subject.ParentSubject is not null)
+            .GroupBy(subject => subject.ParentSubject!.Id, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
         var commands = new List<DocumentationSubject>();
         AddCliCommandDescendants(application.Id);
@@ -1142,7 +1160,7 @@ public sealed class MetametabiDocsSiteRenderer
             }
 
             foreach (var command in MetaDocsOrdering.ByPrevious(
-                         children.Where(subject => string.Equals(subject.Kind, "CliCommand", StringComparison.OrdinalIgnoreCase)),
+                         children.Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliCommand")),
                          static subject => subject.PreviousSubject,
                          static subject => subject.DisplayName))
             {
@@ -1159,8 +1177,8 @@ public sealed class MetametabiDocsSiteRenderer
         string name) =>
         model.DocumentationFactList
             .Where(row =>
-                string.Equals(row.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(row.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(row.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+                MetaDocsVocabulary.IsFactType(row, kind) &&
                 string.Equals(row.Name, name, StringComparison.OrdinalIgnoreCase) &&
                 !string.Equals(row.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
             .Select(row => row.Value)
@@ -1170,7 +1188,7 @@ public sealed class MetametabiDocsSiteRenderer
     {
         var asset = MetaDocsOrdering.ByPrevious(
                 model.DocumentationThemeAssetList
-                    .Where(row => string.Equals(row.AssetKind, "Css", StringComparison.OrdinalIgnoreCase)),
+                    .Where(row => MetaDocsVocabulary.IsThemeAssetType(row, "Css")),
                 static row => row.PreviousAsset,
                 static row => row.Name)
             .FirstOrDefault(row => !string.IsNullOrWhiteSpace(row.Content));
@@ -1213,7 +1231,7 @@ public sealed class MetametabiDocsSiteRenderer
     private static string ResolveShellTemplate(MetaDocsModel model) =>
         MetaDocsOrdering.ByPrevious(
                 model.DocumentationTemplateList
-                    .Where(row => string.Equals(row.Kind, "SiteShell", StringComparison.OrdinalIgnoreCase)),
+                    .Where(row => MetaDocsVocabulary.IsTemplateType(row, "SiteShell")),
                 static row => row.PreviousTemplate,
                 static row => row.Name)
             .Select(row => row.Html)
@@ -1247,9 +1265,9 @@ public sealed class MetametabiDocsSiteRenderer
         string.Equals(subject.NativeId, "SourceFingerprint", StringComparison.OrdinalIgnoreCase) ||
         string.Equals(subject.DisplayName, "SourceFingerprint", StringComparison.OrdinalIgnoreCase);
 
-    private static string ResolveSiteTitle(DocumentationView view)
+    private static string ResolveSiteTitle(DocumentationView view, DocumentationSubject root)
     {
-        var title = FirstNonEmpty(view.Title, view.Name, "meta + meta-bi");
+        var title = FirstNonEmpty(root.DisplayName, view.Title, view.Name, "meta + meta-bi");
         return title.EndsWith(" reference", StringComparison.OrdinalIgnoreCase)
             ? title[..^" reference".Length]
             : title;
@@ -1353,21 +1371,13 @@ public sealed class MetametabiDocsSiteRenderer
     private static string Attr(string? value) =>
         Html(value).Replace("\"", "&quot;", StringComparison.Ordinal);
 
-    private sealed record ClassifiedReferenceSubject(
+    private sealed record ReferenceTree(
+        DocumentationSubject Root,
+        IReadOnlyList<ReferenceNode> Children);
+
+    private sealed record ReferenceNode(
         DocumentationSubject Subject,
-        MetaDocsPublicReferenceClassification Classification);
-
-    private sealed record ReferenceTree(IReadOnlyList<FamilySection> Families);
-
-    private sealed record FamilySection(
-        MetaDocsProductFamily Family,
-        string Title,
-        IReadOnlyList<SurfaceSection> Surfaces);
-
-    private sealed record SurfaceSection(
-        MetaDocsReferenceSurface Surface,
-        string Title,
-        IReadOnlyList<DocumentationSubject> Subjects);
+        IReadOnlyList<ReferenceNode> Children);
 
     private sealed record EntityReference(
         DocumentationSubject SourceEntity,

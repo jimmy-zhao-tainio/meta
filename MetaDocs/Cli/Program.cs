@@ -32,6 +32,9 @@ internal static class Program
             .Bind("exec-contents", RunContents)
             .Bind("exec-search", RunSearch)
             .Bind("exec-update-description", RunUpdateDescription)
+            .Bind("exec-add-example", RunAddExample)
+            .Bind("exec-add-example-section", RunAddExampleSection)
+            .Bind("exec-add-example-code", RunAddExampleCode)
             .Bind("exec-import-cli", RunImportCli)
             .Bind("exec-import-workspace-model", RunImportWorkspaceModel)
             .Bind("exec-import-workspace-instances", RunImportWorkspaceInstances)
@@ -66,7 +69,8 @@ internal static class Program
                 Optional(invocation, "slot", "Summary"),
                 string.Empty,
                 Optional(invocation, "source-id", "source:authored:metametabi-docs"),
-                Optional(invocation, "source-name", "Authored MetaDocs pages"));
+                Optional(invocation, "source-name", "Authored MetaDocs pages"),
+                ParseBoolean(Optional(invocation, "view-root")));
             var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             Presenter.WriteInfo($"Authored page: {subject.DisplayName}.");
@@ -159,11 +163,85 @@ internal static class Program
                 body,
                 Optional(invocation, "body-format", "PlainText"));
             model.SaveToXmlWorkspace(workspace);
-            Presenter.WriteInfo($"Updated description: {narrative.SubjectKey} ({narrative.Slot}).");
+            Presenter.WriteInfo($"Updated description: {narrative.DocumentationSubject.Id} ({narrative.Slot}).");
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
         {
             throw new InvalidOperationException($"Cannot update documentation description. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunAddExample(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var body = ReadBody(invocation);
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var example = new MetaDocsExampleAuthoringService().UpsertExample(
+                model,
+                SubjectSelector(invocation),
+                invocation.Required("id"),
+                invocation.Required("title"),
+                Optional(invocation, "summary"),
+                invocation.Required("section-id"),
+                body,
+                Optional(invocation, "body-format", "PlainText"),
+                Optional(invocation, "previous-example"));
+            model.SaveToXmlWorkspace(workspace);
+            Presenter.WriteInfo($"Added example: {example.Title}.");
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot add documentation example. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunAddExampleSection(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var body = ReadBody(invocation);
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var section = new MetaDocsExampleAuthoringService().UpsertSection(
+                model,
+                invocation.Required("example"),
+                invocation.Required("id"),
+                Optional(invocation, "title"),
+                body,
+                Optional(invocation, "body-format", "PlainText"),
+                Optional(invocation, "previous-section"));
+            model.SaveToXmlWorkspace(workspace);
+            Presenter.WriteInfo($"Added example section: {section.Id}.");
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot add documentation example section. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunAddExampleCode(MetaCliInvocation invocation)
+    {
+        var workspace = WorkspaceOrCurrent(invocation);
+        try
+        {
+            var code = ReadCode(invocation);
+            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
+            var codeRow = new MetaDocsExampleAuthoringService().UpsertCode(
+                model,
+                invocation.Required("section"),
+                invocation.Required("id"),
+                Optional(invocation, "title"),
+                Optional(invocation, "language"),
+                code,
+                Optional(invocation, "previous-code"));
+            model.SaveToXmlWorkspace(workspace);
+            Presenter.WriteInfo($"Added example code: {codeRow.Id}.");
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot add documentation example code. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
         }
     }
 
@@ -179,7 +257,7 @@ internal static class Program
                 model,
                 cli,
                 applicationId: Optional(invocation, "application"),
-                groupName: Optional(invocation, "group"),
+                parentSubjectId: Optional(invocation, "parent-subject"),
                 sourceId: Optional(invocation, "source-id"));
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             var commandCount = CountCurrentChildren(model, application, "CliCommand");
@@ -198,13 +276,13 @@ internal static class Program
         try
         {
             var model = LoadOrCreate(workspace.ExistingWorkspace);
-            var root = new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
+            var modelSubject = new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
                 model,
                 sourceWorkspace,
                 Optional(invocation, "source-id"),
-                Optional(invocation, "display-name")).GetAwaiter().GetResult();
+                Optional(invocation, "display-name"),
+                Optional(invocation, "parent-subject")).GetAwaiter().GetResult();
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
-            var modelSubject = FindModelSubject(model, root) ?? root;
             var entityCount = CountCurrentChildren(model, modelSubject, "Entity");
             Presenter.WriteInfo($"Refreshed model docs: {modelSubject.DisplayName} ({entityCount} entity subject(s)).");
         }
@@ -459,6 +537,28 @@ internal static class Program
         return inlineBody;
     }
 
+    private static string ReadCode(MetaCliInvocation invocation)
+    {
+        var inlineCode = Optional(invocation, "code");
+        var stdin = invocation.Flag("code-stdin");
+        if (!string.IsNullOrWhiteSpace(inlineCode) && stdin)
+        {
+            throw new MetaCliExitException(2, "Use either --code <text> or --code-stdin, not both.");
+        }
+
+        if (stdin)
+        {
+            return Console.In.ReadToEnd();
+        }
+
+        if (string.IsNullOrWhiteSpace(inlineCode))
+        {
+            throw new MetaCliExitException(2, "Provide --code <text> or --code-stdin.");
+        }
+
+        return inlineCode;
+    }
+
     private static int ParseLimit(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -488,6 +588,11 @@ internal static class Program
 
         throw new MetaCliExitException(2, "--depth must be a positive integer.");
     }
+
+    private static bool ParseBoolean(string value) =>
+        string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(value, "yes", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(value, "1", StringComparison.OrdinalIgnoreCase);
 
     private static string FormatContents(MetaDocsContentsResult contents)
     {
@@ -595,7 +700,7 @@ internal static class Program
     {
         var outputRoot = Path.GetFullPath(outputDirectory);
         foreach (var asset in model.DocumentationThemeAssetList
-                     .Where(asset => !string.Equals(asset.AssetKind, "Css", StringComparison.OrdinalIgnoreCase))
+                     .Where(asset => !MetaDocsVocabulary.IsThemeAssetType(asset, "Css"))
                      .Where(asset => !string.IsNullOrWhiteSpace(asset.Content))
                      .Where(asset => !string.IsNullOrWhiteSpace(asset.Href)))
         {
@@ -623,14 +728,9 @@ internal static class Program
 
     private static int CountCurrentChildren(MetaDocsModel model, DocumentationSubject parent, string kind) =>
         model.DocumentationSubjectList.Count(row =>
-            string.Equals(row.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(row.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.ParentSubject?.Id ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase) &&
+            MetaDocsVocabulary.IsSubjectType(row, kind) &&
             !string.Equals(row.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase));
-
-    private static DocumentationSubject? FindModelSubject(MetaDocsModel model, DocumentationSubject root) =>
-        model.DocumentationSubjectList.FirstOrDefault(row =>
-            string.Equals(row.ParentKey ?? string.Empty, root.Id, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(row.Kind, "Model", StringComparison.OrdinalIgnoreCase));
 
     private static void PrintValidationResult(MetaDocsValidationResult result)
     {

@@ -147,7 +147,7 @@ public sealed class MetaDocsInstanceImportPolicyEditor
             model.DocumentationSourceList.Add(source);
         }
 
-        source.Kind = string.IsNullOrWhiteSpace(source.Kind) ? "Workspace" : source.Kind;
+        source.DocumentationSourceType ??= MetaDocsVocabulary.EnsureSourceType(model, "Workspace");
         source.DisplayName = string.IsNullOrWhiteSpace(source.DisplayName) ? sourceId : source.DisplayName;
         source.Status = string.IsNullOrWhiteSpace(source.Status) ? "Current" : source.Status;
         return source;

@@ -19,6 +19,8 @@
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-author-page:parameter:param-author-page-option-parent" ExecutableCommandId="exec-author-page" ParameterId="param-author-page-option-parent">
     </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-author-page:parameter:param-author-page-option-view-root" ExecutableCommandId="exec-author-page" ParameterId="param-author-page-option-view-root">
+    </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-author-page:parameter:param-author-page-option-slot" ExecutableCommandId="exec-author-page" ParameterId="param-author-page-option-slot">
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-author-page:parameter:param-author-page-option-source-id" ExecutableCommandId="exec-author-page" ParameterId="param-author-page-option-source-id">
@@ -73,7 +75,7 @@
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-import-cli:parameter:param-import-cli-option-application" ExecutableCommandId="exec-import-cli" ParameterId="param-import-cli-option-application">
     </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-import-cli:parameter:param-import-cli-option-group" ExecutableCommandId="exec-import-cli" ParameterId="param-import-cli-option-group">
+    <ExecutableCommandParameter Id="exec-import-cli:parameter:param-import-cli-option-parent-subject" ExecutableCommandId="exec-import-cli" ParameterId="param-import-cli-option-parent-subject">
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-import-cli:parameter:param-import-cli-option-source-id" ExecutableCommandId="exec-import-cli" ParameterId="param-import-cli-option-source-id">
     </ExecutableCommandParameter>
@@ -84,6 +86,8 @@
     <ExecutableCommandParameter Id="exec-import-workspace-model:parameter:param-import-workspace-model-option-new-workspace" ExecutableCommandId="exec-import-workspace-model" ParameterId="param-import-workspace-model-option-new-workspace">
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-import-workspace-model:parameter:param-import-workspace-model-option-source-id" ExecutableCommandId="exec-import-workspace-model" ParameterId="param-import-workspace-model-option-source-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-workspace-model:parameter:param-import-workspace-model-option-parent-subject" ExecutableCommandId="exec-import-workspace-model" ParameterId="param-import-workspace-model-option-parent-subject">
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-import-workspace-model:parameter:param-import-workspace-model-option-display-name" ExecutableCommandId="exec-import-workspace-model" ParameterId="param-import-workspace-model-option-display-name">
     </ExecutableCommandParameter>
@@ -136,6 +140,66 @@
     <ExecutableCommandParameter Id="exec-render-site:parameter:param-render-site-option-workspace" ExecutableCommandId="exec-render-site" ParameterId="param-render-site-option-workspace">
     </ExecutableCommandParameter>
     <ExecutableCommandParameter Id="exec-render-site:parameter:param-render-site-option-out" ExecutableCommandId="exec-render-site" ParameterId="param-render-site-option-out">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-workspace" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-subject" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-subject">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-model" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-model">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-cli" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-cli">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-command" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-command">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-option" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-option">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-id" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-title" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-title">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-summary" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-summary">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-section-id" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-section-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-body" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-body">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-body-stdin" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-body-stdin">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-body-format" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-body-format">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example:parameter:param-add-example-option-previous-example" ExecutableCommandId="exec-add-example" ParameterId="param-add-example-option-previous-example">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-workspace" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-example" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-example">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-title" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-title">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-body" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-body">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-body-stdin" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-body-stdin">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-body-format" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-body-format">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-previous-section" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-previous-section">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-workspace" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-section" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-section">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-id" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-title" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-title">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-language" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-language">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-code" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-code">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-code-stdin" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-code-stdin">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-code:parameter:param-add-example-code-option-previous-code" ExecutableCommandId="exec-add-example-code" ParameterId="param-add-example-code-option-previous-code">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-example-section:parameter:param-add-example-section-option-id" ExecutableCommandId="exec-add-example-section" ParameterId="param-add-example-section-option-id">
     </ExecutableCommandParameter>
   </ExecutableCommandParameterList>
 </MetaCli>

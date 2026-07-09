@@ -14,7 +14,7 @@ public sealed class MetaDocsCliImporter
         MetaCliModel cli,
         CliDocumentationProfile? profile = null,
         string applicationId = "",
-        string groupName = "",
+        string parentSubjectId = "",
         string sourceId = "")
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -37,6 +37,7 @@ public sealed class MetaDocsCliImporter
             "MetaDocs.MetaCliWorkspace",
             "1");
 
+        var parentSubject = session.EnsureParentSubject(parentSubjectId);
         var executables = cli.ExecutableCommandList
             .Where(executable => ReferenceEquals(executable.Command.Application, app))
             .OrderBy(executable => surface.Route(executable.Command), StringComparer.OrdinalIgnoreCase)
@@ -54,13 +55,12 @@ public sealed class MetaDocsCliImporter
             appName,
             appName,
             applicationSummary,
-            string.Empty,
+            parentSubject,
             null);
         session.UpsertFact(application, "Cli", "ApplicationId", app.Id);
         session.UpsertFact(application, "Cli", "ExecutableName", appName);
         session.UpsertFact(application, "Cli", "CommandCount", executables.Length.ToString(CultureInfo.InvariantCulture), "Number");
         session.UpsertFact(application, "Cli", "ApplicationOptionCount", ApplicationOptions(cli, surface, app).Count().ToString(CultureInfo.InvariantCulture), "Number");
-        session.UpsertFact(application, "Cli", "GroupName", groupName, "String");
         session.UpsertNarrative(
             application,
             "Summary",
@@ -109,7 +109,7 @@ public sealed class MetaDocsCliImporter
             commandPath,
             commandPath,
             commandSummary,
-            application.Id,
+            application,
             previousCommand);
         session.UpsertFact(commandSubject, "Cli", "ExecutableCommandId", executable.Id);
         session.UpsertFact(commandSubject, "Cli", "CommandId", executable.Command.Id);
@@ -207,7 +207,7 @@ public sealed class MetaDocsCliImporter
             optionName,
             $"{parent.DisplayPath} {optionName}",
             option.Parameter.Description ?? string.Empty,
-            parent.Id,
+            parent,
             previousOption);
         session.UpsertFact(optionSubject, "Cli", "OptionId", option.Id);
         session.UpsertFact(optionSubject, "Cli", "ParameterId", option.Parameter.Id);
@@ -261,7 +261,7 @@ public sealed class MetaDocsCliImporter
             name,
             $"{commandSubject.DisplayPath} {name}",
             parameter.Description ?? string.Empty,
-            commandSubject.Id,
+            commandSubject,
             previousPositional);
         session.UpsertFact(subject, "Cli", "PositionalArgumentId", positional.Id);
         session.UpsertFact(subject, "Cli", "ParameterId", parameter.Id);
@@ -304,7 +304,7 @@ public sealed class MetaDocsCliImporter
             displayName,
             $"{commandSubject.DisplayPath} group {displayName}",
             summary,
-            commandSubject.Id,
+            commandSubject,
             previousGroup);
         session.UpsertFact(subject, "Cli", "ParameterGroupId", group.Id);
         session.UpsertFact(subject, "Cli", "Name", group.Name);
@@ -360,7 +360,7 @@ public sealed class MetaDocsCliImporter
             allowedValue.Value,
             $"{parent.DisplayPath} value {allowedValue.Value}",
             allowedValue.Description ?? string.Empty,
-            parent.Id,
+            parent,
             previousValue);
         session.UpsertFact(subject, "Cli", "AllowedValueId", allowedValue.Id);
         session.UpsertFact(subject, "Cli", "Value", allowedValue.Value);
@@ -472,7 +472,7 @@ public sealed class MetaDocsCliImporter
         for (var i = model.DocumentationNarrativeList.Count - 1; i >= 0; i--)
         {
             var narrative = model.DocumentationNarrativeList[i];
-            if (string.Equals(narrative.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+            if (string.Equals(narrative.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
                 string.Equals(narrative.Slot, slot, StringComparison.OrdinalIgnoreCase) &&
                 string.IsNullOrWhiteSpace(narrative.Body) &&
                 (string.Equals(narrative.Origin, "Generated", StringComparison.OrdinalIgnoreCase) ||
@@ -485,14 +485,14 @@ public sealed class MetaDocsCliImporter
 
     private static DocumentationNarrative? FindNarrative(MetaDocsModel model, string subjectKey, string slot) =>
         model.DocumentationNarrativeList.FirstOrDefault(row =>
-            string.Equals(row.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase) &&
             string.Equals(row.Origin, "Authored", StringComparison.OrdinalIgnoreCase));
 
     private static DocumentationFact? FindFact(MetaDocsModel model, string subjectKey, string kind, string name) =>
         model.DocumentationFactList.FirstOrDefault(row =>
-            string.Equals(row.SubjectKey, subjectKey, StringComparison.OrdinalIgnoreCase) &&
-            string.Equals(row.Kind, kind, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.DocumentationSubject?.Id ?? string.Empty, subjectKey, StringComparison.OrdinalIgnoreCase) &&
+            MetaDocsVocabulary.IsFactType(row, kind) &&
             string.Equals(row.Name, name, StringComparison.OrdinalIgnoreCase));
 
     private static string ComputeCliFingerprint(MetaCliModel cli, Application app)

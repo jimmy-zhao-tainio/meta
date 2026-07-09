@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationViewNodeList>
-    <DocumentationViewNode Id="view:default:node:docs-home" DocumentationViewId="view:default">
-      <SubjectKey>docs:home</SubjectKey>
-      <Title>meta + meta-bi</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta" DocumentationSubjectId="public:meta" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-reference</ParentNodeId>
+      <Title>Meta</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-what-is-meta" DocumentationViewId="view:default">
-      <SubjectKey>docs:what-is-meta</SubjectKey>
-      <Title>What is Meta?</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi" DocumentationSubjectId="public:meta-bi" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-reference</ParentNodeId>
+      <Title>Meta-BI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-what-is-meta-bi" DocumentationViewId="view:default">
-      <SubjectKey>docs:what-is-meta-bi</SubjectKey>
-      <Title>What is Meta-BI?</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
+      <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-getting-started" DocumentationViewId="view:default">
-      <SubjectKey>docs:getting-started</SubjectKey>
-      <Title>Getting started</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-models" DocumentationSubjectId="public:meta-bi:models" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
+      <Title>Models</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-documentation-lifecycle" DocumentationViewId="view:default">
-      <SubjectKey>docs:documentation-lifecycle</SubjectKey>
-      <Title>Documentation lifecycle</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
+      <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-cli-reference" DocumentationViewId="view:default">
-      <SubjectKey>docs:cli-reference</SubjectKey>
-      <Title>CLI reference</Title>
+    <DocumentationViewNode Id="view:default:node:public-meta-models" DocumentationSubjectId="public:meta:models" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
+      <Title>Models</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-model-reference" DocumentationViewId="view:default">
-      <SubjectKey>docs:model-reference</SubjectKey>
-      <Title>Model reference</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:docs-workspace-model-docs" DocumentationViewId="view:default">
-      <SubjectKey>docs:workspace-model-docs</SubjectKey>
-      <Title>Generic workspace and model docs</Title>
+    <DocumentationViewNode Id="view:default:node:public-reference" DocumentationSubjectId="public:reference" DocumentationViewId="view:default">
+      <Title>meta + meta-bi reference</Title>
     </DocumentationViewNode>
   </DocumentationViewNodeList>
 </MetaDocs>

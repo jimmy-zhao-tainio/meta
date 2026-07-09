@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationThemeAssetList>
-    <DocumentationThemeAsset Id="theme:metametabi-static:asset:css" DocumentationThemeId="theme:metametabi-static">
-      <AssetKind>Css</AssetKind>
+    <DocumentationThemeAsset Id="theme:metametabi-static:asset:brand-mark" DocumentationThemeAssetTypeId="theme-asset-type:image" DocumentationThemeId="theme:metametabi-static">
+      <Content>&lt;svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;circle cx="11" cy="11" r="11" fill="#0a0a0a"/&gt;
+  &lt;polyline points="9.5,8 13.5,11 9.5,14" stroke="#cccccc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/&gt;
+&lt;/svg&gt;</Content>
+      <Hash>metametabi.com-inline-nav-svg-20260608</Hash>
+      <MediaType>image/svg+xml</MediaType>
+      <Name>metametabi-mark.svg</Name>
+    </DocumentationThemeAsset>
+    <DocumentationThemeAsset Id="theme:metametabi-static:asset:css" DocumentationThemeAssetTypeId="theme-asset-type:css" DocumentationThemeId="theme:metametabi-static">
       <Content>:root{color-scheme:light;--bg:#fafaf9;--ink:#0a0a0a;--muted:#555;--soft:#666;--faint:#999;--line:rgba(0,0,0,.06);--card:#fff}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
@@ -53,16 +61,6 @@ footer{background:#0a0a0a;margin-top:80px}
 @media(max-width:900px){.nav,.rail{display:none}.body{display:block}.hero{padding:56px 0}.grid{grid-template-columns:1fr}h1{font-size:42px}.content{padding-top:28px}}</Content>
       <MediaType>text/css</MediaType>
       <Name>site.css</Name>
-    </DocumentationThemeAsset>
-    <DocumentationThemeAsset Id="theme:metametabi-static:asset:brand-mark" DocumentationThemeId="theme:metametabi-static">
-      <AssetKind>Image</AssetKind>
-      <Content>&lt;svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
-  &lt;circle cx="11" cy="11" r="11" fill="#0a0a0a"/&gt;
-  &lt;polyline points="9.5,8 13.5,11 9.5,14" stroke="#cccccc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/&gt;
-&lt;/svg&gt;</Content>
-      <Hash>metametabi.com-inline-nav-svg-20260608</Hash>
-      <MediaType>image/svg+xml</MediaType>
-      <Name>metametabi-mark.svg</Name>
     </DocumentationThemeAsset>
   </DocumentationThemeAssetList>
 </MetaDocs>

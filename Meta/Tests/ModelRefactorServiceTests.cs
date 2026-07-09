@@ -51,6 +51,60 @@ public sealed class ModelRefactorServiceTests
     }
 
     [Fact]
+    public async Task RefactorPropertyToRelationship_KeepsOptionalBlankValuesUnrelatedInMemory()
+    {
+        var services = new ServiceCollection();
+        var workspaceRoot = await TestWorkspaceFactory.CreateTempSuggestDemoWorkspaceAsync();
+        try
+        {
+            var workspace = await services.WorkspaceService.LoadAsync(workspaceRoot);
+            var orderEntity = workspace.Model.FindEntity("Order");
+            Assert.NotNull(orderEntity);
+            var warehouseIdProperty = orderEntity!.Properties.Single(item =>
+                string.Equals(item.Name, "WarehouseId", StringComparison.OrdinalIgnoreCase));
+            warehouseIdProperty.IsNullable = true;
+
+            var blankOrder = workspace.Instance.GetOrCreateEntityRecords("Order").Single(item =>
+                string.Equals(item.Id, "ORD-001", StringComparison.OrdinalIgnoreCase));
+            blankOrder.Values["WarehouseId"] = string.Empty;
+
+            var result = services.ModelRefactorService.RefactorPropertyToRelationship(
+                workspace,
+                new PropertyToRelationshipRefactorOptions(
+                    SourceEntityName: "Order",
+                    SourcePropertyName: "WarehouseId",
+                    TargetEntityName: "Warehouse",
+                    LookupPropertyName: "Id",
+                    Role: string.Empty,
+                    DropSourceProperty: true));
+
+            Assert.Equal(5, result.RowsRewritten);
+            Assert.True(result.PropertyDropped);
+
+            Assert.DoesNotContain(orderEntity.Properties, item =>
+                string.Equals(item.Name, "WarehouseId", StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(orderEntity.Relationships, item =>
+                string.Equals(item.Entity, "Warehouse", StringComparison.OrdinalIgnoreCase) &&
+                item.IsNullable);
+
+            Assert.False(blankOrder.Values.ContainsKey("WarehouseId"));
+            Assert.False(blankOrder.RelationshipIds.ContainsKey("WarehouseId"));
+
+            foreach (var orderRow in workspace.Instance.GetOrCreateEntityRecords("Order")
+                         .Where(item => !string.Equals(item.Id, "ORD-001", StringComparison.OrdinalIgnoreCase)))
+            {
+                Assert.False(orderRow.Values.ContainsKey("WarehouseId"));
+                Assert.True(orderRow.RelationshipIds.TryGetValue("WarehouseId", out var targetId));
+                Assert.False(string.IsNullOrWhiteSpace(targetId));
+            }
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task RelationshipToProperty_RoundTripsPropertyShapeInMemory()
     {
         var services = new ServiceCollection();

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-weave:bind-and-materialize:commands" DocumentationExampleSectionId="example:meta-weave:bind-and-materialize:overview">
+      <Code>meta-weave new-workspace .\MetaWeave.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
+meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
+meta-weave check --workspace .\MetaWeave.Workspace
+meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

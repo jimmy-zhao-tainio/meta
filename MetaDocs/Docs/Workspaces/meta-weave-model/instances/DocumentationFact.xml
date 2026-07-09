@@ -1,500 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationFactList>
-    <DocumentationFact Id="source:workspace-model:meta-weave:workspace:fact:workspace:rootpath" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:workspace">
-      <Kind>Workspace</Kind>
-      <Name>RootPath</Name>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:listname" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>ListName</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:workspace</SubjectKey>
-      <Value>C:\Users\jimmy\Desktop\meta\MetaWeave\Workspace</Value>
-      <ValueKind>String</ValueKind>
+      <Value>ModelReferenceList</Value>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:workspace:fact:workspace:modelname" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:workspace">
-      <Kind>Workspace</Kind>
-      <Name>ModelName</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:workspace</SubjectKey>
-      <Value>MetaWeave</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave">
-      <Kind>Model</Kind>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference" DocumentationValueTypeId="value-type:string">
       <Name>Name</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:model:metaweave</SubjectKey>
-      <Value>MetaWeave</Value>
-      <ValueKind>String</ValueKind>
+      <Value>ModelReference</Value>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:entitycount" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave">
-      <Kind>Model</Kind>
-      <Name>EntityCount</Name>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:propertycount" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference" DocumentationValueTypeId="value-type:number">
+      <Name>PropertyCount</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:model:metaweave</SubjectKey>
-      <Value>2</Value>
-      <ValueKind>Number</ValueKind>
+      <Value>3</Value>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:contractsignature" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave">
-      <Kind>Model</Kind>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:relationshipcount" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference" DocumentationValueTypeId="value-type:number">
+      <Name>RelationshipCount</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>0</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>Alias</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>ModelName</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>WorkspacePath</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:listname" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding" DocumentationValueTypeId="value-type:string">
+      <Name>ListName</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>PropertyBindingList</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>PropertyBinding</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:propertycount" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding" DocumentationValueTypeId="value-type:number">
+      <Name>PropertyCount</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>5</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:relationshipcount" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding" DocumentationValueTypeId="value-type:number">
+      <Name>RelationshipCount</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>2</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>Name</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>SourceEntity</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>SourceProperty</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>TargetEntity</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:datatype" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationValueTypeId="value-type:string">
+      <Name>DataType</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>string</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>TargetProperty</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:columnname" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>ColumnName</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>SourceModelId</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:role" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>Role</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>SourceModel</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:targetentity" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>TargetEntity</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>ModelReference</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:columnname" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>ColumnName</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>TargetModelId</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:nullable" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationValueTypeId="value-type:boolean">
+      <Name>Nullable</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>False</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:required" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationValueTypeId="value-type:boolean">
+      <Name>Required</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>True</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:role" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>Role</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>TargetModel</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:targetentity" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationValueTypeId="value-type:string">
+      <Name>TargetEntity</Name>
+      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
+      <Status>New</Status>
+      <Value>ModelReference</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:contractsignature" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave" DocumentationValueTypeId="value-type:string">
       <Name>ContractSignature</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:model:metaweave</SubjectKey>
       <Value>6d6f64656c7c4d65746157656176650a656e746974797c4d6f64656c5265666572656e63657c4d6f64656c5265666572656e63654c6973740a70726f70657274797c4d6f64656c5265666572656e63657c416c6961737c737472696e677c72657175697265640a70726f70657274797c4d6f64656c5265666572656e63657c4d6f64656c4e616d657c737472696e677c72657175697265640a70726f70657274797c4d6f64656c5265666572656e63657c576f726b7370616365506174687c737472696e677c72657175697265640a656e746974797c50726f706572747942696e64696e677c50726f706572747942696e64696e674c6973740a70726f70657274797c50726f706572747942696e64696e677c4e616d657c737472696e677c72657175697265640a70726f70657274797c50726f706572747942696e64696e677c536f75726365456e746974797c737472696e677c72657175697265640a70726f70657274797c50726f706572747942696e64696e677c536f7572636550726f70657274797c737472696e677c72657175697265640a70726f70657274797c50726f706572747942696e64696e677c546172676574456e746974797c737472696e677c72657175697265640a70726f70657274797c50726f706572747942696e64696e677c54617267657450726f70657274797c737472696e677c72657175697265640a72656c6174696f6e736869707c50726f706572747942696e64696e677c4d6f64656c5265666572656e63657c536f757263654d6f64656c49640a72656c6174696f6e736869707c50726f706572747942696e64696e677c4d6f64656c5265666572656e63657c5461726765744d6f64656c4964</Value>
-      <ValueKind>String</ValueKind>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
+    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:entitycount" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave" DocumentationValueTypeId="value-type:number">
+      <Name>EntityCount</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference</SubjectKey>
-      <Value>ModelReference</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:listname" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference">
-      <Kind>Model</Kind>
-      <Name>ListName</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference</SubjectKey>
-      <Value>ModelReferenceList</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:propertycount" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference">
-      <Kind>Model</Kind>
-      <Name>PropertyCount</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference</SubjectKey>
-      <Value>3</Value>
-      <ValueKind>Number</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:fact:model:relationshipcount" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference">
-      <Kind>Model</Kind>
-      <Name>RelationshipCount</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference</SubjectKey>
-      <Value>0</Value>
-      <ValueKind>Number</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:alias</SubjectKey>
-      <Value>Alias</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:alias</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:alias</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:alias:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:alias</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:modelname</SubjectKey>
-      <Value>ModelName</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:modelname</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:modelname</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:modelname</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</SubjectKey>
-      <Value>WorkspacePath</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding</SubjectKey>
-      <Value>PropertyBinding</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:listname" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
-      <Kind>Model</Kind>
-      <Name>ListName</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding</SubjectKey>
-      <Value>PropertyBindingList</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:propertycount" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
-      <Kind>Model</Kind>
-      <Name>PropertyCount</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding</SubjectKey>
-      <Value>5</Value>
-      <ValueKind>Number</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:fact:model:relationshipcount" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
-      <Kind>Model</Kind>
-      <Name>RelationshipCount</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding</SubjectKey>
       <Value>2</Value>
-      <ValueKind>Number</ValueKind>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
-      <Kind>Model</Kind>
+    <DocumentationFact Id="source:workspace-model:meta-weave:model:metaweave:fact:model:name" DocumentationFactTypeId="fact-type:model" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave" DocumentationValueTypeId="value-type:string">
       <Name>Name</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:name</SubjectKey>
-      <Value>Name</Value>
-      <ValueKind>String</ValueKind>
+      <Value>MetaWeave</Value>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
+    <DocumentationFact Id="source:workspace-model:meta-weave:workspace:fact:workspace:modelname" DocumentationFactTypeId="fact-type:workspace" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:workspace" DocumentationValueTypeId="value-type:string">
+      <Name>ModelName</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:name</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
+      <Value>MetaWeave</Value>
     </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
+    <DocumentationFact Id="source:workspace-model:meta-weave:workspace:fact:workspace:rootpath" DocumentationFactTypeId="fact-type:workspace" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:workspace" DocumentationValueTypeId="value-type:string">
+      <Name>RootPath</Name>
       <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
       <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:name</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:name:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:name</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</SubjectKey>
-      <Value>SourceEntity</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</SubjectKey>
-      <Value>SourceProperty</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</SubjectKey>
-      <Value>TargetEntity</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:name" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty">
-      <Kind>Model</Kind>
-      <Name>Name</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</SubjectKey>
-      <Value>TargetProperty</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:datatype" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty">
-      <Kind>Model</Kind>
-      <Name>DataType</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</SubjectKey>
-      <Value>string</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:targetentity" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>TargetEntity</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</SubjectKey>
-      <Value>ModelReference</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:role" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Role</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</SubjectKey>
-      <Value>SourceModel</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:columnname" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>ColumnName</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</SubjectKey>
-      <Value>SourceModelId</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:targetentity" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>TargetEntity</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</SubjectKey>
-      <Value>ModelReference</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:role" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Role</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</SubjectKey>
-      <Value>TargetModel</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:columnname" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>ColumnName</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</SubjectKey>
-      <Value>TargetModelId</Value>
-      <ValueKind>String</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:required" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Required</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</SubjectKey>
-      <Value>True</Value>
-      <ValueKind>Boolean</ValueKind>
-    </DocumentationFact>
-    <DocumentationFact Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference:fact:model:nullable" DocumentationImportBatchId="source:workspace-model:meta-weave:batch:20260701172709718" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference">
-      <Kind>Model</Kind>
-      <Name>Nullable</Name>
-      <SourceFingerprint>6c83b117543df07a480f7f8b624896fd67bdc57e77c14994723a8deca19aa93e</SourceFingerprint>
-      <Status>New</Status>
-      <SubjectKey>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</SubjectKey>
-      <Value>False</Value>
-      <ValueKind>Boolean</ValueKind>
+      <Value>C:\Users\jimmy\Desktop\meta\MetaWeave\Workspace</Value>
     </DocumentationFact>
   </DocumentationFactList>
 </MetaDocs>

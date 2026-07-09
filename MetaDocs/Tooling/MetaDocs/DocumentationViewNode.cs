@@ -19,9 +19,9 @@ namespace MetaDocs
 
         public string? Selection { get; set; }
 
-        public string? SubjectKey { get; set; }
-
         public string Title { get; set; } = string.Empty;
+
+        public DocumentationSubject? DocumentationSubject { get; set; }
 
         public DocumentationView DocumentationView { get; set; } = null!;
 

@@ -1,134 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:cli:meta-schema:app" DocumentationSourceId="source:cli:meta-schema">
+    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>CLI</DisplayName>
+      <DisplayPath>CLI</DisplayPath>
+      <NativeId>public:meta-bi:cli</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-schema:app" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta-bi:cli">
       <DisplayName>meta-schema</DisplayName>
       <DisplayPath>meta-schema</DisplayPath>
-      <Key>source:cli:meta-schema:app</Key>
-      <Kind>CliApplication</Kind>
       <NativeId>app-meta-schema</NativeId>
-      <NativeKind>MetaCli.Application</NativeKind>
+      <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Extract SQL Server schemas into modeled workspaces that preserve databases, schemas, tables, fields, keys, and relationships.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver" DocumentationSourceId="source:cli:meta-schema">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-schema:app">
       <DisplayName>meta-schema extract sqlserver</DisplayName>
       <DisplayPath>meta-schema extract sqlserver</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-extract-sqlserver</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-schema:app</ParentKey>
-      <Status>New</Status>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>Changed</Status>
       <Summary>Extract SQL Server schema into a MetaSchema workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas" DocumentationSourceId="source:cli:meta-schema">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver">
       <DisplayName>--all-schemas</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --all-schemas</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-all-schemas</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Extract all SQL Server schemas in scope.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas">
       <DisplayName>--all-tables</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --all-tables</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-all-tables</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Extract all SQL Server tables and views in scope.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables">
       <DisplayName>--connection-env</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --connection-env</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-connection-env</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --new-workspace</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-new-workspace</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Directory where the MetaSchema workspace will be created.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace">
       <DisplayName>--schema</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --schema</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:schema</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-schema</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Extract one SQL Server schema.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:system" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:schema">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:system" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:schema">
       <DisplayName>--system</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --system</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:system</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-system</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Source system name recorded in the workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:table" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:system">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:table" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:system">
       <DisplayName>--table</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --table</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:option:table</Key>
-      <Kind>CliOption</Kind>
       <NativeId>opt-extract-sqlserver-table</NativeId>
-      <NativeKind>MetaCli.Option</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Extract one SQL Server table or view.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:schema-scope" DocumentationSourceId="source:cli:meta-schema">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:schema-scope" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver">
       <DisplayName>schema-scope</DisplayName>
       <DisplayPath>meta-schema extract sqlserver group schema-scope</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:schema-scope</Key>
-      <Kind>CliParameterGroup</Kind>
       <NativeId>group-extract-sqlserver-schema-scope</NativeId>
-      <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
       <Summary>Choose one schema scope.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:table-scope" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:schema-scope">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:table-scope" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:schema-scope">
       <DisplayName>table-scope</DisplayName>
       <DisplayPath>meta-schema extract sqlserver group table-scope</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:extract-sqlserver:parameter-group:table-scope</Key>
-      <Kind>CliParameterGroup</Kind>
       <NativeId>group-extract-sqlserver-table-scope</NativeId>
-      <NativeKind>MetaCli.ParameterGroup</NativeKind>
-      <ParentKey>source:cli:meta-schema:app:command:extract-sqlserver</ParentKey>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
       <Summary>Choose one table scope.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-schema:app:command:help" DocumentationSourceId="source:cli:meta-schema" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver">
+    <DocumentationSubject Id="source:cli:meta-schema:app:command:help" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-schema:app" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver">
       <DisplayName>meta-schema help</DisplayName>
       <DisplayPath>meta-schema help</DisplayPath>
-      <Key>source:cli:meta-schema:app:command:help</Key>
-      <Kind>CliCommand</Kind>
       <NativeId>exec-help</NativeId>
-      <NativeKind>MetaCli.ExecutableCommand</NativeKind>
-      <ParentKey>source:cli:meta-schema:app</ParentKey>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>

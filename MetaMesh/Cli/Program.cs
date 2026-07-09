@@ -147,7 +147,7 @@ internal static class Program
     private static void RunAddStep(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var summary = Service.AddStep(
+        Service.AddStep(
             model,
             invocation.Required("operation"),
             invocation.Required("name"),
@@ -160,7 +160,6 @@ internal static class Program
         model.SaveToXmlWorkspace(workspacePath);
 
         Presenter.WriteOk();
-        WriteOperations(new[] { summary });
     }
 
     private static string? ResolveStepArguments(MetaCliInvocation invocation)

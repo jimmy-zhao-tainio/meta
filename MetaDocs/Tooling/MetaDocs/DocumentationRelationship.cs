@@ -15,17 +15,17 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string FromSubjectKey { get; set; } = string.Empty;
-
-        public string Kind { get; set; } = string.Empty;
-
-        public string ToSubjectKey { get; set; } = string.Empty;
-
         public DocumentationImportBatch DocumentationImportBatch { get; set; } = null!;
+
+        public DocumentationRelationshipType DocumentationRelationshipType { get; set; } = null!;
 
         public DocumentationSource DocumentationSource { get; set; } = null!;
 
+        public DocumentationSubject FromSubject { get; set; } = null!;
+
         public DocumentationRelationship? PreviousRelationship { get; set; }
+
+        public DocumentationSubject ToSubject { get; set; } = null!;
 
     }
 }

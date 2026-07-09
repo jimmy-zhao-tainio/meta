@@ -1,279 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationViewNodeList>
-    <DocumentationViewNode Id="view:default:public:meta" DocumentationViewId="view:default">
-      <Selection>ProductFamily:meta</Selection>
+    <DocumentationViewNode Id="view:default:node:public-meta" DocumentationSubjectId="public:meta" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta</ParentNodeId>
-      <Selection>ReferenceSurface:meta:cli</Selection>
-      <Title>CLI</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli:subject:source-cli-meta-app" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta:cli</ParentNodeId>
-      <Selection>PublicReference:meta:cli</Selection>
-      <SubjectKey>source:cli:meta:app</SubjectKey>
-      <Title>meta</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli:subject:source-cli-meta-cli-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:cli:subject:source-cli-meta-app">
-      <ParentNodeId>view:default:public:meta:cli</ParentNodeId>
-      <Selection>PublicReference:meta:cli</Selection>
-      <SubjectKey>source:cli:meta-cli:app</SubjectKey>
-      <Title>meta-cli</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli:subject:source-cli-meta-docs-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:cli:subject:source-cli-meta-cli-app">
-      <ParentNodeId>view:default:public:meta:cli</ParentNodeId>
-      <Selection>PublicReference:meta:cli</Selection>
-      <SubjectKey>source:cli:meta-docs:app</SubjectKey>
-      <Title>meta-docs</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli:subject:source-cli-meta-mesh-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:cli:subject:source-cli-meta-docs-app">
-      <ParentNodeId>view:default:public:meta:cli</ParentNodeId>
-      <Selection>PublicReference:meta:cli</Selection>
-      <SubjectKey>source:cli:meta-mesh:app</SubjectKey>
-      <Title>meta-mesh</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:cli:subject:source-cli-meta-weave-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:cli:subject:source-cli-meta-mesh-app">
-      <ParentNodeId>view:default:public:meta:cli</ParentNodeId>
-      <Selection>PublicReference:meta:cli</Selection>
-      <SubjectKey>source:cli:meta-weave:app</SubjectKey>
-      <Title>meta-weave</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:models" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:cli">
-      <ParentNodeId>view:default:public:meta</ParentNodeId>
-      <Selection>ReferenceSurface:meta:models</Selection>
-      <Title>Models</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:models:subject:source-workspace-model-meta-docs-model-metadocs" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta:models</ParentNodeId>
-      <Selection>PublicReference:meta:models</Selection>
-      <SubjectKey>source:workspace-model:meta-docs:model:metadocs</SubjectKey>
-      <Title>MetaDocs</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta:models:subject:source-workspace-model-meta-weave-model-metaweave" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta:models:subject:source-workspace-model-meta-docs-model-metadocs">
-      <ParentNodeId>view:default:public:meta:models</ParentNodeId>
-      <Selection>PublicReference:meta:models</Selection>
-      <SubjectKey>source:workspace-model:meta-weave:model:metaweave</SubjectKey>
-      <Title>MetaWeave</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta">
-      <Selection>ProductFamily:meta-bi</Selection>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi" DocumentationSubjectId="public:meta-bi" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta-BI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta-bi</ParentNodeId>
-      <Selection>ReferenceSurface:meta-bi:cli</Selection>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-analytics-app" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-analytics:app</SubjectKey>
-      <Title>meta-analytics</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-convert-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-analytics-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-convert:app</SubjectKey>
-      <Title>meta-convert</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-data-quality-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-convert-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-data-quality:app</SubjectKey>
-      <Title>meta-data-quality</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-data-type-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-data-quality-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-data-type:app</SubjectKey>
-      <Title>meta-data-type</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-data-type-conversion-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-data-type-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-data-type-conversion:app</SubjectKey>
-      <Title>meta-data-type-conversion</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-data-warehouse-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-data-type-conversion-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-data-warehouse:app</SubjectKey>
-      <Title>meta-data-warehouse</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-datavault-business-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-data-warehouse-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-datavault-business:app</SubjectKey>
-      <Title>meta-datavault-business</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-datavault-raw-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-datavault-business-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-datavault-raw:app</SubjectKey>
-      <Title>meta-datavault-raw</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-multi-dimensional-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-datavault-raw-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-multi-dimensional:app</SubjectKey>
-      <Title>meta-multi-dimensional</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-orchestration-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-multi-dimensional-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-orchestration:app</SubjectKey>
-      <Title>meta-orchestration</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-pipeline-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-orchestration-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-pipeline:app</SubjectKey>
-      <Title>meta-pipeline</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-schema-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-pipeline-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-schema:app</SubjectKey>
-      <Title>meta-schema</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-sql-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-schema-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-sql:app</SubjectKey>
-      <Title>meta-sql</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-tabular-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-sql-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-tabular:app</SubjectKey>
-      <Title>meta-tabular</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-transform-binding-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-tabular-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-transform-binding:app</SubjectKey>
-      <Title>meta-transform-binding</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:cli:subject:source-cli-meta-transform-script-app" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli:subject:source-cli-meta-transform-binding-app">
-      <ParentNodeId>view:default:public:meta-bi:cli</ParentNodeId>
-      <Selection>PublicReference:meta-bi:cli</Selection>
-      <SubjectKey>source:cli:meta-transform-script:app</SubjectKey>
-      <Title>meta-transform-script</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:cli">
-      <ParentNodeId>view:default:public:meta-bi</ParentNodeId>
-      <Selection>ReferenceSurface:meta-bi:models</Selection>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-models" DocumentationSubjectId="public:meta-bi:models" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>Models</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-analytics-model-metaanalytics" DocumentationViewId="view:default">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-analytics:model:metaanalytics</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
+      <Title>CLI</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-models" DocumentationSubjectId="public:meta:models" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
+      <Title>Models</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-reference" DocumentationSubjectId="public:reference" DocumentationViewId="view:default">
+      <Title>meta + meta-bi reference</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-analytics-app" DocumentationSubjectId="source:cli:meta-analytics:app" DocumentationViewId="view:default">
+      <Title>meta-analytics</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-analytics-workspace" DocumentationSubjectId="source:workspace-model:meta-analytics:workspace" DocumentationViewId="view:default">
       <Title>MetaAnalytics</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-business-data-vault-model-metabusinessdatavault" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-analytics-model-metaanalytics">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-business-data-vault:model:metabusinessdatavault</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-business-data-vault-workspace" DocumentationSubjectId="source:workspace-model:meta-business-data-vault:workspace" DocumentationViewId="view:default">
       <Title>MetaBusinessDataVault</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-quality-model-metadataquality" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-business-data-vault-model-metabusinessdatavault">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-quality:model:metadataquality</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-app" DocumentationSubjectId="source:cli:meta:app" DocumentationViewId="view:default">
+      <Title>meta</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-cli-app" DocumentationSubjectId="source:cli:meta-cli:app" DocumentationViewId="view:default">
+      <Title>meta-cli</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-cli-workspace" DocumentationSubjectId="source:workspace-model:meta-cli:workspace" DocumentationViewId="view:default">
+      <Title>MetaCli</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-convert-app" DocumentationSubjectId="source:cli:meta-convert:app" DocumentationViewId="view:default">
+      <Title>meta-convert</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-data-quality-app" DocumentationSubjectId="source:cli:meta-data-quality:app" DocumentationViewId="view:default">
+      <Title>meta-data-quality</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-quality-workspace" DocumentationSubjectId="source:workspace-model:meta-data-quality:workspace" DocumentationViewId="view:default">
       <Title>MetaDataQuality</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-type-model-metadatatype" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-quality-model-metadataquality">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-type:model:metadatatype</SubjectKey>
-      <Title>MetaDataType</Title>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-data-type-app" DocumentationSubjectId="source:cli:meta-data-type:app" DocumentationViewId="view:default">
+      <Title>meta-data-type</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-type-conversion-model-metadatatypeconversion" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-type-model-metadatatype">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-data-type-conversion-app" DocumentationSubjectId="source:cli:meta-data-type-conversion:app" DocumentationViewId="view:default">
+      <Title>meta-data-type-conversion</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-type-conversion-workspace" DocumentationSubjectId="source:workspace-model:meta-data-type-conversion:workspace" DocumentationViewId="view:default">
       <Title>MetaDataTypeConversion</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-vault-implementation-model-metadatavaultimplementation" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-type-conversion-model-metadatatypeconversion">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-vault-implementation:model:metadatavaultimplementation</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-type-workspace" DocumentationSubjectId="source:workspace-model:meta-data-type:workspace" DocumentationViewId="view:default">
+      <Title>MetaDataType</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-datavault-business-app" DocumentationSubjectId="source:cli:meta-datavault-business:app" DocumentationViewId="view:default">
+      <Title>meta-datavault-business</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-vault-implementation-workspace" DocumentationSubjectId="source:workspace-model:meta-data-vault-implementation:workspace" DocumentationViewId="view:default">
       <Title>MetaDataVaultImplementation</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-warehouse-model-metadatawarehouse" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-vault-implementation-model-metadatavaultimplementation">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-warehouse:model:metadatawarehouse</SubjectKey>
-      <Title>MetaDataWarehouse</Title>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-datavault-raw-app" DocumentationSubjectId="source:cli:meta-datavault-raw:app" DocumentationViewId="view:default">
+      <Title>meta-datavault-raw</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-warehouse-implementation-model-metadatawarehouseimplementation" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-warehouse-model-metadatawarehouse">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-data-warehouse-app" DocumentationSubjectId="source:cli:meta-data-warehouse:app" DocumentationViewId="view:default">
+      <Title>meta-data-warehouse</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-warehouse-implementation-workspace" DocumentationSubjectId="source:workspace-model:meta-data-warehouse-implementation:workspace" DocumentationViewId="view:default">
       <Title>MetaDataWarehouseImplementation</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-multi-dimensional-model-metamultidimensional" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-data-warehouse-implementation-model-metadatawarehouseimplementation">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-multi-dimensional:model:metamultidimensional</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-data-warehouse-workspace" DocumentationSubjectId="source:workspace-model:meta-data-warehouse:workspace" DocumentationViewId="view:default">
+      <Title>MetaDataWarehouse</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-docs-app" DocumentationSubjectId="source:cli:meta-docs:app" DocumentationViewId="view:default">
+      <Title>meta-docs</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-docs-workspace" DocumentationSubjectId="source:workspace-model:meta-docs:workspace" DocumentationViewId="view:default">
+      <Title>MetaDocs</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-mesh-app" DocumentationSubjectId="source:cli:meta-mesh:app" DocumentationViewId="view:default">
+      <Title>meta-mesh</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-mesh-workspace" DocumentationSubjectId="source:workspace-model:meta-mesh:workspace" DocumentationViewId="view:default">
+      <Title>MetaMesh</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-multi-dimensional-app" DocumentationSubjectId="source:cli:meta-multi-dimensional:app" DocumentationViewId="view:default">
+      <Title>meta-multi-dimensional</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-multi-dimensional-workspace" DocumentationSubjectId="source:workspace-model:meta-multi-dimensional:workspace" DocumentationViewId="view:default">
       <Title>MetaMultiDimensional</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-orchestration-model-metaorchestration" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-multi-dimensional-model-metamultidimensional">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-orchestration:model:metaorchestration</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-orchestration-app" DocumentationSubjectId="source:cli:meta-orchestration:app" DocumentationViewId="view:default">
+      <Title>meta-orchestration</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-orchestration-workspace" DocumentationSubjectId="source:workspace-model:meta-orchestration:workspace" DocumentationViewId="view:default">
       <Title>MetaOrchestration</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-pipeline-model-metapipeline" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-orchestration-model-metaorchestration">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-pipeline:model:metapipeline</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-pipeline-app" DocumentationSubjectId="source:cli:meta-pipeline:app" DocumentationViewId="view:default">
+      <Title>meta-pipeline</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-pipeline-workspace" DocumentationSubjectId="source:workspace-model:meta-pipeline:workspace" DocumentationViewId="view:default">
       <Title>MetaPipeline</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-raw-data-vault-model-metarawdatavault" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-pipeline-model-metapipeline">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-raw-data-vault:model:metarawdatavault</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-raw-data-vault-workspace" DocumentationSubjectId="source:workspace-model:meta-raw-data-vault:workspace" DocumentationViewId="view:default">
       <Title>MetaRawDataVault</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-schema-model-metaschema" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-raw-data-vault-model-metarawdatavault">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-schema:model:metaschema</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-schema-app" DocumentationSubjectId="source:cli:meta-schema:app" DocumentationViewId="view:default">
+      <Title>meta-schema</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-schema-workspace" DocumentationSubjectId="source:workspace-model:meta-schema:workspace" DocumentationViewId="view:default">
       <Title>MetaSchema</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-sql-model-metasql" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-schema-model-metaschema">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-sql:model:metasql</SubjectKey>
-      <Title>MetaSql</Title>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-sql-app" DocumentationSubjectId="source:cli:meta-sql:app" DocumentationViewId="view:default">
+      <Title>meta-sql</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-sql-deploy-manifest-model-metasqldeploymanifest" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-sql-model-metasql">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-sql-deploy-manifest-workspace" DocumentationSubjectId="source:workspace-model:meta-sql-deploy-manifest:workspace" DocumentationViewId="view:default">
       <Title>MetaSqlDeployManifest</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-tabular-model-metatabular" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-sql-deploy-manifest-model-metasqldeploymanifest">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-tabular:model:metatabular</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-sql-workspace" DocumentationSubjectId="source:workspace-model:meta-sql:workspace" DocumentationViewId="view:default">
+      <Title>MetaSql</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-tabular-app" DocumentationSubjectId="source:cli:meta-tabular:app" DocumentationViewId="view:default">
+      <Title>meta-tabular</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-tabular-workspace" DocumentationSubjectId="source:workspace-model:meta-tabular:workspace" DocumentationViewId="view:default">
       <Title>MetaTabular</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-transform-binding-model-metatransformbinding" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-tabular-model-metatabular">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-transform-binding-app" DocumentationSubjectId="source:cli:meta-transform-binding:app" DocumentationViewId="view:default">
+      <Title>meta-transform-binding</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-transform-binding-workspace" DocumentationSubjectId="source:workspace-model:meta-transform-binding:workspace" DocumentationViewId="view:default">
       <Title>MetaTransformBinding</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:public:meta-bi:models:subject:source-workspace-model-meta-transform-script-model-metatransformscript" DocumentationViewId="view:default" PreviousNodeId="view:default:public:meta-bi:models:subject:source-workspace-model-meta-transform-binding-model-metatransformbinding">
-      <ParentNodeId>view:default:public:meta-bi:models</ParentNodeId>
-      <Selection>PublicReference:meta-bi:models</Selection>
-      <SubjectKey>source:workspace-model:meta-transform-script:model:metatransformscript</SubjectKey>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-transform-script-app" DocumentationSubjectId="source:cli:meta-transform-script:app" DocumentationViewId="view:default">
+      <Title>meta-transform-script</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-transform-script-workspace" DocumentationSubjectId="source:workspace-model:meta-transform-script:workspace" DocumentationViewId="view:default">
       <Title>MetaTransformScript</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-cli-meta-weave-app" DocumentationSubjectId="source:cli:meta-weave:app" DocumentationViewId="view:default">
+      <Title>meta-weave</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:source-workspace-model-meta-weave-workspace" DocumentationSubjectId="source:workspace-model:meta-weave:workspace" DocumentationViewId="view:default">
+      <Title>MetaWeave</Title>
     </DocumentationViewNode>
   </DocumentationViewNodeList>
 </MetaDocs>

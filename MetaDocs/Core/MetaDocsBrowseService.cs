@@ -115,11 +115,6 @@ public sealed class MetaDocsBrowseService
     private static string FormatCliIndex(MetaDocsModel model)
     {
         var applications = CliApplications(model).ToArray();
-        var grouped = applications
-            .GroupBy(app => FirstNonEmpty(Fact(model, app, "Cli", "GroupName"), "Tools"), StringComparer.OrdinalIgnoreCase)
-            .OrderBy(group => GroupRank(group.Key))
-            .ThenBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
-            .ToArray();
 
         var builder = new StringBuilder();
         builder.AppendLine("CLI tools");
@@ -135,17 +130,9 @@ public sealed class MetaDocsBrowseService
         {
             builder.AppendLine();
             builder.AppendLine("Applications:");
-            foreach (var group in grouped)
+            foreach (var app in applications.OrderBy(app => app.DisplayName, StringComparer.OrdinalIgnoreCase))
             {
-                if (grouped.Length > 1)
-                {
-                    builder.AppendLine($"  {DisplayGroupName(group.Key)}");
-                }
-
-                foreach (var app in group.OrderBy(app => app.DisplayName, StringComparer.OrdinalIgnoreCase))
-                {
-                    AppendItem(builder, app.DisplayName, Description(model, app), $"meta-docs browse {CliPath(app)}", grouped.Length > 1 ? 2 : 1);
-                }
+                AppendItem(builder, app.DisplayName, Description(model, app), $"meta-docs browse {CliPath(app)}", 1);
             }
         }
 
@@ -164,6 +151,8 @@ public sealed class MetaDocsBrowseService
         {
             builder.AppendLine(description);
         }
+
+        AppendExamples(builder, model, app);
 
         if (commands.Length == 0)
         {
@@ -241,6 +230,8 @@ public sealed class MetaDocsBrowseService
             }
         }
 
+        AppendExamples(builder, model, command);
+
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
         builder.AppendLine($"  meta-docs browse {CliPath(app)}");
@@ -290,6 +281,8 @@ public sealed class MetaDocsBrowseService
             builder.AppendLine(description);
         }
 
+        AppendExamples(builder, model, modelSubject);
+
         if (entities.Length == 0)
         {
             AppendSectionBreak(builder);
@@ -327,6 +320,8 @@ public sealed class MetaDocsBrowseService
         {
             builder.AppendLine(description);
         }
+
+        AppendExamples(builder, model, entity);
 
         if (properties.Length != 0)
         {
@@ -506,6 +501,64 @@ public sealed class MetaDocsBrowseService
         }
     }
 
+    private static void AppendExamples(StringBuilder builder, MetaDocsModel model, DocumentationSubject subject)
+    {
+        var examples = Examples(model, subject);
+        if (examples.Length == 0)
+        {
+            return;
+        }
+
+        AppendSectionBreak(builder);
+        builder.AppendLine("Examples:");
+        foreach (var example in examples)
+        {
+            builder.AppendLine($"  {example.Title}");
+            if (!string.IsNullOrWhiteSpace(example.Summary))
+            {
+                AppendIndentedLines(builder, example.Summary!, 4);
+            }
+
+            foreach (var section in ExampleSections(model, example))
+            {
+                if (!string.IsNullOrWhiteSpace(section.Title))
+                {
+                    builder.AppendLine($"    {section.Title}");
+                }
+
+                if (!string.IsNullOrWhiteSpace(section.Body))
+                {
+                    AppendIndentedLines(builder, section.Body!, 4);
+                }
+
+                foreach (var code in ExampleCodes(model, section))
+                {
+                    if (!string.IsNullOrWhiteSpace(code.Title))
+                    {
+                        builder.AppendLine($"    {code.Title}:");
+                    }
+
+                    AppendIndentedLines(builder, code.Code, 6);
+                }
+            }
+        }
+    }
+
+    private static void AppendIndentedLines(StringBuilder builder, string value, int spaces)
+    {
+        var prefix = new string(' ', spaces);
+        foreach (var line in value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n'))
+        {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            builder.Append(prefix);
+            builder.AppendLine(line.TrimEnd());
+        }
+    }
+
     private static void AppendSectionBreak(StringBuilder builder)
     {
         if (builder.Length != 0)
@@ -530,7 +583,7 @@ public sealed class MetaDocsBrowseService
 
     private static IEnumerable<DocumentationSubject> CliApplications(MetaDocsModel model) =>
         CurrentSubjects(model)
-            .Where(static subject => string.Equals(subject.Kind, "CliApplication", StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "CliApplication"))
             .OrderBy(static subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase);
 
     private static IEnumerable<DocumentationSubject> CliCommands(MetaDocsModel model, DocumentationSubject app) =>
@@ -538,7 +591,7 @@ public sealed class MetaDocsBrowseService
 
     private static IEnumerable<DocumentationSubject> Models(MetaDocsModel model) =>
         CurrentSubjects(model)
-            .Where(static subject => string.Equals(subject.Kind, "Model", StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Model"))
             .OrderBy(static subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase);
 
     private static IEnumerable<DocumentationSubject> EntityChildren(MetaDocsModel model, DocumentationSubject modelSubject) =>
@@ -547,8 +600,8 @@ public sealed class MetaDocsBrowseService
     private static IEnumerable<DocumentationSubject> Children(MetaDocsModel model, DocumentationSubject parent, string kind)
     {
         var children = CurrentSubjects(model)
-            .Where(subject => string.Equals(subject.ParentKey ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(subject => string.Equals(subject.Kind, kind, StringComparison.OrdinalIgnoreCase))
+            .Where(subject => string.Equals(subject.ParentSubject?.Id ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase))
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, kind))
             .ToArray();
         return MetaDocsOrdering.ByPrevious(
             children,
@@ -566,10 +619,10 @@ public sealed class MetaDocsBrowseService
         {
             foreach (var reference in model.DocumentationRelationshipList
                          .Where(IsCurrent)
-                         .Where(row => string.Equals(row.FromSubjectKey, relationship.Id, StringComparison.OrdinalIgnoreCase))
-                         .Where(row => string.Equals(row.Kind, "ReferencesEntity", StringComparison.OrdinalIgnoreCase)))
+                         .Where(row => string.Equals(row.FromSubject?.Id ?? string.Empty, relationship.Id, StringComparison.OrdinalIgnoreCase))
+                         .Where(row => MetaDocsVocabulary.IsRelationshipType(row, "ReferencesEntity")))
             {
-                if (subjectsByKey.TryGetValue(reference.ToSubjectKey, out var target) &&
+                if (subjectsByKey.TryGetValue(reference.ToSubject.Id, out var target) &&
                     seen.Add(target.Id))
                 {
                     yield return target;
@@ -577,6 +630,31 @@ public sealed class MetaDocsBrowseService
             }
         }
     }
+
+    private static DocumentationExample[] Examples(MetaDocsModel model, DocumentationSubject subject) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleList
+                    .Where(IsCurrent)
+                    .Where(example => ReferenceEquals(example.DocumentationSubject, subject)),
+                static example => example.PreviousExample,
+                static example => FirstNonEmpty(example.Title, example.Id))
+            .ToArray();
+
+    private static DocumentationExampleSection[] ExampleSections(MetaDocsModel model, DocumentationExample example) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleSectionList
+                    .Where(section => ReferenceEquals(section.DocumentationExample, example)),
+                static section => section.PreviousSection,
+                static section => FirstNonEmpty(section.Title, section.Id))
+            .ToArray();
+
+    private static DocumentationExampleCode[] ExampleCodes(MetaDocsModel model, DocumentationExampleSection section) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationExampleCodeList
+                    .Where(code => ReferenceEquals(code.DocumentationExampleSection, section)),
+                static code => code.PreviousCode,
+                static code => FirstNonEmpty(code.Title, code.Id))
+            .ToArray();
 
     private static IEnumerable<DocumentationSubject> Closest(IEnumerable<DocumentationSubject> subjects, string value) =>
         subjects
@@ -670,7 +748,6 @@ public sealed class MetaDocsBrowseService
         var normalized = name.Trim();
         return string.Equals(subject.DisplayName, normalized, StringComparison.OrdinalIgnoreCase) ||
                string.Equals(subject.NativeId, normalized, StringComparison.OrdinalIgnoreCase) ||
-               string.Equals(subject.Key, normalized, StringComparison.OrdinalIgnoreCase) ||
                string.Equals(subject.Id, normalized, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -697,7 +774,7 @@ public sealed class MetaDocsBrowseService
         FirstNonEmpty(
             model.DocumentationNarrativeList
                 .Where(IsCurrent)
-                .Where(narrative => string.Equals(narrative.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
+                .Where(narrative => ReferenceEquals(narrative.DocumentationSubject, subject))
                 .Where(narrative => string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase))
                 .Select(static narrative => narrative.Body)
                 .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)),
@@ -723,8 +800,8 @@ public sealed class MetaDocsBrowseService
     private static IReadOnlyList<DocumentationFact> Facts(MetaDocsModel model, DocumentationSubject subject, string kind) =>
         model.DocumentationFactList
             .Where(IsCurrent)
-            .Where(fact => string.Equals(fact.SubjectKey, subject.Id, StringComparison.OrdinalIgnoreCase))
-            .Where(fact => string.Equals(fact.Kind, kind, StringComparison.OrdinalIgnoreCase))
+            .Where(fact => ReferenceEquals(fact.DocumentationSubject, subject))
+            .Where(fact => MetaDocsVocabulary.IsFactType(fact, kind))
             .ToArray();
 
     private static string Fact(MetaDocsModel model, DocumentationSubject subject, string kind, string name) =>
@@ -745,21 +822,6 @@ public sealed class MetaDocsBrowseService
     private static string EntityPath(DocumentationSubject model, DocumentationSubject entity) =>
         ModelPath(model) + "/" + entity.DisplayName;
 
-    private static int GroupRank(string group) =>
-        group.ToLowerInvariant() switch
-        {
-            "meta" => 0,
-            "meta-bi" => 1,
-            _ => 2,
-        };
-
-    private static string DisplayGroupName(string group) =>
-        string.Equals(group, "meta-bi", StringComparison.OrdinalIgnoreCase)
-            ? "Meta-BI"
-            : string.Equals(group, "meta", StringComparison.OrdinalIgnoreCase)
-                ? "Meta"
-                : group;
-
     private static IEnumerable<DocumentationSubject> CurrentSubjects(MetaDocsModel model) =>
         model.DocumentationSubjectList.Where(IsCurrent);
 
@@ -777,6 +839,11 @@ public sealed class MetaDocsBrowseService
         !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsCurrent(DocumentationExample example) =>
+        !string.Equals(example.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
+        !string.Equals(example.ReviewStatus, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
+        !string.Equals(example.ReviewStatus, "Ignored", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsCurrent(DocumentationRelationship relationship) =>
         IsVisibleStatus(relationship.DocumentationSource?.Status) &&

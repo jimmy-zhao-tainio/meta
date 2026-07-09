@@ -17,11 +17,11 @@ namespace MetaDocs
 
         public string? Html { get; set; }
 
-        public string Kind { get; set; } = string.Empty;
-
         public string Name { get; set; } = string.Empty;
 
         public string? SourceUrl { get; set; }
+
+        public DocumentationTemplateType DocumentationTemplateType { get; set; } = null!;
 
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
 

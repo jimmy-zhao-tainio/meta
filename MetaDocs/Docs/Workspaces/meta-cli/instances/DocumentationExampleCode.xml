@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta:model-suggest-promote-relationships:commands" DocumentationExampleSectionId="example:meta:model-suggest-promote-relationships:overview">
+      <Code>meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
+meta import csv ..\demo-csv\suppliers.csv --entity Supplier
+meta import csv ..\demo-csv\categories.csv --entity Category
+meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
+meta import csv ..\demo-csv\orders.csv --entity Order
+meta model suggest --print-commands
+meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
+meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id
+meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

@@ -15,8 +15,6 @@ namespace MetaDocs
     {
         public string Id { get; set; } = string.Empty;
 
-        public string AssetKind { get; set; } = string.Empty;
-
         public string? Content { get; set; }
 
         public string? Hash { get; set; }
@@ -26,6 +24,8 @@ namespace MetaDocs
         public string? MediaType { get; set; }
 
         public string Name { get; set; } = string.Empty;
+
+        public DocumentationThemeAssetType DocumentationThemeAssetType { get; set; } = null!;
 
         public DocumentationTheme DocumentationTheme { get; set; } = null!;
 

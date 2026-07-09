@@ -19,21 +19,19 @@ namespace MetaDocs
 
         public string? DisplayPath { get; set; }
 
-        public string Key { get; set; } = string.Empty;
-
-        public string Kind { get; set; } = string.Empty;
-
         public string? NativeId { get; set; }
 
-        public string? NativeKind { get; set; }
-
-        public string? ParentKey { get; set; }
+        public string? SourceTypeName { get; set; }
 
         public string Status { get; set; } = string.Empty;
 
         public string? Summary { get; set; }
 
         public DocumentationSource DocumentationSource { get; set; } = null!;
+
+        public DocumentationSubjectType DocumentationSubjectType { get; set; } = null!;
+
+        public DocumentationSubject? ParentSubject { get; set; }
 
         public DocumentationSubject? PreviousSubject { get; set; }
 

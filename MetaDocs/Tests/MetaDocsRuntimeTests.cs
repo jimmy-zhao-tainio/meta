@@ -90,7 +90,7 @@ public sealed class MetaDocsRuntimeTests
         try
         {
             var model = MetaDocsModel.CreateEmpty();
-            new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+            new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."));
             AddModelSubject(model, "MetaDocs");
             model.SaveToXmlWorkspace(root);
 
@@ -143,7 +143,7 @@ public sealed class MetaDocsRuntimeTests
 
             var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
             Assert.Contains(reloaded.DocumentationNarrativeList, row =>
-                row.SubjectKey == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
+                row.DocumentationSubject?.Id == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
                 row.Slot == "Summary" &&
                 row.Origin == "Authored");
         }
@@ -160,13 +160,18 @@ public sealed class MetaDocsRuntimeTests
     public void Cli_ImportRefreshMergePreservesAuthoredModelDescriptions()
     {
         var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true);
+        var authoredWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-authored-" + Guid.NewGuid().ToString("N"));
         var docsWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-source-docs-" + Guid.NewGuid().ToString("N"));
         var suiteWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-suite-" + Guid.NewGuid().ToString("N"));
         var siteOutput = Path.Combine(Path.GetTempPath(), "metadocs-site-" + Guid.NewGuid().ToString("N"));
         try
         {
+            var authored = MetaDocsModel.CreateEmpty();
+            var reference = AddPublicReferenceTree(authored);
+            authored.SaveToXmlWorkspace(authoredWorkspace);
+
             var import = RunCli(
-                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --new-workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs");
+                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --new-workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
             Assert.Equal(0, import.ExitCode);
             Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", import.Output);
 
@@ -178,26 +183,25 @@ public sealed class MetaDocsRuntimeTests
 
             WriteSampleModel(sourceWorkspace, includeEmail: false);
             var refresh = RunCli(
-                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs");
+                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
             Assert.Equal(0, refresh.ExitCode);
             Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", refresh.Output);
 
             var refreshedDocs = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
             var modelSubject = Assert.Single(refreshedDocs.DocumentationSubjectList, row =>
-                row.Kind == "Model" &&
+                IsSubjectType(row, "Model") &&
                 row.DisplayName == "SampleModel");
             Assert.True(string.IsNullOrEmpty(modelSubject.Summary));
             Assert.Equal("SampleModel turns source metadata into browsable documentation.", FindNarrative(refreshedDocs, modelSubject, "Summary").Body);
-            var email = Assert.Single(refreshedDocs.DocumentationSubjectList, row =>
-                row.Kind == "Property" &&
+            Assert.DoesNotContain(refreshedDocs.DocumentationSubjectList, row =>
+                IsSubjectType(row, "Property") &&
                 row.DisplayName == "Email");
-            Assert.Equal("MissingFromSource", email.Status);
 
             var merge = RunCli(
-                $"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
+                $"merge --include {QuoteArgument(authoredWorkspace)} --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
             Assert.Contains("Rebuilt suite workspace:", merge.Output);
-            Assert.Contains("Included 1 source workspace(s), 1 documentation source(s).", merge.Output);
+            Assert.Contains("Included 2 source workspace(s), 2 documentation source(s).", merge.Output);
 
             var browse = RunCli($"browse --workspace {QuoteArgument(suiteWorkspace)} model/SampleModel");
             Assert.Equal(0, browse.ExitCode);
@@ -211,6 +215,69 @@ public sealed class MetaDocsRuntimeTests
         finally
         {
             DeleteDirectoryIfExists(sourceWorkspace);
+            DeleteDirectoryIfExists(authoredWorkspace);
+            DeleteDirectoryIfExists(docsWorkspace);
+            DeleteDirectoryIfExists(suiteWorkspace);
+            DeleteDirectoryIfExists(siteOutput);
+        }
+    }
+
+    [Fact]
+    public void Cli_AddExampleAuthorsStructuredExamplesForBrowseSearchMergeAndRender()
+    {
+        var docsWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-example-docs-" + Guid.NewGuid().ToString("N"));
+        var suiteWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-example-suite-" + Guid.NewGuid().ToString("N"));
+        var siteOutput = Path.Combine(Path.GetTempPath(), "metadocs-example-site-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var model = MetaDocsModel.CreateEmpty();
+            var reference = AddPublicReferenceTree(model);
+            new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
+            model.SaveToXmlWorkspace(docsWorkspace);
+
+            var addExample = RunCli(
+                $"add-example --workspace {QuoteArgument(docsWorkspace)} --cli meta-sql --command deploy --id example:meta-sql:deploy --title \"Deploy a manifest\" --section-id example:meta-sql:deploy:overview --body-stdin",
+                standardInput: "Apply a deploy manifest after source and live fingerprint validation.");
+            Assert.Equal(0, addExample.ExitCode);
+            Assert.Contains("Added example: Deploy a manifest.", addExample.Output);
+
+            var addCode = RunCli(
+                $"add-example-code --workspace {QuoteArgument(docsWorkspace)} --section example:meta-sql:deploy:overview --id example:meta-sql:deploy:command --language powershell --code-stdin",
+                standardInput: "meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql");
+            Assert.Equal(0, addCode.ExitCode);
+            Assert.Contains("Added example code:", addCode.Output);
+
+            var validate = RunCli($"validate --workspace {QuoteArgument(docsWorkspace)}");
+            Assert.Equal(0, validate.ExitCode);
+            Assert.Contains("Diagnostics: 0 error(s), 0 warning(s), 0 info.", validate.Output);
+
+            var browse = RunCli($"browse --workspace {QuoteArgument(docsWorkspace)} cli/meta-sql/deploy");
+            Assert.Equal(0, browse.ExitCode);
+            Assert.Contains("Examples:", browse.Output);
+            Assert.Contains("Deploy a manifest", browse.Output);
+            Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", browse.Output);
+
+            var search = RunCli($"search --workspace {QuoteArgument(docsWorkspace)} \"Deploy a manifest\"");
+            Assert.Equal(0, search.ExitCode);
+            Assert.Contains("meta-sql deploy", search.Output);
+            Assert.Contains("example Deploy a manifest", search.Output);
+
+            var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
+            Assert.Equal(0, merge.ExitCode);
+            var suite = MetaDocsModel.LoadFromXmlWorkspace(suiteWorkspace, searchUpward: false);
+            var suiteExample = Assert.Single(suite.DocumentationExampleList);
+            Assert.Equal("Deploy a manifest", suiteExample.Title);
+            Assert.Equal("meta-sql deploy", suiteExample.DocumentationSubject.DisplayName);
+
+            var render = RunCli($"render-site --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(siteOutput)}");
+            Assert.Equal(0, render.ExitCode);
+            var html = File.ReadAllText(Path.Combine(siteOutput, "docs.html"));
+            Assert.Contains("example-block", html, StringComparison.Ordinal);
+            Assert.Contains("Deploy a manifest", html, StringComparison.Ordinal);
+            Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", html, StringComparison.Ordinal);
+        }
+        finally
+        {
             DeleteDirectoryIfExists(docsWorkspace);
             DeleteDirectoryIfExists(suiteWorkspace);
             DeleteDirectoryIfExists(siteOutput);
@@ -225,7 +292,7 @@ public sealed class MetaDocsRuntimeTests
         {
             var repoRoot = FindRepositoryRoot();
             var model = MetaDocsModel.CreateEmpty();
-            new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), groupName: "meta-bi");
+            new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp());
             await new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
                 model,
                 Path.Combine(repoRoot, "MetaDocs", "Workspace"),
@@ -358,18 +425,18 @@ public sealed class MetaDocsRuntimeTests
             page with { Body = "Updated authored description.", Summary = "Updated summary." });
 
         subject = Assert.Single(model.DocumentationSubjectList, row => row.Id == "docs:home");
-        Assert.Equal("Guide", subject.Kind);
+        Assert.True(IsSubjectType(subject, "Guide"));
         Assert.Equal("Updated summary.", subject.Summary);
-        Assert.Equal("AuthoredDocumentation", subject.DocumentationSource.Kind);
+        Assert.True(IsSourceType(subject.DocumentationSource, "AuthoredDocumentation"));
 
         var narrative = Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == subject.Id &&
+            row.DocumentationSubject?.Id == subject.Id &&
             row.Origin == "Authored");
         Assert.Equal("Updated authored description.", narrative.Body);
         Assert.Equal("Current", narrative.ReviewStatus);
 
         Assert.Contains(model.DocumentationViewNodeList, row =>
-            row.SubjectKey == subject.Id &&
+            row.DocumentationSubject?.Id == subject.Id &&
             row.Title == "meta + meta-bi");
         Assert.False(new MetaDocsValidationService().Validate(model).HasErrors());
     }
@@ -400,20 +467,17 @@ public sealed class MetaDocsRuntimeTests
                         "Authored option explanation.",
                         "Authored option when.",
                         ".\\Schema")
-                ]),
-            groupName: "meta-bi");
+                ]));
 
         importer.ImportApplication(
             model,
-            CreateBindingApp("Bind transforms after help text changed."),
-            groupName: "meta-bi");
+            CreateBindingApp("Bind transforms after help text changed."));
 
-        var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        var application = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
         Assert.Equal("source:cli:meta-transform-binding:app", application.Id);
         Assert.Equal("Authored application summary.", FindNarrative(model, application, "Summary").Body);
-        Assert.Equal("meta-bi", FindFact(model, application, "Cli", "GroupName").Value);
 
-        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
+        var command = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliCommand"));
         Assert.Equal("meta-transform-binding bind", command.DisplayName);
         Assert.Equal("Bind transforms after help text changed.", command.Summary);
         Assert.Equal("Changed", command.Status);
@@ -422,7 +486,7 @@ public sealed class MetaDocsRuntimeTests
         Assert.Equal("Authored how.", FindNarrative(model, command, "ImplementationNote").Body);
         Assert.Equal("1", FindFact(model, command, "Cli", "OptionCount").Value);
 
-        var option = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliOption");
+        var option = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliOption"));
         Assert.Equal("--source-schema", option.DisplayName);
         Assert.Equal("Source schema workspace.", option.Summary);
         Assert.Equal("Authored option explanation.", FindNarrative(model, option, "Summary").Body);
@@ -439,10 +503,10 @@ public sealed class MetaDocsRuntimeTests
         importer.ImportApplication(model, CreateBindingApp("Bind transforms.", includeInspect: false));
 
         Assert.DoesNotContain(model.DocumentationSubjectList, row =>
-            row.Kind == "CliCommand" &&
+            IsSubjectType(row, "CliCommand") &&
             row.NativeId == "inspect");
         Assert.DoesNotContain(model.DocumentationFactList, row =>
-            row.SubjectKey.Contains("inspect", StringComparison.OrdinalIgnoreCase));
+            row.DocumentationSubject?.Id.Contains("inspect", StringComparison.OrdinalIgnoreCase) == true);
     }
 
     [Fact]
@@ -452,13 +516,13 @@ public sealed class MetaDocsRuntimeTests
         var importer = new MetaDocsCliImporter();
 
         importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
-        var source = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+        var source = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace"));
         var batch = Assert.Single(model.DocumentationImportBatchList);
         var importedAt = source.ImportedAt;
 
         importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
 
-        var reimportedSource = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+        var reimportedSource = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace"));
         var reimportedBatch = Assert.Single(model.DocumentationImportBatchList);
         Assert.Equal(batch.Id, reimportedBatch.Id);
         Assert.Equal(importedAt, reimportedSource.ImportedAt);
@@ -478,7 +542,7 @@ public sealed class MetaDocsRuntimeTests
 
             importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
             var batch = Assert.Single(model.DocumentationImportBatchList);
-            var importedAt = Assert.Single(model.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace").ImportedAt;
+            var importedAt = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace")).ImportedAt;
             model.SaveToXmlWorkspace(root);
 
             var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
@@ -486,7 +550,7 @@ public sealed class MetaDocsRuntimeTests
             var factStatuses = reloaded.DocumentationFactList.ToDictionary(row => row.Id, row => row.Status);
             importer.ImportApplication(reloaded, CreateBindingApp("Bind transforms."));
 
-            var reimportedSource = Assert.Single(reloaded.DocumentationSourceList, row => row.Kind == "MetaCliWorkspace");
+            var reimportedSource = Assert.Single(reloaded.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace"));
             var reimportedBatch = Assert.Single(reloaded.DocumentationImportBatchList);
             Assert.Equal(batch.Id, reimportedBatch.Id);
             Assert.Equal(importedAt, reimportedSource.ImportedAt);
@@ -575,26 +639,27 @@ public sealed class MetaDocsRuntimeTests
             PreviousMember = idMember,
         });
 
-        new MetaDocsCliImporter().ImportApplication(model, cli, groupName: "meta");
+        var reference = AddPublicReferenceTree(model);
+        new MetaDocsCliImporter().ImportApplication(model, cli, parentSubjectId: reference.MetaCli.Id);
 
-        var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        var application = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
         Assert.Equal(string.Empty, application.Summary);
         Assert.True(string.IsNullOrWhiteSpace(FindNarrative(model, application, "Summary").Body));
 
-        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
+        var command = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliCommand"));
         Assert.Equal("1", FindFact(model, command, "Cli", "ParameterGroupCount").Value);
 
         var mode = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "CliOption" &&
+            IsSubjectType(row, "CliOption") &&
             row.DisplayName == "--mode");
         Assert.Equal("Mode", FindFact(model, mode, "Cli", "ValueShape").Value);
         Assert.Equal("One", FindFact(model, mode, "Cli", "ValueArity").Value);
         Assert.Equal("fast, safe", FindFact(model, mode, "Cli", "AllowedValues").Value);
         Assert.Equal(2, model.DocumentationSubjectList.Count(row =>
-            row.Kind == "CliAllowedValue" &&
-            row.ParentKey == mode.Id));
+            IsSubjectType(row, "CliAllowedValue") &&
+            row.ParentSubject?.Id == mode.Id));
 
-        var importedGroup = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliParameterGroup");
+        var importedGroup = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliParameterGroup"));
         Assert.Equal("IdChoice", importedGroup.DisplayName);
         Assert.Equal("true", FindFact(model, importedGroup, "Cli", "Required").Value);
         Assert.Equal("false", FindFact(model, importedGroup, "Cli", "AllowsMultiple").Value);
@@ -617,9 +682,9 @@ public sealed class MetaDocsRuntimeTests
             "source:workspace-model:sample",
             "Sample docs");
 
-        var workspace = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Workspace");
+        var workspace = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Workspace"));
         Assert.Equal("Sample docs", workspace.DisplayName);
-        var source = Assert.Single(model.DocumentationSourceList, row => row.Kind == "WorkspaceModel");
+        var source = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "WorkspaceModel"));
         Assert.NotNull(source.SourceFingerprint);
         Assert.Equal(64, source.SourceFingerprint.Length);
         Assert.All(
@@ -630,37 +695,37 @@ public sealed class MetaDocsRuntimeTests
                 Assert.Equal(64, fact.SourceFingerprint.Length);
             });
 
-        var modelSubject = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Model");
+        var modelSubject = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Model"));
         Assert.Equal("SampleModel", modelSubject.DisplayName);
         Assert.Equal(string.Empty, modelSubject.Summary);
         Assert.Equal("2", FindFact(model, modelSubject, "Model", "EntityCount").Value);
 
         var customer = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Entity" &&
+            IsSubjectType(row, "Entity") &&
             row.DisplayName == "Customer");
         Assert.Equal(string.Empty, customer.Summary);
         Assert.Equal("2", FindFact(model, customer, "Model", "PropertyCount").Value);
 
         var email = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Property" &&
+            IsSubjectType(row, "Property") &&
             row.DisplayName == "Email");
         Assert.Equal(string.Empty, email.Summary);
         Assert.Equal("True", FindFact(model, email, "Model", "Nullable").Value);
 
         var orderCustomer = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Relationship" &&
+            IsSubjectType(row, "Relationship") &&
             row.DisplayName == "Customer");
         Assert.Equal(string.Empty, orderCustomer.Summary);
         Assert.Equal("Customer", FindFact(model, orderCustomer, "Model", "TargetEntity").Value);
         Assert.Contains(model.DocumentationRelationshipList, row =>
-            row.FromSubjectKey == orderCustomer.Id &&
-            row.Kind == "ReferencesEntity" &&
-            row.ToSubjectKey == customer.Id);
+            row.FromSubject?.Id == orderCustomer.Id &&
+            IsRelationshipType(row, "ReferencesEntity") &&
+            row.ToSubject?.Id == customer.Id);
         Assert.Empty(model.DocumentationNarrativeList);
     }
 
     [Fact]
-    public async Task ImportWorkspaceModel_ReimportPreservesAuthoredNarrativeMarksRemovedPropertyAndUpdatesFacts()
+    public async Task ImportWorkspaceModel_ReimportPreservesAuthoredNarrativePrunesRemovedPropertyAndUpdatesFacts()
     {
         var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true);
         var model = MetaDocsModel.CreateEmpty();
@@ -672,20 +737,44 @@ public sealed class MetaDocsRuntimeTests
             "source:workspace-model:sample",
             "Sample docs");
         var customer = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Entity" &&
+            IsSubjectType(row, "Entity") &&
             row.DisplayName == "Customer");
         customer.Summary = "Stored customer summary.";
         model.DocumentationNarrativeList.Add(new DocumentationNarrative
         {
             Id = $"{customer.Id}:narrative:summary:900",
             DocumentationSubject = customer,
-            SubjectKey = customer.Id,
             Slot = "Summary",
             Title = "Summary",
             Body = "Authored customer description.",
             BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
+        });
+        var email = Assert.Single(model.DocumentationSubjectList, row =>
+            IsSubjectType(row, "Property") &&
+            row.DisplayName == "Email");
+        model.DocumentationExampleList.Add(new DocumentationExample
+        {
+            Id = "example:email:removed",
+            DocumentationSubject = email,
+            Title = "Removed property example",
+            Origin = "Authored",
+            ReviewStatus = "Current",
+        });
+        model.DocumentationExampleSectionList.Add(new DocumentationExampleSection
+        {
+            Id = "example:email:removed:section",
+            DocumentationExample = model.DocumentationExampleList.Single(row => row.Id == "example:email:removed"),
+            Body = "Example tied to a property that disappears.",
+            BodyFormat = "PlainText",
+        });
+        model.DocumentationExampleCodeList.Add(new DocumentationExampleCode
+        {
+            Id = "example:email:removed:code",
+            DocumentationExampleSection = model.DocumentationExampleSectionList.Single(row => row.Id == "example:email:removed:section"),
+            Language = "text",
+            Code = "Email",
         });
 
         WriteSampleModel(sourceWorkspace, includeEmail: false);
@@ -696,18 +785,20 @@ public sealed class MetaDocsRuntimeTests
             "Sample docs");
 
         customer = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Entity" &&
+            IsSubjectType(row, "Entity") &&
             row.DisplayName == "Customer");
         Assert.Equal("Stored customer summary.", customer.Summary);
         Assert.Equal("1", FindFact(model, customer, "Model", "PropertyCount").Value);
         Assert.Equal("Authored customer description.", Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == customer.Id &&
+            row.DocumentationSubject?.Id == customer.Id &&
             row.Origin == "Authored").Body);
 
-        var email = Assert.Single(model.DocumentationSubjectList, row =>
-            row.Kind == "Property" &&
+        Assert.DoesNotContain(model.DocumentationSubjectList, row =>
+            IsSubjectType(row, "Property") &&
             row.DisplayName == "Email");
-        Assert.Equal("MissingFromSource", email.Status);
+        Assert.DoesNotContain(model.DocumentationExampleList, row => row.Id == "example:email:removed");
+        Assert.DoesNotContain(model.DocumentationExampleSectionList, row => row.Id == "example:email:removed:section");
+        Assert.DoesNotContain(model.DocumentationExampleCodeList, row => row.Id == "example:email:removed:code");
     }
 
     [Fact]
@@ -721,11 +812,11 @@ public sealed class MetaDocsRuntimeTests
 
         var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { left, right });
 
-        Assert.Contains(suite.DocumentationWorkspaceList, row => row.Kind == "SuiteDocumentation");
+        Assert.Contains(suite.DocumentationWorkspaceList, row => IsWorkspaceType(row, "SuiteDocumentation"));
         Assert.Contains(suite.DocumentationSourceList, row => row.Id == "source:cli:left");
         Assert.Contains(suite.DocumentationSourceList, row => row.Id == "source:cli:right");
         Assert.Equal(2, suite.DocumentationSubjectList.Count(row =>
-            row.Kind == "CliApplication" &&
+            IsSubjectType(row, "CliApplication") &&
             row.DisplayName == "same-cli"));
         Assert.Equal(
             suite.DocumentationSubjectList.Count,
@@ -737,15 +828,55 @@ public sealed class MetaDocsRuntimeTests
     {
         var source = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(source, CreateSameNamedApp(), sourceId: "source:cli:left");
-        var sourceReference = Assert.Single(source.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        var sourceReference = Assert.Single(source.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
         var sourceWorkspace = Assert.Single(source.DocumentationWorkspaceList);
 
         var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { source });
-        var suiteReference = Assert.Single(suite.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        var suiteReference = Assert.Single(suite.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
 
         Assert.NotSame(sourceReference, suiteReference);
         Assert.Same(sourceWorkspace, source.DocumentationSourceList.Single().DocumentationWorkspace);
         Assert.NotSame(source.DocumentationSourceList.Single(), suite.DocumentationSourceList.Single(row => row.Id == "source:cli:left"));
+    }
+
+    [Fact]
+    public void SuiteMerge_PreservesStructuredExamples()
+    {
+        var source = MetaDocsModel.CreateEmpty();
+        new MetaDocsCliImporter().ImportApplication(source, CreateSameNamedApp(), sourceId: "source:cli:left");
+        var authoring = new MetaDocsExampleAuthoringService();
+        var example = authoring.UpsertExample(
+            source,
+            new MetaDocsSubjectSelector(Cli: "same-cli"),
+            "example:same-cli:overview",
+            "Run the CLI",
+            "Example summary.",
+            "example:same-cli:overview:section",
+            "Run the command from the workspace you want to inspect.",
+            "PlainText",
+            string.Empty);
+        var section = Assert.Single(source.DocumentationExampleSectionList);
+        authoring.UpsertCode(
+            source,
+            section.Id,
+            "example:same-cli:overview:command",
+            "Command",
+            "powershell",
+            "same-cli show",
+            string.Empty);
+
+        var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { source });
+
+        var suiteExample = Assert.Single(suite.DocumentationExampleList);
+        Assert.NotSame(example, suiteExample);
+        Assert.Equal("Run the CLI", suiteExample.Title);
+        Assert.Equal("same-cli", suiteExample.DocumentationSubject.DisplayName);
+        var suiteSection = Assert.Single(suite.DocumentationExampleSectionList);
+        Assert.Same(suiteExample, suiteSection.DocumentationExample);
+        Assert.Equal("Run the command from the workspace you want to inspect.", suiteSection.Body);
+        var suiteCode = Assert.Single(suite.DocumentationExampleCodeList);
+        Assert.Same(suiteSection, suiteCode.DocumentationExampleSection);
+        Assert.Equal("same-cli show", suiteCode.Code);
     }
 
     [Fact]
@@ -757,7 +888,7 @@ public sealed class MetaDocsRuntimeTests
         var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { source, source });
 
         Assert.Equal(1, suite.DocumentationSourceList.Count(row => row.Id == "source:cli:left"));
-        Assert.Equal(1, suite.DocumentationSubjectList.Count(row => row.Kind == "CliApplication"));
+        Assert.Equal(1, suite.DocumentationSubjectList.Count(row => IsSubjectType(row, "CliApplication")));
         Assert.Equal(1, suite.DocumentationThemeAssetList.Count(row => row.Id == "theme:metametabi-static:asset:css"));
         var brandMark = Assert.Single(suite.DocumentationThemeAssetList, row => row.Id == "theme:metametabi-static:asset:brand-mark");
         Assert.Equal(string.Empty, brandMark.Href);
@@ -767,57 +898,60 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void PublicReferenceClassifier_ClassifiesProductFamilyAndSurface()
+    public void PublicReferenceSubjectHierarchy_DrivesRenderPlacement()
     {
         var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
         var importer = new MetaDocsCliImporter();
-        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateMetaDocsApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-cli"), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-mesh"), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta-bi");
-        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta-bi");
-        AddModelSubject(model, "MetaDocs");
-        AddModelSubject(model, "MetaDataType");
+        importer.ImportApplication(model, CreateMetaApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(model, CreateMetaDocsApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaBiCli.Id);
+        AddModelSubject(model, "MetaDocs", reference.MetaModels);
+        AddModelSubject(model, "MetaTransformBinding", reference.MetaBiModels);
+        var view = Assert.Single(model.DocumentationViewList, row => row.Id == "view:default");
+        Assert.Equal(reference.Root.Id, view.RootSubject?.Id);
+        Assert.Equal(reference.Root.DisplayName, view.Title);
+        Assert.Equal(reference.Root.Summary, view.Summary);
 
-        AssertClassification(model, "meta", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "meta-docs", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "meta-cli", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "meta-mesh", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "meta-data-type", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "meta-convert", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Cli);
-        AssertClassification(model, "MetaDocs", MetaDocsProductFamily.Meta, MetaDocsReferenceSurface.Models);
-        AssertClassification(model, "MetaDataType", MetaDocsProductFamily.MetaBi, MetaDocsReferenceSurface.Models);
+        var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
-        var ungrouped = new MetaDocsCliImporter().ImportApplication(model, CreateSimpleApp("meta-ungrouped"));
-        Assert.False(MetaDocsPublicReferenceClassifier.TryClassify(model, ungrouped, out _));
+        Assert.Contains("<title>meta + meta-bi &#183; Reference</title>", html, StringComparison.Ordinal);
+        Assert.Contains("<h1>meta + meta-bi reference</h1>", html, StringComparison.Ordinal);
+        Assert.Contains("Command-line and model references for the current public MetaDocs suite.", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-cli\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-models\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-bi-cli\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-bi-models\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#cli-meta-docs\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#cli-meta-transform-binding\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#model-metadocs\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#model-metatransformbinding\"", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("ProductFamily:", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("ReferenceSurface:", html, StringComparison.Ordinal);
     }
 
     [Fact]
-    public void PublicReferenceViewBuilder_RebuildsOnlyCliAndModelPublicView()
+    public void SuiteMerge_PreservesAuthoredReferenceRootAndGeneratedSubjectParents()
     {
-        var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), groupName: "meta");
-        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
-        AddModelSubject(model, "MetaDocs");
-        var authored = new MetaDocsAuthoringService().UpsertPage(
-            model,
-            new MetaDocsAuthoredPage(
-                "docs:getting-started",
-                "Getting started",
-                "Old authored spine.",
-                "Old authored spine."));
+        var authored = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(authored);
+        var generated = MetaDocsModel.CreateEmpty();
+        new MetaDocsCliImporter().ImportApplication(generated, CreateMetaApp(), parentSubjectId: reference.MetaCli.Id);
+        new MetaDocsCliImporter().ImportApplication(generated, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaBiCli.Id);
+        AddModelSubject(generated, "MetaDocs", EnsureSubject(generated, reference.MetaModels.Id));
+        AddModelSubject(generated, "MetaTransformBinding", EnsureSubject(generated, reference.MetaBiModels.Id));
 
-        MetaDocsPublicReferenceViewBuilder.EnsurePublicReferenceView(model);
+        var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { authored, generated });
 
-        Assert.DoesNotContain(model.DocumentationViewNodeList, row => row.SubjectKey == authored.Id);
-        Assert.DoesNotContain(model.DocumentationViewNodeList, row => row.Title == "Getting started");
-        Assert.Contains(model.DocumentationViewNodeList, row => row.Title == "Meta" && row.Selection == "ProductFamily:meta");
-        Assert.Contains(model.DocumentationViewNodeList, row => row.Title == "Meta-BI" && row.Selection == "ProductFamily:meta-bi");
-        Assert.Contains(model.DocumentationViewNodeList, row => row.Title == "CLI" && row.Selection == "ReferenceSurface:meta:cli");
-        Assert.Contains(model.DocumentationViewNodeList, row => row.Title == "Models" && row.Selection == "ReferenceSurface:meta:models");
-        Assert.Contains(model.DocumentationViewNodeList, row => row.Title == "meta-docs" || row.Title == "MetaDocs");
-        Assert.DoesNotContain(new MetaDocsValidationService().Validate(model).Diagnostics, row =>
+        var view = Assert.Single(suite.DocumentationViewList, row => row.Id == "view:default");
+        Assert.Equal("public:reference", view.RootSubject?.Id);
+        Assert.Equal("meta + meta-bi reference", view.Title);
+        Assert.Equal("Command-line and model references for the current public MetaDocs suite.", view.Summary);
+        Assert.Equal("public:meta:cli", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "meta").ParentSubject?.Id);
+        Assert.Equal("public:meta-bi:cli", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "meta-transform-binding").ParentSubject?.Id);
+        Assert.Equal("public:meta:models", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "MetaDocs").ParentSubject?.Id);
+        Assert.Equal("public:meta-bi:models", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "MetaTransformBinding").ParentSubject?.Id);
+        Assert.DoesNotContain(new MetaDocsValidationService().Validate(suite).Diagnostics, row =>
             row.Id is "MDOC031" or "MDOC032" or "MDOC033" or "MDOC035");
     }
 
@@ -825,11 +959,26 @@ public sealed class MetaDocsRuntimeTests
     public void Validate_ReturnsStableDiagnosticsForBrokenLifecycleState()
     {
         var model = MetaDocsModel.CreateEmpty();
+        var sourceType = MetaDocsVocabulary.EnsureSourceType(model, "MetaCliWorkspace");
+        var commandType = MetaDocsVocabulary.EnsureSubjectType(model, "CliCommand");
+        var factType = MetaDocsVocabulary.EnsureFactType(model, "Cli");
+        var valueType = MetaDocsVocabulary.EnsureValueType(model, "String");
+        var relationshipType = MetaDocsVocabulary.EnsureRelationshipType(model, "References");
+        var viewType = MetaDocsVocabulary.EnsureViewType(model, "Site");
         var source = new DocumentationSource
         {
             Id = "source:test",
             DisplayName = "Source",
-            Kind = "MetaCliWorkspace",
+            DocumentationSourceType = sourceType,
+            Status = "Current",
+        };
+        var missingSubject = new DocumentationSubject
+        {
+            Id = "subject:missing",
+            DocumentationSource = source,
+            DocumentationSubjectType = commandType,
+            DisplayName = "Missing",
+            DisplayPath = "Missing",
             Status = "Current",
         };
         var batch = new DocumentationImportBatch
@@ -843,20 +992,18 @@ public sealed class MetaDocsRuntimeTests
         };
         var left = new DocumentationSubject
         {
-            Id = "subject:left",
-            Key = "same-key",
+            Id = "subject:same",
             DocumentationSource = source,
-            Kind = "CliCommand",
+            DocumentationSubjectType = commandType,
             DisplayName = "Left",
             DisplayPath = "Same.Display",
             Status = "Current",
         };
         var right = new DocumentationSubject
         {
-            Id = "subject:right",
-            Key = "same-key",
+            Id = "subject:same",
             DocumentationSource = source,
-            Kind = "CliCommand",
+            DocumentationSubjectType = commandType,
             DisplayName = "Right",
             DisplayPath = "Same.Display",
             Status = "Current",
@@ -868,21 +1015,19 @@ public sealed class MetaDocsRuntimeTests
         model.DocumentationFactList.Add(new DocumentationFact
         {
             Id = "fact:missing",
-            DocumentationSubject = left,
+            DocumentationSubject = missingSubject,
             DocumentationSource = source,
             DocumentationImportBatch = batch,
-            SubjectKey = "subject:missing",
-            Kind = "Cli",
+            DocumentationFactType = factType,
             Name = "Name",
             Value = "x",
-            ValueKind = "String",
+            DocumentationValueType = valueType,
             Status = "Current",
         });
         model.DocumentationNarrativeList.Add(new DocumentationNarrative
         {
             Id = "narrative:review",
             DocumentationSubject = left,
-            SubjectKey = left.Id,
             Slot = "Summary",
             Body = "Draft",
             BodyFormat = "PlainText",
@@ -894,21 +1039,21 @@ public sealed class MetaDocsRuntimeTests
             Id = "relationship:broken",
             DocumentationSource = source,
             DocumentationImportBatch = batch,
-            FromSubjectKey = left.Id,
-            ToSubjectKey = "subject:missing",
-            Kind = "References",
+            FromSubject = left,
+            ToSubject = missingSubject,
+            DocumentationRelationshipType = relationshipType,
         });
         model.DocumentationViewList.Add(new DocumentationView
         {
             Id = "view:default",
             Name = "Default",
-            Kind = "Site",
+            DocumentationViewType = viewType,
         });
         model.DocumentationViewNodeList.Add(new DocumentationViewNode
         {
             Id = "view:default:node:missing",
             DocumentationView = model.DocumentationViewList.Single(),
-            SubjectKey = "subject:missing",
+            DocumentationSubject = missingSubject,
             Title = "Missing",
         });
 
@@ -916,7 +1061,7 @@ public sealed class MetaDocsRuntimeTests
 
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC001" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC002" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC003" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
+        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC012" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC005" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC006" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC008");
@@ -967,7 +1112,7 @@ public sealed class MetaDocsRuntimeTests
     public void Validate_DoesNotTreatLegacyDefaultViewAsPublicReferenceView()
     {
         var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."));
         var view = Assert.Single(model.DocumentationViewList, row => row.Id == "view:default");
         view.Title = "Command surface.";
         view.Summary = "Modeled documentation for metadata-shaped things.";
@@ -979,42 +1124,24 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void Validate_FlagsPublicViewPolicyIssues()
-    {
-        var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsAuthoringService().UpsertPage(
-            model,
-            new MetaDocsAuthoredPage(
-                "docs:what-is-meta",
-                "What is Meta?",
-                "Old guide page.",
-                "Old guide page."));
-        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
-        var view = Assert.Single(model.DocumentationViewList, row => row.Id == "view:default");
-        view.Kind = "PublicReference";
-
-        var result = new MetaDocsValidationService().Validate(model);
-
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC031");
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC032");
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC033");
-    }
-
-    [Fact]
     public void Validate_ChecksCliReferenceCompletenessAndParentage()
     {
         var model = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."));
 
-        var source = Assert.Single(model.DocumentationSourceList, source => source.Kind == "MetaCliWorkspace");
+        var source = Assert.Single(model.DocumentationSourceList, source => IsSourceType(source, "MetaCliWorkspace"));
         var batch = Assert.Single(model.DocumentationImportBatchList);
+        var applicationType = MetaDocsVocabulary.EnsureSubjectType(model, "CliApplication");
+        var commandType = MetaDocsVocabulary.EnsureSubjectType(model, "CliCommand");
+        var optionType = MetaDocsVocabulary.EnsureSubjectType(model, "CliOption");
+        var cliFactType = MetaDocsVocabulary.EnsureFactType(model, "Cli");
+        var numberValueType = MetaDocsVocabulary.EnsureValueType(model, "Number");
         model.DocumentationSubjectList.Add(new DocumentationSubject
         {
             Id = "source:cli:empty:app",
-            Key = "source:cli:empty:app",
             DocumentationSource = source,
-            Kind = "CliApplication",
-            NativeKind = "MetaCli.Application",
+            DocumentationSubjectType = applicationType,
+            SourceTypeName = "MetaCli.Application",
             NativeId = "empty-cli",
             DisplayName = "empty-cli",
             DisplayPath = "empty-cli",
@@ -1023,27 +1150,23 @@ public sealed class MetaDocsRuntimeTests
         model.DocumentationSubjectList.Add(new DocumentationSubject
         {
             Id = "source:cli:orphan:command:run",
-            Key = "source:cli:orphan:command:run",
             DocumentationSource = source,
-            Kind = "CliCommand",
-            NativeKind = "MetaCli.ExecutableCommand",
+            DocumentationSubjectType = commandType,
+            SourceTypeName = "MetaCli.ExecutableCommand",
             NativeId = "run",
             DisplayName = "orphan run",
             DisplayPath = "orphan run",
-            ParentKey = "missing-app",
             Status = "Current",
         });
         model.DocumentationSubjectList.Add(new DocumentationSubject
         {
             Id = "source:cli:orphan:option:flag",
-            Key = "source:cli:orphan:option:flag",
             DocumentationSource = source,
-            Kind = "CliOption",
-            NativeKind = "MetaCli.Option",
+            DocumentationSubjectType = optionType,
+            SourceTypeName = "MetaCli.Option",
             NativeId = "--flag",
             DisplayName = "--flag",
             DisplayPath = "orphan run --flag",
-            ParentKey = "missing-command",
             Status = "Current",
         });
         model.DocumentationFactList.Add(new DocumentationFact
@@ -1052,11 +1175,10 @@ public sealed class MetaDocsRuntimeTests
             DocumentationSubject = model.DocumentationSubjectList.Single(subject => subject.Id == "source:cli:orphan:command:run"),
             DocumentationSource = source,
             DocumentationImportBatch = batch,
-            SubjectKey = "source:cli:orphan:command:run",
-            Kind = "Cli",
+            DocumentationFactType = cliFactType,
             Name = "UsageCount",
             Value = "1",
-            ValueKind = "Number",
+            DocumentationValueType = numberValueType,
             Status = "Current",
         });
 
@@ -1066,7 +1188,6 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC025" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC026" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Error);
         Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC028" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
-        Assert.Contains(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC036" && diagnostic.Severity == MetaDocsDiagnosticSeverity.Warning);
         Assert.DoesNotContain(result.Diagnostics, diagnostic => diagnostic.Id == "MDOC030");
 
         var resultWithDescriptionDiagnostics = new MetaDocsValidationService().Validate(
@@ -1091,7 +1212,7 @@ public sealed class MetaDocsRuntimeTests
         {
             Id = "source:model",
             DisplayName = "Model",
-            Kind = "WorkspaceModel",
+            DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "WorkspaceModel"),
             Status = "Current",
         };
         var root = new DocumentationInstanceImportSpec
@@ -1157,8 +1278,8 @@ public sealed class MetaDocsRuntimeTests
             displayName: "Sample docs");
 
         Assert.Equal(0, result.ImportedInstanceCount);
-        Assert.DoesNotContain(model.DocumentationSubjectList, row => row.Kind == "Instance");
-        Assert.DoesNotContain(model.DocumentationFactList, row => row.Kind == "InstancePropertyValue");
+        Assert.DoesNotContain(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance"));
+        Assert.DoesNotContain(model.DocumentationFactList, row => IsFactType(row, "InstancePropertyValue"));
     }
 
     [Fact]
@@ -1179,7 +1300,7 @@ public sealed class MetaDocsRuntimeTests
             displayName: "Sample docs");
 
         Assert.Equal(2, result.ImportedInstanceCount);
-        var source = Assert.Single(model.DocumentationSourceList, row => row.Kind == "WorkspaceInstances");
+        var source = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "WorkspaceInstances"));
         Assert.NotNull(source.SourceFingerprint);
         Assert.Equal(64, source.SourceFingerprint.Length);
         Assert.All(
@@ -1190,9 +1311,9 @@ public sealed class MetaDocsRuntimeTests
                 Assert.Equal(64, fact.SourceFingerprint.Length);
             });
         Assert.Equal(0, result.ImportedPropertyFactCount);
-        Assert.Equal(2, model.DocumentationSubjectList.Count(row => row.Kind == "Instance" && row.NativeKind == "Customer"));
-        Assert.DoesNotContain(model.DocumentationFactList, row => row.Kind == "InstancePropertyValue");
-        Assert.Contains(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.DisplayName == "Ada");
+        Assert.Equal(2, model.DocumentationSubjectList.Count(row => IsSubjectType(row, "Instance") && row.SourceTypeName == "Customer"));
+        Assert.DoesNotContain(model.DocumentationFactList, row => IsFactType(row, "InstancePropertyValue"));
+        Assert.Contains(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance") && row.DisplayName == "Ada");
     }
 
     [Fact]
@@ -1212,8 +1333,48 @@ public sealed class MetaDocsRuntimeTests
             modelSourceId: "source:workspace-model:sample",
             displayName: "Sample docs");
 
-        Assert.Equal(2, model.DocumentationFactList.Count(row => row.Kind == "InstancePropertyValue" && row.Name == "Name"));
-        Assert.DoesNotContain(model.DocumentationFactList, row => row.Kind == "InstancePropertyValue" && row.Name == "Email");
+        Assert.Equal(2, model.DocumentationFactList.Count(row => IsFactType(row, "InstancePropertyValue") && row.Name == "Name"));
+        Assert.DoesNotContain(model.DocumentationFactList, row => IsFactType(row, "InstancePropertyValue") && row.Name == "Email");
+    }
+
+    [Fact]
+    public async Task ImportWorkspaceInstances_UsesSourceDisplayPathForInstanceSubjectPath()
+    {
+        var sourceWorkspace = CreateDisplayPathSourceWorkspace(includeDisplayPath: false);
+        var model = MetaDocsModel.CreateEmpty();
+        var importer = new MetaDocsWorkspaceInstanceImporter();
+        new MetaDocsInstanceImportPolicyEditor().IncludeEntity(
+            model,
+            "Page",
+            displayNameProperty: "Name");
+
+        await importer.ImportWorkspaceInstancesAsync(
+            model,
+            sourceWorkspace,
+            sourceId: "source:workspace-instances:pages",
+            modelSourceId: "source:workspace-model:pages",
+            displayName: "Authored pages");
+
+        WriteDisplayPathSourceModel(sourceWorkspace, includeDisplayPath: true);
+        WriteDisplayPathSourceInstances(sourceWorkspace, includeDisplayPath: true);
+        await importer.ImportWorkspaceInstancesAsync(
+            model,
+            sourceWorkspace,
+            sourceId: "source:workspace-instances:pages",
+            modelSourceId: "source:workspace-model:pages",
+            displayName: "Authored pages");
+
+        Assert.Contains(model.DocumentationSubjectList, row =>
+            IsSubjectType(row, "Instance") &&
+            row.NativeId == "page-meta-cli" &&
+            row.DisplayPath == "Authored pages.Reference.Meta.CLI");
+        Assert.Contains(model.DocumentationSubjectList, row =>
+            IsSubjectType(row, "Instance") &&
+            row.NativeId == "page-meta-bi-cli" &&
+            row.DisplayPath == "Authored pages.Reference.Meta-BI.CLI");
+        var diagnostics = new MetaDocsValidationService().Validate(model).Diagnostics;
+        Assert.DoesNotContain(diagnostics, row => row.Id == "MDOC002");
+        Assert.DoesNotContain(diagnostics, row => row.Id == "MDOC014");
     }
 
     [Fact]
@@ -1235,9 +1396,9 @@ public sealed class MetaDocsRuntimeTests
 
         Assert.Equal(1, result.ImportedRelationshipCount);
         Assert.Contains(model.DocumentationRelationshipList, row =>
-            row.Kind == "InstanceRelationship:Customer" &&
-            row.FromSubjectKey.Contains(":instance:order:", StringComparison.OrdinalIgnoreCase) &&
-            row.ToSubjectKey.Contains(":instance:customer:", StringComparison.OrdinalIgnoreCase));
+            IsRelationshipType(row, "InstanceRelationship:Customer") &&
+            row.FromSubject?.Id.Contains(":instance:order:", StringComparison.OrdinalIgnoreCase) == true &&
+            row.ToSubject?.Id.Contains(":instance:customer:", StringComparison.OrdinalIgnoreCase) == true);
     }
 
     [Fact]
@@ -1254,12 +1415,11 @@ public sealed class MetaDocsRuntimeTests
             sourceId: "source:workspace-instances:sample",
             modelSourceId: "source:workspace-model:sample",
             displayName: "Sample docs");
-        var ada = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-1");
+        var ada = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance") && row.NativeId == "cust-1");
         model.DocumentationNarrativeList.Add(new DocumentationNarrative
         {
             Id = $"{ada.Id}:narrative:summary:900",
             DocumentationSubject = ada,
-            SubjectKey = ada.Id,
             Slot = "Summary",
             Title = "Summary",
             Body = "Authored Ada description.",
@@ -1276,12 +1436,11 @@ public sealed class MetaDocsRuntimeTests
             modelSourceId: "source:workspace-model:sample",
             displayName: "Sample docs");
 
-        ada = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-1");
+        ada = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance") && row.NativeId == "cust-1");
         Assert.Equal("Authored Ada description.", Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == ada.Id &&
+            row.DocumentationSubject?.Id == ada.Id &&
             row.Origin == "Authored").Body);
-        var bob = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-2");
-        Assert.Equal("MissingFromSource", bob.Status);
+        Assert.DoesNotContain(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance") && row.NativeId == "cust-2");
     }
 
     [Fact]
@@ -1326,13 +1485,13 @@ public sealed class MetaDocsRuntimeTests
             modelSourceId: "source:workspace-model:sample",
             displayName: "Sample docs");
 
-        var customerEntity = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Entity" && row.DisplayName == "Customer");
-        var ada = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "Instance" && row.NativeId == "cust-1");
-        Assert.Equal(customerEntity.Id, ada.ParentKey);
+        var customerEntity = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Entity") && row.DisplayName == "Customer");
+        var ada = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Instance") && row.NativeId == "cust-1");
+        Assert.Equal(customerEntity.Id, ada.ParentSubject?.Id);
         Assert.Contains(model.DocumentationRelationshipList, row =>
-            row.FromSubjectKey == ada.Id &&
-            row.Kind == "DocumentsProperty" &&
-            row.ToSubjectKey.EndsWith(":property:name", StringComparison.OrdinalIgnoreCase));
+            row.FromSubject?.Id == ada.Id &&
+            IsRelationshipType(row, "DocumentsProperty") &&
+            row.ToSubject?.Id.EndsWith(":property:name", StringComparison.OrdinalIgnoreCase) == true);
     }
 
     [Fact]
@@ -1357,7 +1516,7 @@ public sealed class MetaDocsRuntimeTests
 
         var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { left, right });
 
-        Assert.Equal(4, suite.DocumentationSubjectList.Count(row => row.Kind == "Instance"));
+        Assert.Equal(4, suite.DocumentationSubjectList.Count(row => IsSubjectType(row, "Instance")));
         Assert.Equal(
             suite.DocumentationSubjectList.Count,
             suite.DocumentationSubjectList.Select(row => row.Id).Distinct(StringComparer.OrdinalIgnoreCase).Count());
@@ -1369,6 +1528,7 @@ public sealed class MetaDocsRuntimeTests
     {
         var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true, includeInstances: true);
         var model = MetaDocsModel.CreateEmpty();
+        AddPublicReferenceTree(model);
         new MetaDocsInstanceImportPolicyEditor().IncludeEntity(model, "Customer", displayNameProperty: "Name");
         new MetaDocsInstanceImportPolicyEditor().IncludeProperty(model, "Customer", "Name");
         await new MetaDocsWorkspaceInstanceImporter().ImportWorkspaceInstancesAsync(
@@ -1389,9 +1549,10 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_UsesModeledThemeAndRendersGenericContent()
     {
         var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
         var importer = new MetaDocsCliImporter();
-        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
+        importer.ImportApplication(model, CreateMetaApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaBiCli.Id);
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
@@ -1418,7 +1579,7 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("class=\"sidebar\"", html, StringComparison.Ordinal);
         Assert.Contains("class=\"viewer\"", html, StringComparison.Ordinal);
         Assert.Contains("class=\"panel is-active\" id=\"home\" data-panel=\"home\"", html, StringComparison.Ordinal);
-        Assert.Contains("href=\"#group-meta-cli\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-cli\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#cli-meta-transform-binding\"", html, StringComparison.Ordinal);
         Assert.Contains("data-panel-link=\"cli-meta-transform-binding\"", html, StringComparison.Ordinal);
         Assert.Contains("window.addEventListener('hashchange'", html, StringComparison.Ordinal);
@@ -1436,39 +1597,67 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_TreatsNestedCliCommandsAsCommandEntries()
     {
         var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
+        var source = new DocumentationSource
+        {
+            Id = "source:cli:sample",
+            DisplayName = "sample",
+            DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "MetaCliWorkspace"),
+            Status = "Current",
+        };
+        var batch = new DocumentationImportBatch
+        {
+            Id = "source:cli:sample:batch:test",
+            DocumentationSource = source,
+            ImportedAt = "2026-01-01T00:00:00Z",
+            ImporterId = "test",
+            ImporterVersion = "1",
+            Status = "Current",
+        };
+        model.DocumentationSourceList.Add(source);
+        model.DocumentationImportBatchList.Add(batch);
+        var applicationType = MetaDocsVocabulary.EnsureSubjectType(model, "CliApplication");
+        var commandType = MetaDocsVocabulary.EnsureSubjectType(model, "CliCommand");
+        var cliFactType = MetaDocsVocabulary.EnsureFactType(model, "Cli");
+        var stringValueType = MetaDocsVocabulary.EnsureValueType(model, "String");
+        var numberValueType = MetaDocsVocabulary.EnsureValueType(model, "Number");
         var app = new DocumentationSubject
         {
             Id = "source:cli:sample:app",
-            Key = "source:cli:sample:app",
-            Kind = "CliApplication",
+            DocumentationSource = source,
+            DocumentationSubjectType = applicationType,
+            SourceTypeName = "MetaCli.Application",
             NativeId = "sample",
             DisplayName = "sample",
             DisplayPath = "sample",
             Summary = "Sample CLI.",
+            ParentSubject = reference.MetaCli,
             Status = "Current",
         };
         var parent = new DocumentationSubject
         {
             Id = "source:cli:sample:app:command:parent",
-            Key = "source:cli:sample:app:command:parent",
-            Kind = "CliCommand",
+            DocumentationSource = source,
+            DocumentationSubjectType = commandType,
+            SourceTypeName = "MetaCli.ExecutableCommand",
             NativeId = "parent",
             DisplayName = "sample parent",
             DisplayPath = "sample parent",
             Summary = "Parent command.",
-            ParentKey = app.Id,
+            ParentSubject = app,
             Status = "Current",
         };
         var child = new DocumentationSubject
         {
             Id = "source:cli:sample:app:command:parent:command:child",
-            Key = "source:cli:sample:app:command:parent:command:child",
-            Kind = "CliCommand",
+            DocumentationSource = source,
+            DocumentationSubjectType = commandType,
+            SourceTypeName = "MetaCli.ExecutableCommand",
             NativeId = "child",
             DisplayName = "sample parent child",
             DisplayPath = "sample parent child",
             Summary = "Child command.",
-            ParentKey = parent.Id,
+            ParentSubject = parent,
             Status = "Current",
         };
         model.DocumentationSubjectList.Add(app);
@@ -1476,32 +1665,26 @@ public sealed class MetaDocsRuntimeTests
         model.DocumentationSubjectList.Add(child);
         model.DocumentationFactList.Add(new DocumentationFact
         {
-            Id = "source:cli:sample:app:fact:cli:groupname",
-            SubjectKey = app.Id,
-            Kind = "Cli",
-            Name = "GroupName",
-            Value = "meta",
-            ValueKind = "String",
-            Status = "Current",
-        });
-        model.DocumentationFactList.Add(new DocumentationFact
-        {
             Id = "source:cli:sample:app:command:parent:command:child:fact:cli:commandpath",
-            SubjectKey = child.Id,
-            Kind = "Cli",
+            DocumentationSubject = child,
+            DocumentationSource = source,
+            DocumentationImportBatch = batch,
+            DocumentationFactType = cliFactType,
             Name = "CommandPath",
             Value = "sample parent child",
-            ValueKind = "String",
+            DocumentationValueType = stringValueType,
             Status = "Current",
         });
         model.DocumentationFactList.Add(new DocumentationFact
         {
             Id = "source:cli:sample:app:command:parent:command:child:fact:cli:usagecount",
-            SubjectKey = child.Id,
-            Kind = "Cli",
+            DocumentationSubject = child,
+            DocumentationSource = source,
+            DocumentationImportBatch = batch,
+            DocumentationFactType = cliFactType,
             Name = "UsageCount",
             Value = "0",
-            ValueKind = "Number",
+            DocumentationValueType = numberValueType,
             Status = "Current",
         });
 
@@ -1519,11 +1702,13 @@ public sealed class MetaDocsRuntimeTests
     {
         var sourceWorkspace = CreateSourceModelWorkspace(includeEmail: true);
         var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
         await new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
             model,
             sourceWorkspace,
             "source:workspace-model:sample",
-            "Sample docs");
+            "Sample docs",
+            reference.MetaModels.Id);
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
@@ -1565,10 +1750,11 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_ConsumesModeledShellTemplateAndThemeAsset()
     {
         var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), groupName: "meta");
-        var template = Assert.Single(model.DocumentationTemplateList, row => row.Kind == "SiteShell");
+        var reference = AddPublicReferenceTree(model);
+        new MetaDocsCliImporter().ImportApplication(model, CreateMetaApp(), parentSubjectId: reference.MetaCli.Id);
+        var template = Assert.Single(model.DocumentationTemplateList, row => IsTemplateType(row, "SiteShell"));
         template.Html = "MODELED {{title}} {{css}} {{navigation}} {{content}} {{script}}";
-        var css = Assert.Single(model.DocumentationThemeAssetList, row => row.AssetKind == "Css");
+        var css = Assert.Single(model.DocumentationThemeAssetList, row => IsThemeAssetType(row, "Css"));
         css.Content = "/* modeled css */ .custom{}";
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
@@ -1582,28 +1768,36 @@ public sealed class MetaDocsRuntimeTests
     public void RenderSite_RendersCliReferenceWithAuthoredDescriptionOptionsExamplesAndNoPublicConfessions()
     {
         var model = MetaDocsModel.CreateEmpty();
-        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), groupName: "meta-bi");
-        var command = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliCommand");
-        model.DocumentationNarrativeList.Add(new DocumentationNarrative
-        {
-            Id = $"{command.Id}:narrative:example:authored",
-            DocumentationSubject = command,
-            SubjectKey = command.Id,
-            Slot = "Example",
-            Title = "Example",
-            Body = "meta-transform-binding bind --transform-workspace TransformWS --source-schema SchemaWS --target-schema SchemaWS",
-            BodyFormat = "PlainText",
-            Origin = "Authored",
-            ReviewStatus = "Current",
-        });
-        var application = Assert.Single(model.DocumentationSubjectList, row => row.Kind == "CliApplication");
+        var reference = AddPublicReferenceTree(model);
+        new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaBiCli.Id);
+        var command = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliCommand"));
+        var exampleAuthoring = new MetaDocsExampleAuthoringService();
+        exampleAuthoring.UpsertExample(
+            model,
+            new MetaDocsSubjectSelector(Cli: "meta-transform-binding", Command: "bind"),
+            $"{command.Id}:example:bind",
+            "Bind a transform workspace",
+            string.Empty,
+            $"{command.Id}:example:bind:section",
+            "Bind every script in a transform workspace against source and target schema workspaces.",
+            "PlainText",
+            string.Empty);
+        exampleAuthoring.UpsertCode(
+            model,
+            $"{command.Id}:example:bind:section",
+            $"{command.Id}:example:bind:command",
+            "Command",
+            "powershell",
+            "meta-transform-binding bind --transform-workspace TransformWS --source-schema SchemaWS --target-schema SchemaWS",
+            string.Empty);
+        var application = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
         var hiddenProperty = new DocumentationSubject
         {
             Id = $"{application.Id}:property:sourcefingerprint",
             DocumentationSource = application.DocumentationSource,
-            ParentKey = application.Id,
-            Kind = "Property",
-            NativeKind = "Property",
+            ParentSubject = application,
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "Property"),
+            SourceTypeName = "Property",
             NativeId = "SourceFingerprint",
             DisplayName = "SourceFingerprint",
             DisplayPath = $"{application.DisplayPath}.SourceFingerprint",
@@ -1614,21 +1808,21 @@ public sealed class MetaDocsRuntimeTests
         model.DocumentationFactList.Add(new DocumentationFact
         {
             Id = $"{application.Id}:fact:test:sourcefingerprint",
-            SubjectKey = application.Id,
-            Kind = "Test",
+            DocumentationSubject = application,
+            DocumentationFactType = MetaDocsVocabulary.EnsureFactType(model, "Test"),
             Name = "SourceFingerprint",
             Value = "first suite outside MetaDocs today",
-            ValueKind = "String",
+            DocumentationValueType = MetaDocsVocabulary.EnsureValueType(model, "String"),
             Status = "Current",
         });
         model.DocumentationFactList.Add(new DocumentationFact
         {
             Id = $"{hiddenProperty.Id}:fact:model:name",
-            SubjectKey = hiddenProperty.Id,
-            Kind = "Model",
+            DocumentationSubject = hiddenProperty,
+            DocumentationFactType = MetaDocsVocabulary.EnsureFactType(model, "Model"),
             Name = "Name",
             Value = "SourceFingerprint",
-            ValueKind = "String",
+            DocumentationValueType = MetaDocsVocabulary.EnsureValueType(model, "String"),
             Status = "Current",
         });
 
@@ -1672,21 +1866,24 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void RenderSite_UsesSinglePanelRoutesAndStrictPublicGrouping()
+    public void RenderSite_UsesSinglePanelRoutesAndModeledPublicHierarchy()
     {
         var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
         var importer = new MetaDocsCliImporter();
-        importer.ImportApplication(model, CreateMetaApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateMetaDocsApp(), groupName: "meta");
-        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), groupName: "meta-bi");
-        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), groupName: "meta-bi");
-        AddModelSubject(model, "MetaDocs");
-        AddModelSubject(model, "MetaTransformBinding");
+        importer.ImportApplication(model, CreateMetaApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(model, CreateMetaDocsApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(model, CreateSimpleApp("meta-data-type"), parentSubjectId: reference.MetaBiCli.Id);
+        importer.ImportApplication(model, CreateSimpleApp("meta-convert"), parentSubjectId: reference.MetaBiCli.Id);
+        AddModelSubject(model, "MetaDocs", reference.MetaModels);
+        AddModelSubject(model, "MetaTransformBinding", reference.MetaBiModels);
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
         Assert.Contains("href=\"#cli-meta-docs\"", html, StringComparison.Ordinal);
         Assert.Contains("id=\"cli-meta-docs\" data-panel=\"cli-meta-docs\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-cli\"", html, StringComparison.Ordinal);
+        Assert.Contains("href=\"#group-public-meta-bi-cli\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#model-metadocs\"", html, StringComparison.Ordinal);
         Assert.Contains("id=\"model-metadocs\" data-panel=\"model-metadocs\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#cli-meta-data-type\"", html, StringComparison.Ordinal);
@@ -1776,6 +1973,27 @@ public sealed class MetaDocsRuntimeTests
         Assert.False(string.Equals(route, firstLine, StringComparison.OrdinalIgnoreCase));
     }
 
+    private static bool IsWorkspaceType(DocumentationWorkspace workspace, string name) =>
+        MetaDocsVocabulary.IsWorkspaceType(workspace, name);
+
+    private static bool IsSourceType(DocumentationSource source, string name) =>
+        MetaDocsVocabulary.IsSourceType(source, name);
+
+    private static bool IsSubjectType(DocumentationSubject subject, string name) =>
+        MetaDocsVocabulary.IsSubjectType(subject, name);
+
+    private static bool IsFactType(DocumentationFact fact, string name) =>
+        MetaDocsVocabulary.IsFactType(fact, name);
+
+    private static bool IsRelationshipType(DocumentationRelationship relationship, string name) =>
+        MetaDocsVocabulary.IsRelationshipType(relationship, name);
+
+    private static bool IsTemplateType(DocumentationTemplate template, string name) =>
+        MetaDocsVocabulary.IsTemplateType(template, name);
+
+    private static bool IsThemeAssetType(DocumentationThemeAsset asset, string name) =>
+        MetaDocsVocabulary.IsThemeAssetType(asset, name);
+
     private static string FindRepositoryRoot()
     {
         var directory = AppContext.BaseDirectory;
@@ -1809,27 +2027,112 @@ public sealed class MetaDocsRuntimeTests
         }
     }
 
-    private static void AssertClassification(
-        MetaDocsModel model,
-        string displayName,
-        MetaDocsProductFamily expectedFamily,
-        MetaDocsReferenceSurface expectedSurface)
+    private static PublicReferenceSubjects AddPublicReferenceTree(MetaDocsModel model)
     {
-        var subject = Assert.Single(model.DocumentationSubjectList, row =>
-            string.Equals(row.DisplayName, displayName, StringComparison.OrdinalIgnoreCase));
-        Assert.True(MetaDocsPublicReferenceClassifier.TryClassify(model, subject, out var classification));
-        Assert.Equal(expectedFamily, classification.ProductFamily);
-        Assert.Equal(expectedSurface, classification.Surface);
+        var authoring = new MetaDocsAuthoringService();
+        var root = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:reference",
+                "meta + meta-bi reference",
+                "Command-line and model references for the current public MetaDocs suite.",
+                "Command-line and model references for the current public MetaDocs suite.",
+                SubjectType: "ReferenceRoot",
+                DisplayPath: "Reference",
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference",
+                IsViewRoot: true));
+        var meta = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta",
+                "Meta",
+                "Foundation models and tools for authored metadata workspaces.",
+                "Foundation models and tools for authored metadata workspaces.",
+                SubjectType: "ReferenceGroup",
+                DisplayPath: "Reference.Meta",
+                ParentSubjectId: root.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        var metaCli = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta:cli",
+                "CLI",
+                "Command-line tools for the core metadata foundation.",
+                "Command-line tools for the core metadata foundation.",
+                SubjectType: "ReferenceSection",
+                DisplayPath: "Reference.Meta.CLI",
+                ParentSubjectId: meta.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        var metaModels = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta:models",
+                "Models",
+                "Model references for the core metadata foundation.",
+                "Model references for the core metadata foundation.",
+                SubjectType: "ReferenceSection",
+                DisplayPath: "Reference.Meta.Models",
+                ParentSubjectId: meta.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        var metaBi = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta-bi",
+                "Meta-BI",
+                "BI-side models and tools built on the metadata foundation.",
+                "BI-side models and tools built on the metadata foundation.",
+                SubjectType: "ReferenceGroup",
+                DisplayPath: "Reference.Meta-BI",
+                ParentSubjectId: root.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        var metaBiCli = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta-bi:cli",
+                "CLI",
+                "Command-line tools for BI modeling, conversion, validation, and execution.",
+                "Command-line tools for BI modeling, conversion, validation, and execution.",
+                SubjectType: "ReferenceSection",
+                DisplayPath: "Reference.Meta-BI.CLI",
+                ParentSubjectId: metaBi.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        var metaBiModels = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta-bi:models",
+                "Models",
+                "Model references for the sanctioned BI metadata workspaces.",
+                "Model references for the sanctioned BI metadata workspaces.",
+                SubjectType: "ReferenceSection",
+                DisplayPath: "Reference.Meta-BI.Models",
+                ParentSubjectId: metaBi.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+
+        return new PublicReferenceSubjects(root, meta, metaCli, metaModels, metaBi, metaBiCli, metaBiModels);
     }
 
-    private static void AddModelSubject(MetaDocsModel model, string modelName)
+    private static DocumentationSubject EnsureSubject(MetaDocsModel model, string id)
     {
-        var source = model.DocumentationSourceList.FirstOrDefault(row => row.Id == "source:model:test")
+        var existing = model.DocumentationSubjectList.FirstOrDefault(row =>
+            string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+        if (existing is not null)
+        {
+            return existing;
+        }
+
+        var source = model.DocumentationSourceList.FirstOrDefault(row => row.Id == "source:test:parent-stubs")
             ?? new DocumentationSource
             {
-                Id = "source:model:test",
-                DisplayName = "Model test",
-                Kind = "WorkspaceModel",
+                Id = "source:test:parent-stubs",
+                DisplayName = "Parent stubs",
+                DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "Test"),
                 Status = "Current",
             };
         if (!model.DocumentationSourceList.Contains(source))
@@ -1837,21 +2140,77 @@ public sealed class MetaDocsRuntimeTests
             model.DocumentationSourceList.Add(source);
         }
 
+        var subject = new DocumentationSubject
+        {
+            Id = id,
+            DocumentationSource = source,
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "ReferenceSection"),
+            SourceTypeName = "Test",
+            NativeId = id,
+            DisplayName = id,
+            DisplayPath = id,
+            Status = "Current",
+        };
+        model.DocumentationSubjectList.Add(subject);
+        return subject;
+    }
+
+    private static void AddModelSubject(MetaDocsModel model, string modelName, DocumentationSubject? parentSubject = null)
+    {
+        var source = model.DocumentationSourceList.FirstOrDefault(row => row.Id == "source:model:test")
+            ?? new DocumentationSource
+            {
+                Id = "source:model:test",
+                DisplayName = "Model test",
+                DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "WorkspaceModel"),
+                Status = "Current",
+            };
+        var batch = model.DocumentationImportBatchList.FirstOrDefault(row => row.Id == "source:model:test:batch:test")
+            ?? new DocumentationImportBatch
+            {
+                Id = "source:model:test:batch:test",
+                DocumentationSource = source,
+                ImportedAt = "2026-01-01T00:00:00Z",
+                ImporterId = "test",
+                ImporterVersion = "1",
+                SourceFingerprint = "test",
+                Status = "Current",
+            };
+        if (!model.DocumentationSourceList.Contains(source))
+        {
+            model.DocumentationSourceList.Add(source);
+        }
+
+        if (!model.DocumentationImportBatchList.Contains(batch))
+        {
+            model.DocumentationImportBatchList.Add(batch);
+        }
+
         var normalized = MetaDocsImportSession.NormalizeKey(modelName);
-        model.DocumentationSubjectList.Add(new DocumentationSubject
+        var subject = new DocumentationSubject
         {
             Id = $"source:model:test:model:{normalized}",
             DocumentationSource = source,
-            Key = $"source:model:test:model:{normalized}",
-            Kind = "Model",
-            NativeKind = "GenericModel",
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "Model"),
+            SourceTypeName = "GenericModel",
             NativeId = modelName,
             DisplayName = modelName,
             DisplayPath = $"{modelName} model",
             Summary = $"Model {modelName}.",
+            ParentSubject = parentSubject,
             Status = "Current",
-        });
+        };
+        model.DocumentationSubjectList.Add(subject);
     }
+
+    private sealed record PublicReferenceSubjects(
+        DocumentationSubject Root,
+        DocumentationSubject Meta,
+        DocumentationSubject MetaCli,
+        DocumentationSubject MetaModels,
+        DocumentationSubject MetaBi,
+        DocumentationSubject MetaBiCli,
+        DocumentationSubject MetaBiModels);
 
     private static void AddLowLevelDeployProperty(MetaDocsModel model)
     {
@@ -1859,7 +2218,7 @@ public sealed class MetaDocsRuntimeTests
         {
             Id = "source:test:low-level-search",
             DisplayName = "Low-level search test",
-            Kind = "WorkspaceModel",
+            DocumentationSourceType = MetaDocsVocabulary.EnsureSourceType(model, "WorkspaceModel"),
             Status = "Current",
         };
         model.DocumentationSourceList.Add(source);
@@ -1867,9 +2226,8 @@ public sealed class MetaDocsRuntimeTests
         {
             Id = "source:test:low-level-search:property:deployordinal",
             DocumentationSource = source,
-            Key = "source:test:low-level-search:property:deployordinal",
-            Kind = "Property",
-            NativeKind = "GenericProperty",
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "Property"),
+            SourceTypeName = "GenericProperty",
             NativeId = "DeployOrdinal",
             DisplayName = "DeployOrdinal",
             DisplayPath = "MetaSql.DeployOrdinal",
@@ -1884,8 +2242,8 @@ public sealed class MetaDocsRuntimeTests
         string kind,
         string name) =>
         Assert.Single(model.DocumentationFactList, row =>
-            row.SubjectKey == subject.Id &&
-            row.Kind == kind &&
+            row.DocumentationSubject?.Id == subject.Id &&
+            IsFactType(row, kind) &&
             row.Name == name);
 
     private static DocumentationNarrative FindNarrative(
@@ -1893,7 +2251,7 @@ public sealed class MetaDocsRuntimeTests
         DocumentationSubject subject,
         string slot) =>
         Assert.Single(model.DocumentationNarrativeList, row =>
-            row.SubjectKey == subject.Id &&
+            row.DocumentationSubject?.Id == subject.Id &&
             row.Slot == slot);
 
     private static string CreateSourceModelWorkspace(bool includeEmail, bool includeInstances = false)
@@ -1968,6 +2326,65 @@ public sealed class MetaDocsRuntimeTests
                 </Order>
               </OrderList>
             </SampleModel>
+            """);
+    }
+
+    private static string CreateDisplayPathSourceWorkspace(bool includeDisplayPath)
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metadocs-display-path-import-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        WriteDisplayPathSourceModel(root, includeDisplayPath);
+        WriteDisplayPathSourceInstances(root, includeDisplayPath);
+        return root;
+    }
+
+    private static void WriteDisplayPathSourceModel(string root, bool includeDisplayPath)
+    {
+        var displayPathProperty = includeDisplayPath
+            ? """<Property name="DisplayPath" />"""
+            : string.Empty;
+        File.WriteAllText(
+            Path.Combine(root, "model.xml"),
+            $$"""
+            <?xml version="1.0" encoding="utf-8"?>
+            <Model name="PageModel">
+              <EntityList>
+                <Entity name="Page">
+                  <PropertyList>
+                    <Property name="Name" />
+                    {{displayPathProperty}}
+                  </PropertyList>
+                </Entity>
+              </EntityList>
+            </Model>
+            """);
+    }
+
+    private static void WriteDisplayPathSourceInstances(string root, bool includeDisplayPath)
+    {
+        var metaDisplayPath = includeDisplayPath
+            ? "<DisplayPath>Reference.Meta.CLI</DisplayPath>"
+            : string.Empty;
+        var metaBiDisplayPath = includeDisplayPath
+            ? "<DisplayPath>Reference.Meta-BI.CLI</DisplayPath>"
+            : string.Empty;
+        Directory.CreateDirectory(Path.Combine(root, "instances"));
+        File.WriteAllText(
+            Path.Combine(root, "instances", "Page.xml"),
+            $$"""
+            <?xml version="1.0" encoding="utf-8"?>
+            <PageModel>
+              <PageList>
+                <Page Id="page-meta-cli">
+                  <Name>CLI</Name>
+                  {{metaDisplayPath}}
+                </Page>
+                <Page Id="page-meta-bi-cli">
+                  <Name>CLI</Name>
+                  {{metaBiDisplayPath}}
+                </Page>
+              </PageList>
+            </PageModel>
             """);
     }
 

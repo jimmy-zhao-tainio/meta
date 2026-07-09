@@ -1,143 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:workspace" DocumentationSourceId="source:workspace-model:meta-weave">
-      <DisplayName>MetaWeave</DisplayName>
-      <DisplayPath>MetaWeave</DisplayPath>
-      <Key>source:workspace-model:meta-weave:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta\MetaWeave\Workspace</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta:models" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:model:metaweave" DocumentationSourceId="source:workspace-model:meta-weave">
-      <DisplayName>MetaWeave</DisplayName>
-      <DisplayPath>MetaWeave.MetaWeave</DisplayPath>
-      <Key>source:workspace-model:meta-weave:model:metaweave</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaWeave</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference" DocumentationSourceId="source:workspace-model:meta-weave">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-weave:model:metaweave">
       <DisplayName>ModelReference</DisplayName>
       <DisplayPath>MetaWeave.ModelReference</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:modelreference</Key>
-      <Kind>Entity</Kind>
       <NativeId>ModelReference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:model:metaweave</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationSourceId="source:workspace-model:meta-weave">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:alias" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:modelreference">
       <DisplayName>Alias</DisplayName>
       <DisplayPath>MetaWeave.ModelReference.Alias</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:modelreference:property:alias</Key>
-      <Kind>Property</Kind>
       <NativeId>Alias</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:modelname" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:modelreference" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:alias">
       <DisplayName>ModelName</DisplayName>
       <DisplayPath>MetaWeave.ModelReference.ModelName</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:modelreference:property:modelname</Key>
-      <Kind>Property</Kind>
       <NativeId>ModelName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:modelreference:property:workspacepath" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:modelreference" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference:property:modelname">
       <DisplayName>WorkspacePath</DisplayName>
       <DisplayPath>MetaWeave.ModelReference.WorkspacePath</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:modelreference:property:workspacepath</Key>
-      <Kind>Property</Kind>
       <NativeId>WorkspacePath</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:modelreference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-weave:model:metaweave" PreviousSubjectId="source:workspace-model:meta-weave:entity:modelreference">
       <DisplayName>PropertyBinding</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding</Key>
-      <Kind>Entity</Kind>
       <NativeId>PropertyBinding</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:model:metaweave</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationSourceId="source:workspace-model:meta-weave">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:name" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.Name</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:name">
       <DisplayName>SourceEntity</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.SourceEntity</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceEntity</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceentity">
       <DisplayName>SourceProperty</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.SourceProperty</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceProperty</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:sourceproperty">
       <DisplayName>TargetEntity</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.TargetEntity</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:targetentity</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetEntity</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:property:targetentity">
       <DisplayName>TargetProperty</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.TargetProperty</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:property:targetproperty</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetProperty</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding">
       <DisplayName>SourceModel</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.SourceModel</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference</Key>
-      <Kind>Relationship</Kind>
       <NativeId>SourceModel:ModelReference</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
+    <DocumentationSubject Id="source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-weave:entity:propertybinding" PreviousSubjectId="source:workspace-model:meta-weave:entity:propertybinding:relationship:sourcemodel-modelreference">
       <DisplayName>TargetModel</DisplayName>
       <DisplayPath>MetaWeave.PropertyBinding.TargetModel</DisplayPath>
-      <Key>source:workspace-model:meta-weave:entity:propertybinding:relationship:targetmodel-modelreference</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TargetModel:ModelReference</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-weave:entity:propertybinding</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:model:metaweave" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta:models">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>MetaWeave.MetaWeave</DisplayPath>
+      <NativeId>MetaWeave</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-weave:workspace" DocumentationSourceId="source:workspace-model:meta-weave" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>MetaWeave</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta\MetaWeave\Workspace</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-docs:browse-suite:commands" DocumentationExampleSectionId="example:meta-docs:browse-suite:overview">
+      <Code>cd MetaDocs\Docs\SuiteWorkspace
+meta-docs browse
+meta-docs browse cli/meta-docs
+meta-docs search deploy</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-docs:import-cli-refresh:command" DocumentationExampleSectionId="example:meta-docs:import-cli-refresh:overview">
+      <Code>meta-docs import-cli --workspace MetaDocs\Docs\Workspaces\meta-docs-cli --source-workspace MetaDocs\Cli\meta-docs.MetaCli --parent-subject public:meta:cli</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-docs:render-public-site:command" DocumentationExampleSectionId="example:meta-docs:render-public-site:overview">
+      <Code>meta-docs render-site --workspace MetaDocs\Docs\SuiteWorkspace --out MetaDocs\Docs\Site</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

@@ -1,683 +1,487 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationSubjectList>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:workspace" DocumentationSourceId="source:workspace-model:meta-transform-binding">
-      <DisplayName>MetaTransformBinding</DisplayName>
-      <DisplayPath>MetaTransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:workspace</Key>
-      <Kind>Workspace</Kind>
-      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaTransform\Binding\Workspaces\MetaTransformBinding</NativeId>
-      <NativeKind>Workspace</NativeKind>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:model:metatransformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
-      <DisplayName>MetaTransformBinding</DisplayName>
-      <DisplayPath>MetaTransformBinding.MetaTransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:model:metatransformbinding</Key>
-      <Kind>Model</Kind>
-      <NativeId>MetaTransformBinding</NativeId>
-      <NativeKind>GenericModel</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:workspace</ParentKey>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding">
       <DisplayName>Column</DisplayName>
       <DisplayPath>MetaTransformBinding.Column</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:column</Key>
-      <Kind>Entity</Kind>
       <NativeId>Column</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:column">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaTransformBinding.Column.Name</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:column:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:column" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column:property:name">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaTransformBinding.Column.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:column:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:column:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:column">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.Column.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:column:relationship:rowset-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Rowset:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:column</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:column">
       <DisplayName>ColumnReference</DisplayName>
       <DisplayPath>MetaTransformBinding.ColumnReference</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:columnreference</Key>
-      <Kind>Entity</Kind>
       <NativeId>ColumnReference</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:property:metatransformscriptcolumnreferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:property:metatransformscriptcolumnreferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
       <DisplayName>MetaTransformScriptColumnReferenceId</DisplayName>
       <DisplayPath>MetaTransformBinding.ColumnReference.MetaTransformScriptColumnReferenceId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:columnreference:property:metatransformscriptcolumnreferenceid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaTransformScriptColumnReferenceId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
       <DisplayName>Column</DisplayName>
       <DisplayPath>MetaTransformBinding.ColumnReference.Column</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Column:Column</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:column-column">
       <DisplayName>TableSource</DisplayName>
       <DisplayPath>MetaTransformBinding.ColumnReference.TableSource</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TableSource:TableSource</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference:relationship:tablesource-tablesource">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.ColumnReference.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:columnreference:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:columnreference</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
       <DisplayName>OutputRowset</DisplayName>
       <DisplayPath>MetaTransformBinding.OutputRowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:outputrowset</Key>
-      <Kind>Entity</Kind>
       <NativeId>OutputRowset</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.OutputRowset.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Rowset:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:outputrowset</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:rowset-rowset">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.OutputRowset.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:outputrowset:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:outputrowset</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:outputrowset">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:rowset</Key>
-      <Kind>Entity</Kind>
       <NativeId>Rowset</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:rowset">
       <DisplayName>DerivationKind</DisplayName>
       <DisplayPath>MetaTransformBinding.Rowset.DerivationKind</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind</Key>
-      <Kind>Property</Kind>
       <NativeId>DerivationKind</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:name" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:rowset" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:derivationkind">
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaTransformBinding.Rowset.Name</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:rowset:property:name</Key>
-      <Kind>Property</Kind>
       <NativeId>Name</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:rowset" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset:property:name">
       <DisplayName>SqlIdentifier</DisplayName>
       <DisplayPath>MetaTransformBinding.Rowset.SqlIdentifier</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:rowset:property:sqlidentifier</Key>
-      <Kind>Property</Kind>
       <NativeId>SqlIdentifier</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:rowset:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:rowset">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.Rowset.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:rowset:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:rowset</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:rowset">
       <DisplayName>SourceTarget</DisplayName>
       <DisplayPath>MetaTransformBinding.SourceTarget</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:sourcetarget</Key>
-      <Kind>Entity</Kind>
       <NativeId>SourceTarget</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
       <DisplayName>InputRole</DisplayName>
       <DisplayPath>MetaTransformBinding.SourceTarget.InputRole</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole</Key>
-      <Kind>Property</Kind>
       <NativeId>InputRole</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:property:inputrole">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaTransformBinding.SourceTarget.Ordinal</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:sourcetarget:property:ordinal</Key>
-      <Kind>Property</Kind>
       <NativeId>Ordinal</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
       <DisplayName>Source</DisplayName>
       <DisplayPath>MetaTransformBinding.SourceTarget.Source</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Source:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:target-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:target-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:source-rowset">
       <DisplayName>Target</DisplayName>
       <DisplayPath>MetaTransformBinding.SourceTarget.Target</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:sourcetarget:relationship:target-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Target:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:sourcetarget</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
       <DisplayName>TableSource</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:tablesource</Key>
-      <Kind>Entity</Kind>
       <NativeId>TableSource</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
       <DisplayName>ExposedName</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource.ExposedName</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname</Key>
-      <Kind>Property</Kind>
       <NativeId>ExposedName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:metatransformscripttablereferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:property:metatransformscripttablereferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:property:exposedname">
       <DisplayName>MetaTransformScriptTableReferenceId</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource.MetaTransformScriptTableReferenceId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:tablesource:property:metatransformscripttablereferenceid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaTransformScriptTableReferenceId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Rowset:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource:relationship:rowset-rowset">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:tablesource:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:tablesource</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbinding</Key>
-      <Kind>Entity</Kind>
       <NativeId>TransformBinding</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding">
       <DisplayName>MetaTransformScriptTransformScriptId</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBinding.MetaTransformScriptTransformScriptId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaTransformScriptTransformScriptId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding:property:transformscriptname" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding:property:metatransformscripttransformscriptid">
       <DisplayName>TransformScriptName</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBinding.TransformScriptName</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbinding:property:transformscriptname</Key>
-      <Kind>Property</Kind>
       <NativeId>TransformScriptName</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbinding</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbinding">
       <DisplayName>TransformBindingTarget</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBindingTarget</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbindingtarget</Key>
-      <Kind>Entity</Kind>
       <NativeId>TransformBindingTarget</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:property:sqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
       <DisplayName>SqlIdentifier</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBindingTarget.SqlIdentifier</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbindingtarget:property:sqlidentifier</Key>
-      <Kind>Property</Kind>
       <NativeId>SqlIdentifier</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbindingtarget</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbindingtarget:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBindingTarget.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:transformbindingtarget:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:transformbindingtarget</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
       <DisplayName>Validation</DisplayName>
       <DisplayPath>MetaTransformBinding.Validation</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validation</Key>
-      <Kind>Entity</Kind>
       <NativeId>Validation</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validation">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.Validation.TransformBinding</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validation:relationship:transformbinding-transformbinding</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBinding:TransformBinding</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validation</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validation">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validation">
       <DisplayName>ValidationSourceColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceColumnLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationSourceColumnLink</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink">
       <DisplayName>MetaSchemaFieldId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceColumnLink.MetaSchemaFieldId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:property:metaschemafieldid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaSchemaFieldId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink">
       <DisplayName>Column</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceColumnLink.Column</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Column:Column</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:validationsourcerowsetlink-validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:validationsourcerowsetlink-validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:column-column">
       <DisplayName>ValidationSourceRowsetLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceColumnLink.ValidationSourceRowsetLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink:relationship:validationsourcerowsetlink-validationsourcerowsetlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationSourceRowsetLink:ValidationSourceRowsetLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcecolumnlink">
       <DisplayName>ValidationSourceRowsetLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationSourceRowsetLink</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
       <DisplayName>MetaSchemaTableId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink.MetaSchemaTableId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:metaschematableid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaSchemaTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Rowset:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset">
       <DisplayName>Validation</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink.Validation</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:validation-validation</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Validation:Validation</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetColumnLink</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink">
       <DisplayName>MetaSchemaFieldId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnLink.MetaSchemaFieldId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:property:metaschemafieldid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaSchemaFieldId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink">
       <DisplayName>Column</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnLink.Column</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Column:Column</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:column-column">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnLink.ValidationTargetRowsetLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink:relationship:validationtargetrowsetlink-validationtargetrowsetlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink">
       <DisplayName>ValidationTargetColumnTypeExact</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeExact</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetColumnTypeExact</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
       <DisplayName>SourceMetaDataTypeId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeExact.SourceMetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceMetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:sourcemetadatatypeid">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeExact.TargetMetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:property:targetmetadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetMetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeExact.ValidationTargetColumnLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact:relationship:validationtargetcolumnlink-validationtargetcolumnlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
       <DisplayName>ValidationTargetColumnTypeNotClassified</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetColumnTypeNotClassified</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified.TargetMetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:property:targetmetadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetMetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified.ValidationTargetColumnLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:relationship:validationtargetcolumnlink-validationtargetcolumnlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
       <DisplayName>ValidationTargetColumnTypeSanctionedConversion</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeSanctionedConversion</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetColumnTypeSanctionedConversion</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion">
       <DisplayName>SourceMetaDataTypeId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeSanctionedConversion.SourceMetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>SourceMetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:sourcemetadatatypeid">
       <DisplayName>TargetMetaDataTypeId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeSanctionedConversion.TargetMetaDataTypeId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:property:targetmetadatatypeid</Key>
-      <Kind>Property</Kind>
       <NativeId>TargetMetaDataTypeId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeSanctionedConversion.ValidationTargetColumnLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion:relationship:validationtargetcolumnlink-validationtargetcolumnlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion">
       <DisplayName>ValidationTargetIgnoredColumn</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetIgnoredColumn</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetIgnoredColumn</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn">
       <DisplayName>MetaSchemaFieldId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetIgnoredColumn.MetaSchemaFieldId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:property:metaschemafieldid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaSchemaFieldId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetIgnoredColumn.ValidationTargetRowsetLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn:relationship:validationtargetrowsetlink-validationtargetrowsetlink</Key>
-      <Kind>Relationship</Kind>
       <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetignoredcolumn">
       <DisplayName>ValidationTargetRowsetLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</Key>
-      <Kind>Entity</Kind>
       <NativeId>ValidationTargetRowsetLink</NativeId>
-      <NativeKind>GenericEntity</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:model:metatransformbinding</ParentKey>
+      <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink">
       <DisplayName>MetaSchemaTableId</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink.MetaSchemaTableId</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:metaschematableid</Key>
-      <Kind>Property</Kind>
       <NativeId>MetaSchemaTableId</NativeId>
-      <NativeKind>GenericProperty</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
+      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink.Rowset</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Rowset:Rowset</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset">
       <DisplayName>TransformBindingTarget</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink.TransformBindingTarget</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget</Key>
-      <Kind>Relationship</Kind>
       <NativeId>TransformBindingTarget:TransformBindingTarget</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:transformbindingtarget-transformbindingtarget">
       <DisplayName>Validation</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink.Validation</DisplayPath>
-      <Key>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:validation-validation</Key>
-      <Kind>Relationship</Kind>
       <NativeId>Validation:Validation</NativeId>
-      <NativeKind>GenericRelationship</NativeKind>
-      <ParentKey>source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink</ParentKey>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:model:metatransformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaTransformBinding</DisplayName>
+      <DisplayPath>MetaTransformBinding.MetaTransformBinding</DisplayPath>
+      <NativeId>MetaTransformBinding</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:workspace" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaTransformBinding</DisplayName>
+      <DisplayPath>MetaTransformBinding</DisplayPath>
+      <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaTransform\Binding\Workspaces\MetaTransformBinding</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>
