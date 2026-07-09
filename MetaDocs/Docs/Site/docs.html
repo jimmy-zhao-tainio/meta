@@ -2502,17 +2502,6 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               </table>
             </div>
           </div>
-          <section class="subsection examples">
-            <h4 class="subsection-title">Examples</h4>
-            <article class="example-block">
-              <h5>Create a small command surface</h5>
-              <p>Start with a MetaCli workspace, add a command, mark it executable, then add the options the runtime should parse and document.</p>
-              <pre><code class="language-powershell">meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
-meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description &quot;Show the workspace.&quot;
-meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
-meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description &quot;Workspace path.&quot;</code></pre>
-            </article>
-          </section>
           <details class="card cli-command-card">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -3491,6 +3480,17 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Create a small command surface</h5>
+              <p>Start with a MetaCli workspace, add a command, mark it executable, then add the options the runtime should parse and document.</p>
+              <pre><code class="language-powershell">meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
+meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description &quot;Show the workspace.&quot;
+meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
+meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description &quot;Workspace path.&quot;</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-docs" data-panel="cli-meta-docs">
           <header class="panel-header">
@@ -3583,17 +3583,6 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               </table>
             </div>
           </div>
-          <section class="subsection examples">
-            <h4 class="subsection-title">Examples</h4>
-            <article class="example-block">
-              <h5>Browse the generated reference</h5>
-              <p>Use browse from a MetaDocs workspace to navigate CLI and model pages without remembering subject ids.</p>
-              <pre><code class="language-powershell">cd MetaDocs\Docs\SuiteWorkspace
-meta-docs browse
-meta-docs browse cli/meta-docs
-meta-docs search deploy</code></pre>
-            </article>
-          </section>
           <details class="card cli-command-card">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -3963,7 +3952,7 @@ meta-docs search deploy</code></pre>
                 <span class="command-name">meta-docs browse</span>
                 <span class="command-summary-text">Browse documentation by path.</span>
               </span>
-              <span class="command-counts">1 option / 0 examples</span>
+              <span class="command-counts">1 option / 1 example</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
@@ -3984,6 +3973,18 @@ meta-docs search deploy</code></pre>
                     </tr>
                   </tbody>
                 </table>
+              </section>
+              <section class="subsection examples">
+                <h4 class="subsection-title">Examples</h4>
+                <article class="example-block">
+                  <h5>Browse CLI and model reference pages</h5>
+                  <p>Open the generated reference from a MetaDocs workspace, then jump to CLI, model, and search result pages by path.</p>
+                  <pre><code class="language-powershell">cd MetaDocs\Docs\SuiteWorkspace
+meta-docs browse
+meta-docs browse cli/meta-docs
+meta-docs browse model/MetaDocs
+meta-docs search deploy</code></pre>
+                </article>
               </section>
               </div>
             </div>
@@ -5286,19 +5287,6 @@ meta-mesh run --operation regenerate-public-docs</code></pre>
               </table>
             </div>
           </div>
-          <section class="subsection examples">
-            <h4 class="subsection-title">Examples</h4>
-            <article class="example-block">
-              <h5>Bind two workspace models and materialize</h5>
-              <p>Reference source and target model workspaces, author explicit property bindings, validate them, then materialize a new workspace from the weave.</p>
-              <pre><code class="language-powershell">meta-weave new-workspace .\MetaWeave.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
-meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
-meta-weave check --workspace .\MetaWeave.Workspace
-meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace</code></pre>
-            </article>
-          </section>
           <details class="card cli-command-card">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -5567,6 +5555,19 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Bind two workspace models and materialize</h5>
+              <p>Reference source and target model workspaces, author explicit property bindings, validate them, then materialize a new workspace from the weave.</p>
+              <pre><code class="language-powershell">meta-weave new-workspace .\MetaWeave.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
+meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
+meta-weave check --workspace .\MetaWeave.Workspace
+meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="group-public-meta-models" data-panel="group-public-meta-models">
           <header class="panel-header">

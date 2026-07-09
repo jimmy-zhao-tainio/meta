@@ -351,12 +351,12 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("            </div>");
         builder.AppendLine("          </div>");
 
-        AppendExamplesSection(builder, model, application);
-
         foreach (var command in commands)
         {
             AppendCommandCard(builder, model, command);
         }
+
+        AppendExamplesSection(builder, model, application, title: "General examples");
 
         builder.AppendLine("        </section>");
     }
@@ -486,16 +486,18 @@ public sealed class MetametabiDocsSiteRenderer
         StringBuilder builder,
         MetaDocsModel model,
         DocumentationSubject subject,
-        string indent = "          ")
+        string indent = "          ",
+        string title = "Examples")
     {
-        AppendExamplesSection(builder, model, Examples(model, subject), indent);
+        AppendExamplesSection(builder, model, Examples(model, subject), indent, title);
     }
 
     private static void AppendExamplesSection(
         StringBuilder builder,
         MetaDocsModel model,
         IReadOnlyList<DocumentationExample> examples,
-        string indent)
+        string indent,
+        string title = "Examples")
     {
         if (examples.Count == 0)
         {
@@ -503,7 +505,9 @@ public sealed class MetametabiDocsSiteRenderer
         }
 
         builder.Append(indent).AppendLine("<section class=\"subsection examples\">");
-        builder.Append(indent).AppendLine("  <h4 class=\"subsection-title\">Examples</h4>");
+        builder.Append(indent).Append("  <h4 class=\"subsection-title\">")
+            .Append(Html(title))
+            .AppendLine("</h4>");
         foreach (var example in examples)
         {
             builder.Append(indent).AppendLine("  <article class=\"example-block\">");
@@ -606,8 +610,6 @@ public sealed class MetametabiDocsSiteRenderer
             .AppendLine("</span>");
         builder.AppendLine("          </div>");
 
-        AppendExamplesSection(builder, model, modelSubject);
-
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
         builder.AppendLine("              <h3>Entity index</h3>");
@@ -624,6 +626,8 @@ public sealed class MetametabiDocsSiteRenderer
         {
             AppendEntityCard(builder, model, entity);
         }
+
+        AppendExamplesSection(builder, model, modelSubject, title: "General examples");
 
         builder.AppendLine("          <details class=\"inline-details\">");
         builder.AppendLine("            <summary>Technical metadata</summary>");

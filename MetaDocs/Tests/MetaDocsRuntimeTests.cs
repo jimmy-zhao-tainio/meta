@@ -1542,7 +1542,7 @@ public sealed class MetaDocsRuntimeTests
 
         Assert.DoesNotContain("Ada", html, StringComparison.Ordinal);
         Assert.DoesNotContain("Name: Ada", html, StringComparison.Ordinal);
-        Assert.DoesNotContain("Selected safe instance docs", html, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Selected opt-in instance documentation", html, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -1866,6 +1866,76 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void RenderSite_RendersApplicationAndModelExamplesAfterDetailCards()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
+        new MetaDocsCliImporter().ImportApplication(model, CreateMetaDocsApp(), parentSubjectId: reference.MetaCli.Id);
+        AddModelSubject(model, "MetaDocs", reference.MetaModels);
+
+        var modelSubject = Assert.Single(
+            model.DocumentationSubjectList,
+            row => IsSubjectType(row, "Model") && row.DisplayName == "MetaDocs");
+        model.DocumentationSubjectList.Add(new DocumentationSubject
+        {
+            Id = "source:model:test:entity:documentationexample",
+            DocumentationSource = modelSubject.DocumentationSource,
+            DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "Entity"),
+            ParentSubject = modelSubject,
+            SourceTypeName = "GenericEntity",
+            NativeId = "DocumentationExample",
+            DisplayName = "DocumentationExample",
+            DisplayPath = "MetaDocs.DocumentationExample",
+            Summary = "Structured documentation examples.",
+            Status = "Current",
+        });
+
+        var examples = new MetaDocsExampleAuthoringService();
+        examples.UpsertExample(
+            model,
+            new MetaDocsSubjectSelector(Cli: "meta-docs"),
+            "example:meta-docs:app-general",
+            "Plan documentation work",
+            string.Empty,
+            "example:meta-docs:app-general:overview",
+            "Use the MetaDocs CLI to refresh, browse, and render documentation workspaces.",
+            "PlainText",
+            string.Empty);
+        examples.UpsertExample(
+            model,
+            new MetaDocsSubjectSelector(Model: "MetaDocs"),
+            "example:metadocs:model-general",
+            "Shape a docs workspace",
+            string.Empty,
+            "example:metadocs:model-general:overview",
+            "Use the model reference to understand the durable documentation workspace structure.",
+            "PlainText",
+            string.Empty);
+
+        var html = new MetametabiDocsSiteRenderer().RenderSite(model);
+
+        var cliPanelIndex = html.IndexOf("id=\"cli-meta-docs\" data-panel=\"cli-meta-docs\"", StringComparison.Ordinal);
+        Assert.True(cliPanelIndex >= 0);
+        var commandOverviewIndex = html.IndexOf("<h3>Commands</h3>", cliPanelIndex, StringComparison.Ordinal);
+        var commandDetailIndex = html.IndexOf("<details class=\"card cli-command-card\">", cliPanelIndex, StringComparison.Ordinal);
+        var applicationExampleIndex = html.IndexOf("Plan documentation work", cliPanelIndex, StringComparison.Ordinal);
+        Assert.True(commandOverviewIndex >= 0);
+        Assert.True(commandDetailIndex > commandOverviewIndex);
+        Assert.True(applicationExampleIndex > commandDetailIndex);
+
+        var modelPanelIndex = html.IndexOf("id=\"model-metadocs\" data-panel=\"model-metadocs\"", StringComparison.Ordinal);
+        Assert.True(modelPanelIndex >= 0);
+        var entityIndexIndex = html.IndexOf("<h3>Entity index</h3>", modelPanelIndex, StringComparison.Ordinal);
+        var entityDetailIndex = html.IndexOf("<details class=\"card model-entity-card\"", modelPanelIndex, StringComparison.Ordinal);
+        var modelExampleIndex = html.IndexOf("Shape a docs workspace", modelPanelIndex, StringComparison.Ordinal);
+        Assert.True(entityIndexIndex >= 0);
+        Assert.True(entityDetailIndex > entityIndexIndex);
+        Assert.True(modelExampleIndex > entityDetailIndex);
+
+        Assert.Contains("<h4 class=\"subsection-title\">General examples</h4>", html, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void RenderSite_UsesSinglePanelRoutesAndModeledPublicHierarchy()
     {
         var model = MetaDocsModel.CreateEmpty();
@@ -1896,7 +1966,7 @@ public sealed class MetaDocsRuntimeTests
 
         Assert.DoesNotContain("What is Meta?", html, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Documentation lifecycle", html, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("Selected safe instance docs", html, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Selected opt-in instance documentation", html, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("IntersectionObserver", html, StringComparison.Ordinal);
         Assert.DoesNotContain("requestAnimationFrame", html, StringComparison.Ordinal);
     }
