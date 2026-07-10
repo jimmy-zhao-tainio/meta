@@ -296,7 +296,7 @@
       <Status>New</Status>
       <Summary>Authored narrative body.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:id" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:body">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:id" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:body-format">
       <DisplayName>--id</DisplayName>
       <DisplayPath>meta-docs author-page --id</DisplayPath>
       <NativeId>option-author-page-id</NativeId>
@@ -304,15 +304,7 @@
       <Status>New</Status>
       <Summary>Stable documentation subject id.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:kind" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:id">
-      <DisplayName>--kind</DisplayName>
-      <DisplayPath>meta-docs author-page --kind</DisplayPath>
-      <NativeId>option-author-page-kind</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Optional subject kind. Default: Guide.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:new-workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:kind">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:new-workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:navigation-title">
       <DisplayName>--new-workspace</DisplayName>
       <DisplayPath>meta-docs author-page --new-workspace</DisplayPath>
       <NativeId>option-author-page-new-workspace</NativeId>
@@ -360,7 +352,7 @@
       <Status>New</Status>
       <Summary>Optional authored documentation source display name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:summary" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:source-name">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:summary" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:subject-type">
       <DisplayName>--summary</DisplayName>
       <DisplayPath>meta-docs author-page --summary</DisplayPath>
       <NativeId>option-author-page-summary</NativeId>
@@ -822,15 +814,7 @@
       <Status>New</Status>
       <Summary>Search text.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:kind" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search">
-      <DisplayName>--kind</DisplayName>
-      <DisplayPath>meta-docs search --kind</DisplayPath>
-      <NativeId>option-search-kind</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Optional subject kind filter.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:limit" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search" PreviousSubjectId="source:cli:meta-docs:app:command:search:option:kind">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:limit" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search">
       <DisplayName>--limit</DisplayName>
       <DisplayPath>meta-docs search --limit</DisplayPath>
       <NativeId>option-search-limit</NativeId>
@@ -838,7 +822,7 @@
       <Status>New</Status>
       <Summary>Maximum number of matches. Default: 25.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search" PreviousSubjectId="source:cli:meta-docs:app:command:search:option:limit">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search" PreviousSubjectId="source:cli:meta-docs:app:command:search:option:subject-type">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-docs search --workspace</DisplayPath>
       <NativeId>option-search-workspace</NativeId>
@@ -867,8 +851,8 @@
       <DisplayPath>meta-docs update-description --body-format</DisplayPath>
       <NativeId>option-update-description-body-format</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Body format. Default: PlainText.</Summary>
+      <Status>Changed</Status>
+      <Summary>Body format. Defaults to Markdown.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:update-description:option:body-stdin" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:update-description" PreviousSubjectId="source:cli:meta-docs:app:command:update-description:option:body-format">
       <DisplayName>--body-stdin</DisplayName>
@@ -973,6 +957,38 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
       <Summary>MetaDocs workspace to validate. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:body-format" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:body">
+      <DisplayName>--body-format</DisplayName>
+      <DisplayPath>meta-docs author-page --body-format</DisplayPath>
+      <NativeId>option-author-page-body-format</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Narrative body format. Defaults to Markdown.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:navigation-title" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:id">
+      <DisplayName>--navigation-title</DisplayName>
+      <DisplayPath>meta-docs author-page --navigation-title</DisplayPath>
+      <NativeId>option-author-page-navigation-title</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Navigation label for the page. Defaults to the page title when first authored.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:subject-type" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:source-name">
+      <DisplayName>--subject-type</DisplayName>
+      <DisplayPath>meta-docs author-page --subject-type</DisplayPath>
+      <NativeId>option-author-page-subject-type</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Documentation subject type. Defaults to Guide.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:search:option:subject-type" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:search" PreviousSubjectId="source:cli:meta-docs:app:command:search:option:limit">
+      <DisplayName>--subject-type</DisplayName>
+      <DisplayPath>meta-docs search --subject-type</DisplayPath>
+      <NativeId>option-search-subject-type</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Filter results by documentation subject type.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

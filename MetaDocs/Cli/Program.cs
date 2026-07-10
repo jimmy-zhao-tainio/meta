@@ -63,14 +63,16 @@ internal static class Program
                 invocation.Required("title"),
                 invocation.Required("summary"),
                 invocation.Required("body"),
-                Optional(invocation, "kind", "Guide"),
+                Optional(invocation, "subject-type", "Guide"),
                 Optional(invocation, "path"),
                 Optional(invocation, "parent"),
                 Optional(invocation, "slot", "Summary"),
                 string.Empty,
                 Optional(invocation, "source-id", "source:authored:metametabi-docs"),
                 Optional(invocation, "source-name", "Authored MetaDocs pages"),
-                ParseBoolean(Optional(invocation, "view-root")));
+                ParseBoolean(Optional(invocation, "view-root")),
+                Optional(invocation, "navigation-title"),
+                Optional(invocation, "body-format", "Markdown"));
             var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             Presenter.WriteInfo($"Authored page: {subject.DisplayName}.");
@@ -138,7 +140,7 @@ internal static class Program
             var matches = new MetaDocsQueryService().Search(
                 model,
                 query,
-                Optional(invocation, "kind"),
+                Optional(invocation, "subject-type"),
                 ParseLimit(Optional(invocation, "limit")));
             Presenter.WriteInfo(MetaDocsQueryService.FormatSearchResults(query, matches));
         }
@@ -161,7 +163,7 @@ internal static class Program
                 Optional(invocation, "slot", "Summary"),
                 Optional(invocation, "title"),
                 body,
-                Optional(invocation, "body-format", "PlainText"));
+                Optional(invocation, "body-format", "Markdown"));
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Updated description: {narrative.DocumentationSubject.Id} ({narrative.Slot}).");
         }
@@ -726,10 +728,10 @@ internal static class Program
         }
     }
 
-    private static int CountCurrentChildren(MetaDocsModel model, DocumentationSubject parent, string kind) =>
+    private static int CountCurrentChildren(MetaDocsModel model, DocumentationSubject parent, string subjectType) =>
         model.DocumentationSubjectList.Count(row =>
             string.Equals(row.ParentSubject?.Id ?? string.Empty, parent.Id, StringComparison.OrdinalIgnoreCase) &&
-            MetaDocsVocabulary.IsSubjectType(row, kind) &&
+            MetaDocsVocabulary.IsSubjectType(row, subjectType) &&
             !string.Equals(row.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase));
 
     private static void PrintValidationResult(MetaDocsValidationResult result)

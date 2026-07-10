@@ -18,17 +18,8 @@
       <Title>Models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary:overview" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` is the BI stack that sits on top of the generic `meta` foundation.
-
-It is not only a set of code generators. The important product shape is a modeled BI stack: source contracts, transform syntax, binding, target deployment assets, data quality, pipeline execution, orchestration, and analytical targets remain explicit workspaces that can be inspected, replayed, and validated.
-
-Two high-value behaviors are intentionally model-driven:
-
-- `meta-data-quality` automatically derives reviewable DQ candidates from the modeled transform graph. Supported checks come from `MetaTransformScript` structure and optional binding evidence, not from hand-authored one-off test SQL.
-- `meta-orchestration` automatically infers the safe part of the run graph from modeled `MetaPipeline` tasks and bound transform access profiles. When write ordering or synchronization cannot be proven, it records modeled policy issues instead of hiding uncertainty in scheduler code.
-
-For the normal modeled BI path -- source schema, SQL transforms in the supported `MetaTransformScript` surface, strict binding, generated DQ, modeled pipeline tasks, orchestration, and Tabular/MultiDimensional output -- this covers a large automatic slice of the stack. Dynamic SQL or legacy opaque procedural SQL needs explicit guarantees before orchestration/DQ can safely trust it.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+      <Body>`meta-bi` is a model-driven BI engineering stack built on the generic `meta` foundation. It keeps source structures, SQL semantics, transformation contracts, data architecture, deployment assets, execution plans, and analytical targets as typed workspaces that can be inspected, converted, generated, and executed through one model-first foundation.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -51,229 +42,233 @@ For the normal modeled BI path -- source schema, SQL transforms in the supported
       <Title>Models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacecontract:workspace-contract">
-      <Body>`meta` operates on workspaces and provides these capability groups:
+      <Body>`meta` follows the working lifecycle of a metadata workspace:
 
-Workspace operations: create and inspect workspaces (`init`, `status`).
-Validation and inspection: check integrity and explore model/instance (`check`, `list`, `view`, `query`, `graph`).
-Edits: mutate models and instance data (`model ...`, `insert`, `delete`, `bulk-insert`, `instance update`, `instance rename-id`, `instance relationship set|list`, `instance diff`, `instance merge`).
-Model analysis and guided refactor: read-only relationship inference (`model suggest`) and atomic model+instance refactors (`model refactor property-to-relationship`, `model refactor relationship-to-property`).
-Pipelines: import and emit representations (`import ...`, `generate ...`).
+- **Create and inspect:** initialize workspaces and inspect their current model and instance state (`init`, `status`).
+- **Explore:** list, view, query, and traverse modeled data (`list`, `view`, `query`, `graph`).
+- **Author:** change model definitions and instance data through model-aware commands (`model ...`, `insert`, `delete`, `bulk-insert`, `instance ...`).
+- **Refactor:** analyze candidate relationships and apply atomic model-plus-instance changes (`model suggest`, `model refactor ...`).
+- **Exchange representations:** import source material and generate SQL, C#, and other sanctioned consumables (`import ...`, `generate ...`).
 
-Workflow: model + instance workspace -&gt; `meta` emits C#/SQL consumables -&gt; your patterns/generators produce organization-specific artifacts.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+A typical flow starts with a model and instance workspace, uses `meta` to preserve and transform that modeled truth, then emits the native artifacts needed by databases, applications, and downstream generators.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CliAtAGlance</Slot>
       <Title>Meta CLI at a glance</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:installandrun:install-and-run">
-      <Body>Workspace discovery defaults to the current directory (searching upward). Use `--workspace &lt;path&gt;` to override.
+      <Body>Workspace-oriented commands use the **current working directory** when `--workspace` is omitted. They do not search parent directories. Use `--workspace &lt;path&gt;` when the target workspace is elsewhere.
 
-Global behavior:
+Common command behavior:
 
-- successful state changes answer with `Ok`.
-- validation/usage/runtime failures explain what cannot continue and exit non-zero.
-- `--strict` upgrades warnings to errors for mutating commands.
+- successful state changes print `Ok`;
+- usage and runtime failures explain what prevented the command from continuing and return a non-zero exit code;
+- mutating commands that expose `--strict` promote warnings to errors.
 
-Command discovery:
+**Discover the command surface**
 
-- `meta help`: show top-level command groups and examples.
-- `meta &lt;command&gt; help`: show usage/options/examples for one command.
-- `meta &lt;command&gt; &lt;subcommand&gt; --help`: show detailed subcommand help.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+```powershell
+meta help
+meta help model
+meta model suggest --help
+```
+
+Top-level help lists command groups. Command help then narrows the surface to the relevant usage, arguments, and options.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CommandGuide</Slot>
       <Title>Command guide</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:overview:deterministic-metadata-backend">
-      <Body>In this project, metadata is not "extra comments about data". Metadata is the product model itself:
+    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:repository-clis">
+      <Body>In this project, metadata is not an annotation around the product. **Metadata is the product model itself.**
 
-- `model.xml`: the schema contract (entities, scalar properties, required relationships).
-- `instances/*.xml`: the instance graph for that model (rows + relationship usages).
-- `workspace.xml`: workspace-level configuration for layout/encoding/order and storage.
+- **`model.xml`** declares the schema contract: entities, scalar properties, and relationships.
+- **`instances/*.xml`** carries the instance graph for that model: records, values, and relationship usages.
+- **`workspace.xml`** records workspace-level representation and storage configuration.
 
 Core terms:
 
-- `Model`: named set of entity definitions.
-- `Entity`: a record type (similar to a table).
-- `Property`: scalar attribute on an entity instance.
-- `Relationship`: required reference from one entity to another.
-- `Instance`: one row/record of an entity, identified by `Id`.
-- `Workspace`: on-disk unit that contains model + instance + workspace config.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+- **Model:** a named set of entity definitions.
+- **Entity:** a record type, comparable to a table or a POCO type.
+- **Property:** a scalar attribute on an entity instance.
+- **Relationship:** a modeled reference from one entity to another.
+- **Instance:** one identified record of an entity.
+- **Workspace:** an on-disk unit containing a model, its instances, and workspace configuration.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Foundations</Slot>
       <Title>Metadata foundations</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:installandrun:install-and-run" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:repository-clis">
-      <Body>Build:
+    <DocumentationNarrative Id="public:meta:overview:narrative:installandrun:install-and-run" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:instancexmlcontract:instance-xml-contract">
+      <Body>Build the foundation and weave solutions with .NET 8:
 
-`dotnet build Metadata.Framework.sln`
-`dotnet build MetaWeave.sln`
+```powershell
+dotnet build Metadata.Framework.sln
+dotnet build MetaWeave.sln
+```
 
-On Windows, these builds refresh the published framework-dependent CLIs at:
+Run a CLI directly from its project during development:
 
-- `Meta\Cli\bin\publish\win-x64\meta.exe`
-- `MetaWeave\Cli\bin\publish\win-x64\meta-weave.exe`
-- `MetaDocs\Cli\bin\publish\win-x64\meta-docs.exe`
+```powershell
+dotnet run --project Meta/Cli/Meta.Cli.csproj -- help
+```
 
-Run directly:
+When the CLI output directory is on `PATH`, use the executable name directly:
 
-`dotnet run --project Meta/Cli/Meta.Cli.csproj -- help`
+```powershell
+meta help
+```
 
-If `Meta\Cli\bin\publish\win-x64` is on your `PATH`:
+On Windows, the `meta`, `meta-weave`, and `meta-docs` project builds also refresh their framework-dependent publish directories under `Cli\bin\publish\win-x64`.
 
-`meta help`
+Build the offline installer package with:
 
-Or run the executable directly:
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File Meta\Installer\package-offline.ps1
+```
 
-`Meta\Cli\bin\publish\win-x64\meta.exe help`
+The default package is framework-dependent and requires the .NET 8 runtime on the target machine. Use `-SelfContained` only when the package must carry its own runtime.
 
-Build the installer package:
+Install the packaged `meta`, `meta-weave`, and `meta-docs` CLIs into `%LOCALAPPDATA%\meta\bin` with:
 
-`powershell -NoProfile -ExecutionPolicy Bypass -File Meta\Installer\package-offline.ps1`
-
-The default package is framework-dependent and shared-DLL based, so it requires the .NET 8 runtime on the target machine. Use `-SelfContained` only when you need a larger package that carries the runtime.
-
-Then install the foundation CLIs (`meta`, `meta-weave`, `meta-docs`) into `%LOCALAPPDATA%\meta\bin` and add that directory to your user `PATH`:
-
-`Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe`</Body>
-      <BodyFormat>PlainText</BodyFormat>
+```powershell
+Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe
+```</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InstallAndRun</Slot>
       <Title>Install and run</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:instancexmlcontract:instance-xml-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:modelxmlcontract:model-xml-contract">
-      <Body>`instances/*.xml` stores the data for a model.
+      <Body>`instances/*.xml` carries the data for a model.
 
-The root element is the model name (for example `&lt;EnterpriseBIPlatform&gt;`).
+- The document root is the model name, such as `&lt;EnterpriseBIPlatform&gt;`.
+- Each entity's records appear under a deterministic list container such as `&lt;CubeList&gt;` or `&lt;MeasureList&gt;`.
+- Each record uses the singular entity name and has an `Id="..."` attribute.
+- Relationship usages are stored as `...Id` attributes. A relationship to `Cube` becomes `CubeId`; a relationship with `role="SourceCube"` becomes `SourceCubeId`.
+- Scalar properties are child elements. A missing element is unset; an empty element is an explicitly empty string.
 
-Each entity's instances are grouped under a deterministic list container element (for example `&lt;CubeList&gt;`, `&lt;MeasureList&gt;`). Inside the container, each record is written as the singular entity element (for example `&lt;Cube ...&gt;`, `&lt;Measure ...&gt;`).
-
-Every record must have an `Id="..."` attribute.
-
-Relationships are stored as `...Id` attributes on the record. By default a relationship to `Cube` is stored as `CubeId="..."`. If the relationship has a role like `role="SourceCube"`, it is stored as `SourceCubeId="..."`.
-
-Scalar properties are written as child elements. Missing element means unset. An empty element means explicit empty string.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+These XML conventions are deterministic representation rules. The loaded C# model still carries relationships as object references, while generated SQL carries them as relational keys.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InstanceXmlContract</Slot>
       <Title>Instance XML contract</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:internalpackages:internal-packages" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:commandguide:command-guide">
-      <Body>The foundation libraries are packable as internal NuGet packages:
+      <Body>The foundation libraries are available as internal NuGet packages:
 
 - `Meta.Core`
 - `Meta.Adapters`
 - `MetaWeave.Core`
 
-Pack them into the local feed at `.nupkg` with:
+Build them into the local `.nupkg` feed with:
 
-`pack-internal.cmd`
+```powershell
+.\pack-internal.cmd
+```
 
-Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.
+Downstream repositories consume packages rather than project references back into this repository. That keeps the foundation boundary explicit and prevents downstream changes from silently reaching into core source.
 
-Today `meta-bi` consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it so downstream repos can adopt weave core package references without reopening the source boundary.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+`meta-bi` currently consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it for consumers that need sanctioned cross-model binding services.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InternalPackages</Slot>
       <Title>Internal packages</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:isomorphism:why-isomorphic-metadata" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:foundations:metadata-foundations">
-      <Body>Isomorphic means the same semantics can live in multiple forms without translation drift.
+      <Body>Isomorphic metadata preserves the **same structure and meaning** across its supported representations instead of translating each representation into a different product model.
 
-Think of it as one model with three native surfaces, each optimized for a different kind of work:
+One model can therefore have three native working surfaces, each suited to a different kind of work:
 
-- XML workspace: canonical, deterministic, and git-friendly (clean diffs, reviewable history, mergeable refactors).
-- SQL: data-first and database-native (easy to inspect/query/validate at scale; good interchange format when your source of truth starts in a database).
-- C#: application-first (strongly typed objects for tools and apps; no XML parsing in consumer code; easy to integrate into pipelines/services).
+- **XML workspace:** deterministic, reviewable, and git-friendly for authoring and version control.
+- **SQL:** relational and database-native, with keys and constraints carrying integrity where data platforms already work.
+- **C#:** application-native, with strongly typed objects and object references for tools, services, and generated consumers.
 
-Because the semantics are the same, multiple producers and consumers can collaborate without rewriting the model for each layer:
+Because the semantics remain aligned, different producers and consumers can collaborate without rebuilding the model at every boundary:
 
-- analysts/modelers edit model + instance in workspace form,
-- platform engineers consume SQL outputs and SQL-project consumables in their pipelines,
-- application/tooling engineers consume emitted C# APIs.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+- analysts and modelers can author and review workspace data;
+- platform engineers can consume SQL and SQL-project outputs;
+- application and tooling engineers can consume generated C# APIs.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Isomorphism</Slot>
       <Title>Why isomorphic metadata</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:modelxmlcontract:model-xml-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance">
-      <Body>`model.xml` defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.
+      <Body>`model.xml` declares the schema of a metadata workspace: which entities exist, which scalar properties they carry, and how they relate.
 
-A model has one root `&lt;Model name="..."&gt;` and then:
+A model has one `&lt;Model name="..."&gt;` root and follows a small set of rules:
 
-- `&lt;Entity&gt;` defines a record type (like a table).
-- `name="Cube"` is the singular name.
-- Instances are grouped under a deterministic `&lt;EntityName&gt;List` container in XML and emitted C# root collections use the same `&lt;EntityName&gt;List` naming.
-- `&lt;PropertyList&gt;` lists scalar fields for the entity. `dataType="string"` is the default and omitted; properties are required by default (`isRequired="true"`), and optional fields use `isRequired="false"`.
-- `&lt;RelationshipList&gt;` lists required foreign-key style references to other entities. A relationship points to a target entity and is required by default. In instance XML it becomes `${TargetEntity}Id` by default. If you need multiple relationships to the same target, specify `role="..."` and it becomes `${Role}Id`.
-- `Id` is implicit on every entity, so `Property name="Id"` is not written.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+- `&lt;Entity name="Cube"&gt;` defines a record type; every entity has an implicit `Id`.
+- `&lt;PropertyList&gt;` contains scalar fields. String is the default data type, properties are required by default, and `isRequired="false"` makes a property optional.
+- `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
+- A relationship role is used when more than one relationship targets the same entity and the references need distinct meanings.
+- XML instance containers and generated C# root collections use the deterministic `&lt;EntityName&gt;List` convention.
+
+The model contract is intentionally small. Meaning that must survive generation belongs in entities, properties, and relationships rather than in parser conventions or surrounding prose.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>ModelXmlContract</Slot>
       <Title>Model XML contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:overview:deterministic-metadata-backend" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
-      <Body>`meta` is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.
+    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:repository-clis" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
+      <Body>The foundation is delivered through five command-line tools:
 
-BI-specific sanctioned models and CLIs live in the separate `meta-bi` repository.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Overview</Slot>
-      <Title>Deterministic metadata backend</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:repository-clis" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:instancexmlcontract:instance-xml-contract">
-      <Body>This repo contains these CLI projects:
+- **`meta`** authors and transforms model and instance workspaces, performs model-aware inspection and refactoring, imports external representations, and generates SQL and C# consumables.
+- **`meta-cli`** models command grammars and supplies the shared parser, help, workspace-loading, and handler runtime used by the suite.
+- **`meta-weave`** defines and validates sanctioned property bindings across models, then materializes those bindings when one combined workspace is needed.
+- **`meta-docs`** combines generated reference facts with authored technical documentation, then merges and renders the public reference.
+- **`meta-mesh`** declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.
 
-- `meta` (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.
-- `meta-weave` (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.
-- `meta-docs` (MetaDocs CLI): modeled CLI documentation import and merged metametabi-style docs rendering.
-- `meta-mesh` (MetaMesh CLI): declared workspace sets and executable operations over those workspaces.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+BI-specific sanctioned models and command-line tools live in the separate `meta-bi` repository.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>RepositoryClis</Slot>
-      <Title>Repository CLIs</Title>
+      <Title>Foundation command-line tools</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:summary:overview" DocumentationSubjectId="public:meta:overview">
-      <Body>Start here for the model-first metadata foundation behind meta and meta-bi.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+      <Body>`meta` is a deterministic metadata backend for defining structured models once and carrying them across XML, SQL, and C# without semantic drift. XML workspaces provide a git-friendly authoring surface, while generated SQL and C# provide native relational and application surfaces over the same model and instance graph.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Overview</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:versioncontrol:why-git-matters-for-metadata" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:isomorphism:why-isomorphic-metadata">
-      <Body>The workspace is designed for version control:
+      <Body>A workspace is designed to behave well under version control:
 
-- deterministic writer output (stable ordering, utf-8 no bom, LF) keeps diffs clean.
-- model and instance changes are code-reviewed like source code.
-- branch/merge workflows apply to metadata evolution.
-- refactors are auditable through before/after XML deltas.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+- deterministic writer output keeps diffs stable and reviewable;
+- model and instance changes can be reviewed with the same discipline as source code;
+- branch and merge workflows can carry metadata evolution;
+- refactors remain auditable through before-and-after workspace changes.
+
+The XML writer uses stable ordering, UTF-8 without a byte-order mark, and LF line endings so representation noise does not obscure semantic changes.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>VersionControl</Slot>
-      <Title>Why git matters for metadata</Title>
+      <Title>Why Git matters for metadata</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:why-git-matters-for-metadata">
-      <Body>A workspace is a directory containing:
+      <Body>A workspace is a directory with this baseline shape:
 
-`workspace.xml`
-`model.xml`
-`instances/...`
+```text
+workspace.xml
+model.xml
+instances/...
+```
 
-Instance data may be sharded: multiple instance files can contain rows for the same entity; load merges those shards and save preserves existing shard file layout (new rows for an entity are written to that entity's primary shard).</Body>
-      <BodyFormat>PlainText</BodyFormat>
+Instance data may be sharded across several files. Loading combines rows for the same entity; saving preserves the existing shard layout and writes new rows to that entity's primary shard.</Body>
+      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceContract</Slot>
@@ -286,6 +281,62 @@ Instance data may be sharded: multiple instance files can contain rows for the s
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>meta + meta-bi reference</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
+      <Body>SQL is represented as structure rather than carried as an opaque script blob.
+
+- **`MetaTransformScript`** imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through `SQL -&gt; workspace -&gt; SQL -&gt; workspace` round trips.
+- **`MetaTransformBinding`** resolves modeled source and target identifiers against explicit `MetaSchema` workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned `MetaDataTypeConversion` policy.
+- **`MetaSql`** carries deployable database structure, while `MetaSqlDeployManifest` makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.
+
+That shared understanding lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>SqlSemantics</Slot>
+      <Title>SQL as modeled structure</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
+      <Body>The sanctioned models divide BI concerns at their natural ownership boundaries:
+
+- **Source and type contracts:** `MetaSchema` captures systems, schemas, tables, fields, keys, and relationships from SQL Server. `MetaDataType` and `MetaDataTypeConversion` carry semantic types and explicit mappings into runtime type systems.
+- **Data architecture:** `MetaRawDataVault` and `MetaBusinessDataVault` model raw and governed vault structures. `MetaDataWarehouse` models dimensions, facts, grain, business keys, roles, snapshots, bridges, and slowly changing dimensions. Separate implementation workspaces own physical SQL naming, keys, platform columns, defaults, and indexes.
+- **Transform and database realization:** `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` carry understood SQL, schema contracts, deployable objects, and controlled deployment.
+- **Analytical semantics:** `MetaAnalytics` defines portable tables, attributes, hierarchies, measures, aggregation behavior, relationships, perspectives, roles, cultures, and translations before an engine is selected.
+- **Analytical targets:** `MetaTabular` owns DAX measures, calculation groups, partitions, KPIs, and tabular security. `MetaMultiDimensional` owns cubes, measure groups, MDX, named sets, actions, partitions, and multidimensional security.
+- **Execution and assurance:** `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` turn modeled transform and access evidence into reviewable checks, executable task chains, dependency graphs, synchronization policy, and runtime evidence.
+
+`meta-convert` performs explicit conversions between sanctioned model surfaces, keeping portable intent separate from target-specific implementation details.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>ModelLayers</Slot>
+      <Title>Sanctioned model layers</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
+      <Body>The runtime tools consume modeled evidence produced by the layers before them:
+
+- **`meta-data-quality`** traverses the typed transform graph to discover reviewable integrity, optionality, fanout, duplicate, join-pattern, and filter-consensus candidates. Binding evidence can restrict generation to transforms whose source and target contracts are already proven.
+- **`meta-pipeline`** executes modeled transform-backed and external-process tasks, records the exact transform and binding used, and preserves row, batch, timeout, fingerprint, audit, and failure evidence.
+- **`meta-orchestration`** derives the provable dependency graph from pipeline tasks and bound object reads and writes. Explicit ordering, lock compatibility, synchronization, and failure branches remain modeled policy instead of being buried in scheduler behavior.
+- **Target CLIs** realize modeled SQL, Tabular, and MultiDimensional workspaces through deployment and processing commands owned by the target model.
+
+Automation therefore follows from explicit contracts. When additional knowledge is required, it enters as modeled policy that engineers and agents can inspect alongside the inferred evidence.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>OperationalEvidence</Slot>
+      <Title>Model-driven execution and evidence</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
+      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, generated database assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
+
+Teams compose the sanctioned workspaces that match their architecture. At every handoff, the input and output remain inspectable model instances instead of disappearing into generator configuration or unstructured deployment scripts.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>EndToEnd</Slot>
+      <Title>From source contracts to analytical targets</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
       <Body>Declare a base measure aggregate function.</Body>
@@ -9916,7 +9967,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code">
       <Body>Add or update a code block in a structured documentation example.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9925,7 +9976,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:code-stdin:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:code-stdin">
       <Body>Read code text from standard input.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9934,7 +9985,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:code">
       <Body>Code text.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9943,7 +9994,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:id">
       <Body>Stable code block id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9952,7 +10003,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:language:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:language">
       <Body>Code language label.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9961,7 +10012,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:previous-code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:previous-code">
       <Body>Previous code block id for ordered code in the same section.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9970,7 +10021,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:section:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:section">
       <Body>Example section id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9979,7 +10030,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:title">
       <Body>Optional code block title.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9988,7 +10039,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-code:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-code:option:workspace">
       <Body>MetaDocs workspace to update. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -9997,7 +10048,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section">
       <Body>Add or update a text section in a structured documentation example.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10006,7 +10057,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:body-format:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:body-format">
       <Body>Body format. Default: PlainText.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10015,7 +10066,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:body-stdin:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:body-stdin">
       <Body>Read example section text from standard input.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10024,7 +10075,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:body:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:body">
       <Body>Example section text.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10033,7 +10084,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:example:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:example">
       <Body>Example id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10042,7 +10093,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:id">
       <Body>Stable section id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10051,7 +10102,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:previous-section:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:previous-section">
       <Body>Previous section id for ordered sections in the same example.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10060,7 +10111,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:title">
       <Body>Optional section title.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10069,7 +10120,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example-section:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example-section:option:workspace">
       <Body>MetaDocs workspace to update. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10078,7 +10129,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example">
       <Body>Add or update a structured example for an existing documentation subject.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10087,7 +10138,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:body-format:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:body-format">
       <Body>Body format. Default: PlainText.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10096,7 +10147,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:body-stdin:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:body-stdin">
       <Body>Read the first example section text from standard input.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10105,7 +10156,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:body:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:body">
       <Body>First example section text.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10114,7 +10165,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:cli:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:cli">
       <Body>CLI application name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10123,7 +10174,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:command:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:command">
       <Body>CLI command name or path.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10132,7 +10183,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:id">
       <Body>Stable example id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10141,7 +10192,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:model">
       <Body>Model name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10150,7 +10201,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:option:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:option">
       <Body>CLI option token.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10159,7 +10210,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:previous-example:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:previous-example">
       <Body>Previous example id for ordered examples on the same subject.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10168,7 +10219,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:section-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:section-id">
       <Body>Stable id for the first example section.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10177,7 +10228,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:subject:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:subject">
       <Body>Documentation subject id or key.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10186,7 +10237,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:summary:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:summary">
       <Body>Optional short example summary.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10195,7 +10246,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:title">
       <Body>Example title.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10204,7 +10255,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:add-example:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:add-example:option:workspace">
       <Body>MetaDocs workspace to update. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10213,7 +10264,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page">
       <Body>Add or update an authored documentation page in a MetaDocs workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10222,7 +10273,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:body:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:body">
       <Body>Authored narrative body.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10231,16 +10282,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:id">
       <Body>Stable documentation subject id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:kind">
-      <Body>Optional subject kind. Default: Guide.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10249,7 +10291,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:new-workspace">
       <Body>New MetaDocs workspace to create.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10258,7 +10300,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:parent:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:parent">
       <Body>Optional parent subject id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10267,7 +10309,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:path:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:path">
       <Body>Optional display path. Default: title.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10276,7 +10318,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:slot:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:slot">
       <Body>Optional narrative slot. Default: Summary.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10285,7 +10327,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:source-id">
       <Body>Optional authored documentation source id.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10294,7 +10336,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:source-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:source-name">
       <Body>Optional authored documentation source display name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10303,7 +10345,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:summary:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:summary">
       <Body>Short subject summary.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10312,7 +10354,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:title">
       <Body>Page title and subject display name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10321,7 +10363,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:view-root:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:view-root">
       <Body>Set this page as the default documentation view root.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10330,7 +10372,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace">
       <Body>Existing MetaDocs workspace to update in place.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10339,7 +10381,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:browse:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:browse">
       <Body>Browse documentation by path.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10348,7 +10390,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:browse:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace">
       <Body>MetaDocs workspace to browse. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10357,7 +10399,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:contents:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:contents">
       <Body>List the documentation contents as a navigable tree.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10366,7 +10408,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:contents:option:depth:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:depth">
       <Body>Maximum tree depth. Default: 4.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10375,7 +10417,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:contents:option:view:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:view">
       <Body>Optional documentation view id, name, or title.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10384,7 +10426,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:contents:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace">
       <Body>MetaDocs workspace to list. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10393,7 +10435,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:help">
       <Body>Show help.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10402,7 +10444,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli">
       <Body>Refresh CLI reference documentation from a MetaCli workspace while preserving authored descriptions.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10411,7 +10453,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:application:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:application">
       <Body>Optional MetaCli application id when the source workspace contains more than one application.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10420,7 +10462,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:new-workspace">
       <Body>New MetaDocs source workspace to create.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10429,7 +10471,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:parent-subject:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:parent-subject">
       <Body>Optional parent subject id for the imported CLI application.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10438,7 +10480,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:source-id">
       <Body>Stable documentation source id. Keep it fixed so authored descriptions stay attached.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10447,7 +10489,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:source-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:source-workspace">
       <Body>Source MetaCli workspace to refresh reference documentation from.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10456,7 +10498,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-cli:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace">
       <Body>Existing MetaDocs source workspace to refresh in place.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10465,7 +10507,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances">
       <Body>Import selected workspace instance documentation from a modeled opt-in policy.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10474,7 +10516,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:option:display-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:display-name">
       <Body>Optional source display name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10483,7 +10525,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:option:model-source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:model-source-id">
       <Body>Optional source id used by import-workspace-model, for linking instance docs to model docs.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10492,7 +10534,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:source-id">
       <Body>Optional stable documentation source id for imported instance docs.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10501,7 +10543,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:option:source-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:source-workspace">
       <Body>Source Meta workspace whose allowed instances should be documented.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10510,7 +10552,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace">
       <Body>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10519,7 +10561,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model">
       <Body>Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10528,7 +10570,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:display-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:display-name">
       <Body>Optional source display name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10537,7 +10579,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace">
       <Body>New MetaDocs source workspace to create.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10546,7 +10588,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:parent-subject:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:parent-subject">
       <Body>Optional parent subject id for the imported model subject.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10555,7 +10597,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:source-id">
       <Body>Stable documentation source id. Keep it fixed so authored descriptions stay attached.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10564,7 +10606,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:source-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:source-workspace">
       <Body>Source Meta workspace to refresh model reference documentation from.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10573,7 +10615,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace">
       <Body>Existing MetaDocs source workspace to refresh in place.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10582,7 +10624,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity">
       <Body>Add or update an opt-in entity policy for workspace instance documentation.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10591,7 +10633,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:option:display-name-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:display-name-property">
       <Body>Optional property used only as the imported instance display name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10600,7 +10642,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:option:entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:entity">
       <Body>Source workspace entity name to include.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10609,7 +10651,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:source-id">
       <Body>Optional model documentation source id this policy applies to. Omit for a global policy.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10618,7 +10660,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:option:summary-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:summary-property">
       <Body>Optional property used only as the imported instance summary.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10627,7 +10669,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace">
       <Body>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10636,7 +10678,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property">
       <Body>Add or update an opt-in property policy for workspace instance documentation.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10645,7 +10687,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-property:option:entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:entity">
       <Body>Source workspace entity name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10654,7 +10696,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-property:option:property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:property">
       <Body>Property name to import as a generated fact.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10663,7 +10705,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-property:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:source-id">
       <Body>Optional model documentation source id this policy applies to. Omit for a global policy.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10672,7 +10714,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace">
       <Body>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10681,7 +10723,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship">
       <Body>Add or update an opt-in relationship policy for workspace instance documentation.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10690,7 +10732,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-relationship:option:entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:entity">
       <Body>Source workspace entity name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10699,7 +10741,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-relationship:option:relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:relationship">
       <Body>Relationship selector, navigation name, or relationship column name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10708,7 +10750,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-relationship:option:source-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:source-id">
       <Body>Optional model documentation source id this policy applies to. Omit for a global policy.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10717,7 +10759,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace">
       <Body>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10726,7 +10768,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:merge:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:merge">
       <Body>Rebuild a suite workspace from source MetaDocs workspaces.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10735,7 +10777,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:merge:option:include:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:include">
       <Body>Source MetaDocs workspace to include. Repeat for many workspaces.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10744,7 +10786,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:merge:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace">
       <Body>Suite workspace to rebuild. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10753,7 +10795,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:render-site:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site">
       <Body>Render a MetaDocs workspace as a static documentation site.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10762,7 +10804,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:render-site:option:out:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:out">
       <Body>Output directory. The merged page is written as docs.html.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10771,7 +10813,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:render-site:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace">
       <Body>MetaDocs workspace to render. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10780,16 +10822,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:search:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:search">
       <Body>Search documentation subjects, descriptions, and details.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-docs:app:command:search:option:kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:kind">
-      <Body>Optional subject kind filter.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10798,7 +10831,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:search:option:limit:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:limit">
       <Body>Maximum number of matches. Default: 25.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10807,7 +10840,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:search:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace">
       <Body>MetaDocs workspace to search. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10816,16 +10849,16 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description">
       <Body>Add or update an authored description for an existing documentation subject.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:body-format:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:body-format">
-      <Body>Body format. Default: PlainText.</Body>
+      <Body>Body format. Defaults to Markdown.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10834,7 +10867,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:body-stdin:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:body-stdin">
       <Body>Read authored description body from standard input.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10843,7 +10876,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:body:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:body">
       <Body>Authored description body.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10852,7 +10885,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:cli:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:cli">
       <Body>CLI application name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10861,7 +10894,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:command:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:command">
       <Body>CLI command name or path.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10870,7 +10903,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:model">
       <Body>Model name.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10879,7 +10912,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:option:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:option">
       <Body>CLI option token.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10888,7 +10921,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:slot:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:slot">
       <Body>Description slot to add or update. Default: Summary.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10897,7 +10930,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:subject:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:subject">
       <Body>Documentation subject id or key.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10906,7 +10939,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:title">
       <Body>Optional description title. Defaults to the slot.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10915,7 +10948,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:update-description:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace">
       <Body>MetaDocs workspace to update. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10924,7 +10957,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:validate:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:validate">
       <Body>Validate a MetaDocs workspace lifecycle and reference integrity.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10933,7 +10966,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:validate:option:include-description-diagnostics:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:include-description-diagnostics">
       <Body>Include description authoring diagnostics.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10942,7 +10975,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:validate:option:warnings-as-errors:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:warnings-as-errors">
       <Body>Treat warnings as failing diagnostics.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10951,7 +10984,7 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:command:validate:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace">
       <Body>MetaDocs workspace to validate. Defaults to the current directory.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -10960,7 +10993,43 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
     <DocumentationNarrative Id="source:cli:meta-docs:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app">
       <Body>Author, browse, merge, validate, and render modeled documentation workspaces for the meta and meta-bi suite.</Body>
       <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260707215008406</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:body-format:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:body-format">
+      <Body>Narrative body format. Defaults to Markdown.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:navigation-title:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:navigation-title">
+      <Body>Navigation label for the page. Defaults to the page title when first authored.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:command:author-page:option:subject-type:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:subject-type">
+      <Body>Documentation subject type. Defaults to Guide.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:command:search:option:subject-type:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:subject-type">
+      <Body>Filter results by documentation subject type.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-docs:batch:20260710174628082</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

@@ -60,6 +60,14 @@ public sealed class MetaDocsRuntimeTests
         var searchHelp = RunCli("help search");
         Assert.Equal(0, searchHelp.ExitCode);
         Assert.Contains("meta-docs search [<query>]", searchHelp.Output);
+        Assert.Contains("--subject-type <value>", searchHelp.Output);
+        Assert.DoesNotContain("--kind", searchHelp.Output);
+
+        var authorPageHelp = RunCli("help author-page");
+        Assert.Equal(0, authorPageHelp.ExitCode);
+        Assert.Contains("--subject-type <value>", authorPageHelp.Output);
+        Assert.Contains("Defaults to Guide", authorPageHelp.Output);
+        Assert.DoesNotContain("--kind", authorPageHelp.Output);
 
         var contentsHelp = RunCli("help contents");
         Assert.Equal(0, contentsHelp.ExitCode);
@@ -91,6 +99,10 @@ public sealed class MetaDocsRuntimeTests
         {
             var model = MetaDocsModel.CreateEmpty();
             var reference = AddPublicReferenceTree(model);
+            Assert.Equal(
+                "Overview",
+                Assert.Single(model.DocumentationViewNodeList, row => row.DocumentationSubject?.Id == reference.MetaOverview.Id).Title);
+            Assert.Contains("meta-docs browse meta/overview", new MetaDocsBrowseService().Browse(model).Text);
             new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaCli.Id);
             AddModelSubject(model, "MetaDocs", reference.MetaModels);
             model.SaveToXmlWorkspace(root);
@@ -106,7 +118,7 @@ public sealed class MetaDocsRuntimeTests
             var metaBrowse = RunCli("browse meta/overview", root);
             Assert.Equal(0, metaBrowse.ExitCode);
             Assert.Contains("Foundation models and tools for authored metadata workspaces.", metaBrowse.Output);
-            Assert.Contains("meta-docs search Overview", metaBrowse.Output);
+            Assert.Contains("meta-docs search meta", metaBrowse.Output);
 
             var metaBiBrowse = RunCli("browse meta-bi/overview", root);
             Assert.Equal(0, metaBiBrowse.ExitCode);
@@ -962,7 +974,10 @@ public sealed class MetaDocsRuntimeTests
         Assert.Equal("public:reference", view.RootSubject?.Id);
         Assert.Equal("meta + meta-bi reference", view.Title);
         Assert.Equal("Command-line and model references for the current public MetaDocs suite.", view.Summary);
-        Assert.Equal("public:meta:cli", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "meta").ParentSubject?.Id);
+        Assert.Equal(
+            "public:meta:cli",
+            Assert.Single(suite.DocumentationSubjectList, row =>
+                row.DisplayName == "meta" && IsSubjectType(row, "CliApplication")).ParentSubject?.Id);
         Assert.Equal("public:meta-bi:cli", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "meta-transform-binding").ParentSubject?.Id);
         Assert.Equal("public:meta:models", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "MetaDocs").ParentSubject?.Id);
         Assert.Equal("public:meta-bi:models", Assert.Single(suite.DocumentationSubjectList, row => row.DisplayName == "MetaTransformBinding").ParentSubject?.Id);
@@ -1975,7 +1990,9 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("id=\"subject-public-meta-overview\" data-panel=\"subject-public-meta-overview\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#subject-public-meta-bi-overview\"", html, StringComparison.Ordinal);
         Assert.Contains("id=\"subject-public-meta-bi-overview\" data-panel=\"subject-public-meta-bi-overview\"", html, StringComparison.Ordinal);
-        Assert.Contains("<h2>Overview</h2>", html, StringComparison.Ordinal);
+        Assert.Contains(">Overview</a>", html, StringComparison.Ordinal);
+        Assert.Contains("<h2>meta</h2>", html, StringComparison.Ordinal);
+        Assert.Contains("<h2>meta-bi</h2>", html, StringComparison.Ordinal);
         Assert.Contains("Foundation models and tools for authored metadata workspaces.", html, StringComparison.Ordinal);
         Assert.Contains("BI-side models and tools built on the metadata foundation.", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#cli-meta-docs\"", html, StringComparison.Ordinal);
@@ -1986,6 +2003,23 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("id=\"model-metadocs\" data-panel=\"model-metadocs\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#cli-meta-data-type\"", html, StringComparison.Ordinal);
         Assert.Contains("href=\"#cli-meta-convert\"", html, StringComparison.Ordinal);
+
+        new MetaDocsQueryService().UpsertDescription(
+            model,
+            new MetaDocsSubjectSelector(Subject: reference.MetaOverview.Id),
+            "RichText",
+            "Readable prose",
+            "Use **strong emphasis** and `inline code` in authored documentation.",
+            "Markdown");
+        html = new MetametabiDocsSiteRenderer().RenderSite(model);
+        Assert.Contains("<h3 class=\"document-heading\">Readable prose</h3>", html, StringComparison.Ordinal);
+        Assert.Contains("<strong>strong emphasis</strong>", html, StringComparison.Ordinal);
+        Assert.Contains("<code>inline code</code>", html, StringComparison.Ordinal);
+
+        var browseText = new MetaDocsBrowseService().Browse(model, "meta/overview").Text;
+        Assert.Contains("Use strong emphasis and inline code in authored documentation.", browseText, StringComparison.Ordinal);
+        Assert.DoesNotContain("**strong emphasis**", browseText, StringComparison.Ordinal);
+        Assert.DoesNotContain("`inline code`", browseText, StringComparison.Ordinal);
 
         var metaBiIndex = html.IndexOf("<div class=\"nav-product\">Meta-BI</div>", StringComparison.Ordinal);
         Assert.True(metaBiIndex >= 0);
@@ -2165,14 +2199,16 @@ public sealed class MetaDocsRuntimeTests
             model,
             new MetaDocsAuthoredPage(
                 "public:meta:overview",
-                "Overview",
+                "meta",
                 "Foundation models and tools for authored metadata workspaces.",
                 "Foundation models and tools for authored metadata workspaces.",
                 SubjectType: "Guide",
                 DisplayPath: "Reference.Meta.Overview",
                 ParentSubjectId: meta.Id,
                 SourceId: "source:authored:public-reference",
-                SourceDisplayName: "Public reference"));
+                SourceDisplayName: "Public reference",
+                NavigationTitle: "Overview",
+                BodyFormat: "Markdown"));
         var metaCli = authoring.UpsertPage(
             model,
             new MetaDocsAuthoredPage(
@@ -2213,14 +2249,16 @@ public sealed class MetaDocsRuntimeTests
             model,
             new MetaDocsAuthoredPage(
                 "public:meta-bi:overview",
-                "Overview",
+                "meta-bi",
                 "BI-side models and tools built on the metadata foundation.",
                 "BI-side models and tools built on the metadata foundation.",
                 SubjectType: "Guide",
                 DisplayPath: "Reference.Meta-BI.Overview",
                 ParentSubjectId: metaBi.Id,
                 SourceId: "source:authored:public-reference",
-                SourceDisplayName: "Public reference"));
+                SourceDisplayName: "Public reference",
+                NavigationTitle: "Overview",
+                BodyFormat: "Markdown"));
         var metaBiCli = authoring.UpsertPage(
             model,
             new MetaDocsAuthoredPage(

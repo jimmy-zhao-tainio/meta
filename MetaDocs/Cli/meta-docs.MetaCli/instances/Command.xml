@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <CommandList>
-    <Command Id="cmd-help" ApplicationId="app-meta-docs">
-      <Description>Show help.</Description>
-      <Name>help</Name>
-      <Token>help</Token>
+    <Command Id="cmd-add-example" ApplicationId="app-meta-docs">
+      <Description>Add or update a structured example for an existing documentation subject.</Description>
+      <Name>add-example</Name>
+      <Token>add-example</Token>
+    </Command>
+    <Command Id="cmd-add-example-code" ApplicationId="app-meta-docs">
+      <Description>Add or update a code block in a structured documentation example.</Description>
+      <Name>add-example-code</Name>
+      <Token>add-example-code</Token>
+    </Command>
+    <Command Id="cmd-add-example-section" ApplicationId="app-meta-docs">
+      <Description>Add or update a text section in a structured documentation example.</Description>
+      <Name>add-example-section</Name>
+      <Token>add-example-section</Token>
     </Command>
     <Command Id="cmd-author-page" ApplicationId="app-meta-docs">
       <Description>Add or update an authored documentation page in a MetaDocs workspace.</Description>
@@ -21,30 +31,25 @@
       <Name>contents</Name>
       <Token>contents</Token>
     </Command>
-    <Command Id="cmd-search" ApplicationId="app-meta-docs">
-      <Description>Search documentation subjects, descriptions, and details.</Description>
-      <Name>search</Name>
-      <Token>search</Token>
-    </Command>
-    <Command Id="cmd-update-description" ApplicationId="app-meta-docs">
-      <Description>Add or update an authored description for an existing documentation subject.</Description>
-      <Name>update-description</Name>
-      <Token>update-description</Token>
+    <Command Id="cmd-help" ApplicationId="app-meta-docs">
+      <Description>Show help.</Description>
+      <Name>help</Name>
+      <Token>help</Token>
     </Command>
     <Command Id="cmd-import-cli" ApplicationId="app-meta-docs">
       <Description>Refresh CLI reference documentation from a MetaCli workspace while preserving authored descriptions.</Description>
       <Name>import-cli</Name>
       <Token>import-cli</Token>
     </Command>
-    <Command Id="cmd-import-workspace-model" ApplicationId="app-meta-docs">
-      <Description>Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</Description>
-      <Name>import-workspace-model</Name>
-      <Token>import-workspace-model</Token>
-    </Command>
     <Command Id="cmd-import-workspace-instances" ApplicationId="app-meta-docs">
       <Description>Import selected workspace instance documentation from a modeled opt-in policy.</Description>
       <Name>import-workspace-instances</Name>
       <Token>import-workspace-instances</Token>
+    </Command>
+    <Command Id="cmd-import-workspace-model" ApplicationId="app-meta-docs">
+      <Description>Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</Description>
+      <Name>import-workspace-model</Name>
+      <Token>import-workspace-model</Token>
     </Command>
     <Command Id="cmd-include-instance-entity" ApplicationId="app-meta-docs">
       <Description>Add or update an opt-in entity policy for workspace instance documentation.</Description>
@@ -66,30 +71,25 @@
       <Name>merge</Name>
       <Token>merge</Token>
     </Command>
-    <Command Id="cmd-validate" ApplicationId="app-meta-docs">
-      <Description>Validate a MetaDocs workspace lifecycle and reference integrity.</Description>
-      <Name>validate</Name>
-      <Token>validate</Token>
-    </Command>
     <Command Id="cmd-render-site" ApplicationId="app-meta-docs">
       <Description>Render a MetaDocs workspace as a static documentation site.</Description>
       <Name>render-site</Name>
       <Token>render-site</Token>
     </Command>
-    <Command Id="cmd-add-example" ApplicationId="app-meta-docs">
-      <Description>Add or update a structured example for an existing documentation subject.</Description>
-      <Name>add-example</Name>
-      <Token>add-example</Token>
+    <Command Id="cmd-search" ApplicationId="app-meta-docs">
+      <Description>Search documentation subjects, descriptions, and details.</Description>
+      <Name>search</Name>
+      <Token>search</Token>
     </Command>
-    <Command Id="cmd-add-example-section" ApplicationId="app-meta-docs">
-      <Description>Add or update a text section in a structured documentation example.</Description>
-      <Name>add-example-section</Name>
-      <Token>add-example-section</Token>
+    <Command Id="cmd-update-description" ApplicationId="app-meta-docs">
+      <Description>Add or update an authored description for an existing documentation subject.</Description>
+      <Name>update-description</Name>
+      <Token>update-description</Token>
     </Command>
-    <Command Id="cmd-add-example-code" ApplicationId="app-meta-docs">
-      <Description>Add or update a code block in a structured documentation example.</Description>
-      <Name>add-example-code</Name>
-      <Token>add-example-code</Token>
+    <Command Id="cmd-validate" ApplicationId="app-meta-docs">
+      <Description>Validate a MetaDocs workspace lifecycle and reference integrity.</Description>
+      <Name>validate</Name>
+      <Token>validate</Token>
     </Command>
   </CommandList>
 </MetaCli>

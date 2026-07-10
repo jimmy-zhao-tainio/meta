@@ -56,7 +56,10 @@ public sealed class MetametabiDocsSiteRenderer
                         : Array.Empty<DocumentationSubject>(),
                     static subject => subject.PreviousSubject,
                     static subject => FirstNonEmpty(subject.DisplayPath, subject.DisplayName, subject.Id))
-                .Select(subject => new ReferenceNode(subject, ChildNodes(subject)))
+                .Select(subject => new ReferenceNode(
+                    subject,
+                    MetaDocsViewNavigation.Title(model, subject),
+                    ChildNodes(subject)))
                 .ToArray();
     }
 
@@ -107,7 +110,7 @@ public sealed class MetametabiDocsSiteRenderer
         foreach (var family in tree.Children)
         {
             builder.Append("        <div class=\"nav-product\">")
-                .Append(Html(family.Subject.DisplayName))
+                .Append(Html(family.NavigationTitle))
                 .AppendLine("</div>");
             foreach (var section in family.Children)
             {
@@ -136,7 +139,7 @@ public sealed class MetametabiDocsSiteRenderer
             .Append("\" data-panel-link=\"")
             .Append(Attr(groupPanelId))
             .Append("\">")
-            .Append(Html(section.Subject.DisplayName))
+            .Append(Html(section.NavigationTitle))
             .AppendLine("</a>");
         builder.AppendLine("        <ul class=\"nav-list\">");
         foreach (var child in section.Children.Where(static child =>
@@ -165,7 +168,7 @@ public sealed class MetametabiDocsSiteRenderer
             .Append("\" data-panel-link=\"")
             .Append(Attr(panelId))
             .Append("\">")
-            .Append(Html(node.Subject.DisplayName))
+            .Append(Html(node.NavigationTitle))
             .Append("</a>");
     }
 
@@ -242,7 +245,7 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Html(label))
             .AppendLine("</div>");
         builder.Append("              <h2>")
-            .Append(Html(node.Subject.DisplayName))
+            .Append(Html(node.NavigationTitle))
             .AppendLine("</h2>");
         builder.Append("              <p>")
             .Append(HtmlInline(SubjectSummary(null, node.Subject)))
@@ -474,12 +477,10 @@ public sealed class MetametabiDocsSiteRenderer
         builder.Append("            <h2>")
             .Append(Html(subject.DisplayName))
             .AppendLine("</h2>");
-        var summary = SubjectSummary(model, subject);
-        if (!string.IsNullOrWhiteSpace(summary))
+        var lead = SubjectLead(model, subject);
+        if (!string.IsNullOrWhiteSpace(lead.Body))
         {
-            builder.Append("            <p class=\"panel-lead\">")
-                .Append(HtmlInline(summary))
-                .AppendLine("</p>");
+            AppendPanelLead(builder, lead, "            ");
         }
 
         builder.AppendLine("          </header>");
@@ -630,10 +631,14 @@ public sealed class MetametabiDocsSiteRenderer
         foreach (var narrative in NarrativeSections(model, subject))
         {
             builder.Append(indent).AppendLine("<section class=\"subsection description-block\">");
-            builder.Append(indent).Append("  <h4 class=\"subsection-title\">")
-                .Append(Html(FirstNonEmpty(narrative.Title, narrative.Slot, "Description")))
-                .AppendLine("</h4>");
-            AppendFormattedText(builder, narrative.Body!, indent + "  ");
+            if (!string.IsNullOrWhiteSpace(narrative.Title))
+            {
+                builder.Append(indent).Append("  <h3 class=\"document-heading\">")
+                    .Append(Html(narrative.Title))
+                    .AppendLine("</h3>");
+            }
+
+            AppendFormattedText(builder, narrative.Body!, narrative.BodyFormat, indent + "  ");
             builder.Append(indent).AppendLine("</section>");
         }
     }
@@ -678,7 +683,7 @@ public sealed class MetametabiDocsSiteRenderer
 
                 if (!string.IsNullOrWhiteSpace(section.Body))
                 {
-                    AppendFormattedText(builder, section.Body!, indent + "    ");
+                    AppendFormattedText(builder, section.Body!, section.BodyFormat, indent + "    ");
                 }
 
                 foreach (var code in ExampleCodes(model, section))
@@ -708,8 +713,20 @@ public sealed class MetametabiDocsSiteRenderer
         builder.Append(indent).AppendLine("</section>");
     }
 
-    private static void AppendFormattedText(StringBuilder builder, string value, string indent)
+    private static void AppendFormattedText(
+        StringBuilder builder,
+        string value,
+        string bodyFormat,
+        string indent)
     {
+        if (string.Equals(bodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase))
+        {
+            builder.Append(indent).AppendLine("<div class=\"markdown-content\">");
+            builder.Append(MetaDocsMarkdown.ToHtml(value).TrimEnd()).AppendLine();
+            builder.Append(indent).AppendLine("</div>");
+            return;
+        }
+
         var lines = value
             .Replace("\r\n", "\n", StringComparison.Ordinal)
             .Replace('\r', '\n')
@@ -727,45 +744,9 @@ public sealed class MetametabiDocsSiteRenderer
                 break;
             }
 
-            if (lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal))
-            {
-                builder.Append(indent).AppendLine("<ul>");
-                while (index < lines.Length &&
-                       lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal))
-                {
-                    var item = lines[index].TrimStart()[2..].Trim();
-                    builder.Append(indent).Append("  <li>")
-                        .Append(HtmlInline(item))
-                        .AppendLine("</li>");
-                    index++;
-                }
-
-                builder.Append(indent).AppendLine("</ul>");
-                continue;
-            }
-
-            if (IsStandaloneCodeLine(lines[index]))
-            {
-                builder.Append(indent).AppendLine("<pre><code>");
-                while (index < lines.Length && IsStandaloneCodeLine(lines[index]))
-                {
-                    builder.Append(Html(UnwrapStandaloneCodeLine(lines[index])));
-                    index++;
-                    if (index < lines.Length && IsStandaloneCodeLine(lines[index]))
-                    {
-                        builder.AppendLine();
-                    }
-                }
-
-                builder.AppendLine("</code></pre>");
-                continue;
-            }
-
             var paragraph = new StringBuilder();
             while (index < lines.Length &&
-                   !string.IsNullOrWhiteSpace(lines[index]) &&
-                   !lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal) &&
-                   !IsStandaloneCodeLine(lines[index]))
+                   !string.IsNullOrWhiteSpace(lines[index]))
             {
                 if (paragraph.Length > 0)
                 {
@@ -779,25 +760,25 @@ public sealed class MetametabiDocsSiteRenderer
             if (paragraph.Length > 0)
             {
                 builder.Append(indent).Append("<p>")
-                    .Append(HtmlInline(paragraph.ToString()))
+                    .Append(Html(paragraph.ToString()))
                     .AppendLine("</p>");
             }
         }
     }
 
-    private static bool IsStandaloneCodeLine(string line)
+    private static void AppendPanelLead(StringBuilder builder, FormattedText lead, string indent)
     {
-        var trimmed = line.Trim();
-        return trimmed.Length >= 2 &&
-               trimmed[0] == '`' &&
-               trimmed[^1] == '`' &&
-               trimmed.Count(static c => c == '`') == 2;
-    }
+        if (string.Equals(lead.BodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase))
+        {
+            builder.Append(indent).AppendLine("<div class=\"panel-lead markdown-content\">");
+            builder.Append(MetaDocsMarkdown.ToHtml(lead.Body).TrimEnd()).AppendLine();
+            builder.Append(indent).AppendLine("</div>");
+            return;
+        }
 
-    private static string UnwrapStandaloneCodeLine(string line)
-    {
-        var trimmed = line.Trim();
-        return trimmed[1..^1];
+        builder.Append(indent).Append("<p class=\"panel-lead\">")
+            .Append(Html(lead.Body))
+            .AppendLine("</p>");
     }
 
     private static string OptionValueDetails(MetaDocsModel model, DocumentationSubject option)
@@ -1264,6 +1245,14 @@ public sealed class MetametabiDocsSiteRenderer
     private static string SubjectSummary(MetaDocsModel? model, DocumentationSubject subject) =>
         ShortSummary(FirstNonEmpty(model is null ? string.Empty : FindNarrative(model, subject, "Summary")?.Body, subject.Summary));
 
+    private static FormattedText SubjectLead(MetaDocsModel model, DocumentationSubject subject)
+    {
+        var narrative = FindNarrative(model, subject, "Summary");
+        return !string.IsNullOrWhiteSpace(narrative?.Body)
+            ? new FormattedText(narrative.Body, narrative.BodyFormat)
+            : new FormattedText(subject.Summary ?? string.Empty, "Markdown");
+    }
+
     private static string EntitySummary(MetaDocsModel model, DocumentationSubject entity)
     {
         var summary = SubjectSummary(model, entity);
@@ -1646,30 +1635,19 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static string HtmlInline(string? value)
     {
-        var text = value ?? string.Empty;
-        if (text.Count(static c => c == '`') % 2 != 0)
+        if (string.IsNullOrWhiteSpace(value))
         {
-            return Html(text);
+            return string.Empty;
         }
 
-        var builder = new StringBuilder();
-        var code = false;
-        var start = 0;
-        for (var index = 0; index < text.Length; index++)
+        var html = MetaDocsMarkdown.ToHtml(value).Trim();
+        if (html.StartsWith("<p>", StringComparison.Ordinal) &&
+            html.EndsWith("</p>", StringComparison.Ordinal))
         {
-            if (text[index] != '`')
-            {
-                continue;
-            }
-
-            builder.Append(Html(text[start..index]));
-            builder.Append(code ? "</code>" : "<code>");
-            code = !code;
-            start = index + 1;
+            return html[3..^4];
         }
 
-        builder.Append(Html(text[start..]));
-        return builder.ToString();
+        return html;
     }
 
     private static string Attr(string? value) =>
@@ -1681,7 +1659,10 @@ public sealed class MetametabiDocsSiteRenderer
 
     private sealed record ReferenceNode(
         DocumentationSubject Subject,
+        string NavigationTitle,
         IReadOnlyList<ReferenceNode> Children);
+
+    private sealed record FormattedText(string Body, string BodyFormat);
 
     private sealed record EntityReference(
         DocumentationSubject SourceEntity,

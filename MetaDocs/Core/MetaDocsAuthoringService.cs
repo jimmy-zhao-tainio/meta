@@ -97,7 +97,7 @@ public sealed class MetaDocsAuthoringService
         narrative.Slot = slot;
         narrative.Title = title;
         narrative.Body = page.Body?.Trim() ?? string.Empty;
-        narrative.BodyFormat = "PlainText";
+        narrative.BodyFormat = string.IsNullOrWhiteSpace(page.BodyFormat) ? "Markdown" : page.BodyFormat.Trim();
         narrative.Origin = "Authored";
         narrative.LastReviewedImportBatchId = string.Empty;
         narrative.ReviewStatus = string.IsNullOrWhiteSpace(narrative.Body) ? "NeedsAuthoring" : "Current";
@@ -125,7 +125,9 @@ public sealed class MetaDocsAuthoringService
 
         node.DocumentationView = view;
         node.DocumentationSubject = subject;
-        node.Title = subject.DisplayName;
+        node.Title = string.IsNullOrWhiteSpace(page.NavigationTitle)
+            ? string.IsNullOrWhiteSpace(node.Title) ? subject.DisplayName : node.Title
+            : page.NavigationTitle.Trim();
         node.ParentNodeId = parentSubject is null
             ? string.Empty
             : $"view:default:node:{MetaDocsImportSession.NormalizeKey(parentSubject.Id)}";
@@ -159,4 +161,6 @@ public sealed record MetaDocsAuthoredPage(
     string NarrativeTitle = "",
     string SourceId = "source:authored:metametabi-docs",
     string SourceDisplayName = "Authored MetaDocs pages",
-    bool IsViewRoot = false);
+    bool IsViewRoot = false,
+    string NavigationTitle = "",
+    string BodyFormat = "Markdown");

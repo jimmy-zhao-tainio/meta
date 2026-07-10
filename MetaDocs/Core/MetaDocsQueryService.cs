@@ -44,7 +44,7 @@ public sealed class MetaDocsQueryService
     public IReadOnlyList<MetaDocsSearchMatch> Search(
         MetaDocsModel model,
         string query,
-        string kind = "",
+        string subjectType = "",
         int limit = 25)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -96,7 +96,7 @@ public sealed class MetaDocsQueryService
                 StringComparer.OrdinalIgnoreCase);
         foreach (var subject in model.DocumentationSubjectList
                      .Where(IsCurrent)
-                     .Where(subject => string.IsNullOrWhiteSpace(kind) || MetaDocsVocabulary.IsSubjectType(subject, kind))
+                     .Where(subject => string.IsNullOrWhiteSpace(subjectType) || MetaDocsVocabulary.IsSubjectType(subject, subjectType))
                      .OrderBy(subject => SearchRank(subject, query))
                      .ThenBy(subject => subject.DisplayPath, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase))
@@ -181,7 +181,7 @@ public sealed class MetaDocsQueryService
         string slot,
         string title,
         string body,
-        string bodyFormat = "PlainText")
+        string bodyFormat = "Markdown")
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(slot);
@@ -208,7 +208,7 @@ public sealed class MetaDocsQueryService
         narrative.Slot = normalizedSlot;
         narrative.Title = normalizedTitle;
         narrative.Body = body.Trim();
-        narrative.BodyFormat = string.IsNullOrWhiteSpace(bodyFormat) ? "PlainText" : bodyFormat.Trim();
+        narrative.BodyFormat = string.IsNullOrWhiteSpace(bodyFormat) ? "Markdown" : bodyFormat.Trim();
         narrative.Origin = "Authored";
         narrative.LastReviewedImportBatchId = string.Empty;
         narrative.ReviewStatus = "Current";

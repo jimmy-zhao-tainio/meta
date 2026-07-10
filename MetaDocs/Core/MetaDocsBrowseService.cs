@@ -576,7 +576,7 @@ public sealed class MetaDocsBrowseService
 
                 if (!string.IsNullOrWhiteSpace(section.Body))
                 {
-                    AppendIndentedLines(builder, section.Body!, 4);
+                    AppendIndentedLines(builder, FormatBody(section.Body!, section.BodyFormat), 4);
                 }
 
                 foreach (var code in ExampleCodes(model, section))
@@ -605,7 +605,7 @@ public sealed class MetaDocsBrowseService
         foreach (var narrative in narratives)
         {
             builder.AppendLine($"  {FirstNonEmpty(narrative.Title, narrative.Slot, "Description")}");
-            AppendIndentedLines(builder, narrative.Body!, 4);
+            AppendIndentedLines(builder, FormatBody(narrative.Body!, narrative.BodyFormat), 4);
         }
     }
 
@@ -877,15 +877,22 @@ public sealed class MetaDocsBrowseService
             : name;
     }
 
-    private static string Description(MetaDocsModel model, DocumentationSubject subject) =>
-        FirstNonEmpty(
-            model.DocumentationNarrativeList
-                .Where(IsCurrent)
-                .Where(narrative => string.Equals(narrative.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
-                .Where(narrative => string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase))
-                .Select(static narrative => narrative.Body)
-                .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)),
-            subject.Summary);
+    private static string Description(MetaDocsModel model, DocumentationSubject subject)
+    {
+        var narrative = model.DocumentationNarrativeList
+            .Where(IsCurrent)
+            .Where(row => string.Equals(row.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
+            .Where(row => string.Equals(row.Slot, "Summary", StringComparison.OrdinalIgnoreCase))
+            .FirstOrDefault(row => !string.IsNullOrWhiteSpace(row.Body));
+        return narrative is null
+            ? subject.Summary ?? string.Empty
+            : FormatBody(narrative.Body!, narrative.BodyFormat);
+    }
+
+    private static string FormatBody(string body, string bodyFormat) =>
+        string.Equals(bodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase)
+            ? MetaDocsMarkdown.ToPlainText(body)
+            : body;
 
     private static DocumentationNarrative[] NarrativeSections(MetaDocsModel model, DocumentationSubject subject) =>
         MetaDocsOrdering.ByPrevious(
@@ -947,7 +954,10 @@ public sealed class MetaDocsBrowseService
         while (current is not null &&
                !string.Equals(current.Id, root?.Id, StringComparison.OrdinalIgnoreCase))
         {
-            segments.Push(MetaDocsImportSession.NormalizeKey(FirstNonEmpty(current.DisplayName, current.NativeId, current.Id)));
+            segments.Push(MetaDocsImportSession.NormalizeKey(FirstNonEmpty(
+                MetaDocsViewNavigation.Title(model, current),
+                current.NativeId,
+                current.Id)));
             current = current.ParentSubject;
         }
 
@@ -962,7 +972,10 @@ public sealed class MetaDocsBrowseService
         while (current is not null &&
                !string.Equals(current.Id, root?.Id, StringComparison.OrdinalIgnoreCase))
         {
-            segments.Push(FirstNonEmpty(current.DisplayName, current.NativeId, current.Id));
+            segments.Push(FirstNonEmpty(
+                MetaDocsViewNavigation.Title(model, current),
+                current.NativeId,
+                current.Id));
             current = current.ParentSubject;
         }
 
