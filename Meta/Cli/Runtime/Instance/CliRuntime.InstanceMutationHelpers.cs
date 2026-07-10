@@ -115,7 +115,7 @@ internal sealed partial class CliRuntime
 
             if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
             {
-                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value, relationshipUsageName);
+                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
                 continue;
             }
 
@@ -170,7 +170,7 @@ internal sealed partial class CliRuntime
 
             if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
             {
-                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value, relationshipUsageName);
+                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
                 continue;
             }
 
@@ -293,16 +293,9 @@ internal sealed partial class CliRuntime
         return patch;
     }
 
-    string NormalizeRelationshipInputValue(string value, string relationshipName)
+    string NormalizeRelationshipInputValue(string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException(
-                $"Relationship '{relationshipName}' requires a target Id value.");
-        }
-
-        var trimmed = value.Trim();
-        return trimmed;
+        return value?.Trim() ?? string.Empty;
     }
 
     void EnsureCreatePatchIncludesRequiredRelationships(

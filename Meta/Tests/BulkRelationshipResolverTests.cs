@@ -38,6 +38,60 @@ public sealed class BulkRelationshipResolverTests
         Assert.Equal("Cube#1", operation.RowPatches[1].RelationshipIds["CubeId"]);
     }
 
+    [Fact]
+    public void ResolveRelationshipIds_AllowsClearingOptionalRelationship()
+    {
+        var workspace = BuildWorkspace();
+        var measure = workspace.Model.FindEntity("Measure")!;
+        measure.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Cube",
+            Role = "PreviousCube",
+            IsNullable = true,
+        });
+        var operation = new WorkspaceOp
+        {
+            Type = WorkspaceOpTypes.BulkUpsertRows,
+            EntityName = "Measure",
+            RowPatches =
+            {
+                new RowPatch
+                {
+                    Id = "1",
+                    RelationshipIds = { ["PreviousCubeId"] = string.Empty },
+                },
+            },
+        };
+
+        BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
+
+        Assert.Equal(string.Empty, operation.RowPatches[0].RelationshipIds["PreviousCubeId"]);
+    }
+
+    [Fact]
+    public void ResolveRelationshipIds_RejectsClearingRequiredRelationship()
+    {
+        var workspace = BuildWorkspace();
+        var operation = new WorkspaceOp
+        {
+            Type = WorkspaceOpTypes.BulkUpsertRows,
+            EntityName = "Measure",
+            RowPatches =
+            {
+                new RowPatch
+                {
+                    Id = "1",
+                    RelationshipIds = { ["CubeId"] = string.Empty },
+                },
+            },
+        };
+
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation));
+
+        Assert.Contains("missing required target id", exception.Message, StringComparison.Ordinal);
+    }
+
     private static Workspace BuildWorkspace()
     {
         var workspace = new Workspace

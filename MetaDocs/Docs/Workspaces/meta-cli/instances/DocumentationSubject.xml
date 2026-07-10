@@ -14,7 +14,7 @@
       <NativeId>app-meta</NativeId>
       <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create, inspect, and generate typed metadata workspaces from canonical model definitions.</Summary>
+      <Summary>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app">
       <DisplayName>meta bulk-insert</DisplayName>
@@ -1096,6 +1096,27 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
+      <DisplayName>--required</DisplayName>
+      <DisplayPath>meta model add-relationship --required</DisplayPath>
+      <NativeId>option-model-add-relationship-required</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta model add-relationship --required value false</DisplayPath>
+      <NativeId>allowed-bool-false</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta model add-relationship --required value true</DisplayPath>
+      <NativeId>allowed-bool-true</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model add-relationship --role</DisplayPath>
@@ -1789,27 +1810,6 @@
       <DisplayPath>meta --workspace</DisplayPath>
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
-      <DisplayName>--required</DisplayName>
-      <DisplayPath>meta model add-relationship --required</DisplayPath>
-      <NativeId>option-model-add-relationship-required</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
-      <DisplayName>false</DisplayName>
-      <DisplayPath>meta model add-relationship --required value false</DisplayPath>
-      <NativeId>allowed-bool-false</NativeId>
-      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false">
-      <DisplayName>true</DisplayName>
-      <DisplayPath>meta model add-relationship --required value true</DisplayPath>
-      <NativeId>allowed-bool-true</NativeId>
-      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
   </DocumentationSubjectList>

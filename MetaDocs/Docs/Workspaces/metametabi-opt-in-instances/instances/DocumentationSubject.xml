@@ -1360,7 +1360,7 @@
       <NativeId>public:meta</NativeId>
       <SourceTypeName>DocumentationSubject</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Foundation models and tools for authored metadata workspaces.</Summary>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta">
       <DisplayName>Meta-BI</DisplayName>
@@ -1368,7 +1368,7 @@
       <NativeId>public:meta-bi</NativeId>
       <SourceTypeName>DocumentationSubject</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>BI-side models and tools built on the metadata foundation.</Summary>
+      <Summary>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi">
       <DisplayName>CLI</DisplayName>
@@ -1386,7 +1386,7 @@
       <Status>Changed</Status>
       <Summary>Model references for the sanctioned BI metadata workspaces.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-models">
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-overview">
       <DisplayName>CLI</DisplayName>
       <DisplayPath>Authored docs page instances.Reference.Meta.CLI</DisplayPath>
       <NativeId>public:meta:cli</NativeId>
@@ -1402,13 +1402,29 @@
       <Status>Changed</Status>
       <Summary>Model references for the core metadata foundation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-models">
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-overview">
       <DisplayName>meta + meta-bi reference</DisplayName>
       <DisplayPath>Authored docs page instances.Reference</DisplayPath>
       <NativeId>public:reference</NativeId>
       <SourceTypeName>DocumentationSubject</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Command-line and model references for the current public MetaDocs suite.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-overview" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-models">
+      <DisplayName>Overview</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.Meta-BI.Overview</DisplayPath>
+      <NativeId>public:meta-bi:overview</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>New</Status>
+      <Summary>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-overview" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-models">
+      <DisplayName>Overview</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.Meta.Overview</DisplayPath>
+      <NativeId>public:meta:overview</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>New</Status>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

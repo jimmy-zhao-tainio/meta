@@ -10,13 +10,14 @@ public sealed class MetaDocsSuiteMerger
 
         var suite = MetaDocsModel.CreateEmpty();
         MetaDocsDefaults.EnsureDocumentationWorkspace(suite, "workspace:suite", "Documentation suite", "SuiteDocumentation");
-        MetaDocsDefaults.EnsureDefaultTheme(suite);
-        MetaDocsDefaults.EnsureDefaultView(suite);
 
         foreach (var sourceModel in sourceModels)
         {
             MergeOne(suite, sourceModel);
         }
+
+        MetaDocsDefaults.EnsureDefaultTheme(suite);
+        MetaDocsDefaults.EnsureDefaultView(suite);
 
         return suite;
     }
@@ -684,6 +685,7 @@ public sealed class MetaDocsSuiteMerger
             }
 
             if (sourceSubject.ParentSubject is not null &&
+                targetSubject.ParentSubject is null &&
                 maps.Subjects.TryGetValue(sourceSubject.ParentSubject, out var targetParent))
             {
                 targetSubject.ParentSubject = targetParent;
@@ -698,6 +700,7 @@ public sealed class MetaDocsSuiteMerger
             }
 
             if (sourceView.RootSubject is not null &&
+                targetView.RootSubject is null &&
                 maps.Subjects.TryGetValue(sourceView.RootSubject, out var targetRoot))
             {
                 targetView.RootSubject = targetRoot;
@@ -724,11 +727,14 @@ public sealed class MetaDocsSuiteMerger
             }
 
             var sourcePrevious = previous(sourceRow);
-            assign(
-                targetRow,
-                sourcePrevious is not null && map.TryGetValue(sourcePrevious, out var targetPrevious)
-                    ? targetPrevious
-                    : null);
+            if (sourcePrevious is null ||
+                previous(targetRow) is not null ||
+                !map.TryGetValue(sourcePrevious, out var targetPrevious))
+            {
+                continue;
+            }
+
+            assign(targetRow, targetPrevious);
         }
     }
 

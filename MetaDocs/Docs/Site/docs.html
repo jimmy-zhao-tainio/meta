@@ -6,18 +6,22 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIHZpZXdCb3g9IjAgMCAyMiAyMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSIxMSIgZmlsbD0iIzBhMGEwYSIvPgogIDxwb2x5bGluZSBwb2ludHM9IjkuNSw4IDEzLjUsMTEgOS41LDE0IiBzdHJva2U9IiNjY2NjY2MiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiLz4KPC9zdmc+" />
     <title>meta + meta-bi &#183; Reference</title>
     <style>
-:root{color-scheme:light;--bg:#fafaf9;--panel:#fff;--text:#0a0a0a;--muted:#555;--subtle:#999;--line:rgba(10,10,10,.08);--line-soft:rgba(10,10,10,.055);--accent:#374151;--accent-soft:#f1f4f7;--code-bg:#f8fafc;--radius:10px;--shadow:0 1px 2px rgba(10,10,10,.025),0 8px 22px rgba(10,10,10,.03);--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{color-scheme:light;--bg:#fafaf9;--panel:#fff;--text:#0a0a0a;--muted:#555;--subtle:#999;--line:rgba(10,10,10,.08);--line-soft:rgba(10,10,10,.055);--accent:#374151;--accent-soft:#f1f4f7;--code-bg:#f8fafc;--radius:8px;--shadow:0 1px 2px rgba(10,10,10,.025),0 8px 22px rgba(10,10,10,.03);--shell-max:1680px;--edge:max(24px,calc((100vw - var(--shell-max))/2));--nav-width:260px;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 *{box-sizing:border-box}
-body{margin:0;font-family:var(--sans);font-feature-settings:"cv02","cv03","cv04","cv11","ss01","ss03";font-optical-sizing:auto;color:var(--text);background:var(--bg);line-height:1.5;overflow:hidden}
+html,body{height:100%}
+body{margin:0;font-family:var(--sans);font-feature-settings:'cv02','cv03','cv04','cv11','ss01','ss03';font-optical-sizing:auto;color:var(--text);background:var(--bg);line-height:1.5;overflow:hidden}
 a{color:inherit;text-decoration:none}
 code,pre{font-family:var(--mono)}
-.topbar{height:60px;background:rgba(250,250,249,.9);border-bottom:1px solid rgba(0,0,0,.06);display:flex;justify-content:center;position:sticky;top:0;z-index:20;backdrop-filter:blur(24px)}
-.topbar-inner{width:min(1320px,calc(100vw - 64px));display:flex;align-items:center;justify-content:space-between}
-.brand{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;letter-spacing:-.02em;line-height:1;color:#0a0a0a}
+.topbar{height:60px;background:rgba(250,250,249,.94);border-bottom:1px solid rgba(0,0,0,.06);display:flex;justify-content:center;position:relative;z-index:20;backdrop-filter:blur(24px)}
+.topbar-inner{width:min(var(--shell-max),calc(100vw - 48px));display:flex;align-items:center;justify-content:space-between}
+.brand{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;letter-spacing:0;line-height:1;color:#0a0a0a}
 .brand-mark{width:22px;height:22px;display:block;flex-shrink:0}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.menu-button{display:none;height:36px;align-items:center;justify-content:center;padding:0 14px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--text);font:600 13px/1 var(--sans);cursor:pointer}
+.menu-button:hover{background:var(--accent-soft)}
 .home-button{height:36px;display:inline-flex;justify-content:center;align-items:center;padding:0 20px;border-radius:6px;background:#0a0a0a;color:#fff;font-size:13px;font-weight:500;line-height:1}
-.app{height:calc(100vh - 60px);width:min(1320px,calc(100vw - 64px));margin:0 auto;display:grid;grid-template-columns:300px minmax(0,1fr);gap:0}
-.sidebar{height:calc(100vh - 60px);overflow-y:auto;padding:38px 10px 48px 0;scrollbar-width:thin;scrollbar-color:#b8c5d4 transparent}
+.app{height:calc(100vh - 60px);width:100%;display:grid;grid-template-columns:calc(var(--edge) + var(--nav-width)) minmax(0,1fr);overflow:hidden}
+.sidebar{height:100%;overflow-y:auto;scrollbar-gutter:stable;padding:34px 18px 48px var(--edge);scrollbar-width:thin;scrollbar-color:#b8c5d4 transparent}
 .sidebar::-webkit-scrollbar{width:8px}.sidebar::-webkit-scrollbar-track{background:transparent}.sidebar::-webkit-scrollbar-thumb{background:#c2cedb;border-radius:999px;border:2px solid var(--bg)}
 .side-kicker{color:var(--subtle);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.22em;margin:0 0 22px}
 .nav-product{font-size:14px;font-weight:700;margin:24px 0 8px}.nav-product:first-of-type{margin-top:0}
@@ -26,14 +30,13 @@ code,pre{font-family:var(--mono)}
 .nav-link{display:block;padding:5px 9px;border-radius:8px;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-link:hover,.nav-surface:hover{background:#f1f4f7;color:var(--text)}
 .nav-link.is-active,.nav-surface.is-active{color:#1f2937;background:var(--accent-soft);font-weight:600}
-.viewer{height:calc(100vh - 60px);overflow-y:auto;padding:38px 18px 64px 34px;scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:#b8c5d4 transparent}
+.viewer{height:100%;overflow-y:auto;scrollbar-gutter:stable;padding:34px var(--edge) 64px 40px}
 .viewer:focus{outline:0}
-.viewer::-webkit-scrollbar{width:10px}.viewer::-webkit-scrollbar-track{background:transparent}.viewer::-webkit-scrollbar-thumb{background:#c2cedb;border-radius:999px;border:2px solid var(--bg)}
-.panel{display:none;max-width:940px}.panel.is-active{display:block}
+.panel{display:none;width:100%;max-width:1240px}.panel.is-active{display:block}
 .hero{background:transparent;padding:36px 0 44px;border-bottom:1px solid var(--line);margin-bottom:28px}
 .eyebrow{color:var(--subtle);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.22em;margin-bottom:18px}
-h1{font-size:clamp(42px,6vw,68px);line-height:.95;letter-spacing:0;margin:0 0 18px}
-.hero p,.panel-lead{max-width:680px;color:#294057;font-size:16px;margin:0}
+h1{font-size:64px;line-height:.98;letter-spacing:0;margin:0 0 18px}
+.hero p,.panel-lead{max-width:820px;color:#294057;font-size:16px;margin:0}
 .entry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
 .entry-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow)}
 .entry-card .label{color:var(--subtle);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;margin-bottom:8px}
@@ -44,17 +47,18 @@ h1{font-size:clamp(42px,6vw,68px);line-height:.95;letter-spacing:0;margin:0 0 18
 .summary-row{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 24px}.pill{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:3px 9px;font-size:12px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-top:16px;overflow:hidden}
 .card-header{padding:18px 20px;border-bottom:1px solid var(--line-soft)}.card-header h3{margin:0 0 4px;font-size:18px;letter-spacing:0}.card-header p{margin:0;color:var(--muted);font-size:14px}
-.model-entity-card{border-color:var(--line-soft);box-shadow:none;margin-top:8px;border-radius:9px}.model-entity-card summary{list-style:none}.model-entity-card summary::-webkit-details-marker{display:none}.entity-summary{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border-bottom:1px solid transparent}.model-entity-card[open] .entity-summary{border-bottom-color:var(--line-soft)}.entity-toggle{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:#4b5563;font-family:var(--mono);font-size:12px;font-weight:600}.entity-toggle::before{content:"+"}.model-entity-card[open] .entity-toggle::before{content:"-"}.entity-main{min-width:0;display:grid;gap:1px}.entity-name{font-weight:700;color:var(--text);font-size:14px;line-height:1.25;overflow-wrap:anywhere}.entity-summary-text{color:var(--muted);font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}.entity-counts{color:var(--subtle);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.model-entity-card{border-color:var(--line-soft);box-shadow:none;margin-top:8px;border-radius:8px}.model-entity-card summary{list-style:none}.model-entity-card summary::-webkit-details-marker{display:none}.entity-summary{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border-bottom:1px solid transparent}.model-entity-card[open] .entity-summary{border-bottom-color:var(--line-soft)}.entity-toggle{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:#4b5563;font-family:var(--mono);font-size:12px;font-weight:600}.entity-toggle::before{content:'+'}.model-entity-card[open] .entity-toggle::before{content:'-'}.entity-main{min-width:0;display:grid;gap:1px}.entity-name{font-weight:700;color:var(--text);font-size:14px;line-height:1.25;overflow-wrap:anywhere}.entity-summary-text{color:var(--muted);font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}.entity-counts{color:var(--subtle);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .entity-body{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:10px;padding:14px 14px 16px;overflow-x:auto}.entity-body-inner{grid-column:2;min-width:0}
-.cli-command-card{border-color:var(--line-soft);box-shadow:none;margin-top:8px;border-radius:9px}.cli-command-card summary{list-style:none}.cli-command-card summary::-webkit-details-marker{display:none}.command-summary{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border-bottom:1px solid transparent}.cli-command-card[open] .command-summary{border-bottom-color:var(--line-soft)}.command-toggle{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:#4b5563;font-family:var(--mono);font-size:12px;font-weight:600}.command-toggle::before{content:"+"}.cli-command-card[open] .command-toggle::before{content:"-"}.command-main{min-width:0;display:grid;gap:1px}.command-name{font-family:var(--mono);font-weight:600;color:var(--text);font-size:13px;line-height:1.35;overflow-wrap:anywhere}.command-summary-text{color:var(--muted);font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}.command-counts{color:var(--subtle);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.cli-command-card{border-color:var(--line-soft);box-shadow:none;margin-top:8px;border-radius:8px}.cli-command-card summary{list-style:none}.cli-command-card summary::-webkit-details-marker{display:none}.command-summary{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border-bottom:1px solid transparent}.cli-command-card[open] .command-summary{border-bottom-color:var(--line-soft)}.command-toggle{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:#4b5563;font-family:var(--mono);font-size:12px;font-weight:600}.command-toggle::before{content:'+'}.cli-command-card[open] .command-toggle::before{content:'-'}.command-main{min-width:0;display:grid;gap:1px}.command-name{font-family:var(--mono);font-weight:600;color:var(--text);font-size:13px;line-height:1.35;overflow-wrap:anywhere}.command-summary-text{color:var(--muted);font-size:12.5px;line-height:1.35;overflow-wrap:anywhere}.command-counts{color:var(--subtle);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .command-body{display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:10px;padding:14px 14px 16px;overflow-x:auto}.command-body-inner{grid-column:2;min-width:0}
 .card-body{padding:14px 16px 16px;overflow-x:auto}.subsection{margin-top:18px}.subsection:first-child{margin-top:0}.subsection-title{margin:0 0 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.example-block{border:1px solid var(--line-soft);border-radius:9px;background:#fff;padding:12px 14px;margin:0 0 10px}.example-block h5{font-size:14px;margin:0 0 6px}.example-block h6{font-size:12px;margin:10px 0 5px;color:#374151}.example-block p{color:var(--muted);font-size:14px;margin:0 0 8px}.code-title{font-size:12px;font-weight:700;color:#374151;margin:10px 0 5px}
-table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--line-soft);border-radius:10px;overflow:hidden}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft);padding:8px 10px}th{color:var(--subtle);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:#fbfdff}td{color:#425064}tr:last-child td{border-bottom:0}
+.example-block{border:1px solid var(--line-soft);border-radius:8px;background:#fff;padding:12px 14px;margin:0 0 10px}.example-block h5{font-size:14px;margin:0 0 6px}.example-block h6{font-size:12px;margin:10px 0 5px;color:#374151}.example-block p{color:var(--muted);font-size:14px;margin:0 0 8px}.code-title{font-size:12px;font-weight:700;color:#374151;margin:10px 0 5px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--line-soft);border-radius:8px;overflow:hidden}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line-soft);padding:8px 10px}th{color:var(--subtle);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:#fbfdff}td{color:#425064}tr:last-child td{border-bottom:0}
 .cmd,.opt{font-family:var(--mono);color:#1f2937;font-weight:600;white-space:nowrap}.entity-ref-link{font-weight:600;color:#0f355f;text-decoration:none}.entity-ref-link:hover{text-decoration:underline}
-pre{margin:0 0 10px;padding:12px 14px;background:var(--code-bg);border:1px solid var(--line);border-radius:9px;overflow-x:auto;font-size:13px}.note{color:var(--muted);font-size:14px;margin:0}
+pre{margin:0 0 10px;padding:12px 14px;background:var(--code-bg);border:1px solid var(--line);border-radius:8px;overflow-x:auto;font-size:13px}.note{color:var(--muted);font-size:14px;margin:0}
 details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;margin-top:18px}details.inline-details summary{cursor:pointer;color:var(--muted);font-size:13px;font-weight:600}
-@media(max-width:900px){body{overflow:auto}.topbar-inner,.app{width:min(100vw - 32px,1320px)}.app{height:auto;grid-template-columns:1fr}.sidebar{height:auto;position:static;padding-bottom:20px;border-bottom:1px solid var(--line)}.viewer{height:auto;overflow:visible;padding:22px 0 64px}.entry-grid{grid-template-columns:1fr}.entity-summary,.command-summary{grid-template-columns:24px minmax(0,1fr)}.entity-counts,.command-counts{grid-column:2;white-space:normal}.entity-body,.command-body{grid-template-columns:24px minmax(0,1fr)}}
+@media(max-width:900px){:root{--edge:16px}.topbar-inner{width:calc(100vw - 32px)}.menu-button{display:inline-flex}.home-button{padding:0 14px}.app{height:calc(100vh - 60px);display:block;overflow:hidden}.sidebar{position:fixed;inset:60px 0 0 0;z-index:15;height:calc(100vh - 60px);padding:24px var(--edge) 48px;background:var(--bg);transform:translateX(-100%);transition:transform .18s ease;visibility:hidden}.sidebar.is-open{transform:translateX(0);visibility:visible}.viewer{height:100%;overflow-y:auto;scrollbar-gutter:stable;padding:24px var(--edge) 56px}.panel{max-width:none}.hero{padding:18px 0 30px;margin-bottom:22px}h1{font-size:42px}.panel-header{padding-bottom:22px;margin-bottom:22px}.panel-header h2{font-size:34px}.entry-grid{grid-template-columns:1fr}.entity-summary,.command-summary{grid-template-columns:24px minmax(0,1fr)}.entity-counts,.command-counts{grid-column:2;white-space:normal}.entity-body,.command-body{grid-template-columns:24px minmax(0,1fr)}}
+@media(max-width:640px){table:not(.summary-table){min-width:620px}.card-body,.entity-body,.command-body{overscroll-behavior-inline:contain}.summary-table{display:block;min-width:0;border:0}.summary-table thead{display:none}.summary-table tbody,.summary-table tr,.summary-table td{display:block}.summary-table tr{padding:10px;border-bottom:1px solid var(--line-soft)}.summary-table tr:last-child{border-bottom:0}.summary-table td{border:0;padding:2px 0}.summary-table td+td{color:var(--muted)}.summary-table .cmd{white-space:normal;overflow-wrap:anywhere}}
     </style>
   </head>
   <body>
@@ -64,14 +68,18 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
   <circle cx="11" cy="11" r="11" fill="#0a0a0a" />
   <polyline points="9.5,8 13.5,11 9.5,14" stroke="#cccccc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
 </svg><span>meta+meta-bi</span></a>
-        <a class="home-button" href="https://metametabi.com">Home</a>
+        <div class="topbar-actions">
+          <button class="menu-button" type="button" aria-controls="reference-navigation" aria-expanded="false">Menu</button>
+          <a class="home-button" href="https://metametabi.com">Home</a>
+        </div>
       </div>
     </header>
 
     <div class="app" id="docs-app">
-      <aside class="sidebar" aria-label="Reference navigation">
+      <aside class="sidebar" id="reference-navigation" aria-label="Reference navigation">
         <div class="side-kicker">Reference</div>
         <div class="nav-product">Meta</div>
+        <a class="nav-surface" href="#subject-public-meta-overview" data-panel-link="subject-public-meta-overview">Overview</a>
         <a class="nav-surface" href="#group-public-meta-cli" data-panel-link="group-public-meta-cli">CLI</a>
         <ul class="nav-list">
           <li><a class="nav-link" href="#cli-meta" data-panel-link="cli-meta">meta</a></li>
@@ -88,6 +96,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <li><a class="nav-link" href="#model-metaweave" data-panel-link="model-metaweave">MetaWeave</a></li>
         </ul>
         <div class="nav-product">Meta-BI</div>
+        <a class="nav-surface" href="#subject-public-meta-bi-overview" data-panel-link="subject-public-meta-bi-overview">Overview</a>
         <a class="nav-surface" href="#group-public-meta-bi-cli" data-panel-link="group-public-meta-bi-cli">CLI</a>
         <ul class="nav-list">
           <li><a class="nav-link" href="#cli-meta-analytics" data-panel-link="cli-meta-analytics">meta-analytics</a></li>
@@ -137,6 +146,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <p>Command-line and model references for the current public MetaDocs suite.</p>
           </div>
           <section class="entry-grid" aria-label="Reference entry points">
+            <a class="entry-card" href="#subject-public-meta-overview" data-panel-link="subject-public-meta-overview">
+              <div class="label">Meta</div>
+              <h2>Overview</h2>
+              <p>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</p>
+            </a>
             <a class="entry-card" href="#group-public-meta-cli" data-panel-link="group-public-meta-cli">
               <div class="label">Meta</div>
               <h2>CLI</h2>
@@ -146,6 +160,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <div class="label">Meta</div>
               <h2>Models</h2>
               <p>4 references</p>
+            </a>
+            <a class="entry-card" href="#subject-public-meta-bi-overview" data-panel-link="subject-public-meta-bi-overview">
+              <div class="label">Meta-BI</div>
+              <h2>Overview</h2>
+              <p>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</p>
             </a>
             <a class="entry-card" href="#group-public-meta-bi-cli" data-panel-link="group-public-meta-bi-cli">
               <div class="label">Meta-BI</div>
@@ -157,6 +176,350 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <h2>Models</h2>
               <p>18 references</p>
             </a>
+          </section>
+        </section>
+        <section class="panel" id="subject-public-meta-overview" data-panel="subject-public-meta-overview">
+          <header class="panel-header">
+            <h2>Overview</h2>
+            <p class="panel-lead">Start here for the model-first metadata foundation behind meta and meta-bi.</p>
+          </header>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Deterministic metadata backend</h4>
+            <p><code>meta</code> is a deterministic metadata backend. The canonical representation is an XML workspace on disk (git-friendly), but you can round-trip: materialize a workspace from SQL, emit SQL/C# representations and SQL-project consumables, and load/save model instances via C# consumables for tooling.</p>
+            <p>BI-specific sanctioned models and CLIs live in the separate <code>meta-bi</code> repository.</p>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Metadata foundations</h4>
+            <p>In this project, metadata is not &quot;extra comments about data&quot;. Metadata is the product model itself:</p>
+            <ul>
+              <li><code>model.xml</code>: the schema contract (entities, scalar properties, required relationships).</li>
+              <li><code>instances/*.xml</code>: the instance graph for that model (rows + relationship usages).</li>
+              <li><code>workspace.xml</code>: workspace-level configuration for layout/encoding/order and storage.</li>
+            </ul>
+            <p>Core terms:</p>
+            <ul>
+              <li><code>Model</code>: named set of entity definitions.</li>
+              <li><code>Entity</code>: a record type (similar to a table).</li>
+              <li><code>Property</code>: scalar attribute on an entity instance.</li>
+              <li><code>Relationship</code>: required reference from one entity to another.</li>
+              <li><code>Instance</code>: one row/record of an entity, identified by <code>Id</code>.</li>
+              <li><code>Workspace</code>: on-disk unit that contains model + instance + workspace config.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Why isomorphic metadata</h4>
+            <p>Isomorphic means the same semantics can live in multiple forms without translation drift.</p>
+            <p>Think of it as one model with three native surfaces, each optimized for a different kind of work:</p>
+            <ul>
+              <li>XML workspace: canonical, deterministic, and git-friendly (clean diffs, reviewable history, mergeable refactors).</li>
+              <li>SQL: data-first and database-native (easy to inspect/query/validate at scale; good interchange format when your source of truth starts in a database).</li>
+              <li>C#: application-first (strongly typed objects for tools and apps; no XML parsing in consumer code; easy to integrate into pipelines/services).</li>
+            </ul>
+            <p>Because the semantics are the same, multiple producers and consumers can collaborate without rewriting the model for each layer:</p>
+            <ul>
+              <li>analysts/modelers edit model + instance in workspace form,</li>
+              <li>platform engineers consume SQL outputs and SQL-project consumables in their pipelines,</li>
+              <li>application/tooling engineers consume emitted C# APIs.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Why git matters for metadata</h4>
+            <p>The workspace is designed for version control:</p>
+            <ul>
+              <li>deterministic writer output (stable ordering, utf-8 no bom, LF) keeps diffs clean.</li>
+              <li>model and instance changes are code-reviewed like source code.</li>
+              <li>branch/merge workflows apply to metadata evolution.</li>
+              <li>refactors are auditable through before/after XML deltas.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Workspace contract</h4>
+            <p>A workspace is a directory containing:</p>
+            <pre><code>
+workspace.xml
+model.xml
+instances/...</code></pre>
+            <p>Instance data may be sharded: multiple instance files can contain rows for the same entity; load merges those shards and save preserves existing shard file layout (new rows for an entity are written to that entity&#39;s primary shard).</p>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Meta CLI at a glance</h4>
+            <p><code>meta</code> operates on workspaces and provides these capability groups:</p>
+            <p>Workspace operations: create and inspect workspaces (<code>init</code>, <code>status</code>). Validation and inspection: check integrity and explore model/instance (<code>check</code>, <code>list</code>, <code>view</code>, <code>query</code>, <code>graph</code>). Edits: mutate models and instance data (<code>model ...</code>, <code>insert</code>, <code>delete</code>, <code>bulk-insert</code>, <code>instance update</code>, <code>instance rename-id</code>, <code>instance relationship set|list</code>, <code>instance diff</code>, <code>instance merge</code>). Model analysis and guided refactor: read-only relationship inference (<code>model suggest</code>) and atomic model+instance refactors (<code>model refactor property-to-relationship</code>, <code>model refactor relationship-to-property</code>). Pipelines: import and emit representations (<code>import ...</code>, <code>generate ...</code>).</p>
+            <p>Workflow: model + instance workspace -&gt; <code>meta</code> emits C#/SQL consumables -&gt; your patterns/generators produce organization-specific artifacts.</p>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Model XML contract</h4>
+            <p><code>model.xml</code> defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.</p>
+            <p>A model has one root <code>&lt;Model name=&quot;...&quot;&gt;</code> and then:</p>
+            <ul>
+              <li><code>&lt;Entity&gt;</code> defines a record type (like a table).</li>
+              <li><code>name=&quot;Cube&quot;</code> is the singular name.</li>
+              <li>Instances are grouped under a deterministic <code>&lt;EntityName&gt;List</code> container in XML and emitted C# root collections use the same <code>&lt;EntityName&gt;List</code> naming.</li>
+              <li><code>&lt;PropertyList&gt;</code> lists scalar fields for the entity. <code>dataType=&quot;string&quot;</code> is the default and omitted; properties are required by default (<code>isRequired=&quot;true&quot;</code>), and optional fields use <code>isRequired=&quot;false&quot;</code>.</li>
+              <li><code>&lt;RelationshipList&gt;</code> lists required foreign-key style references to other entities. A relationship points to a target entity and is required by default. In instance XML it becomes <code>${TargetEntity}Id</code> by default. If you need multiple relationships to the same target, specify <code>role=&quot;...&quot;</code> and it becomes <code>${Role}Id</code>.</li>
+              <li><code>Id</code> is implicit on every entity, so <code>Property name=&quot;Id&quot;</code> is not written.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Instance XML contract</h4>
+            <p><code>instances/*.xml</code> stores the data for a model.</p>
+            <p>The root element is the model name (for example <code>&lt;EnterpriseBIPlatform&gt;</code>).</p>
+            <p>Each entity&#39;s instances are grouped under a deterministic list container element (for example <code>&lt;CubeList&gt;</code>, <code>&lt;MeasureList&gt;</code>). Inside the container, each record is written as the singular entity element (for example <code>&lt;Cube ...&gt;</code>, <code>&lt;Measure ...&gt;</code>).</p>
+            <p>Every record must have an <code>Id=&quot;...&quot;</code> attribute.</p>
+            <p>Relationships are stored as <code>...Id</code> attributes on the record. By default a relationship to <code>Cube</code> is stored as <code>CubeId=&quot;...&quot;</code>. If the relationship has a role like <code>role=&quot;SourceCube&quot;</code>, it is stored as <code>SourceCubeId=&quot;...&quot;</code>.</p>
+            <p>Scalar properties are written as child elements. Missing element means unset. An empty element means explicit empty string.</p>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Repository CLIs</h4>
+            <p>This repo contains these CLI projects:</p>
+            <ul>
+              <li><code>meta</code> (Meta CLI): workspace/model/instance operations, diff/merge, import, generate.</li>
+              <li><code>meta-weave</code> (MetaWeave CLI): authoring, suggestion, validation, and materialization of sanctioned cross-model property bindings.</li>
+              <li><code>meta-docs</code> (MetaDocs CLI): modeled CLI documentation import and merged metametabi-style docs rendering.</li>
+              <li><code>meta-mesh</code> (MetaMesh CLI): declared workspace sets and executable operations over those workspaces.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Install and run</h4>
+            <p>Build:</p>
+            <pre><code>
+dotnet build Metadata.Framework.sln
+dotnet build MetaWeave.sln</code></pre>
+            <p>On Windows, these builds refresh the published framework-dependent CLIs at:</p>
+            <ul>
+              <li><code>Meta\Cli\bin\publish\win-x64\meta.exe</code></li>
+              <li><code>MetaWeave\Cli\bin\publish\win-x64\meta-weave.exe</code></li>
+              <li><code>MetaDocs\Cli\bin\publish\win-x64\meta-docs.exe</code></li>
+            </ul>
+            <p>Run directly:</p>
+            <pre><code>
+dotnet run --project Meta/Cli/Meta.Cli.csproj -- help</code></pre>
+            <p>If <code>Meta\Cli\bin\publish\win-x64</code> is on your <code>PATH</code>:</p>
+            <pre><code>
+meta help</code></pre>
+            <p>Or run the executable directly:</p>
+            <pre><code>
+Meta\Cli\bin\publish\win-x64\meta.exe help</code></pre>
+            <p>Build the installer package:</p>
+            <pre><code>
+powershell -NoProfile -ExecutionPolicy Bypass -File Meta\Installer\package-offline.ps1</code></pre>
+            <p>The default package is framework-dependent and shared-DLL based, so it requires the .NET 8 runtime on the target machine. Use <code>-SelfContained</code> only when you need a larger package that carries the runtime.</p>
+            <p>Then install the foundation CLIs (<code>meta</code>, <code>meta-weave</code>, <code>meta-docs</code>) into <code>%LOCALAPPDATA%\meta\bin</code> and add that directory to your user <code>PATH</code>:</p>
+            <pre><code>
+Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe</code></pre>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Command guide</h4>
+            <p>Workspace discovery defaults to the current directory (searching upward). Use <code>--workspace &lt;path&gt;</code> to override.</p>
+            <p>Global behavior:</p>
+            <ul>
+              <li>successful state changes answer with <code>Ok</code>.</li>
+              <li>validation/usage/runtime failures explain what cannot continue and exit non-zero.</li>
+              <li><code>--strict</code> upgrades warnings to errors for mutating commands.</li>
+            </ul>
+            <p>Command discovery:</p>
+            <ul>
+              <li><code>meta help</code>: show top-level command groups and examples.</li>
+              <li><code>meta &lt;command&gt; help</code>: show usage/options/examples for one command.</li>
+              <li><code>meta &lt;command&gt; &lt;subcommand&gt; --help</code>: show detailed subcommand help.</li>
+            </ul>
+          </section>
+          <section class="subsection description-block">
+            <h4 class="subsection-title">Internal packages</h4>
+            <p>The foundation libraries are packable as internal NuGet packages:</p>
+            <ul>
+              <li><code>Meta.Core</code></li>
+              <li><code>Meta.Adapters</code></li>
+              <li><code>MetaWeave.Core</code></li>
+            </ul>
+            <p>Pack them into the local feed at <code>.nupkg</code> with:</p>
+            <pre><code>
+pack-internal.cmd</code></pre>
+            <p>Downstream repositories should consume these packages instead of reaching back into this repo with project references. That keeps the foundation boundary explicit and prevents BI-side drift from silently editing core.</p>
+            <p>Today <code>meta-bi</code> consumes <code>Meta.Core</code> from this feed. <code>MetaWeave.Core</code> is published alongside it so downstream repos can adopt weave core package references without reopening the source boundary.</p>
+          </section>
+          <section class="subsection examples">
+            <h4 class="subsection-title">Examples</h4>
+            <article class="example-block">
+              <h5>Create a workspace and emit SQL/C#</h5>
+              <p>Create a workspace, add a small model and one row, then emit SQL and C# outputs from the same model and instance graph.</p>
+              <pre><code class="language-powershell">meta init .\Workspace
+cd .\Workspace
+meta model rename-model MetadataModel WorkspaceCatalog
+meta model add-entity System
+meta model add-property System SystemName --required true
+meta insert System 1 --set &quot;SystemName=Enterprise Analytics Platform&quot;
+meta status
+meta generate sql --out ..\out\sql
+meta generate csharp --out ..\out\csharp --tooling</code></pre>
+            </article>
+            <article class="example-block">
+              <h5>One sample across XML, SQL, and C#</h5>
+              <p>The same EnterpriseBIPlatform sample can be represented as workspace XML, emitted as SQL, and consumed through generated C# tooling.</p>
+              <h6>XML model (model.xml)</h6>
+              <p><code>model.xml</code> defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.</p>
+              <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Model name=&quot;EnterpriseBIPlatform&quot;&gt;
+  &lt;EntityList&gt;
+    &lt;Entity name=&quot;Cube&quot;&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name=&quot;CubeName&quot; /&gt;
+        &lt;Property name=&quot;Purpose&quot; isRequired=&quot;false&quot; /&gt;
+        &lt;Property name=&quot;RefreshMode&quot; isRequired=&quot;false&quot; /&gt;
+      &lt;/PropertyList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name=&quot;Measure&quot;&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name=&quot;MeasureName&quot; /&gt;
+        &lt;Property name=&quot;MDX&quot; isRequired=&quot;false&quot; /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity=&quot;Cube&quot; /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name=&quot;SystemType&quot;&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name=&quot;TypeName&quot; /&gt;
+      &lt;/PropertyList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name=&quot;System&quot;&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name=&quot;SystemName&quot; /&gt;
+        &lt;Property name=&quot;Version&quot; isRequired=&quot;false&quot; /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity=&quot;SystemType&quot; /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name=&quot;SystemCube&quot;&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name=&quot;ProcessingMode&quot; isRequired=&quot;false&quot; /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity=&quot;Cube&quot; /&gt;
+        &lt;Relationship entity=&quot;System&quot; /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+  &lt;/EntityList&gt;
+&lt;/Model&gt;</code></pre>
+              <h6>XML instance (instances/*.xml)</h6>
+              <p><code>instances/*.xml</code> stores the data for a model. The root element is the model name, each entity&#39;s instances are grouped under a deterministic list container element, and relationships are stored as <code>...Id</code> attributes on the record.</p>
+              <pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;EnterpriseBIPlatform&gt;
+  &lt;CubeList&gt;
+    &lt;Cube Id=&quot;1&quot;&gt;
+      &lt;CubeName&gt;Sales Performance&lt;/CubeName&gt;
+      &lt;Purpose&gt;Monthly revenue and margin tracking.&lt;/Purpose&gt;
+      &lt;RefreshMode&gt;Scheduled&lt;/RefreshMode&gt;
+    &lt;/Cube&gt;
+  &lt;/CubeList&gt;
+
+  &lt;MeasureList&gt;
+    &lt;Measure Id=&quot;1&quot; CubeId=&quot;1&quot;&gt;
+      &lt;MeasureName&gt;Sales Amount&lt;/MeasureName&gt;
+      &lt;MDX&gt;[Measures].[Sales Amount]&lt;/MDX&gt;
+    &lt;/Measure&gt;
+  &lt;/MeasureList&gt;
+
+  &lt;SystemTypeList&gt;
+    &lt;SystemType Id=&quot;1&quot;&gt;
+      &lt;TypeName&gt;Internal&lt;/TypeName&gt;
+    &lt;/SystemType&gt;
+  &lt;/SystemTypeList&gt;
+
+  &lt;SystemList&gt;
+    &lt;System Id=&quot;1&quot; SystemTypeId=&quot;1&quot;&gt;
+      &lt;SystemName&gt;Enterprise Analytics Platform&lt;/SystemName&gt;
+      &lt;Version&gt;2.1&lt;/Version&gt;
+    &lt;/System&gt;
+  &lt;/SystemList&gt;
+
+  &lt;SystemCubeList&gt;
+    &lt;SystemCube Id=&quot;1&quot; CubeId=&quot;1&quot; SystemId=&quot;1&quot;&gt;
+      &lt;ProcessingMode&gt;InMemory&lt;/ProcessingMode&gt;
+    &lt;/SystemCube&gt;
+  &lt;/SystemCubeList&gt;
+&lt;/EnterpriseBIPlatform&gt;</code></pre>
+              <h6>SQL representation (meta generate sql)</h6>
+              <p><code>meta generate sql</code> emits <code>schema.sql</code> and <code>data.sql</code> as deterministic SQL consumables (DDL and INSERT scripts).</p>
+              <pre><code class="language-sql">CREATE TABLE [dbo].[Cube] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [CubeName] NVARCHAR(MAX) NOT NULL,
+  [Purpose] NVARCHAR(MAX) NULL,
+  [RefreshMode] NVARCHAR(MAX) NULL
+);
+
+CREATE TABLE [dbo].[Measure] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [MeasureName] NVARCHAR(MAX) NOT NULL,
+  [MDX] NVARCHAR(MAX) NULL,
+  [CubeId] INT NOT NULL
+);
+
+CREATE TABLE [dbo].[SystemType] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [TypeName] NVARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE [dbo].[System] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [SystemName] NVARCHAR(MAX) NOT NULL,
+  [Version] NVARCHAR(MAX) NULL,
+  [SystemTypeId] INT NOT NULL
+);
+
+CREATE TABLE [dbo].[SystemCube] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [ProcessingMode] NVARCHAR(MAX) NULL,
+  [CubeId] INT NOT NULL,
+  [SystemId] INT NOT NULL
+);
+
+ALTER TABLE [dbo].[Measure]
+ADD CONSTRAINT [FK_Measure_Cube_CubeId]
+FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
+
+ALTER TABLE [dbo].[System]
+ADD CONSTRAINT [FK_System_SystemType_SystemTypeId]
+FOREIGN KEY ([SystemTypeId]) REFERENCES [dbo].[SystemType]([Id]);
+
+ALTER TABLE [dbo].[SystemCube]
+ADD CONSTRAINT [FK_SystemCube_Cube_CubeId]
+FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
+
+ALTER TABLE [dbo].[SystemCube]
+ADD CONSTRAINT [FK_SystemCube_System_SystemId]
+FOREIGN KEY ([SystemId]) REFERENCES [dbo].[System]([Id]);</code></pre>
+              <h6>C# representation (meta generate csharp)</h6>
+              <p><code>meta generate csharp --tooling</code> emits a typed loaded model and model tooling classes for workspace-backed runtime use.</p>
+              <pre><code class="language-csharp">using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @&quot;.\Samples\Demos\EnterpriseBIPlatformTooling\Workspace&quot;);
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
+
+    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
+        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
+}</code></pre>
+            </article>
           </section>
         </section>
         <section class="panel" id="group-public-meta-cli" data-panel="group-public-meta-cli">
@@ -171,12 +534,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <p>Select an item from the navigation to open its reference page.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>CLI</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
                     <td class="cmd"><a href="#cli-meta" data-panel-link="cli-meta">meta</a></td>
-                    <td>Create, inspect, and generate typed metadata workspaces from canonical model definitions.</td>
+                    <td>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-cli" data-panel-link="cli-meta-cli">meta-cli</a></td>
@@ -203,7 +566,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta</h2>
-            <p class="panel-lead">Create, inspect, and generate typed metadata workspaces from canonical model definitions.</p>
+            <p class="panel-lead">Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</p>
           </header>
           <div class="card">
             <div class="card-header">
@@ -211,7 +574,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <p>45 commands exposed by meta.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -236,11 +599,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td class="cmd">meta generate csharp</td>
-                    <td>Generate C# artifacts.</td>
+                    <td>Emit dependency-free POCOs and optional workspace tooling classes from the current model and instance graph.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta generate sql</td>
-                    <td>Generate SQL artifacts.</td>
+                    <td>Emit deterministic SQL DDL and data scripts from the workspace so the same model can be inspected and loaded through a database-native surface.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta generate ssdt</td>
@@ -276,7 +639,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td class="cmd">meta instance diff</td>
-                    <td>Diff instance data for two workspaces with byte-identical model.xml.</td>
+                    <td>Compare two workspaces with the same model and write a structured change artifact over rows, scalar values, and relationship usages.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta instance diff-aligned</td>
@@ -284,7 +647,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td class="cmd">meta instance merge</td>
-                    <td>Apply an equal-model instance diff artifact to a target workspace.</td>
+                    <td>Apply a structured instance diff to a target workspace only when its precondition still matches, so workspace changes synchronize without text merges.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta instance merge-aligned</td>
@@ -372,7 +735,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tr>
                   <tr>
                     <td class="cmd">meta model suggest</td>
-                    <td>Suggest model improvements.</td>
+                    <td>Inspect landed scalar Id fields and print only relationship promotions with complete referential-integrity evidence.</td>
                   </tr>
                   <tr>
                     <td class="cmd">meta query</td>
@@ -412,6 +775,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta bulk-insert &lt;Entity&gt; [--auto-id] [--file &lt;path&gt;] [--from tsv|csv] [--key Field[,Field2...]] [--stdin] [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Bulk landing identity</h4>
+                <p>Bulk import follows the same identity discipline as single-row insert and CSV import: row identity is explicit, stable, and part of the workspace semantics.</p>
+                <p>When importing flat files, keep source identifiers as stable <code>Id</code> values or scalar <code>...Id</code> landing fields first. Relationship promotion should happen after the landed workspace has complete referential-integrity evidence.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -647,15 +1015,24 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta generate csharp</span>
-                <span class="command-summary-text">Generate C# artifacts.</span>
+                <span class="command-summary-text">Emit dependency-free POCOs and optional workspace tooling classes from the current model and instance graph.</span>
               </span>
-              <span class="command-counts">4 options / 0 examples</span>
+              <span class="command-counts">4 options / 2 examples</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta generate csharp --out &lt;dir&gt; [--strict] [--tooling] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Generated C# surfaces</h4>
+                <p><code>meta generate csharp</code> emits dependency-free consumer types in a namespace that matches the model name (for example <code>namespace EnterpriseBIPlatform</code>):</p>
+                <ul>
+                  <li><code>&lt;ModelName&gt;.cs</code> (static model facade with a built-in instantiated snapshot, e.g. <code>EnterpriseBIPlatform</code>)</li>
+                  <li><code>&lt;Entity&gt;.cs</code> (one file per entity, POCOs)</li>
+                </ul>
+                <p>If you also run <code>meta generate csharp --tooling</code>, <code>meta</code> emits a typed loaded model plus <code>&lt;ModelName&gt;.Tooling.cs</code> in the same model-name namespace. This tooling path is for workspace-backed runtime use; it does not emit the static built-in facade used by the dependency-free consumer path.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -689,6 +1066,65 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                   </tbody>
                 </table>
               </section>
+              <section class="subsection examples">
+                <h4 class="subsection-title">Examples</h4>
+                <article class="example-block">
+                  <h5>Generate typed workspace tooling</h5>
+                  <p>Use the tooling form when another CLI, service, or generator needs to load a workspace and work with strongly typed model objects.</p>
+                  <pre><code class="language-powershell">meta generate csharp --workspace .\Workspace --out .\out\csharp --tooling</code></pre>
+                </article>
+                <article class="example-block">
+                  <h5>Generate C# consumer and tooling surfaces</h5>
+                  <p>Generate dependency-free consumer POCOs for read-only application use, or include the tooling surface when a CLI, service, or generator needs to load a workspace and work with a typed model object.</p>
+                  <div class="code-title">Dependency-free consumer usage</div>
+                  <pre><code class="language-csharp">using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Consumer view: dependency-free POCOs + a strongly-typed model facade.
+foreach (var system in EnterpriseBIPlatform.SystemList)
+{
+    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
+
+    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
+        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
+    }
+}
+
+foreach (var measure in EnterpriseBIPlatform.MeasureList)
+{
+    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
+}</code></pre>
+                  <h6>Optional tooling surface</h6>
+                  <p>The tooling view loads the workspace XML into a fully populated typed model. Use it for generators and command-line tools that need to inspect or mutate workspaces through generated C# classes.</p>
+                  <div class="code-title">Workspace-backed tooling usage</div>
+                  <pre><code class="language-csharp">using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @&quot;.\Samples\Demos\EnterpriseBIPlatformTooling\Workspace&quot;);
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
+
+    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
+        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
+}</code></pre>
+                </article>
+              </section>
               </div>
             </div>
           </details>
@@ -697,15 +1133,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta generate sql</span>
-                <span class="command-summary-text">Generate SQL artifacts.</span>
+                <span class="command-summary-text">Emit deterministic SQL DDL and data scripts from the workspace so the same model can be inspected and loaded through a database-native surface.</span>
               </span>
-              <span class="command-counts">3 options / 0 examples</span>
+              <span class="command-counts">3 options / 1 example</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta generate sql --out &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Generated SQL consumables</h4>
+                <p><code>meta generate sql</code> emits <code>schema.sql</code> and <code>data.sql</code> as deterministic SQL consumables.</p>
+                <p>The generated schema represents entities as tables, implicit <code>Id</code> values as primary keys, scalar properties as nullable or non-nullable columns, and required relationships as foreign-key columns plus constraints. The generated data script inserts the workspace instance rows in deterministic order.</p>
+                <p>This gives the same model and instance graph a database-native surface for inspection, interchange, and validation at scale.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -732,6 +1174,14 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                   </tbody>
                 </table>
+              </section>
+              <section class="subsection examples">
+                <h4 class="subsection-title">Examples</h4>
+                <article class="example-block">
+                  <h5>Generate SQL consumables</h5>
+                  <p>Generate SQL consumables when the next stage wants relational DDL, foreign keys, and repeatable data scripts rather than XML workspace files.</p>
+                  <pre><code class="language-powershell">meta generate sql --workspace .\Workspace --out .\out\sql</code></pre>
+                </article>
               </section>
               </div>
             </div>
@@ -927,6 +1377,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Id-first CSV landing</h4>
+                <p><code>meta import csv</code> is Id-first: the file must contain a column named <code>Id</code> (case-insensitive header match).</p>
+                <p>On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Entity containers are always <code>&lt;EntityName&gt;List</code>. There is no alternate id-column mapping and no best-effort reconciliation.</p>
+                <p>Scalar landing fields that point at other entities should stay as <code>...Id</code> until promoted with <code>meta model suggest</code> and <code>meta model refactor property-to-relationship</code>.</p>
+              </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
@@ -1065,6 +1521,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta insert &lt;Entity&gt; &lt;Id&gt; [--auto-id] [--set Field=Value] [--strict] [--workspace &lt;path&gt;]</code></pre>
               </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Row identity</h4>
+                <p>Row <code>Id</code> values are stable strings; they do not need to be numeric.</p>
+                <p>Use explicit stable <code>Id</code> values whenever the source system already has identity. <code>--auto-id</code> is only for creating brand-new rows when no external identity exists.</p>
+                <p>Refactors, diff, and merge preserve row identities. They rewrite fields and relationships; they do not remap existing rows.</p>
+              </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
@@ -1105,15 +1567,55 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta instance diff</span>
-                <span class="command-summary-text">Diff instance data for two workspaces with byte-identical model.xml.</span>
+                <span class="command-summary-text">Compare two workspaces with the same model and write a structured change artifact over rows, scalar values, and relationship usages.</span>
               </span>
-              <span class="command-counts">2 options / 0 examples</span>
+              <span class="command-counts">2 options / 1 example</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">What instance diff does</h4>
+                <p>Workspaces evolve independently on different branches. <code>meta instance diff</code> and <code>meta instance merge</code> are deterministic synchronization primitives for instance data:</p>
+                <ul>
+                  <li><code>diff</code> produces a structured change artifact from Left -&gt; Right.</li>
+                  <li><code>merge</code> applies that artifact to a target workspace with strict validation.</li>
+                </ul>
+                <p>This is not a text diff. It is a semantic diff over entity rows, scalar values, and relationship usages.</p>
+                <p>Inputs:</p>
+                <ul>
+                  <li>Left workspace</li>
+                  <li>Right workspace</li>
+                </ul>
+                <p>Output:</p>
+                <ul>
+                  <li>a deterministic diff workspace artifact (default sibling path: <code>&lt;RightWorkspace&gt;.instance-diff</code>)</li>
+                </ul>
+                <p>Mechanics:</p>
+                <ul>
+                  <li>requires byte-identical <code>model.xml</code> for equal-model diff.</li>
+                  <li>compares row identity by entity + <code>Id</code>.</li>
+                  <li>compares scalar property values.</li>
+                  <li>compares relationship usage values (<code>...Id</code> attributes).</li>
+                  <li>compares row presence/absence.</li>
+                </ul>
+                <p>Conceptual change classes captured by the artifact:</p>
+                <ul>
+                  <li>added rows (present in Right, absent in Left)</li>
+                  <li>removed rows (present in Left, absent in Right)</li>
+                  <li>updated scalar values on shared rows</li>
+                  <li>updated relationship references on shared rows</li>
+                </ul>
+                <p>Determinism guarantees:</p>
+                <ul>
+                  <li>canonical ordering/normalization is applied before writing the diff artifact.</li>
+                  <li>entity/property traversal and row comparisons are stable.</li>
+                  <li>same inputs produce the same logical diff artifact.</li>
+                </ul>
+                <p>The artifact is a structured description of how to transform Left into Right.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1134,6 +1636,15 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                     </tr>
                   </tbody>
                 </table>
+              </section>
+              <section class="subsection examples">
+                <h4 class="subsection-title">Examples</h4>
+                <article class="example-block">
+                  <h5>Move instance changes between workspaces</h5>
+                  <p>Use instance diff when two branches or workspaces evolved independently and you want a deterministic artifact describing the right-hand workspace changes.</p>
+                  <pre><code class="language-powershell">meta instance diff .\BaselineWorkspace .\FeatureWorkspace
+meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff</code></pre>
+                </article>
               </section>
               </div>
             </div>
@@ -1181,7 +1692,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta instance merge</span>
-                <span class="command-summary-text">Apply an equal-model instance diff artifact to a target workspace.</span>
+                <span class="command-summary-text">Apply a structured instance diff to a target workspace only when its precondition still matches, so workspace changes synchronize without text merges.</span>
               </span>
               <span class="command-counts">2 options / 0 examples</span>
             </summary>
@@ -1190,6 +1701,73 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta instance merge &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">What instance merge does</h4>
+                <p>Inputs:</p>
+                <ul>
+                  <li>target workspace</li>
+                  <li>diff artifact workspace (from <code>meta instance diff</code>)</li>
+                </ul>
+                <p>Operation:</p>
+                <ul>
+                  <li>verifies precondition: target must match the diff Left snapshot.</li>
+                  <li>applies the diff Right snapshot to the target in memory.</li>
+                  <li>normalizes and validates the resulting workspace.</li>
+                  <li>persists once only if validation/postconditions pass.</li>
+                </ul>
+                <p>Atomicity and safety:</p>
+                <ul>
+                  <li>all changes are applied or none are persisted.</li>
+                  <li>any failure restores pre-merge in-memory state and aborts.</li>
+                  <li>save is a single workspace write operation after successful validation.</li>
+                  <li>rows created by merge keep the <code>Id</code> values recorded in the diff artifact.</li>
+                  <li>merge never allocates replacement ids or remaps existing ids.</li>
+                </ul>
+                <p>Determinism:</p>
+                <ul>
+                  <li>same target + same diff artifact -&gt; same resulting workspace state.</li>
+                </ul>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Referential integrity and row identity</h4>
+                <p>Merge is strict. It fails rather than writing invalid state.</p>
+                <ul>
+                  <li>required relationship usage missing -&gt; validation failure.</li>
+                  <li>relationship target row missing -&gt; validation failure.</li>
+                  <li>deleting rows that remain referenced -&gt; validation failure.</li>
+                  <li>relationship updates are applied as part of the snapshot and validated with the whole workspace.</li>
+                </ul>
+                <p>Operation ordering is snapshot-based: merge builds the target end state in memory, validates, then saves. It does not persist partial intermediate steps.</p>
+                <p>Rows are matched by identity (<code>Entity</code>, <code>Id</code>), not by value similarity.</p>
+                <ul>
+                  <li>identity stability is assumed.</li>
+                  <li>no fuzzy matching.</li>
+                  <li>no business-key reconciliation.</li>
+                  <li>if a target workspace has drifted so that an incoming <code>Id</code> would collide with different state, merge fails its precondition instead of remapping or guessing.</li>
+                </ul>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">What this is not</h4>
+                <p><code>meta instance diff</code> and <code>meta instance merge</code> are not:</p>
+                <ul>
+                  <li>text merge tools.</li>
+                  <li>automatic conflict resolution.</li>
+                  <li>model/schema merge.</li>
+                  <li>record matching by business key.</li>
+                  <li>best-effort partial reconciliation.</li>
+                </ul>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Typical diff/merge workflow</h4>
+                <p>Example flow with two independently evolved workspaces:</p>
+                <p>1. baseline/integration workspace is your Left reference. 2. feature workspace with intended changes is your Right reference. 3. generate diff from Left -&gt; Right. 4. apply diff into integration target (which must still match Left snapshot).</p>
+                <pre><code>
+meta instance diff .\WorkspaceA .\WorkspaceB
+meta instance merge .\WorkspaceA .\WorkspaceB.instance-diff</code></pre>
+                <p>If merge precondition fails, regenerate diff against the current target baseline.</p>
+                <p><code>model refactor property-to-relationship</code> changes instance structure (scalar values moved to required relationship usages). Diff/merge captures and replays those instance-level structural value changes when both sides share the same model contract.</p>
+                <p>For model-contract drift between workspaces, use the aligned diff/merge path (<code>instance diff-aligned</code> / <code>instance merge-aligned</code>) with explicit alignment mappings.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1803,6 +2381,12 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta model refactor property-to-relationship --lookup &lt;Property&gt; [--preserve-property] [--role &lt;Role&gt;] --source &lt;Entity.Property&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Atomic relationship promotion</h4>
+                <p><code>meta model refactor property-to-relationship</code> performs an atomic model+instance rewrite from a scalar property to a required relationship.</p>
+                <p>The source property is dropped by default after the relationship usage is created. Use <code>--preserve-property</code> only when the scalar field name will not collide with the implied relationship usage name.</p>
+                <p>The command preserves row identities and rewrites each affected instance from scalar <code>...Id</code> data to relationship usage data. If the workspace cannot be rewritten and validated as one complete end state, the mutation does not persist.</p>
+              </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
@@ -1870,6 +2454,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta model refactor relationship-to-property [--property &lt;PropertyName&gt;] [--role &lt;Role&gt;] --source &lt;Entity&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Atomic relationship demotion</h4>
+                <p><code>meta model refactor relationship-to-property</code> performs the reverse structural rewrite: a required relationship usage becomes a scalar Id property.</p>
+                <p>The command preserves row identities and rewrites fields, not records. It is useful when a relationship should be flattened for interchange or when a model contract needs to move a reference back to scalar data.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2131,7 +2720,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
                 <span class="command-name">meta model suggest</span>
-                <span class="command-summary-text">Suggest model improvements.</span>
+                <span class="command-summary-text">Inspect landed scalar Id fields and print only relationship promotions with complete referential-integrity evidence.</span>
               </span>
               <span class="command-counts">5 options / 1 example</span>
             </summary>
@@ -2140,6 +2729,21 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta model suggest [--explain] [--print-commands] [--show-keys] [--strict] [--workspace &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">CSV import -&gt; suggest -&gt; refactor</h4>
+                <p>This is the intended landing workflow: import flat CSVs with stable row Ids, run suggest, then apply an atomic model+instance refactor.</p>
+                <p><code>meta model suggest</code> is structural and deterministic. It prints strong exact-name relationship promotions by default and prints weak suggestions separately when RI is still complete but the target is only a role-style suffix match or the same source property matches more than one eligible target.</p>
+                <p>Eligible means the promotion satisfies 100% referential integrity (RI) before any mutation:</p>
+                <ul>
+                  <li>source lands first as a scalar <code>...Id</code> field (for example <code>WarehouseId</code>)</li>
+                  <li>target lookup property is complete and unambiguous (no null/blank values, no duplicates)</li>
+                  <li>source property is complete (no null/blank values)</li>
+                  <li>every source value resolves to an existing target lookup value (full coverage, no unmatched values)</li>
+                  <li>source and target scalar types are compatible under strict rules (no implicit casting)</li>
+                  <li>source values are reused, so the source behaves like a reference and the direction is structurally evidenced as many-to-one</li>
+                </ul>
+                <p>For Id-first landing, the sanctioned structural rule is <code>ProductId -&gt; Product.Id</code>, <code>SupplierId -&gt; Supplier.Id</code>, and so on. <code>meta model suggest</code> does not rely on <code>Code</code> fields for this workflow. If any rule fails, the item is not printed.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2431,7 +3035,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <p>16 commands exposed by meta-cli.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -3504,7 +4108,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <p>18 commands exposed by meta-docs.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -4672,7 +5276,7 @@ meta-docs search deploy</code></pre>
               <p>11 commands exposed by meta-mesh.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -4782,9 +5386,9 @@ meta-docs search deploy</code></pre>
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--arguments-stdin] [--description &lt;value&gt;] --executable &lt;path&gt; [--expected-exit-code &lt;value&gt;] --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Guidance</h4>
-                <p class="note">Step arguments support {workspace:&lt;name&gt;.path}, which expands to a declared workspace path, and {env:NAME}, which verifies NAME is non-empty and passes the variable name to the child process.</p>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Token substitution</h4>
+                <p>Step arguments support {workspace:&lt;name&gt;.path}, which expands to a declared workspace path, and {env:NAME}, which verifies NAME is non-empty and passes the variable name to the child process. Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensitive text.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5052,9 +5656,9 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-mesh run --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Guidance</h4>
-                <p class="note">Run performs validation before starting: ordered step chain, declared workspace paths, executable lookup, working-directory access, and non-empty {env:...} variables must all resolve first.</p>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Preflight</h4>
+                <p>Run performs validation before starting: ordered step chain, declared workspace paths, executable lookup, working-directory access, and non-empty {env:...} variables must all resolve first.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5180,9 +5784,9 @@ meta-mesh run --operation regenerate-public-docs</code></pre>
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-mesh validate --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
               </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Guidance</h4>
-                <p class="note">Validate performs the same preflight as run but starts no child processes.</p>
+              <section class="subsection description-block">
+                <h4 class="subsection-title">Preflight</h4>
+                <p>Validate performs the same preflight as run but starts no child processes.</p>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5252,7 +5856,7 @@ meta-mesh run --operation regenerate-public-docs</code></pre>
               <p>7 commands exposed by meta-weave.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -9943,6 +10547,12 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <p class="note">Source: MetaWeave. Status: Changed.</p>
           </details>
         </section>
+        <section class="panel" id="subject-public-meta-bi-overview" data-panel="subject-public-meta-bi-overview">
+          <header class="panel-header">
+            <h2>Overview</h2>
+            <p class="panel-lead"><code>meta-bi</code> is the BI stack that sits on top of the generic <code>meta</code> foundation.</p>
+          </header>
+        </section>
         <section class="panel" id="group-public-meta-bi-cli" data-panel="group-public-meta-bi-cli">
           <header class="panel-header">
             <div class="breadcrumb">Meta-BI / CLI</div>
@@ -9955,7 +10565,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>Select an item from the navigation to open its reference page.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>CLI</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -10039,7 +10649,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>29 commands exposed by meta-analytics.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -11999,7 +12609,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>10 commands exposed by meta-convert.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -12509,7 +13119,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>4 commands exposed by meta-data-quality.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -12707,7 +13317,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>2 commands exposed by meta-data-type.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -12771,7 +13381,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>4 commands exposed by meta-data-type-conversion.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -12919,7 +13529,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>32 commands exposed by meta-data-warehouse.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -14897,7 +15507,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>27 commands exposed by meta-datavault-business.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -16665,7 +17275,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>17 commands exposed by meta-datavault-raw.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -17659,7 +18269,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>43 commands exposed by meta-multi-dimensional.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -20603,7 +21213,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>12 commands exposed by meta-orchestration.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -21209,7 +21819,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>12 commands exposed by meta-pipeline.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -21957,7 +22567,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>2 commands exposed by meta-schema.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -22071,7 +22681,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>5 commands exposed by meta-sql.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -22383,7 +22993,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>38 commands exposed by meta-tabular.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -24847,7 +25457,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>2 commands exposed by meta-transform-binding.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -24985,7 +25595,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <p>10 commands exposed by meta-transform-script.</p>
             </div>
             <div class="card-body">
-              <table>
+              <table class="summary-table">
                 <thead><tr><th>Command</th><th>Summary</th></tr></thead>
                 <tbody>
                   <tr>
@@ -70686,6 +71296,13 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
         const panels = Array.from(document.querySelectorAll('[data-panel]'));
         const viewer = document.getElementById('viewer');
         const app = document.getElementById('docs-app');
+        const sidebar = document.getElementById('reference-navigation');
+        const menuButton = document.querySelector('.menu-button');
+        function setMenuOpen(open) {
+          if (!sidebar || !menuButton) return;
+          sidebar.classList.toggle('is-open', open);
+          menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
         function focusViewer() {
           if (viewer) viewer.focus({ preventScroll: true });
         }
@@ -70693,23 +71310,43 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
           const raw = window.location.hash ? window.location.hash.slice(1) : 'home';
           return raw || 'home';
         }
+        const initialRoute = normalizeHash();
+        if (window.location.hash) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
         function activate(id) {
           const target = document.getElementById(id) || document.getElementById('home');
           panels.forEach(panel => panel.classList.toggle('is-active', panel === target));
           document.querySelectorAll('[data-panel-link]').forEach(link => {
             link.classList.toggle('is-active', link.getAttribute('href') === '#' + target.id);
           });
-          if (viewer) viewer.scrollTop = 0;
+          if (viewer) viewer.scrollTo(0, 0);
+          setMenuOpen(false);
           focusViewer();
           document.title = target.id === 'home' ? 'meta + meta-bi · Reference' : (target.querySelector('h2')?.textContent || 'meta + meta-bi') + ' · meta + meta-bi';
         }
         if (viewer) viewer.addEventListener('pointerdown', focusViewer);
+        if (menuButton) menuButton.addEventListener('click', () => {
+          setMenuOpen(!sidebar?.classList.contains('is-open'));
+        });
         if (app) app.addEventListener('pointerdown', event => {
           if (!(event.target instanceof Element) || event.target.closest('.sidebar')) return;
           focusViewer();
         });
+        document.addEventListener('keydown', event => {
+          if (event.key === 'Escape') setMenuOpen(false);
+        });
         document.addEventListener('click', event => {
           if (!(event.target instanceof Element)) return;
+          const panelLink = event.target.closest('[data-panel-link]');
+          if (panelLink) {
+            event.preventDefault();
+            const panelId = panelLink.getAttribute('href')?.slice(1) || 'home';
+            history.pushState(null, '', '#' + panelId);
+            activate(panelId);
+            setMenuOpen(false);
+            return;
+          }
           const link = event.target.closest('[data-local-anchor]');
           if (!link) return;
           const targetId = link.getAttribute('data-local-anchor');
@@ -70723,8 +71360,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
           target.scrollIntoView({ block: 'start' });
           focusViewer();
         });
-        window.addEventListener('hashchange', () => activate(normalizeHash()));
-        activate(normalizeHash());
+        window.addEventListener('popstate', () => activate(normalizeHash()));
+        activate(initialRoute);
+        history.replaceState(null, '', '#' + initialRoute);
       })();
     </script>
 

@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:consumer:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:consumer">
+      <Code>using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Consumer view: dependency-free POCOs + a strongly-typed model facade.
+foreach (var system in EnterpriseBIPlatform.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in EnterpriseBIPlatform.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}</Code>
+      <Language>csharp</Language>
+      <Title>Dependency-free consumer usage</Title>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:tooling:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:tooling">
+      <Code>using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}</Code>
+      <Language>csharp</Language>
+      <Title>Workspace-backed tooling usage</Title>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-tooling:command" DocumentationExampleSectionId="example:meta:generate-csharp-tooling:overview">
+      <Code>meta generate csharp --workspace .\Workspace --out .\out\csharp --tooling</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-sql-consumables:command" DocumentationExampleSectionId="example:meta:generate-sql-consumables:overview">
+      <Code>meta generate sql --workspace .\Workspace --out .\out\sql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:instance-diff-merge:commands" DocumentationExampleSectionId="example:meta:instance-diff-merge:overview">
+      <Code>meta instance diff .\BaselineWorkspace .\FeatureWorkspace
+meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
     <DocumentationExampleCode Id="example:meta:model-suggest-promote-relationships:commands" DocumentationExampleSectionId="example:meta:model-suggest-promote-relationships:overview">
       <Code>meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
 meta import csv ..\demo-csv\suppliers.csv --entity Supplier

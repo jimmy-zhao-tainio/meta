@@ -71,7 +71,10 @@ public sealed class MetametabiDocsSiteRenderer
             .Append("<span>")
             .Append("meta+meta-bi")
             .AppendLine("</span></a>");
-        builder.AppendLine("        <a class=\"home-button\" href=\"https://metametabi.com\">Home</a>");
+        builder.AppendLine("        <div class=\"topbar-actions\">");
+        builder.AppendLine("          <button class=\"menu-button\" type=\"button\" aria-controls=\"reference-navigation\" aria-expanded=\"false\">Menu</button>");
+        builder.AppendLine("          <a class=\"home-button\" href=\"https://metametabi.com\">Home</a>");
+        builder.AppendLine("        </div>");
         builder.AppendLine("      </div>");
         builder.AppendLine("    </header>");
         return builder.ToString();
@@ -87,24 +90,9 @@ public sealed class MetametabiDocsSiteRenderer
         AppendSidebar(builder, tree);
         builder.AppendLine("      <main class=\"viewer\" id=\"viewer\" tabindex=\"0\">");
         AppendHomePanel(builder, view, tree);
-        foreach (var family in tree.Children)
+        foreach (var child in tree.Children)
         {
-            foreach (var section in family.Children)
-            {
-                AppendGroupPanel(builder, model, family, section);
-
-                foreach (var child in ReferenceSubjects(section))
-                {
-                    if (IsCliApplication(child.Subject))
-                    {
-                        AppendCliApplicationPanel(builder, model, family.Subject.DisplayName, section.Subject.DisplayName, child.Subject);
-                    }
-                    else if (IsModel(child.Subject))
-                    {
-                        AppendModelPanel(builder, model, family.Subject.DisplayName, section.Subject.DisplayName, child.Subject);
-                    }
-                }
-            }
+            AppendPanelsForNode(builder, model, child, Array.Empty<string>());
         }
 
         builder.AppendLine("      </main>");
@@ -114,7 +102,7 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static void AppendSidebar(StringBuilder builder, ReferenceTree tree)
     {
-        builder.AppendLine("      <aside class=\"sidebar\" aria-label=\"Reference navigation\">");
+        builder.AppendLine("      <aside class=\"sidebar\" id=\"reference-navigation\" aria-label=\"Reference navigation\">");
         builder.AppendLine("        <div class=\"side-kicker\">Reference</div>");
         foreach (var family in tree.Children)
         {
@@ -134,6 +122,14 @@ public sealed class MetametabiDocsSiteRenderer
         StringBuilder builder,
         ReferenceNode section)
     {
+        if (IsGenericContentSubject(section.Subject))
+        {
+            builder.Append("        ");
+            AppendSidebarSubjectLink(builder, section, "nav-surface");
+            builder.AppendLine();
+            return;
+        }
+
         var groupPanelId = GroupPanelId(section);
         builder.Append("        <a class=\"nav-surface\" href=\"#")
             .Append(Attr(groupPanelId))
@@ -143,19 +139,34 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Html(section.Subject.DisplayName))
             .AppendLine("</a>");
         builder.AppendLine("        <ul class=\"nav-list\">");
-        foreach (var child in ReferenceSubjects(section))
+        foreach (var child in section.Children.Where(static child =>
+                     IsCliApplication(child.Subject) ||
+                     IsModel(child.Subject) ||
+                     IsGenericContentSubject(child.Subject)))
         {
-            var panelId = PanelId(child.Subject);
-            builder.Append("          <li><a class=\"nav-link\" href=\"#")
-                .Append(Attr(panelId))
-                .Append("\" data-panel-link=\"")
-                .Append(Attr(panelId))
-                .Append("\">")
-                .Append(Html(child.Subject.DisplayName))
-                .AppendLine("</a></li>");
+            builder.Append("          <li>");
+            AppendSidebarSubjectLink(builder, child, "nav-link");
+            builder.AppendLine("</li>");
         }
 
         builder.AppendLine("        </ul>");
+    }
+
+    private static void AppendSidebarSubjectLink(
+        StringBuilder builder,
+        ReferenceNode node,
+        string cssClass)
+    {
+        var panelId = PanelId(node.Subject);
+        builder.Append("<a class=\"")
+            .Append(Attr(cssClass))
+            .Append("\" href=\"#")
+            .Append(Attr(panelId))
+            .Append("\" data-panel-link=\"")
+            .Append(Attr(panelId))
+            .Append("\">")
+            .Append(Html(node.Subject.DisplayName))
+            .Append("</a>");
     }
 
     private static void AppendHomePanel(StringBuilder builder, DocumentationView view, ReferenceTree tree)
@@ -167,7 +178,7 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Html(FirstNonEmpty(tree.Root.DisplayName, view.Title, view.Name, "Documentation")))
             .AppendLine("</h1>");
         builder.Append("            <p>")
-            .Append(Html(FirstNonEmpty(SubjectSummary(null, tree.Root), tree.Root.Summary, view.Summary, "Modeled documentation for metadata-shaped things.")))
+            .Append(HtmlInline(FirstNonEmpty(SubjectSummary(null, tree.Root), tree.Root.Summary, view.Summary, "Modeled documentation for metadata-shaped things.")))
             .AppendLine("</p>");
         builder.AppendLine("          </div>");
 
@@ -176,7 +187,14 @@ public sealed class MetametabiDocsSiteRenderer
         {
             foreach (var section in family.Children)
             {
-                AppendEntryCard(builder, family, section);
+                if (IsGenericContentSubject(section.Subject))
+                {
+                    AppendEntryCard(builder, section, family.Subject.DisplayName);
+                }
+                else
+                {
+                    AppendEntryCard(builder, family, section);
+                }
             }
         }
 
@@ -209,10 +227,87 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("            </a>");
     }
 
+    private static void AppendEntryCard(
+        StringBuilder builder,
+        ReferenceNode node,
+        string label)
+    {
+        var panelId = PanelId(node.Subject);
+        builder.Append("            <a class=\"entry-card\" href=\"#")
+            .Append(Attr(panelId))
+            .Append("\" data-panel-link=\"")
+            .Append(Attr(panelId))
+            .AppendLine("\">");
+        builder.Append("              <div class=\"label\">")
+            .Append(Html(label))
+            .AppendLine("</div>");
+        builder.Append("              <h2>")
+            .Append(Html(node.Subject.DisplayName))
+            .AppendLine("</h2>");
+        builder.Append("              <p>")
+            .Append(HtmlInline(SubjectSummary(null, node.Subject)))
+            .AppendLine("</p>");
+        builder.AppendLine("            </a>");
+    }
+
+    private static void AppendPanelsForNode(
+        StringBuilder builder,
+        MetaDocsModel model,
+        ReferenceNode node,
+        IReadOnlyList<string> ancestors)
+    {
+        if (IsCliApplication(node.Subject))
+        {
+            AppendCliApplicationPanel(
+                builder,
+                model,
+                AncestorOrDefault(ancestors, ^2, string.Empty),
+                AncestorOrDefault(ancestors, ^1, string.Empty),
+                node.Subject);
+            return;
+        }
+
+        if (IsModel(node.Subject))
+        {
+            AppendModelPanel(
+                builder,
+                model,
+                AncestorOrDefault(ancestors, ^2, string.Empty),
+                AncestorOrDefault(ancestors, ^1, string.Empty),
+                node.Subject);
+            return;
+        }
+
+        if (ReferenceSubjects(node).Count > 0)
+        {
+            AppendGroupPanel(
+                builder,
+                model,
+                AncestorOrDefault(ancestors, ^1, string.Empty),
+                node);
+        }
+        else if (IsGenericContentSubject(node.Subject))
+        {
+            AppendGenericSubjectPanel(builder, model, node.Subject);
+        }
+
+        var nextAncestors = ancestors.Concat(new[] { node.Subject.DisplayName }).ToArray();
+        foreach (var child in node.Children)
+        {
+            AppendPanelsForNode(builder, model, child, nextAncestors);
+        }
+    }
+
+    private static string AncestorOrDefault(IReadOnlyList<string> ancestors, Index index, string fallback)
+    {
+        var offset = index.GetOffset(ancestors.Count);
+        return offset >= 0 && offset < ancestors.Count ? ancestors[offset] : fallback;
+    }
+
     private static void AppendGroupPanel(
         StringBuilder builder,
         MetaDocsModel model,
-        ReferenceNode family,
+        string familyTitle,
         ReferenceNode section)
     {
         var subjects = ReferenceSubjects(section);
@@ -223,18 +318,20 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Attr(groupPanelId))
             .AppendLine("\">");
         builder.AppendLine("          <header class=\"panel-header\">");
-        builder.Append("            <div class=\"breadcrumb\">")
-            .Append(Html(family.Subject.DisplayName))
-            .Append(" / ")
-            .Append(Html(section.Subject.DisplayName))
-            .AppendLine("</div>");
+        if (!string.IsNullOrWhiteSpace(familyTitle))
+        {
+            builder.Append("            <div class=\"breadcrumb\">")
+                .Append(Html(familyTitle))
+                .Append(" / ")
+                .Append(Html(section.Subject.DisplayName))
+                .AppendLine("</div>");
+        }
+
         builder.Append("            <h2>")
-            .Append(Html(family.Subject.DisplayName))
-            .Append(' ')
-            .Append(Html(section.Subject.DisplayName))
+            .Append(Html(string.IsNullOrWhiteSpace(familyTitle) ? section.Subject.DisplayName : $"{familyTitle} {section.Subject.DisplayName}"))
             .AppendLine("</h2>");
         builder.Append("            <p class=\"panel-lead\">")
-            .Append(Html(SubjectSummary(model, section.Subject)))
+            .Append(HtmlInline(SubjectSummary(model, section.Subject)))
             .AppendLine("</p>");
         builder.AppendLine("          </header>");
         builder.AppendLine("          <div class=\"card\">");
@@ -262,7 +359,7 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static void AppendCliGroupTable(StringBuilder builder, MetaDocsModel model, IReadOnlyList<ReferenceNode> subjects)
     {
-        builder.AppendLine("              <table>");
+        builder.AppendLine("              <table class=\"summary-table\">");
         builder.AppendLine("                <thead><tr><th>CLI</th><th>Summary</th></tr></thead>");
         builder.AppendLine("                <tbody>");
         foreach (var node in subjects.Where(node => IsCliApplication(node.Subject)))
@@ -278,7 +375,7 @@ public sealed class MetametabiDocsSiteRenderer
                 .Append(Html(subject.DisplayName))
                 .AppendLine("</a></td>");
             builder.Append("                    <td>")
-                .Append(Html(SubjectSummary(model, subject)))
+                .Append(HtmlInline(SubjectSummary(model, subject)))
                 .AppendLine("</td>");
             builder.AppendLine("                  </tr>");
         }
@@ -336,6 +433,7 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Attr(panelId))
             .AppendLine("\">");
         AppendPanelHeader(builder, familyTitle, sectionTitle, application.DisplayName, SubjectSummary(model, application));
+        AppendNarrativeSections(builder, model, application);
 
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
@@ -361,12 +459,41 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("        </section>");
     }
 
+    private static void AppendGenericSubjectPanel(
+        StringBuilder builder,
+        MetaDocsModel model,
+        DocumentationSubject subject)
+    {
+        var panelId = PanelId(subject);
+        builder.Append("        <section class=\"panel\" id=\"")
+            .Append(Attr(panelId))
+            .Append("\" data-panel=\"")
+            .Append(Attr(panelId))
+            .AppendLine("\">");
+        builder.AppendLine("          <header class=\"panel-header\">");
+        builder.Append("            <h2>")
+            .Append(Html(subject.DisplayName))
+            .AppendLine("</h2>");
+        var summary = SubjectSummary(model, subject);
+        if (!string.IsNullOrWhiteSpace(summary))
+        {
+            builder.Append("            <p class=\"panel-lead\">")
+                .Append(HtmlInline(summary))
+                .AppendLine("</p>");
+        }
+
+        builder.AppendLine("          </header>");
+        AppendNarrativeSections(builder, model, subject);
+        AppendExamplesSection(builder, model, subject, title: "Examples");
+        builder.AppendLine("        </section>");
+    }
+
     private static void AppendCommandOverviewTable(
         StringBuilder builder,
         MetaDocsModel model,
         IReadOnlyList<DocumentationSubject> commands)
     {
-        builder.AppendLine("              <table>");
+        builder.AppendLine("              <table class=\"summary-table\">");
         builder.AppendLine("                <thead><tr><th>Command</th><th>Summary</th></tr></thead>");
         builder.AppendLine("                <tbody>");
         foreach (var command in commands)
@@ -376,7 +503,7 @@ public sealed class MetametabiDocsSiteRenderer
                 .Append(Html(CommandUsageName(model, command)))
                 .AppendLine("</td>");
             builder.Append("                    <td>")
-                .Append(Html(SubjectSummary(model, command)))
+                .Append(HtmlInline(SubjectSummary(model, command)))
                 .AppendLine("</td>");
             builder.AppendLine("                  </tr>");
         }
@@ -401,7 +528,7 @@ public sealed class MetametabiDocsSiteRenderer
         if (!string.IsNullOrWhiteSpace(summary))
         {
             builder.Append("                <span class=\"command-summary-text\">")
-                .Append(Html(summary))
+                .Append(HtmlInline(summary))
                 .AppendLine("</span>");
         }
 
@@ -423,12 +550,14 @@ public sealed class MetametabiDocsSiteRenderer
             .AppendLine("</code></pre>");
         builder.AppendLine("              </section>");
 
+        AppendNarrativeSections(builder, model, command, "              ");
+
         if (!string.IsNullOrWhiteSpace(guidance))
         {
             builder.AppendLine("              <section class=\"subsection\">");
             builder.AppendLine("                <h4 class=\"subsection-title\">Guidance</h4>");
             builder.Append("                <p class=\"note\">")
-                .Append(Html(guidance))
+                .Append(HtmlInline(guidance))
                 .AppendLine("</p>");
             builder.AppendLine("              </section>");
         }
@@ -492,6 +621,23 @@ public sealed class MetametabiDocsSiteRenderer
         AppendExamplesSection(builder, model, Examples(model, subject), indent, title);
     }
 
+    private static void AppendNarrativeSections(
+        StringBuilder builder,
+        MetaDocsModel model,
+        DocumentationSubject subject,
+        string indent = "          ")
+    {
+        foreach (var narrative in NarrativeSections(model, subject))
+        {
+            builder.Append(indent).AppendLine("<section class=\"subsection description-block\">");
+            builder.Append(indent).Append("  <h4 class=\"subsection-title\">")
+                .Append(Html(FirstNonEmpty(narrative.Title, narrative.Slot, "Description")))
+                .AppendLine("</h4>");
+            AppendFormattedText(builder, narrative.Body!, indent + "  ");
+            builder.Append(indent).AppendLine("</section>");
+        }
+    }
+
     private static void AppendExamplesSection(
         StringBuilder builder,
         MetaDocsModel model,
@@ -517,7 +663,7 @@ public sealed class MetametabiDocsSiteRenderer
             if (!string.IsNullOrWhiteSpace(example.Summary))
             {
                 builder.Append(indent).Append("    <p class=\"note\">")
-                    .Append(Html(example.Summary!))
+                    .Append(HtmlInline(example.Summary!))
                     .AppendLine("</p>");
             }
 
@@ -532,9 +678,7 @@ public sealed class MetametabiDocsSiteRenderer
 
                 if (!string.IsNullOrWhiteSpace(section.Body))
                 {
-                    builder.Append(indent).Append("    <p>")
-                        .Append(Html(section.Body!))
-                        .AppendLine("</p>");
+                    AppendFormattedText(builder, section.Body!, indent + "    ");
                 }
 
                 foreach (var code in ExampleCodes(model, section))
@@ -562,6 +706,98 @@ public sealed class MetametabiDocsSiteRenderer
         }
 
         builder.Append(indent).AppendLine("</section>");
+    }
+
+    private static void AppendFormattedText(StringBuilder builder, string value, string indent)
+    {
+        var lines = value
+            .Replace("\r\n", "\n", StringComparison.Ordinal)
+            .Replace('\r', '\n')
+            .Split('\n');
+        var index = 0;
+        while (index < lines.Length)
+        {
+            while (index < lines.Length && string.IsNullOrWhiteSpace(lines[index]))
+            {
+                index++;
+            }
+
+            if (index >= lines.Length)
+            {
+                break;
+            }
+
+            if (lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal))
+            {
+                builder.Append(indent).AppendLine("<ul>");
+                while (index < lines.Length &&
+                       lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal))
+                {
+                    var item = lines[index].TrimStart()[2..].Trim();
+                    builder.Append(indent).Append("  <li>")
+                        .Append(HtmlInline(item))
+                        .AppendLine("</li>");
+                    index++;
+                }
+
+                builder.Append(indent).AppendLine("</ul>");
+                continue;
+            }
+
+            if (IsStandaloneCodeLine(lines[index]))
+            {
+                builder.Append(indent).AppendLine("<pre><code>");
+                while (index < lines.Length && IsStandaloneCodeLine(lines[index]))
+                {
+                    builder.Append(Html(UnwrapStandaloneCodeLine(lines[index])));
+                    index++;
+                    if (index < lines.Length && IsStandaloneCodeLine(lines[index]))
+                    {
+                        builder.AppendLine();
+                    }
+                }
+
+                builder.AppendLine("</code></pre>");
+                continue;
+            }
+
+            var paragraph = new StringBuilder();
+            while (index < lines.Length &&
+                   !string.IsNullOrWhiteSpace(lines[index]) &&
+                   !lines[index].TrimStart().StartsWith("- ", StringComparison.Ordinal) &&
+                   !IsStandaloneCodeLine(lines[index]))
+            {
+                if (paragraph.Length > 0)
+                {
+                    paragraph.Append(' ');
+                }
+
+                paragraph.Append(lines[index].Trim());
+                index++;
+            }
+
+            if (paragraph.Length > 0)
+            {
+                builder.Append(indent).Append("<p>")
+                    .Append(HtmlInline(paragraph.ToString()))
+                    .AppendLine("</p>");
+            }
+        }
+    }
+
+    private static bool IsStandaloneCodeLine(string line)
+    {
+        var trimmed = line.Trim();
+        return trimmed.Length >= 2 &&
+               trimmed[0] == '`' &&
+               trimmed[^1] == '`' &&
+               trimmed.Count(static c => c == '`') == 2;
+    }
+
+    private static string UnwrapStandaloneCodeLine(string line)
+    {
+        var trimmed = line.Trim();
+        return trimmed[1..^1];
     }
 
     private static string OptionValueDetails(MetaDocsModel model, DocumentationSubject option)
@@ -610,6 +846,8 @@ public sealed class MetametabiDocsSiteRenderer
             .AppendLine("</span>");
         builder.AppendLine("          </div>");
 
+        AppendNarrativeSections(builder, model, modelSubject);
+
         builder.AppendLine("          <div class=\"card\">");
         builder.AppendLine("            <div class=\"card-header\">");
         builder.AppendLine("              <h3>Entity index</h3>");
@@ -657,7 +895,7 @@ public sealed class MetametabiDocsSiteRenderer
         if (!string.IsNullOrWhiteSpace(summary))
         {
             builder.Append("            <p class=\"panel-lead\">")
-                .Append(Html(summary))
+                .Append(HtmlInline(summary))
                 .AppendLine("</p>");
         }
 
@@ -709,7 +947,7 @@ public sealed class MetametabiDocsSiteRenderer
         if (!string.IsNullOrWhiteSpace(summary))
         {
             builder.Append("                <span class=\"entity-summary-text\">")
-                .Append(Html(summary))
+                .Append(HtmlInline(summary))
                 .AppendLine("</span>");
         }
 
@@ -727,6 +965,8 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("            </summary>");
         builder.AppendLine("            <div class=\"entity-body\">");
         builder.AppendLine("              <div class=\"entity-body-inner\">");
+
+        AppendNarrativeSections(builder, model, entity, "              ");
 
         if (properties.Length > 0)
         {
@@ -776,7 +1016,7 @@ public sealed class MetametabiDocsSiteRenderer
                 .Append(Html(FindFact(model, property, "Model", "Nullable")))
                 .AppendLine("</td>");
             builder.Append("                      <td>")
-                .Append(Html(SubjectSummary(model, property)))
+                .Append(HtmlInline(SubjectSummary(model, property)))
                 .AppendLine("</td>");
             builder.AppendLine("                    </tr>");
         }
@@ -878,6 +1118,13 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("        const panels = Array.from(document.querySelectorAll('[data-panel]'));");
         builder.AppendLine("        const viewer = document.getElementById('viewer');");
         builder.AppendLine("        const app = document.getElementById('docs-app');");
+        builder.AppendLine("        const sidebar = document.getElementById('reference-navigation');");
+        builder.AppendLine("        const menuButton = document.querySelector('.menu-button');");
+        builder.AppendLine("        function setMenuOpen(open) {");
+        builder.AppendLine("          if (!sidebar || !menuButton) return;");
+        builder.AppendLine("          sidebar.classList.toggle('is-open', open);");
+        builder.AppendLine("          menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');");
+        builder.AppendLine("        }");
         builder.AppendLine("        function focusViewer() {");
         builder.AppendLine("          if (viewer) viewer.focus({ preventScroll: true });");
         builder.AppendLine("        }");
@@ -885,13 +1132,18 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("          const raw = window.location.hash ? window.location.hash.slice(1) : 'home';");
         builder.AppendLine("          return raw || 'home';");
         builder.AppendLine("        }");
+        builder.AppendLine("        const initialRoute = normalizeHash();");
+        builder.AppendLine("        if (window.location.hash) {");
+        builder.AppendLine("          history.replaceState(null, '', window.location.pathname + window.location.search);");
+        builder.AppendLine("        }");
         builder.AppendLine("        function activate(id) {");
         builder.AppendLine("          const target = document.getElementById(id) || document.getElementById('home');");
         builder.AppendLine("          panels.forEach(panel => panel.classList.toggle('is-active', panel === target));");
         builder.AppendLine("          document.querySelectorAll('[data-panel-link]').forEach(link => {");
         builder.AppendLine("            link.classList.toggle('is-active', link.getAttribute('href') === '#' + target.id);");
         builder.AppendLine("          });");
-        builder.AppendLine("          if (viewer) viewer.scrollTop = 0;");
+        builder.AppendLine("          if (viewer) viewer.scrollTo(0, 0);");
+        builder.AppendLine("          setMenuOpen(false);");
         builder.AppendLine("          focusViewer();");
         builder.Append("          document.title = target.id === 'home' ? '")
             .Append(title)
@@ -902,12 +1154,27 @@ public sealed class MetametabiDocsSiteRenderer
             .AppendLine("';");
         builder.AppendLine("        }");
         builder.AppendLine("        if (viewer) viewer.addEventListener('pointerdown', focusViewer);");
+        builder.AppendLine("        if (menuButton) menuButton.addEventListener('click', () => {");
+        builder.AppendLine("          setMenuOpen(!sidebar?.classList.contains('is-open'));");
+        builder.AppendLine("        });");
         builder.AppendLine("        if (app) app.addEventListener('pointerdown', event => {");
         builder.AppendLine("          if (!(event.target instanceof Element) || event.target.closest('.sidebar')) return;");
         builder.AppendLine("          focusViewer();");
         builder.AppendLine("        });");
+        builder.AppendLine("        document.addEventListener('keydown', event => {");
+        builder.AppendLine("          if (event.key === 'Escape') setMenuOpen(false);");
+        builder.AppendLine("        });");
         builder.AppendLine("        document.addEventListener('click', event => {");
         builder.AppendLine("          if (!(event.target instanceof Element)) return;");
+        builder.AppendLine("          const panelLink = event.target.closest('[data-panel-link]');");
+        builder.AppendLine("          if (panelLink) {");
+        builder.AppendLine("            event.preventDefault();");
+        builder.AppendLine("            const panelId = panelLink.getAttribute('href')?.slice(1) || 'home';");
+        builder.AppendLine("            history.pushState(null, '', '#' + panelId);");
+        builder.AppendLine("            activate(panelId);");
+        builder.AppendLine("            setMenuOpen(false);");
+        builder.AppendLine("            return;");
+        builder.AppendLine("          }");
         builder.AppendLine("          const link = event.target.closest('[data-local-anchor]');");
         builder.AppendLine("          if (!link) return;");
         builder.AppendLine("          const targetId = link.getAttribute('data-local-anchor');");
@@ -921,8 +1188,9 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("          target.scrollIntoView({ block: 'start' });");
         builder.AppendLine("          focusViewer();");
         builder.AppendLine("        });");
-        builder.AppendLine("        window.addEventListener('hashchange', () => activate(normalizeHash()));");
-        builder.AppendLine("        activate(normalizeHash());");
+        builder.AppendLine("        window.addEventListener('popstate', () => activate(normalizeHash()));");
+        builder.AppendLine("        activate(initialRoute);");
+        builder.AppendLine("        history.replaceState(null, '', '#' + initialRoute);");
         builder.AppendLine("      })();");
         builder.AppendLine("    </script>");
         return builder.ToString();
@@ -938,6 +1206,9 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static bool IsModel(DocumentationSubject subject) =>
         MetaDocsVocabulary.IsSubjectType(subject, "Model");
+
+    private static bool IsGenericContentSubject(DocumentationSubject subject) =>
+        MetaDocsVocabulary.IsSubjectType(subject, "Guide");
 
     private static string GroupItemTitle(IReadOnlyList<ReferenceNode> subjects)
     {
@@ -963,7 +1234,9 @@ public sealed class MetametabiDocsSiteRenderer
                 : "subject";
         var stableName = IsModel(subject)
             ? FirstNonEmpty(subject.DisplayName.Replace(" model", string.Empty, StringComparison.OrdinalIgnoreCase), subject.NativeId, subject.Id)
-            : FirstNonEmpty(subject.DisplayName, subject.NativeId, subject.Id);
+            : IsCliApplication(subject)
+                ? FirstNonEmpty(subject.DisplayName, subject.NativeId, subject.Id)
+                : subject.Id;
         return $"{prefix}-{MetaDocsImportSession.NormalizeKey(stableName)}";
     }
 
@@ -1022,17 +1295,6 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static string CommandGuidance(MetaDocsModel model, DocumentationSubject command)
     {
-        var preferred = Narratives(model, command)
-            .Where(narrative =>
-                !string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(narrative.Slot, "Example", StringComparison.OrdinalIgnoreCase))
-            .Select(narrative => CleanProse(narrative.Body))
-            .FirstOrDefault(static text => !string.IsNullOrWhiteSpace(text));
-        if (!string.IsNullOrWhiteSpace(preferred))
-        {
-            return ShortSummary(preferred);
-        }
-
         var note = Facts(model, command)
             .Where(fact => MetaDocsVocabulary.IsFactType(fact, "Note"))
             .Select(fact => CleanProse(fact.Value))
@@ -1057,9 +1319,19 @@ public sealed class MetametabiDocsSiteRenderer
         MetaDocsOrdering.ByPrevious(
                 model.DocumentationNarrativeList
                     .Where(row => string.Equals(row.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
-                    .Where(row => !string.IsNullOrWhiteSpace(row.Body)),
+                    .Where(row => !string.IsNullOrWhiteSpace(row.Body))
+                    .Where(row => !string.Equals(row.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase))
+                    .Where(row => !string.Equals(row.ReviewStatus, "Deprecated", StringComparison.OrdinalIgnoreCase))
+                    .Where(row => !string.Equals(row.ReviewStatus, "Ignored", StringComparison.OrdinalIgnoreCase)),
                 static row => row.PreviousNarrative,
                 static row => $"{row.Slot}:{row.Title}:{row.Id}")
+            .ToArray();
+
+    private static DocumentationNarrative[] NarrativeSections(MetaDocsModel model, DocumentationSubject subject) =>
+        Narratives(model, subject)
+            .Where(static row =>
+                !string.Equals(row.Slot, "Summary", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(row.Slot, "Example", StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
     private static DocumentationExample[] Examples(MetaDocsModel model, DocumentationSubject subject) =>
@@ -1371,6 +1643,34 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static string Html(string? value) =>
         WebUtility.HtmlEncode(value ?? string.Empty);
+
+    private static string HtmlInline(string? value)
+    {
+        var text = value ?? string.Empty;
+        if (text.Count(static c => c == '`') % 2 != 0)
+        {
+            return Html(text);
+        }
+
+        var builder = new StringBuilder();
+        var code = false;
+        var start = 0;
+        for (var index = 0; index < text.Length; index++)
+        {
+            if (text[index] != '`')
+            {
+                continue;
+            }
+
+            builder.Append(Html(text[start..index]));
+            builder.Append(code ? "</code>" : "<code>");
+            code = !code;
+            start = index + 1;
+        }
+
+        builder.Append(Html(text[start..]));
+        return builder.ToString();
+    }
 
     private static string Attr(string? value) =>
         Html(value).Replace("\"", "&quot;", StringComparison.Ordinal);

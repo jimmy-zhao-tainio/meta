@@ -36,23 +36,36 @@ public static class BulkRelationshipResolver
             throw new InvalidOperationException($"Entity '{operation.EntityName}' does not exist.");
         }
 
-        var relationTargets = entity.Relationships
-            .Select(relationship => relationship.GetColumnName())
-            .Where(value => !string.IsNullOrWhiteSpace(value))
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var relationshipsByName = entity.Relationships
+            .Where(relationship => !string.IsNullOrWhiteSpace(relationship.GetColumnName()))
+            .ToDictionary(
+                relationship => relationship.GetColumnName(),
+                StringComparer.OrdinalIgnoreCase);
 
         foreach (var rowPatch in operation.RowPatches)
         {
             var keys = rowPatch.RelationshipIds.Keys.ToList();
             foreach (var relationName in keys)
             {
-                if (!relationTargets.Contains(relationName))
+                if (!relationshipsByName.TryGetValue(relationName, out var relationship))
                 {
                     throw new InvalidOperationException(
                         $"Entity '{entity.Name}' has no relationship '{relationName}'.");
                 }
 
                 var rawValue = rowPatch.RelationshipIds[relationName];
+                if (string.IsNullOrWhiteSpace(rawValue))
+                {
+                    if (!relationship.IsNullable)
+                    {
+                        throw new InvalidOperationException(
+                            $"Row '{rowPatch.Id}' relationship '{relationName}' is missing required target id.");
+                    }
+
+                    rowPatch.RelationshipIds[relationName] = string.Empty;
+                    continue;
+                }
+
                 var resolved = ResolveRelationshipValue(relationName, rowPatch.Id, rawValue);
                 rowPatch.RelationshipIds[relationName] = resolved;
             }
@@ -64,12 +77,6 @@ public static class BulkRelationshipResolver
         string rowId,
         string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException(
-                $"Row '{rowId}' relationship '{relationName}' is missing required target id.");
-        }
-
         var trimmed = value.Trim();
         if (string.IsNullOrWhiteSpace(trimmed))
         {

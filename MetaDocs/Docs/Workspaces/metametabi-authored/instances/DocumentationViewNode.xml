@@ -9,21 +9,29 @@
       <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta-BI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-overview">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-bi-models" DocumentationSubjectId="public:meta-bi:models" DocumentationViewId="view:default">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-models" DocumentationSubjectId="public:meta-bi:models" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-cli">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>Models</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-overview" DocumentationSubjectId="public:meta-bi:overview" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
+      <Title>Overview</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-overview">
       <ParentNodeId>view:default:node:public-meta</ParentNodeId>
       <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-models" DocumentationSubjectId="public:meta:models" DocumentationViewId="view:default">
+    <DocumentationViewNode Id="view:default:node:public-meta-models" DocumentationSubjectId="public:meta:models" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-cli">
       <ParentNodeId>view:default:node:public-meta</ParentNodeId>
       <Title>Models</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-overview" DocumentationSubjectId="public:meta:overview" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
+      <Title>Overview</Title>
     </DocumentationViewNode>
     <DocumentationViewNode Id="view:default:node:public-reference" DocumentationSubjectId="public:reference" DocumentationViewId="view:default">
       <Title>meta + meta-bi reference</Title>

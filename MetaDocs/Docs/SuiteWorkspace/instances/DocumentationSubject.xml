@@ -7,7 +7,7 @@
       <NativeId>public:meta</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
-      <Summary>Foundation models and tools for authored metadata workspaces.</Summary>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="public:meta-bi" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:reference">
       <DisplayName>Meta-BI</DisplayName>
@@ -15,9 +15,9 @@
       <NativeId>public:meta-bi</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
-      <Summary>BI-side models and tools built on the metadata foundation.</Summary>
+      <Summary>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi">
+    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:overview">
       <DisplayName>CLI</DisplayName>
       <DisplayPath>Reference.Meta-BI.CLI</DisplayPath>
       <NativeId>public:meta-bi:cli</NativeId>
@@ -25,7 +25,7 @@
       <Status>Current</Status>
       <Summary>Command-line tools for BI modeling, conversion, validation, and execution.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi">
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:cli">
       <DisplayName>Models</DisplayName>
       <DisplayPath>Reference.Meta-BI.Models</DisplayPath>
       <NativeId>public:meta-bi:models</NativeId>
@@ -33,7 +33,15 @@
       <Status>Current</Status>
       <Summary>Model references for the sanctioned BI metadata workspaces.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="public:meta:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta">
+    <DocumentationSubject Id="public:meta-bi:overview" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:guide" ParentSubjectId="public:meta-bi">
+      <DisplayName>Overview</DisplayName>
+      <DisplayPath>Reference.Meta-BI.Overview</DisplayPath>
+      <NativeId>public:meta-bi:overview</NativeId>
+      <SourceTypeName>AuthoredPage</SourceTypeName>
+      <Status>Current</Status>
+      <Summary>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="public:meta:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta" PreviousSubjectId="public:meta:overview">
       <DisplayName>CLI</DisplayName>
       <DisplayPath>Reference.Meta.CLI</DisplayPath>
       <NativeId>public:meta:cli</NativeId>
@@ -41,13 +49,21 @@
       <Status>Current</Status>
       <Summary>Command-line tools for the core metadata foundation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="public:meta:models" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta">
+    <DocumentationSubject Id="public:meta:models" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta" PreviousSubjectId="public:meta:cli">
       <DisplayName>Models</DisplayName>
       <DisplayPath>Reference.Meta.Models</DisplayPath>
       <NativeId>public:meta:models</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
       <Summary>Model references for the core metadata foundation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="public:meta:overview" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:guide" ParentSubjectId="public:meta">
+      <DisplayName>Overview</DisplayName>
+      <DisplayPath>Reference.Meta.Overview</DisplayPath>
+      <NativeId>public:meta:overview</NativeId>
+      <SourceTypeName>AuthoredPage</SourceTypeName>
+      <Status>Current</Status>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="public:reference" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referenceroot">
       <DisplayName>meta + meta-bi reference</DisplayName>
@@ -3971,7 +3987,7 @@
       <NativeId>app-meta</NativeId>
       <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create, inspect, and generate typed metadata workspaces from canonical model definitions.</Summary>
+      <Summary>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app">
       <DisplayName>meta bulk-insert</DisplayName>
@@ -5053,6 +5069,27 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
+      <DisplayName>--required</DisplayName>
+      <DisplayPath>meta model add-relationship --required</DisplayPath>
+      <NativeId>option-model-add-relationship-required</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
+      <DisplayName>false</DisplayName>
+      <DisplayPath>meta model add-relationship --required value false</DisplayPath>
+      <NativeId>allowed-bool-false</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false">
+      <DisplayName>true</DisplayName>
+      <DisplayPath>meta model add-relationship --required value true</DisplayPath>
+      <NativeId>allowed-bool-true</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model add-relationship --role</DisplayPath>
@@ -5746,27 +5783,6 @@
       <DisplayPath>meta --workspace</DisplayPath>
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
-      <DisplayName>--required</DisplayName>
-      <DisplayPath>meta model add-relationship --required</DisplayPath>
-      <NativeId>option-model-add-relationship-required</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
-      <DisplayName>false</DisplayName>
-      <DisplayPath>meta model add-relationship --required value false</DisplayPath>
-      <NativeId>allowed-bool-false</NativeId>
-      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false">
-      <DisplayName>true</DisplayName>
-      <DisplayPath>meta model add-relationship --required value true</DisplayPath>
-      <NativeId>allowed-bool-true</NativeId>
-      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-cli:app" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta:cli">

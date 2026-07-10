@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta:workspace-roundtrip:commands" DocumentationExampleSectionId="example:meta:workspace-roundtrip:overview">
+      <Code>meta init .\Workspace
+cd .\Workspace
+meta model rename-model MetadataModel WorkspaceCatalog
+meta model add-entity System
+meta model add-property System SystemName --required true
+meta insert System 1 --set "SystemName=Enterprise Analytics Platform"
+meta status
+meta generate sql --out ..\out\sql
+meta generate csharp --out ..\out\csharp --tooling</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:xml-sql-csharp-sample:csharp-code" DocumentationExampleSectionId="example:meta:xml-sql-csharp-sample:csharp">
+      <Code>using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}</Code>
+      <Language>csharp</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:xml-sql-csharp-sample:instances-code" DocumentationExampleSectionId="example:meta:xml-sql-csharp-sample:instances">
+      <Code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;EnterpriseBIPlatform&gt;
+  &lt;CubeList&gt;
+    &lt;Cube Id="1"&gt;
+      &lt;CubeName&gt;Sales Performance&lt;/CubeName&gt;
+      &lt;Purpose&gt;Monthly revenue and margin tracking.&lt;/Purpose&gt;
+      &lt;RefreshMode&gt;Scheduled&lt;/RefreshMode&gt;
+    &lt;/Cube&gt;
+  &lt;/CubeList&gt;
+
+  &lt;MeasureList&gt;
+    &lt;Measure Id="1" CubeId="1"&gt;
+      &lt;MeasureName&gt;Sales Amount&lt;/MeasureName&gt;
+      &lt;MDX&gt;[Measures].[Sales Amount]&lt;/MDX&gt;
+    &lt;/Measure&gt;
+  &lt;/MeasureList&gt;
+
+  &lt;SystemTypeList&gt;
+    &lt;SystemType Id="1"&gt;
+      &lt;TypeName&gt;Internal&lt;/TypeName&gt;
+    &lt;/SystemType&gt;
+  &lt;/SystemTypeList&gt;
+
+  &lt;SystemList&gt;
+    &lt;System Id="1" SystemTypeId="1"&gt;
+      &lt;SystemName&gt;Enterprise Analytics Platform&lt;/SystemName&gt;
+      &lt;Version&gt;2.1&lt;/Version&gt;
+    &lt;/System&gt;
+  &lt;/SystemList&gt;
+
+  &lt;SystemCubeList&gt;
+    &lt;SystemCube Id="1" CubeId="1" SystemId="1"&gt;
+      &lt;ProcessingMode&gt;InMemory&lt;/ProcessingMode&gt;
+    &lt;/SystemCube&gt;
+  &lt;/SystemCubeList&gt;
+&lt;/EnterpriseBIPlatform&gt;</Code>
+      <Language>xml</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:xml-sql-csharp-sample:model-code" DocumentationExampleSectionId="example:meta:xml-sql-csharp-sample:model">
+      <Code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Model name="EnterpriseBIPlatform"&gt;
+  &lt;EntityList&gt;
+    &lt;Entity name="Cube"&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name="CubeName" /&gt;
+        &lt;Property name="Purpose" isRequired="false" /&gt;
+        &lt;Property name="RefreshMode" isRequired="false" /&gt;
+      &lt;/PropertyList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name="Measure"&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name="MeasureName" /&gt;
+        &lt;Property name="MDX" isRequired="false" /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity="Cube" /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name="SystemType"&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name="TypeName" /&gt;
+      &lt;/PropertyList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name="System"&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name="SystemName" /&gt;
+        &lt;Property name="Version" isRequired="false" /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity="SystemType" /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+
+    &lt;Entity name="SystemCube"&gt;
+      &lt;PropertyList&gt;
+        &lt;Property name="ProcessingMode" isRequired="false" /&gt;
+      &lt;/PropertyList&gt;
+      &lt;RelationshipList&gt;
+        &lt;Relationship entity="Cube" /&gt;
+        &lt;Relationship entity="System" /&gt;
+      &lt;/RelationshipList&gt;
+    &lt;/Entity&gt;
+  &lt;/EntityList&gt;
+&lt;/Model&gt;</Code>
+      <Language>xml</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:xml-sql-csharp-sample:sql-code" DocumentationExampleSectionId="example:meta:xml-sql-csharp-sample:sql">
+      <Code>CREATE TABLE [dbo].[Cube] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [CubeName] NVARCHAR(MAX) NOT NULL,
+  [Purpose] NVARCHAR(MAX) NULL,
+  [RefreshMode] NVARCHAR(MAX) NULL
+);
+
+CREATE TABLE [dbo].[Measure] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [MeasureName] NVARCHAR(MAX) NOT NULL,
+  [MDX] NVARCHAR(MAX) NULL,
+  [CubeId] INT NOT NULL
+);
+
+CREATE TABLE [dbo].[SystemType] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [TypeName] NVARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE [dbo].[System] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [SystemName] NVARCHAR(MAX) NOT NULL,
+  [Version] NVARCHAR(MAX) NULL,
+  [SystemTypeId] INT NOT NULL
+);
+
+CREATE TABLE [dbo].[SystemCube] (
+  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  [ProcessingMode] NVARCHAR(MAX) NULL,
+  [CubeId] INT NOT NULL,
+  [SystemId] INT NOT NULL
+);
+
+ALTER TABLE [dbo].[Measure]
+ADD CONSTRAINT [FK_Measure_Cube_CubeId]
+FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
+
+ALTER TABLE [dbo].[System]
+ADD CONSTRAINT [FK_System_SystemType_SystemTypeId]
+FOREIGN KEY ([SystemTypeId]) REFERENCES [dbo].[SystemType]([Id]);
+
+ALTER TABLE [dbo].[SystemCube]
+ADD CONSTRAINT [FK_SystemCube_Cube_CubeId]
+FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
+
+ALTER TABLE [dbo].[SystemCube]
+ADD CONSTRAINT [FK_SystemCube_System_SystemId]
+FOREIGN KEY ([SystemId]) REFERENCES [dbo].[System]([Id]);</Code>
+      <Language>sql</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

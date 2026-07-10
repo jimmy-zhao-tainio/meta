@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationExampleSectionList>
+    <DocumentationExampleSection Id="example:meta:generate-csharp-surfaces:consumer" DocumentationExampleId="example:meta:generate-csharp-surfaces">
+      <Body>Generate dependency-free consumer POCOs for read-only application use, or include the tooling surface when a CLI, service, or generator needs to load a workspace and work with a typed model object.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta:generate-csharp-surfaces:tooling" DocumentationExampleId="example:meta:generate-csharp-surfaces" PreviousSectionId="example:meta:generate-csharp-surfaces:consumer">
+      <Body>The tooling view loads the workspace XML into a fully populated typed model. Use it for generators and command-line tools that need to inspect or mutate workspaces through generated C# classes.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Title>Optional tooling surface</Title>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta:generate-csharp-tooling:overview" DocumentationExampleId="example:meta:generate-csharp-tooling">
+      <Body>Use the tooling form when another CLI, service, or generator needs to load a workspace and work with strongly typed model objects.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta:generate-sql-consumables:overview" DocumentationExampleId="example:meta:generate-sql-consumables">
+      <Body>Generate SQL consumables when the next stage wants relational DDL, foreign keys, and repeatable data scripts rather than XML workspace files.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta:instance-diff-merge:overview" DocumentationExampleId="example:meta:instance-diff-merge">
+      <Body>Use instance diff when two branches or workspaces evolved independently and you want a deterministic artifact describing the right-hand workspace changes.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
     <DocumentationExampleSection Id="example:meta:model-suggest-promote-relationships:overview" DocumentationExampleId="example:meta:model-suggest-promote-relationships">
       <Body>After landing CSV files as scalar Id fields, inspect deterministic relationship suggestions and promote exact Id-to-Id references into modeled relationships.</Body>
       <BodyFormat>PlainText</BodyFormat>

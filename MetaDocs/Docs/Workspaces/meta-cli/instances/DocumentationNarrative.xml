@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationNarrativeList>
+    <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:idpolicy:bulk-landing-identity" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert" PreviousNarrativeId="source:cli:meta:app:command:bulk-insert:narrative:summary:summary">
+      <Body>Bulk import follows the same identity discipline as single-row insert and CSV import: row identity is explicit, stable, and part of the workspace semantics.
+
+When importing flat files, keep source identifiers as stable `Id` values or scalar `...Id` landing fields first. Relationship promotion should happen after the landed workspace has complete referential-integrity evidence.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>IdPolicy</Slot>
+      <Title>Bulk landing identity</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert">
       <Body>Insert many instances from tsv/csv input.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -198,11 +208,24 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-csharp:narrative:generatedsurface:generated-c-surfaces" DocumentationSubjectId="source:cli:meta:app:command:generate-csharp" PreviousNarrativeId="source:cli:meta:app:command:generate-csharp:narrative:summary:summary">
+      <Body>`meta generate csharp` emits dependency-free consumer types in a namespace that matches the model name (for example `namespace EnterpriseBIPlatform`):
+
+- `&lt;ModelName&gt;.cs` (static model facade with a built-in instantiated snapshot, e.g. `EnterpriseBIPlatform`)
+- `&lt;Entity&gt;.cs` (one file per entity, POCOs)
+
+If you also run `meta generate csharp --tooling`, `meta` emits a typed loaded model plus `&lt;ModelName&gt;.Tooling.cs` in the same model-name namespace. This tooling path is for workspace-backed runtime use; it does not emit the static built-in facade used by the dependency-free consumer path.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>GeneratedSurface</Slot>
+      <Title>Generated C# surfaces</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:generate-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:generate-csharp">
-      <Body>Generate C# artifacts.</Body>
+      <Body>Emit dependency-free POCOs and optional workspace tooling classes from the current model and instance graph.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
@@ -239,11 +262,23 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:generate-sql:narrative:generatedsurface:generated-sql-consumables" DocumentationSubjectId="source:cli:meta:app:command:generate-sql" PreviousNarrativeId="source:cli:meta:app:command:generate-sql:narrative:summary:summary">
+      <Body>`meta generate sql` emits `schema.sql` and `data.sql` as deterministic SQL consumables.
+
+The generated schema represents entities as tables, implicit `Id` values as primary keys, scalar properties as nullable or non-nullable columns, and required relationships as foreign-key columns plus constraints. The generated data script inserts the workspace instance rows in deterministic order.
+
+This gives the same model and instance graph a database-native surface for inspection, interchange, and validation at scale.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>GeneratedSurface</Slot>
+      <Title>Generated SQL consumables</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:generate-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:generate-sql">
-      <Body>Generate SQL artifacts.</Body>
+      <Body>Emit deterministic SQL DDL and data scripts from the workspace so the same model can be inspected and loaded through a database-native surface.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
@@ -404,6 +439,18 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:idfirstlanding:id-first-csv-landing" DocumentationSubjectId="source:cli:meta:app:command:import-csv" PreviousNarrativeId="source:cli:meta:app:command:import-csv:narrative:summary:summary">
+      <Body>`meta import csv` is Id-first: the file must contain a column named `Id` (case-insensitive header match).
+
+On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Entity containers are always `&lt;EntityName&gt;List`. There is no alternate id-column mapping and no best-effort reconciliation.
+
+Scalar landing fields that point at other entities should stay as `...Id` until promoted with `meta model suggest` and `meta model refactor property-to-relationship`.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>IdFirstLanding</Slot>
+      <Title>Id-first CSV landing</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:import-csv">
       <Body>Import CSV data into a workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -511,6 +558,18 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:idpolicy:row-identity" DocumentationSubjectId="source:cli:meta:app:command:insert" PreviousNarrativeId="source:cli:meta:app:command:insert:narrative:summary:summary">
+      <Body>Row `Id` values are stable strings; they do not need to be numeric.
+
+Use explicit stable `Id` values whenever the source system already has identity. `--auto-id` is only for creating brand-new rows when no external identity exists.
+
+Refactors, diff, and merge preserve row identities. They rewrite fields and relationships; they do not remap existing rows.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>IdPolicy</Slot>
+      <Title>Row identity</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:insert">
       <Body>Insert one instance.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -577,11 +636,56 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:mechanics:what-instance-diff-does" DocumentationSubjectId="source:cli:meta:app:command:instance-diff" PreviousNarrativeId="source:cli:meta:app:command:instance-diff:narrative:summary:summary">
+      <Body>Workspaces evolve independently on different branches. `meta instance diff` and `meta instance merge` are deterministic synchronization primitives for instance data:
+
+- `diff` produces a structured change artifact from Left -&gt; Right.
+- `merge` applies that artifact to a target workspace with strict validation.
+
+This is not a text diff. It is a semantic diff over entity rows, scalar values, and relationship usages.
+
+Inputs:
+
+- Left workspace
+- Right workspace
+
+Output:
+
+- a deterministic diff workspace artifact (default sibling path: `&lt;RightWorkspace&gt;.instance-diff`)
+
+Mechanics:
+
+- requires byte-identical `model.xml` for equal-model diff.
+- compares row identity by entity + `Id`.
+- compares scalar property values.
+- compares relationship usage values (`...Id` attributes).
+- compares row presence/absence.
+
+Conceptual change classes captured by the artifact:
+
+- added rows (present in Right, absent in Left)
+- removed rows (present in Left, absent in Right)
+- updated scalar values on shared rows
+- updated relationship references on shared rows
+
+Determinism guarantees:
+
+- canonical ordering/normalization is applied before writing the diff artifact.
+- entity/property traversal and row comparisons are stable.
+- same inputs produce the same logical diff artifact.
+
+The artifact is a structured description of how to transform Left into Right.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Mechanics</Slot>
+      <Title>What instance diff does</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-diff">
-      <Body>Diff instance data for two workspaces with byte-identical model.xml.</Body>
+      <Body>Compare two workspaces with the same model and write a structured change artifact over rows, scalar values, and relationship usages.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
@@ -627,14 +731,102 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:boundary:what-this-is-not" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:integrity:referential-integrity-and-row-identity">
+      <Body>`meta instance diff` and `meta instance merge` are not:
+
+- text merge tools.
+- automatic conflict resolution.
+- model/schema merge.
+- record matching by business key.
+- best-effort partial reconciliation.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Boundary</Slot>
+      <Title>What this is not</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:integrity:referential-integrity-and-row-identity" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:mechanics:what-instance-merge-does">
+      <Body>Merge is strict. It fails rather than writing invalid state.
+
+- required relationship usage missing -&gt; validation failure.
+- relationship target row missing -&gt; validation failure.
+- deleting rows that remain referenced -&gt; validation failure.
+- relationship updates are applied as part of the snapshot and validated with the whole workspace.
+
+Operation ordering is snapshot-based: merge builds the target end state in memory, validates, then saves. It does not persist partial intermediate steps.
+
+Rows are matched by identity (`Entity`, `Id`), not by value similarity.
+
+- identity stability is assumed.
+- no fuzzy matching.
+- no business-key reconciliation.
+- if a target workspace has drifted so that an incoming `Id` would collide with different state, merge fails its precondition instead of remapping or guessing.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Integrity</Slot>
+      <Title>Referential integrity and row identity</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:mechanics:what-instance-merge-does" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:summary:summary">
+      <Body>Inputs:
+
+- target workspace
+- diff artifact workspace (from `meta instance diff`)
+
+Operation:
+
+- verifies precondition: target must match the diff Left snapshot.
+- applies the diff Right snapshot to the target in memory.
+- normalizes and validates the resulting workspace.
+- persists once only if validation/postconditions pass.
+
+Atomicity and safety:
+
+- all changes are applied or none are persisted.
+- any failure restores pre-merge in-memory state and aborts.
+- save is a single workspace write operation after successful validation.
+- rows created by merge keep the `Id` values recorded in the diff artifact.
+- merge never allocates replacement ids or remaps existing ids.
+
+Determinism:
+
+- same target + same diff artifact -&gt; same resulting workspace state.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Mechanics</Slot>
+      <Title>What instance merge does</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-merge">
-      <Body>Apply an equal-model instance diff artifact to a target workspace.</Body>
+      <Body>Apply a structured instance diff to a target workspace only when its precondition still matches, so workspace changes synchronize without text merges.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:typicalworkflow:typical-diff-merge-workflow" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:boundary:what-this-is-not">
+      <Body>Example flow with two independently evolved workspaces:
+
+1. baseline/integration workspace is your Left reference.
+2. feature workspace with intended changes is your Right reference.
+3. generate diff from Left -&gt; Right.
+4. apply diff into integration target (which must still match Left snapshot).
+
+`meta instance diff .\WorkspaceA .\WorkspaceB`
+`meta instance merge .\WorkspaceA .\WorkspaceB.instance-diff`
+
+If merge precondition fails, regenerate diff against the current target baseline.
+
+`model refactor property-to-relationship` changes instance structure (scalar values moved to required relationship usages). Diff/merge captures and replays those instance-level structural value changes when both sides share the same model contract.
+
+For model-contract drift between workspaces, use the aligned diff/merge path (`instance diff-aligned` / `instance merge-aligned`) with explicit alignment mappings.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>TypicalWorkflow</Slot>
+      <Title>Typical diff/merge workflow</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:option:strict:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-merge:option:strict">
       <BodyFormat>PlainText</BodyFormat>
@@ -927,6 +1119,14 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:option:required:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>NeedsAuthoring</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:option:role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship:option:role">
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
@@ -1026,6 +1226,18 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:atomicrefactor:atomic-relationship-promotion" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:summary">
+      <Body>`meta model refactor property-to-relationship` performs an atomic model+instance rewrite from a scalar property to a required relationship.
+
+The source property is dropped by default after the relationship usage is created. Use `--preserve-property` only when the scalar field name will not collide with the implied relationship usage name.
+
+The command preserves row identities and rewrites each affected instance from scalar `...Id` data to relationship usage data. If the workspace cannot be rewritten and validated as one complete end state, the mutation does not persist.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>AtomicRefactor</Slot>
+      <Title>Atomic relationship promotion</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship">
       <Body>Convert a property into a relationship.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -1090,6 +1302,16 @@
       <ReviewStatus>NeedsAuthoring</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:atomicrefactor:atomic-relationship-demotion" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:summary">
+      <Body>`meta model refactor relationship-to-property` performs the reverse structural rewrite: a required relationship usage becomes a scalar Id property.
+
+The command preserves row identities and rewrites fields, not records. It is useful when a relationship should be flattened for interchange or when a model contract needs to move a reference back to scalar data.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>AtomicRefactor</Slot>
+      <Title>Atomic relationship demotion</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property">
       <Body>Convert a relationship into a property.</Body>
@@ -1298,13 +1520,34 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-suggest">
-      <Body>Suggest model improvements.</Body>
+      <Body>Inspect landed scalar Id fields and print only relationship promotions with complete referential-integrity evidence.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:narrative:workflow:csv-import-suggest-refactor" DocumentationSubjectId="source:cli:meta:app:command:model-suggest" PreviousNarrativeId="source:cli:meta:app:command:model-suggest:narrative:summary:summary">
+      <Body>This is the intended landing workflow: import flat CSVs with stable row Ids, run suggest, then apply an atomic model+instance refactor.
+
+`meta model suggest` is structural and deterministic. It prints strong exact-name relationship promotions by default and prints weak suggestions separately when RI is still complete but the target is only a role-style suffix match or the same source property matches more than one eligible target.
+
+Eligible means the promotion satisfies 100% referential integrity (RI) before any mutation:
+
+- source lands first as a scalar `...Id` field (for example `WarehouseId`)
+- target lookup property is complete and unambiguous (no null/blank values, no duplicates)
+- source property is complete (no null/blank values)
+- every source value resolves to an existing target lookup value (full coverage, no unmatched values)
+- source and target scalar types are compatible under strict rules (no implicit casting)
+- source values are reused, so the source behaves like a reference and the direction is structurally evidenced as many-to-one
+
+For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product.Id`, `SupplierId -&gt; Supplier.Id`, and so on. `meta model suggest` does not rely on `Code` fields for this workflow. If any rule fails, the item is not printed.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Workflow</Slot>
+      <Title>CSV import -&gt; suggest -&gt; refactor</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:option:explain:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-suggest:option:explain">
       <BodyFormat>PlainText</BodyFormat>
@@ -1512,10 +1755,10 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app">
-      <Body>Create, inspect, and generate typed metadata workspaces from canonical model definitions.</Body>
+      <Body>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</Body>
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
+      <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
@@ -1529,14 +1772,6 @@
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:option:workspace">
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>NeedsAuthoring</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:model-add-relationship:option:required:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
       <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta:batch:20260709121150011</LastReviewedImportBatchId>
       <Origin>Generated</Origin>

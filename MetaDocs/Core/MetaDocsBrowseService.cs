@@ -18,8 +18,18 @@ public sealed class MetaDocsBrowseService
         {
             "cli" => BrowseCli(model, segments),
             "model" or "models" => BrowseModel(model, segments),
-            _ => Failure(FormatUnknownRoot(segments[0])),
+            _ => BrowsePage(model, segments),
         };
+    }
+
+    private static MetaDocsBrowseResult BrowsePage(MetaDocsModel model, IReadOnlyList<string> segments)
+    {
+        var route = string.Join("/", segments);
+        var page = Pages(model)
+            .FirstOrDefault(subject => PageRouteEquals(model, subject, route));
+        return page is null
+            ? Failure(FormatUnknownRoot(model, route))
+            : Success(FormatPage(model, page));
     }
 
     private static MetaDocsBrowseResult BrowseCli(MetaDocsModel model, IReadOnlyList<string> segments)
@@ -92,6 +102,11 @@ public sealed class MetaDocsBrowseService
         builder.AppendLine(WorkspaceDescription(model));
         builder.AppendLine();
         builder.AppendLine("Browse:");
+        foreach (var page in Pages(model))
+        {
+            builder.AppendLine($"  {PageLabel(model, page)}  meta-docs browse {PagePath(model, page)}");
+        }
+
         builder.AppendLine("  CLI tools  meta-docs browse cli");
         builder.AppendLine("  Models     meta-docs browse model");
         builder.AppendLine();
@@ -109,6 +124,27 @@ public sealed class MetaDocsBrowseService
             }
         }
 
+        return builder.ToString().TrimEnd();
+    }
+
+    private static string FormatPage(MetaDocsModel model, DocumentationSubject page)
+    {
+        var builder = new StringBuilder();
+        var description = Description(model, page);
+        if (!string.IsNullOrWhiteSpace(description))
+        {
+            builder.AppendLine(description);
+        }
+
+        AppendNarratives(builder, model, page);
+        AppendExamples(builder, model, page);
+
+        AppendSectionBreak(builder);
+        builder.AppendLine("Up:");
+        builder.AppendLine("  meta-docs browse");
+        builder.AppendLine();
+        builder.AppendLine("Search:");
+        builder.AppendLine($"  meta-docs search {page.DisplayName}");
         return builder.ToString().TrimEnd();
     }
 
@@ -152,7 +188,7 @@ public sealed class MetaDocsBrowseService
             builder.AppendLine(description);
         }
 
-        AppendExamples(builder, model, app);
+        AppendNarratives(builder, model, app);
 
         if (commands.Length == 0)
         {
@@ -169,6 +205,8 @@ public sealed class MetaDocsBrowseService
                 AppendItem(builder, route, Description(model, command), $"meta-docs browse {CliCommandPath(model, app, command)}", 1);
             }
         }
+
+        AppendExamples(builder, model, app);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -199,6 +237,8 @@ public sealed class MetaDocsBrowseService
         {
             builder.AppendLine(description);
         }
+
+        AppendNarratives(builder, model, command);
 
         if (usages.Length != 0)
         {
@@ -281,7 +321,7 @@ public sealed class MetaDocsBrowseService
             builder.AppendLine(description);
         }
 
-        AppendExamples(builder, model, modelSubject);
+        AppendNarratives(builder, model, modelSubject);
 
         if (entities.Length == 0)
         {
@@ -297,6 +337,8 @@ public sealed class MetaDocsBrowseService
                 AppendItem(builder, entity.DisplayName, NonPlaceholderDescription(model, entity), $"meta-docs browse {EntityPath(modelSubject, entity)}", 1);
             }
         }
+
+        AppendExamples(builder, model, modelSubject);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -321,6 +363,7 @@ public sealed class MetaDocsBrowseService
             builder.AppendLine(description);
         }
 
+        AppendNarratives(builder, model, entity);
         AppendExamples(builder, model, entity);
 
         if (properties.Length != 0)
@@ -367,13 +410,18 @@ public sealed class MetaDocsBrowseService
         return builder.ToString().TrimEnd();
     }
 
-    private static string FormatUnknownRoot(string segment)
+    private static string FormatUnknownRoot(MetaDocsModel model, string segment)
     {
         var builder = new StringBuilder();
         builder.AppendLine($"Could not browse '{segment}'.");
         builder.AppendLine();
         builder.AppendLine("Browse from the top:");
         builder.AppendLine("  meta-docs browse");
+        foreach (var page in Pages(model))
+        {
+            builder.AppendLine($"  meta-docs browse {PagePath(model, page)}");
+        }
+
         builder.AppendLine("  meta-docs browse cli");
         builder.AppendLine("  meta-docs browse model");
         return builder.ToString().TrimEnd();
@@ -544,6 +592,23 @@ public sealed class MetaDocsBrowseService
         }
     }
 
+    private static void AppendNarratives(StringBuilder builder, MetaDocsModel model, DocumentationSubject subject)
+    {
+        var narratives = NarrativeSections(model, subject);
+        if (narratives.Length == 0)
+        {
+            return;
+        }
+
+        AppendSectionBreak(builder);
+        builder.AppendLine("Descriptions:");
+        foreach (var narrative in narratives)
+        {
+            builder.AppendLine($"  {FirstNonEmpty(narrative.Title, narrative.Slot, "Description")}");
+            AppendIndentedLines(builder, narrative.Body!, 4);
+        }
+    }
+
     private static void AppendIndentedLines(StringBuilder builder, string value, int spaces)
     {
         var prefix = new string(' ', spaces);
@@ -593,6 +658,37 @@ public sealed class MetaDocsBrowseService
         CurrentSubjects(model)
             .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Model"))
             .OrderBy(static subject => subject.DisplayName, StringComparer.OrdinalIgnoreCase);
+
+    private static IEnumerable<DocumentationSubject> Pages(MetaDocsModel model)
+    {
+        var root = ViewRoot(model);
+        if (root is null)
+        {
+            return CurrentSubjects(model)
+                .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Guide"))
+                .OrderBy(static subject => FirstNonEmpty(subject.DisplayPath, subject.DisplayName, subject.Id), StringComparer.OrdinalIgnoreCase);
+        }
+
+        return Descendants(root)
+            .Where(subject => MetaDocsVocabulary.IsSubjectType(subject, "Guide"));
+
+        IEnumerable<DocumentationSubject> Descendants(DocumentationSubject parent)
+        {
+            var children = CurrentSubjects(model)
+                .Where(subject => string.Equals(subject.ParentSubject?.Id, parent.Id, StringComparison.OrdinalIgnoreCase));
+            foreach (var child in MetaDocsOrdering.ByPrevious(
+                         children,
+                         static subject => subject.PreviousSubject,
+                         static subject => FirstNonEmpty(subject.DisplayPath, subject.DisplayName, subject.Id)))
+            {
+                yield return child;
+                foreach (var descendant in Descendants(child))
+                {
+                    yield return descendant;
+                }
+            }
+        }
+    }
 
     private static IEnumerable<DocumentationSubject> EntityChildren(MetaDocsModel model, DocumentationSubject modelSubject) =>
         Children(model, modelSubject, "Entity");
@@ -724,6 +820,11 @@ public sealed class MetaDocsBrowseService
 
     private static IEnumerable<string> UsefulStarts(MetaDocsModel model)
     {
+        foreach (var page in Pages(model))
+        {
+            yield return $"meta-docs browse {PagePath(model, page)}";
+        }
+
         foreach (var appName in new[] { "meta-docs", "meta-sql", "meta-mesh" })
         {
             var app = CliApplications(model).FirstOrDefault(subject => string.Equals(subject.DisplayName, appName, StringComparison.OrdinalIgnoreCase));
@@ -751,6 +852,12 @@ public sealed class MetaDocsBrowseService
                string.Equals(subject.Id, normalized, StringComparison.OrdinalIgnoreCase);
     }
 
+    private static bool PageRouteEquals(MetaDocsModel model, DocumentationSubject subject, string route) =>
+        string.Equals(
+            PagePath(model, subject),
+            NormalizePageRoute(route),
+            StringComparison.OrdinalIgnoreCase);
+
     private static bool CommandRouteEquals(MetaDocsModel model, DocumentationSubject app, DocumentationSubject command, string route)
     {
         var normalized = route.Trim();
@@ -774,11 +881,24 @@ public sealed class MetaDocsBrowseService
         FirstNonEmpty(
             model.DocumentationNarrativeList
                 .Where(IsCurrent)
-                .Where(narrative => ReferenceEquals(narrative.DocumentationSubject, subject))
+                .Where(narrative => string.Equals(narrative.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
                 .Where(narrative => string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase))
                 .Select(static narrative => narrative.Body)
                 .FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)),
             subject.Summary);
+
+    private static DocumentationNarrative[] NarrativeSections(MetaDocsModel model, DocumentationSubject subject) =>
+        MetaDocsOrdering.ByPrevious(
+                model.DocumentationNarrativeList
+                    .Where(IsCurrent)
+                    .Where(narrative => string.Equals(narrative.DocumentationSubject?.Id, subject.Id, StringComparison.OrdinalIgnoreCase))
+                    .Where(narrative => !string.IsNullOrWhiteSpace(narrative.Body))
+                    .Where(narrative =>
+                        !string.Equals(narrative.Slot, "Summary", StringComparison.OrdinalIgnoreCase) &&
+                        !string.Equals(narrative.Slot, "Example", StringComparison.OrdinalIgnoreCase)),
+                static narrative => narrative.PreviousNarrative,
+                static narrative => $"{narrative.Slot}:{narrative.Title}:{narrative.Id}")
+            .ToArray();
 
     private static string NonPlaceholderDescription(MetaDocsModel model, DocumentationSubject subject)
     {
@@ -819,8 +939,48 @@ public sealed class MetaDocsBrowseService
     private static string ModelPath(DocumentationSubject model) =>
         "model/" + model.DisplayName;
 
+    private static string PagePath(MetaDocsModel model, DocumentationSubject page)
+    {
+        var root = ViewRoot(model);
+        var segments = new Stack<string>();
+        DocumentationSubject? current = page;
+        while (current is not null &&
+               !string.Equals(current.Id, root?.Id, StringComparison.OrdinalIgnoreCase))
+        {
+            segments.Push(MetaDocsImportSession.NormalizeKey(FirstNonEmpty(current.DisplayName, current.NativeId, current.Id)));
+            current = current.ParentSubject;
+        }
+
+        return string.Join("/", segments);
+    }
+
+    private static string PageLabel(MetaDocsModel model, DocumentationSubject page)
+    {
+        var root = ViewRoot(model);
+        var segments = new Stack<string>();
+        DocumentationSubject? current = page;
+        while (current is not null &&
+               !string.Equals(current.Id, root?.Id, StringComparison.OrdinalIgnoreCase))
+        {
+            segments.Push(FirstNonEmpty(current.DisplayName, current.NativeId, current.Id));
+            current = current.ParentSubject;
+        }
+
+        return string.Join(" ", segments);
+    }
+
+    private static string NormalizePageRoute(string route) =>
+        string.Join(
+            "/",
+            NormalizePath(route).Select(MetaDocsImportSession.NormalizeKey));
+
     private static string EntityPath(DocumentationSubject model, DocumentationSubject entity) =>
         ModelPath(model) + "/" + entity.DisplayName;
+
+    private static DocumentationSubject? ViewRoot(MetaDocsModel model) =>
+        model.DocumentationViewList
+            .Select(static view => view.RootSubject)
+            .FirstOrDefault(static subject => subject is not null);
 
     private static IEnumerable<DocumentationSubject> CurrentSubjects(MetaDocsModel model) =>
         model.DocumentationSubjectList.Where(IsCurrent);

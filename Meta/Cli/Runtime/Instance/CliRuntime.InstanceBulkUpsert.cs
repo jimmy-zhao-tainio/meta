@@ -105,7 +105,7 @@ internal sealed partial class CliRuntime
 
                 if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
                 {
-                    patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value, relationshipUsageName);
+                    patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
                     continue;
                 }
 
