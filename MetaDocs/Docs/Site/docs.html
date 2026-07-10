@@ -592,6 +592,14 @@ foreach (var measure in model.MeasureList)
             <h2>meta</h2>
             <p class="panel-lead">Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with meta</h3>
+            <div class="markdown-content">
+<p>Meta is the foundation tool for creating, evolving, inspecting, and projecting typed metadata workspaces. A workspace declares a model and its instance graph once, then makes that same structure available as deterministic XML, relational SQL, and typed C# without changing its meaning.</p>
+<p>The CLI owns the everyday lifecycle: initialize a workspace, inspect its model and rows, make intentional edits, import a source surface, and generate a consumable representation. Model refactors rewrite the corresponding instance structure atomically, while structured diff and merge preserve stable row identities so workspace evolution can participate in normal code review and branch workflows.</p>
+<p>The result is a durable model boundary. A database, generator, service, or analytical tool can consume a natural representation for its environment while staying connected to the same declared entities, properties, relationships, and data.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -2986,6 +2994,14 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
             <h2>meta-cli</h2>
             <p class="panel-lead">Author CLI command surfaces that drive shared parsing, help, and runtime binding for meta tools.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaCli</h3>
+            <div class="markdown-content">
+<p>MetaCli is the modeled command-surface language used by the meta tools. An authored workspace describes an application, its command hierarchy, executable commands, parameters, option tokens, positional arguments, value shapes, allowed values, and parameter choices as ordinary model data.</p>
+<p>That workspace is the source for shared parsing, help generation, runtime invocation, and documentation import. A command handler binds to an executable-command identity, while the runtime resolves modeled arguments and supplies the resulting invocation. Help and usage therefore come from the same surface that the parser accepts, rather than from a separate handwritten catalog.</p>
+<p>The authoring CLI is intentionally precise. It makes the public grammar visible before behavior is attached, so a tool can be reviewed as a command-line product in its own right and then reused consistently by people, agents, documentation, and runtime code.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -4059,6 +4075,14 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
             <h2>meta-docs</h2>
             <p class="panel-lead">Author, browse, merge, validate, and render modeled documentation workspaces for the meta and meta-bi suite.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaDocs</h3>
+            <div class="markdown-content">
+<p>MetaDocs keeps generated reference facts and authored technical explanation in the same modeled documentation workspace. Each CLI contributes its MetaCli command surface, each product model contributes structural facts, and authored descriptions and structured examples explain the decisions that the generated facts cannot express.</p>
+<p>Source documentation workspaces remain independent. They can be refreshed from their CLI or model source without overwriting authored prose, then merged into a suite workspace that represents the complete reference. The rendered site is a projection of that suite; it can be discarded and rebuilt at any time.</p>
+<p>This gives the documentation a real lifecycle. Browse and search operate on the modeled reference, while update-description and the example commands author the public technical guide directly where it will be preserved across imports and regeneration.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -5239,6 +5263,14 @@ meta-docs search deploy</code></pre>
             <h2>meta-mesh</h2>
             <p class="panel-lead">Define repository workflows as declared workspaces and executable operation steps, then validate and run them from a model.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaMesh</h3>
+            <div class="markdown-content">
+<p>MetaMesh turns a repository routine into a named, inspectable operation. A mesh lists the workspaces that participate and each operation records the executable steps that should occur, in order. Engineers and agents can inspect the same workspace that is later validated and run.</p>
+<p>Workspace tokens make a step portable across a repository, while environment tokens make external configuration explicit. Before execution begins, MetaMesh resolves every declared workspace, executable, working directory, write requirement, and environment value. That full preflight gives an operation a clear prepared state before it starts changing anything.</p>
+<p>The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -5819,6 +5851,14 @@ meta-mesh run --operation regenerate-public-docs</code></pre>
             <h2>meta-weave</h2>
             <p class="panel-lead">Map one modeled workspace shape into another with explicit source, target, and field-level rules.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaWeave</h3>
+            <div class="markdown-content">
+<p>MetaWeave makes cross-model references explicit without distorting either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a scalar source value resolves to a target identity.</p>
+<p>This lets source models retain their natural XML, SQL, and C# shape while the cross-model contract is visible, reviewable, and validated in one place. Evidence-backed suggestions help discover strong candidates, but the persisted binding remains an intentional modeled decision. Validation proves that every declared source value resolves through the binding it claims to use.</p>
+<p>A valid weave can materialize a composed workspace when a consumer needs one model boundary. The weave itself remains the durable explanation of why that composition is correct and which source fields establish each cross-model link.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -10661,6 +10701,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-analytics</h2>
             <p class="panel-lead">Author shared analytics semantics for dimensions, hierarchies, measures, facts, and security across semantic model targets.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaAnalytics</h3>
+            <div class="markdown-content">
+<p>MetaAnalytics is the portable semantic model of the BI stack. It describes data sources, tables, attributes, hierarchies, measures, facts, relationships, and security in a target-neutral form that architects and analysts can review before an analytical engine is chosen.</p>
+<p>Analytical intent is explicit. A measure has a source and aggregation behavior, a hierarchy has a declared path, a table has a modeled purpose, and security belongs to the semantic model rather than being appended to a generated target. The result is a compact but expressive description of how the business should explore and calculate over the warehouse.</p>
+<p>MetaConvert can project the same semantic contract into Tabular or MultiDimensional workspaces. Those target models add platform-specific capabilities while retaining the analytical design that the team agreed on here.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -12621,6 +12669,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-convert</h2>
             <p class="panel-lead">Convert between sanctioned BI workspaces, including schema, vault, warehouse, SQL, transform, analytics, tabular, and multidimensional models.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaConvert</h3>
+            <div class="markdown-content">
+<p>MetaConvert is the projection boundary between sanctioned BI workspaces. It carries an explicit source design into the next representation: source schema into raw vault, vault or warehouse into deployable SQL, quality evidence into SQL assets, or portable analytics into Tabular and MultiDimensional targets.</p>
+<p>Every conversion starts from modeled inputs and produces a modeled output. Where a physical implementation or deployment policy is needed, that workspace is passed explicitly, keeping logical intent separate from target-specific choices. The converter therefore preserves a reviewable chain from source contract to generated artifact.</p>
+<p>This makes the suite composable. A team can inspect each model in its own domain, regenerate a later projection when an upstream decision changes, and avoid treating an emitted script or target project as the place where the architecture is defined.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -13124,6 +13180,15 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Derive a raw Data Vault design</h5>
+              <p class="note">Project a modeled source schema into a raw-vault workspace.</p>
+              <p>Use a MetaSchema workspace as the source contract, then create the raw-vault design that will carry its source identities and relationships forward.</p>
+              <pre><code class="language-powershell">meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --new-workspace .\RawVault.Workspace</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-data-quality" data-panel="cli-meta-data-quality">
           <header class="panel-header">
@@ -13131,6 +13196,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-data-quality</h2>
             <p class="panel-lead">Promote modeled transform and schema evidence into data quality views, review surfaces, and operational SQL.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaDataQuality</h3>
+            <div class="markdown-content">
+<p>MetaDataQuality derives reviewable quality candidates from typed transform and schema evidence. It examines the modeled transform graph, binding evidence, joins, relationships, and corpus patterns to identify missing references, uniqueness problems, unexpected null behavior, suspicious joins, and drift from repeated behavior.</p>
+<p>Discovery is automatic because the technical basis is already modeled. Promotion remains deliberate: candidates become executable or review-oriented assets only when a user chooses to make that decision part of the workspace. The candidate, its evidence, and its promotion state stay together as inspectable data.</p>
+<p>Generated SQL distinguishes runtime checks from semantic review findings. The resulting views and operational objects therefore preserve the reason a finding exists, support repeated execution, and give reviewers a clear route from a dashboard result back to the transform and schema evidence that produced it.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -13322,6 +13395,18 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Derive and promote quality evidence</h5>
+              <p class="note">Generate review candidates from validated transforms, then promote approved candidates.</p>
+              <p>The binding workspace limits discovery to scripts whose source and target contracts are known. Promotion marks the candidates that should become generated SQL assets.</p>
+              <pre><code class="language-powershell">meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
+meta-data-quality inspect --workspace .\DataQuality.Workspace
+meta-data-quality promote --workspace .\DataQuality.Workspace --all
+meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-data-type" data-panel="cli-meta-data-type">
           <header class="panel-header">
@@ -13329,6 +13414,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-data-type</h2>
             <p class="panel-lead">Author sanctioned data type catalogs used by schema, SQL, conversion, and BI modeling tools.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaDataType</h3>
+            <div class="markdown-content">
+<p>MetaDataType is the sanctioned vocabulary for types used throughout the modeled stack. A type catalog turns platform names, parameters, and identity behavior into reusable declarations instead of repeating those choices as loose strings in every schema, transform, and target.</p>
+<p>The catalog gives downstream models a stable language for saying what a field or expression represents. Schema extraction, transform binding, warehouse design, analytics, and generated SQL can refer to the same declared type while each projection uses the natural syntax of its own platform.</p>
+<p>That common vocabulary becomes especially valuable when a solution crosses SQL Server, analytical engines, and generated code. Type decisions stay inspectable at the model layer and conversion policy can build on them without inventing private compatibility rules.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -13393,6 +13486,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-data-type-conversion</h2>
             <p class="panel-lead">Author conversion rules that map data types across platforms with explicit length, precision, scale, and fallback behavior.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with type conversion</h3>
+            <div class="markdown-content">
+<p>MetaDataTypeConversion records the sanctioned paths between declared data types. A conversion states the source and target systems together with the length, precision, scale, fallback, and compatibility behavior that determine whether a value can move across a boundary.</p>
+<p>The conversion workspace is shared policy. Transform binding uses it to evaluate source-to-target compatibility, and generators can apply the same approved behavior when they project a model into SQL or another platform. This avoids quietly embedding widening assumptions in individual tools.</p>
+<p>Keeping conversion rules modeled also makes the hard cases visible. A design can be reviewed for loss, truncation, precision, and fallback choices before a transform or target is generated, and the resulting decision is reusable wherever the same type boundary appears.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -13541,6 +13642,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-data-warehouse</h2>
             <p class="panel-lead">Author dimensional warehouse models and implementation policies that project to deployable SQL workspaces.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaDataWarehouse</h3>
+            <div class="markdown-content">
+<p>MetaDataWarehouse models a dimensional relational warehouse independently of its physical SQL projection. Dimensions, attributes, business keys, facts, measures, and slowly changing behavior are declared together as one coherent contract.</p>
+<p>The workspace provides the design surface between source or vault evidence and analytical consumption. It captures the choices that make a warehouse useful to the business: which dimensions describe a fact, how attributes identify a member, how keys behave, and where historical change is part of the design.</p>
+<p>Implementation policy determines the deployable database shape while the warehouse model continues to express the intended dimensional structure. That separation makes the warehouse reviewable, regenerable, and suitable as a stable input to MetaAnalytics without conflating logical design with table scripts.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -15519,6 +15628,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-datavault-business</h2>
             <p class="panel-lead">Author business Data Vault models that shape raw vault structures into governed business hubs, links, satellites, and deployable SQL.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with business Data Vault</h3>
+            <div class="markdown-content">
+<p>MetaBusinessDataVault models the governed business layer built on raw Data Vault structures. It is where business-facing hubs, links, satellites, and the rules that shape raw evidence into reusable business structures are made explicit.</p>
+<p>The workspace gives a team a stable place to review semantics that are broader than a single source system. Business identity, relationships, and descriptive context remain model data, connected to the raw layer but owned by the business design rather than hidden in downstream SQL transformations.</p>
+<p>That explicit layer lets raw source history remain intact while business structures evolve deliberately. It can be inspected alongside the raw vault, projected through the appropriate implementation policy, and used as a controlled input to warehouse and analytical modeling.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -17287,6 +17404,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-datavault-raw</h2>
             <p class="panel-lead">Author raw Data Vault structures from source schemas, including hubs, links, satellites, and deployable SQL projections.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with raw Data Vault</h3>
+            <div class="markdown-content">
+<p>MetaRawDataVault models the source-faithful Data Vault layer. Hubs, links, satellites, source keys, and their relationships are declared as durable structures that capture identity, association, and historized source evidence.</p>
+<p>The raw vault begins from a modeled source contract rather than a folder of database scripts. Its workspace provides the design surface between an extracted schema and a physical implementation, so the important choices remain visible before SQL is generated: which source identities form hubs, which associations form links, and which descriptive attributes belong in satellites.</p>
+<p>The model keeps raw evidence distinct from business interpretation. That separation supports auditable ingestion, controlled regeneration, and a clear handoff to the Business Data Vault and warehouse layers without losing the connection to the systems that supplied the data.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -18281,6 +18406,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-multi-dimensional</h2>
             <p class="panel-lead">Author and deploy multidimensional semantic models with cubes, dimensions, measures, partitions, actions, and MDX query support.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaMultiDimensional</h3>
+            <div class="markdown-content">
+<p>MetaMultiDimensional models a deployable multidimensional target. Cubes, dimensions, measure groups, calculations, partitions, actions, named sets, and security are expressed as explicit structures rather than being hidden inside an SSAS project or an MDX script collection.</p>
+<p>The workspace can be generated from MetaAnalytics when the portable semantic model is the starting point, then extended with multidimensional capabilities that belong specifically to the cube: aggregation-aware measure groups, dimension behavior, named sets, drillthrough actions, and cell-level security.</p>
+<p>This keeps business semantics distinct from target implementation while still allowing a complete, inspectable cube design. Deployment consumes the modeled workspace, so the operational target remains tied to the same declared analytical intent.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -21225,6 +21358,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-orchestration</h2>
             <p class="panel-lead">Infer, author, and execute orchestration plans with task ordering, concurrency policy, and run evidence.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaOrchestration</h3>
+            <div class="markdown-content">
+<p>MetaOrchestration turns modeled pipeline tasks and bound transform access evidence into a run graph. It derives the ordering that can be proven from declared reads, writes, and effects, then represents the remaining synchronization choices as explicit policy.</p>
+<p>That division is deliberate. Structural evidence can establish a large portion of a safe plan, while dependency rules, lock policies, and concurrent-append decisions supply the operational knowledge that only a designer can provide. The resulting workspace makes both the inferred and authored portions of orchestration visible.</p>
+<p>Execution coordinates the modeled run plan and retains run evidence. When an issue remains unresolved, it is recorded as a specific modeled concern rather than disappearing into scheduler code or an implicit ordering convention.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -21824,6 +21965,18 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Infer and review a run plan</h5>
+              <p class="note">Build orchestration from a modeled pipeline, then review the issues and plan.</p>
+              <p>Inference creates the provable part of the run graph. Any remaining ordering or lock decision is visible in the orchestration workspace before execution.</p>
+              <pre><code class="language-powershell">meta-orchestration infer --pipeline-workspace .\Pipeline.Workspace --new-workspace .\Orchestration.Workspace
+meta-orchestration list-issues --workspace .\Orchestration.Workspace
+meta-orchestration refresh-run-plan --workspace .\Orchestration.Workspace
+meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-pipeline" data-panel="cli-meta-pipeline">
           <header class="panel-header">
@@ -21831,6 +21984,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-pipeline</h2>
             <p class="panel-lead">Author and execute modeled pipelines with task dependencies, workspace fingerprints, SQL execution, and operational run evidence.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaPipeline</h3>
+            <div class="markdown-content">
+<p>MetaPipeline models executable work as named pipelines and tasks. A task can be backed by a validated transform or by an explicit executable, with declared dependencies, connection context, timeouts, fingerprints, and the evidence needed to understand each run.</p>
+<p>The workspace is the plan. It describes what should be executed and the contracts it relies on. The optional operational database records diagnostics, metrics, audits, and failures, giving an execution a useful history without becoming the source of model truth.</p>
+<p>This makes pipeline behavior inspectable before it is scheduled. A team can author steps, review their dependencies and execution context, run a pipeline or individual task, and retain operational evidence that points back to the exact modeled plan.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -22572,6 +22733,16 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Start a modeled pipeline</h5>
+              <p class="note">Create the pipeline workspace and give the first pipeline a durable name.</p>
+              <p>Tasks and execution context are added to a named pipeline after the workspace exists. The resulting plan can then be inspected, executed, or used as orchestration input.</p>
+              <pre><code class="language-powershell">meta-pipeline new-workspace .\Pipeline.Workspace
+meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-schema" data-panel="cli-meta-schema">
           <header class="panel-header">
@@ -22579,6 +22750,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-schema</h2>
             <p class="panel-lead">Extract SQL Server schemas into modeled workspaces that preserve databases, schemas, tables, fields, keys, and relationships.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaSchema</h3>
+            <div class="markdown-content">
+<p>MetaSchema captures a live source schema as an explicit workspace. The extracted model preserves the database and system context together with schemas, tables, fields, keys, and relationships, giving every later stage a reviewable source contract.</p>
+<p>Extraction begins from the actual SQL Server surface and lets a team choose the schemas and tables that belong in the modeled boundary. The workspace records what the source exposes with enough structure for binding, conversion, vault design, warehouse design, and contract validation to reason about it directly.</p>
+<p>Because the schema is durable model data, it can be compared, regenerated, and cited by downstream workspaces. A transform binds to this contract; a vault or warehouse derives from it; a deployment or quality check can state exactly which source objects it relies on.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -22686,6 +22865,15 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Extract a source contract</h5>
+              <p class="note">Extract the selected source boundary before designing downstream workspaces.</p>
+              <p>Capture the source schema once, then use the resulting workspace as the contract for transform binding and downstream design.</p>
+              <pre><code class="language-powershell">meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-sql" data-panel="cli-meta-sql">
           <header class="panel-header">
@@ -22693,6 +22881,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-sql</h2>
             <p class="panel-lead">Extract SQL Server metadata, build deploy plans, apply manifests, and execute SQL against modeled database workspaces.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaSql</h3>
+            <div class="markdown-content">
+<p>MetaSql represents a database and its deployable SQL structure as a modeled workspace. Tables, views, procedures, functions, dependencies, and deployment evidence are available as data that can be inspected, compared, generated, and consumed by other models.</p>
+<p>Authoring and deployment have distinct responsibilities. A deploy manifest records the source and live fingerprints that must agree before SQL is applied, turning release readiness into an explicit modeled decision. Generated SQL therefore has a traceable source workspace and a clear contract for the database it is about to change.</p>
+<p>MetaSql is the physical SQL boundary for sanctioned converters and generated assets. It provides a natural database-facing representation while staying connected to the source schema, transform, vault, warehouse, or data-quality model that gave the SQL its meaning.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -22998,6 +23194,15 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Apply a verified deployment</h5>
+              <p class="note">Apply a deploy manifest against the source workspace it was created from.</p>
+              <p>The manifest carries the source and live fingerprint evidence used to decide whether deployment can proceed. The connection option names the environment variable containing the SQL Server connection string.</p>
+              <pre><code class="language-powershell">meta-sql deploy --source-workspace .\MetaSql.Workspace --manifest-workspace .\DeployPlan.Workspace --connection-env META_TARGET_SQL</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-tabular" data-panel="cli-meta-tabular">
           <header class="panel-header">
@@ -23005,6 +23210,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-tabular</h2>
             <p class="panel-lead">Author and deploy tabular semantic models with tables, relationships, measures, partitions, roles, and processing commands.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaTabular</h3>
+            <div class="markdown-content">
+<p>MetaTabular models a deployable Tabular target without reducing it to an opaque project. Tables, columns, measures, relationships, partitions, calculation groups, roles, and processing choices are ordinary model structures that can be inspected and evolved before they reach Analysis Services.</p>
+<p>A Tabular workspace can be authored directly or generated from MetaAnalytics. In either route, the portable semantic contract remains visible and Tabular-specific decisions have a proper modeled home: import mode, partition expressions, calculation-item logic, role filters, and deployment behavior.</p>
+<p>Deployment applies the modeled target to an Analysis Services server. That makes the deployed model a result of a reviewable workspace, while still supporting the capabilities expected of a serious Tabular implementation.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -25469,6 +25682,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-transform-binding</h2>
             <p class="panel-lead">Bind transform scripts to source and target schemas so references, data types, and writable contracts are verified before generation.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaTransformBinding</h3>
+            <div class="markdown-content">
+<p>MetaTransformBinding validates transform scripts against explicit source and target MetaSchema contracts. It resolves referenced objects and columns, verifies target write shape, evaluates data-type compatibility through the sanctioned conversion workspace, and records the resulting evidence in a dedicated binding workspace.</p>
+<p>A successful binding says more than that the SQL parsed. It establishes that each modeled source and target reference resolves against the stated schemas and that the transform's write contract is compatible with its target. The recorded rowsets, columns, and validation links become a durable technical basis for later pipeline, orchestration, and quality work.</p>
+<p>Binding is an atomic contract gate in normal operation. Its explicit partial mode is for corpus discovery: it keeps the successfully bound scripts while preserving a report of the scripts that need more source, target, or type information.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -25600,6 +25821,15 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Validate a transform contract</h5>
+              <p class="note">Bind transform scripts to explicit source and target schemas.</p>
+              <p>Binding records the resolved source and target evidence only when every required reference and type rule can be proven from the supplied workspaces.</p>
+              <pre><code class="language-powershell">meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --new-workspace .\Binding.Workspace</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="cli-meta-transform-script" data-panel="cli-meta-transform-script">
           <header class="panel-header">
@@ -25607,6 +25837,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <h2>meta-transform-script</h2>
             <p class="panel-lead">Import SQL transform scripts into a structured model, export equivalent SQL, and manage transform contracts.</p>
           </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Working with MetaTransformScript</h3>
+            <div class="markdown-content">
+<p>MetaTransformScript understands the supported SQL Server transform surface structurally. It imports views, query expressions, bounded mutation statements, inline table-valued functions, and constrained scalar functions into a typed workspace, then emits semantically equivalent SQL.</p>
+<p>The workspace captures the parts of SQL that downstream tools need to reason about: statement ownership, identifiers, expressions, joins, common table expressions, predicates, grouping, windowing, type references, and source paths. A transform can therefore be inspected, bound to schemas, compared after a round-trip, and used as evidence by pipeline, orchestration, and data-quality tools.</p>
+<p>The target is faithful syntax modeling. SQL is represented once as structured data, not reduced to a blob or replaced by a guessed lineage graph. Dynamic and procedural forms remain clearly bounded, while the supported surface can be proven through SQL-to-model-to-SQL equivalence and workspace diff evidence.</p>
+            </div>
+          </section>
           <div class="card">
             <div class="card-header">
               <h3>Commands</h3>
@@ -26122,6 +26360,16 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <section class="subsection examples">
+            <h4 class="subsection-title">General examples</h4>
+            <article class="example-block">
+              <h5>Round-trip a transform view</h5>
+              <p class="note">Import a view into a typed transform workspace and emit it again as SQL.</p>
+              <p>The workspace captures the view structure once. Exported SQL can be compared with the source artifact or bound to an explicit schema contract.</p>
+              <pre><code class="language-powershell">meta-transform-script from sql-file --path .\views\v_customer.sql --new-workspace .\Transforms.Workspace --target dbo.v_customer
+meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\RoundTrippedSql</code></pre>
+            </article>
+          </section>
         </section>
         <section class="panel" id="group-public-meta-bi-models" data-panel="group-public-meta-bi-models">
           <header class="panel-header">

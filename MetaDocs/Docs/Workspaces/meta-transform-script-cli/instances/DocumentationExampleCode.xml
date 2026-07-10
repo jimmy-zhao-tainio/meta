@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-transform-script:round-trip-view:commands" DocumentationExampleSectionId="example:meta-transform-script:round-trip-view:overview">
+      <Code>meta-transform-script from sql-file --path .\views\v_customer.sql --new-workspace .\Transforms.Workspace --target dbo.v_customer
+meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\RoundTrippedSql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

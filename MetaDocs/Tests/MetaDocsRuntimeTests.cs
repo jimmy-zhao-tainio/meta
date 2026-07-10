@@ -9,6 +9,49 @@ namespace MetaDocs.Tests;
 public sealed class MetaDocsRuntimeTests
 {
     [Fact]
+    public void PublicCliSourceWorkspaces_HaveAuthoredGuides()
+    {
+        var repoRoot = FindRepositoryRoot();
+        var sourceWorkspaces = new (string Workspace, string Cli)[]
+        {
+            ("meta-cli", "meta"),
+            ("meta-cli-cli", "meta-cli"),
+            ("meta-docs-cli", "meta-docs"),
+            ("meta-mesh-cli", "meta-mesh"),
+            ("meta-weave-cli", "meta-weave"),
+            ("meta-schema-cli", "meta-schema"),
+            ("meta-data-type-cli", "meta-data-type"),
+            ("meta-data-type-conversion-cli", "meta-data-type-conversion"),
+            ("meta-convert-cli", "meta-convert"),
+            ("meta-datavault-raw-cli", "meta-datavault-raw"),
+            ("meta-datavault-business-cli", "meta-datavault-business"),
+            ("meta-data-warehouse-cli", "meta-data-warehouse"),
+            ("meta-analytics-cli", "meta-analytics"),
+            ("meta-tabular-cli", "meta-tabular"),
+            ("meta-multi-dimensional-cli", "meta-multi-dimensional"),
+            ("meta-sql-cli", "meta-sql"),
+            ("meta-pipeline-cli", "meta-pipeline"),
+            ("meta-orchestration-cli", "meta-orchestration"),
+            ("meta-transform-script-cli", "meta-transform-script"),
+            ("meta-transform-binding-cli", "meta-transform-binding"),
+            ("meta-data-quality-cli", "meta-data-quality"),
+        };
+
+        foreach (var (workspace, cli) in sourceWorkspaces)
+        {
+            var documentation = MetaDocsModel.LoadFromXmlWorkspace(
+                Path.Combine(repoRoot, "MetaDocs", "Docs", "Workspaces", workspace),
+                searchUpward: false);
+
+            Assert.Contains(documentation.DocumentationNarrativeList, narrative =>
+                narrative.DocumentationSubject?.Id == $"source:cli:{cli}:app" &&
+                narrative.Origin == "Authored" &&
+                narrative.Slot == "Guide" &&
+                !string.IsNullOrWhiteSpace(narrative.Body));
+        }
+    }
+
+    [Fact]
     public void Cli_HelpIsDerivedFromAuthoredMetaCliWorkspace()
     {
         var repoRoot = FindRepositoryRoot();
@@ -157,7 +200,7 @@ public sealed class MetaDocsRuntimeTests
             var update = RunCli(
                 "update-description --cli meta-transform-binding --command bind --option --source-schema --body-stdin",
                 root,
-                "Use this when the binding command should read a source schema workspace.");
+                "\uFEFFUse this when the binding command should read a source schema workspace.");
             Assert.Equal(0, update.ExitCode);
             Assert.Contains("Updated description:", update.Output);
 
@@ -169,7 +212,8 @@ public sealed class MetaDocsRuntimeTests
             Assert.Contains(reloaded.DocumentationNarrativeList, row =>
                 row.DocumentationSubject?.Id == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
                 row.Slot == "Summary" &&
-                row.Origin == "Authored");
+                row.Origin == "Authored" &&
+                row.Body == "Use this when the binding command should read a source schema workspace.");
         }
         finally
         {
@@ -267,13 +311,17 @@ public sealed class MetaDocsRuntimeTests
 
             var addCode = RunCli(
                 $"add-example-code --workspace {QuoteArgument(docsWorkspace)} --section example:meta-sql:deploy:overview --id example:meta-sql:deploy:command --language powershell --code-stdin",
-                standardInput: "meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql");
+                standardInput: "\uFEFFmeta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql");
             Assert.Equal(0, addCode.ExitCode);
             Assert.Contains("Added example code:", addCode.Output);
 
             var validate = RunCli($"validate --workspace {QuoteArgument(docsWorkspace)}");
             Assert.Equal(0, validate.ExitCode);
             Assert.Contains("Diagnostics: 0 error(s), 0 warning(s), 0 info.", validate.Output);
+
+            var authored = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var authoredCode = Assert.Single(authored.DocumentationExampleCodeList);
+            Assert.Equal("meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql", authoredCode.Code);
 
             var browse = RunCli($"browse --workspace {QuoteArgument(docsWorkspace)} cli/meta-sql/deploy");
             Assert.Equal(0, browse.ExitCode);
@@ -2065,6 +2113,11 @@ public sealed class MetaDocsRuntimeTests
             UseShellExecute = false,
             CreateNoWindow = true,
         };
+
+        if (standardInput is not null)
+        {
+            startInfo.StandardInputEncoding = new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        }
 
         using var process = Process.Start(startInfo)
                             ?? throw new InvalidOperationException("Could not start meta-docs process.");

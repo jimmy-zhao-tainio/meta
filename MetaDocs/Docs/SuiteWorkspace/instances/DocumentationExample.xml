@@ -41,6 +41,18 @@
       <ReviewStatus>Current</ReviewStatus>
       <Title>Create a small command surface</Title>
     </DocumentationExample>
+    <DocumentationExample Id="example:meta-convert:schema-to-raw-vault" DocumentationSubjectId="source:cli:meta-convert:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Project a modeled source schema into a raw-vault workspace.</Summary>
+      <Title>Derive a raw Data Vault design</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-data-quality:derive-and-promote" DocumentationSubjectId="source:cli:meta-data-quality:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Generate review candidates from validated transforms, then promote approved candidates.</Summary>
+      <Title>Derive and promote quality evidence</Title>
+    </DocumentationExample>
     <DocumentationExample Id="example:meta-docs:browse-suite" DocumentationSubjectId="source:cli:meta-docs:app:command:browse">
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -65,6 +77,42 @@
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Title>Run the documentation operation</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-orchestration:infer-run-plan" DocumentationSubjectId="source:cli:meta-orchestration:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Build orchestration from a modeled pipeline, then review the issues and plan.</Summary>
+      <Title>Infer and review a run plan</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-pipeline:start-pipeline" DocumentationSubjectId="source:cli:meta-pipeline:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Create the pipeline workspace and give the first pipeline a durable name.</Summary>
+      <Title>Start a modeled pipeline</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-schema:extract-source" DocumentationSubjectId="source:cli:meta-schema:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Extract the selected source boundary before designing downstream workspaces.</Summary>
+      <Title>Extract a source contract</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-sql:deploy-manifest" DocumentationSubjectId="source:cli:meta-sql:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Apply a deploy manifest against the source workspace it was created from.</Summary>
+      <Title>Apply a verified deployment</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-transform-binding:validate-contract" DocumentationSubjectId="source:cli:meta-transform-binding:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Bind transform scripts to explicit source and target schemas.</Summary>
+      <Title>Validate a transform contract</Title>
+    </DocumentationExample>
+    <DocumentationExample Id="example:meta-transform-script:round-trip-view" DocumentationSubjectId="source:cli:meta-transform-script:app">
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Summary>Import a view into a typed transform workspace and emit it again as SQL.</Summary>
+      <Title>Round-trip a transform view</Title>
     </DocumentationExample>
     <DocumentationExample Id="example:meta-weave:bind-and-materialize" DocumentationSubjectId="source:cli:meta-weave:app">
       <Origin>Authored</Origin>

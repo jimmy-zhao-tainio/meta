@@ -883,5 +883,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-datavault-raw:app:narrative:guide:working-with-raw-data-vault" DocumentationSubjectId="source:cli:meta-datavault-raw:app" PreviousNarrativeId="source:cli:meta-datavault-raw:app:narrative:summary:summary">
+      <Body>MetaRawDataVault models the source-faithful Data Vault layer. Hubs, links, satellites, source keys, and their relationships are declared as durable structures that capture identity, association, and historized source evidence.
+
+The raw vault begins from a modeled source contract rather than a folder of database scripts. Its workspace provides the design surface between an extracted schema and a physical implementation, so the important choices remain visible before SQL is generated: which source identities form hubs, which associations form links, and which descriptive attributes belong in satellites.
+
+The model keeps raw evidence distinct from business interpretation. That separation supports auditable ingestion, controlled regeneration, and a clear handoff to the Business Data Vault and warehouse layers without losing the connection to the systems that supplied the data.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with raw Data Vault</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

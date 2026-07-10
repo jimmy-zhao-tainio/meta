@@ -2332,5 +2332,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:narrative:guide:working-with-metatabular" DocumentationSubjectId="source:cli:meta-tabular:app" PreviousNarrativeId="source:cli:meta-tabular:app:narrative:summary:summary">
+      <Body>MetaTabular models a deployable Tabular target without reducing it to an opaque project. Tables, columns, measures, relationships, partitions, calculation groups, roles, and processing choices are ordinary model structures that can be inspected and evolved before they reach Analysis Services.
+
+A Tabular workspace can be authored directly or generated from MetaAnalytics. In either route, the portable semantic contract remains visible and Tabular-specific decisions have a proper modeled home: import mode, partition expressions, calculation-item logic, role filters, and deployment behavior.
+
+Deployment applies the modeled target to an Analysis Services server. That makes the deployed model a result of a reviewable workspace, while still supporting the capabilities expected of a serious Tabular implementation.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaTabular</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

@@ -1779,5 +1779,17 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:narrative:guide:working-with-meta" DocumentationSubjectId="source:cli:meta:app" PreviousNarrativeId="source:cli:meta:app:narrative:summary:summary">
+      <Body>Meta is the foundation tool for creating, evolving, inspecting, and projecting typed metadata workspaces. A workspace declares a model and its instance graph once, then makes that same structure available as deterministic XML, relational SQL, and typed C# without changing its meaning.
+
+The CLI owns the everyday lifecycle: initialize a workspace, inspect its model and rows, make intentional edits, import a source surface, and generate a consumable representation. Model refactors rewrite the corresponding instance structure atomically, while structured diff and merge preserve stable row identities so workspace evolution can participate in normal code review and branch workflows.
+
+The result is a durable model boundary. A database, generator, service, or analytical tool can consume a natural representation for its environment while staying connected to the same declared entities, properties, relationships, and data.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with meta</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

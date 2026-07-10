@@ -928,5 +928,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-cli:app:narrative:guide:working-with-metacli" DocumentationSubjectId="source:cli:meta-cli:app" PreviousNarrativeId="source:cli:meta-cli:app:narrative:summary:summary">
+      <Body>MetaCli is the modeled command-surface language used by the meta tools. An authored workspace describes an application, its command hierarchy, executable commands, parameters, option tokens, positional arguments, value shapes, allowed values, and parameter choices as ordinary model data.
+
+That workspace is the source for shared parsing, help generation, runtime invocation, and documentation import. A command handler binds to an executable-command identity, while the runtime resolves modeled arguments and supplies the resulting invocation. Help and usage therefore come from the same surface that the parser accepts, rather than from a separate handwritten catalog.
+
+The authoring CLI is intentionally precise. It makes the public grammar visible before behavior is attached, so a tool can be reviewed as a command-line product in its own right and then reused consistently by people, agents, documentation, and runtime code.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaCli</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

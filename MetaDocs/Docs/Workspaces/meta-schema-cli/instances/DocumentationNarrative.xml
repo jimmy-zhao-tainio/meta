@@ -91,5 +91,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:guide:working-with-metaschema" DocumentationSubjectId="source:cli:meta-schema:app" PreviousNarrativeId="source:cli:meta-schema:app:narrative:summary:summary">
+      <Body>MetaSchema captures a live source schema as an explicit workspace. The extracted model preserves the database and system context together with schemas, tables, fields, keys, and relationships, giving every later stage a reviewable source contract.
+
+Extraction begins from the actual SQL Server surface and lets a team choose the schemas and tables that belong in the modeled boundary. The workspace records what the source exposes with enough structure for binding, conversion, vault design, warehouse design, and contract validation to reason about it directly.
+
+Because the schema is durable model data, it can be compared, regenerated, and cited by downstream workspaces. A transform binds to this contract; a vault or warehouse derives from it; a deployment or quality check can state exactly which source objects it relies on.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaSchema</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

@@ -2237,6 +2237,18 @@ Teams compose the sanctioned workspaces that match their architecture. At every 
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-analytics:app:narrative:guide:working-with-metaanalytics" DocumentationSubjectId="source:cli:meta-analytics:app" PreviousNarrativeId="source:cli:meta-analytics:app:narrative:summary:summary">
+      <Body>MetaAnalytics is the portable semantic model of the BI stack. It describes data sources, tables, attributes, hierarchies, measures, facts, relationships, and security in a target-neutral form that architects and analysts can review before an analytical engine is chosen.
+
+Analytical intent is explicit. A measure has a source and aggregation behavior, a hierarchy has a declared path, a table has a modeled purpose, and security belongs to the semantic model rather than being appended to a generated target. The result is a compact but expressive description of how the business should explore and calculate over the warehouse.
+
+MetaConvert can project the same semantic contract into Tabular or MultiDimensional workspaces. Those target models add platform-specific capabilities while retaining the analytical design that the team agreed on here.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaAnalytics</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-analytics:model:metaanalytics:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-analytics:model:metaanalytics">
       <Body>Models the shared BI semantic layer: facts, dimensions, hierarchies, measures, roles, and relationships that project into tabular and multidimensional targets.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -4031,6 +4043,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta:app:narrative:guide:working-with-meta" DocumentationSubjectId="source:cli:meta:app" PreviousNarrativeId="source:cli:meta:app:narrative:summary:summary">
+      <Body>Meta is the foundation tool for creating, evolving, inspecting, and projecting typed metadata workspaces. A workspace declares a model and its instance graph once, then makes that same structure available as deterministic XML, relational SQL, and typed C# without changing its meaning.
+
+The CLI owns the everyday lifecycle: initialize a workspace, inspect its model and rows, make intentional edits, import a source surface, and generate a consumable representation. Model refactors rewrite the corresponding instance structure atomically, while structured diff and merge preserve stable row identities so workspace evolution can participate in normal code review and branch workflows.
+
+The result is a durable model boundary. A database, generator, service, or analytical tool can consume a natural representation for its environment while staying connected to the same declared entities, properties, relationships, and data.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with meta</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-cli:app:command:add-allowed-value:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-cli:app:command:add-allowed-value">
       <Body>Add one allowed value for a value shape.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -4958,6 +4982,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-cli:app:narrative:guide:working-with-metacli" DocumentationSubjectId="source:cli:meta-cli:app" PreviousNarrativeId="source:cli:meta-cli:app:narrative:summary:summary">
+      <Body>MetaCli is the modeled command-surface language used by the meta tools. An authored workspace describes an application, its command hierarchy, executable commands, parameters, option tokens, positional arguments, value shapes, allowed values, and parameter choices as ordinary model data.
+
+That workspace is the source for shared parsing, help generation, runtime invocation, and documentation import. A command handler binds to an executable-command identity, while the runtime resolves modeled arguments and supplies the resulting invocation. Help and usage therefore come from the same surface that the parser accepts, rather than from a separate handwritten catalog.
+
+The authoring CLI is intentionally precise. It makes the public grammar visible before behavior is attached, so a tool can be reviewed as a command-line product in its own right and then reused consistently by people, agents, documentation, and runtime code.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaCli</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-cli:model:metacli:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-cli:model:metacli">
       <Body>Describe command-line surfaces as applications, commands, parameters, value shapes, and executable handlers so parsing, help, and documentation can share one model.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -5362,6 +5398,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:narrative:guide:working-with-metaconvert" DocumentationSubjectId="source:cli:meta-convert:app" PreviousNarrativeId="source:cli:meta-convert:app:narrative:summary:summary">
+      <Body>MetaConvert is the projection boundary between sanctioned BI workspaces. It carries an explicit source design into the next representation: source schema into raw vault, vault or warehouse into deployable SQL, quality evidence into SQL assets, or portable analytics into Tabular and MultiDimensional targets.
+
+Every conversion starts from modeled inputs and produces a modeled output. Where a physical implementation or deployment policy is needed, that workspace is passed explicitly, keeping logical intent separate from target-specific choices. The converter therefore preserves a reviewable chain from source contract to generated artifact.
+
+This makes the suite composable. A team can inspect each model in its own domain, regenerate a later projection when an upstream decision changes, and avoid treating an emitted script or target project as the place where the architecture is defined.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaConvert</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:command:from-transform-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace">
       <Body>Create generated DQ views from a full MetaTransformScript workspace.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -5506,6 +5554,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:guide:working-with-metadataquality" DocumentationSubjectId="source:cli:meta-data-quality:app" PreviousNarrativeId="source:cli:meta-data-quality:app:narrative:summary:summary">
+      <Body>MetaDataQuality derives reviewable quality candidates from typed transform and schema evidence. It examines the modeled transform graph, binding evidence, joins, relationships, and corpus patterns to identify missing references, uniqueness problems, unexpected null behavior, suspicious joins, and drift from repeated behavior.
+
+Discovery is automatic because the technical basis is already modeled. Promotion remains deliberate: candidates become executable or review-oriented assets only when a user chooses to make that decision part of the workspace. The candidate, its evidence, and its promotion state stay together as inspectable data.
+
+Generated SQL distinguishes runtime checks from semantic review findings. The resulting views and operational objects therefore preserve the reason a finding exists, support repeated execution, and give reviewers a clear route from a dashboard result back to the transform and schema evidence that produced it.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataQuality</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-data-quality:model:metadataquality:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-data-quality:model:metadataquality">
       <Body>Models data quality evidence, candidates, promotions, review views, and operational SQL for checking modeled data pipelines.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -5540,6 +5600,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-type:app:narrative:guide:working-with-metadatatype" DocumentationSubjectId="source:cli:meta-data-type:app" PreviousNarrativeId="source:cli:meta-data-type:app:narrative:summary:summary">
+      <Body>MetaDataType is the sanctioned vocabulary for types used throughout the modeled stack. A type catalog turns platform names, parameters, and identity behavior into reusable declarations instead of repeating those choices as loose strings in every schema, transform, and target.
+
+The catalog gives downstream models a stable language for saying what a field or expression represents. Schema extraction, transform binding, warehouse design, analytics, and generated SQL can refer to the same declared type while each projection uses the natural syntax of its own platform.
+
+That common vocabulary becomes especially valuable when a solution crosses SQL Server, analytical engines, and generated code. Type decisions stay inspectable at the model layer and conversion policy can build on them without inventing private compatibility rules.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataType</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:check:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:check">
       <Body>Validate sanctioned type mappings.</Body>
@@ -5621,6 +5693,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:narrative:guide:working-with-type-conversion" DocumentationSubjectId="source:cli:meta-data-type-conversion:app" PreviousNarrativeId="source:cli:meta-data-type-conversion:app:narrative:summary:summary">
+      <Body>MetaDataTypeConversion records the sanctioned paths between declared data types. A conversion states the source and target systems together with the length, precision, scale, fallback, and compatibility behavior that determine whether a value can move across a boundary.
+
+The conversion workspace is shared policy. Transform binding uses it to evaluate source-to-target compatibility, and generators can apply the same approved behavior when they project a model into SQL or another platform. This avoids quietly embedding widening assumptions in individual tools.
+
+Keeping conversion rules modeled also makes the hard cases visible. A design can be reviewed for loss, truncation, precision, and fallback choices before a transform or target is generated, and the resulting decision is reusable wherever the same type boundary appears.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with type conversion</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-data-type-conversion:model:metadatatypeconversion">
       <Body>Models platform conversion rules for translating data types across engines while preserving length, precision, scale, and semantic intent.</Body>
@@ -7240,6 +7324,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-datavault-business:app:narrative:guide:working-with-business-data-vault" DocumentationSubjectId="source:cli:meta-datavault-business:app" PreviousNarrativeId="source:cli:meta-datavault-business:app:narrative:summary:summary">
+      <Body>MetaBusinessDataVault models the governed business layer built on raw Data Vault structures. It is where business-facing hubs, links, satellites, and the rules that shape raw evidence into reusable business structures are made explicit.
+
+The workspace gives a team a stable place to review semantics that are broader than a single source system. Business identity, relationships, and descriptive context remain model data, connected to the raw layer but owned by the business design rather than hidden in downstream SQL transformations.
+
+That explicit layer lets raw source history remain intact while business structures evolve deliberately. It can be inspected alongside the raw vault, projected through the appropriate implementation policy, and used as a controlled input to warehouse and analytical modeling.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with business Data Vault</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-data-vault-implementation:model:metadatavaultimplementation:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-data-vault-implementation:model:metadatavaultimplementation">
       <Body>Models Data Vault implementation policy: naming, schemas, hash keys, technical columns, and physical SQL conventions.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -8129,6 +8225,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-datavault-raw:app:narrative:guide:working-with-raw-data-vault" DocumentationSubjectId="source:cli:meta-datavault-raw:app" PreviousNarrativeId="source:cli:meta-datavault-raw:app:narrative:summary:summary">
+      <Body>MetaRawDataVault models the source-faithful Data Vault layer. Hubs, links, satellites, source keys, and their relationships are declared as durable structures that capture identity, association, and historized source evidence.
+
+The raw vault begins from a modeled source contract rather than a folder of database scripts. Its workspace provides the design surface between an extracted schema and a physical implementation, so the important choices remain visible before SQL is generated: which source identities form hubs, which associations form links, and which descriptive attributes belong in satellites.
+
+The model keeps raw evidence distinct from business interpretation. That separation supports auditable ingestion, controlled regeneration, and a clear handoff to the Business Data Vault and warehouse layers without losing the connection to the systems that supplied the data.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with raw Data Vault</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-warehouse:app:command:add-accumulating-snapshot-fact">
       <Body>Mark a fact as an accumulating snapshot.</Body>
@@ -9948,6 +10056,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-warehouse:app:narrative:guide:working-with-metadatawarehouse" DocumentationSubjectId="source:cli:meta-data-warehouse:app" PreviousNarrativeId="source:cli:meta-data-warehouse:app:narrative:summary:summary">
+      <Body>MetaDataWarehouse models a dimensional relational warehouse independently of its physical SQL projection. Dimensions, attributes, business keys, facts, measures, and slowly changing behavior are declared together as one coherent contract.
+
+The workspace provides the design surface between source or vault evidence and analytical consumption. It captures the choices that make a warehouse useful to the business: which dimensions describe a fact, how attributes identify a member, how keys behave, and where historical change is part of the design.
+
+Implementation policy determines the deployable database shape while the warehouse model continues to express the intended dimensional structure. That separation makes the warehouse reviewable, regenerable, and suitable as a stable input to MetaAnalytics without conflating logical design with table scripts.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataWarehouse</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-data-warehouse-implementation:model:metadatawarehouseimplementation">
       <Body>Models warehouse implementation policy that turns dimensional intent into consistent SQL schemas, tables, keys, and naming conventions.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -11035,6 +11155,18 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:narrative:guide:working-with-metadocs" DocumentationSubjectId="source:cli:meta-docs:app" PreviousNarrativeId="source:cli:meta-docs:app:narrative:summary:summary">
+      <Body>MetaDocs keeps generated reference facts and authored technical explanation in the same modeled documentation workspace. Each CLI contributes its MetaCli command surface, each product model contributes structural facts, and authored descriptions and structured examples explain the decisions that the generated facts cannot express.
+
+Source documentation workspaces remain independent. They can be refreshed from their CLI or model source without overwriting authored prose, then merged into a suite workspace that represents the complete reference. The rendered site is a projection of that suite; it can be discarded and rebuilt at any time.
+
+This gives the documentation a real lifecycle. Browse and search operate on the modeled reference, while update-description and the example commands author the public technical guide directly where it will be preserved across imports and regeneration.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDocs</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-docs:model:metadocs:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-docs:model:metadocs">
       <Body>Models documentation as structured subjects, generated facts, authored narratives, sources, views, themes, and rendered site assets.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -11481,6 +11613,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:guide:working-with-metamesh" DocumentationSubjectId="source:cli:meta-mesh:app" PreviousNarrativeId="source:cli:meta-mesh:app:narrative:summary:summary">
+      <Body>MetaMesh turns a repository routine into a named, inspectable operation. A mesh lists the workspaces that participate and each operation records the executable steps that should occur, in order. Engineers and agents can inspect the same workspace that is later validated and run.
+
+Workspace tokens make a step portable across a repository, while environment tokens make external configuration explicit. Before execution begins, MetaMesh resolves every declared workspace, executable, working directory, write requirement, and environment value. That full preflight gives an operation a clear prepared state before it starts changing anything.
+
+The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaMesh</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-mesh:model:metamesh:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-mesh:model:metamesh">
       <Body>Describe repository workflows as named workspaces and ordered operation steps so engineers and agents can validate inputs and run repeatable tasks without wrapper scripts.</Body>
@@ -14361,6 +14505,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-multi-dimensional:app:narrative:guide:working-with-metamultidimensional" DocumentationSubjectId="source:cli:meta-multi-dimensional:app" PreviousNarrativeId="source:cli:meta-multi-dimensional:app:narrative:summary:summary">
+      <Body>MetaMultiDimensional models a deployable multidimensional target. Cubes, dimensions, measure groups, calculations, partitions, actions, named sets, and security are expressed as explicit structures rather than being hidden inside an SSAS project or an MDX script collection.
+
+The workspace can be generated from MetaAnalytics when the portable semantic model is the starting point, then extended with multidimensional capabilities that belong specifically to the cube: aggregation-aware measure groups, dimension behavior, named sets, drillthrough actions, and cell-level security.
+
+This keeps business semantics distinct from target implementation while still allowing a complete, inspectable cube design. Deployment consumes the modeled workspace, so the operational target remains tied to the same declared analytical intent.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaMultiDimensional</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-multi-dimensional:model:metamultidimensional:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-multi-dimensional:model:metamultidimensional">
       <Body>Models Analysis Services multidimensional solutions with cubes, dimensions, measure groups, partitions, actions, perspectives, and processing metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -14836,6 +14992,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:narrative:guide:working-with-metaorchestration" DocumentationSubjectId="source:cli:meta-orchestration:app" PreviousNarrativeId="source:cli:meta-orchestration:app:narrative:summary:summary">
+      <Body>MetaOrchestration turns modeled pipeline tasks and bound transform access evidence into a run graph. It derives the ordering that can be proven from declared reads, writes, and effects, then represents the remaining synchronization choices as explicit policy.
+
+That division is deliberate. Structural evidence can establish a large portion of a safe plan, while dependency rules, lock policies, and concurrent-append decisions supply the operational knowledge that only a designer can provide. The resulting workspace makes both the inferred and authored portions of orchestration visible.
+
+Execution coordinates the modeled run plan and retains run evidence. When an issue remains unresolved, it is recorded as a specific modeled concern rather than disappearing into scheduler code or an implicit ordering convention.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaOrchestration</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-orchestration:model:metaorchestration:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-orchestration:model:metaorchestration">
       <Body>Models executable orchestration plans over pipeline tasks, including ordering, concurrency rules, run state, evidence, and operational outcomes.</Body>
@@ -15538,6 +15706,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-pipeline:app:narrative:guide:working-with-metapipeline" DocumentationSubjectId="source:cli:meta-pipeline:app" PreviousNarrativeId="source:cli:meta-pipeline:app:narrative:summary:summary">
+      <Body>MetaPipeline models executable work as named pipelines and tasks. A task can be backed by a validated transform or by an explicit executable, with declared dependencies, connection context, timeouts, fingerprints, and the evidence needed to understand each run.
+
+The workspace is the plan. It describes what should be executed and the contracts it relies on. The optional operational database records diagnostics, metrics, audits, and failures, giving an execution a useful history without becoming the source of model truth.
+
+This makes pipeline behavior inspectable before it is scheduled. A team can author steps, review their dependencies and execution context, run a pipeline or individual task, and retain operational evidence that points back to the exact modeled plan.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaPipeline</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-pipeline:model:metapipeline:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-pipeline:model:metapipeline">
       <Body>Models data pipeline definitions, task dependencies, workspace fingerprints, execution runs, metrics, and operational evidence.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -15643,6 +15823,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:guide:working-with-metaschema" DocumentationSubjectId="source:cli:meta-schema:app" PreviousNarrativeId="source:cli:meta-schema:app:narrative:summary:summary">
+      <Body>MetaSchema captures a live source schema as an explicit workspace. The extracted model preserves the database and system context together with schemas, tables, fields, keys, and relationships, giving every later stage a reviewable source contract.
+
+Extraction begins from the actual SQL Server surface and lets a team choose the schemas and tables that belong in the modeled boundary. The workspace records what the source exposes with enough structure for binding, conversion, vault design, warehouse design, and contract validation to reason about it directly.
+
+Because the schema is durable model data, it can be compared, regenerated, and cited by downstream workspaces. A transform binds to this contract; a vault or warehouse derives from it; a deployment or quality check can state exactly which source objects it relies on.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaSchema</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-schema:model:metaschema:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-schema:model:metaschema">
       <Body>Models database schema structure as systems, schemas, tables, fields, keys, indexes, and relationships extracted from operational sources.</Body>
@@ -15930,6 +16122,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:narrative:guide:working-with-metasql" DocumentationSubjectId="source:cli:meta-sql:app" PreviousNarrativeId="source:cli:meta-sql:app:narrative:summary:summary">
+      <Body>MetaSql represents a database and its deployable SQL structure as a modeled workspace. Tables, views, procedures, functions, dependencies, and deployment evidence are available as data that can be inspected, compared, generated, and consumed by other models.
+
+Authoring and deployment have distinct responsibilities. A deploy manifest records the source and live fingerprints that must agree before SQL is applied, turning release readiness into an explicit modeled decision. Generated SQL therefore has a traceable source workspace and a clear contract for the database it is about to change.
+
+MetaSql is the physical SQL boundary for sanctioned converters and generated assets. It provides a natural database-facing representation while staying connected to the source schema, transform, vault, warehouse, or data-quality model that gave the SQL its meaning.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaSql</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-sql-deploy-manifest:model:metasqldeploymanifest">
       <Body>Models database deployment intent as a manifest of additions, replacements, removals, blockers, fingerprints, and verification state.</Body>
@@ -18278,6 +18482,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-tabular:app:narrative:guide:working-with-metatabular" DocumentationSubjectId="source:cli:meta-tabular:app" PreviousNarrativeId="source:cli:meta-tabular:app:narrative:summary:summary">
+      <Body>MetaTabular models a deployable Tabular target without reducing it to an opaque project. Tables, columns, measures, relationships, partitions, calculation groups, roles, and processing choices are ordinary model structures that can be inspected and evolved before they reach Analysis Services.
+
+A Tabular workspace can be authored directly or generated from MetaAnalytics. In either route, the portable semantic contract remains visible and Tabular-specific decisions have a proper modeled home: import mode, partition expressions, calculation-item logic, role filters, and deployment behavior.
+
+Deployment applies the modeled target to an Analysis Services server. That makes the deployed model a result of a reviewable workspace, while still supporting the capabilities expected of a serious Tabular implementation.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaTabular</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-tabular:model:metatabular:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-tabular:model:metatabular">
       <Body>Models Analysis Services tabular models with tables, columns, relationships, measures, partitions, roles, translations, and processing metadata.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -18411,6 +18627,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:guide:working-with-metatransformbinding" DocumentationSubjectId="source:cli:meta-transform-binding:app" PreviousNarrativeId="source:cli:meta-transform-binding:app:narrative:summary:summary">
+      <Body>MetaTransformBinding validates transform scripts against explicit source and target MetaSchema contracts. It resolves referenced objects and columns, verifies target write shape, evaluates data-type compatibility through the sanctioned conversion workspace, and records the resulting evidence in a dedicated binding workspace.
+
+A successful binding says more than that the SQL parsed. It establishes that each modeled source and target reference resolves against the stated schemas and that the transform's write contract is compatible with its target. The recorded rowsets, columns, and validation links become a durable technical basis for later pipeline, orchestration, and quality work.
+
+Binding is an atomic contract gate in normal operation. Its explicit partial mode is for corpus discovery: it keeps the successfully bound scripts while preserving a report of the scripts that need more source, target, or type information.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaTransformBinding</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-transform-binding:model:metatransformbinding:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding">
       <Body>Models the binding between transform scripts and schema contracts, resolving references, data types, lineage, and target writeability.</Body>
@@ -18834,6 +19062,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:guide:working-with-metatransformscript" DocumentationSubjectId="source:cli:meta-transform-script:app" PreviousNarrativeId="source:cli:meta-transform-script:app:narrative:summary:summary">
+      <Body>MetaTransformScript understands the supported SQL Server transform surface structurally. It imports views, query expressions, bounded mutation statements, inline table-valued functions, and constrained scalar functions into a typed workspace, then emits semantically equivalent SQL.
+
+The workspace captures the parts of SQL that downstream tools need to reason about: statement ownership, identifiers, expressions, joins, common table expressions, predicates, grouping, windowing, type references, and source paths. A transform can therefore be inspected, bound to schemas, compared after a round-trip, and used as evidence by pipeline, orchestration, and data-quality tools.
+
+The target is faithful syntax modeling. SQL is represented once as structured data, not reduced to a blob or replaced by a guessed lineage graph. Dynamic and procedural forms remain clearly bounded, while the supported surface can be proven through SQL-to-model-to-SQL equivalence and workspace diff evidence.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaTransformScript</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-transform-script:model:metatransformscript:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript">
       <Body>Models SQL transform scripts as structured syntax and contracts so imports, rewrites, exports, and comparisons remain stable.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -19066,6 +19306,18 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide:working-with-metaweave" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary:summary">
+      <Body>MetaWeave makes cross-model references explicit without distorting either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a scalar source value resolves to a target identity.
+
+This lets source models retain their natural XML, SQL, and C# shape while the cross-model contract is visible, reviewable, and validated in one place. Evidence-backed suggestions help discover strong candidates, but the persisted binding remains an intentional modeled decision. Validation proves that every declared source value resolves through the binding it claims to use.
+
+A valid weave can materialize a composed workspace when a consumer needs one model boundary. The weave itself remains the durable explanation of why that composition is correct and which source fields establish each cross-model link.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaWeave</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:workspace-model:meta-weave:model:metaweave:narrative:summary:summary" DocumentationSubjectId="source:workspace-model:meta-weave:model:metaweave">
       <Body>Models mappings between workspace shapes, including source and target models, correspondence rules, field mappings, and generated transformation intent.</Body>

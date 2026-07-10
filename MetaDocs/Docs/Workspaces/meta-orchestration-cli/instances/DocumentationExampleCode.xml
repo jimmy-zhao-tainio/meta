@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-orchestration:infer-run-plan:commands" DocumentationExampleSectionId="example:meta-orchestration:infer-run-plan:overview">
+      <Code>meta-orchestration infer --pipeline-workspace .\Pipeline.Workspace --new-workspace .\Orchestration.Workspace
+meta-orchestration list-issues --workspace .\Orchestration.Workspace
+meta-orchestration refresh-run-plan --workspace .\Orchestration.Workspace
+meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

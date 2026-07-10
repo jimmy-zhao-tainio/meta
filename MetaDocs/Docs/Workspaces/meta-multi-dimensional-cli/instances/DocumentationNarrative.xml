@@ -2872,5 +2872,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-multi-dimensional:app:narrative:guide:working-with-metamultidimensional" DocumentationSubjectId="source:cli:meta-multi-dimensional:app" PreviousNarrativeId="source:cli:meta-multi-dimensional:app:narrative:summary:summary">
+      <Body>MetaMultiDimensional models a deployable multidimensional target. Cubes, dimensions, measure groups, calculations, partitions, actions, named sets, and security are expressed as explicit structures rather than being hidden inside an SSAS project or an MDX script collection.
+
+The workspace can be generated from MetaAnalytics when the portable semantic model is the starting point, then extended with multidimensional capabilities that belong specifically to the cube: aggregation-aware measure groups, dimension behavior, named sets, drillthrough actions, and cell-level security.
+
+This keeps business semantics distinct from target implementation while still allowing a complete, inspectable cube design. Deployment consumes the modeled workspace, so the operational target remains tied to the same declared analytical intent.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaMultiDimensional</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

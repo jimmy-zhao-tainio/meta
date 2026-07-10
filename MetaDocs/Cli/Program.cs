@@ -528,7 +528,7 @@ internal static class Program
 
         if (stdin)
         {
-            return Console.In.ReadToEnd();
+            return ReadStandardInput();
         }
 
         if (string.IsNullOrWhiteSpace(inlineBody))
@@ -550,7 +550,7 @@ internal static class Program
 
         if (stdin)
         {
-            return Console.In.ReadToEnd();
+            return ReadStandardInput();
         }
 
         if (string.IsNullOrWhiteSpace(inlineCode))
@@ -559,6 +559,40 @@ internal static class Program
         }
 
         return inlineCode;
+    }
+
+    private static string ReadStandardInput()
+    {
+        if (Console.IsInputRedirected)
+        {
+            Console.InputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        }
+
+        var input = Console.In.ReadToEnd();
+        while (true)
+        {
+            if (input.StartsWith('\uFEFF'))
+            {
+                input = input[1..];
+                continue;
+            }
+
+            // Windows console code pages can decode an incoming UTF-8 BOM as three visible characters.
+            if (input.StartsWith("\u00EF\u00BB\u00BF", StringComparison.Ordinal))
+            {
+                input = input[3..];
+                continue;
+            }
+
+            // A replacement character at the boundary is likewise not authored body content.
+            if (input.StartsWith('\uFFFD'))
+            {
+                input = input[1..];
+                continue;
+            }
+
+            return input;
+        }
     }
 
     private static int ParseLimit(string value)

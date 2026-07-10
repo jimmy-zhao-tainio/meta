@@ -145,5 +145,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:guide:working-with-metadataquality" DocumentationSubjectId="source:cli:meta-data-quality:app" PreviousNarrativeId="source:cli:meta-data-quality:app:narrative:summary:summary">
+      <Body>MetaDataQuality derives reviewable quality candidates from typed transform and schema evidence. It examines the modeled transform graph, binding evidence, joins, relationships, and corpus patterns to identify missing references, uniqueness problems, unexpected null behavior, suspicious joins, and drift from repeated behavior.
+
+Discovery is automatic because the technical basis is already modeled. Promotion remains deliberate: candidates become executable or review-oriented assets only when a user chooses to make that decision part of the workspace. The candidate, its evidence, and its promotion state stay together as inspectable data.
+
+Generated SQL distinguishes runtime checks from semantic review findings. The resulting views and operational objects therefore preserve the reason a finding exists, support repeated execution, and give reviewers a clear route from a dashboard result back to the transform and schema evidence that produced it.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataQuality</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

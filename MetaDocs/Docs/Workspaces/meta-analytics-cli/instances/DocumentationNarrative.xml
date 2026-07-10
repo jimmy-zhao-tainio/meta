@@ -1900,5 +1900,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-analytics:app:narrative:guide:working-with-metaanalytics" DocumentationSubjectId="source:cli:meta-analytics:app" PreviousNarrativeId="source:cli:meta-analytics:app:narrative:summary:summary">
+      <Body>MetaAnalytics is the portable semantic model of the BI stack. It describes data sources, tables, attributes, hierarchies, measures, facts, relationships, and security in a target-neutral form that architects and analysts can review before an analytical engine is chosen.
+
+Analytical intent is explicit. A measure has a source and aggregation behavior, a hierarchy has a declared path, a table has a modeled purpose, and security belongs to the semantic model rather than being appended to a generated target. The result is a compact but expressive description of how the business should explore and calculate over the warehouse.
+
+MetaConvert can project the same semantic contract into Tabular or MultiDimensional workspaces. Those target models add platform-specific capabilities while retaining the analytical design that the team agreed on here.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaAnalytics</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

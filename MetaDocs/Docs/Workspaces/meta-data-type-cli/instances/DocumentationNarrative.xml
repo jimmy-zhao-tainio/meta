@@ -28,5 +28,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-type:app:narrative:guide:working-with-metadatatype" DocumentationSubjectId="source:cli:meta-data-type:app" PreviousNarrativeId="source:cli:meta-data-type:app:narrative:summary:summary">
+      <Body>MetaDataType is the sanctioned vocabulary for types used throughout the modeled stack. A type catalog turns platform names, parameters, and identity behavior into reusable declarations instead of repeating those choices as loose strings in every schema, transform, and target.
+
+The catalog gives downstream models a stable language for saying what a field or expression represents. Schema extraction, transform binding, warehouse design, analytics, and generated SQL can refer to the same declared type while each projection uses the natural syntax of its own platform.
+
+That common vocabulary becomes especially valuable when a solution crosses SQL Server, analytical engines, and generated code. Type decisions stay inspectable at the model layer and conversion policy can build on them without inventing private compatibility rules.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataType</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

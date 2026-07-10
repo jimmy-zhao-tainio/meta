@@ -58,6 +58,14 @@
       <Body>Start with a MetaCli workspace, add a command, mark it executable, then add the options the runtime should parse and document.</Body>
       <BodyFormat>PlainText</BodyFormat>
     </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-convert:schema-to-raw-vault:overview" DocumentationExampleId="example:meta-convert:schema-to-raw-vault">
+      <Body>Use a MetaSchema workspace as the source contract, then create the raw-vault design that will carry its source identities and relationships forward.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-data-quality:derive-and-promote:overview" DocumentationExampleId="example:meta-data-quality:derive-and-promote">
+      <Body>The binding workspace limits discovery to scripts whose source and target contracts are known. Promotion marks the candidates that should become generated SQL assets.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
     <DocumentationExampleSection Id="example:meta-docs:browse-suite:overview" DocumentationExampleId="example:meta-docs:browse-suite">
       <Body>Open the generated reference from a MetaDocs workspace, then jump to CLI, model, and search result pages by path.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -76,6 +84,30 @@
     </DocumentationExampleSection>
     <DocumentationExampleSection Id="example:meta-mesh:run-docs-operation:overview" DocumentationExampleId="example:meta-mesh:run-docs-operation">
       <Body>Run a modeled operation from its mesh workspace. The documentation mesh imports source workspaces, rebuilds the suite workspace, validates it, and renders the static site.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-orchestration:infer-run-plan:overview" DocumentationExampleId="example:meta-orchestration:infer-run-plan">
+      <Body>Inference creates the provable part of the run graph. Any remaining ordering or lock decision is visible in the orchestration workspace before execution.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-pipeline:start-pipeline:overview" DocumentationExampleId="example:meta-pipeline:start-pipeline">
+      <Body>Tasks and execution context are added to a named pipeline after the workspace exists. The resulting plan can then be inspected, executed, or used as orchestration input.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-schema:extract-source:overview" DocumentationExampleId="example:meta-schema:extract-source">
+      <Body>Capture the source schema once, then use the resulting workspace as the contract for transform binding and downstream design.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-sql:deploy-manifest:overview" DocumentationExampleId="example:meta-sql:deploy-manifest">
+      <Body>The manifest carries the source and live fingerprint evidence used to decide whether deployment can proceed. The connection option names the environment variable containing the SQL Server connection string.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-transform-binding:validate-contract:overview" DocumentationExampleId="example:meta-transform-binding:validate-contract">
+      <Body>Binding records the resolved source and target evidence only when every required reference and type rule can be proven from the supplied workspaces.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+    </DocumentationExampleSection>
+    <DocumentationExampleSection Id="example:meta-transform-script:round-trip-view:overview" DocumentationExampleId="example:meta-transform-script:round-trip-view">
+      <Body>The workspace captures the view structure once. Exported SQL can be compared with the source artifact or bound to an explicit schema contract.</Body>
       <BodyFormat>PlainText</BodyFormat>
     </DocumentationExampleSection>
     <DocumentationExampleSection Id="example:meta-weave:bind-and-materialize:overview" DocumentationExampleId="example:meta-weave:bind-and-materialize">

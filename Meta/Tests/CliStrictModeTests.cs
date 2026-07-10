@@ -22,7 +22,7 @@ public sealed partial class CliStrictModeTests
         var repoRoot = FindRepositoryRoot();
         var content = string.Join(
             Environment.NewLine,
-            File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md")),
+            ReadMetaCliSurface(repoRoot),
             File.ReadAllText(Path.Combine(repoRoot, "README.md")));
 
         Assert.DoesNotContain("Where:", content, StringComparison.Ordinal);
@@ -37,7 +37,7 @@ public sealed partial class CliStrictModeTests
     public void CommandDocs_DoNotContainWhereDslTokens()
     {
         var repoRoot = FindRepositoryRoot();
-        var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
+        var commands = ReadMetaCliSurface(repoRoot);
         var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
         var combined = commands + Environment.NewLine + readme;
 
@@ -49,7 +49,7 @@ public sealed partial class CliStrictModeTests
     public void SurfaceDocs_DoNotAdvertiseIdSwitch_ForRowTargeting()
     {
         var repoRoot = FindRepositoryRoot();
-        var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
+        var commands = ReadMetaCliSurface(repoRoot);
         var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
         var cliProgram = File.ReadAllText(Path.Combine(repoRoot, Path.Combine("Meta", "Cli"), "Program.cs"));
         var combined = string.Join(Environment.NewLine, new[] { commands, readme, cliProgram });
@@ -64,7 +64,7 @@ public sealed partial class CliStrictModeTests
     public void SurfaceDocs_DoNotAdvertiseSetId_ForRowTargeting()
     {
         var repoRoot = FindRepositoryRoot();
-        var commands = File.ReadAllText(Path.Combine(repoRoot, "COMMANDS.md"));
+        var commands = ReadMetaCliSurface(repoRoot);
         var readme = File.ReadAllText(Path.Combine(repoRoot, "README.md"));
         var combined = string.Join(Environment.NewLine, new[] { commands, readme });
 
@@ -5753,6 +5753,17 @@ public sealed partial class CliStrictModeTests
         var usageMatch = Regex.Match(output, @"(?m)^Usage:\s*(?:\r?\n\s*)?(meta .+)$");
         Assert.True(usageMatch.Success, $"Expected usage clause in output:{Environment.NewLine}{output}");
         return $"Usage: {usageMatch.Groups[1].Value.Trim()}";
+    }
+
+    private static string ReadMetaCliSurface(string repositoryRoot)
+    {
+        var instancesDirectory = Path.Combine(repositoryRoot, "Meta", "Cli", "meta.MetaCli", "instances");
+        return string.Join(
+            Environment.NewLine,
+            Directory
+                .EnumerateFiles(instancesDirectory, "*.xml")
+                .OrderBy(path => path, StringComparer.Ordinal)
+                .Select(File.ReadAllText));
     }
 }
 

@@ -1603,5 +1603,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-datavault-business:app:narrative:guide:working-with-business-data-vault" DocumentationSubjectId="source:cli:meta-datavault-business:app" PreviousNarrativeId="source:cli:meta-datavault-business:app:narrative:summary:summary">
+      <Body>MetaBusinessDataVault models the governed business layer built on raw Data Vault structures. It is where business-facing hubs, links, satellites, and the rules that shape raw evidence into reusable business structures are made explicit.
+
+The workspace gives a team a stable place to review semantics that are broader than a single source system. Business identity, relationships, and descriptive context remain model data, connected to the raw layer but owned by the business design rather than hidden in downstream SQL transformations.
+
+That explicit layer lets raw source history remain intact while business structures evolve deliberately. It can be inspected alongside the raw vault, projected through the appropriate implementation policy, and used as a controlled input to warehouse and analytical modeling.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with business Data Vault</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

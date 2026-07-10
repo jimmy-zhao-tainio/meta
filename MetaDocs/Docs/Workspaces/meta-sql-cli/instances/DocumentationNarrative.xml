@@ -280,5 +280,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-sql:app:narrative:guide:working-with-metasql" DocumentationSubjectId="source:cli:meta-sql:app" PreviousNarrativeId="source:cli:meta-sql:app:narrative:summary:summary">
+      <Body>MetaSql represents a database and its deployable SQL structure as a modeled workspace. Tables, views, procedures, functions, dependencies, and deployment evidence are available as data that can be inspected, compared, generated, and consumed by other models.
+
+Authoring and deployment have distinct responsibilities. A deploy manifest records the source and live fingerprints that must agree before SQL is applied, turning release readiness into an explicit modeled decision. Generated SQL therefore has a traceable source workspace and a clear contract for the database it is about to change.
+
+MetaSql is the physical SQL boundary for sanctioned converters and generated assets. It provides a natural database-facing representation while staying connected to the source schema, transform, vault, warehouse, or data-quality model that gave the SQL its meaning.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaSql</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

@@ -1072,5 +1072,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-docs:app:narrative:guide:working-with-metadocs" DocumentationSubjectId="source:cli:meta-docs:app" PreviousNarrativeId="source:cli:meta-docs:app:narrative:summary:summary">
+      <Body>MetaDocs keeps generated reference facts and authored technical explanation in the same modeled documentation workspace. Each CLI contributes its MetaCli command surface, each product model contributes structural facts, and authored descriptions and structured examples explain the decisions that the generated facts cannot express.
+
+Source documentation workspaces remain independent. They can be refreshed from their CLI or model source without overwriting authored prose, then merged into a suite workspace that represents the complete reference. The rendered site is a projection of that suite; it can be discarded and rebuilt at any time.
+
+This gives the documentation a real lifecycle. Browse and search operate on the modeled reference, while update-description and the example commands author the public technical guide directly where it will be preserved across imports and regeneration.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDocs</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

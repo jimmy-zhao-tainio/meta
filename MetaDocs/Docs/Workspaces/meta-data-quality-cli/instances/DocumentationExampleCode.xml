@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-data-quality:derive-and-promote:commands" DocumentationExampleSectionId="example:meta-data-quality:derive-and-promote:overview">
+      <Code>meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
+meta-data-quality inspect --workspace .\DataQuality.Workspace
+meta-data-quality promote --workspace .\DataQuality.Workspace --all
+meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+  </DocumentationExampleCodeList>
+</MetaDocs>

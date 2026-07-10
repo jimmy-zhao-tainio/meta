@@ -1819,5 +1819,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-warehouse:app:narrative:guide:working-with-metadatawarehouse" DocumentationSubjectId="source:cli:meta-data-warehouse:app" PreviousNarrativeId="source:cli:meta-data-warehouse:app:narrative:summary:summary">
+      <Body>MetaDataWarehouse models a dimensional relational warehouse independently of its physical SQL projection. Dimensions, attributes, business keys, facts, measures, and slowly changing behavior are declared together as one coherent contract.
+
+The workspace provides the design surface between source or vault evidence and analytical consumption. It captures the choices that make a warehouse useful to the business: which dimensions describe a fact, how attributes identify a member, how keys behave, and where historical change is part of the design.
+
+Implementation policy determines the deployable database shape while the warehouse model continues to express the intended dimensional structure. That separation makes the warehouse reviewable, regenerable, and suitable as a stable input to MetaAnalytics without conflating logical design with table scripts.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaDataWarehouse</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

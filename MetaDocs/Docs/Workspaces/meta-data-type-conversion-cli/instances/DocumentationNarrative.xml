@@ -82,5 +82,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:narrative:guide:working-with-type-conversion" DocumentationSubjectId="source:cli:meta-data-type-conversion:app" PreviousNarrativeId="source:cli:meta-data-type-conversion:app:narrative:summary:summary">
+      <Body>MetaDataTypeConversion records the sanctioned paths between declared data types. A conversion states the source and target systems together with the length, precision, scale, fallback, and compatibility behavior that determine whether a value can move across a boundary.
+
+The conversion workspace is shared policy. Transform binding uses it to evaluate source-to-target compatibility, and generators can apply the same approved behavior when they project a model into SQL or another platform. This avoids quietly embedding widening assumptions in individual tools.
+
+Keeping conversion rules modeled also makes the hard cases visible. A design can be reviewed for loss, truncation, precision, and fallback choices before a transform or target is generated, and the resulting decision is reusable wherever the same type boundary appears.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with type conversion</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

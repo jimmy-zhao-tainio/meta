@@ -263,6 +263,17 @@ meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --co
 meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."</Code>
       <Language>powershell</Language>
     </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-convert:schema-to-raw-vault:commands" DocumentationExampleSectionId="example:meta-convert:schema-to-raw-vault:overview">
+      <Code>meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --new-workspace .\RawVault.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-data-quality:derive-and-promote:commands" DocumentationExampleSectionId="example:meta-data-quality:derive-and-promote:overview">
+      <Code>meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
+meta-data-quality inspect --workspace .\DataQuality.Workspace
+meta-data-quality promote --workspace .\DataQuality.Workspace --all
+meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
     <DocumentationExampleCode Id="example:meta-docs:browse-suite:commands" DocumentationExampleSectionId="example:meta-docs:browse-suite:overview">
       <Code>cd MetaDocs\Docs\SuiteWorkspace
 meta-docs browse
@@ -289,6 +300,35 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
       <Code>cd MetaDocs\Docs\Documentation.MetaMesh
 meta-mesh validate --operation regenerate-public-docs
 meta-mesh run --operation regenerate-public-docs</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-orchestration:infer-run-plan:commands" DocumentationExampleSectionId="example:meta-orchestration:infer-run-plan:overview">
+      <Code>meta-orchestration infer --pipeline-workspace .\Pipeline.Workspace --new-workspace .\Orchestration.Workspace
+meta-orchestration list-issues --workspace .\Orchestration.Workspace
+meta-orchestration refresh-run-plan --workspace .\Orchestration.Workspace
+meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-pipeline:start-pipeline:commands" DocumentationExampleSectionId="example:meta-pipeline:start-pipeline:overview">
+      <Code>meta-pipeline new-workspace .\Pipeline.Workspace
+meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-schema:extract-source:commands" DocumentationExampleSectionId="example:meta-schema:extract-source:overview">
+      <Code>meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-sql:deploy-manifest:commands" DocumentationExampleSectionId="example:meta-sql:deploy-manifest:overview">
+      <Code>meta-sql deploy --source-workspace .\MetaSql.Workspace --manifest-workspace .\DeployPlan.Workspace --connection-env META_TARGET_SQL</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-transform-binding:validate-contract:commands" DocumentationExampleSectionId="example:meta-transform-binding:validate-contract:overview">
+      <Code>meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --new-workspace .\Binding.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-transform-script:round-trip-view:commands" DocumentationExampleSectionId="example:meta-transform-script:round-trip-view:overview">
+      <Code>meta-transform-script from sql-file --path .\views\v_customer.sql --new-workspace .\Transforms.Workspace --target dbo.v_customer
+meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\RoundTrippedSql</Code>
       <Language>powershell</Language>
     </DocumentationExampleCode>
     <DocumentationExampleCode Id="example:meta-weave:bind-and-materialize:commands" DocumentationExampleSectionId="example:meta-weave:bind-and-materialize:overview">

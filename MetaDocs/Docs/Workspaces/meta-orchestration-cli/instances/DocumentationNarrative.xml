@@ -469,5 +469,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-orchestration:app:narrative:guide:working-with-metaorchestration" DocumentationSubjectId="source:cli:meta-orchestration:app" PreviousNarrativeId="source:cli:meta-orchestration:app:narrative:summary:summary">
+      <Body>MetaOrchestration turns modeled pipeline tasks and bound transform access evidence into a run graph. It derives the ordering that can be proven from declared reads, writes, and effects, then represents the remaining synchronization choices as explicit policy.
+
+That division is deliberate. Structural evidence can establish a large portion of a safe plan, while dependency rules, lock policies, and concurrent-append decisions supply the operational knowledge that only a designer can provide. The resulting workspace makes both the inferred and authored portions of orchestration visible.
+
+Execution coordinates the modeled run plan and retains run evidence. When an issue remains unresolved, it is recorded as a specific modeled concern rather than disappearing into scheduler code or an implicit ordering convention.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaOrchestration</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

@@ -226,5 +226,17 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide:working-with-metaweave" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary:summary">
+      <Body>MetaWeave makes cross-model references explicit without distorting either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a scalar source value resolves to a target identity.
+
+This lets source models retain their natural XML, SQL, and C# shape while the cross-model contract is visible, reviewable, and validated in one place. Evidence-backed suggestions help discover strong candidates, but the persisted binding remains an intentional modeled decision. Validation proves that every declared source value resolves through the binding it claims to use.
+
+A valid weave can materialize a composed workspace when a consumer needs one model boundary. The weave itself remains the durable explanation of why that composition is correct and which source fields establish each cross-model link.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaWeave</Title>
+    </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>
