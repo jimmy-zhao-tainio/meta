@@ -1775,8 +1775,12 @@ public sealed class MetaDocsRuntimeTests
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
         var diagnostics = new MetaDocsValidationService().Validate(model).Diagnostics;
 
-        Assert.Contains("2 commands exposed by sample.", html, StringComparison.Ordinal);
+        Assert.Contains("<aside class=\"application-command-rail\"", html, StringComparison.Ordinal);
+        Assert.Contains(">2 commands<", html, StringComparison.Ordinal);
         Assert.Contains("sample parent child", html, StringComparison.Ordinal);
+        Assert.Contains("data-local-anchor=\"subject-source-cli-sample-app-command-parent-command-child\"", html, StringComparison.Ordinal);
+        var applicationPanel = html[html.IndexOf("id=\"cli-sample\" data-panel=\"cli-sample\"", StringComparison.Ordinal)..];
+        Assert.DoesNotContain("<table class=\"summary-table\">", applicationPanel, StringComparison.Ordinal);
         Assert.DoesNotContain("Subcommands:", html, StringComparison.Ordinal);
         Assert.DoesNotContain(diagnostics, row => row.Code == "CliCommandMissingApplication");
     }
@@ -1915,7 +1919,7 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("meta-transform-binding", html, StringComparison.Ordinal);
         Assert.Contains("meta-transform-binding bind", html, StringComparison.Ordinal);
         Assert.Contains("id=\"cli-meta-transform-binding\" data-panel=\"cli-meta-transform-binding\"", html, StringComparison.Ordinal);
-        Assert.Contains("<details class=\"card cli-command-card\">", html, StringComparison.Ordinal);
+        Assert.Contains("<details class=\"card cli-command-card\" id=\"subject-", html, StringComparison.Ordinal);
         Assert.DoesNotContain("<details class=\"card cli-command-card\" open", html, StringComparison.Ordinal);
         Assert.Contains("class=\"command-summary\"", html, StringComparison.Ordinal);
         Assert.Contains("class=\"command-toggle\" aria-hidden=\"true\"", html, StringComparison.Ordinal);
@@ -2000,11 +2004,10 @@ public sealed class MetaDocsRuntimeTests
 
         var cliPanelIndex = html.IndexOf("id=\"cli-meta-docs\" data-panel=\"cli-meta-docs\"", StringComparison.Ordinal);
         Assert.True(cliPanelIndex >= 0);
-        var commandOverviewIndex = html.IndexOf("<h3>Commands</h3>", cliPanelIndex, StringComparison.Ordinal);
-        var commandDetailIndex = html.IndexOf("<details class=\"card cli-command-card\">", cliPanelIndex, StringComparison.Ordinal);
+        var commandDetailIndex = html.IndexOf("<details class=\"card cli-command-card\" id=\"subject-", cliPanelIndex, StringComparison.Ordinal);
         var applicationExampleIndex = html.IndexOf("Plan documentation work", cliPanelIndex, StringComparison.Ordinal);
-        Assert.True(commandOverviewIndex >= 0);
-        Assert.True(commandDetailIndex > commandOverviewIndex);
+        var commandRailIndex = html.IndexOf("<aside class=\"application-command-rail\"", cliPanelIndex, StringComparison.Ordinal);
+        Assert.True(commandRailIndex > commandDetailIndex);
         Assert.True(applicationExampleIndex > commandDetailIndex);
 
         var modelPanelIndex = html.IndexOf("id=\"model-metadocs\" data-panel=\"model-metadocs\"", StringComparison.Ordinal);

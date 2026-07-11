@@ -116,6 +116,33 @@ public sealed class TypedWorkspaceXmlSerializerTests
     }
 
     [Fact]
+    public void Save_RejectsIdsThatDifferOnlyByCase()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            var model = new TestTypedModel
+            {
+                AlphaList =
+                {
+                    new Alpha { Id = "DUP", Name = "One" },
+                    new Alpha { Id = "dup", Name = "Two" },
+                },
+            };
+
+            var exception = Assert.Throws<InvalidOperationException>(
+                () => TypedWorkspaceXmlSerializer.Save(model, workspacePath));
+
+            Assert.Contains("duplicate Id 'dup'", exception.Message, StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
     public void Load_DoesNotSearchUpward()
     {
         var tempRoot = CreateTempRoot();

@@ -607,7 +607,7 @@ public static class TypedWorkspaceXmlSerializer
         var indexes = new Dictionary<string, Dictionary<string, object>>(StringComparer.OrdinalIgnoreCase);
         foreach (var entityMap in modelMap.EntityMaps)
         {
-            var rowsById = new Dictionary<string, object>(StringComparer.Ordinal);
+            var rowsById = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             foreach (var row in entityMap.ShardProperty.GetList(model))
             {
                 if (row == null)
@@ -703,7 +703,9 @@ public static class TypedWorkspaceXmlSerializer
         var root = new XElement(modelMap.RootElementName);
         var listElement = new XElement(shardProperty.XmlArrayName);
         var entityMap = shardProperty.EntityMap;
-        foreach (var row in shardProperty.GetList(model))
+        foreach (var row in shardProperty.GetList(model)
+                     .Cast<object>()
+                     .OrderBy(row => GetId(entityMap, row), StringComparer.OrdinalIgnoreCase))
         {
             if (row == null)
             {

@@ -533,9 +533,14 @@ public sealed class MetaCliParser
 
         foreach (var group in model.ParameterGroupList.Where(group => ReferenceEquals(group.ExecutableCommand, executableCommand)))
         {
-            var members = model.ParameterGroupMemberList
+            IReadOnlyList<ParameterGroupMember> members = model.ParameterGroupMemberList
                 .Where(member => ReferenceEquals(member.ParameterGroup, group))
                 .ToArray();
+            if (MetaCliOrdering.TryByPrevious(members, static member => member.PreviousMember, out var orderedMembers))
+            {
+                members = orderedMembers;
+            }
+
             var presentMembers = members.Count(member => states.TryGetValue(member.Parameter, out var state) && state.IsPresent);
             if (ParseBool(group.IsRequired) && presentMembers == 0)
             {

@@ -483,11 +483,11 @@ namespace MetaCli
         private static byte[] SerializeAllowedValueShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <AllowedValueList>\n");
-            foreach (var row in model.AllowedValueList)
+            foreach (var row in model.AllowedValueList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'AllowedValue' contains a row with empty Id.");
@@ -603,11 +603,11 @@ namespace MetaCli
         private static byte[] SerializeApplicationShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ApplicationList>\n");
-            foreach (var row in model.ApplicationList)
+            foreach (var row in model.ApplicationList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Application' contains a row with empty Id.");
@@ -718,11 +718,11 @@ namespace MetaCli
         private static byte[] SerializeApplicationDefaultCommandShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ApplicationDefaultCommandList>\n");
-            foreach (var row in model.ApplicationDefaultCommandList)
+            foreach (var row in model.ApplicationDefaultCommandList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ApplicationDefaultCommand' contains a row with empty Id.");
@@ -840,11 +840,11 @@ namespace MetaCli
         private static byte[] SerializeApplicationParameterShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ApplicationParameterList>\n");
-            foreach (var row in model.ApplicationParameterList)
+            foreach (var row in model.ApplicationParameterList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ApplicationParameter' contains a row with empty Id.");
@@ -971,11 +971,11 @@ namespace MetaCli
         private static byte[] SerializeCommandShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <CommandList>\n");
-            foreach (var row in model.CommandList)
+            foreach (var row in model.CommandList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Command' contains a row with empty Id.");
@@ -1102,11 +1102,11 @@ namespace MetaCli
         private static byte[] SerializeExecutableCommandShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ExecutableCommandList>\n");
-            foreach (var row in model.ExecutableCommandList)
+            foreach (var row in model.ExecutableCommandList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ExecutableCommand' contains a row with empty Id.");
@@ -1214,11 +1214,11 @@ namespace MetaCli
         private static byte[] SerializeExecutableCommandParameterShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ExecutableCommandParameterList>\n");
-            foreach (var row in model.ExecutableCommandParameterList)
+            foreach (var row in model.ExecutableCommandParameterList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ExecutableCommandParameter' contains a row with empty Id.");
@@ -1333,11 +1333,11 @@ namespace MetaCli
         private static byte[] SerializeOptionShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <OptionList>\n");
-            foreach (var row in model.OptionList)
+            foreach (var row in model.OptionList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Option' contains a row with empty Id.");
@@ -1448,11 +1448,11 @@ namespace MetaCli
         private static byte[] SerializeOptionTokenShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <OptionTokenList>\n");
-            foreach (var row in model.OptionTokenList)
+            foreach (var row in model.OptionTokenList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'OptionToken' contains a row with empty Id.");
@@ -1586,11 +1586,11 @@ namespace MetaCli
         private static byte[] SerializeParameterShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ParameterList>\n");
-            foreach (var row in model.ParameterList)
+            foreach (var row in model.ParameterList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Parameter' contains a row with empty Id.");
@@ -1724,11 +1724,11 @@ namespace MetaCli
         private static byte[] SerializeParameterGroupShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ParameterGroupList>\n");
-            foreach (var row in model.ParameterGroupList)
+            foreach (var row in model.ParameterGroupList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ParameterGroup' contains a row with empty Id.");
@@ -1852,11 +1852,11 @@ namespace MetaCli
         private static byte[] SerializeParameterGroupMemberShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ParameterGroupMemberList>\n");
-            foreach (var row in model.ParameterGroupMemberList)
+            foreach (var row in model.ParameterGroupMemberList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ParameterGroupMember' contains a row with empty Id.");
@@ -1987,11 +1987,11 @@ namespace MetaCli
         private static byte[] SerializePositionalArgumentShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <PositionalArgumentList>\n");
-            foreach (var row in model.PositionalArgumentList)
+            foreach (var row in model.PositionalArgumentList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'PositionalArgument' contains a row with empty Id.");
@@ -2115,11 +2115,11 @@ namespace MetaCli
         private static byte[] SerializeValueArityShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ValueArityList>\n");
-            foreach (var row in model.ValueArityList)
+            foreach (var row in model.ValueArityList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ValueArity' contains a row with empty Id.");
@@ -2236,11 +2236,11 @@ namespace MetaCli
         private static byte[] SerializeValueShapeShard(MetaCliModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaCli>\n");
             builder.Append("  <ValueShapeList>\n");
-            foreach (var row in model.ValueShapeList)
+            foreach (var row in model.ValueShapeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ValueShape' contains a row with empty Id.");
@@ -2644,7 +2644,7 @@ namespace MetaCli
             public void AddAllowedValueId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'AllowedValue' contains a row with empty Id.");
-                allowedValueIds ??= new HashSet<string>(StringComparer.Ordinal);
+                allowedValueIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!allowedValueIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'AllowedValue' contains duplicate Id '{normalizedId}'.");
@@ -2656,7 +2656,7 @@ namespace MetaCli
             public void AddApplicationId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Application' contains a row with empty Id.");
-                applicationIds ??= new HashSet<string>(StringComparer.Ordinal);
+                applicationIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!applicationIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Application' contains duplicate Id '{normalizedId}'.");
@@ -2668,7 +2668,7 @@ namespace MetaCli
             public void AddApplicationDefaultCommandId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ApplicationDefaultCommand' contains a row with empty Id.");
-                applicationDefaultCommandIds ??= new HashSet<string>(StringComparer.Ordinal);
+                applicationDefaultCommandIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!applicationDefaultCommandIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ApplicationDefaultCommand' contains duplicate Id '{normalizedId}'.");
@@ -2680,7 +2680,7 @@ namespace MetaCli
             public void AddApplicationParameterId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ApplicationParameter' contains a row with empty Id.");
-                applicationParameterIds ??= new HashSet<string>(StringComparer.Ordinal);
+                applicationParameterIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!applicationParameterIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ApplicationParameter' contains duplicate Id '{normalizedId}'.");
@@ -2692,7 +2692,7 @@ namespace MetaCli
             public void AddCommandId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Command' contains a row with empty Id.");
-                commandIds ??= new HashSet<string>(StringComparer.Ordinal);
+                commandIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!commandIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Command' contains duplicate Id '{normalizedId}'.");
@@ -2704,7 +2704,7 @@ namespace MetaCli
             public void AddExecutableCommandId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ExecutableCommand' contains a row with empty Id.");
-                executableCommandIds ??= new HashSet<string>(StringComparer.Ordinal);
+                executableCommandIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!executableCommandIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ExecutableCommand' contains duplicate Id '{normalizedId}'.");
@@ -2716,7 +2716,7 @@ namespace MetaCli
             public void AddExecutableCommandParameterId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ExecutableCommandParameter' contains a row with empty Id.");
-                executableCommandParameterIds ??= new HashSet<string>(StringComparer.Ordinal);
+                executableCommandParameterIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!executableCommandParameterIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ExecutableCommandParameter' contains duplicate Id '{normalizedId}'.");
@@ -2728,7 +2728,7 @@ namespace MetaCli
             public void AddOptionId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Option' contains a row with empty Id.");
-                optionIds ??= new HashSet<string>(StringComparer.Ordinal);
+                optionIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!optionIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Option' contains duplicate Id '{normalizedId}'.");
@@ -2740,7 +2740,7 @@ namespace MetaCli
             public void AddOptionTokenId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'OptionToken' contains a row with empty Id.");
-                optionTokenIds ??= new HashSet<string>(StringComparer.Ordinal);
+                optionTokenIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!optionTokenIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'OptionToken' contains duplicate Id '{normalizedId}'.");
@@ -2752,7 +2752,7 @@ namespace MetaCli
             public void AddParameterId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Parameter' contains a row with empty Id.");
-                parameterIds ??= new HashSet<string>(StringComparer.Ordinal);
+                parameterIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!parameterIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Parameter' contains duplicate Id '{normalizedId}'.");
@@ -2764,7 +2764,7 @@ namespace MetaCli
             public void AddParameterGroupId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ParameterGroup' contains a row with empty Id.");
-                parameterGroupIds ??= new HashSet<string>(StringComparer.Ordinal);
+                parameterGroupIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!parameterGroupIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ParameterGroup' contains duplicate Id '{normalizedId}'.");
@@ -2776,7 +2776,7 @@ namespace MetaCli
             public void AddParameterGroupMemberId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ParameterGroupMember' contains a row with empty Id.");
-                parameterGroupMemberIds ??= new HashSet<string>(StringComparer.Ordinal);
+                parameterGroupMemberIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!parameterGroupMemberIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ParameterGroupMember' contains duplicate Id '{normalizedId}'.");
@@ -2788,7 +2788,7 @@ namespace MetaCli
             public void AddPositionalArgumentId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'PositionalArgument' contains a row with empty Id.");
-                positionalArgumentIds ??= new HashSet<string>(StringComparer.Ordinal);
+                positionalArgumentIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!positionalArgumentIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'PositionalArgument' contains duplicate Id '{normalizedId}'.");
@@ -2800,7 +2800,7 @@ namespace MetaCli
             public void AddValueArityId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ValueArity' contains a row with empty Id.");
-                valueArityIds ??= new HashSet<string>(StringComparer.Ordinal);
+                valueArityIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!valueArityIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ValueArity' contains duplicate Id '{normalizedId}'.");
@@ -2812,7 +2812,7 @@ namespace MetaCli
             public void AddValueShapeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ValueShape' contains a row with empty Id.");
-                valueShapeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                valueShapeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!valueShapeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ValueShape' contains duplicate Id '{normalizedId}'.");
@@ -3160,7 +3160,7 @@ namespace MetaCli
         private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)
             where T : class
         {
-            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);
+            var rowsById = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
             foreach (var row in rows)
             {
                 ArgumentNullException.ThrowIfNull(row);

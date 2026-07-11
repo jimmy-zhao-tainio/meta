@@ -304,11 +304,11 @@ namespace MetaMesh
         private static byte[] SerializeMeshShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
             builder.Append("  <MeshList>\n");
-            foreach (var row in model.MeshList)
+            foreach (var row in model.MeshList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Mesh' contains a row with empty Id.");
@@ -418,11 +418,11 @@ namespace MetaMesh
         private static byte[] SerializeOperationShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
             builder.Append("  <OperationList>\n");
-            foreach (var row in model.OperationList)
+            foreach (var row in model.OperationList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Operation' contains a row with empty Id.");
@@ -553,11 +553,11 @@ namespace MetaMesh
         private static byte[] SerializeOperationStepShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
             builder.Append("  <OperationStepList>\n");
-            foreach (var row in model.OperationStepList)
+            foreach (var row in model.OperationStepList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'OperationStep' contains a row with empty Id.");
@@ -705,11 +705,11 @@ namespace MetaMesh
         private static byte[] SerializeWorkspaceShard(MetaMeshModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaMesh>\n");
             builder.Append("  <WorkspaceList>\n");
-            foreach (var row in model.WorkspaceList)
+            foreach (var row in model.WorkspaceList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'Workspace' contains a row with empty Id.");
@@ -846,7 +846,7 @@ namespace MetaMesh
             public void AddMeshId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Mesh' contains a row with empty Id.");
-                meshIds ??= new HashSet<string>(StringComparer.Ordinal);
+                meshIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!meshIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Mesh' contains duplicate Id '{normalizedId}'.");
@@ -858,7 +858,7 @@ namespace MetaMesh
             public void AddOperationId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Operation' contains a row with empty Id.");
-                operationIds ??= new HashSet<string>(StringComparer.Ordinal);
+                operationIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!operationIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Operation' contains duplicate Id '{normalizedId}'.");
@@ -870,7 +870,7 @@ namespace MetaMesh
             public void AddOperationStepId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'OperationStep' contains a row with empty Id.");
-                operationStepIds ??= new HashSet<string>(StringComparer.Ordinal);
+                operationStepIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!operationStepIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'OperationStep' contains duplicate Id '{normalizedId}'.");
@@ -882,7 +882,7 @@ namespace MetaMesh
             public void AddWorkspaceId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'Workspace' contains a row with empty Id.");
-                workspaceIds ??= new HashSet<string>(StringComparer.Ordinal);
+                workspaceIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!workspaceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'Workspace' contains duplicate Id '{normalizedId}'.");
@@ -1036,7 +1036,7 @@ namespace MetaMesh
         private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)
             where T : class
         {
-            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);
+            var rowsById = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
             foreach (var row in rows)
             {
                 ArgumentNullException.ThrowIfNull(row);

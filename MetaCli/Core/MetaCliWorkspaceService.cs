@@ -1185,7 +1185,7 @@ public sealed class MetaCliWorkspaceService
                 includeCompleteness,
                 issues);
 
-            if (!includeCompleteness || !TryOrderByPrevious(arguments, static argument => argument.PreviousArgument, out var ordered))
+            if (!includeCompleteness || !MetaCliOrdering.TryByPrevious(arguments, static argument => argument.PreviousArgument, out var ordered))
             {
                 continue;
             }
@@ -1349,48 +1349,10 @@ public sealed class MetaCliWorkspaceService
             AddError(issues, code, $"The {noun} chain forks after '{label(fork)}'.", location(fork));
         }
 
-        if (heads.Length == 1 && TryOrderByPrevious(items, previous, out var ordered) && ordered.Count != items.Count)
+        if (heads.Length == 1 && MetaCliOrdering.TryByPrevious(items, previous, out var ordered) && ordered.Count != items.Count)
         {
             AddError(issues, code, $"The {noun} chain is not fully reachable from its head.", location(heads[0]));
         }
-    }
-
-    private static bool TryOrderByPrevious<T>(
-        IReadOnlyList<T> items,
-        Func<T, T?> previous,
-        out IReadOnlyList<T> ordered)
-        where T : class
-    {
-        ordered = Array.Empty<T>();
-        if (items.Count == 0)
-        {
-            ordered = Array.Empty<T>();
-            return true;
-        }
-
-        var heads = items.Where(item => previous(item) is null).ToArray();
-        if (heads.Length != 1)
-        {
-            return false;
-        }
-
-        var orderedList = new List<T>();
-        var current = heads[0];
-        var visited = new HashSet<T>(ReferenceComparer<T>.Instance);
-        while (current is not null && visited.Add(current))
-        {
-            orderedList.Add(current);
-            var next = items.Where(item => ReferenceEquals(previous(item), current)).Take(2).ToArray();
-            if (next.Length > 1)
-            {
-                return false;
-            }
-
-            current = next.Length == 0 ? null : next[0];
-        }
-
-        ordered = orderedList;
-        return true;
     }
 
     private static IReadOnlyList<Parameter> EffectiveParametersForApplication(

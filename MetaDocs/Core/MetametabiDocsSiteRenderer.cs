@@ -436,28 +436,19 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Attr(panelId))
             .AppendLine("\">");
         AppendPanelHeader(builder, familyTitle, sectionTitle, application.DisplayName, SubjectSummary(model, application));
-        AppendNarrativeSections(builder, model, application);
-
-        builder.AppendLine("          <div class=\"card\">");
-        builder.AppendLine("            <div class=\"card-header\">");
-        builder.AppendLine("              <h3>Commands</h3>");
-        builder.Append("              <p>")
-            .Append(commands.Length)
-            .Append(commands.Length == 1 ? " command exposed by " : " commands exposed by ")
-            .Append(Html(application.DisplayName))
-            .AppendLine(".</p>");
-        builder.AppendLine("            </div>");
-        builder.AppendLine("            <div class=\"card-body\">");
-        AppendCommandOverviewTable(builder, model, commands);
-        builder.AppendLine("            </div>");
-        builder.AppendLine("          </div>");
+        builder.AppendLine("          <div class=\"application-layout\">");
+        builder.AppendLine("            <div class=\"application-main\">");
+        AppendNarrativeSections(builder, model, application, "              ");
 
         foreach (var command in commands)
         {
             AppendCommandCard(builder, model, command);
         }
 
-        AppendExamplesSection(builder, model, application, title: "General examples");
+        AppendExamplesSection(builder, model, application, "              ", "General examples");
+        builder.AppendLine("            </div>");
+        AppendApplicationCommandRail(builder, model, application, commands, panelId);
+        builder.AppendLine("          </div>");
 
         builder.AppendLine("        </section>");
     }
@@ -489,28 +480,47 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("        </section>");
     }
 
-    private static void AppendCommandOverviewTable(
+    private static void AppendApplicationCommandRail(
         StringBuilder builder,
         MetaDocsModel model,
-        IReadOnlyList<DocumentationSubject> commands)
+        DocumentationSubject application,
+        IReadOnlyList<DocumentationSubject> commands,
+        string panelId)
     {
-        builder.AppendLine("              <table class=\"summary-table\">");
-        builder.AppendLine("                <thead><tr><th>Command</th><th>Summary</th></tr></thead>");
-        builder.AppendLine("                <tbody>");
+        builder.AppendLine("            <aside class=\"application-command-rail\" aria-label=\"Command navigation\">");
+        builder.AppendLine("              <div class=\"application-command-rail-header\">");
+        builder.AppendLine("                <h3>Commands</h3>");
+        builder.Append("                <p>")
+            .Append(commands.Count)
+            .Append(commands.Count == 1 ? " command" : " commands")
+            .AppendLine("</p>");
+        builder.AppendLine("              </div>");
+        builder.AppendLine("              <nav class=\"application-command-list\">");
         foreach (var command in commands)
         {
-            builder.AppendLine("                  <tr>");
-            builder.Append("                    <td class=\"cmd\">")
-                .Append(Html(CommandUsageName(model, command)))
-                .AppendLine("</td>");
-            builder.Append("                    <td>")
-                .Append(HtmlInline(SubjectSummary(model, command)))
-                .AppendLine("</td>");
-            builder.AppendLine("                  </tr>");
+            var anchorId = SubjectAnchorId(command);
+            var commandUsage = CommandUsageName(model, command);
+            builder.Append("                <a class=\"application-command-link\" href=\"#")
+                .Append(Attr(panelId))
+                .Append("\" data-local-anchor=\"")
+                .Append(Attr(anchorId))
+                .Append("\" aria-label=\"")
+                .Append(Attr($"Open {commandUsage}"))
+                .Append("\"><code>")
+                .Append(Html(CommandRailLabel(application, commandUsage)))
+                .AppendLine("</code></a>");
         }
 
-        builder.AppendLine("                </tbody>");
-        builder.AppendLine("              </table>");
+        builder.AppendLine("              </nav>");
+        builder.AppendLine("            </aside>");
+    }
+
+    private static string CommandRailLabel(DocumentationSubject application, string commandUsage)
+    {
+        var prefix = $"{application.DisplayName} ";
+        return commandUsage.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            ? commandUsage[prefix.Length..]
+            : commandUsage;
     }
 
     private static void AppendCommandCard(StringBuilder builder, MetaDocsModel model, DocumentationSubject command)
@@ -519,7 +529,9 @@ public sealed class MetametabiDocsSiteRenderer
         var examples = Examples(model, command);
         var guidance = CommandGuidance(model, command);
         var summary = SubjectSummary(model, command);
-        builder.AppendLine("          <details class=\"card cli-command-card\">");
+        builder.Append("          <details class=\"card cli-command-card\" id=\"")
+            .Append(Attr(SubjectAnchorId(command)))
+            .AppendLine("\">");
         builder.AppendLine("            <summary class=\"command-summary\">");
         builder.AppendLine("              <span class=\"command-toggle\" aria-hidden=\"true\"></span>");
         builder.AppendLine("              <span class=\"command-main\">");

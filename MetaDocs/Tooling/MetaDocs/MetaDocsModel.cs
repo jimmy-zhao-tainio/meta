@@ -815,11 +815,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationComponentTemplateShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationComponentTemplateList>\n");
-            foreach (var row in model.DocumentationComponentTemplateList)
+            foreach (var row in model.DocumentationComponentTemplateList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationComponentTemplate' contains a row with empty Id.");
@@ -952,11 +952,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationComponentTemplateTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationComponentTemplateTypeList>\n");
-            foreach (var row in model.DocumentationComponentTemplateTypeList)
+            foreach (var row in model.DocumentationComponentTemplateTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationComponentTemplateType' contains a row with empty Id.");
@@ -1071,11 +1071,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationEntityImportSpecShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationEntityImportSpecList>\n");
-            foreach (var row in model.DocumentationEntityImportSpecList)
+            foreach (var row in model.DocumentationEntityImportSpecList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationEntityImportSpec' contains a row with empty Id.");
@@ -1206,11 +1206,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationExampleShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationExampleList>\n");
-            foreach (var row in model.DocumentationExampleList)
+            foreach (var row in model.DocumentationExampleList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExample' contains a row with empty Id.");
@@ -1347,11 +1347,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationExampleCodeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationExampleCodeList>\n");
-            foreach (var row in model.DocumentationExampleCodeList)
+            foreach (var row in model.DocumentationExampleCodeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExampleCode' contains a row with empty Id.");
@@ -1490,11 +1490,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationExampleSectionShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationExampleSectionList>\n");
-            foreach (var row in model.DocumentationExampleSectionList)
+            foreach (var row in model.DocumentationExampleSectionList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationExampleSection' contains a row with empty Id.");
@@ -1645,11 +1645,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationFactShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationFactList>\n");
-            foreach (var row in model.DocumentationFactList)
+            foreach (var row in model.DocumentationFactList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationFact' contains a row with empty Id.");
@@ -1804,11 +1804,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationFactTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationFactTypeList>\n");
-            foreach (var row in model.DocumentationFactTypeList)
+            foreach (var row in model.DocumentationFactTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationFactType' contains a row with empty Id.");
@@ -1923,11 +1923,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationImportBatchShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationImportBatchList>\n");
-            foreach (var row in model.DocumentationImportBatchList)
+            foreach (var row in model.DocumentationImportBatchList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationImportBatch' contains a row with empty Id.");
@@ -2049,11 +2049,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationInstanceImportSpecShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationInstanceImportSpecList>\n");
-            foreach (var row in model.DocumentationInstanceImportSpecList)
+            foreach (var row in model.DocumentationInstanceImportSpecList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationInstanceImportSpec' contains a row with empty Id.");
@@ -2173,11 +2173,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationLayoutShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationLayoutList>\n");
-            foreach (var row in model.DocumentationLayoutList)
+            foreach (var row in model.DocumentationLayoutList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationLayout' contains a row with empty Id.");
@@ -2306,11 +2306,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationLayoutTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationLayoutTypeList>\n");
-            foreach (var row in model.DocumentationLayoutTypeList)
+            foreach (var row in model.DocumentationLayoutTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationLayoutType' contains a row with empty Id.");
@@ -2434,11 +2434,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationNarrativeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationNarrativeList>\n");
-            foreach (var row in model.DocumentationNarrativeList)
+            foreach (var row in model.DocumentationNarrativeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationNarrative' contains a row with empty Id.");
@@ -2581,11 +2581,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationPropertyImportSpecShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationPropertyImportSpecList>\n");
-            foreach (var row in model.DocumentationPropertyImportSpecList)
+            foreach (var row in model.DocumentationPropertyImportSpecList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationPropertyImportSpec' contains a row with empty Id.");
@@ -2708,11 +2708,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationRelationshipShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationRelationshipList>\n");
-            foreach (var row in model.DocumentationRelationshipList)
+            foreach (var row in model.DocumentationRelationshipList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationRelationship' contains a row with empty Id.");
@@ -2879,11 +2879,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationRelationshipImportSpecShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationRelationshipImportSpecList>\n");
-            foreach (var row in model.DocumentationRelationshipImportSpecList)
+            foreach (var row in model.DocumentationRelationshipImportSpecList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationRelationshipImportSpec' contains a row with empty Id.");
@@ -2991,11 +2991,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationRelationshipTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationRelationshipTypeList>\n");
-            foreach (var row in model.DocumentationRelationshipTypeList)
+            foreach (var row in model.DocumentationRelationshipTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationRelationshipType' contains a row with empty Id.");
@@ -3116,11 +3116,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationSourceShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationSourceList>\n");
-            foreach (var row in model.DocumentationSourceList)
+            foreach (var row in model.DocumentationSourceList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSource' contains a row with empty Id.");
@@ -3256,11 +3256,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationSourceTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationSourceTypeList>\n");
-            foreach (var row in model.DocumentationSourceTypeList)
+            foreach (var row in model.DocumentationSourceTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSourceType' contains a row with empty Id.");
@@ -3387,11 +3387,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationSubjectShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationSubjectList>\n");
-            foreach (var row in model.DocumentationSubjectList)
+            foreach (var row in model.DocumentationSubjectList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSubject' contains a row with empty Id.");
@@ -3556,11 +3556,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationSubjectAliasShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationSubjectAliasList>\n");
-            foreach (var row in model.DocumentationSubjectAliasList)
+            foreach (var row in model.DocumentationSubjectAliasList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSubjectAlias' contains a row with empty Id.");
@@ -3670,11 +3670,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationSubjectTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationSubjectTypeList>\n");
-            foreach (var row in model.DocumentationSubjectTypeList)
+            foreach (var row in model.DocumentationSubjectTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationSubjectType' contains a row with empty Id.");
@@ -3789,11 +3789,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationTemplateShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationTemplateList>\n");
-            foreach (var row in model.DocumentationTemplateList)
+            foreach (var row in model.DocumentationTemplateList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplate' contains a row with empty Id.");
@@ -3939,11 +3939,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationTemplateRegionShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationTemplateRegionList>\n");
-            foreach (var row in model.DocumentationTemplateRegionList)
+            foreach (var row in model.DocumentationTemplateRegionList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplateRegion' contains a row with empty Id.");
@@ -4072,11 +4072,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationTemplateRegionTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationTemplateRegionTypeList>\n");
-            foreach (var row in model.DocumentationTemplateRegionTypeList)
+            foreach (var row in model.DocumentationTemplateRegionTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplateRegionType' contains a row with empty Id.");
@@ -4176,11 +4176,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationTemplateTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationTemplateTypeList>\n");
-            foreach (var row in model.DocumentationTemplateTypeList)
+            foreach (var row in model.DocumentationTemplateTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTemplateType' contains a row with empty Id.");
@@ -4283,11 +4283,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationThemeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationThemeList>\n");
-            foreach (var row in model.DocumentationThemeList)
+            foreach (var row in model.DocumentationThemeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationTheme' contains a row with empty Id.");
@@ -4412,11 +4412,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationThemeAssetShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationThemeAssetList>\n");
-            foreach (var row in model.DocumentationThemeAssetList)
+            foreach (var row in model.DocumentationThemeAssetList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationThemeAsset' contains a row with empty Id.");
@@ -4561,11 +4561,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationThemeAssetTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationThemeAssetTypeList>\n");
-            foreach (var row in model.DocumentationThemeAssetTypeList)
+            foreach (var row in model.DocumentationThemeAssetTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationThemeAssetType' contains a row with empty Id.");
@@ -4665,11 +4665,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationValueTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationValueTypeList>\n");
-            foreach (var row in model.DocumentationValueTypeList)
+            foreach (var row in model.DocumentationValueTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationValueType' contains a row with empty Id.");
@@ -4781,11 +4781,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationViewShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationViewList>\n");
-            foreach (var row in model.DocumentationViewList)
+            foreach (var row in model.DocumentationViewList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationView' contains a row with empty Id.");
@@ -4927,11 +4927,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationViewNodeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationViewNodeList>\n");
-            foreach (var row in model.DocumentationViewNodeList)
+            foreach (var row in model.DocumentationViewNodeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationViewNode' contains a row with empty Id.");
@@ -5071,11 +5071,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationViewTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationViewTypeList>\n");
-            foreach (var row in model.DocumentationViewTypeList)
+            foreach (var row in model.DocumentationViewTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationViewType' contains a row with empty Id.");
@@ -5181,11 +5181,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationWorkspaceShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationWorkspaceList>\n");
-            foreach (var row in model.DocumentationWorkspaceList)
+            foreach (var row in model.DocumentationWorkspaceList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationWorkspace' contains a row with empty Id.");
@@ -5295,11 +5295,11 @@ namespace MetaDocs
         private static byte[] SerializeDocumentationWorkspaceTypeShard(MetaDocsModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaDocs>\n");
             builder.Append("  <DocumentationWorkspaceTypeList>\n");
-            foreach (var row in model.DocumentationWorkspaceTypeList)
+            foreach (var row in model.DocumentationWorkspaceTypeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'DocumentationWorkspaceType' contains a row with empty Id.");
@@ -6130,7 +6130,7 @@ namespace MetaDocs
             public void AddDocumentationComponentTemplateId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationComponentTemplate' contains a row with empty Id.");
-                documentationComponentTemplateIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationComponentTemplateIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationComponentTemplateIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationComponentTemplate' contains duplicate Id '{normalizedId}'.");
@@ -6142,7 +6142,7 @@ namespace MetaDocs
             public void AddDocumentationComponentTemplateTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationComponentTemplateType' contains a row with empty Id.");
-                documentationComponentTemplateTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationComponentTemplateTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationComponentTemplateTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationComponentTemplateType' contains duplicate Id '{normalizedId}'.");
@@ -6154,7 +6154,7 @@ namespace MetaDocs
             public void AddDocumentationEntityImportSpecId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationEntityImportSpec' contains a row with empty Id.");
-                documentationEntityImportSpecIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationEntityImportSpecIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationEntityImportSpecIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationEntityImportSpec' contains duplicate Id '{normalizedId}'.");
@@ -6166,7 +6166,7 @@ namespace MetaDocs
             public void AddDocumentationExampleId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationExample' contains a row with empty Id.");
-                documentationExampleIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationExampleIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationExampleIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationExample' contains duplicate Id '{normalizedId}'.");
@@ -6178,7 +6178,7 @@ namespace MetaDocs
             public void AddDocumentationExampleCodeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationExampleCode' contains a row with empty Id.");
-                documentationExampleCodeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationExampleCodeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationExampleCodeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationExampleCode' contains duplicate Id '{normalizedId}'.");
@@ -6190,7 +6190,7 @@ namespace MetaDocs
             public void AddDocumentationExampleSectionId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationExampleSection' contains a row with empty Id.");
-                documentationExampleSectionIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationExampleSectionIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationExampleSectionIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationExampleSection' contains duplicate Id '{normalizedId}'.");
@@ -6202,7 +6202,7 @@ namespace MetaDocs
             public void AddDocumentationFactId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationFact' contains a row with empty Id.");
-                documentationFactIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationFactIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationFactIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationFact' contains duplicate Id '{normalizedId}'.");
@@ -6214,7 +6214,7 @@ namespace MetaDocs
             public void AddDocumentationFactTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationFactType' contains a row with empty Id.");
-                documentationFactTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationFactTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationFactTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationFactType' contains duplicate Id '{normalizedId}'.");
@@ -6226,7 +6226,7 @@ namespace MetaDocs
             public void AddDocumentationImportBatchId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationImportBatch' contains a row with empty Id.");
-                documentationImportBatchIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationImportBatchIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationImportBatchIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationImportBatch' contains duplicate Id '{normalizedId}'.");
@@ -6238,7 +6238,7 @@ namespace MetaDocs
             public void AddDocumentationInstanceImportSpecId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationInstanceImportSpec' contains a row with empty Id.");
-                documentationInstanceImportSpecIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationInstanceImportSpecIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationInstanceImportSpecIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationInstanceImportSpec' contains duplicate Id '{normalizedId}'.");
@@ -6250,7 +6250,7 @@ namespace MetaDocs
             public void AddDocumentationLayoutId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationLayout' contains a row with empty Id.");
-                documentationLayoutIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationLayoutIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationLayoutIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationLayout' contains duplicate Id '{normalizedId}'.");
@@ -6262,7 +6262,7 @@ namespace MetaDocs
             public void AddDocumentationLayoutTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationLayoutType' contains a row with empty Id.");
-                documentationLayoutTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationLayoutTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationLayoutTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationLayoutType' contains duplicate Id '{normalizedId}'.");
@@ -6274,7 +6274,7 @@ namespace MetaDocs
             public void AddDocumentationNarrativeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationNarrative' contains a row with empty Id.");
-                documentationNarrativeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationNarrativeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationNarrativeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationNarrative' contains duplicate Id '{normalizedId}'.");
@@ -6286,7 +6286,7 @@ namespace MetaDocs
             public void AddDocumentationPropertyImportSpecId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationPropertyImportSpec' contains a row with empty Id.");
-                documentationPropertyImportSpecIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationPropertyImportSpecIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationPropertyImportSpecIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationPropertyImportSpec' contains duplicate Id '{normalizedId}'.");
@@ -6298,7 +6298,7 @@ namespace MetaDocs
             public void AddDocumentationRelationshipId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationRelationship' contains a row with empty Id.");
-                documentationRelationshipIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationRelationshipIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationRelationshipIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationRelationship' contains duplicate Id '{normalizedId}'.");
@@ -6310,7 +6310,7 @@ namespace MetaDocs
             public void AddDocumentationRelationshipImportSpecId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationRelationshipImportSpec' contains a row with empty Id.");
-                documentationRelationshipImportSpecIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationRelationshipImportSpecIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationRelationshipImportSpecIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationRelationshipImportSpec' contains duplicate Id '{normalizedId}'.");
@@ -6322,7 +6322,7 @@ namespace MetaDocs
             public void AddDocumentationRelationshipTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationRelationshipType' contains a row with empty Id.");
-                documentationRelationshipTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationRelationshipTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationRelationshipTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationRelationshipType' contains duplicate Id '{normalizedId}'.");
@@ -6334,7 +6334,7 @@ namespace MetaDocs
             public void AddDocumentationSourceId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationSource' contains a row with empty Id.");
-                documentationSourceIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationSourceIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationSourceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSource' contains duplicate Id '{normalizedId}'.");
@@ -6346,7 +6346,7 @@ namespace MetaDocs
             public void AddDocumentationSourceTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationSourceType' contains a row with empty Id.");
-                documentationSourceTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationSourceTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationSourceTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSourceType' contains duplicate Id '{normalizedId}'.");
@@ -6358,7 +6358,7 @@ namespace MetaDocs
             public void AddDocumentationSubjectId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationSubject' contains a row with empty Id.");
-                documentationSubjectIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationSubjectIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationSubjectIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSubject' contains duplicate Id '{normalizedId}'.");
@@ -6370,7 +6370,7 @@ namespace MetaDocs
             public void AddDocumentationSubjectAliasId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationSubjectAlias' contains a row with empty Id.");
-                documentationSubjectAliasIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationSubjectAliasIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationSubjectAliasIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSubjectAlias' contains duplicate Id '{normalizedId}'.");
@@ -6382,7 +6382,7 @@ namespace MetaDocs
             public void AddDocumentationSubjectTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationSubjectType' contains a row with empty Id.");
-                documentationSubjectTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationSubjectTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationSubjectTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationSubjectType' contains duplicate Id '{normalizedId}'.");
@@ -6394,7 +6394,7 @@ namespace MetaDocs
             public void AddDocumentationTemplateId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplate' contains a row with empty Id.");
-                documentationTemplateIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationTemplateIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationTemplateIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTemplate' contains duplicate Id '{normalizedId}'.");
@@ -6406,7 +6406,7 @@ namespace MetaDocs
             public void AddDocumentationTemplateRegionId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplateRegion' contains a row with empty Id.");
-                documentationTemplateRegionIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationTemplateRegionIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationTemplateRegionIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTemplateRegion' contains duplicate Id '{normalizedId}'.");
@@ -6418,7 +6418,7 @@ namespace MetaDocs
             public void AddDocumentationTemplateRegionTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplateRegionType' contains a row with empty Id.");
-                documentationTemplateRegionTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationTemplateRegionTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationTemplateRegionTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTemplateRegionType' contains duplicate Id '{normalizedId}'.");
@@ -6430,7 +6430,7 @@ namespace MetaDocs
             public void AddDocumentationTemplateTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationTemplateType' contains a row with empty Id.");
-                documentationTemplateTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationTemplateTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationTemplateTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTemplateType' contains duplicate Id '{normalizedId}'.");
@@ -6442,7 +6442,7 @@ namespace MetaDocs
             public void AddDocumentationThemeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationTheme' contains a row with empty Id.");
-                documentationThemeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationThemeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationThemeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationTheme' contains duplicate Id '{normalizedId}'.");
@@ -6454,7 +6454,7 @@ namespace MetaDocs
             public void AddDocumentationThemeAssetId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationThemeAsset' contains a row with empty Id.");
-                documentationThemeAssetIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationThemeAssetIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationThemeAssetIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationThemeAsset' contains duplicate Id '{normalizedId}'.");
@@ -6466,7 +6466,7 @@ namespace MetaDocs
             public void AddDocumentationThemeAssetTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationThemeAssetType' contains a row with empty Id.");
-                documentationThemeAssetTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationThemeAssetTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationThemeAssetTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationThemeAssetType' contains duplicate Id '{normalizedId}'.");
@@ -6478,7 +6478,7 @@ namespace MetaDocs
             public void AddDocumentationValueTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationValueType' contains a row with empty Id.");
-                documentationValueTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationValueTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationValueTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationValueType' contains duplicate Id '{normalizedId}'.");
@@ -6490,7 +6490,7 @@ namespace MetaDocs
             public void AddDocumentationViewId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationView' contains a row with empty Id.");
-                documentationViewIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationViewIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationViewIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationView' contains duplicate Id '{normalizedId}'.");
@@ -6502,7 +6502,7 @@ namespace MetaDocs
             public void AddDocumentationViewNodeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationViewNode' contains a row with empty Id.");
-                documentationViewNodeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationViewNodeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationViewNodeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationViewNode' contains duplicate Id '{normalizedId}'.");
@@ -6514,7 +6514,7 @@ namespace MetaDocs
             public void AddDocumentationViewTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationViewType' contains a row with empty Id.");
-                documentationViewTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationViewTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationViewTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationViewType' contains duplicate Id '{normalizedId}'.");
@@ -6526,7 +6526,7 @@ namespace MetaDocs
             public void AddDocumentationWorkspaceId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationWorkspace' contains a row with empty Id.");
-                documentationWorkspaceIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationWorkspaceIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationWorkspaceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationWorkspace' contains duplicate Id '{normalizedId}'.");
@@ -6538,7 +6538,7 @@ namespace MetaDocs
             public void AddDocumentationWorkspaceTypeId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'DocumentationWorkspaceType' contains a row with empty Id.");
-                documentationWorkspaceTypeIds ??= new HashSet<string>(StringComparer.Ordinal);
+                documentationWorkspaceTypeIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!documentationWorkspaceTypeIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'DocumentationWorkspaceType' contains duplicate Id '{normalizedId}'.");
@@ -7300,7 +7300,7 @@ namespace MetaDocs
         private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)
             where T : class
         {
-            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);
+            var rowsById = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
             foreach (var row in rows)
             {
                 ArgumentNullException.ThrowIfNull(row);

@@ -529,11 +529,11 @@ public static partial class GenerationService
         builder.AppendLine($"        private static byte[] Serialize{entity.Name}Shard({modelTypeName} model, SaveIndexes saveIndexes)");
         builder.AppendLine("        {");
         builder.AppendLine("            var builder = new StringBuilder();");
-        builder.AppendLine("            var rowIds = new HashSet<string>(StringComparer.Ordinal);");
+        builder.AppendLine("            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);");
         builder.AppendLine("            builder.Append(\"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\"?>\\n\");");
         builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("<" + rootName + ">\n")});");
         builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("  <" + entity.GetListName() + ">\n")});");
-        builder.AppendLine($"            foreach (var row in model.{entity.GetListName()})");
+        builder.AppendLine($"            foreach (var row in model.{entity.GetListName()}.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))");
         builder.AppendLine("            {");
         builder.AppendLine("                ArgumentNullException.ThrowIfNull(row);");
         builder.AppendLine($"                var rowId = RequireIdentity(row.Id, {ToCSharpStringLiteral($"Entity '{entity.Name}' contains a row with empty Id.")});");
@@ -711,7 +711,7 @@ public static partial class GenerationService
             builder.AppendLine($"            public void Add{entity.Name}Id(string? id)");
             builder.AppendLine("            {");
             builder.AppendLine($"                var normalizedId = RequireIdentity(id, {ToCSharpStringLiteral($"Entity '{entity.Name}' contains a row with empty Id.")});");
-            builder.AppendLine($"                {idSetName} ??= new HashSet<string>(StringComparer.Ordinal);");
+            builder.AppendLine($"                {idSetName} ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);");
             builder.AppendLine($"                if (!{idSetName}.Add(normalizedId))");
             builder.AppendLine("                {");
             builder.AppendLine($"                    throw new InvalidDataException($\"Entity '{entity.Name}' contains duplicate Id '{{normalizedId}}'.\");");
@@ -778,7 +778,7 @@ public static partial class GenerationService
         builder.AppendLine("        private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)");
         builder.AppendLine("            where T : class");
         builder.AppendLine("        {");
-        builder.AppendLine("            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);");
+        builder.AppendLine("            var rowsById = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);");
         builder.AppendLine("            foreach (var row in rows)");
         builder.AppendLine("            {");
         builder.AppendLine("                ArgumentNullException.ThrowIfNull(row);");
@@ -943,7 +943,6 @@ public static partial class GenerationService
             var records = workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var entityRecords)
                 ? entityRecords
                     .OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase)
-                    .ThenBy(record => record.Id, StringComparer.Ordinal)
                     .ToList()
                 : new List<GenericRecord>();
 
@@ -977,7 +976,7 @@ public static partial class GenerationService
         foreach (var entity in entities)
         {
             var rowsVar = ToCamelIdentifier(entity.GetListName());
-            builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.Ordinal);");
+            builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.OrdinalIgnoreCase);");
             builder.AppendLine($"            foreach (var row in {rowsVar})");
             builder.AppendLine("            {");
             builder.AppendLine($"                {rowsVar}ById[row.Id] = row;");
@@ -991,7 +990,6 @@ public static partial class GenerationService
             var records = workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var entityRecords)
                 ? entityRecords
                     .OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase)
-                    .ThenBy(record => record.Id, StringComparer.Ordinal)
                     .ToList()
                 : new List<GenericRecord>();
             for (var recordIndex = 0; recordIndex < records.Count; recordIndex++)

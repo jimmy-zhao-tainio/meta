@@ -161,6 +161,10 @@ public sealed class GenerationServiceTests
             Assert.Contains("private static void SaveShardGroup1", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("var cubeListById = BuildById", modelCode, StringComparison.Ordinal);
             Assert.Contains("SerializeCubeShard(", modelCode, StringComparison.Ordinal);
+            Assert.Contains(
+                "foreach (var row in model.CubeList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))",
+                modelCode,
+                StringComparison.Ordinal);
             Assert.Contains("ReadCube(", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("Signature", modelCode, StringComparison.Ordinal);
             Assert.DoesNotContain("ModelDefinitionXml", modelCode, StringComparison.Ordinal);
@@ -325,6 +329,31 @@ public sealed class GenerationServiceTests
     }
 
     [Fact]
+    public void GeneratedCSharpTooling_SerializesRowsInIdOrder()
+    {
+        var workspace = CreateSalesWorkspace();
+        var projectRoot = Path.Combine(Path.GetTempPath(), "metadata-gen-ordering-tests", Guid.NewGuid().ToString("N"));
+
+        try
+        {
+            Directory.CreateDirectory(projectRoot);
+            GenerationService.GenerateCSharp(workspace, projectRoot, includeTooling: true);
+            File.WriteAllText(Path.Combine(projectRoot, "Program.cs"), BuildGeneratedOrderingProgramCode());
+            File.WriteAllText(Path.Combine(projectRoot, "GeneratedRuntime.csproj"), BuildGeneratedRuntimeProjectFile());
+
+            var result = RunDotNet(projectRoot, "run", "--project", Path.Combine(projectRoot, "GeneratedRuntime.csproj"), "--nologo");
+
+            Assert.True(
+                result.ExitCode == 0,
+                "Generated C# ordering contract failed." + Environment.NewLine + result.Output + Environment.NewLine + result.Error);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(projectRoot);
+        }
+    }
+
+    [Fact]
     public void GeneratedCSharpTooling_CanAuthorLoadModifyAndSaveReferenceModel()
     {
         var workspace = CreateSalesWorkspace();
@@ -432,6 +461,35 @@ public sealed class GenerationServiceTests
         return workspace;
     }
 
+    private static string BuildGeneratedOrderingProgramCode()
+    {
+        return """
+            using System;
+            using System.IO;
+            using Sales;
+
+            var workspace = Path.Combine(AppContext.BaseDirectory, "runtime-workspace");
+            var model = SalesModel.CreateEmpty();
+            model.CustomerList.Add(new Customer { Id = "C002", CustomerId = "LEGACY-C002", Name = "Beta" });
+            model.CustomerList.Add(new Customer { Id = "C001", CustomerId = "LEGACY-C001", Name = "Acme" });
+            model.SaveToXmlWorkspace(workspace);
+
+            var xml = File.ReadAllText(Path.Combine(workspace, "instances", "Customer.xml"));
+            var first = xml.IndexOf("Id=\"C001\"", StringComparison.Ordinal);
+            var second = xml.IndexOf("Id=\"C002\"", StringComparison.Ordinal);
+            if (first < 0 || second < 0 || first >= second)
+            {
+                throw new InvalidOperationException("Generated POCO serializer did not emit rows in Id order.");
+            }
+
+            var loaded = SalesModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            if (loaded.CustomerList[0].Id != "C001" || loaded.CustomerList[1].Id != "C002")
+            {
+                throw new InvalidOperationException("Canonical row order did not survive reload.");
+            }
+            """;
+    }
+
     private static string BuildSalesExtensionsCode()
     {
         return """
@@ -494,8 +552,8 @@ public sealed class GenerationServiceTests
             var product = new Product { Id = "P001", ProductId = "SKU-001", Name = "Widget" };
             var shipment = new Shipment { Id = "S001", TrackingId = "TRK-001", Order = order };
             var model = SalesModel.CreateEmpty();
-            model.CustomerList.Add(customer);
             model.CustomerList.Add(shippingCustomer);
+            model.CustomerList.Add(customer);
             model.OrderList.Add(order);
             model.InvoiceList.Add(invoice);
             model.ProductList.Add(product);
@@ -503,6 +561,10 @@ public sealed class GenerationServiceTests
 
             model.SaveToXmlWorkspace(workspace);
 
+            var customerXml = File.ReadAllText(Path.Combine(workspace, "instances", "Customer.xml"));
+            Require(
+                customerXml.IndexOf("Id=\"C001\"", StringComparison.Ordinal) < customerXml.IndexOf("Id=\"C002\"", StringComparison.Ordinal),
+                "POCO rows were not serialized in Id order.");
             var orderXml = File.ReadAllText(Path.Combine(workspace, "instances", "Order.xml"));
             Require(orderXml.Contains("CustomerId=\"C001\"", StringComparison.Ordinal), "Order relationship was not serialized as CustomerId.");
             Require(!orderXml.Contains("ReferralCustomerId=", StringComparison.Ordinal), "Absent optional relationship was serialized.");
@@ -558,7 +620,7 @@ public sealed class GenerationServiceTests
 
             var duplicate = SalesModel.CreateEmpty();
             var duplicateCustomerA = new Customer { Id = "DUP", CustomerId = "A", Name = "A" };
-            var duplicateCustomerB = new Customer { Id = "DUP", CustomerId = "B", Name = "B" };
+            var duplicateCustomerB = new Customer { Id = "dup", CustomerId = "B", Name = "B" };
             duplicate.CustomerList.Add(duplicateCustomerA);
             duplicate.CustomerList.Add(duplicateCustomerB);
             duplicate.OrderList.Add(new Order { Id = "ODUP", ExternalOrderId = "EXT-DUP", Customer = duplicateCustomerA });

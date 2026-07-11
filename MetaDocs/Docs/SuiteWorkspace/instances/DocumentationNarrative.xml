@@ -17,6 +17,62 @@
       <Slot>Summary</Slot>
       <Title>Models</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
+      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, generated database assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
+
+Teams compose the sanctioned workspaces that match their architecture. At every handoff, the input and output remain inspectable model instances instead of disappearing into generator configuration or unstructured deployment scripts.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>EndToEnd</Slot>
+      <Title>From source contracts to analytical targets</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
+      <Body>The sanctioned models divide BI concerns at their natural ownership boundaries:
+
+- **Source and type contracts:** `MetaSchema` captures systems, schemas, tables, fields, keys, and relationships from SQL Server. `MetaDataType` and `MetaDataTypeConversion` carry semantic types and explicit mappings into runtime type systems.
+- **Data architecture:** `MetaRawDataVault` and `MetaBusinessDataVault` model raw and governed vault structures. `MetaDataWarehouse` models dimensions, facts, grain, business keys, roles, snapshots, bridges, and slowly changing dimensions. Separate implementation workspaces own physical SQL naming, keys, platform columns, defaults, and indexes.
+- **Transform and database realization:** `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` carry understood SQL, schema contracts, deployable objects, and controlled deployment.
+- **Analytical semantics:** `MetaAnalytics` defines portable tables, attributes, hierarchies, measures, aggregation behavior, relationships, perspectives, roles, cultures, and translations before an engine is selected.
+- **Analytical targets:** `MetaTabular` owns DAX measures, calculation groups, partitions, KPIs, and tabular security. `MetaMultiDimensional` owns cubes, measure groups, MDX, named sets, actions, partitions, and multidimensional security.
+- **Execution and assurance:** `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` turn modeled transform and access evidence into reviewable checks, executable task chains, dependency graphs, synchronization policy, and runtime evidence.
+
+`meta-convert` performs explicit conversions between sanctioned model surfaces, keeping portable intent separate from target-specific implementation details.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>ModelLayers</Slot>
+      <Title>Sanctioned model layers</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
+      <Body>The runtime tools consume modeled evidence produced by the layers before them:
+
+- **`meta-data-quality`** traverses the typed transform graph to discover reviewable integrity, optionality, fanout, duplicate, join-pattern, and filter-consensus candidates. Binding evidence can restrict generation to transforms whose source and target contracts are already proven.
+- **`meta-pipeline`** executes modeled transform-backed and external-process tasks, records the exact transform and binding used, and preserves row, batch, timeout, fingerprint, audit, and failure evidence.
+- **`meta-orchestration`** derives the provable dependency graph from pipeline tasks and bound object reads and writes. Explicit ordering, lock compatibility, synchronization, and failure branches remain modeled policy instead of being buried in scheduler behavior.
+- **Target CLIs** realize modeled SQL, Tabular, and MultiDimensional workspaces through deployment and processing commands owned by the target model.
+
+Automation therefore follows from explicit contracts. When additional knowledge is required, it enters as modeled policy that engineers and agents can inspect alongside the inferred evidence.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>OperationalEvidence</Slot>
+      <Title>Model-driven execution and evidence</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
+      <Body>SQL is represented as structure rather than carried as an opaque script blob.
+
+- **`MetaTransformScript`** imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through `SQL -&gt; workspace -&gt; SQL -&gt; workspace` round trips.
+- **`MetaTransformBinding`** resolves modeled source and target identifiers against explicit `MetaSchema` workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned `MetaDataTypeConversion` policy.
+- **`MetaSql`** carries deployable database structure, while `MetaSqlDeployManifest` makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.
+
+That shared understanding lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>SqlSemantics</Slot>
+      <Title>SQL as modeled structure</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary:overview" DocumentationSubjectId="public:meta-bi:overview">
       <Body>`meta-bi` is a model-driven BI engineering stack built on the generic `meta` foundation. It keeps source structures, SQL semantics, transformation contracts, data architecture, deployment assets, execution plans, and analytical targets as typed workspaces that can be inspected, converted, generated, and executed through one model-first foundation.</Body>
       <BodyFormat>Markdown</BodyFormat>
@@ -281,62 +337,6 @@ Instance data may be sharded across several files. Loading combines rows for the
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>meta + meta-bi reference</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
-      <Body>SQL is represented as structure rather than carried as an opaque script blob.
-
-- **`MetaTransformScript`** imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through `SQL -&gt; workspace -&gt; SQL -&gt; workspace` round trips.
-- **`MetaTransformBinding`** resolves modeled source and target identifiers against explicit `MetaSchema` workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned `MetaDataTypeConversion` policy.
-- **`MetaSql`** carries deployable database structure, while `MetaSqlDeployManifest` makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.
-
-That shared understanding lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>SqlSemantics</Slot>
-      <Title>SQL as modeled structure</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
-      <Body>The sanctioned models divide BI concerns at their natural ownership boundaries:
-
-- **Source and type contracts:** `MetaSchema` captures systems, schemas, tables, fields, keys, and relationships from SQL Server. `MetaDataType` and `MetaDataTypeConversion` carry semantic types and explicit mappings into runtime type systems.
-- **Data architecture:** `MetaRawDataVault` and `MetaBusinessDataVault` model raw and governed vault structures. `MetaDataWarehouse` models dimensions, facts, grain, business keys, roles, snapshots, bridges, and slowly changing dimensions. Separate implementation workspaces own physical SQL naming, keys, platform columns, defaults, and indexes.
-- **Transform and database realization:** `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` carry understood SQL, schema contracts, deployable objects, and controlled deployment.
-- **Analytical semantics:** `MetaAnalytics` defines portable tables, attributes, hierarchies, measures, aggregation behavior, relationships, perspectives, roles, cultures, and translations before an engine is selected.
-- **Analytical targets:** `MetaTabular` owns DAX measures, calculation groups, partitions, KPIs, and tabular security. `MetaMultiDimensional` owns cubes, measure groups, MDX, named sets, actions, partitions, and multidimensional security.
-- **Execution and assurance:** `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` turn modeled transform and access evidence into reviewable checks, executable task chains, dependency graphs, synchronization policy, and runtime evidence.
-
-`meta-convert` performs explicit conversions between sanctioned model surfaces, keeping portable intent separate from target-specific implementation details.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>ModelLayers</Slot>
-      <Title>Sanctioned model layers</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
-      <Body>The runtime tools consume modeled evidence produced by the layers before them:
-
-- **`meta-data-quality`** traverses the typed transform graph to discover reviewable integrity, optionality, fanout, duplicate, join-pattern, and filter-consensus candidates. Binding evidence can restrict generation to transforms whose source and target contracts are already proven.
-- **`meta-pipeline`** executes modeled transform-backed and external-process tasks, records the exact transform and binding used, and preserves row, batch, timeout, fingerprint, audit, and failure evidence.
-- **`meta-orchestration`** derives the provable dependency graph from pipeline tasks and bound object reads and writes. Explicit ordering, lock compatibility, synchronization, and failure branches remain modeled policy instead of being buried in scheduler behavior.
-- **Target CLIs** realize modeled SQL, Tabular, and MultiDimensional workspaces through deployment and processing commands owned by the target model.
-
-Automation therefore follows from explicit contracts. When additional knowledge is required, it enters as modeled policy that engineers and agents can inspect alongside the inferred evidence.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>OperationalEvidence</Slot>
-      <Title>Model-driven execution and evidence</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
-      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, generated database assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
-
-Teams compose the sanctioned workspaces that match their architecture. At every handoff, the input and output remain inspectable model instances instead of disappearing into generator configuration or unstructured deployment scripts.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>EndToEnd</Slot>
-      <Title>From source contracts to analytical targets</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
       <Body>Declare a base measure aggregate function.</Body>

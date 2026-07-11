@@ -272,11 +272,11 @@ namespace MetaWeave
         private static byte[] SerializeModelReferenceShard(MetaWeaveModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaWeave>\n");
             builder.Append("  <ModelReferenceList>\n");
-            foreach (var row in model.ModelReferenceList)
+            foreach (var row in model.ModelReferenceList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'ModelReference' contains a row with empty Id.");
@@ -392,11 +392,11 @@ namespace MetaWeave
         private static byte[] SerializePropertyBindingShard(MetaWeaveModel model, SaveIndexes saveIndexes)
         {
             var builder = new StringBuilder();
-            var rowIds = new HashSet<string>(StringComparer.Ordinal);
+            var rowIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             builder.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             builder.Append("<MetaWeave>\n");
             builder.Append("  <PropertyBindingList>\n");
-            foreach (var row in model.PropertyBindingList)
+            foreach (var row in model.PropertyBindingList.OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase))
             {
                 ArgumentNullException.ThrowIfNull(row);
                 var rowId = RequireIdentity(row.Id, "Entity 'PropertyBinding' contains a row with empty Id.");
@@ -500,7 +500,7 @@ namespace MetaWeave
             public void AddModelReferenceId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'ModelReference' contains a row with empty Id.");
-                modelReferenceIds ??= new HashSet<string>(StringComparer.Ordinal);
+                modelReferenceIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!modelReferenceIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'ModelReference' contains duplicate Id '{normalizedId}'.");
@@ -512,7 +512,7 @@ namespace MetaWeave
             public void AddPropertyBindingId(string? id)
             {
                 var normalizedId = RequireIdentity(id, "Entity 'PropertyBinding' contains a row with empty Id.");
-                propertyBindingIds ??= new HashSet<string>(StringComparer.Ordinal);
+                propertyBindingIds ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 if (!propertyBindingIds.Add(normalizedId))
                 {
                     throw new InvalidDataException($"Entity 'PropertyBinding' contains duplicate Id '{normalizedId}'.");
@@ -627,7 +627,7 @@ namespace MetaWeave
         private static Dictionary<string, T> BuildById<T>(IEnumerable<T> rows, Func<T, string> getId, string entityName)
             where T : class
         {
-            var rowsById = new Dictionary<string, T>(StringComparer.Ordinal);
+            var rowsById = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
             foreach (var row in rows)
             {
                 ArgumentNullException.ThrowIfNull(row);
