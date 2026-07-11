@@ -175,7 +175,7 @@ internal static class Program
             throw new MetaCliExitException(2, "Use either --arguments or --arguments-stdin, not both.");
         }
 
-        return Console.In.ReadToEnd().TrimEnd('\r', '\n');
+        return MetaCliStandardInput.ReadToEnd().TrimEnd('\r', '\n');
     }
 
     private static void RunOperation(MetaCliInvocation invocation, MetaMeshModel model)

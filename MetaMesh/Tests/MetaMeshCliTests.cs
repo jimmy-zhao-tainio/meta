@@ -151,7 +151,7 @@ public sealed class MetaMeshCliTests
 
             var add = RunCli(
                 $"add-step --workspace \"{meshPath}\" --operation stdin-arguments --name echo --executable cmd.exe --arguments-stdin",
-                standardInput: childArguments + Environment.NewLine);
+                standardInput: "\u00EF\u00BB\u00BF" + childArguments + Environment.NewLine);
 
             Assert.Equal(0, add.ExitCode);
 
