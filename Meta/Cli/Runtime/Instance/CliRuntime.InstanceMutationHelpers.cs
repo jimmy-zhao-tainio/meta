@@ -305,6 +305,7 @@ internal sealed partial class CliRuntime
         int? rowNumber)
     {
         foreach (var relationship in entity.Relationships
+                     .Where(item => !item.IsNullable)
                      .Select(item => item.GetColumnName())
                      .Where(name => !string.IsNullOrWhiteSpace(name))
                      .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))

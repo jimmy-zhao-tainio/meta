@@ -220,9 +220,8 @@ internal sealed partial class CliRuntime
     {
         var existingPropertiesByName = existingEntity.Properties
             .ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase);
-        var existingRelationshipNames = existingEntity.Relationships
-            .Select(item => item.GetColumnName())
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var existingRelationshipsByName = existingEntity.Relationships
+            .ToDictionary(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase);
         var importedColumnNames = importedEntity.Properties
             .Select(item => item.Name)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
@@ -239,9 +238,9 @@ internal sealed partial class CliRuntime
                 var hasValue = importedRow.Values.TryGetValue(name, out var value);
                 var isBlank = !hasValue || string.IsNullOrWhiteSpace(value);
 
-                if (existingRelationshipNames.Contains(name))
+                if (existingRelationshipsByName.TryGetValue(name, out var existingRelationship))
                 {
-                    if (isBlank)
+                    if (!existingRelationship.IsNullable && isBlank)
                     {
                         throw new InvalidOperationException(
                             $"CSV row '{importedRow.Id}' leaves required relationship '{name}' blank on entity '{existingEntity.Name}'.");
@@ -283,6 +282,7 @@ internal sealed partial class CliRuntime
             }
 
             foreach (var requiredRelationshipName in existingEntity.Relationships
+                         .Where(item => !item.IsNullable)
                          .Select(item => item.GetColumnName())
                          .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))
             {

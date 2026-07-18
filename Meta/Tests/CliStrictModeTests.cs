@@ -3745,6 +3745,68 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task BulkInsert_AllowsBlankOptionalRelationship()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-entity",
+                "Step",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-relationship",
+                "Step",
+                "Cube",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-relationship",
+                "Step",
+                "Step",
+                "--role",
+                "PreviousStep",
+                "--required",
+                "false",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+
+            var tsvPath = Path.Combine(workspaceRoot, "steps.tsv");
+            await File.WriteAllTextAsync(
+                tsvPath,
+                "Id\tCubeId\tPreviousStepId\nFirst\t1\t\nSecond\t1\tFirst\n");
+
+            var result = await RunCliAsync(
+                "bulk-insert",
+                "Step",
+                "--from",
+                "tsv",
+                "--file",
+                tsvPath,
+                "--strict",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.True(result.ExitCode == 0, result.CombinedOutput);
+
+            var workspace = await new WorkspaceService().LoadAsync(workspaceRoot, searchUpward: false);
+            var stepsById = workspace.Instance.GetOrCreateEntityRecords("Step")
+                .ToDictionary(row => row.Id, StringComparer.OrdinalIgnoreCase);
+            Assert.Equal("1", stepsById["First"].RelationshipIds["CubeId"]);
+            Assert.False(stepsById["First"].RelationshipIds.ContainsKey("PreviousStepId"));
+            Assert.Equal("First", stepsById["Second"].RelationshipIds["PreviousStepId"]);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task InstanceDiff_FailsWhenRightWorkspaceHasMissingRequiredRelationshipUsage()
     {
         var leftWorkspace = await CreateTempCanonicalWorkspaceFromSamplesAsync();
