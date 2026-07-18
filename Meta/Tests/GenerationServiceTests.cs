@@ -329,7 +329,7 @@ public sealed class GenerationServiceTests
     }
 
     [Fact]
-    public void GeneratedCSharpTooling_SerializesRowsInIdOrder()
+    public void GeneratedCSharpTooling_SerializesRowsInIdOrderAndSelfClosesAttributeOnlyRows()
     {
         var workspace = CreateSalesWorkspace();
         var projectRoot = Path.Combine(Path.GetTempPath(), "metadata-gen-ordering-tests", Guid.NewGuid().ToString("N"));
@@ -426,6 +426,26 @@ public sealed class GenerationServiceTests
                     },
                     new GenericEntity
                     {
+                        Name = "CustomerMarker",
+                        Relationships =
+                        {
+                            new GenericRelationship { Entity = "Customer" },
+                        },
+                    },
+                    new GenericEntity
+                    {
+                        Name = "CustomerRemark",
+                        Properties =
+                        {
+                            new GenericProperty { Name = "Note", IsNullable = true },
+                        },
+                        Relationships =
+                        {
+                            new GenericRelationship { Entity = "Customer" },
+                        },
+                    },
+                    new GenericEntity
+                    {
                         Name = "Order",
                         Properties =
                         {
@@ -472,6 +492,9 @@ public sealed class GenerationServiceTests
             var model = SalesModel.CreateEmpty();
             model.CustomerList.Add(new Customer { Id = "C002", CustomerId = "LEGACY-C002", Name = "Beta" });
             model.CustomerList.Add(new Customer { Id = "C001", CustomerId = "LEGACY-C001", Name = "Acme" });
+            model.CustomerMarkerList.Add(new CustomerMarker { Id = "M001", Customer = model.CustomerList[1] });
+            model.CustomerRemarkList.Add(new CustomerRemark { Id = "R001", Customer = model.CustomerList[1] });
+            model.CustomerRemarkList.Add(new CustomerRemark { Id = "R002", Customer = model.CustomerList[1], Note = "Reviewed" });
             model.SaveToXmlWorkspace(workspace);
 
             var xml = File.ReadAllText(Path.Combine(workspace, "instances", "Customer.xml"));
@@ -480,6 +503,19 @@ public sealed class GenerationServiceTests
             if (first < 0 || second < 0 || first >= second)
             {
                 throw new InvalidOperationException("Generated POCO serializer did not emit rows in Id order.");
+            }
+
+            var markerXml = File.ReadAllText(Path.Combine(workspace, "instances", "CustomerMarker.xml"));
+            if (!markerXml.Contains("<CustomerMarker Id=\"M001\" CustomerId=\"C001\" />", StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException("Generated POCO serializer did not use the canonical self-closing form for an attribute-only row.");
+            }
+
+            var remarkXml = File.ReadAllText(Path.Combine(workspace, "instances", "CustomerRemark.xml"));
+            if (!remarkXml.Contains("<CustomerRemark Id=\"R001\" CustomerId=\"C001\" />", StringComparison.Ordinal) ||
+                !remarkXml.Contains("<CustomerRemark Id=\"R002\" CustomerId=\"C001\">\n      <Note>Reviewed</Note>\n    </CustomerRemark>", StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException("Generated POCO serializer did not preserve canonical empty and populated optional-property rows.");
             }
 
             var loaded = SalesModel.LoadFromXmlWorkspace(workspace, searchUpward: false);

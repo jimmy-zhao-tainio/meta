@@ -165,7 +165,6 @@ public static partial class GenerationService
             .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
             .ThenBy(item => item.Name, StringComparer.Ordinal)
             .ToList();
-
         builder.AppendLine($"    internal static class {modelTypeName}XmlSerializer");
         builder.AppendLine("    {");
         builder.AppendLine("        private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);");
@@ -526,6 +525,12 @@ public static partial class GenerationService
         IReadOnlyList<GenericEntity> entities,
         GenericEntity entity)
     {
+        var properties = entity.Properties
+            .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+            .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(property => property.Name, StringComparer.Ordinal)
+            .ToList();
+
         builder.AppendLine($"        private static byte[] Serialize{entity.Name}Shard({modelTypeName} model, SaveIndexes saveIndexes)");
         builder.AppendLine("        {");
         builder.AppendLine("            var builder = new StringBuilder();");
@@ -565,26 +570,44 @@ public static partial class GenerationService
             }
         }
 
-        builder.AppendLine("                builder.Append(\">\\n\");");
-        foreach (var property in entity.Properties
-                     .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-                     .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(property => property.Name, StringComparer.Ordinal))
+        if (properties.Count == 0)
         {
-            if (property.IsNullable)
+            builder.AppendLine("                builder.Append(\" />\\n\");");
+        }
+        else if (properties.Any(property => !property.IsNullable))
+        {
+            builder.AppendLine("                builder.Append(\">\\n\");");
+            foreach (var property in properties)
+            {
+                if (property.IsNullable)
+                {
+                    builder.AppendLine($"                if (!string.IsNullOrWhiteSpace(row.{property.Name}))");
+                    builder.AppendLine("                {");
+                    builder.AppendLine($"                    AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, row.{property.Name}!, \"      \");");
+                    builder.AppendLine("                }");
+                }
+                else
+                {
+                    builder.AppendLine($"                AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, RequireText(row.{property.Name}, $\"Entity '{entity.Name}' row '{{row.Id}}' is missing required property '{property.Name}'.\"), \"      \");");
+                }
+            }
+
+            builder.AppendLine($"                builder.Append({ToCSharpStringLiteral("    </" + entity.Name + ">\n")});");
+        }
+        else
+        {
+            builder.AppendLine("                var openingTagEndIndex = builder.Length;");
+            builder.AppendLine("                builder.Append(\">\\n\");");
+            foreach (var property in properties)
             {
                 builder.AppendLine($"                if (!string.IsNullOrWhiteSpace(row.{property.Name}))");
                 builder.AppendLine("                {");
                 builder.AppendLine($"                    AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, row.{property.Name}!, \"      \");");
                 builder.AppendLine("                }");
             }
-            else
-            {
-                builder.AppendLine($"                AppendElement(builder, {ToCSharpStringLiteral(property.Name)}, RequireText(row.{property.Name}, $\"Entity '{entity.Name}' row '{{row.Id}}' is missing required property '{property.Name}'.\"), \"      \");");
-            }
-        }
 
-        builder.AppendLine($"                builder.Append({ToCSharpStringLiteral("    </" + entity.Name + ">\n")});");
+            builder.AppendLine($"                AppendClosingElementOrSelfClose(builder, openingTagEndIndex, {ToCSharpStringLiteral("    </" + entity.Name + ">\n")});");
+        }
         builder.AppendLine("            }");
         builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("  </" + entity.GetListName() + ">\n")});");
         builder.AppendLine($"            builder.Append({ToCSharpStringLiteral("</" + rootName + ">\n")});");
@@ -681,6 +704,14 @@ public static partial class GenerationService
 
     private static void AppendCSharpSerializerHelpers(StringBuilder builder, string modelTypeName, IReadOnlyList<GenericEntity> entities)
     {
+        var hasEntitiesWithOnlyOptionalProperties = entities.Any(entity =>
+        {
+            var properties = entity.Properties
+                .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            return properties.Count > 0 && properties.All(property => property.IsNullable);
+        });
+
         builder.AppendLine("        private static readonly string[] ShardFileNames =");
         builder.AppendLine("        {");
         foreach (var entity in entities)
@@ -833,6 +864,21 @@ public static partial class GenerationService
         builder.AppendLine("            builder.Append(\">\\n\");");
         builder.AppendLine("        }");
         builder.AppendLine();
+        if (hasEntitiesWithOnlyOptionalProperties)
+        {
+            builder.AppendLine("        private static void AppendClosingElementOrSelfClose(StringBuilder builder, int openingTagEndIndex, string closingElement)");
+            builder.AppendLine("        {");
+            builder.AppendLine("            if (builder.Length == openingTagEndIndex + 2)");
+            builder.AppendLine("            {");
+            builder.AppendLine("                builder.Length = openingTagEndIndex;");
+            builder.AppendLine("                builder.Append(\" />\\n\");");
+            builder.AppendLine("                return;");
+            builder.AppendLine("            }");
+            builder.AppendLine();
+            builder.AppendLine("            builder.Append(closingElement);");
+            builder.AppendLine("        }");
+            builder.AppendLine();
+        }
         builder.AppendLine("        private static void AppendXmlAttribute(StringBuilder builder, string value)");
         builder.AppendLine("        {");
         builder.AppendLine("            foreach (var character in value)");

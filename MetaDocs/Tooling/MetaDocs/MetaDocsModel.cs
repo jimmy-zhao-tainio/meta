@@ -2786,8 +2786,7 @@ namespace MetaDocs
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, toSubjectId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </DocumentationRelationship>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </DocumentationRelationshipList>\n");
             builder.Append("</MetaDocs>\n");

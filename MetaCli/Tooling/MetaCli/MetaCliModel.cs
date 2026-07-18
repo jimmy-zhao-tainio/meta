@@ -753,8 +753,7 @@ namespace MetaCli
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, executableCommandId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </ApplicationDefaultCommand>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </ApplicationDefaultCommandList>\n");
             builder.Append("</MetaCli>\n");
@@ -875,8 +874,7 @@ namespace MetaCli
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, parameterId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </ApplicationParameter>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </ApplicationParameterList>\n");
             builder.Append("</MetaCli>\n");
@@ -1127,8 +1125,7 @@ namespace MetaCli
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, commandId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </ExecutableCommand>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </ExecutableCommandList>\n");
             builder.Append("</MetaCli>\n");
@@ -1249,8 +1246,7 @@ namespace MetaCli
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, parameterId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </ExecutableCommandParameter>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </ExecutableCommandParameterList>\n");
             builder.Append("</MetaCli>\n");
@@ -1358,8 +1354,7 @@ namespace MetaCli
                 builder.Append("=\"");
                 AppendXmlAttribute(builder, parameterId);
                 builder.Append('"');
-                builder.Append(">\n");
-                builder.Append("    </Option>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </OptionList>\n");
             builder.Append("</MetaCli>\n");
@@ -1900,8 +1895,7 @@ namespace MetaCli
                     AppendXmlAttribute(builder, previousMemberId);
                     builder.Append('"');
                 }
-                builder.Append(">\n");
-                builder.Append("    </ParameterGroupMember>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </ParameterGroupMemberList>\n");
             builder.Append("</MetaCli>\n");
@@ -2025,8 +2019,7 @@ namespace MetaCli
                     AppendXmlAttribute(builder, previousArgumentId);
                     builder.Append('"');
                 }
-                builder.Append(">\n");
-                builder.Append("    </PositionalArgument>\n");
+                builder.Append(" />\n");
             }
             builder.Append("  </PositionalArgumentList>\n");
             builder.Append("</MetaCli>\n");
