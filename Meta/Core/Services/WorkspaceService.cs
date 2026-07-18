@@ -40,7 +40,8 @@ public sealed class WorkspaceService : IWorkspaceService
     public Task<Workspace> LoadAsync(
         string workspaceRootPath,
         bool searchUpward = false,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        WorkspaceLoadOptions? loadOptions = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -70,7 +71,8 @@ public sealed class WorkspaceService : IWorkspaceService
                 }
 
                 var model = ReadModel(modelPath);
-                var instance = ReadInstance(paths.WorkspaceRootPath, workspaceConfig, model);
+                var relationshipColumnAliases = ResolveRelationshipColumnAliases(model, loadOptions);
+                var instance = ReadInstance(paths.WorkspaceRootPath, workspaceConfig, model, relationshipColumnAliases);
 
                 var workspace = new Workspace
                 {
@@ -312,7 +314,8 @@ public sealed class WorkspaceService : IWorkspaceService
     private static GenericInstance ReadInstance(
         string workspaceRootPath,
         MetaWorkspaceGenerated workspaceConfig,
-        GenericModel model)
+        GenericModel model,
+        IReadOnlyList<InstanceRelationshipColumnAlias> relationshipColumnAliases)
     {
         var shardDirectoryPath = WorkspacePathResolver.ResolvePathFromWorkspaceRoot(
             workspaceRootPath,
@@ -325,7 +328,7 @@ public sealed class WorkspaceService : IWorkspaceService
                 .ToList();
             if (shardFiles.Count > 0)
             {
-                return ReadInstanceShards(shardFiles, model);
+                return ReadInstanceShards(shardFiles, model, relationshipColumnAliases);
             }
         }
 
@@ -345,9 +348,67 @@ public sealed class WorkspaceService : IWorkspaceService
 
     private static GenericInstance ReadInstanceShards(
         IReadOnlyCollection<string> shardFiles,
-        GenericModel model)
+        GenericModel model,
+        IReadOnlyList<InstanceRelationshipColumnAlias> relationshipColumnAliases)
     {
-        return InstanceXmlCodec.LoadFromPaths(shardFiles, model);
+        var loadOptions = relationshipColumnAliases.Count == 0
+            ? null
+            : new InstanceXmlLoadOptions(relationshipColumnAliases);
+        return InstanceXmlCodec.LoadFromPaths(shardFiles, model, loadOptions);
+    }
+
+    private static IReadOnlyList<InstanceRelationshipColumnAlias> ResolveRelationshipColumnAliases(
+        GenericModel model,
+        WorkspaceLoadOptions? loadOptions)
+    {
+        if (loadOptions == null || loadOptions.RelationshipColumnRecoveries.Count == 0)
+        {
+            return Array.Empty<InstanceRelationshipColumnAlias>();
+        }
+
+        var aliases = new List<InstanceRelationshipColumnAlias>();
+        var recoveredColumns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var recovery in loadOptions.RelationshipColumnRecoveries)
+        {
+            var sourceEntityName = recovery.SourceEntityName?.Trim() ?? string.Empty;
+            var targetEntityName = recovery.TargetEntityName?.Trim() ?? string.Empty;
+            var existingColumnName = recovery.ExistingColumnName?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(sourceEntityName) ||
+                string.IsNullOrWhiteSpace(targetEntityName) ||
+                string.IsNullOrWhiteSpace(existingColumnName))
+            {
+                throw new InvalidDataException(
+                    "Relationship column recovery requires source entity, target entity, and existing column.");
+            }
+
+            var sourceEntity = model.FindEntity(sourceEntityName) ??
+                throw new InvalidDataException(
+                    $"Relationship column recovery source entity '{sourceEntityName}' does not exist.");
+            var relationships = sourceEntity.Relationships
+                .Where(item => string.Equals(item.Entity, targetEntityName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            if (relationships.Count != 1)
+            {
+                throw new InvalidDataException(
+                    relationships.Count == 0
+                        ? $"Relationship column recovery target '{sourceEntityName}->{targetEntityName}' does not exist."
+                        : $"Relationship column recovery target '{sourceEntityName}->{targetEntityName}' is ambiguous.");
+            }
+
+            var recoveryKey = sourceEntity.Name + "\u001f" + existingColumnName;
+            if (!recoveredColumns.Add(recoveryKey))
+            {
+                throw new InvalidDataException(
+                    $"Relationship column recovery for '{sourceEntity.Name}.{existingColumnName}' was specified more than once.");
+            }
+
+            aliases.Add(new InstanceRelationshipColumnAlias(
+                sourceEntity.Name,
+                existingColumnName,
+                relationships[0].GetColumnName()));
+        }
+
+        return aliases;
     }
 
     private static void WriteInstanceShards(Workspace workspace, string instanceDirectoryPath)

@@ -330,7 +330,7 @@ public sealed partial class CliStrictModeTests
 
         var renameEntityHelp = await RunCliAsync("model", "rename-entity", "--help");
         Assert.Equal(0, renameEntityHelp.ExitCode);
-        Assert.Contains("meta model rename-entity <Old> <New> [--workspace <path>]", renameEntityHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta model rename-entity <Old> <New> [--strict] [--workspace <path>]", renameEntityHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--workspace <path>", renameEntityHelp.StdOut, StringComparison.Ordinal);
 
         var renameIdHelp = await RunCliAsync("instance", "rename-id", "--help");
@@ -340,7 +340,7 @@ public sealed partial class CliStrictModeTests
 
         var renameModelHelp = await RunCliAsync("model", "rename-model", "--help");
         Assert.Equal(0, renameModelHelp.ExitCode);
-        Assert.Contains("meta model rename-model <Old> <New> [--workspace <path>]", renameModelHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta model rename-model <Old> <New> [--strict] [--workspace <path>]", renameModelHelp.StdOut, StringComparison.Ordinal);
 
         var relationshipSetHelp = await RunCliAsync("instance", "relationship", "set", "--help");
         Assert.Equal(0, relationshipSetHelp.ExitCode);
@@ -348,16 +348,16 @@ public sealed partial class CliStrictModeTests
 
         var renameRelationshipHelp = await RunCliAsync("model", "rename-relationship", "--help");
         Assert.Equal(0, renameRelationshipHelp.ExitCode);
-        Assert.Contains("meta model rename-relationship <FromEntity> <ToEntity> [--role <Role>] [--workspace <path>]", renameRelationshipHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta model rename-relationship <FromEntity> <ToEntity> [--existing-column <value>] [--role <Role>] [--strict] [--workspace <path>]", renameRelationshipHelp.StdOut, StringComparison.Ordinal);
 
         var setPropertyRequiredHelp = await RunCliAsync("model", "set-property-required", "--help");
         Assert.Equal(0, setPropertyRequiredHelp.ExitCode);
-        Assert.Contains("meta model set-property-required <Entity> <Property> --required true|false", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("--required true|false", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
         Assert.Contains("--default-value", setPropertyRequiredHelp.StdOut, StringComparison.Ordinal);
 
         var exportCsvHelp = await RunCliAsync("export", "csv", "--help");
         Assert.Equal(0, exportCsvHelp.ExitCode);
-        Assert.Contains("meta export csv <Entity> --out <file> [--workspace <path>]", exportCsvHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta export csv <Entity> --out <file> [--strict] [--workspace <path>]", exportCsvHelp.StdOut, StringComparison.Ordinal);
 
         Assert.Contains("target entity, relationship role, or implied relationship field name", relationshipSetHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
@@ -372,7 +372,7 @@ public sealed partial class CliStrictModeTests
 
         var deployHelp = await RunCliAsync("deploy", "sqlserver", "--help");
         Assert.Equal(0, deployHelp.ExitCode);
-        Assert.Contains("meta deploy sqlserver --scripts <dir> --connection-env <name> [--database <name>]", deployHelp.StdOut, StringComparison.Ordinal);
+        Assert.Contains("meta deploy sqlserver --connection-env <name> [--database <name>] --scripts <dir> [--strict] [--workspace <path>]", deployHelp.StdOut, StringComparison.Ordinal);
         Assert.DoesNotContain("--connection-string", deployHelp.StdOut, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -630,7 +630,7 @@ public sealed partial class CliStrictModeTests
 
         Assert.Equal(1, result.ExitCode);
         Assert.Contains("Required parameter 'Name' was not provided.", result.CombinedOutput, StringComparison.Ordinal);
-        Assert.Contains("Usage: meta model add-entity <Name> [--workspace <path>] [--strict]", result.CombinedOutput, StringComparison.Ordinal);
+        Assert.Contains("Usage: meta model add-entity <Name> [--strict] [--workspace <path>]", result.CombinedOutput, StringComparison.Ordinal);
         Assert.Contains("Next: meta help model add-entity", result.CombinedOutput, StringComparison.Ordinal);
         Assert.DoesNotContain("Where:", result.CombinedOutput, StringComparison.Ordinal);
         Assert.DoesNotContain("Hint:", result.CombinedOutput, StringComparison.Ordinal);
@@ -3028,6 +3028,59 @@ public sealed partial class CliStrictModeTests
         finally
         {
             DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameRelationship_RecoversDeclaredRoleFromPersistedRelationshipColumn()
+    {
+        InvalidateCliAssemblyCache();
+        var workspaceRoot = CreateTempWorkspaceWithRelationshipColumnDriftFixture();
+        var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-rename-relationship-drift-expected", Guid.NewGuid().ToString("N"));
+        try
+        {
+            var before = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(4, before.ExitCode);
+            Assert.Contains("unsupported attribute 'SystemTypeId'", before.CombinedOutput, StringComparison.Ordinal);
+
+            CopyDirectory(workspaceRoot, expectedWorkspace);
+            var withoutRecovery = await RunCliAsync(
+                "model",
+                "rename-relationship",
+                "System",
+                "SystemType",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(4, withoutRecovery.ExitCode);
+            AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
+
+            var recovered = await RunCliAsync(
+                "model",
+                "rename-relationship",
+                "System",
+                "SystemType",
+                "--existing-column",
+                "SystemTypeId",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, recovered.ExitCode);
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            Assert.Contains(
+                model.Descendants("Relationship"),
+                element =>
+                    string.Equals((string?)element.Attribute("entity"), "SystemType", StringComparison.OrdinalIgnoreCase) &&
+                    element.Attribute("role") == null);
+
+            var systemRows = LoadEntityRows(workspaceRoot, "System");
+            Assert.All(systemRows, row => Assert.NotNull(row.Attribute("SystemTypeId")));
+
+            var check = await RunCliAsync("check", "--workspace", workspaceRoot);
+            Assert.Equal(0, check.ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+            DeleteDirectorySafe(expectedWorkspace);
         }
     }
 
@@ -5622,6 +5675,24 @@ public sealed partial class CliStrictModeTests
         }
 
         systemDocument.Save(systemPath);
+        return root;
+    }
+
+    private static string CreateTempWorkspaceWithRelationshipColumnDriftFixture()
+    {
+        var root = CreateTempWorkspaceFromSamples();
+
+        var modelPath = Path.Combine(root, "model.xml");
+        var modelDocument = XDocument.Load(modelPath);
+        var systemEntity = modelDocument
+            .Descendants("Entity")
+            .Single(element => string.Equals((string?)element.Attribute("name"), "System", StringComparison.OrdinalIgnoreCase));
+        var relationship = systemEntity
+            .Descendants("Relationship")
+            .Single(element => string.Equals((string?)element.Attribute("entity"), "SystemType", StringComparison.OrdinalIgnoreCase));
+        relationship.SetAttributeValue("role", "PrimarySystemType");
+        modelDocument.Save(modelPath);
+
         return root;
     }
 

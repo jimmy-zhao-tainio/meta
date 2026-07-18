@@ -1,33 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-workspace" ValueShapeId="shape-path">
-      <Name>workspace</Name>
+    <Parameter Id="param-bulk-insert-auto-id" ValueShapeId="shape-flag">
+      <Name>auto-id</Name>
     </Parameter>
-    <Parameter Id="param-strict" ValueShapeId="shape-flag">
-      <Name>strict</Name>
+    <Parameter Id="param-bulk-insert-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-bulk-insert-file" ValueShapeId="shape-path">
+      <Name>file</Name>
+    </Parameter>
+    <Parameter Id="param-bulk-insert-from" ValueShapeId="shape-format">
+      <Name>from</Name>
+    </Parameter>
+    <Parameter Id="param-bulk-insert-key" ValueShapeId="shape-key-fields">
+      <Name>key</Name>
+    </Parameter>
+    <Parameter Id="param-bulk-insert-stdin" ValueShapeId="shape-flag">
+      <Name>stdin</Name>
+    </Parameter>
+    <Parameter Id="param-delete-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-delete-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Id</Name>
+    </Parameter>
+    <Parameter Id="param-deploy-sqlserver-connection-env" ValueShapeId="shape-name">
+      <IsRequired>true</IsRequired>
+      <Name>connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-deploy-sqlserver-database" ValueShapeId="shape-name">
+      <Name>database</Name>
+    </Parameter>
+    <Parameter Id="param-deploy-sqlserver-scripts" ValueShapeId="shape-dir">
+      <IsRequired>true</IsRequired>
+      <Name>scripts</Name>
+    </Parameter>
+    <Parameter Id="param-export-csv-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-export-csv-out" ValueShapeId="shape-file">
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
+    <Parameter Id="param-generate-csharp-out" ValueShapeId="shape-dir">
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
+    <Parameter Id="param-generate-csharp-tooling" ValueShapeId="shape-flag">
+      <Name>tooling</Name>
+    </Parameter>
+    <Parameter Id="param-generate-sql-out" ValueShapeId="shape-dir">
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
+    <Parameter Id="param-generate-ssdt-out" ValueShapeId="shape-dir">
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
+    <Parameter Id="param-graph-inbound-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-graph-inbound-top" ValueShapeId="shape-n">
+      <Name>top</Name>
+    </Parameter>
+    <Parameter Id="param-graph-stats-cycles" ValueShapeId="shape-n">
+      <Name>cycles</Name>
+    </Parameter>
+    <Parameter Id="param-graph-stats-top" ValueShapeId="shape-n">
+      <Name>top</Name>
     </Parameter>
     <Parameter Id="param-help-command" ValueShapeId="shape-text">
       <Name>command</Name>
     </Parameter>
-    <Parameter Id="param-init-path" ValueShapeId="shape-path">
-      <Name>path</Name>
-    </Parameter>
-    <Parameter Id="param-workspace-merge-leftworkspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-csv-csvfile" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
-      <Name>leftWorkspace</Name>
+      <Name>csvFile</Name>
     </Parameter>
-    <Parameter Id="param-workspace-merge-rightworkspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-csv-entity" ValueShapeId="shape-entityname">
       <IsRequired>true</IsRequired>
-      <Name>rightWorkspace</Name>
+      <Name>entity</Name>
     </Parameter>
-    <Parameter Id="param-workspace-merge-new-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-csv-new-workspace" ValueShapeId="shape-path">
+      <Name>new-workspace</Name>
+    </Parameter>
+    <Parameter Id="param-import-sql-connection-env" ValueShapeId="shape-name">
+      <IsRequired>true</IsRequired>
+      <Name>connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-import-sql-new-workspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>new-workspace</Name>
     </Parameter>
-    <Parameter Id="param-workspace-merge-model" ValueShapeId="shape-name">
+    <Parameter Id="param-import-sql-schema" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
-      <Name>model</Name>
+      <Name>schema</Name>
+    </Parameter>
+    <Parameter Id="param-init-path" ValueShapeId="shape-path">
+      <Name>path</Name>
+    </Parameter>
+    <Parameter Id="param-insert-auto-id" ValueShapeId="shape-flag">
+      <Name>auto-id</Name>
+    </Parameter>
+    <Parameter Id="param-insert-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-insert-id" ValueShapeId="shape-text">
+      <Name>Id</Name>
+    </Parameter>
+    <Parameter Id="param-insert-set" ValueShapeId="shape-field-assignment">
+      <IsRepeatable>true</IsRepeatable>
+      <Name>set</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-alignmentworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>alignmentWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-leftworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>leftWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-rightworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>rightWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-leftworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>leftWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-rightworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>rightWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-merge-aligned-diffworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>diffWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-merge-aligned-targetworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>targetWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-merge-diffworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>diffWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-merge-targetworkspace" ValueShapeId="shape-path">
+      <IsRequired>true</IsRequired>
+      <Name>targetWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-relationship-list-fromentity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>FromEntity</Name>
+    </Parameter>
+    <Parameter Id="param-instance-relationship-list-fromid" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>FromId</Name>
+    </Parameter>
+    <Parameter Id="param-instance-relationship-set-fromentity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>FromEntity</Name>
+    </Parameter>
+    <Parameter Id="param-instance-relationship-set-fromid" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>FromId</Name>
+    </Parameter>
+    <Parameter Id="param-instance-relationship-set-to" ValueShapeId="shape-relationshipselector-toid">
+      <Description>Target entity, relationship role, or implied relationship field name, followed by target instance id.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>to</Name>
+    </Parameter>
+    <Parameter Id="param-instance-rename-id-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-instance-rename-id-newid" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>NewId</Name>
+    </Parameter>
+    <Parameter Id="param-instance-rename-id-oldid" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>OldId</Name>
+    </Parameter>
+    <Parameter Id="param-instance-update-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-instance-update-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Id</Name>
+    </Parameter>
+    <Parameter Id="param-instance-update-set" ValueShapeId="shape-field-assignment">
+      <IsRepeatable>true</IsRepeatable>
+      <Name>set</Name>
     </Parameter>
     <Parameter Id="param-list-properties-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -37,65 +207,12 @@
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>
     </Parameter>
-    <Parameter Id="param-view-entity-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-view-instance-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-view-instance-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Id</Name>
-    </Parameter>
-    <Parameter Id="param-query-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-query-equals" ValueShapeId="shape-field-value">
-      <IsRepeatable>true</IsRepeatable>
-      <Name>equals</Name>
-    </Parameter>
-    <Parameter Id="param-query-contains" ValueShapeId="shape-field-value">
-      <IsRepeatable>true</IsRepeatable>
-      <Name>contains</Name>
-    </Parameter>
-    <Parameter Id="param-query-top" ValueShapeId="shape-n">
-      <Name>top</Name>
-    </Parameter>
-    <Parameter Id="param-graph-stats-top" ValueShapeId="shape-n">
-      <Name>top</Name>
-    </Parameter>
-    <Parameter Id="param-graph-stats-cycles" ValueShapeId="shape-n">
-      <Name>cycles</Name>
-    </Parameter>
-    <Parameter Id="param-graph-inbound-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-graph-inbound-top" ValueShapeId="shape-n">
-      <Name>top</Name>
-    </Parameter>
     <Parameter Id="param-model-add-entity-name" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Name</Name>
     </Parameter>
-    <Parameter Id="param-model-rename-model-old" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Old</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-model-new" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>New</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-entity-old" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Old</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-entity-new" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>New</Name>
+    <Parameter Id="param-model-add-property-default-value" ValueShapeId="shape-value">
+      <Name>default-value</Name>
     </Parameter>
     <Parameter Id="param-model-add-property-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -108,95 +225,26 @@
     <Parameter Id="param-model-add-property-required" ValueShapeId="shape-bool">
       <Name>required</Name>
     </Parameter>
-    <Parameter Id="param-model-add-property-default-value" ValueShapeId="shape-value">
-      <Name>default-value</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-property-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-property-old" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Old</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-property-new" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>New</Name>
-    </Parameter>
-    <Parameter Id="param-model-set-property-required-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-model-set-property-required-property" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Property</Name>
-    </Parameter>
-    <Parameter Id="param-model-set-property-required-required" ValueShapeId="shape-bool">
-      <IsRequired>true</IsRequired>
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-model-set-property-required-default-value" ValueShapeId="shape-value">
-      <Name>default-value</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-relationship-fromentity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>FromEntity</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-relationship-toentity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>ToEntity</Name>
-    </Parameter>
-    <Parameter Id="param-model-rename-relationship-role" ValueShapeId="shape-role">
-      <Name>role</Name>
+    <Parameter Id="param-model-add-relationship-default-id" ValueShapeId="shape-toid">
+      <Name>default-id</Name>
     </Parameter>
     <Parameter Id="param-model-add-relationship-fromentity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>FromEntity</Name>
     </Parameter>
-    <Parameter Id="param-model-add-relationship-toentity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>ToEntity</Name>
+    <Parameter Id="param-model-add-relationship-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
     </Parameter>
     <Parameter Id="param-model-add-relationship-role" ValueShapeId="shape-rolename">
       <Name>role</Name>
     </Parameter>
-    <Parameter Id="param-model-add-relationship-required" ValueShapeId="shape-bool">
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-model-add-relationship-default-id" ValueShapeId="shape-toid">
-      <Name>default-id</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-property-to-relationship-source" ValueShapeId="shape-entity-property">
+    <Parameter Id="param-model-add-relationship-toentity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
-      <Name>source</Name>
+      <Name>ToEntity</Name>
     </Parameter>
-    <Parameter Id="param-model-refactor-property-to-relationship-target" ValueShapeId="shape-entity">
+    <Parameter Id="param-model-drop-entity-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
-      <Name>target</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-property-to-relationship-lookup" ValueShapeId="shape-property">
-      <IsRequired>true</IsRequired>
-      <Name>lookup</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-property-to-relationship-role" ValueShapeId="shape-role">
-      <Name>role</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-property-to-relationship-preserve-property" ValueShapeId="shape-flag">
-      <Name>preserve-property</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-relationship-to-property-source" ValueShapeId="shape-entity">
-      <IsRequired>true</IsRequired>
-      <Name>source</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-relationship-to-property-target" ValueShapeId="shape-entity">
-      <IsRequired>true</IsRequired>
-      <Name>target</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-relationship-to-property-role" ValueShapeId="shape-role">
-      <Name>role</Name>
-    </Parameter>
-    <Parameter Id="param-model-refactor-relationship-to-property-property" ValueShapeId="shape-propertyname">
-      <Name>property</Name>
+      <Name>Entity</Name>
     </Parameter>
     <Parameter Id="param-model-drop-property-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -214,12 +262,95 @@
       <IsRequired>true</IsRequired>
       <Name>ToEntity</Name>
     </Parameter>
-    <Parameter Id="param-model-drop-entity-entity" ValueShapeId="shape-text">
+    <Parameter Id="param-model-refactor-property-to-relationship-lookup" ValueShapeId="shape-property">
+      <IsRequired>true</IsRequired>
+      <Name>lookup</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-property-to-relationship-preserve-property" ValueShapeId="shape-flag">
+      <Name>preserve-property</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-property-to-relationship-role" ValueShapeId="shape-role">
+      <Name>role</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-property-to-relationship-source" ValueShapeId="shape-entity-property">
+      <IsRequired>true</IsRequired>
+      <Name>source</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-property-to-relationship-target" ValueShapeId="shape-entity">
+      <IsRequired>true</IsRequired>
+      <Name>target</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-relationship-to-property-property" ValueShapeId="shape-propertyname">
+      <Name>property</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-relationship-to-property-role" ValueShapeId="shape-role">
+      <Name>role</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-relationship-to-property-source" ValueShapeId="shape-entity">
+      <IsRequired>true</IsRequired>
+      <Name>source</Name>
+    </Parameter>
+    <Parameter Id="param-model-refactor-relationship-to-property-target" ValueShapeId="shape-entity">
+      <IsRequired>true</IsRequired>
+      <Name>target</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-entity-new" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>New</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-entity-old" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Old</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-model-new" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>New</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-model-old" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Old</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-property-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>
     </Parameter>
-    <Parameter Id="param-model-suggest-show-keys" ValueShapeId="shape-flag">
-      <Name>show-keys</Name>
+    <Parameter Id="param-model-rename-property-new" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>New</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-property-old" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Old</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-relationship-existing-column" ValueShapeId="shape-text">
+      <Description>Persisted relationship column to reconcile before the rename.</Description>
+      <Name>existing-column</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-relationship-fromentity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>FromEntity</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-relationship-role" ValueShapeId="shape-role">
+      <Name>role</Name>
+    </Parameter>
+    <Parameter Id="param-model-rename-relationship-toentity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>ToEntity</Name>
+    </Parameter>
+    <Parameter Id="param-model-set-property-required-default-value" ValueShapeId="shape-value">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-model-set-property-required-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-model-set-property-required-property" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Property</Name>
+    </Parameter>
+    <Parameter Id="param-model-set-property-required-required" ValueShapeId="shape-bool">
+      <IsRequired>true</IsRequired>
+      <Name>required</Name>
     </Parameter>
     <Parameter Id="param-model-suggest-explain" ValueShapeId="shape-flag">
       <Name>explain</Name>
@@ -227,184 +358,57 @@
     <Parameter Id="param-model-suggest-print-commands" ValueShapeId="shape-flag">
       <Name>print-commands</Name>
     </Parameter>
-    <Parameter Id="param-insert-entity" ValueShapeId="shape-text">
+    <Parameter Id="param-model-suggest-show-keys" ValueShapeId="shape-flag">
+      <Name>show-keys</Name>
+    </Parameter>
+    <Parameter Id="param-query-contains" ValueShapeId="shape-field-value">
+      <IsRepeatable>true</IsRepeatable>
+      <Name>contains</Name>
+    </Parameter>
+    <Parameter Id="param-query-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>
     </Parameter>
-    <Parameter Id="param-insert-id" ValueShapeId="shape-text">
+    <Parameter Id="param-query-equals" ValueShapeId="shape-field-value">
+      <IsRepeatable>true</IsRepeatable>
+      <Name>equals</Name>
+    </Parameter>
+    <Parameter Id="param-query-top" ValueShapeId="shape-n">
+      <Name>top</Name>
+    </Parameter>
+    <Parameter Id="param-strict" ValueShapeId="shape-flag">
+      <Name>strict</Name>
+    </Parameter>
+    <Parameter Id="param-view-entity-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-view-instance-entity" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>Entity</Name>
+    </Parameter>
+    <Parameter Id="param-view-instance-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
       <Name>Id</Name>
     </Parameter>
-    <Parameter Id="param-insert-auto-id" ValueShapeId="shape-flag">
-      <Name>auto-id</Name>
+    <Parameter Id="param-workspace" ValueShapeId="shape-path">
+      <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-insert-set" ValueShapeId="shape-field-assignment">
-      <IsRepeatable>true</IsRepeatable>
-      <Name>set</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-from" ValueShapeId="shape-format">
-      <Name>from</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-file" ValueShapeId="shape-path">
-      <Name>file</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-key" ValueShapeId="shape-key-fields">
-      <Name>key</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-auto-id" ValueShapeId="shape-flag">
-      <Name>auto-id</Name>
-    </Parameter>
-    <Parameter Id="param-bulk-insert-stdin" ValueShapeId="shape-flag">
-      <Name>stdin</Name>
-    </Parameter>
-    <Parameter Id="param-instance-diff-leftworkspace" ValueShapeId="shape-path">
+    <Parameter Id="param-workspace-merge-leftworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>leftWorkspace</Name>
     </Parameter>
-    <Parameter Id="param-instance-diff-rightworkspace" ValueShapeId="shape-path">
+    <Parameter Id="param-workspace-merge-model" ValueShapeId="shape-name">
       <IsRequired>true</IsRequired>
-      <Name>rightWorkspace</Name>
+      <Name>model</Name>
     </Parameter>
-    <Parameter Id="param-instance-merge-targetworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>targetWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-merge-diffworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>diffWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-diff-aligned-leftworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>leftWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-diff-aligned-rightworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>rightWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-diff-aligned-alignmentworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>alignmentWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-merge-aligned-targetworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>targetWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-merge-aligned-diffworkspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>diffWorkspace</Name>
-    </Parameter>
-    <Parameter Id="param-instance-update-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-instance-update-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Id</Name>
-    </Parameter>
-    <Parameter Id="param-instance-update-set" ValueShapeId="shape-field-assignment">
-      <IsRepeatable>true</IsRepeatable>
-      <Name>set</Name>
-    </Parameter>
-    <Parameter Id="param-instance-rename-id-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-instance-rename-id-oldid" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>OldId</Name>
-    </Parameter>
-    <Parameter Id="param-instance-rename-id-newid" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>NewId</Name>
-    </Parameter>
-    <Parameter Id="param-instance-relationship-set-fromentity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>FromEntity</Name>
-    </Parameter>
-    <Parameter Id="param-instance-relationship-set-fromid" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>FromId</Name>
-    </Parameter>
-    <Parameter Id="param-instance-relationship-set-to" ValueShapeId="shape-relationshipselector-toid">
-      <IsRequired>true</IsRequired>
-      <Name>to</Name>
-      <Description>Target entity, relationship role, or implied relationship field name, followed by target instance id.</Description>
-    </Parameter>
-    <Parameter Id="param-instance-relationship-list-fromentity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>FromEntity</Name>
-    </Parameter>
-    <Parameter Id="param-instance-relationship-list-fromid" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>FromId</Name>
-    </Parameter>
-    <Parameter Id="param-delete-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-delete-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Id</Name>
-    </Parameter>
-    <Parameter Id="param-generate-sql-out" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
-    <Parameter Id="param-generate-csharp-out" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
-    <Parameter Id="param-generate-csharp-tooling" ValueShapeId="shape-flag">
-      <Name>tooling</Name>
-    </Parameter>
-    <Parameter Id="param-generate-ssdt-out" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
-    <Parameter Id="param-deploy-sqlserver-scripts" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>scripts</Name>
-    </Parameter>
-    <Parameter Id="param-deploy-sqlserver-connection-env" ValueShapeId="shape-name">
-      <IsRequired>true</IsRequired>
-      <Name>connection-env</Name>
-    </Parameter>
-    <Parameter Id="param-deploy-sqlserver-database" ValueShapeId="shape-name">
-      <Name>database</Name>
-    </Parameter>
-    <Parameter Id="param-import-sql-connection-env" ValueShapeId="shape-name">
-      <IsRequired>true</IsRequired>
-      <Name>connection-env</Name>
-    </Parameter>
-    <Parameter Id="param-import-sql-schema" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>schema</Name>
-    </Parameter>
-    <Parameter Id="param-import-sql-new-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-workspace-merge-new-workspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>new-workspace</Name>
     </Parameter>
-    <Parameter Id="param-import-csv-csvfile" ValueShapeId="shape-path">
+    <Parameter Id="param-workspace-merge-rightworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
-      <Name>csvFile</Name>
-    </Parameter>
-    <Parameter Id="param-import-csv-entity" ValueShapeId="shape-entityname">
-      <IsRequired>true</IsRequired>
-      <Name>entity</Name>
-    </Parameter>
-    <Parameter Id="param-import-csv-new-workspace" ValueShapeId="shape-path">
-      <Name>new-workspace</Name>
-    </Parameter>
-    <Parameter Id="param-export-csv-entity" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>Entity</Name>
-    </Parameter>
-    <Parameter Id="param-export-csv-out" ValueShapeId="shape-file">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
+      <Name>rightWorkspace</Name>
     </Parameter>
   </ParameterList>
 </MetaCli>

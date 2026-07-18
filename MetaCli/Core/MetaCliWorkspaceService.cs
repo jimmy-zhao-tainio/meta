@@ -826,17 +826,6 @@ public sealed class MetaCliWorkspaceService
     {
         foreach (var application in model.ApplicationList)
         {
-            foreach (var duplicate in model.CommandList
-                         .Where(command => ReferenceEquals(command.Application, application))
-                         .Where(static command => !string.IsNullOrWhiteSpace(command.Name))
-                         .GroupBy(static command => command.Name, StringComparer.OrdinalIgnoreCase)
-                         .Where(static group => group.Count() > 1)
-                         .Select(static group => group.Key)
-                         .OrderBy(static item => item, StringComparer.OrdinalIgnoreCase))
-            {
-                AddError(issues, "MCLI010", $"Command name '{duplicate}' is duplicated in application '{application.Name}'.", "Command.Name");
-            }
-
             foreach (var siblingGroup in model.CommandList
                          .Where(command => ReferenceEquals(command.Application, application))
                          .Where(static command => !string.IsNullOrWhiteSpace(command.Token))

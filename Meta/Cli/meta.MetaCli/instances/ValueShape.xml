@@ -1,87 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ValueShapeList>
-    <ValueShape Id="shape-flag" ValueArityId="arity-none">
-      <Name>Flag</Name>
-    </ValueShape>
-    <ValueShape Id="shape-text" ValueArityId="arity-one">
-      <Name>Text</Name>
-      <ValueLabel>&lt;value&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-path" ValueArityId="arity-one">
-      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
-      <Name>Path</Name>
-      <ValueLabel>&lt;path&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-file" ValueArityId="arity-one">
-      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
-      <Name>File</Name>
-      <ValueLabel>&lt;file&gt;</ValueLabel>
+    <ValueShape Id="shape-bool" ValueArityId="arity-one">
+      <Name>Boolean</Name>
+      <ValueLabel>true|false</ValueLabel>
     </ValueShape>
     <ValueShape Id="shape-dir" ValueArityId="arity-one">
       <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
       <Name>Directory</Name>
       <ValueLabel>&lt;dir&gt;</ValueLabel>
     </ValueShape>
-    <ValueShape Id="shape-bool" ValueArityId="arity-one">
-      <Name>Boolean</Name>
-      <ValueLabel>true|false</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-name" ValueArityId="arity-one">
-      <Name>name</Name>
-      <ValueLabel>&lt;name&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-field-value" ValueArityId="arity-two">
-      <Name>Field Value</Name>
-      <ValueLabel>&lt;Field&gt; &lt;Value&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-n" ValueArityId="arity-one">
-      <Name>n</Name>
-      <ValueLabel>&lt;n&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-true" ValueArityId="arity-one">
-      <Name>true</Name>
-      <ValueLabel>true</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-value" ValueArityId="arity-one">
-      <Name>Value</Name>
-      <ValueLabel>&lt;Value&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-role" ValueArityId="arity-one">
-      <Name>Role</Name>
-      <ValueLabel>&lt;Role&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-rolename" ValueArityId="arity-one">
-      <Name>RoleName</Name>
-      <ValueLabel>&lt;RoleName&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-toid" ValueArityId="arity-one">
-      <Name>ToId</Name>
-      <ValueLabel>&lt;ToId&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-entity-property" ValueArityId="arity-one">
-      <Name>Entity.Property</Name>
-      <ValueLabel>&lt;Entity.Property&gt;</ValueLabel>
-    </ValueShape>
     <ValueShape Id="shape-entity" ValueArityId="arity-one">
       <Name>Entity</Name>
       <ValueLabel>&lt;Entity&gt;</ValueLabel>
     </ValueShape>
-    <ValueShape Id="shape-property" ValueArityId="arity-one">
-      <Name>Property</Name>
-      <ValueLabel>&lt;Property&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-propertyname" ValueArityId="arity-one">
-      <Name>PropertyName</Name>
-      <ValueLabel>&lt;PropertyName&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-tsv" ValueArityId="arity-one">
-      <Name>tsv</Name>
-      <ValueLabel>tsv</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-relationshipselector-toid" ValueArityId="arity-two">
-      <Name>RelationshipSelector ToId</Name>
-      <ValueLabel>&lt;RelationshipSelector&gt; &lt;ToId&gt;</ValueLabel>
+    <ValueShape Id="shape-entity-property" ValueArityId="arity-one">
+      <Name>Entity.Property</Name>
+      <ValueLabel>&lt;Entity.Property&gt;</ValueLabel>
     </ValueShape>
     <ValueShape Id="shape-entityname" ValueArityId="arity-one">
       <Name>EntityName</Name>
@@ -91,6 +26,18 @@
       <Name>Field Assignment</Name>
       <ValueLabel>Field=Value</ValueLabel>
     </ValueShape>
+    <ValueShape Id="shape-field-value" ValueArityId="arity-two">
+      <Name>Field Value</Name>
+      <ValueLabel>&lt;Field&gt; &lt;Value&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-file" ValueArityId="arity-one">
+      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
+      <Name>File</Name>
+      <ValueLabel>&lt;file&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-flag" ValueArityId="arity-none">
+      <Name>Flag</Name>
+    </ValueShape>
     <ValueShape Id="shape-format" ValueArityId="arity-one">
       <Name>Format</Name>
       <ValueLabel>tsv|csv</ValueLabel>
@@ -98,6 +45,59 @@
     <ValueShape Id="shape-key-fields" ValueArityId="arity-one">
       <Name>Key Fields</Name>
       <ValueLabel>Field[,Field2...]</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-n" ValueArityId="arity-one">
+      <Name>n</Name>
+      <ValueLabel>&lt;n&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-name" ValueArityId="arity-one">
+      <Name>name</Name>
+      <ValueLabel>&lt;name&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-path" ValueArityId="arity-one">
+      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
+      <Name>Path</Name>
+      <ValueLabel>&lt;path&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-property" ValueArityId="arity-one">
+      <Name>Property</Name>
+      <ValueLabel>&lt;Property&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-propertyname" ValueArityId="arity-one">
+      <Name>PropertyName</Name>
+      <ValueLabel>&lt;PropertyName&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-relationshipselector-toid" ValueArityId="arity-two">
+      <Name>RelationshipSelector ToId</Name>
+      <ValueLabel>&lt;RelationshipSelector&gt; &lt;ToId&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-role" ValueArityId="arity-one">
+      <Name>Role</Name>
+      <ValueLabel>&lt;Role&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-rolename" ValueArityId="arity-one">
+      <Name>RoleName</Name>
+      <ValueLabel>&lt;RoleName&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-text" ValueArityId="arity-one">
+      <Name>Text</Name>
+      <ValueLabel>&lt;value&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-toid" ValueArityId="arity-one">
+      <Name>ToId</Name>
+      <ValueLabel>&lt;ToId&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-true" ValueArityId="arity-one">
+      <Name>true</Name>
+      <ValueLabel>true</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-tsv" ValueArityId="arity-one">
+      <Name>tsv</Name>
+      <ValueLabel>tsv</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-value" ValueArityId="arity-one">
+      <Name>Value</Name>
+      <ValueLabel>&lt;Value&gt;</ValueLabel>
     </ValueShape>
   </ValueShapeList>
 </MetaCli>

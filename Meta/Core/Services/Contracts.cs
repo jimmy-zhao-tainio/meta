@@ -11,10 +11,27 @@ public interface IWorkspaceService
     Task<Workspace> LoadAsync(
         string workspaceRootPath,
         bool searchUpward = false,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken = default,
+        WorkspaceLoadOptions? loadOptions = null);
     Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default);
     Task SaveAsync(Workspace workspace, string? expectedFingerprint, CancellationToken cancellationToken = default);
     string CalculateHash(Workspace workspace);
+}
+
+public readonly record struct RelationshipColumnRecovery(
+    string SourceEntityName,
+    string TargetEntityName,
+    string ExistingColumnName);
+
+public sealed class WorkspaceLoadOptions
+{
+    public WorkspaceLoadOptions(IReadOnlyList<RelationshipColumnRecovery> relationshipColumnRecoveries)
+    {
+        RelationshipColumnRecoveries = relationshipColumnRecoveries ??
+            throw new ArgumentNullException(nameof(relationshipColumnRecoveries));
+    }
+
+    public IReadOnlyList<RelationshipColumnRecovery> RelationshipColumnRecoveries { get; }
 }
 
 public readonly record struct WorkspaceMergeOptions(

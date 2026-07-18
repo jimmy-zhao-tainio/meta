@@ -15,10 +15,12 @@ internal sealed partial class CliRuntime
         return args.Any(arg => string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase));
     }
 
-    async Task<Workspace> LoadWorkspaceForCommandAsync(string workspacePath)
+    async Task<Workspace> LoadWorkspaceForCommandAsync(
+        string workspacePath,
+        WorkspaceLoadOptions? loadOptions = null)
     {
         return await services.WorkspaceService
-            .LoadAsync(workspacePath)
+            .LoadAsync(workspacePath, loadOptions: loadOptions)
             .ConfigureAwait(false);
     }
 

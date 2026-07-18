@@ -1,124 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionTokenList>
-    <OptionToken Id="token-workspace" OptionId="option-workspace">
-      <Token>--workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-strict" OptionId="option-strict">
-      <Token>--strict</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-merge-new-workspace" OptionId="option-workspace-merge-new-workspace">
-      <Token>--new-workspace</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-merge-model" OptionId="option-workspace-merge-model">
-      <Token>--model</Token>
-    </OptionToken>
-    <OptionToken Id="token-query-equals" OptionId="option-query-equals">
-      <Token>--equals</Token>
-    </OptionToken>
-    <OptionToken Id="token-query-contains" OptionId="option-query-contains">
-      <Token>--contains</Token>
-    </OptionToken>
-    <OptionToken Id="token-query-top" OptionId="option-query-top">
-      <Token>--top</Token>
-    </OptionToken>
-    <OptionToken Id="token-graph-stats-top" OptionId="option-graph-stats-top">
-      <Token>--top</Token>
-    </OptionToken>
-    <OptionToken Id="token-graph-stats-cycles" OptionId="option-graph-stats-cycles">
-      <Token>--cycles</Token>
-    </OptionToken>
-    <OptionToken Id="token-graph-inbound-top" OptionId="option-graph-inbound-top">
-      <Token>--top</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-add-property-required" OptionId="option-model-add-property-required">
-      <Token>--required</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-add-property-default-value" OptionId="option-model-add-property-default-value">
-      <Token>--default-value</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-set-property-required-required" OptionId="option-model-set-property-required-required">
-      <Token>--required</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-set-property-required-default-value" OptionId="option-model-set-property-required-default-value">
-      <Token>--default-value</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-rename-relationship-role" OptionId="option-model-rename-relationship-role">
-      <Token>--role</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-add-relationship-role" OptionId="option-model-add-relationship-role">
-      <Token>--role</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-add-relationship-required" OptionId="option-model-add-relationship-required">
-      <Token>--required</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-add-relationship-default-id" OptionId="option-model-add-relationship-default-id">
-      <Token>--default-id</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-property-to-relationship-source" OptionId="option-model-refactor-property-to-relationship-source">
-      <Token>--source</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-property-to-relationship-target" OptionId="option-model-refactor-property-to-relationship-target">
-      <Token>--target</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-property-to-relationship-lookup" OptionId="option-model-refactor-property-to-relationship-lookup">
-      <Token>--lookup</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-property-to-relationship-role" OptionId="option-model-refactor-property-to-relationship-role">
-      <Token>--role</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-property-to-relationship-preserve-property" OptionId="option-model-refactor-property-to-relationship-preserve-property">
-      <Token>--preserve-property</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-relationship-to-property-source" OptionId="option-model-refactor-relationship-to-property-source">
-      <Token>--source</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-relationship-to-property-target" OptionId="option-model-refactor-relationship-to-property-target">
-      <Token>--target</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-relationship-to-property-role" OptionId="option-model-refactor-relationship-to-property-role">
-      <Token>--role</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-refactor-relationship-to-property-property" OptionId="option-model-refactor-relationship-to-property-property">
-      <Token>--property</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-suggest-show-keys" OptionId="option-model-suggest-show-keys">
-      <Token>--show-keys</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-suggest-explain" OptionId="option-model-suggest-explain">
-      <Token>--explain</Token>
-    </OptionToken>
-    <OptionToken Id="token-model-suggest-print-commands" OptionId="option-model-suggest-print-commands">
-      <Token>--print-commands</Token>
-    </OptionToken>
-    <OptionToken Id="token-insert-auto-id" OptionId="option-insert-auto-id">
+    <OptionToken Id="token-bulk-insert-auto-id" OptionId="option-bulk-insert-auto-id">
       <Token>--auto-id</Token>
-    </OptionToken>
-    <OptionToken Id="token-insert-set" OptionId="option-insert-set">
-      <Token>--set</Token>
-    </OptionToken>
-    <OptionToken Id="token-bulk-insert-from" OptionId="option-bulk-insert-from">
-      <Token>--from</Token>
     </OptionToken>
     <OptionToken Id="token-bulk-insert-file" OptionId="option-bulk-insert-file">
       <Token>--file</Token>
     </OptionToken>
+    <OptionToken Id="token-bulk-insert-from" OptionId="option-bulk-insert-from">
+      <Token>--from</Token>
+    </OptionToken>
     <OptionToken Id="token-bulk-insert-key" OptionId="option-bulk-insert-key">
       <Token>--key</Token>
-    </OptionToken>
-    <OptionToken Id="token-bulk-insert-auto-id" OptionId="option-bulk-insert-auto-id">
-      <Token>--auto-id</Token>
     </OptionToken>
     <OptionToken Id="token-bulk-insert-stdin" OptionId="option-bulk-insert-stdin">
       <Token>--stdin</Token>
     </OptionToken>
-    <OptionToken Id="token-instance-update-set" OptionId="option-instance-update-set">
-      <Token>--set</Token>
+    <OptionToken Id="token-deploy-sqlserver-connection-env" OptionId="option-deploy-sqlserver-connection-env">
+      <Token>--connection-env</Token>
     </OptionToken>
-    <OptionToken Id="token-instance-relationship-set-to" OptionId="option-instance-relationship-set-to">
-      <Token>--to</Token>
+    <OptionToken Id="token-deploy-sqlserver-database" OptionId="option-deploy-sqlserver-database">
+      <Token>--database</Token>
     </OptionToken>
-    <OptionToken Id="token-generate-sql-out" OptionId="option-generate-sql-out">
+    <OptionToken Id="token-deploy-sqlserver-scripts" OptionId="option-deploy-sqlserver-scripts">
+      <Token>--scripts</Token>
+    </OptionToken>
+    <OptionToken Id="token-export-csv-out" OptionId="option-export-csv-out">
       <Token>--out</Token>
     </OptionToken>
     <OptionToken Id="token-generate-csharp-out" OptionId="option-generate-csharp-out">
@@ -127,23 +34,20 @@
     <OptionToken Id="token-generate-csharp-tooling" OptionId="option-generate-csharp-tooling">
       <Token>--tooling</Token>
     </OptionToken>
+    <OptionToken Id="token-generate-sql-out" OptionId="option-generate-sql-out">
+      <Token>--out</Token>
+    </OptionToken>
     <OptionToken Id="token-generate-ssdt-out" OptionId="option-generate-ssdt-out">
       <Token>--out</Token>
     </OptionToken>
-    <OptionToken Id="token-deploy-sqlserver-scripts" OptionId="option-deploy-sqlserver-scripts">
-      <Token>--scripts</Token>
+    <OptionToken Id="token-graph-inbound-top" OptionId="option-graph-inbound-top">
+      <Token>--top</Token>
     </OptionToken>
-    <OptionToken Id="token-deploy-sqlserver-connection-env" OptionId="option-deploy-sqlserver-connection-env">
-      <Token>--connection-env</Token>
+    <OptionToken Id="token-graph-stats-cycles" OptionId="option-graph-stats-cycles">
+      <Token>--cycles</Token>
     </OptionToken>
-    <OptionToken Id="token-deploy-sqlserver-database" OptionId="option-deploy-sqlserver-database">
-      <Token>--database</Token>
-    </OptionToken>
-    <OptionToken Id="token-import-sql-connection-env" OptionId="option-import-sql-connection-env">
-      <Token>--connection-env</Token>
-    </OptionToken>
-    <OptionToken Id="token-import-sql-new-workspace" OptionId="option-import-sql-new-workspace">
-      <Token>--new-workspace</Token>
+    <OptionToken Id="token-graph-stats-top" OptionId="option-graph-stats-top">
+      <Token>--top</Token>
     </OptionToken>
     <OptionToken Id="token-import-csv-entity" OptionId="option-import-csv-entity">
       <Token>--entity</Token>
@@ -151,8 +55,107 @@
     <OptionToken Id="token-import-csv-new-workspace" OptionId="option-import-csv-new-workspace">
       <Token>--new-workspace</Token>
     </OptionToken>
-    <OptionToken Id="token-export-csv-out" OptionId="option-export-csv-out">
-      <Token>--out</Token>
+    <OptionToken Id="token-import-sql-connection-env" OptionId="option-import-sql-connection-env">
+      <Token>--connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-sql-new-workspace" OptionId="option-import-sql-new-workspace">
+      <Token>--new-workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-insert-auto-id" OptionId="option-insert-auto-id">
+      <Token>--auto-id</Token>
+    </OptionToken>
+    <OptionToken Id="token-insert-set" OptionId="option-insert-set">
+      <Token>--set</Token>
+    </OptionToken>
+    <OptionToken Id="token-instance-relationship-set-to" OptionId="option-instance-relationship-set-to">
+      <Token>--to</Token>
+    </OptionToken>
+    <OptionToken Id="token-instance-update-set" OptionId="option-instance-update-set">
+      <Token>--set</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-add-property-default-value" OptionId="option-model-add-property-default-value">
+      <Token>--default-value</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-add-property-required" OptionId="option-model-add-property-required">
+      <Token>--required</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-add-relationship-default-id" OptionId="option-model-add-relationship-default-id">
+      <Token>--default-id</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-add-relationship-required" OptionId="option-model-add-relationship-required">
+      <Token>--required</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-add-relationship-role" OptionId="option-model-add-relationship-role">
+      <Token>--role</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-property-to-relationship-lookup" OptionId="option-model-refactor-property-to-relationship-lookup">
+      <Token>--lookup</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-property-to-relationship-preserve-property" OptionId="option-model-refactor-property-to-relationship-preserve-property">
+      <Token>--preserve-property</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-property-to-relationship-role" OptionId="option-model-refactor-property-to-relationship-role">
+      <Token>--role</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-property-to-relationship-source" OptionId="option-model-refactor-property-to-relationship-source">
+      <Token>--source</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-property-to-relationship-target" OptionId="option-model-refactor-property-to-relationship-target">
+      <Token>--target</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-relationship-to-property-property" OptionId="option-model-refactor-relationship-to-property-property">
+      <Token>--property</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-relationship-to-property-role" OptionId="option-model-refactor-relationship-to-property-role">
+      <Token>--role</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-relationship-to-property-source" OptionId="option-model-refactor-relationship-to-property-source">
+      <Token>--source</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-refactor-relationship-to-property-target" OptionId="option-model-refactor-relationship-to-property-target">
+      <Token>--target</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-rename-relationship-existing-column" OptionId="option-model-rename-relationship-existing-column">
+      <Token>--existing-column</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-rename-relationship-role" OptionId="option-model-rename-relationship-role">
+      <Token>--role</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-set-property-required-default-value" OptionId="option-model-set-property-required-default-value">
+      <Token>--default-value</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-set-property-required-required" OptionId="option-model-set-property-required-required">
+      <Token>--required</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-suggest-explain" OptionId="option-model-suggest-explain">
+      <Token>--explain</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-suggest-print-commands" OptionId="option-model-suggest-print-commands">
+      <Token>--print-commands</Token>
+    </OptionToken>
+    <OptionToken Id="token-model-suggest-show-keys" OptionId="option-model-suggest-show-keys">
+      <Token>--show-keys</Token>
+    </OptionToken>
+    <OptionToken Id="token-query-contains" OptionId="option-query-contains">
+      <Token>--contains</Token>
+    </OptionToken>
+    <OptionToken Id="token-query-equals" OptionId="option-query-equals">
+      <Token>--equals</Token>
+    </OptionToken>
+    <OptionToken Id="token-query-top" OptionId="option-query-top">
+      <Token>--top</Token>
+    </OptionToken>
+    <OptionToken Id="token-strict" OptionId="option-strict">
+      <Token>--strict</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace" OptionId="option-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-merge-model" OptionId="option-workspace-merge-model">
+      <Token>--model</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-merge-new-workspace" OptionId="option-workspace-merge-new-workspace">
+      <Token>--new-workspace</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

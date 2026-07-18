@@ -315,6 +315,43 @@ public sealed class MetaCliModelTests
     }
 
     [Fact]
+    public void Validation_AllowsSameCommandNameOnDifferentRoutes()
+    {
+        var service = new MetaCliWorkspaceService();
+        var model = service.CreateEmpty();
+        var application = new Application { Id = "app-demo", Name = "demo" };
+        var import = new Command { Id = "cmd-import", Application = application, Name = "import", Token = "import" };
+        var export = new Command { Id = "cmd-export", Application = application, Name = "export", Token = "export" };
+        var importCsv = new Command
+        {
+            Id = "cmd-import-csv",
+            Application = application,
+            ParentCommand = import,
+            Name = "csv",
+            Token = "csv",
+        };
+        var exportCsv = new Command
+        {
+            Id = "cmd-export-csv",
+            Application = application,
+            ParentCommand = export,
+            Name = "csv",
+            Token = "csv",
+        };
+
+        model.ApplicationList.Add(application);
+        model.CommandList.Add(import);
+        model.CommandList.Add(export);
+        model.CommandList.Add(importCsv);
+        model.CommandList.Add(exportCsv);
+
+        var integrity = service.ValidateIntegrity(model);
+
+        Assert.False(integrity.HasErrors, string.Join(Environment.NewLine, integrity.Issues));
+        Assert.DoesNotContain(integrity.Issues, issue => issue.Code == "MCLI010");
+    }
+
+    [Fact]
     public void Validation_CatchesStrictSafeguards()
     {
         var service = new MetaCliWorkspaceService();

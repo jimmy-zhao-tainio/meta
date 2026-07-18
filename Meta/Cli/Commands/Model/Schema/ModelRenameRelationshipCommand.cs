@@ -17,7 +17,17 @@ internal sealed partial class CliRuntime
         WorkspaceSnapshot? before = null;
         try
         {
-            workspace = await LoadWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
+            var loadOptions = string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName)
+                ? null
+                : new WorkspaceLoadOptions(
+                    new[]
+                    {
+                        new RelationshipColumnRecovery(
+                            commandOptions.SourceEntityName,
+                            commandOptions.TargetEntityName,
+                            commandOptions.ExistingColumnName),
+                    });
+            workspace = await LoadWorkspaceForCommandAsync(commandOptions.WorkspacePath, loadOptions).ConfigureAwait(false);
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
 
             var fromEntity = RequireEntity(workspace, commandOptions.SourceEntityName);
@@ -73,6 +83,7 @@ internal sealed partial class CliRuntime
                 ("Target", result.TargetEntityName),
                 ("OldRole", string.IsNullOrWhiteSpace(currentRole) ? "(none)" : result.OldRole),
                 ("NewRole", string.Equals(result.NewUsageName, result.TargetEntityName + "Id", StringComparison.OrdinalIgnoreCase) ? "(none)" : result.NewRole),
+                ("Existing column", string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName) ? "(model)" : commandOptions.ExistingColumnName),
                 ("Rows touched", result.RowsTouched.ToString()));
             return 0;
         }
@@ -103,6 +114,7 @@ internal sealed partial class CliRuntime
         var targetEntityName = RequiredValue("ToEntity").Trim();
         var workspacePath = WorkspacePath();
         var newRole = OptionalValue("role").Trim();
+        var existingColumnName = OptionalValue("existing-column").Trim();
         if (string.IsNullOrWhiteSpace(sourceEntityName) || string.IsNullOrWhiteSpace(targetEntityName))
         {
             return (false, default, "Error: missing required arguments <FromEntity> <ToEntity>.");
@@ -113,16 +125,23 @@ internal sealed partial class CliRuntime
             return (false, default, "Error: --role must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
         }
 
+        if (!string.IsNullOrWhiteSpace(existingColumnName) && !ModelNamePattern.IsMatch(existingColumnName))
+        {
+            return (false, default, "Error: --existing-column must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
+        }
+
         return (true, new RenameRelationshipCommandOptions(
             WorkspacePath: workspacePath,
             SourceEntityName: sourceEntityName,
             TargetEntityName: targetEntityName,
-            NewRole: newRole), string.Empty);
+            NewRole: newRole,
+            ExistingColumnName: existingColumnName), string.Empty);
     }
 
     readonly record struct RenameRelationshipCommandOptions(
         string WorkspacePath,
         string SourceEntityName,
         string TargetEntityName,
-        string NewRole);
+        string NewRole,
+        string ExistingColumnName);
 }

@@ -1,50 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ExecutableCommandList>
-    <ExecutableCommand CommandId="cmd-help" Id="exec-help" />
-    <ExecutableCommand CommandId="cmd-init" Id="exec-init" />
-    <ExecutableCommand CommandId="cmd-status" Id="exec-status" />
-    <ExecutableCommand CommandId="cmd-workspace-merge" Id="exec-workspace-merge" />
-    <ExecutableCommand CommandId="cmd-list-entities" Id="exec-list-entities" />
-    <ExecutableCommand CommandId="cmd-list-properties" Id="exec-list-properties" />
-    <ExecutableCommand CommandId="cmd-list-relationships" Id="exec-list-relationships" />
-    <ExecutableCommand CommandId="cmd-view-entity" Id="exec-view-entity" />
-    <ExecutableCommand CommandId="cmd-view-instance" Id="exec-view-instance" />
-    <ExecutableCommand CommandId="cmd-query" Id="exec-query" />
-    <ExecutableCommand CommandId="cmd-graph-stats" Id="exec-graph-stats" />
-    <ExecutableCommand CommandId="cmd-graph-inbound" Id="exec-graph-inbound" />
-    <ExecutableCommand CommandId="cmd-check" Id="exec-check" />
-    <ExecutableCommand CommandId="cmd-model-add-entity" Id="exec-model-add-entity" />
-    <ExecutableCommand CommandId="cmd-model-rename-model" Id="exec-model-rename-model" />
-    <ExecutableCommand CommandId="cmd-model-rename-entity" Id="exec-model-rename-entity" />
-    <ExecutableCommand CommandId="cmd-model-add-property" Id="exec-model-add-property" />
-    <ExecutableCommand CommandId="cmd-model-rename-property" Id="exec-model-rename-property" />
-    <ExecutableCommand CommandId="cmd-model-set-property-required" Id="exec-model-set-property-required" />
-    <ExecutableCommand CommandId="cmd-model-rename-relationship" Id="exec-model-rename-relationship" />
-    <ExecutableCommand CommandId="cmd-model-add-relationship" Id="exec-model-add-relationship" />
-    <ExecutableCommand CommandId="cmd-model-refactor-property-to-relationship" Id="exec-model-refactor-property-to-relationship" />
-    <ExecutableCommand CommandId="cmd-model-refactor-relationship-to-property" Id="exec-model-refactor-relationship-to-property" />
-    <ExecutableCommand CommandId="cmd-model-drop-property" Id="exec-model-drop-property" />
-    <ExecutableCommand CommandId="cmd-model-drop-relationship" Id="exec-model-drop-relationship" />
-    <ExecutableCommand CommandId="cmd-model-drop-entity" Id="exec-model-drop-entity" />
-    <ExecutableCommand CommandId="cmd-model-suggest" Id="exec-model-suggest" />
-    <ExecutableCommand CommandId="cmd-insert" Id="exec-insert" />
-    <ExecutableCommand CommandId="cmd-bulk-insert" Id="exec-bulk-insert" />
-    <ExecutableCommand CommandId="cmd-instance-diff" Id="exec-instance-diff" />
-    <ExecutableCommand CommandId="cmd-instance-merge" Id="exec-instance-merge" />
-    <ExecutableCommand CommandId="cmd-instance-diff-aligned" Id="exec-instance-diff-aligned" />
-    <ExecutableCommand CommandId="cmd-instance-merge-aligned" Id="exec-instance-merge-aligned" />
-    <ExecutableCommand CommandId="cmd-instance-update" Id="exec-instance-update" />
-    <ExecutableCommand CommandId="cmd-instance-rename-id" Id="exec-instance-rename-id" />
-    <ExecutableCommand CommandId="cmd-instance-relationship-set" Id="exec-instance-relationship-set" />
-    <ExecutableCommand CommandId="cmd-instance-relationship-list" Id="exec-instance-relationship-list" />
-    <ExecutableCommand CommandId="cmd-delete" Id="exec-delete" />
-    <ExecutableCommand CommandId="cmd-generate-sql" Id="exec-generate-sql" />
-    <ExecutableCommand CommandId="cmd-generate-csharp" Id="exec-generate-csharp" />
-    <ExecutableCommand CommandId="cmd-generate-ssdt" Id="exec-generate-ssdt" />
-    <ExecutableCommand CommandId="cmd-deploy-sqlserver" Id="exec-deploy-sqlserver" />
-    <ExecutableCommand CommandId="cmd-import-sql" Id="exec-import-sql" />
-    <ExecutableCommand CommandId="cmd-import-csv" Id="exec-import-csv" />
-    <ExecutableCommand CommandId="cmd-export-csv" Id="exec-export-csv" />
+    <ExecutableCommand Id="exec-bulk-insert" CommandId="cmd-bulk-insert">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-check" CommandId="cmd-check">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-delete" CommandId="cmd-delete">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-deploy-sqlserver" CommandId="cmd-deploy-sqlserver">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-export-csv" CommandId="cmd-export-csv">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-generate-csharp" CommandId="cmd-generate-csharp">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-generate-sql" CommandId="cmd-generate-sql">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-generate-ssdt" CommandId="cmd-generate-ssdt">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-graph-inbound" CommandId="cmd-graph-inbound">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-graph-stats" CommandId="cmd-graph-stats">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-help" CommandId="cmd-help">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-import-csv" CommandId="cmd-import-csv">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-import-sql" CommandId="cmd-import-sql">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-init" CommandId="cmd-init">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-insert" CommandId="cmd-insert">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-diff" CommandId="cmd-instance-diff">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-diff-aligned" CommandId="cmd-instance-diff-aligned">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-merge" CommandId="cmd-instance-merge">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-merge-aligned" CommandId="cmd-instance-merge-aligned">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-relationship-list" CommandId="cmd-instance-relationship-list">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-relationship-set" CommandId="cmd-instance-relationship-set">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-rename-id" CommandId="cmd-instance-rename-id">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-instance-update" CommandId="cmd-instance-update">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-list-entities" CommandId="cmd-list-entities">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-list-properties" CommandId="cmd-list-properties">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-list-relationships" CommandId="cmd-list-relationships">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-add-entity" CommandId="cmd-model-add-entity">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-add-property" CommandId="cmd-model-add-property">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-add-relationship" CommandId="cmd-model-add-relationship">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-drop-entity" CommandId="cmd-model-drop-entity">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-drop-property" CommandId="cmd-model-drop-property">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-drop-relationship" CommandId="cmd-model-drop-relationship">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-refactor-property-to-relationship" CommandId="cmd-model-refactor-property-to-relationship">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-refactor-relationship-to-property" CommandId="cmd-model-refactor-relationship-to-property">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-rename-entity" CommandId="cmd-model-rename-entity">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-rename-model" CommandId="cmd-model-rename-model">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-rename-property" CommandId="cmd-model-rename-property">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-rename-relationship" CommandId="cmd-model-rename-relationship">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-set-property-required" CommandId="cmd-model-set-property-required">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-model-suggest" CommandId="cmd-model-suggest">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-query" CommandId="cmd-query">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-status" CommandId="cmd-status">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-view-entity" CommandId="cmd-view-entity">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-view-instance" CommandId="cmd-view-instance">
+    </ExecutableCommand>
+    <ExecutableCommand Id="exec-workspace-merge" CommandId="cmd-workspace-merge">
+    </ExecutableCommand>
   </ExecutableCommandList>
 </MetaCli>

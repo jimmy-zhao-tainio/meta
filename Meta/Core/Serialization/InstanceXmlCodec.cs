@@ -9,7 +9,8 @@ public static class InstanceXmlCodec
     public static GenericInstance LoadFromPath(
         string instancePath,
         GenericModel model,
-        string sourceShardFileName = "")
+        string sourceShardFileName = "",
+        InstanceXmlLoadOptions? loadOptions = null)
     {
         if (string.IsNullOrWhiteSpace(instancePath))
         {
@@ -24,7 +25,7 @@ public static class InstanceXmlCodec
             ModelName = model.Name ?? string.Empty,
         };
 
-        MergeDocument(instance, document, model, sourceShardFileName);
+        MergeDocument(instance, document, model, sourceShardFileName, loadOptions);
         if (string.IsNullOrWhiteSpace(instance.ModelName))
         {
             instance.ModelName = model.Name ?? string.Empty;
@@ -35,7 +36,8 @@ public static class InstanceXmlCodec
 
     public static GenericInstance LoadFromPaths(
         IReadOnlyCollection<string> shardPaths,
-        GenericModel model)
+        GenericModel model,
+        InstanceXmlLoadOptions? loadOptions = null)
     {
         ArgumentNullException.ThrowIfNull(shardPaths);
         ArgumentNullException.ThrowIfNull(model);
@@ -52,7 +54,8 @@ public static class InstanceXmlCodec
                 instance,
                 document,
                 model,
-                sourceShardFileName: Path.GetFileName(path));
+                sourceShardFileName: Path.GetFileName(path),
+                loadOptions: loadOptions);
         }
 
         if (string.IsNullOrWhiteSpace(instance.ModelName))
@@ -67,7 +70,8 @@ public static class InstanceXmlCodec
         GenericInstance instance,
         XDocument document,
         GenericModel model,
-        string sourceShardFileName = "")
+        string sourceShardFileName = "",
+        InstanceXmlLoadOptions? loadOptions = null)
     {
         ArgumentNullException.ThrowIfNull(instance);
         ArgumentNullException.ThrowIfNull(document);
@@ -100,7 +104,7 @@ public static class InstanceXmlCodec
                         $"Instance XML list '{listName}' contains unexpected row element '{rowElement.Name.LocalName}'. Expected '{entityName}'.");
                 }
 
-                records.Add(ParseRecord(entityName, modelEntity, rowElement, sourceShardFileName));
+                records.Add(ParseRecord(entityName, modelEntity, rowElement, sourceShardFileName, loadOptions));
             }
         }
     }
@@ -269,7 +273,8 @@ public static class InstanceXmlCodec
         string entityName,
         GenericEntity modelEntity,
         XElement rowElement,
-        string sourceShardFileName)
+        string sourceShardFileName,
+        InstanceXmlLoadOptions? loadOptions)
     {
         var id = NormalizeIdentity((string?)rowElement.Attribute("Id"));
         if (!IsValidIdentity(id))
@@ -289,6 +294,10 @@ public static class InstanceXmlCodec
             .ToDictionary(property => property.Name, StringComparer.OrdinalIgnoreCase);
         var relationshipByName = modelEntity.Relationships
             .ToDictionary(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase);
+        var relationshipByAttributeName = BuildRelationshipByAttributeName(
+            modelEntity,
+            relationshipByName,
+            loadOptions);
 
         foreach (var attribute in rowElement.Attributes())
         {
@@ -298,7 +307,7 @@ public static class InstanceXmlCodec
                 continue;
             }
 
-            if (relationshipByName.TryGetValue(attributeName, out var relationship))
+            if (relationshipByAttributeName.TryGetValue(attributeName, out var relationship))
             {
                 var relationshipId = NormalizeIdentity(attribute.Value);
                 if (!IsValidIdentity(relationshipId))
@@ -307,7 +316,11 @@ public static class InstanceXmlCodec
                         $"Entity '{entityName}' row '{record.Id}' has invalid relationship '{relationship.GetColumnName()}' value '{attribute.Value}'.");
                 }
 
-                record.RelationshipIds[relationship.GetColumnName()] = relationshipId;
+                if (!record.RelationshipIds.TryAdd(relationship.GetColumnName(), relationshipId))
+                {
+                    throw new InvalidDataException(
+                        $"Entity '{entityName}' row '{record.Id}' supplies relationship '{relationship.GetColumnName()}' more than once.");
+                }
                 continue;
             }
 
@@ -357,6 +370,60 @@ public static class InstanceXmlCodec
         }
 
         return record;
+    }
+
+    private static Dictionary<string, GenericRelationship> BuildRelationshipByAttributeName(
+        GenericEntity modelEntity,
+        IReadOnlyDictionary<string, GenericRelationship> relationshipByName,
+        InstanceXmlLoadOptions? loadOptions)
+    {
+        var result = relationshipByName.ToDictionary(
+            item => item.Key,
+            item => item.Value,
+            StringComparer.OrdinalIgnoreCase);
+        if (loadOptions == null)
+        {
+            return result;
+        }
+
+        foreach (var alias in loadOptions.RelationshipColumnAliases.Where(item =>
+                     string.Equals(item.EntityName, modelEntity.Name, StringComparison.OrdinalIgnoreCase)))
+        {
+            var attributeName = alias.AttributeName?.Trim() ?? string.Empty;
+            var relationshipColumnName = alias.RelationshipColumnName?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(attributeName) || string.IsNullOrWhiteSpace(relationshipColumnName))
+            {
+                throw new InvalidDataException(
+                    $"Relationship column recovery for entity '{modelEntity.Name}' requires both an attribute and a relationship column.");
+            }
+
+            if (string.Equals(attributeName, "Id", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidDataException(
+                    $"Relationship column recovery for entity '{modelEntity.Name}' cannot use the identity attribute 'Id'.");
+            }
+
+            if (!relationshipByName.TryGetValue(relationshipColumnName, out var relationship))
+            {
+                throw new InvalidDataException(
+                    $"Relationship column recovery for entity '{modelEntity.Name}' targets unknown relationship '{relationshipColumnName}'.");
+            }
+
+            if (result.TryGetValue(attributeName, out var existingRelationship))
+            {
+                if (!ReferenceEquals(existingRelationship, relationship))
+                {
+                    throw new InvalidDataException(
+                        $"Relationship column recovery for entity '{modelEntity.Name}' maps attribute '{attributeName}' to both '{existingRelationship.GetColumnName()}' and '{relationship.GetColumnName()}'.");
+                }
+
+                continue;
+            }
+
+            result.Add(attributeName, relationship);
+        }
+
+        return result;
     }
 
     private static Dictionary<string, GenericEntity> BuildEntityByContainerLookup(GenericModel model)

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ApplicationParameterList>
-    <ApplicationParameter ApplicationId="app-meta" Id="app-meta:parameter:param-workspace" ParameterId="param-workspace" />
-    <ApplicationParameter ApplicationId="app-meta" Id="app-meta:parameter:param-strict" ParameterId="param-strict" />
+    <ApplicationParameter Id="app-meta:parameter:param-strict" ApplicationId="app-meta" ParameterId="param-strict">
+    </ApplicationParameter>
+    <ApplicationParameter Id="app-meta:parameter:param-workspace" ApplicationId="app-meta" ParameterId="param-workspace">
+    </ApplicationParameter>
   </ApplicationParameterList>
 </MetaCli>
