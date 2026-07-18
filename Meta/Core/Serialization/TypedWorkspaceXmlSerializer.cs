@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -13,7 +12,6 @@ public static class TypedWorkspaceXmlSerializer
     private const string WorkspaceXmlFileName = "workspace.xml";
     private const string DefaultModelFileRelativePath = "model.xml";
     private const string DefaultInstanceDirectoryRelativePath = "instances";
-    private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
     private static readonly object CacheLock = new();
     private static readonly Dictionary<Type, ModelMap> ModelMaps = new();
 
@@ -647,7 +645,7 @@ public static class TypedWorkspaceXmlSerializer
     private static byte[] SerializeModelToBytes(ModelMap modelMap)
     {
         var document = ModelXmlCodec.BuildDocument(BuildGenericModel(modelMap));
-        return Utf8NoBom.GetBytes(document.ToString(SaveOptions.None));
+        return CanonicalXmlSerializer.SerializeToUtf8(document, indented: true);
     }
 
     private static GenericModel BuildGenericModel(ModelMap modelMap)
@@ -763,20 +761,7 @@ public static class TypedWorkspaceXmlSerializer
 
         root.Add(listElement);
         var document = new XDocument(new XDeclaration("1.0", "utf-8", null), root);
-        using var stream = new MemoryStream();
-        using (var writer = XmlWriter.Create(stream, new XmlWriterSettings
-        {
-            Encoding = Utf8NoBom,
-            Indent = true,
-            NewLineChars = "\n",
-            NewLineHandling = NewLineHandling.Replace,
-            OmitXmlDeclaration = false,
-        }))
-        {
-            document.Save(writer);
-        }
-
-        return stream.ToArray();
+        return CanonicalXmlSerializer.SerializeToUtf8(document, indented: true);
     }
 
     private static string SaveModelDocument(string workspacePath, ModelMap modelMap)
@@ -873,10 +858,11 @@ public static class TypedWorkspaceXmlSerializer
             Directory.CreateDirectory(directory);
         }
 
-        File.WriteAllText(
+        WriteBytesIfChanged(
             workspaceXmlPath,
-            new XDocument(new XDeclaration("1.0", "utf-8", null), root).ToString(SaveOptions.None),
-            Utf8NoBom);
+            CanonicalXmlSerializer.SerializeToUtf8(
+                new XDocument(new XDeclaration("1.0", "utf-8", null), root),
+                indented: true));
     }
 
     private static string GetXmlAttributeName(PropertyInfo property)

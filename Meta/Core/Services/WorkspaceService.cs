@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
@@ -675,20 +674,7 @@ public sealed class WorkspaceService : IWorkspaceService
 
     private static string SerializeXml(XDocument document, bool indented)
     {
-        var settings = new XmlWriterSettings
-        {
-            Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
-            OmitXmlDeclaration = false,
-            Indent = indented,
-            NewLineChars = "\n",
-            NewLineHandling = NewLineHandling.Replace,
-        };
-
-        using var stringWriter = new Utf8StringWriter();
-        using var xmlWriter = XmlWriter.Create(stringWriter, settings);
-        document.Save(xmlWriter);
-        xmlWriter.Flush();
-        return stringWriter.ToString();
+        return CanonicalXmlSerializer.SerializeToString(document, indented);
     }
 
     private static void WriteTextAtomic(string path, string content)
@@ -727,16 +713,6 @@ public sealed class WorkspaceService : IWorkspaceService
         {
             DeleteIfExists(tempPath);
         }
-    }
-
-    private sealed class Utf8StringWriter : StringWriter
-    {
-        public Utf8StringWriter()
-            : base(CultureInfo.InvariantCulture)
-        {
-        }
-
-        public override Encoding Encoding => new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
     }
 
     private sealed class WorkspacePaths

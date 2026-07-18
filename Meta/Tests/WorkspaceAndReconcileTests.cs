@@ -73,6 +73,37 @@ public sealed class WorkspaceServiceTests
     }
 
     [Fact]
+    public async Task Save_WritesLfTerminatedXml()
+    {
+        var services = new ServiceCollection();
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
+        try
+        {
+            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+
+            var xmlPaths = Directory.GetFiles(tempRoot, "*.xml", SearchOption.AllDirectories);
+            Assert.NotEmpty(xmlPaths);
+            Assert.All(xmlPaths, path =>
+            {
+                var bytes = File.ReadAllBytes(path);
+                Assert.NotEmpty(bytes);
+                Assert.False(HasUtf8Bom(bytes));
+                Assert.DoesNotContain((byte)'\r', bytes);
+                Assert.Equal((byte)'\n', bytes[^1]);
+            });
+        }
+        finally
+        {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
+            if (Directory.Exists(tempRoot))
+            {
+                Directory.Delete(tempRoot, recursive: true);
+            }
+        }
+    }
+
+    [Fact]
     public async Task Load_MissingWorkspaceConfig_UsesDefaultWorkspaceConfig()
     {
         var services = new ServiceCollection();
@@ -1124,6 +1155,14 @@ public sealed class WorkspaceServiceTests
         workspace.Instance.GetOrCreateEntityRecords("Child").Add(childRow);
 
         return workspace;
+    }
+
+    private static bool HasUtf8Bom(IReadOnlyList<byte> bytes)
+    {
+        return bytes.Count >= 3 &&
+               bytes[0] == 0xef &&
+               bytes[1] == 0xbb &&
+               bytes[2] == 0xbf;
     }
 
     private static Workspace BuildWorkspaceWithOptionalRelationship(string workspaceRoot)

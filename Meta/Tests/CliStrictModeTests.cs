@@ -964,6 +964,40 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task BulkInsert_StandardInput_NormalizesLeadingBom()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var result = await RunCliWithStandardInputAsync(
+                "\uFEFFId\tCubeName\tPurpose\tRefreshMode\n99\tStdin Cube\tBulk insert from standard input\tManual\n",
+                "bulk-insert",
+                "Cube",
+                "--from",
+                "tsv",
+                "--stdin",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.True(result.ExitCode == 0, result.CombinedOutput);
+
+            var viewResult = await RunCliAsync(
+                "view",
+                "instance",
+                "Cube",
+                "99",
+                "--workspace",
+                workspaceRoot);
+            Assert.Equal(0, viewResult.ExitCode);
+            Assert.Contains("Stdin Cube", viewResult.CombinedOutput, StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task BulkInsert_AutoId_RejectsKeyCombination()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
@@ -5138,8 +5172,18 @@ public sealed partial class CliStrictModeTests
         }
     }
 
-    private static async Task<(int ExitCode, string StdOut, string StdErr, string CombinedOutput)> RunCliAsync(
-        params string[] arguments)
+    private static Task<(int ExitCode, string StdOut, string StdErr, string CombinedOutput)> RunCliAsync(
+        params string[] arguments) =>
+        RunCliAsyncCore(standardInput: null, arguments);
+
+    private static Task<(int ExitCode, string StdOut, string StdErr, string CombinedOutput)> RunCliWithStandardInputAsync(
+        string standardInput,
+        params string[] arguments) =>
+        RunCliAsyncCore(standardInput, arguments);
+
+    private static async Task<(int ExitCode, string StdOut, string StdErr, string CombinedOutput)> RunCliAsyncCore(
+        string? standardInput,
+        IReadOnlyList<string> arguments)
     {
         var repoRoot = FindRepositoryRoot();
         var cliPath = ResolveCliExecutablePath(repoRoot);
@@ -5147,6 +5191,7 @@ public sealed partial class CliStrictModeTests
         var startInfo = new ProcessStartInfo
         {
             FileName = cliPath,
+            RedirectStandardInput = standardInput != null,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
             UseShellExecute = false,
@@ -5159,8 +5204,19 @@ public sealed partial class CliStrictModeTests
             startInfo.ArgumentList.Add(argument);
         }
 
+        if (standardInput != null)
+        {
+            startInfo.StandardInputEncoding = new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        }
+
         using var process = new Process { StartInfo = startInfo };
         process.Start();
+
+        if (standardInput != null)
+        {
+            await process.StandardInput.WriteAsync(standardInput).ConfigureAwait(false);
+            process.StandardInput.Close();
+        }
 
         var stdOutTask = process.StandardOutput.ReadToEndAsync();
         var stdErrTask = process.StandardError.ReadToEndAsync();

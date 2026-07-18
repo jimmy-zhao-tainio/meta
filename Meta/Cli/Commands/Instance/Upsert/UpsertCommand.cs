@@ -1,3 +1,5 @@
+using MetaCli.Core;
+
 internal sealed partial class CliRuntime
 {
     async Task<int> BulkInsertAsync(string[] commandArgs)
@@ -31,7 +33,7 @@ internal sealed partial class CliRuntime
         string input;
         if (parseResult.UseStdin)
         {
-            input = await Console.In.ReadToEndAsync().ConfigureAwait(false);
+            input = MetaCliStandardInput.ReadToEnd();
         }
         else
         {

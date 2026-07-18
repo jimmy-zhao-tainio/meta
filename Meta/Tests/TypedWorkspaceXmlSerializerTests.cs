@@ -116,6 +116,31 @@ public sealed class TypedWorkspaceXmlSerializerTests
     }
 
     [Fact]
+    public void Save_WritesLfTerminatedXml()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            TypedWorkspaceXmlSerializer.Save(new TestTypedModel
+            {
+                AlphaList =
+                {
+                    new Alpha { Id = "1", Name = "One" },
+                },
+            }, workspacePath);
+
+            var xmlPaths = Directory.GetFiles(workspacePath, "*.xml", SearchOption.AllDirectories);
+            Assert.NotEmpty(xmlPaths);
+            Assert.All(xmlPaths, AssertLfTerminated);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
     public void Save_RejectsIdsThatDifferOnlyByCase()
     {
         var tempRoot = CreateTempRoot();
@@ -245,6 +270,23 @@ public sealed class TypedWorkspaceXmlSerializerTests
         {
             Directory.Delete(path, recursive: true);
         }
+    }
+
+    private static void AssertLfTerminated(string path)
+    {
+        var bytes = File.ReadAllBytes(path);
+        Assert.NotEmpty(bytes);
+        Assert.False(HasUtf8Bom(bytes));
+        Assert.DoesNotContain((byte)'\r', bytes);
+        Assert.Equal((byte)'\n', bytes[^1]);
+    }
+
+    private static bool HasUtf8Bom(IReadOnlyList<byte> bytes)
+    {
+        return bytes.Count >= 3 &&
+               bytes[0] == 0xef &&
+               bytes[1] == 0xbb &&
+               bytes[2] == 0xbf;
     }
 
     [XmlRoot("TestTypedModel")]
