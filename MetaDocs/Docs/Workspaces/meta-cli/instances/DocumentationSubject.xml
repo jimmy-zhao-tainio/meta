@@ -1483,7 +1483,15 @@
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship">
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:existing-column" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship">
+      <DisplayName>--existing-column</DisplayName>
+      <DisplayPath>meta model rename-relationship --existing-column</DisplayPath>
+      <NativeId>option-model-rename-relationship-existing-column</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Persisted relationship column to reconcile before the rename.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship:option:existing-column">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model rename-relationship --role</DisplayPath>
       <NativeId>option-model-rename-relationship-role</NativeId>

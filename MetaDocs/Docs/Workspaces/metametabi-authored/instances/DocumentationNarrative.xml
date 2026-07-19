@@ -27,6 +27,36 @@ Teams compose the sanctioned workspaces that match their architecture. At every 
       <Slot>EndToEnd</Slot>
       <Title>From source contracts to analytical targets</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:fullstack:a-complete-stack-in-practice" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets">
+      <Body>The architecture is also exercised as one complete system. The checked-in AdventureWorks stack composes 27 workspaces and 30 named operations over a live `AdventureWorks2022` source:
+
+- synchronize the source schema into `MetaSchema`;
+- generate and deploy Raw and Business Data Vault structures and a dimensional warehouse;
+- import and strictly bind 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transforms;
+- author three pipelines and infer their cross-pipeline orchestration from modeled task and binding evidence;
+- generate and deploy 176 Data Quality checks;
+- author portable `MetaAnalytics` semantics, project them into `MetaTabular`, then deploy and process the model.
+
+A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced total due `123216786.1159`, line sales `109846381.4250`, quota `95714000.0000`, and zero findings across the promoted Data Quality checks. Repeating the complete ETL preserved the modeled Raw, Business, and warehouse row totals. A processed Tabular deployment returned the same analytical values.
+
+After the named create and deploy operations have materialized the stack, execution remains concise:
+
+```powershell
+cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
+meta-mesh operations
+meta-mesh run --operation run-etl
+meta-mesh run --operation verify-stack
+meta-mesh run --operation deploy-tabular
+meta-mesh run --operation process-tabular
+```
+
+The demo README records the complete build order, local services, environment variables, layer-by-layer execution options, and cleanup operation.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>FullStack</Slot>
+      <Title>A complete stack in practice</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
       <Body>The sanctioned models divide BI concerns at their natural ownership boundaries:
 

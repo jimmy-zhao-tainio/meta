@@ -136,15 +136,6 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-quality:app">
-      <Body>Promote modeled transform and schema evidence into data quality views, review surfaces, and operational SQL.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260704174603960</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:guide:working-with-metadataquality" DocumentationSubjectId="source:cli:meta-data-quality:app" PreviousNarrativeId="source:cli:meta-data-quality:app:narrative:summary:summary">
       <Body>MetaDataQuality derives reviewable quality candidates from typed transform and schema evidence. It examines the modeled transform graph, binding evidence, joins, relationships, and corpus patterns to identify missing references, uniqueness problems, unexpected null behavior, suspicious joins, and drift from repeated behavior.
 
@@ -156,6 +147,15 @@ Generated SQL distinguishes runtime checks from semantic review findings. The re
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
       <Title>Working with MetaDataQuality</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-quality:app">
+      <Body>Promote modeled transform and schema evidence into data quality views, review surfaces, and operational SQL.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-data-quality:batch:20260704174603960</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

@@ -71,7 +71,133 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:delete" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:columnreference">
+      <DisplayName>Delete</DisplayName>
+      <DisplayPath>MetaTransformBinding.Delete</DisplayPath>
+      <NativeId>Delete</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:delete:property:metatransformscriptdeletestatementid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:delete">
+      <DisplayName>MetaTransformScriptDeleteStatementId</DisplayName>
+      <DisplayPath>MetaTransformBinding.Delete.MetaTransformScriptDeleteStatementId</DisplayPath>
+      <NativeId>MetaTransformScriptDeleteStatementId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:delete:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:delete">
+      <DisplayName>ValidationTargetRowsetLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.Delete.ValidationTargetRowsetLink</DisplayPath>
+      <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertquerywrite" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:delete">
+      <DisplayName>InsertQueryWrite</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertQueryWrite</DisplayPath>
+      <NativeId>InsertQueryWrite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertquerywrite:property:metatransformscriptqueryexpressionid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:insertquerywrite">
+      <DisplayName>MetaTransformScriptQueryExpressionId</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertQueryWrite.MetaTransformScriptQueryExpressionId</DisplayPath>
+      <NativeId>MetaTransformScriptQueryExpressionId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertquerywrite:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:insertquerywrite">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertQueryWrite.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertvalueswrite" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:insertquerywrite">
+      <DisplayName>InsertValuesWrite</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertValuesWrite</DisplayPath>
+      <NativeId>InsertValuesWrite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertvalueswrite:property:metatransformscriptrowvalueid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:insertvalueswrite">
+      <DisplayName>MetaTransformScriptRowValueId</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertValuesWrite.MetaTransformScriptRowValueId</DisplayPath>
+      <NativeId>MetaTransformScriptRowValueId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:insertvalueswrite:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:insertvalueswrite">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.InsertValuesWrite.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergedelete" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:insertvalueswrite">
+      <DisplayName>MergeDelete</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeDelete</DisplayPath>
+      <NativeId>MergeDelete</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergedelete:property:metatransformscriptmergedeleteactionid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergedelete">
+      <DisplayName>MetaTransformScriptMergeDeleteActionId</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeDelete.MetaTransformScriptMergeDeleteActionId</DisplayPath>
+      <NativeId>MetaTransformScriptMergeDeleteActionId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergedelete:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergedelete">
+      <DisplayName>ValidationTargetRowsetLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeDelete.ValidationTargetRowsetLink</DisplayPath>
+      <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:mergedelete">
+      <DisplayName>MergeInsertWrite</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeInsertWrite</DisplayPath>
+      <NativeId>MergeInsertWrite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite:property:metatransformscriptmergeinsertactionid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite">
+      <DisplayName>MetaTransformScriptMergeInsertActionId</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeInsertWrite.MetaTransformScriptMergeInsertActionId</DisplayPath>
+      <NativeId>MetaTransformScriptMergeInsertActionId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeInsertWrite.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:mergeinsertwrite">
+      <DisplayName>MergeUpdateWrite</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeUpdateWrite</DisplayPath>
+      <NativeId>MergeUpdateWrite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite:property:metatransformscriptmergeupdateactionid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite">
+      <DisplayName>MetaTransformScriptMergeUpdateActionId</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeUpdateWrite.MetaTransformScriptMergeUpdateActionId</DisplayPath>
+      <NativeId>MetaTransformScriptMergeUpdateActionId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.MergeUpdateWrite.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:outputrowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:mergeupdatewrite">
       <DisplayName>OutputRowset</DisplayName>
       <DisplayPath>MetaTransformBinding.OutputRowset</DisplayPath>
       <NativeId>OutputRowset</NativeId>
@@ -197,7 +323,42 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:targetcolumnreference" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:tablesource">
+      <DisplayName>TargetColumnReference</DisplayName>
+      <DisplayPath>MetaTransformBinding.TargetColumnReference</DisplayPath>
+      <NativeId>TargetColumnReference</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:property:metaschemafieldid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference">
+      <DisplayName>MetaSchemaFieldId</DisplayName>
+      <DisplayPath>MetaTransformBinding.TargetColumnReference.MetaSchemaFieldId</DisplayPath>
+      <NativeId>MetaSchemaFieldId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:property:metatransformscriptcolumnreferenceid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:property:metaschemafieldid">
+      <DisplayName>MetaTransformScriptColumnReferenceId</DisplayName>
+      <DisplayPath>MetaTransformBinding.TargetColumnReference.MetaTransformScriptColumnReferenceId</DisplayPath>
+      <NativeId>MetaTransformScriptColumnReferenceId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:relationship:column-column" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference">
+      <DisplayName>Column</DisplayName>
+      <DisplayPath>MetaTransformBinding.TargetColumnReference.Column</DisplayPath>
+      <NativeId>Column:Column</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:relationship:transformbindingtarget-transformbindingtarget" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference:relationship:column-column">
+      <DisplayName>TransformBindingTarget</DisplayName>
+      <DisplayPath>MetaTransformBinding.TargetColumnReference.TransformBindingTarget</DisplayPath>
+      <NativeId>TransformBindingTarget:TransformBindingTarget</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:targetcolumnreference">
       <DisplayName>TransformBinding</DisplayName>
       <DisplayPath>MetaTransformBinding.TransformBinding</DisplayPath>
       <NativeId>TransformBinding</NativeId>
@@ -239,7 +400,49 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:truncate" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:transformbindingtarget">
+      <DisplayName>Truncate</DisplayName>
+      <DisplayPath>MetaTransformBinding.Truncate</DisplayPath>
+      <NativeId>Truncate</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:truncate:property:metatransformscripttruncatestatementid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:truncate">
+      <DisplayName>MetaTransformScriptTruncateStatementId</DisplayName>
+      <DisplayPath>MetaTransformBinding.Truncate.MetaTransformScriptTruncateStatementId</DisplayPath>
+      <NativeId>MetaTransformScriptTruncateStatementId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:truncate:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:truncate">
+      <DisplayName>ValidationTargetRowsetLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.Truncate.ValidationTargetRowsetLink</DisplayPath>
+      <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:updatewrite" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:truncate">
+      <DisplayName>UpdateWrite</DisplayName>
+      <DisplayPath>MetaTransformBinding.UpdateWrite</DisplayPath>
+      <NativeId>UpdateWrite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:updatewrite:property:metatransformscriptsetclauseid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:updatewrite">
+      <DisplayName>MetaTransformScriptSetClauseId</DisplayName>
+      <DisplayPath>MetaTransformBinding.UpdateWrite.MetaTransformScriptSetClauseId</DisplayPath>
+      <NativeId>MetaTransformScriptSetClauseId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:updatewrite:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:updatewrite">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.UpdateWrite.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:updatewrite">
       <DisplayName>Validation</DisplayName>
       <DisplayPath>MetaTransformBinding.Validation</DisplayPath>
       <NativeId>Validation</NativeId>
@@ -365,28 +568,7 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
-      <DisplayName>ValidationTargetColumnTypeNotClassified</DisplayName>
-      <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified</DisplayPath>
-      <NativeId>ValidationTargetColumnTypeNotClassified</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:property:targetmetadatatypeid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
-      <DisplayName>TargetMetaDataTypeId</DisplayName>
-      <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified.TargetMetaDataTypeId</DisplayPath>
-      <NativeId>TargetMetaDataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
-      <DisplayName>ValidationTargetColumnLink</DisplayName>
-      <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeNotClassified.ValidationTargetColumnLink</DisplayPath>
-      <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypenotclassified">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypesanctionedconversion" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetcolumntypeexact">
       <DisplayName>ValidationTargetColumnTypeSanctionedConversion</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnTypeSanctionedConversion</DisplayPath>
       <NativeId>ValidationTargetColumnTypeSanctionedConversion</NativeId>
@@ -469,6 +651,62 @@
       <NativeId>Validation:Validation</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.Write</DisplayPath>
+      <NativeId>Write</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:write:relationship:validationtargetrowsetlink-validationtargetrowsetlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:write">
+      <DisplayName>ValidationTargetRowsetLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.Write.ValidationTargetRowsetLink</DisplayPath>
+      <NativeId>ValidationTargetRowsetLink:ValidationTargetRowsetLink</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevalue" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:write">
+      <DisplayName>WriteValue</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValue</DisplayPath>
+      <NativeId>WriteValue</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevalue:relationship:validationtargetcolumnlink-validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:writevalue">
+      <DisplayName>ValidationTargetColumnLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValue.ValidationTargetColumnLink</DisplayPath>
+      <NativeId>ValidationTargetColumnLink:ValidationTargetColumnLink</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevalue:relationship:write-write" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:writevalue" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:writevalue:relationship:validationtargetcolumnlink-validationtargetcolumnlink">
+      <DisplayName>Write</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValue.Write</DisplayPath>
+      <NativeId>Write:Write</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevaluescalarexpression" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:writevalue">
+      <DisplayName>WriteValueScalarExpression</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValueScalarExpression</DisplayPath>
+      <NativeId>WriteValueScalarExpression</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevaluescalarexpression:property:metatransformscriptscalarexpressionid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:writevaluescalarexpression">
+      <DisplayName>MetaTransformScriptScalarExpressionId</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValueScalarExpression.MetaTransformScriptScalarExpressionId</DisplayPath>
+      <NativeId>MetaTransformScriptScalarExpressionId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:writevaluescalarexpression:relationship:writevalue-writevalue" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:writevaluescalarexpression">
+      <DisplayName>WriteValue</DisplayName>
+      <DisplayPath>MetaTransformBinding.WriteValueScalarExpression.WriteValue</DisplayPath>
+      <NativeId>WriteValue:WriteValue</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:model:metatransformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
       <DisplayName>MetaTransformBinding</DisplayName>

@@ -2633,7 +2633,49 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergestatement" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergeinsertactionvaluesitem">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergematchedwhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergeinsertactionvaluesitem">
+      <DisplayName>MergeMatchedWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeMatchedWhenClause</DisplayPath>
+      <NativeId>MergeMatchedWhenClause</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergematchedwhenclause:relationship:mergewhenclause-mergewhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergematchedwhenclause">
+      <DisplayName>MergeWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeMatchedWhenClause.MergeWhenClause</DisplayPath>
+      <NativeId>MergeWhenClause:MergeWhenClause</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergenotmatchedbysourcewhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergematchedwhenclause">
+      <DisplayName>MergeNotMatchedBySourceWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeNotMatchedBySourceWhenClause</DisplayPath>
+      <NativeId>MergeNotMatchedBySourceWhenClause</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergenotmatchedbysourcewhenclause:relationship:mergewhenclause-mergewhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergenotmatchedbysourcewhenclause">
+      <DisplayName>MergeWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeNotMatchedBySourceWhenClause.MergeWhenClause</DisplayPath>
+      <NativeId>MergeWhenClause:MergeWhenClause</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergenotmatchedbytargetwhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergenotmatchedbysourcewhenclause">
+      <DisplayName>MergeNotMatchedByTargetWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeNotMatchedByTargetWhenClause</DisplayPath>
+      <NativeId>MergeNotMatchedByTargetWhenClause</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergenotmatchedbytargetwhenclause:relationship:mergewhenclause-mergewhenclause" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergenotmatchedbytargetwhenclause">
+      <DisplayName>MergeWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeNotMatchedByTargetWhenClause.MergeWhenClause</DisplayPath>
+      <NativeId>MergeWhenClause:MergeWhenClause</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergestatement" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergenotmatchedbytargetwhenclause">
       <DisplayName>MergeStatement</DisplayName>
       <DisplayPath>MetaTransformScript.MergeStatement</DisplayPath>
       <NativeId>MergeStatement</NativeId>
@@ -2829,13 +2871,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem:property:ordinal" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaTransformScript.MergeStatementWhenClausesItem.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem:relationship:mergestatement-mergestatement" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem">
       <DisplayName>MergeStatement</DisplayName>
       <DisplayPath>MetaTransformScript.MergeStatementWhenClausesItem.MergeStatement</DisplayPath>
@@ -2849,6 +2884,13 @@
       <NativeId>MergeWhenClause:MergeWhenClause</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem:relationship:previousmergewhenclause-mergestatementwhenclausesitem" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem:relationship:mergewhenclause-mergewhenclause">
+      <DisplayName>PreviousMergeWhenClause</DisplayName>
+      <DisplayPath>MetaTransformScript.MergeStatementWhenClausesItem.PreviousMergeWhenClause</DisplayPath>
+      <NativeId>PreviousMergeWhenClause:MergeStatementWhenClausesItem</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergeupdateaction" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergestatementwhenclausesitem">
       <DisplayName>MergeUpdateAction</DisplayName>
@@ -2890,13 +2932,6 @@
       <DisplayPath>MetaTransformScript.MergeWhenClause</DisplayPath>
       <NativeId>MergeWhenClause</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergewhenclause:property:matchkind" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-script:entity:mergewhenclause">
-      <DisplayName>MatchKind</DisplayName>
-      <DisplayPath>MetaTransformScript.MergeWhenClause.MatchKind</DisplayPath>
-      <NativeId>MatchKind</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-script:entity:mergewhenclauseactionlink" DocumentationSourceId="source:workspace-model:meta-transform-script" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-script:model:metatransformscript" PreviousSubjectId="source:workspace-model:meta-transform-script:entity:mergewhenclause">

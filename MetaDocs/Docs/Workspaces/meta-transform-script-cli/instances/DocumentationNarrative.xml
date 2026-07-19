@@ -406,15 +406,6 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app">
-      <Body>Import SQL transform scripts into a structured model, export equivalent SQL, and manage transform contracts.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260701172657156</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:guide:working-with-metatransformscript" DocumentationSubjectId="source:cli:meta-transform-script:app" PreviousNarrativeId="source:cli:meta-transform-script:app:narrative:summary:summary">
       <Body>MetaTransformScript understands the supported SQL Server transform surface structurally. It imports views, query expressions, bounded mutation statements, inline table-valued functions, and constrained scalar functions into a typed workspace, then emits semantically equivalent SQL.
 
@@ -426,6 +417,15 @@ The target is faithful syntax modeling. SQL is represented once as structured da
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
       <Title>Working with MetaTransformScript</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app">
+      <Body>Import SQL transform scripts into a structured model, export equivalent SQL, and manage transform contracts.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260701172657156</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

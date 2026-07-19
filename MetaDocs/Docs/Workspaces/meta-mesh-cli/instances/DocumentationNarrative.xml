@@ -422,6 +422,20 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:guide:working-with-metamesh" DocumentationSubjectId="source:cli:meta-mesh:app" PreviousNarrativeId="source:cli:meta-mesh:app:narrative:summary:summary">
+      <Body>MetaMesh turns a repository routine into a named, inspectable operation. A mesh lists the workspaces that participate and each operation records the executable steps that should occur, in order. Engineers and agents can inspect the same workspace that is later validated and run.
+
+Workspace tokens make a step portable across a repository, while environment tokens make external configuration explicit. Before execution begins, MetaMesh resolves every declared workspace, executable, working directory, write requirement, and environment value. That full preflight gives an operation a clear prepared state before it starts changing anything.
+
+The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.
+
+The AdventureWorks full-stack mesh demonstrates the same structure at system scale: 27 declared workspaces and 30 operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model. MetaMesh owns participation, sequence, preflight, and execution visibility; each product CLI continues to own its domain behavior.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaMesh</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app">
       <Body>Define repository workflows as declared workspaces and executable operation steps, then validate and run them from a model.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -439,18 +453,6 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:guide:working-with-metamesh" DocumentationSubjectId="source:cli:meta-mesh:app" PreviousNarrativeId="source:cli:meta-mesh:app:narrative:summary:summary">
-      <Body>MetaMesh turns a repository routine into a named, inspectable operation. A mesh lists the workspaces that participate and each operation records the executable steps that should occur, in order. Engineers and agents can inspect the same workspace that is later validated and run.
-
-Workspace tokens make a step portable across a repository, while environment tokens make external configuration explicit. Before execution begins, MetaMesh resolves every declared workspace, executable, working directory, write requirement, and environment value. That full preflight gives an operation a clear prepared state before it starts changing anything.
-
-The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Guide</Slot>
-      <Title>Working with MetaMesh</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

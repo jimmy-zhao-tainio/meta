@@ -118,6 +118,20 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:guide:working-with-metatransformbinding" DocumentationSubjectId="source:cli:meta-transform-binding:app" PreviousNarrativeId="source:cli:meta-transform-binding:app:narrative:summary:summary">
+      <Body>MetaTransformBinding validates transform scripts against explicit source and target MetaSchema contracts. It resolves referenced objects and columns, verifies target write shape, evaluates data-type compatibility through the sanctioned conversion workspace, and records the resulting evidence in a dedicated binding workspace.
+
+A successful binding says more than that the SQL parsed. It establishes that each modeled source and target reference resolves against the stated schemas and that the transform's write contract is compatible with its target. The recorded rowsets, columns, and validation links become a durable technical basis for later pipeline, orchestration, and quality work.
+
+Strict mutation binding preserves the resolved reads and effects of `INSERT`, `UPDATE`, `MERGE`, `DELETE`, and `TRUNCATE` statements. Its bounded expression analysis carries data types and nullability through direct columns, literals, parentheses, explicit `CAST` and `CONVERT`, compatible `CASE` and `COALESCE` expressions, and conjunctive `WHERE ... IS NOT NULL` evidence. Proven nullable writes to non-null targets fail; unknown evidence remains unknown rather than being invented.
+
+Binding is an atomic contract gate in normal operation. Its explicit partial mode is for corpus discovery: it keeps the successfully bound scripts while preserving a report of the scripts that need more source, target, or type information.</Body>
+      <BodyFormat>Markdown</BodyFormat>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with MetaTransformBinding</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-binding:app">
       <Body>Bind transform scripts to source and target schemas so references, data types, and writable contracts are verified before generation.</Body>
       <BodyFormat>PlainText</BodyFormat>
@@ -126,18 +140,6 @@
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:guide:working-with-metatransformbinding" DocumentationSubjectId="source:cli:meta-transform-binding:app" PreviousNarrativeId="source:cli:meta-transform-binding:app:narrative:summary:summary">
-      <Body>MetaTransformBinding validates transform scripts against explicit source and target MetaSchema contracts. It resolves referenced objects and columns, verifies target write shape, evaluates data-type compatibility through the sanctioned conversion workspace, and records the resulting evidence in a dedicated binding workspace.
-
-A successful binding says more than that the SQL parsed. It establishes that each modeled source and target reference resolves against the stated schemas and that the transform's write contract is compatible with its target. The recorded rowsets, columns, and validation links become a durable technical basis for later pipeline, orchestration, and quality work.
-
-Binding is an atomic contract gate in normal operation. Its explicit partial mode is for corpus discovery: it keeps the successfully bound scripts while preserving a report of the scripts that need more source, target, or type information.</Body>
-      <BodyFormat>Markdown</BodyFormat>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Guide</Slot>
-      <Title>Working with MetaTransformBinding</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

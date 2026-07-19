@@ -82,15 +82,6 @@
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app">
-      <Body>Extract SQL Server schemas into modeled workspaces that preserve databases, schemas, tables, fields, keys, and relationships.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:guide:working-with-metaschema" DocumentationSubjectId="source:cli:meta-schema:app" PreviousNarrativeId="source:cli:meta-schema:app:narrative:summary:summary">
       <Body>MetaSchema captures a live source schema as an explicit workspace. The extracted model preserves the database and system context together with schemas, tables, fields, keys, and relationships, giving every later stage a reviewable source contract.
 
@@ -102,6 +93,15 @@ Because the schema is durable model data, it can be compared, regenerated, and c
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
       <Title>Working with MetaSchema</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app">
+      <Body>Extract SQL Server schemas into modeled workspaces that preserve databases, schemas, tables, fields, keys, and relationships.</Body>
+      <BodyFormat>PlainText</BodyFormat>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
     </DocumentationNarrative>
   </DocumentationNarrativeList>
 </MetaDocs>

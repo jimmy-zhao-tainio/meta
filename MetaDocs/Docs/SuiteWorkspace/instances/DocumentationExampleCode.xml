@@ -1,6 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationExampleCodeList>
+    <DocumentationExampleCode Id="example:meta-cli:create-command-surface:commands" DocumentationExampleSectionId="example:meta-cli:create-command-surface:overview">
+      <Code>meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
+meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
+meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
+meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-convert:schema-to-raw-vault:commands" DocumentationExampleSectionId="example:meta-convert:schema-to-raw-vault:overview">
+      <Code>meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --new-workspace .\RawVault.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-data-quality:derive-and-promote:commands" DocumentationExampleSectionId="example:meta-data-quality:derive-and-promote:overview">
+      <Code>meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
+meta-data-quality inspect --workspace .\DataQuality.Workspace
+meta-data-quality promote --workspace .\DataQuality.Workspace --all
+meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-docs:browse-suite:commands" DocumentationExampleSectionId="example:meta-docs:browse-suite:overview">
+      <Code>cd MetaDocs\Docs\SuiteWorkspace
+meta-docs browse
+meta-docs browse cli/meta-docs
+meta-docs browse model/MetaDocs
+meta-docs search deploy</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-docs:import-cli-refresh:command" DocumentationExampleSectionId="example:meta-docs:import-cli-refresh:overview">
+      <Code>meta-docs import-cli --workspace MetaDocs\Docs\Workspaces\meta-docs-cli --source-workspace MetaDocs\Cli\meta-docs.MetaCli --parent-subject public:meta:cli</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-docs:render-public-site:command" DocumentationExampleSectionId="example:meta-docs:render-public-site:overview">
+      <Code>meta-docs render-site --workspace MetaDocs\Docs\SuiteWorkspace --out MetaDocs\Docs\Site</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-mesh:add-step-stdin:command" DocumentationExampleSectionId="example:meta-mesh:add-step-stdin:overview">
+      <Code>@'
+render-site --workspace ..\SuiteWorkspace --out ..\Site
+'@ | meta-mesh add-step --operation regenerate-public-docs --name render-site --executable meta-docs --arguments-stdin --working-directory .</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-mesh:run-docs-operation:commands" DocumentationExampleSectionId="example:meta-mesh:run-docs-operation:overview">
+      <Code>cd MetaDocs\Docs\Documentation.MetaMesh
+meta-mesh validate --operation regenerate-public-docs
+meta-mesh run --operation regenerate-public-docs</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-orchestration:infer-run-plan:commands" DocumentationExampleSectionId="example:meta-orchestration:infer-run-plan:overview">
+      <Code>meta-orchestration infer --pipeline-workspace .\Pipeline.Workspace --new-workspace .\Orchestration.Workspace
+meta-orchestration list-issues --workspace .\Orchestration.Workspace
+meta-orchestration refresh-run-plan --workspace .\Orchestration.Workspace
+meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-pipeline:start-pipeline:commands" DocumentationExampleSectionId="example:meta-pipeline:start-pipeline:overview">
+      <Code>meta-pipeline new-workspace .\Pipeline.Workspace
+meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-schema:extract-source:commands" DocumentationExampleSectionId="example:meta-schema:extract-source:overview">
+      <Code>meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-sql:deploy-manifest:commands" DocumentationExampleSectionId="example:meta-sql:deploy-manifest:overview">
+      <Code>meta-sql deploy --source-workspace .\MetaSql.Workspace --manifest-workspace .\DeployPlan.Workspace --connection-env META_TARGET_SQL</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-transform-binding:validate-contract:commands" DocumentationExampleSectionId="example:meta-transform-binding:validate-contract:overview">
+      <Code>meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --new-workspace .\Binding.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-transform-script:round-trip-view:commands" DocumentationExampleSectionId="example:meta-transform-script:round-trip-view:overview">
+      <Code>meta-transform-script from sql-file --path .\views\v_customer.sql --new-workspace .\Transforms.Workspace --target dbo.v_customer
+meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\RoundTrippedSql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta-weave:bind-and-materialize:commands" DocumentationExampleSectionId="example:meta-weave:bind-and-materialize:overview">
+      <Code>meta-weave new-workspace .\MetaWeave.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
+meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
+meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
+meta-weave check --workspace .\MetaWeave.Workspace
+meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:consumer:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:consumer">
+      <Code>using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Consumer view: dependency-free POCOs + a strongly-typed model facade.
+foreach (var system in EnterpriseBIPlatform.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in EnterpriseBIPlatform.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}</Code>
+      <Language>csharp</Language>
+      <Title>Dependency-free consumer usage</Title>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:tooling:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:tooling">
+      <Code>using EnterpriseBIPlatform;
+using System;
+using System.Linq;
+
+// Tooling view: fully populated typed model loaded from workspace XML.
+var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
+    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
+
+foreach (var system in model.SystemList)
+{
+    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
+
+    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    {
+        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+    }
+}
+
+foreach (var measure in model.MeasureList)
+{
+    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
+}</Code>
+      <Language>csharp</Language>
+      <Title>Workspace-backed tooling usage</Title>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-csharp-tooling:command" DocumentationExampleSectionId="example:meta:generate-csharp-tooling:overview">
+      <Code>meta generate csharp --workspace .\Workspace --out .\out\csharp --tooling</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:generate-sql-consumables:command" DocumentationExampleSectionId="example:meta:generate-sql-consumables:overview">
+      <Code>meta generate sql --workspace .\Workspace --out .\out\sql</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:instance-diff-merge:commands" DocumentationExampleSectionId="example:meta:instance-diff-merge:overview">
+      <Code>meta instance diff .\BaselineWorkspace .\FeatureWorkspace
+meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
+    <DocumentationExampleCode Id="example:meta:model-suggest-promote-relationships:commands" DocumentationExampleSectionId="example:meta:model-suggest-promote-relationships:overview">
+      <Code>meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
+meta import csv ..\demo-csv\suppliers.csv --entity Supplier
+meta import csv ..\demo-csv\categories.csv --entity Category
+meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
+meta import csv ..\demo-csv\orders.csv --entity Order
+meta model suggest --print-commands
+meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
+meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id
+meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id</Code>
+      <Language>powershell</Language>
+    </DocumentationExampleCode>
     <DocumentationExampleCode Id="example:meta:workspace-roundtrip:commands" DocumentationExampleSectionId="example:meta:workspace-roundtrip:overview">
       <Code>meta init .\Workspace
 cd .\Workspace
@@ -179,166 +339,6 @@ ALTER TABLE [dbo].[SystemCube]
 ADD CONSTRAINT [FK_SystemCube_System_SystemId]
 FOREIGN KEY ([SystemId]) REFERENCES [dbo].[System]([Id]);</Code>
       <Language>sql</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:consumer:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:consumer">
-      <Code>using EnterpriseBIPlatform;
-using System;
-using System.Linq;
-
-// Consumer view: dependency-free POCOs + a strongly-typed model facade.
-foreach (var system in EnterpriseBIPlatform.SystemList)
-{
-    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
-
-    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
-    {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
-        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
-    }
-}
-
-foreach (var measure in EnterpriseBIPlatform.MeasureList)
-{
-    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
-}</Code>
-      <Language>csharp</Language>
-      <Title>Dependency-free consumer usage</Title>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:generate-csharp-surfaces:tooling:code" DocumentationExampleSectionId="example:meta:generate-csharp-surfaces:tooling">
-      <Code>using EnterpriseBIPlatform;
-using System;
-using System.Linq;
-
-// Tooling view: fully populated typed model loaded from workspace XML.
-var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
-    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
-
-foreach (var system in model.SystemList)
-{
-    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
-
-    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
-    {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
-        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
-    }
-}
-
-foreach (var measure in model.MeasureList)
-{
-    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
-}</Code>
-      <Language>csharp</Language>
-      <Title>Workspace-backed tooling usage</Title>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:generate-csharp-tooling:command" DocumentationExampleSectionId="example:meta:generate-csharp-tooling:overview">
-      <Code>meta generate csharp --workspace .\Workspace --out .\out\csharp --tooling</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:generate-sql-consumables:command" DocumentationExampleSectionId="example:meta:generate-sql-consumables:overview">
-      <Code>meta generate sql --workspace .\Workspace --out .\out\sql</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:instance-diff-merge:commands" DocumentationExampleSectionId="example:meta:instance-diff-merge:overview">
-      <Code>meta instance diff .\BaselineWorkspace .\FeatureWorkspace
-meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta:model-suggest-promote-relationships:commands" DocumentationExampleSectionId="example:meta:model-suggest-promote-relationships:overview">
-      <Code>meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
-meta import csv ..\demo-csv\suppliers.csv --entity Supplier
-meta import csv ..\demo-csv\categories.csv --entity Category
-meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
-meta import csv ..\demo-csv\orders.csv --entity Order
-meta model suggest --print-commands
-meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
-meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id
-meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-cli:create-command-surface:commands" DocumentationExampleSectionId="example:meta-cli:create-command-surface:overview">
-      <Code>meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
-meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
-meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
-meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-convert:schema-to-raw-vault:commands" DocumentationExampleSectionId="example:meta-convert:schema-to-raw-vault:overview">
-      <Code>meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --new-workspace .\RawVault.Workspace</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-data-quality:derive-and-promote:commands" DocumentationExampleSectionId="example:meta-data-quality:derive-and-promote:overview">
-      <Code>meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
-meta-data-quality inspect --workspace .\DataQuality.Workspace
-meta-data-quality promote --workspace .\DataQuality.Workspace --all
-meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-docs:browse-suite:commands" DocumentationExampleSectionId="example:meta-docs:browse-suite:overview">
-      <Code>cd MetaDocs\Docs\SuiteWorkspace
-meta-docs browse
-meta-docs browse cli/meta-docs
-meta-docs browse model/MetaDocs
-meta-docs search deploy</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-docs:import-cli-refresh:command" DocumentationExampleSectionId="example:meta-docs:import-cli-refresh:overview">
-      <Code>meta-docs import-cli --workspace MetaDocs\Docs\Workspaces\meta-docs-cli --source-workspace MetaDocs\Cli\meta-docs.MetaCli --parent-subject public:meta:cli</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-docs:render-public-site:command" DocumentationExampleSectionId="example:meta-docs:render-public-site:overview">
-      <Code>meta-docs render-site --workspace MetaDocs\Docs\SuiteWorkspace --out MetaDocs\Docs\Site</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-mesh:add-step-stdin:command" DocumentationExampleSectionId="example:meta-mesh:add-step-stdin:overview">
-      <Code>@'
-render-site --workspace ..\SuiteWorkspace --out ..\Site
-'@ | meta-mesh add-step --operation regenerate-public-docs --name render-site --executable meta-docs --arguments-stdin --working-directory .</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-mesh:run-docs-operation:commands" DocumentationExampleSectionId="example:meta-mesh:run-docs-operation:overview">
-      <Code>cd MetaDocs\Docs\Documentation.MetaMesh
-meta-mesh validate --operation regenerate-public-docs
-meta-mesh run --operation regenerate-public-docs</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-orchestration:infer-run-plan:commands" DocumentationExampleSectionId="example:meta-orchestration:infer-run-plan:overview">
-      <Code>meta-orchestration infer --pipeline-workspace .\Pipeline.Workspace --new-workspace .\Orchestration.Workspace
-meta-orchestration list-issues --workspace .\Orchestration.Workspace
-meta-orchestration refresh-run-plan --workspace .\Orchestration.Workspace
-meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-pipeline:start-pipeline:commands" DocumentationExampleSectionId="example:meta-pipeline:start-pipeline:overview">
-      <Code>meta-pipeline new-workspace .\Pipeline.Workspace
-meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-schema:extract-source:commands" DocumentationExampleSectionId="example:meta-schema:extract-source:overview">
-      <Code>meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-sql:deploy-manifest:commands" DocumentationExampleSectionId="example:meta-sql:deploy-manifest:overview">
-      <Code>meta-sql deploy --source-workspace .\MetaSql.Workspace --manifest-workspace .\DeployPlan.Workspace --connection-env META_TARGET_SQL</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-transform-binding:validate-contract:commands" DocumentationExampleSectionId="example:meta-transform-binding:validate-contract:overview">
-      <Code>meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --new-workspace .\Binding.Workspace</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-transform-script:round-trip-view:commands" DocumentationExampleSectionId="example:meta-transform-script:round-trip-view:overview">
-      <Code>meta-transform-script from sql-file --path .\views\v_customer.sql --new-workspace .\Transforms.Workspace --target dbo.v_customer
-meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\RoundTrippedSql</Code>
-      <Language>powershell</Language>
-    </DocumentationExampleCode>
-    <DocumentationExampleCode Id="example:meta-weave:bind-and-materialize:commands" DocumentationExampleSectionId="example:meta-weave:bind-and-materialize:overview">
-      <Code>meta-weave new-workspace .\MetaWeave.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
-meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
-meta-weave check --workspace .\MetaWeave.Workspace
-meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace</Code>
-      <Language>powershell</Language>
     </DocumentationExampleCode>
   </DocumentationExampleCodeList>
 </MetaDocs>

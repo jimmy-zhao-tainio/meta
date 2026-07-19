@@ -8,7 +8,56 @@
       <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
       <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:field" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault">
+      <DisplayName>Field</DisplayName>
+      <DisplayPath>MetaRawDataVault.Field</DisplayPath>
+      <NativeId>Field</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:field:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:field">
+      <DisplayName>DataTypeId</DisplayName>
+      <DisplayPath>MetaRawDataVault.Field.DataTypeId</DisplayPath>
+      <NativeId>DataTypeId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:field:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:field" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:field:property:datatypeid">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaRawDataVault.Field.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:field">
+      <DisplayName>FieldDataTypeDetail</DisplayName>
+      <DisplayPath>MetaRawDataVault.FieldDataTypeDetail</DisplayPath>
+      <NativeId>FieldDataTypeDetail</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaRawDataVault.FieldDataTypeDetail.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail:property:name">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaRawDataVault.FieldDataTypeDetail.Value</DisplayPath>
+      <NativeId>Value</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail">
+      <DisplayName>Field</DisplayName>
+      <DisplayPath>MetaRawDataVault.FieldDataTypeDetail.Field</DisplayPath>
+      <NativeId>Field:Field</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:fielddatatypedetail">
       <DisplayName>RawHub</DisplayName>
       <DisplayPath>MetaRawDataVault.RawHub</DisplayPath>
       <NativeId>RawHub</NativeId>
@@ -20,13 +69,6 @@
       <DisplayPath>MetaRawDataVault.RawHub.Name</DisplayPath>
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhub:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhub">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHub.SourceTable</DisplayPath>
-      <NativeId>SourceTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhub">
@@ -43,24 +85,17 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHubKeyPart.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart">
+      <DisplayName>Field</DisplayName>
+      <DisplayPath>MetaRawDataVault.RawHubKeyPart.Field</DisplayPath>
+      <NativeId>Field:Field</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:field-field">
       <DisplayName>RawHub</DisplayName>
       <DisplayPath>MetaRawDataVault.RawHubKeyPart.RawHub</DisplayPath>
       <NativeId>RawHub:RawHub</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubkeypart:relationship:rawhub-rawhub">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHubKeyPart.SourceField</DisplayPath>
-      <NativeId>SourceField:SourceField</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
@@ -92,13 +127,6 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite:relationship:rawhub-rawhub">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHubSatellite.SourceTable</DisplayPath>
-      <NativeId>SourceTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatellite">
       <DisplayName>RawHubSatelliteAttribute</DisplayName>
       <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute</DisplayPath>
@@ -113,24 +141,17 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute">
+      <DisplayName>Field</DisplayName>
+      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.Field</DisplayPath>
+      <NativeId>Field:Field</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:field-field">
       <DisplayName>RawHubSatellite</DisplayName>
       <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.RawHubSatellite</DisplayPath>
       <NativeId>RawHubSatellite:RawHubSatellite</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawhubsatelliteattribute:relationship:rawhubsatellite-rawhubsatellite">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawHubSatelliteAttribute.SourceField</DisplayPath>
-      <NativeId>SourceField:SourceField</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
@@ -155,49 +176,35 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlink:relationship:sourcetablerelationship-sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlink">
-      <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLink.SourceTableRelationship</DisplayPath>
-      <NativeId>SourceTableRelationship:SourceTableRelationship</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlink">
-      <DisplayName>RawLinkHub</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkHub</DisplayPath>
-      <NativeId>RawLinkHub</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlink">
+      <DisplayName>RawLinkRole</DisplayName>
+      <DisplayPath>MetaRawDataVault.RawLinkRole</DisplayPath>
+      <NativeId>RawLinkRole</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkHub.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaRawDataVault.RawLinkRole.Name</DisplayPath>
+      <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:rolename" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:property:ordinal">
-      <DisplayName>RoleName</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkHub.RoleName</DisplayPath>
-      <NativeId>RoleName</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole:relationship:rawhub-rawhub" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole">
       <DisplayName>RawHub</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkHub.RawHub</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkRole.RawHub</DisplayPath>
       <NativeId>RawHub:RawHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawlink-rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub:relationship:rawhub-rawhub">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole:relationship:rawlink-rawlink" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole:relationship:rawhub-rawhub">
       <DisplayName>RawLink</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkHub.RawLink</DisplayPath>
+      <DisplayPath>MetaRawDataVault.RawLinkRole.RawLink</DisplayPath>
       <NativeId>RawLink:RawLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkhub">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinkrole">
       <DisplayName>RawLinkSatellite</DisplayName>
       <DisplayPath>MetaRawDataVault.RawLinkSatellite</DisplayPath>
       <NativeId>RawLinkSatellite</NativeId>
@@ -225,13 +232,6 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite:relationship:rawlink-rawlink">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkSatellite.SourceTable</DisplayPath>
-      <NativeId>SourceTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatellite">
       <DisplayName>RawLinkSatelliteAttribute</DisplayName>
       <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute</DisplayPath>
@@ -246,220 +246,17 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:field-field" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute">
+      <DisplayName>Field</DisplayName>
+      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.Field</DisplayPath>
+      <NativeId>Field:Field</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:field-field">
       <DisplayName>RawLinkSatellite</DisplayName>
       <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.RawLinkSatellite</DisplayPath>
       <NativeId>RawLinkSatellite:RawLinkSatellite</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute:relationship:rawlinksatellite-rawlinksatellite">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.RawLinkSatelliteAttribute.SourceField</DisplayPath>
-      <NativeId>SourceField:SourceField</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:rawlinksatelliteattribute">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField</DisplayPath>
-      <NativeId>SourceField</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield">
-      <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField.DataTypeId</DisplayPath>
-      <NativeId>DataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:datatypeid">
-      <DisplayName>IsNullable</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField.IsNullable</DisplayPath>
-      <NativeId>IsNullable</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:isnullable">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefield:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceField.SourceTable</DisplayPath>
-      <NativeId>SourceTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefield">
-      <DisplayName>SourceFieldDataTypeDetail</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail</DisplayPath>
-      <NativeId>SourceFieldDataTypeDetail</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:property:name">
-      <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.Value</DisplayPath>
-      <NativeId>Value</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceFieldDataTypeDetail.SourceField</DisplayPath>
-      <NativeId>SourceField:SourceField</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcefielddatatypedetail">
-      <DisplayName>SourceSchema</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSchema</DisplayPath>
-      <NativeId>SourceSchema</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourceschema">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSchema.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourceschema:relationship:sourcesystem-sourcesystem" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourceschema">
-      <DisplayName>SourceSystem</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSchema.SourceSystem</DisplayPath>
-      <NativeId>SourceSystem:SourceSystem</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourceschema">
-      <DisplayName>SourceSystem</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSystem</DisplayPath>
-      <NativeId>SourceSystem</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:description" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSystem.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceSystem.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcesystem">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTable</DisplayPath>
-      <NativeId>SourceTable</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetable">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTable.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetable:relationship:sourceschema-sourceschema" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetable">
-      <DisplayName>SourceSchema</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTable.SourceSchema</DisplayPath>
-      <NativeId>SourceSchema:SourceSchema</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetable">
-      <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationship</DisplayPath>
-      <NativeId>SourceTableRelationship</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:property:name" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationship.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:sourcetable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship">
-      <DisplayName>SourceTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationship.SourceTable</DisplayPath>
-      <NativeId>SourceTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:targettable-sourcetable" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship:relationship:sourcetable-sourcetable">
-      <DisplayName>TargetTable</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationship.TargetTable</DisplayPath>
-      <NativeId>TargetTable:SourceTable</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-raw-data-vault:model:metarawdatavault" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationship">
-      <DisplayName>SourceTableRelationshipField</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField</DisplayPath>
-      <NativeId>SourceTableRelationshipField</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:property:ordinal" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcefield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield">
-      <DisplayName>SourceField</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.SourceField</DisplayPath>
-      <NativeId>SourceField:SourceField</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcefield-sourcefield">
-      <DisplayName>SourceTableRelationship</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.SourceTableRelationship</DisplayPath>
-      <NativeId>SourceTableRelationship:SourceTableRelationship</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:targetfield-sourcefield" DocumentationSourceId="source:workspace-model:meta-raw-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield" PreviousSubjectId="source:workspace-model:meta-raw-data-vault:entity:sourcetablerelationshipfield:relationship:sourcetablerelationship-sourcetablerelationship">
-      <DisplayName>TargetField</DisplayName>
-      <DisplayPath>MetaRawDataVault.SourceTableRelationshipField.TargetField</DisplayPath>
-      <NativeId>TargetField:SourceField</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>

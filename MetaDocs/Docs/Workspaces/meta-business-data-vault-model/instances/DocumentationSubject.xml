@@ -36,77 +36,42 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge">
-      <DisplayName>BusinessBridgeHub</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeHub</DisplayPath>
-      <NativeId>BusinessBridgeHub</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge">
+      <DisplayName>BusinessBridgeTraversal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessBridgeTraversal</DisplayPath>
+      <NativeId>BusinessBridgeTraversal</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeHub.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:property:ordinal">
-      <DisplayName>RoleName</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeHub.RoleName</DisplayPath>
-      <NativeId>RoleName</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal">
       <DisplayName>BusinessBridge</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeHub.BusinessBridge</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessBridgeTraversal.BusinessBridge</DisplayPath>
       <NativeId>BusinessBridge:BusinessBridge</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub:relationship:businessbridge-businessbridge">
-      <DisplayName>BusinessHub</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeHub.BusinessHub</DisplayPath>
-      <NativeId>BusinessHub:BusinessHub</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:previoustraversal-businessbridgetraversal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:businessbridge-businessbridge">
+      <DisplayName>PreviousTraversal</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessBridgeTraversal.PreviousTraversal</DisplayPath>
+      <NativeId>PreviousTraversal:BusinessBridgeTraversal</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgehub">
-      <DisplayName>BusinessBridgeLink</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeLink</DisplayPath>
-      <NativeId>BusinessBridgeLink</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeLink.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:property:ordinal">
-      <DisplayName>RoleName</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeLink.RoleName</DisplayPath>
-      <NativeId>RoleName</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink">
-      <DisplayName>BusinessBridge</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeLink.BusinessBridge</DisplayPath>
-      <NativeId>BusinessBridge:BusinessBridge</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:sourcerole-businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:previoustraversal-businessbridgetraversal">
+      <DisplayName>SourceRole</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessBridgeTraversal.SourceRole</DisplayPath>
+      <NativeId>SourceRole:BusinessLinkRole</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink:relationship:businessbridge-businessbridge">
-      <DisplayName>BusinessLink</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessBridgeLink.BusinessLink</DisplayPath>
-      <NativeId>BusinessLink:BusinessLink</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:targetrole-businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:sourcerole-businesslinkrole">
+      <DisplayName>TargetRole</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessBridgeTraversal.TargetRole</DisplayPath>
+      <NativeId>TargetRole:BusinessLinkRole</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgelink">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal">
       <DisplayName>BusinessHierarchicalLink</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLink</DisplayPath>
       <NativeId>BusinessHierarchicalLink</NativeId>
@@ -148,20 +113,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatellite.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatellite.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
       <DisplayName>BusinessHierarchicalLink</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatellite.BusinessHierarchicalLink</DisplayPath>
@@ -169,70 +120,14 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
-      <DisplayName>BusinessHierarchicalLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessHierarchicalLinkSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute">
-      <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttribute.DataTypeId</DisplayPath>
-      <NativeId>DataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:datatypeid">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttribute.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute:relationship:businesshierarchicallinksatellite-businesshierarchicallinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute">
-      <DisplayName>BusinessHierarchicalLinkSatellite</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttribute.BusinessHierarchicalLinkSatellite</DisplayPath>
-      <NativeId>BusinessHierarchicalLinkSatellite:BusinessHierarchicalLinkSatellite</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatellite.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattribute">
-      <DisplayName>BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</DisplayPath>
-      <NativeId>BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:property:name">
-      <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
-      <NativeId>Value</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail:relationship:businesshierarchicallinksatelliteattribute-businesshierarchicallinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail">
-      <DisplayName>BusinessHierarchicalLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHierarchicalLinkSatelliteAttributeDataTypeDetail.BusinessHierarchicalLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessHierarchicalLinkSatelliteAttribute:BusinessHierarchicalLinkSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatelliteattributedatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
       <DisplayName>BusinessHub</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessHub</DisplayPath>
       <NativeId>BusinessHub</NativeId>
@@ -274,19 +169,19 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubKeyPart.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart">
       <DisplayName>BusinessHub</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessHubKeyPart.BusinessHub</DisplayPath>
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:previouskeypart-businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub">
+      <DisplayName>PreviousKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessHubKeyPart.PreviousKeyPart</DisplayPath>
+      <NativeId>PreviousKeyPart:BusinessHubKeyPart</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart">
       <DisplayName>BusinessHubKeyPartDataTypeDetail</DisplayName>
@@ -323,20 +218,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatellite.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatellite.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
       <DisplayName>BusinessHub</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessHubSatellite.BusinessHub</DisplayPath>
@@ -344,70 +225,14 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
-      <DisplayName>BusinessHubSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessHubSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute">
-      <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttribute.DataTypeId</DisplayPath>
-      <NativeId>DataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:datatypeid">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttribute.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute:relationship:businesshubsatellite-businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute">
-      <DisplayName>BusinessHubSatellite</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttribute.BusinessHubSatellite</DisplayPath>
-      <NativeId>BusinessHubSatellite:BusinessHubSatellite</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessHubSatellite.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattribute">
-      <DisplayName>BusinessHubSatelliteAttributeDataTypeDetail</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttributeDataTypeDetail</DisplayPath>
-      <NativeId>BusinessHubSatelliteAttributeDataTypeDetail</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttributeDataTypeDetail.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:property:name">
-      <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttributeDataTypeDetail.Value</DisplayPath>
-      <NativeId>Value</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail:relationship:businesshubsatelliteattribute-businesshubsatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail">
-      <DisplayName>BusinessHubSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessHubSatelliteAttributeDataTypeDetail.BusinessHubSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessHubSatelliteAttribute:BusinessHubSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatelliteattributedatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
       <DisplayName>BusinessLink</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessLink</DisplayPath>
       <NativeId>BusinessLink</NativeId>
@@ -428,60 +253,39 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink">
-      <DisplayName>BusinessLinkHub</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkHub</DisplayPath>
-      <NativeId>BusinessLinkHub</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink">
+      <DisplayName>BusinessLinkRole</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessLinkRole</DisplayPath>
+      <NativeId>BusinessLinkRole</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkHub.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessLinkRole.Name</DisplayPath>
+      <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:rolename" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:property:ordinal">
-      <DisplayName>RoleName</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkHub.RoleName</DisplayPath>
-      <NativeId>RoleName</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
       <DisplayName>BusinessHub</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkHub.BusinessHub</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessLinkRole.BusinessHub</DisplayPath>
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub:relationship:businesshub-businesshub">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesshub-businesshub">
       <DisplayName>BusinessLink</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkHub.BusinessLink</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessLinkRole.BusinessLink</DisplayPath>
       <NativeId>BusinessLink:BusinessLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkhub">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
       <DisplayName>BusinessLinkSatellite</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessLinkSatellite</DisplayPath>
       <NativeId>BusinessLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatellite.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatellite.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
@@ -491,70 +295,14 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
-      <DisplayName>BusinessLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessLinkSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute">
-      <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttribute.DataTypeId</DisplayPath>
-      <NativeId>DataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:datatypeid">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttribute.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute:relationship:businesslinksatellite-businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute">
-      <DisplayName>BusinessLinkSatellite</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttribute.BusinessLinkSatellite</DisplayPath>
-      <NativeId>BusinessLinkSatellite:BusinessLinkSatellite</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatellite.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattribute">
-      <DisplayName>BusinessLinkSatelliteAttributeDataTypeDetail</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttributeDataTypeDetail</DisplayPath>
-      <NativeId>BusinessLinkSatelliteAttributeDataTypeDetail</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:property:name">
-      <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
-      <NativeId>Value</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail:relationship:businesslinksatelliteattribute-businesslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail">
-      <DisplayName>BusinessLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessLinkSatelliteAttributeDataTypeDetail.BusinessLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessLinkSatelliteAttribute:BusinessLinkSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatelliteattributedatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
       <DisplayName>BusinessPointInTime</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessPointInTime</DisplayPath>
       <NativeId>BusinessPointInTime</NativeId>
@@ -589,13 +337,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeHubSatellite.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesshubsatellite-businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite">
       <DisplayName>BusinessHubSatellite</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeHubSatellite.BusinessHubSatellite</DisplayPath>
@@ -615,13 +356,6 @@
       <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeLinkSatellite</DisplayPath>
       <NativeId>BusinessPointInTimeLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeLinkSatellite.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesslinksatellite-businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite">
@@ -656,13 +390,6 @@
       <DisplayName>Name</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeStamp.Name</DisplayPath>
       <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessPointInTimeStamp.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
@@ -743,19 +470,19 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceKeyPart.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart">
       <DisplayName>BusinessReference</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessReferenceKeyPart.BusinessReference</DisplayPath>
       <NativeId>BusinessReference:BusinessReference</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:previouskeypart-businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference">
+      <DisplayName>PreviousKeyPart</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessReferenceKeyPart.PreviousKeyPart</DisplayPath>
+      <NativeId>PreviousKeyPart:BusinessReferenceKeyPart</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart">
       <DisplayName>BusinessReferenceKeyPartDataTypeDetail</DisplayName>
@@ -792,20 +519,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatellite.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatellite.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
       <DisplayName>BusinessReference</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatellite.BusinessReference</DisplayPath>
@@ -813,70 +526,14 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
-      <DisplayName>BusinessReferenceSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessReferenceSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute">
-      <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttribute.DataTypeId</DisplayPath>
-      <NativeId>DataTypeId</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:datatypeid">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttribute.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute:relationship:businessreferencesatellite-businessreferencesatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute">
-      <DisplayName>BusinessReferenceSatellite</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttribute.BusinessReferenceSatellite</DisplayPath>
-      <NativeId>BusinessReferenceSatellite:BusinessReferenceSatellite</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatellite.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattribute">
-      <DisplayName>BusinessReferenceSatelliteAttributeDataTypeDetail</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttributeDataTypeDetail</DisplayPath>
-      <NativeId>BusinessReferenceSatelliteAttributeDataTypeDetail</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttributeDataTypeDetail.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:property:name">
-      <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttributeDataTypeDetail.Value</DisplayPath>
-      <NativeId>Value</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail:relationship:businessreferencesatelliteattribute-businessreferencesatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail">
-      <DisplayName>BusinessReferenceSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessReferenceSatelliteAttributeDataTypeDetail.BusinessReferenceSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessReferenceSatelliteAttribute:BusinessReferenceSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatelliteattributedatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
       <DisplayName>BusinessSameAsLink</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessSameAsLink</DisplayPath>
       <NativeId>BusinessSameAsLink</NativeId>
@@ -918,20 +575,6 @@
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatellite.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:property:description">
-      <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatellite.Name</DisplayPath>
-      <NativeId>Name</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
       <DisplayName>BusinessSameAsLink</DisplayName>
       <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatellite.BusinessSameAsLink</DisplayPath>
@@ -939,68 +582,89 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
-      <DisplayName>BusinessSameAsLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessSameAsLinkSatelliteAttribute</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatellite.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatellite.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatellite.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite">
+      <DisplayName>BusinessSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttribute</DisplayPath>
+      <NativeId>BusinessSatelliteAttribute</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
       <DisplayName>DataTypeId</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttribute.DataTypeId</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttribute.DataTypeId</DisplayPath>
       <NativeId>DataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:datatypeid">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:datatypeid">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttribute.Name</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttribute.Name</DisplayPath>
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:ordinal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:property:name">
-      <DisplayName>Ordinal</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttribute.Ordinal</DisplayPath>
-      <NativeId>Ordinal</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute:relationship:businesssameaslinksatellite-businesssameaslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute">
-      <DisplayName>BusinessSameAsLinkSatellite</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttribute.BusinessSameAsLinkSatellite</DisplayPath>
-      <NativeId>BusinessSameAsLinkSatellite:BusinessSameAsLinkSatellite</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
+      <DisplayName>BusinessSatellite</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttribute.BusinessSatellite</DisplayPath>
+      <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattribute">
-      <DisplayName>BusinessSameAsLinkSatelliteAttributeDataTypeDetail</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttributeDataTypeDetail</DisplayPath>
-      <NativeId>BusinessSameAsLinkSatelliteAttributeDataTypeDetail</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
+      <DisplayName>BusinessSatelliteAttributeDataTypeDetail</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttributeDataTypeDetail</DisplayPath>
+      <NativeId>BusinessSatelliteAttributeDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail">
       <DisplayName>Name</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.Name</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttributeDataTypeDetail.Name</DisplayPath>
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:property:name">
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.Value</DisplayPath>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttributeDataTypeDetail.Value</DisplayPath>
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail:relationship:businesssameaslinksatelliteattribute-businesssameaslinksatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatelliteattributedatatypedetail">
-      <DisplayName>BusinessSameAsLinkSatelliteAttribute</DisplayName>
-      <DisplayPath>MetaBusinessDataVault.BusinessSameAsLinkSatelliteAttributeDataTypeDetail.BusinessSameAsLinkSatelliteAttribute</DisplayPath>
-      <NativeId>BusinessSameAsLinkSatelliteAttribute:BusinessSameAsLinkSatelliteAttribute</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:relationship:businesssatelliteattribute-businesssatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail">
+      <DisplayName>BusinessSatelliteAttribute</DisplayName>
+      <DisplayPath>MetaBusinessDataVault.BusinessSatelliteAttributeDataTypeDetail.BusinessSatelliteAttribute</DisplayPath>
+      <NativeId>BusinessSatelliteAttribute:BusinessSatelliteAttribute</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
       <DisplayName>MetaBusinessDataVault</DisplayName>
